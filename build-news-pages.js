@@ -14,7 +14,7 @@ for (const article of articles) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) throw new Error(`Invalid article slug: ${article.slug}`);
   const paragraphs = (article.paragraphs || []).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n          ');
   const galleryLink = article.galleryLink
-    ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="../${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
+    ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
     : '';
   const html = `<!doctype html>
 <html lang="en">

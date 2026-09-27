@@ -7,6 +7,13 @@ Preview the site
 
 This is a static front-end preview. GitHub Pages currently publishes main, so the Dev branch is not the live Pages site. Preview Dev locally without changing the Pages setting or main branch.
 
+New demonstration topic pages
+- Worship pages: Sunday Services, Weekly Worship, Baptisms, Weddings, Funerals, Prayer and Special Services.
+- Community pages: Our Parish, Church Community, Children & Families, Community Events, Groups & Activities, Volunteering, Supporting the Community, News & Magazine and Gallery.
+- Visit & Learn pages: Visit the Church, Church History, The Church Building, Churchyard, Norman Architecture, What to Expect and Finding Us.
+- Edit content-pages.json to update the sample topic copy, image filename, alt text and links. Run `npm run build` to regenerate the topic pages and refresh the search index.
+- All generated topic pages carry a demonstration notice and image caption. Demo images live in assets/demo/ and can be replaced there with church-approved photographs while retaining each filename and updating alt text/captions.
+
 News & Magazine demonstration
 - The page at news.html contains six fictional SAMPLE / DEMO articles. Every article and sample date is visibly labelled; none is genuine parish information.
 - Edit news-data.json to replace or update the sample copy. Keep the fields together there; do not edit the generated article HTML pages directly.
@@ -14,17 +21,18 @@ News & Magazine demonstration
 - The sample photo-story links to the existing gallery.html page.
 
 Pages included
-- Home, Worship, Services and Events, Church Life, News and Magazine
-- Plan a Visit, About Our Parish, Our History, Westhumble Chapel, Contact, Give, Gallery, Sunday Services (Media)
+- Home, Worship, Weekly Worship, Baptisms, Weddings, Funerals, Prayer, Special Services, Services and Events
+- Our Parish, Church Community, Children & Families, Groups & Activities, Volunteering, Supporting the Community, News and Magazine, Gallery
+- Visit the Church, Church History, The Church Building, Churchyard, Norman Architecture, What to Expect, Finding Us
+- About Our Parish, Our History, Westhumble Chapel, Contact, Give, Sunday Services (Media)
 
 Content status
 - The calendar restores the three sample services from the original homepage and can be filtered by church and schedule. Their dates and times are not confirmed; no new dates have been invented.
 - Sunday Services and the homepage media feature use the church's YouTube playlist; video titles and service details come from YouTube.
-- Directions, access details, parish news and online giving are not connected or confirmed.
+- Opening hours, access, parking and public transport details are not confirmed. The St Michael's & All Angels address on Visit the Church was supplied for this demonstration; use the route planner and contact the parish to confirm travel details.
 - The contact email shown was carried over from the initial prototype and must be confirmed before publication.
-- The existing approved church photograph remains on the home page. The new About pages use temporary illustrative placeholders until the church supplies approved photographs.
-- About Our Parish uses four temporary AI-generated illustrative placeholders: church-exterior-placeholder.jpg, church-interior-placeholder.jpg, churchyard-placeholder.jpg and westhumble-placeholder.jpg. They are not photographs of the actual churches and must be replaced by church-approved photographs before publication.
-- No verified street address was found in the project. The About and chapel pages use map searches by church name and village and direct visitors to contact the parish to confirm directions.
+- The existing church photograph remains on the home page and gallery. Illustrative images in assets/demo/ are AI-generated and are not photographs of the actual churches, parishioners or events.
+- About Our Parish and generated topic pages label their demo images and sample content. Replace the files in assets/demo/ with church-approved photographs and revise alt text/captions in content-pages.json and the relevant page HTML.
 
 Search and editing
 - Search results are generated from the current HTML page content and shared event data. The build script discovers pages automatically; it does not keep a hand-maintained result list.
