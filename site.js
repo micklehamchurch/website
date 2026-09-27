@@ -9,6 +9,7 @@ const navigation = `
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-worship">Worship <span aria-hidden="true">⌄</span></button><div class="dropdown" id="menu-worship"><a href="worship.html">Worship and prayer</a><a href="whats-on.html">Services and events</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our community <span aria-hidden="true">⌄</span></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church life</a><a href="news.html">News and magazine</a><a href="gallery.html">Gallery</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit and learn <span aria-hidden="true">⌄</span></button><div class="dropdown" id="menu-visit"><a href="visit.html">Plan your visit</a><a href="about.html">About our parish</a><a href="contact.html">Contact us</a></div></div>
+      <a class="nav-link" href="sunday-services.html">Media</a>
       <a class="btn btn-small btn-green nav-give" href="give.html">♥ Give</a>
     </nav>
   </div>`;
@@ -16,7 +17,7 @@ const navigation = `
 const footer = `
   <div class="container footer-grid">
     <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p></div>
-    <div><h2>Explore</h2><a href="worship.html">Worship</a><a href="whats-on.html">Services and events</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="gallery.html">Gallery</a></div>
+    <div><h2>Explore</h2><a href="worship.html">Worship</a><a href="whats-on.html">Services and events</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="gallery.html">Gallery</a><a href="sunday-services.html">Media · Sunday services</a></div>
     <div><h2>Our churches</h2><p>St Michael &amp; All Angels<br>Mickleham, Surrey</p><p>Westhumble Chapel<br>Westhumble, Surrey</p><a href="visit.html">Plan a visit <span aria-hidden="true">→</span></a></div>
     <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="give.html">Support our church</a></div>
   </div>

@@ -9,10 +9,11 @@ This is a static front-end preview. GitHub Pages currently publishes main, so th
 
 Pages included
 - Home, Worship, Services and Events, Church Life, News and Magazine
-- Plan a Visit, About our Parish, Contact, Give, Gallery
+- Plan a Visit, About our Parish, Contact, Give, Gallery, Sunday Services (Media)
 
 Content status
 - The calendar restores the three sample services from the original homepage and can be filtered by church and schedule. Their dates and times are not confirmed; no new dates have been invented.
+- Sunday Services and the homepage media feature use the church's YouTube playlist; video titles and service details come from YouTube.
 - Directions, access details, parish news and online giving are not connected or confirmed.
 - The contact email shown was carried over from the initial prototype and must be confirmed before publication.
 - Only the supplied church photograph is included. More images need approval from the church.
