@@ -1,49 +1,29 @@
-const parishEvents = [
-  {
-    id: 'holy-communion',
-    title: 'Holy Communion',
-    label: 'Next service',
-    time: '10:00',
-    schedule: 'sunday',
-    scheduleLabel: 'Sunday · date to be confirmed',
-    venue: 'mickleham',
-    venueLabel: 'St Michael & All Angels, Mickleham',
-  },
-  {
-    id: 'morning-prayer',
-    title: 'Morning Prayer',
-    label: 'Weekday',
-    time: '10:30',
-    schedule: 'weekday',
-    scheduleLabel: 'Weekday · date to be confirmed',
-    venue: 'westhumble',
-    venueLabel: 'Westhumble Chapel',
-  },
-  {
-    id: 'family-service',
-    title: 'Family Service',
-    label: 'Sunday',
-    time: '10:00',
-    schedule: 'sunday',
-    scheduleLabel: 'Sunday · date to be confirmed',
-    venue: 'mickleham',
-    venueLabel: 'St Michael & All Angels, Mickleham',
-  },
-];
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+}
 
 function eventCard(event, compact = false) {
-  return `<article class="event-card${compact ? ' event-card-compact' : ''}" data-event-venue="${event.venue}" data-event-schedule="${event.schedule}">
-    <div class="event-date"><span>${event.label}</span><strong>${event.time}</strong></div>
-    <div class="event-details"><p class="eyebrow">${event.scheduleLabel}</p><h3>${event.title}</h3><p class="event-venue">${event.venueLabel}</p></div>
+  return `<article class="event-card${compact ? ' event-card-compact' : ''}" data-event-venue="${escapeHTML(event.venue)}" data-event-schedule="${escapeHTML(event.schedule)}">
+    <div class="event-date"><span>${escapeHTML(event.label)}</span><strong>${escapeHTML(event.time)}</strong></div>
+    <div class="event-details"><p class="eyebrow">${escapeHTML(event.scheduleLabel)}</p><h3>${escapeHTML(event.title)}</h3><p class="event-venue">${escapeHTML(event.venueLabel)}</p></div>
     <a class="event-link" href="contact.html">Ask about this service <span aria-hidden="true">→</span></a>
   </article>`;
 }
 
-const preview = document.querySelector('[data-event-preview]');
-if (preview) preview.innerHTML = parishEvents.map(event => eventCard(event, true)).join('');
+async function loadEvents() {
+  const response = await fetch('events.json');
+  if (!response.ok) throw new Error(`Unable to load events (${response.status})`);
+  return response.json();
+}
 
-const eventList = document.querySelector('[data-event-list]');
-if (eventList) {
+loadEvents().then(eventData => {
+  const parishEvents = eventData.items;
+  const preview = document.querySelector('[data-event-preview]');
+  if (preview) preview.innerHTML = parishEvents.map(event => eventCard(event, true)).join('');
+
+  const eventList = document.querySelector('[data-event-list]');
+  if (!eventList) return;
+
   const venueFilter = document.querySelector('#venueFilter');
   const scheduleFilter = document.querySelector('#scheduleFilter');
   const emptyState = document.querySelector('[data-empty-state]');
@@ -60,4 +40,9 @@ if (eventList) {
   venueFilter.addEventListener('change', renderEvents);
   scheduleFilter.addEventListener('change', renderEvents);
   renderEvents();
-}
+}).catch(error => {
+  console.error(error);
+  document.querySelectorAll('[data-event-preview], [data-event-list]').forEach(node => {
+    node.textContent = 'The event list is temporarily unavailable. Please contact the church for details.';
+  });
+});

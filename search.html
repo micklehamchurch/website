@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search pages and information across the St Michael & All Angels website.">
+  <meta name="search-index" content="exclude">
+  <title>Search | St Michael &amp; All Angels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="v1-accessibility.css">
+  <script src="site.js" defer></script>
+  <script src="search.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header" data-site-header></header>
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero"><div class="container"><p class="eyebrow">Find information</p><h1>Search the website</h1><p class="lead">Search church pages and current event information.</p></div></section>
+    <section class="section page-content search-page"><div class="container search-container">
+      <form class="search-form" role="search" action="search.html" method="get">
+        <label class="anchor-target" for="site-search">Search pages and events</label>
+        <input class="search-input" id="site-search" name="q" type="search" autocomplete="off" placeholder="Try “Sunday services” or “visit”">
+        <button class="btn btn-green" type="submit">Search</button>
+      </form>
+      <p class="search-help" id="search-help">Enter one or more words to search page titles and content.</p>
+      <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+      <div class="search-results" id="search-results" aria-label="Search results"></div>
+    </div></section>
+  </main>
+  <footer class="footer" data-site-footer></footer>
+</body>
+</html>

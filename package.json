@@ -1,0 +1,11 @@
+{
+  "name": "mickleham-church-website",
+  "private": true,
+  "scripts": {
+    "build": "node build-search-index.js",
+    "preview": "node preview.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

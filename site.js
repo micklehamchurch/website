@@ -10,6 +10,7 @@ const navigation = `
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our community <span aria-hidden="true">⌄</span></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church life</a><a href="news.html">News and magazine</a><a href="gallery.html">Gallery</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit and learn <span aria-hidden="true">⌄</span></button><div class="dropdown" id="menu-visit"><a href="visit.html">Plan your visit</a><a href="about.html">About our parish</a><a href="contact.html">Contact us</a></div></div>
       <a class="nav-link" href="sunday-services.html">Media</a>
+      <a class="nav-link" href="search.html" aria-label="Search the website">Search</a>
       <a class="btn btn-small btn-green nav-give" href="give.html">♥ Give</a>
     </nav>
   </div>`;
