@@ -9,14 +9,16 @@ This is a static front-end preview. GitHub Pages currently publishes main, so th
 
 Pages included
 - Home, Worship, Services and Events, Church Life, News and Magazine
-- Plan a Visit, About our Parish, Contact, Give, Gallery, Sunday Services (Media)
+- Plan a Visit, About Our Parish, Our History, Westhumble Chapel, Contact, Give, Gallery, Sunday Services (Media)
 
 Content status
 - The calendar restores the three sample services from the original homepage and can be filtered by church and schedule. Their dates and times are not confirmed; no new dates have been invented.
 - Sunday Services and the homepage media feature use the church's YouTube playlist; video titles and service details come from YouTube.
 - Directions, access details, parish news and online giving are not connected or confirmed.
 - The contact email shown was carried over from the initial prototype and must be confirmed before publication.
-- Only the supplied church photograph is included. More images need approval from the church.
+- The existing approved church photograph remains on the home page. The new About pages use temporary illustrative placeholders until the church supplies approved photographs.
+- About Our Parish uses four temporary AI-generated illustrative placeholders: church-exterior-placeholder.jpg, church-interior-placeholder.jpg, churchyard-placeholder.jpg and westhumble-placeholder.jpg. They are not photographs of the actual churches and must be replaced by church-approved photographs before publication.
+- No verified street address was found in the project. The About and chapel pages use map searches by church name and village and direct visitors to contact the parish to confirm directions.
 
 Search and editing
 - Search results are generated from the current HTML page content and shared event data. The build script discovers pages automatically; it does not keep a hand-maintained result list.
