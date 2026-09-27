@@ -12,7 +12,8 @@ Pages included
 - Plan a Visit, About our Parish, Contact, Give, Gallery
 
 Content status
-- Current service times, directions, access details, parish news and online giving are not connected or confirmed.
+- The calendar restores the three sample services from the original homepage and can be filtered by church and schedule. Their dates and times are not confirmed; no new dates have been invented.
+- Directions, access details, parish news and online giving are not connected or confirmed.
 - The contact email shown was carried over from the initial prototype and must be confirmed before publication.
 - Only the supplied church photograph is included. More images need approval from the church.
 

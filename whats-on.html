@@ -3,28 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Find service and event information for St Michael & All Angels and Westhumble Chapel.">
-  <title>Services and events | St Michael &amp; All Angels</title>
+  <meta name="description" content="Church services and events for St Michael & All Angels, Mickleham, and Westhumble Chapel.">
+  <title>Church Calendar | St Michael &amp; All Angels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
   <script src="site.js" defer></script>
+  <script src="events.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
   <main id="main-content" tabindex="-1">
-    <section class="page-hero"><div class="container"><p class="eyebrow">Services and events</p><h1>Services and events</h1><p class="lead">We would love to welcome you to worship and events across Mickleham and Westhumble.</p></div></section>
-    <section class="section page-content"><div class="container">
-      <div class="notice"><strong>Information for visitors</strong><p>Current dates and service times are being confirmed. Please contact the church before travelling so the team can share the latest information.</p></div>
-      
-      <div class="content-grid next-steps">
-        <a class="info-card card-link" href="contact.html"><span class="eyebrow">Next step</span><h2>Ask about upcoming services</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-        <a class="info-card card-link" href="worship.html"><span class="eyebrow">Explore</span><h2>Learn about worship</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-        <a class="info-card card-link" href="visit.html"><span class="eyebrow">Explore</span><h2>Find your way</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-      </div>
+    <section class="page-hero"><div class="container"><p class="eyebrow">What's on</p><h1>Church calendar</h1><p class="lead">Find services and events at St Michael &amp; All Angels, Mickleham, and Westhumble Chapel.</p></div></section>
+    <section class="section page-content" aria-labelledby="calendar-heading"><div class="container">
+      <div class="calendar-notice"><strong>Schedule to confirm.</strong> The service names, labels and times below are restored from the original website demo. They are not a confirmed live schedule. Please contact the church before attending.</div>
+      <div class="calendar-toolbar"><div><p class="eyebrow">Services and events</p><h2 id="calendar-heading">All listed events</h2><p>Use the filters to find events by church or schedule.</p></div><div class="calendar-filters"><label>Church<select id="venueFilter"><option value="all">All churches</option><option value="mickleham">Mickleham</option><option value="westhumble">Westhumble</option></select></label><label>Schedule<select id="scheduleFilter"><option value="all">All schedules</option><option value="sunday">Sunday</option><option value="weekday">Weekday</option></select></label></div></div>
+      <div class="event-list" data-event-list aria-live="polite"></div>
+      <p class="calendar-empty" data-empty-state hidden>No events match these filters. Try another selection.</p>
+      <div class="calendar-footer"><p>For confirmed service dates, access details or directions, please check with the parish.</p><a class="btn btn-green" href="contact.html">Ask about the calendar <span aria-hidden="true">→</span></a></div>
     </div></section>
   </main>
   <footer class="footer" data-site-footer></footer>
