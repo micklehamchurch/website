@@ -2,47 +2,230 @@ function escapeHTML(value) {
   return String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 }
 
-function eventCard(event, compact = false) {
-  return `<article class="event-card${compact ? ' event-card-compact' : ''}" data-event-venue="${escapeHTML(event.venue)}" data-event-schedule="${escapeHTML(event.schedule)}">
-    <div class="event-date"><span>${escapeHTML(event.label)}</span><strong>${escapeHTML(event.time)}</strong></div>
-    <div class="event-details"><p class="eyebrow">${escapeHTML(event.scheduleLabel)}</p><h3>${escapeHTML(event.title)}</h3><p class="event-venue">${escapeHTML(event.venueLabel)}</p></div>
-    <a class="event-link" href="contact.html">Ask about this service <span aria-hidden="true">→</span></a>
+function dateKey(value) {
+  return value.slice(0, 10);
+}
+
+function localDateTime(timeZone) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}`;
+}
+
+function formatDate(value, options = {}) {
+  const [year, month, day] = dateKey(value).split('-').map(Number);
+  return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', ...options }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+
+function formatMonth(year, month) {
+  return new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month, 1)));
+}
+
+function googleCalendarLink(event, data) {
+  if (!event.title || !event.start || !event.end || !event.timeZone || !event.location) return null;
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: event.title,
+    dates: `${event.start.replace(/[-:]/g, '')}/${event.end.replace(/[-:]/g, '')}`,
+    ctz: event.timeZone,
+    details: event.description || ''
+  });
+  params.set('location', event.address || event.location);
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function compactEventCard(event) {
+  const date = formatDate(event.start, { day: 'numeric', month: 'short' });
+  return `<article class="event-card event-card-compact">
+    <div class="event-date"><span>${escapeHTML(date)}</span><strong>${escapeHTML(event.start.slice(11, 16))}</strong></div>
+    <div class="event-details"><p class="eyebrow">${escapeHTML(event.location)}</p><h3>${escapeHTML(event.title)}</h3><p class="event-venue">${escapeHTML(event.description)}</p></div>
+    <a class="event-link" href="calendar.html?event=${encodeURIComponent(event.id)}">Event details <span aria-hidden="true">→</span></a>
   </article>`;
 }
 
-async function loadEvents() {
-  const response = await fetch('events.json');
-  if (!response.ok) throw new Error(`Unable to load events (${response.status})`);
-  return response.json();
+function renderUpcomingPreview(items, container, timeZone) {
+  if (!container) return;
+  const now = localDateTime(timeZone);
+  const upcoming = items.filter(event => event.start >= now).slice(0, 3);
+  container.classList.add('calendar-preview');
+  if (!upcoming.length) {
+    container.innerHTML = '<p class="calendar-empty">There are no upcoming events in the supplied calendar feed. View the Calendar for all dates in the feed.</p>';
+    return;
+  }
+  container.innerHTML = upcoming.map(compactEventCard).join('');
 }
 
-loadEvents().then(eventData => {
-  const parishEvents = eventData.items;
-  const preview = document.querySelector('[data-event-preview]');
-  if (preview) preview.innerHTML = parishEvents.map(event => eventCard(event, true)).join('');
+function eventButton(event) {
+  const date = formatDate(event.start, { weekday: 'long', day: 'numeric', month: 'long' });
+  return `<button class="calendar-event-button" type="button" data-event-id="${escapeHTML(event.id)}" aria-label="${escapeHTML(`${event.title}, ${date}, ${event.start.slice(11, 16)}`)}"><time>${escapeHTML(event.start.slice(11, 16))}</time><span>${escapeHTML(event.title)}</span></button>`;
+}
 
-  const eventList = document.querySelector('[data-event-list]');
-  if (!eventList) return;
+function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone) {
+  const firstDate = new Date(Date.UTC(year, month, 1));
+  const firstWeekday = (firstDate.getUTCDay() + 6) % 7;
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const today = dateKey(localDateTime(timeZone));
+  const byDate = new Map();
+  items.forEach(event => {
+    const key = dateKey(event.start);
+    if (key.slice(0, 7) !== `${year}-${String(month + 1).padStart(2, '0')}`) return;
+    if (!byDate.has(key)) byDate.set(key, []);
+    byDate.get(key).push(event);
+  });
 
-  const venueFilter = document.querySelector('#venueFilter');
-  const scheduleFilter = document.querySelector('#scheduleFilter');
-  const emptyState = document.querySelector('[data-empty-state]');
+  grid.replaceChildren();
+  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  weekdays.forEach(day => {
+    const heading = document.createElement('div');
+    heading.className = 'calendar-weekday';
+    heading.setAttribute('role', 'columnheader');
+    heading.textContent = day;
+    grid.append(heading);
+  });
 
-  function renderEvents() {
-    const filtered = parishEvents.filter(event =>
-      (venueFilter.value === 'all' || event.venue === venueFilter.value)
-      && (scheduleFilter.value === 'all' || event.schedule === scheduleFilter.value)
-    );
-    eventList.innerHTML = filtered.map(event => eventCard(event)).join('');
-    emptyState.hidden = filtered.length > 0;
+  const cellCount = Math.ceil((firstWeekday + daysInMonth) / 7) * 7;
+  for (let index = 0; index < cellCount; index += 1) {
+    const dayNumber = index - firstWeekday + 1;
+    if (dayNumber < 1 || dayNumber > daysInMonth) {
+      const empty = document.createElement('div');
+      empty.className = 'calendar-day calendar-day-empty';
+      empty.setAttribute('role', 'presentation');
+      grid.append(empty);
+      continue;
+    }
+    const day = new Date(Date.UTC(year, month, dayNumber));
+    const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayNumber).padStart(2, '0')}`;
+    const cell = document.createElement('div');
+    cell.className = `calendar-day${iso === today ? ' is-today' : ''}`;
+    cell.setAttribute('role', 'gridcell');
+    cell.setAttribute('aria-label', formatDate(iso, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+    const number = document.createElement('time');
+    number.className = 'calendar-day-number';
+    number.dateTime = iso;
+    number.textContent = String(dayNumber);
+    cell.append(number);
+    (byDate.get(iso) || []).forEach(event => {
+      const item = document.createElement('div');
+      item.innerHTML = eventButton(event);
+      cell.append(item.firstElementChild);
+    });
+    grid.append(cell);
   }
 
-  venueFilter.addEventListener('change', renderEvents);
-  scheduleFilter.addEventListener('change', renderEvents);
-  renderEvents();
-}).catch(error => {
-  console.error(error);
-  document.querySelectorAll('[data-event-preview], [data-event-list]').forEach(node => {
-    node.textContent = 'The event list is temporarily unavailable. Please contact the church for details.';
+  agenda.replaceChildren();
+  const daysWithEvents = [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b));
+  daysWithEvents.forEach(([iso, events]) => {
+    const group = document.createElement('section');
+    group.className = 'calendar-agenda-day';
+    const heading = document.createElement('h3');
+    heading.textContent = formatDate(iso, { weekday: 'long', day: 'numeric', month: 'long' });
+    group.append(heading);
+    events.forEach(event => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = eventButton(event);
+      group.append(wrapper.firstElementChild);
+    });
+    agenda.append(group);
   });
-});
+  if (!daysWithEvents.length) {
+    const empty = document.createElement('p');
+    empty.className = 'calendar-empty';
+    empty.textContent = 'No events in the supplied calendar feed for this month.';
+    agenda.append(empty);
+  }
+  status.textContent = `${byDate.size} ${byDate.size === 1 ? 'date' : 'dates'} with events in ${formatMonth(year, month)}.`;
+  const currentMonth = `${year}-${String(month + 1).padStart(2, '0')}`;
+  document.querySelector('#calendar-previous').disabled = currentMonth <= bounds.first;
+  document.querySelector('#calendar-next').disabled = currentMonth >= bounds.last;
+  document.querySelector('#calendar-month-label').textContent = formatMonth(year, month);
+}
+
+function showEvent(event, dialog, timeZone) {
+  const title = document.querySelector('#event-detail-title');
+  const details = document.querySelector('#event-detail-content');
+  const date = formatDate(event.start, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const googleUrl = googleCalendarLink(event);
+  const location = event.address ? `${event.location} · ${event.address}` : event.location;
+  title.textContent = event.title;
+  details.innerHTML = `<dl class="calendar-event-facts">
+    <div><dt>Date</dt><dd>${escapeHTML(date)}</dd></div>
+    <div><dt>Time</dt><dd>${escapeHTML(event.start.slice(11, 16))}–${escapeHTML(event.end.slice(11, 16))} (${escapeHTML(event.timeZone || timeZone)})</dd></div>
+    ${event.location ? `<div><dt>Location</dt><dd>${escapeHTML(location)}</dd></div>` : ''}
+    ${event.description ? `<div><dt>Description</dt><dd>${escapeHTML(event.description)}</dd></div>` : ''}
+  </dl>
+  <div class="calendar-event-actions">${googleUrl ? `<a class="btn btn-green" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer">Add to Google Calendar <span aria-hidden="true">↗</span></a>` : ''}
+    ${event.sourceUrl ? `<a class="btn btn-outline-green" href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">View source event <span aria-hidden="true">↗</span></a>` : ''}</div>`;
+  if (!dialog.open) dialog.showModal();
+}
+
+async function initializeEvents() {
+  try {
+    const response = await fetch('events.json');
+    if (!response.ok) throw new Error(`Unable to load calendar (${response.status})`);
+    const calendar = await response.json();
+    const items = [...calendar.items].sort((a, b) => a.start.localeCompare(b.start));
+    renderUpcomingPreview(items, document.querySelector('[data-event-preview]'), calendar.timeZone);
+
+    const grid = document.querySelector('#calendar-grid');
+    if (!grid) return;
+    const agenda = document.querySelector('#calendar-agenda');
+    const status = document.querySelector('#calendar-status');
+    const dialog = document.querySelector('#event-detail-dialog');
+    const closeButton = document.querySelector('#event-detail-close');
+    const months = items.map(event => event.start.slice(0, 7)).sort();
+    const bounds = { first: months[0], last: months.at(-1) };
+    const nowMonth = localDateTime(calendar.timeZone).slice(0, 7);
+    const initialMonth = nowMonth < bounds.first ? bounds.first : nowMonth > bounds.last ? bounds.last : nowMonth;
+    let [year, month] = initialMonth.split('-').map(Number);
+    month -= 1;
+    const update = () => renderMonth(year, month, items, grid, agenda, status, bounds, calendar.timeZone);
+    update();
+
+    document.querySelector('#calendar-previous').addEventListener('click', () => { month -= 1; if (month < 0) { month = 11; year -= 1; } update(); });
+    document.querySelector('#calendar-next').addEventListener('click', () => { month += 1; if (month > 11) { month = 0; year += 1; } update(); });
+    grid.addEventListener('click', event => {
+      const button = event.target.closest('[data-event-id]');
+      if (button) {
+        const selected = items.find(item => item.id === button.dataset.eventId);
+        if (selected) showEvent(selected, dialog, calendar.timeZone);
+      }
+    });
+    agenda.addEventListener('click', event => {
+      const button = event.target.closest('[data-event-id]');
+      if (button) {
+        const selected = items.find(item => item.id === button.dataset.eventId);
+        if (selected) showEvent(selected, dialog, calendar.timeZone);
+      }
+    });
+    document.querySelector('[data-event-preview]')?.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="calendar.html?event="]');
+      if (link) sessionStorage.setItem('calendar-open-event', new URL(link.href).searchParams.get('event'));
+    });
+    closeButton.addEventListener('click', () => dialog.close());
+
+    const requestedEvent = new URLSearchParams(location.search).get('event') || sessionStorage.getItem('calendar-open-event');
+    if (requestedEvent) {
+      const selected = items.find(item => item.id === requestedEvent);
+      sessionStorage.removeItem('calendar-open-event');
+      if (selected) {
+        year = Number(selected.start.slice(0, 4));
+        month = Number(selected.start.slice(5, 7)) - 1;
+        update();
+        showEvent(selected, dialog, calendar.timeZone);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    document.querySelectorAll('[data-event-preview], #calendar-grid, #calendar-agenda').forEach(node => {
+      node.textContent = 'The church calendar is temporarily unavailable. Please contact the parish for event information.';
+    });
+    const status = document.querySelector('#calendar-status');
+    if (status) status.textContent = 'The church calendar could not be loaded.';
+  }
+}
+
+initializeEvents();

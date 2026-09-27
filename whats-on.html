@@ -1,32 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Church services and events for St Michael & All Angels, Mickleham, and Westhumble Chapel.">
-  <title>Church Calendar | St Michael &amp; All Angels</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find current worship services and parish events in the church calendar.">
+  <title>Community Events | St Michael &amp; All Angels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="v1-accessibility.css">
-  <script src="site.js" defer></script>
-  <script src="events.js" defer></script>
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><script src="site.js" defer></script><script src="events.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  <header class="site-header" data-site-header></header>
+  <a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header" data-site-header></header>
   <main id="main-content" tabindex="-1">
-    <section class="page-hero"><div class="container"><p class="eyebrow">What's on</p><h1>Church calendar</h1><p class="lead">Find services and events at St Michael &amp; All Angels, Mickleham, and Westhumble Chapel.</p></div></section>
-    <section class="section page-content" aria-labelledby="calendar-heading"><div class="container">
-      <div class="calendar-notice"><strong>Schedule to confirm.</strong> The service names, labels and times below are restored from the original website demo. They are not a confirmed live schedule. Please contact the church before attending.</div>
-      <figure class="calendar-demo-image"><img src="assets/demo/community-gathering-demo.png" alt="AI-generated illustrative image of a fictional parish community gathering; not a real church event or parishioners." loading="lazy"><figcaption>DEMO IMAGE · Generated illustration of a possible community gathering; no real event is shown.</figcaption></figure>
-      <div class="calendar-toolbar"><div><p class="eyebrow">Services and events</p><h2 id="calendar-heading">All listed events</h2><p>Use the filters to find events by church or schedule.</p></div><div class="calendar-filters"><label>Church<select id="venueFilter"><option value="all">All churches</option><option value="mickleham">Mickleham</option><option value="westhumble">Westhumble</option></select></label><label>Schedule<select id="scheduleFilter"><option value="all">All schedules</option><option value="sunday">Sunday</option><option value="weekday">Weekday</option></select></label></div></div>
-      <div class="event-list" data-event-list aria-live="polite"></div>
-      <p class="calendar-empty" data-empty-state hidden>No events match these filters. Try another selection.</p>
-      <div class="calendar-footer"><p>For confirmed service dates, access details or directions, please check with the parish.</p><a class="btn btn-green" href="contact.html">Ask about the calendar <span aria-hidden="true">→</span></a></div>
+    <section class="page-hero"><div class="container"><p class="eyebrow">Our Community · What's on</p><h1>Community Events</h1><p class="lead">Explore worship and events published in the church's current calendar feed.</p></div></section>
+    <section class="section page-content"><div class="container">
+      <div class="calendar-source-note" role="note"><strong>Events from the church calendar</strong><p>These listings come from the supplied church feed. Names, dates, times, locations and descriptions are shown as provided; this section contains no demonstration events.</p></div>
+      <div class="calendar-toolbar"><div><p class="eyebrow">Coming up</p><h2>Next events in the feed</h2><p>Select an event to open its details in the Calendar.</p></div><a class="btn btn-green" href="calendar.html">Open full Calendar <span aria-hidden="true">→</span></a></div>
+      <div class="service-grid calendar-preview" data-event-preview aria-live="polite"></div>
+      <div class="calendar-footer"><p>Browse every month and event in the supplied date range.</p><a class="text-link" href="calendar.html">View the Calendar <span aria-hidden="true">→</span></a></div>
     </div></section>
-  </main>
-  <footer class="footer" data-site-footer></footer>
+  </main><footer class="footer" data-site-footer></footer>
 </body>
 </html>

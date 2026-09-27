@@ -38,7 +38,7 @@ function fieldText(html, tag) {
 
 const eventDataPath = path.join(siteRoot, 'events.json');
 const eventData = fs.existsSync(eventDataPath) ? JSON.parse(fs.readFileSync(eventDataPath, 'utf8')) : { searchPages: [], items: [] };
-const eventContent = (eventData.items || []).map(event => [event.title, event.label, event.time, event.scheduleLabel, event.venueLabel].filter(Boolean).join(' — ')).join('. ');
+const eventContent = (eventData.items || []).map(event => [event.title, event.start, event.end, event.timeZone, event.location, event.address, event.description].filter(Boolean).join(' — ')).join('. ');
 const eventSearchPages = new Set(eventData.searchPages || []);
 const newsDataPath = path.join(siteRoot, 'news-data.json');
 const newsData = fs.existsSync(newsDataPath) ? JSON.parse(fs.readFileSync(newsDataPath, 'utf8')) : { articles: [] };
