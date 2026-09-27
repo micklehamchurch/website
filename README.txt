@@ -7,6 +7,12 @@ Preview the site
 
 This is a static front-end preview. GitHub Pages currently publishes main, so the Dev branch is not the live Pages site. Preview Dev locally without changing the Pages setting or main branch.
 
+News & Magazine demonstration
+- The page at news.html contains six fictional SAMPLE / DEMO articles. Every article and sample date is visibly labelled; none is genuine parish information.
+- Edit news-data.json to replace or update the sample copy. Keep the fields together there; do not edit the generated article HTML pages directly.
+- Run `npm run build` to create one page per article in news/ and refresh search-index.json. Search indexes both the news listing and the generated article pages.
+- The sample photo-story links to the existing gallery.html page.
+
 Pages included
 - Home, Worship, Services and Events, Church Life, News and Magazine
 - Plan a Visit, About Our Parish, Our History, Westhumble Chapel, Contact, Give, Gallery, Sunday Services (Media)

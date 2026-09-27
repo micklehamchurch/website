@@ -40,12 +40,22 @@ const eventDataPath = path.join(siteRoot, 'events.json');
 const eventData = fs.existsSync(eventDataPath) ? JSON.parse(fs.readFileSync(eventDataPath, 'utf8')) : { searchPages: [], items: [] };
 const eventContent = (eventData.items || []).map(event => [event.title, event.label, event.time, event.scheduleLabel, event.venueLabel].filter(Boolean).join(' — ')).join('. ');
 const eventSearchPages = new Set(eventData.searchPages || []);
-const pages = fs.readdirSync(siteRoot, { withFileTypes: true })
-  .filter(entry => entry.isFile() && entry.name.toLowerCase().endsWith('.html'))
-  .sort((a, b) => a.name.localeCompare(b.name))
-  .map(entry => {
-    const filename = entry.name;
-    const html = fs.readFileSync(path.join(siteRoot, filename), 'utf8');
+const newsDataPath = path.join(siteRoot, 'news-data.json');
+const newsData = fs.existsSync(newsDataPath) ? JSON.parse(fs.readFileSync(newsDataPath, 'utf8')) : { articles: [] };
+const newsContent = (newsData.articles || []).map(article => [article.category, article.dateLabel, article.title, article.excerpt, ...(article.paragraphs || [])].filter(Boolean).join(' — ')).join('. ');
+
+function htmlFiles(directory, relative = '') {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    if (entry.name.startsWith('.') || ['node_modules', '.git'].includes(entry.name)) return [];
+    const absolute = path.join(directory, entry.name);
+    const relativePath = path.posix.join(relative, entry.name);
+    if (entry.isDirectory()) return htmlFiles(absolute, relativePath);
+    return entry.isFile() && entry.name.toLowerCase().endsWith('.html') ? [relativePath] : [];
+  });
+}
+
+const pages = htmlFiles(siteRoot).sort((a, b) => a.localeCompare(b)).map(filename => {
+    const html = fs.readFileSync(path.join(siteRoot, ...filename.split('/')), 'utf8');
     if (metaContent(html, 'search-index').toLowerCase() === 'exclude') return null;
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main\s*>/i)?.[1] || html;
     const title = fieldText(main, 'h1') || fieldText(html, 'title') || filename.replace(/\.html$/i, '');
@@ -53,6 +63,7 @@ const pages = fs.readdirSync(siteRoot, { withFileTypes: true })
     const description = metaContent(html, 'description');
     let content = visibleText(main);
     if (eventSearchPages.has(filename) && eventContent) content = `${content} ${eventContent}`.trim();
+    if (filename === 'news.html' && newsContent) content = `${content} ${newsContent}`.trim();
     return { url: filename, title, documentTitle, description, content };
   })
   .filter(Boolean);

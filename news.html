@@ -3,28 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Parish news and updates from St Michael & All Angels, Mickleham, and Westhumble Chapel.">
-  <title>News and magazine | St Michael &amp; All Angels</title>
+  <meta name="description" content="A demonstration of how News & Magazine could present parish announcements, events, reflections and community stories.">
+  <title>News &amp; Magazine | St Michael &amp; All Angels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
   <script src="site.js" defer></script>
+  <script src="news.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
   <main id="main-content" tabindex="-1">
-    <section class="page-hero"><div class="container"><p class="eyebrow">News and magazine</p><h1>News from our parish</h1><p class="lead">Updates, announcements and reflections from across Mickleham and Westhumble.</p></div></section>
-    <section class="section page-content"><div class="container">
-      <div class="notice"><strong>Information for visitors</strong><p>This is a new website prototype. Current news and magazine editions will appear here after the parish team supplies approved content.</p></div>
-      <div class="content-grid three-cards"><article class="info-card" id="weekly-news"><p class="eyebrow">Weekly news</p><h2>Parish news</h2><p>Weekly announcements will be published here when approved for the website.</p></article><article class="info-card" id="church-news"><p class="eyebrow">Community</p><h2>Church news</h2><p>Stories and updates from parish life will be shared here.</p></article><article class="info-card" id="magazine"><p class="eyebrow">Read and reflect</p><h2>Parish magazine</h2><p>Approved magazine editions and reading links will appear here.</p></article></div>
-      <div class="content-grid next-steps">
-        <a class="info-card card-link" href="#weekly-news"><span class="eyebrow">Next step</span><h2>Weekly parish news</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-        <a class="info-card card-link" href="#church-news"><span class="eyebrow">Explore</span><h2>Church news</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-        <a class="info-card card-link" href="#magazine"><span class="eyebrow">Explore</span><h2>Parish magazine</h2><span class="inline-link">Learn more <span aria-hidden="true">→</span></span></a>
-      </div>
+    <section class="page-hero"><div class="container"><p class="eyebrow">News &amp; Magazine</p><h1>Stories from parish life</h1><p class="lead">A demonstration of a welcoming home for announcements, events, reflections and community news.</p></div></section>
+    <section class="section page-content news-page"><div class="container">
+      <div class="demo-notice" role="note"><strong>SAMPLE / DEMO CONTENT — FICTIONAL</strong><p>Every article and date on this page is fictional demonstration content. These are not real church announcements, events or reflections. Replace them with parish-approved material before publication.</p></div>
+      <section class="news-featured" aria-labelledby="featured-heading"><div class="news-section-heading"><p class="eyebrow">Featured sample</p><h2 id="featured-heading">A story from the parish</h2></div><div id="news-featured" aria-live="polite"><p>Loading sample article…</p></div></section>
+      <section class="news-listing" aria-labelledby="all-news-heading">
+        <div class="news-section-heading news-listing-heading"><div><p class="eyebrow">Browse the sample issue</p><h2 id="all-news-heading">News &amp; articles</h2></div>
+          <label class="news-filter">Filter by category <select id="news-category"><option value="all">All categories</option></select></label>
+        </div>
+        <p class="news-status" id="news-status" role="status" aria-live="polite"></p>
+        <div class="news-article-grid" id="news-articles"><p>Loading sample articles…</p></div>
+      </section>
+      <p class="news-gallery-link"><a class="text-link" href="gallery.html">Explore the photo gallery <span aria-hidden="true">→</span></a></p>
     </div></section>
   </main>
   <footer class="footer" data-site-footer></footer>
