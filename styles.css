@@ -32,7 +32,7 @@ img { max-width: 100%; }
 .dropdown a { padding: 10px 12px; border-radius: 5px; }
 .dropdown a:hover, .dropdown a[aria-current="page"] { color: var(--green); background: var(--cream); }
 .nav a[aria-current="page"], .nav-trigger[aria-expanded="true"] { color: var(--green); }
-.nav a.nav-give[aria-current="page"] { color: var(--deep); border-color: var(--stone); background: var(--cream); }
+.nav a.nav-give[aria-current="page"] { color: white; border-color: transparent; background: var(--green); }
 .menu-toggle { display: none; border: 0; padding: 8px; color: var(--deep); background: transparent; font-size: 26px; cursor: pointer; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 46px; padding: 11px 19px; border: 1px solid transparent; border-radius: 7px; font-weight: 700; transition: transform .2s, background .2s; cursor: pointer; }
 .btn:hover { transform: translateY(-1px); }
