@@ -271,7 +271,7 @@
     return `<div class="admin-field ${full ? 'full' : ''}"><label for="${id}">${esc(label)}</label>${control}${hint ? `<small class="admin-field-hint">${esc(hint)}</small>` : ''}</div>`;
   }
   function openEditor(title, description, formId, inner, submitLabel = 'Save draft', note = '') {
-    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><h2 id="dialog-title">${esc(title)}</h2><p>${esc(description)}</p></div><button class="admin-icon-button" type="button" data-action="close-dialog" aria-label="Close">×</button></div>${note ? `<p class="admin-section-note">${note}</p>` : ''}<form id="${esc(formId)}"><div class="admin-form-grid">${inner}</div><div class="admin-form-actions"><button class="admin-button secondary" type="button" data-action="close-dialog">Cancel</button><button class="admin-button" type="button" data-action="save-form">${esc(submitLabel)}</button></div></form></div>`;
+    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><h2 id="dialog-title">${esc(title)}</h2><p>${esc(description)}</p></div><button class="admin-icon-button" type="button" data-action="close-dialog" aria-label="Close">×</button></div>${note ? `<p class="admin-section-note">${note}</p>` : ''}<form id="${esc(formId)}"><div class="admin-form-grid">${inner}</div><div class="admin-form-actions"><button class="admin-button secondary" type="button" data-action="close-dialog">Cancel</button><button class="admin-button" type="submit">${esc(submitLabel)}</button></div></form></div>`;
     dialog.querySelector('form')?.addEventListener('submit', submitEditor);
     dialog.showModal();
   }
