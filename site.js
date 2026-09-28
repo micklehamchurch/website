@@ -28,6 +28,16 @@ const footer = `
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
 
+const siteScript = document.querySelector('script[src$="site.js"]');
+const footerBottom = document.querySelector('.footer-bottom');
+if (siteScript && footerBottom) {
+  const adminUrl = new URL('admin/', new URL('.', siteScript.src)).href;
+  const adminLink = document.createElement('a');
+  adminLink.href = adminUrl;
+  adminLink.textContent = 'Administration — Development Preview';
+  footerBottom.append(adminLink);
+}
+
 document.querySelectorAll('[data-current-year]').forEach(node => { node.textContent = new Date().getFullYear(); });
 
 const menuButton = document.querySelector('.menu-toggle');
