@@ -42,7 +42,9 @@ const eventContent = (eventData.items || []).map(event => [event.title, event.st
 const eventSearchPages = new Set(eventData.searchPages || []);
 const newsDataPath = path.join(siteRoot, 'news-data.json');
 const newsData = fs.existsSync(newsDataPath) ? JSON.parse(fs.readFileSync(newsDataPath, 'utf8')) : { articles: [] };
-const newsContent = (newsData.articles || []).map(article => [article.category, article.dateLabel, article.title, article.excerpt, ...(article.paragraphs || [])].filter(Boolean).join(' — ')).join('. ');
+const publishedArticles = (newsData.articles || []).filter(article => (article.status || 'published') === 'published');
+const newsContent = publishedArticles.map(article => [article.category, article.dateLabel, article.title, article.excerpt, ...(article.paragraphs || [])].filter(Boolean).join(' — ')).join('. ');
+const publishedNewsSlugs = new Set(publishedArticles.map(article => `${article.slug}.html`));
 
 function htmlFiles(directory, relative = '') {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -57,6 +59,7 @@ function htmlFiles(directory, relative = '') {
 const pages = htmlFiles(siteRoot).sort((a, b) => a.localeCompare(b)).map(filename => {
     const html = fs.readFileSync(path.join(siteRoot, ...filename.split('/')), 'utf8');
     if (metaContent(html, 'search-index').toLowerCase() === 'exclude') return null;
+    if (/<meta\s+name=["']generated-news-article["']\s+content=["']true["']\s*\/?\s*>/i.test(html) && !publishedNewsSlugs.has(filename.replace(/^news\//, ''))) return null;
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main\s*>/i)?.[1] || html;
     const title = fieldText(main, 'h1') || fieldText(html, 'title') || filename.replace(/\.html$/i, '');
     const documentTitle = fieldText(html, 'title');

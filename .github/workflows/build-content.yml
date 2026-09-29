@@ -1,0 +1,55 @@
+name: Build Dev website content
+
+on:
+  push:
+    branches: [Dev]
+    paths:
+      - 'calendar-source.ics'
+      - 'calendar-content.json'
+      - 'news-data.json'
+      - 'content-pages.json'
+      - 'import-calendar.js'
+      - 'build-news-pages.js'
+      - 'build-content-pages.js'
+      - 'build-search-index.js'
+      - 'news.js'
+      - '*.html'
+      - '**/*.html'
+      - 'package.json'
+      - '.github/workflows/build-content.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dev-content-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Dev
+        uses: actions/checkout@v4
+        with:
+          ref: Dev
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build calendar, articles and search index
+        run: npm run build
+      - name: Commit generated website files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A events.json search-index.json news
+          node -e "const d=require('./content-pages.json'); for (const p of d.pages) console.log(p.slug + '.html')" | while IFS= read -r page; do git add -A "$page"; done
+          if git diff --cached --quiet; then
+            echo "Generated website files are already current."
+          else
+            git commit -m "Build Dev website content [skip pages]"
+            git push origin HEAD:Dev
+          fi

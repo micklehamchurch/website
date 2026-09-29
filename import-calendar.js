@@ -4,6 +4,7 @@ const path = require('node:path');
 const root = __dirname;
 const sourcePath = path.join(root, 'calendar-source.ics');
 const outputPath = path.join(root, 'events.json');
+const contentPath = path.join(root, 'calendar-content.json');
 const source = fs.readFileSync(sourcePath, 'utf8').replace(/^\uFEFF/, '').replace(/\r?\n[ \t]/g, '');
 
 function unescapeText(value) {
@@ -33,6 +34,17 @@ function dateProperty(properties, name, fallbackZone) {
   if (!match) throw new Error(`Unsupported ${name} value in calendar source: ${property.value}`);
   return { value: `${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:${match[6]}`, timeZone: zone };
 }
+
+function validLocalDateTime(value) {
+  const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/);
+  if (!match) return false;
+  const [, year, month, day, hour, minute, second = '0'] = match;
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
+  return date.getUTCFullYear() === Number(year) && date.getUTCMonth() === Number(month) - 1 && date.getUTCDate() === Number(day)
+    && Number(hour) < 24 && Number(minute) < 60 && Number(second) < 60;
+}
+
+const comparableDateTime = value => value.length === 16 ? `${value}:00` : value;
 
 const sourceTimeZone = source.match(/^X-WR-TIMEZONE:(.+)$/m)?.[1]?.trim() || 'Europe/London';
 const blocks = [...source.matchAll(/BEGIN:VEVENT\s*\n([\s\S]*?)\nEND:VEVENT/g)].map(match => match[1]);
@@ -65,15 +77,68 @@ const items = blocks.map(block => {
   return item;
 });
 
-const ids = new Set(items.map(item => item.id));
-if (ids.size !== items.length) throw new Error('The calendar source contains duplicate event IDs.');
+// calendar-source.ics remains the imported church feed. Editorial changes and
+// additional entries live in a separate, reviewable repository JSON file.
+const editorial = fs.existsSync(contentPath)
+  ? JSON.parse(fs.readFileSync(contentPath, 'utf8'))
+  : { hiddenEventIds: [], overrides: [], events: [] };
+if (!Array.isArray(editorial.hiddenEventIds) || !Array.isArray(editorial.overrides) || !Array.isArray(editorial.events)) {
+  throw new Error('calendar-content.json must contain hiddenEventIds, overrides and events arrays.');
+}
+const feedIds = new Set(items.map(item => item.id));
+const overrideIds = new Set();
+for (const id of editorial.hiddenEventIds) if (!feedIds.has(id)) throw new Error(`Calendar hiddenEventIds contains an unknown feed event id: ${id}`);
+for (const override of editorial.overrides) {
+  if (!override.id || !feedIds.has(override.id)) throw new Error(`Calendar override references an unknown feed event id: ${override.id || '(missing)'}`);
+  if (overrideIds.has(override.id)) throw new Error(`Duplicate calendar override: ${override.id}`);
+  overrideIds.add(override.id);
+  if (override.status && !['published', 'draft'].includes(override.status)) throw new Error(`Invalid status for calendar override ${override.id}: ${override.status}`);
+  if (Object.hasOwn(override, 'title') && !String(override.title).trim()) throw new Error(`Calendar override has an empty title: ${override.id}`);
+}
+const hiddenIds = new Set(editorial.hiddenEventIds || []);
+const overrides = new Map((editorial.overrides || []).map(item => [item.id, item]));
+const mergedItems = items
+  .filter(item => !hiddenIds.has(item.id))
+  .map(item => {
+    const override = overrides.get(item.id);
+    if (!override) return item;
+    const { id, status, ...changes } = override;
+    return { ...item, ...changes, id: item.id, status: status || 'published' };
+  });
+
+for (const item of mergedItems) {
+  if (item.status && !['published', 'draft'].includes(item.status)) throw new Error(`Invalid status for calendar event ${item.id}: ${item.status}`);
+  if (!String(item.title || '').trim() || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || !item.timeZone || !String(item.location || '').trim() || comparableDateTime(item.end) <= comparableDateTime(item.start)) throw new Error(`Calendar event has incomplete or invalid details: ${item.id}`);
+  try { new Intl.DateTimeFormat('en', { timeZone: item.timeZone }); }
+  catch { throw new Error(`Calendar event has an invalid time zone: ${item.id}`); }
+}
+
+const allIds = new Set(items.map(item => item.id));
+for (const item of editorial.events || []) {
+  if (!item.id || !item.title || !item.start || !item.end || !item.timeZone || !item.location) {
+    throw new Error(`Editorial calendar event needs id, title, start, end, timeZone and location: ${item.id || '(unknown)'}`);
+  }
+  if (item.status && !['published', 'draft'].includes(item.status)) throw new Error(`Invalid status for editorial calendar event ${item.id}: ${item.status}`);
+  if (allIds.has(item.id)) throw new Error(`Duplicate calendar event id: ${item.id}`);
+  allIds.add(item.id);
+  if (!String(item.title).trim() || !String(item.location).trim() || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || comparableDateTime(item.end) <= comparableDateTime(item.start)) {
+    throw new Error(`Editorial calendar event has an invalid time range: ${item.id}`);
+  }
+  try { new Intl.DateTimeFormat('en', { timeZone: item.timeZone }); }
+  catch { throw new Error(`Editorial calendar event has an invalid time zone: ${item.id}`); }
+  if (item.status !== 'draft') mergedItems.push(item);
+}
+
+const ids = new Set(mergedItems.map(item => item.id));
+if (ids.size !== mergedItems.length) throw new Error('The published calendar contains duplicate event IDs.');
 
 const calendar = {
   sourceFile: 'calendar-source.ics',
+  editorialFile: 'calendar-content.json',
   timeZone: items[0].timeZone || sourceTimeZone,
   sourceTimeZone,
   searchPages: ['index.html', 'calendar.html', 'whats-on.html'],
-  items
+  items: mergedItems.filter(item => item.status !== 'draft')
 };
 fs.writeFileSync(outputPath, `${JSON.stringify(calendar, null, 2)}\n`, 'utf8');
-console.log(`Imported ${items.length} events from ${path.basename(sourcePath)} (${items[0].start.slice(0, 10)} through ${items.at(-1).start.slice(0, 10)}).`);
+console.log(`Generated ${calendar.items.length} published events from ${items.length} feed entries and ${editorial.events.length} repository-managed entries (${items[0].start.slice(0, 10)} through ${items.at(-1).start.slice(0, 10)}).`);

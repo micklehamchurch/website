@@ -4,7 +4,18 @@ const path = require('node:path');
 const root = __dirname;
 const outputDirectory = path.join(root, 'news');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'news-data.json'), 'utf8'));
-const articles = data.articles || [];
+if (!Array.isArray(data.articles)) throw new Error('news-data.json must contain an articles array.');
+const slugs = new Set();
+for (const article of data.articles) {
+  for (const field of ['slug', 'title', 'category', 'dateLabel', 'excerpt']) {
+    if (typeof article[field] !== 'string' || !article[field].trim()) throw new Error(`News article is missing required field ${field}: ${article.slug || '(no slug)'}`);
+  }
+  if (!Array.isArray(article.paragraphs) || !article.paragraphs.length || article.paragraphs.some(paragraph => typeof paragraph !== 'string' || !paragraph.trim())) throw new Error(`News article needs one or more non-empty paragraphs: ${article.slug}`);
+  if (!['published', 'draft'].includes(article.status || 'published')) throw new Error(`Invalid news status for ${article.slug}: ${article.status}`);
+  if (slugs.has(article.slug)) throw new Error(`Duplicate news article slug: ${article.slug}`);
+  slugs.add(article.slug);
+}
+const articles = data.articles.filter(article => (article.status || 'published') === 'published');
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
 fs.mkdirSync(outputDirectory, { recursive: true });
@@ -16,6 +27,7 @@ for (const article of articles) {
   const galleryLink = article.galleryLink
     ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
     : '';
+  const demoNotice = article.demo === false ? '' : '<div class="demo-notice article-demo-notice" role="note"><strong>SAMPLE / DEMO CONTENT — FICTIONAL</strong><p>This article and its date are fictional demonstration content. It is not a real church announcement, event or reflection.</p></div>';
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -44,7 +56,7 @@ for (const article of articles) {
     <div class="container article-container">
       <a class="article-back" href="news.html">← Back to News &amp; Magazine</a>
       <article class="article-content">
-        <div class="demo-notice article-demo-notice" role="note"><strong>SAMPLE / DEMO CONTENT — FICTIONAL</strong><p>This article and its date are fictional demonstration content. It is not a real church announcement, event or reflection.</p></div>
+        ${demoNotice}
         <p class="eyebrow">${escapeHtml(article.category)}</p>
         <h1>${escapeHtml(article.title)}</h1>
         <p class="sample-date">${escapeHtml(article.dateLabel)}</p>

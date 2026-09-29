@@ -1,49 +1,36 @@
-MICKLEHAM CHURCH WEBSITE — VERSION 1 PREVIEW
+MICKLEHAM CHURCH WEBSITE — DEV CONTENT WORKFLOW
 
-Preview the site
-1. On GitHub, open micklehamchurch/website and select the Dev branch.
-2. Choose Code > Download ZIP, then extract the folder.
-3. Install Node.js 18 or later, open a terminal in the extracted folder, run `npm run build`, then `npm run preview` and open http://127.0.0.1:4173. This lets the calendar data and website search load correctly.
+The Admin Dashboard is a read-only content view with links to the tracked source files. GitHub Pages is static hosting: it cannot save edits from a form. The dashboard contains no GitHub token, browser database, or pretend Publish button. Editors need GitHub write access to the repository; GitHub authentication and branch protections control changes.
 
-This is a static front-end preview. GitHub Pages currently publishes main, so the Dev branch is not the live Pages site. Preview Dev locally without changing the Pages setting or main branch.
+HOW CHANGES REACH THE DEV WEBSITE
+1. Open the Admin Dashboard on the Dev site, or open the source file in the repository's Dev branch.
+2. Edit the content file and commit to Dev (or submit a pull request to Dev if the church team enables that review process).
+3. The GitHub Actions workflow “Build Dev website content” runs npm run build, validates the data, and commits regenerated event data, article pages and search index to Dev.
+4. GitHub Pages deploys the updated Dev branch files. Check the workflow run before treating the change as published.
 
-New demonstration topic pages
-- Worship pages: Sunday Services, Weekly Worship, Baptisms, Weddings, Funerals, Prayer and Special Services.
-- Community pages: Our Parish, Church Community, Children & Families, Community Events, Groups & Activities, Volunteering, Supporting the Community, News & Magazine and Gallery.
-- Visit & Learn pages: Visit the Church, Church History, The Church Building, Churchyard, Norman Architecture, What to Expect and Finding Us.
-- Edit content-pages.json to update the sample topic copy, image filename, alt text and links. Run `npm run build` to regenerate the topic pages and refresh the search index.
-- All generated topic pages carry a demonstration notice and image caption. Demo images live in assets/demo/ and can be replaced there with church-approved photographs while retaining each filename and updating alt text/captions.
+The workflow needs GitHub Actions enabled and permission for its repository GITHUB_TOKEN to write contents. The token exists only in the GitHub Actions environment; no token is sent to the public website. A content-edit commit may briefly reach branch-based Pages before the generated-output commit finishes.
 
-Current Church Calendar
-- calendar-source.ics is the church calendar feed supplied for this update. It contains 36 events from 6 September 2026 through 28 February 2027.
-- import-calendar.js converts the ICS feed into structured events.json. The Calendar page, Community Events page, homepage preview and search index use this event data.
-- To update the calendar, replace calendar-source.ics with the current feed and run `npm run build`. Do not add sample events to events.json; it is generated from the feed.
-- Each event detail includes an Add to Google Calendar link when the feed provides its required fields. The supplied Mickleham address is attached only to events whose feed location is the Mickleham church; Westhumble events retain the feed's Chapel address.
+CALENDAR
+- calendar-source.ics is the supplied church feed and remains preserved as the source for its 36 imported real events.
+- calendar-content.json is the repository-managed layer. It supports manual published events, edits/overrides keyed by an imported event's exact generated id, drafts, and hidden feed event ids.
+- Do not edit events.json. It is generated from the ICS feed and calendar-content.json on every build.
+- To add an event, append a complete object to calendar-content.json's events array. Required fields: unique id, title, start, end, timeZone and location. Use ISO local datetimes such as 2026-10-10T10:00:00 and the matching IANA zone, for example Europe/London. Description is optional. Use status "draft" to keep a valid item out of the public calendar; omit status or use "published" to publish it.
+- To edit an imported feed entry, add its exact id and only the fields to change to overrides. Its original feed data remains intact. Use status "draft" to unpublish it. To delete/hide an imported item, add its id to hiddenEventIds. To delete a manual entry, remove it from events.
+- Source IDs are available in the generated events.json (the Admin Calendar view links to it). Keep each ID unique; builds fail on invalid or duplicate entries.
 
-News & Magazine demonstration
-- The page at news.html contains six fictional SAMPLE / DEMO articles. Every article and sample date is visibly labelled; none is genuine parish information.
-- Edit news-data.json to replace or update the sample copy. Keep the fields together there; do not edit the generated article HTML pages directly.
-- Run `npm run build` to create one page per article in news/ and refresh search-index.json. Search indexes both the news listing and the generated article pages.
-- The sample photo-story links to the existing gallery.html page.
+NEWS & MAGAZINE
+- news-data.json is the single editable article source. Each article needs a unique lowercase slug, title, category, dateLabel, excerpt and at least one paragraph.
+- Omit status or use "published" to publish; use "draft" to retain an article in source while removing its listing card, generated article page and search result. Delete an article by removing it from the articles array. Builds reject incomplete entries and duplicate slugs.
+- Set "demo": true for fictional samples. Set "demo": false for parish-approved real content. Current articles are fictional examples; keep them clearly marked until replaced and approved.
+- Do not edit generated files in news/ directly. build-news-pages.js creates/updates pages and removes generated pages for deleted or draft entries. news.js reads the same source data for the listing.
 
-Pages included
-- Home, Worship, Weekly Worship, Baptisms, Weddings, Funerals, Prayer, Special Services, Calendar and Community Events
-- Our Parish, Church Community, Children & Families, Groups & Activities, Volunteering, Supporting the Community, News and Magazine, Gallery
-- Visit the Church, Church History, The Church Building, Churchyard, Norman Architecture, What to Expect, Finding Us
-- About Our Parish, Our History, Westhumble Chapel, Contact, Give, Sunday Services (Media)
+BUILD AND LOCAL PREVIEW
+Run npm run build from this directory. It imports the calendar, generates article pages and regenerates search-index.json from current HTML and published calendar/news content. For a local browser preview, run npm run preview and open http://127.0.0.1:4173.
 
-Content status
-- Calendar events are imported from calendar-source.ics. Event names, dates, times, locations and descriptions are preserved from that feed; no placeholder events are mixed in.
-- Sunday Services and the homepage media feature use the church's YouTube playlist; video titles and service details come from YouTube.
-- Opening hours, access, parking and public transport details are not confirmed. The supplied St Michael's & All Angels address is shown for events listed at the Mickleham church; use the route planner and contact the parish to confirm travel details.
-- The contact email shown was carried over from the initial prototype and must be confirmed before publication.
-- The existing church photograph remains on the home page and gallery. Illustrative images in assets/demo/ are AI-generated and are not photographs of the actual churches, parishioners or events.
-- About Our Parish and generated topic pages label their demo images and sample content. Replace the files in assets/demo/ with church-approved photographs and revise alt text/captions in content-pages.json and the relevant page HTML.
+SAFE UPDATE CHECKLIST
+- Calendar edits: preserve the ICS file, use exact event IDs for overrides/hides, verify dates, times, venue and time zone.
+- News edits: use only approved copy and image links, set demo false only after approval, and keep slugs unique.
+- Review the GitHub Actions build and the generated public Calendar, News page, article page and search results on Dev before asking for approval to merge.
 
-Search and editing
-- Search results are generated from the current HTML page content and shared event data. The build script discovers pages automatically; it does not keep a hand-maintained result list.
-- When adding or editing a page, calendar-source.ics or news-data.json, run `npm run build` before publishing so search-index.json reflects the current content. For a future CMS, generate this same JSON index from the CMS content during its build/deployment step.
-- Mark utility pages with `<meta name="search-index" content="exclude">` if they should not appear in results.
-
-Forms and giving
-The contact page uses a mailto link and the giving page explains that online payments are not available in this preview. No visitor data or donations are collected by the site.
+FUTURE CMS
+This workflow is repository-backed, not a web CMS. Remote in-page editing, user roles, image uploads, approval queues and direct publication require a future authenticated backend/CMS (for example Azure with identity and a database). The static site should consume generated content from that trusted publishing pipeline; credentials must never be embedded in client-side code.
