@@ -162,6 +162,68 @@
 @media (prefers-reduced-motion: reduce) {
   .admin-sidebar, .admin-section-card, .admin-toast { transition: none; }
 }
+/* Volunteer-friendly CMS development demo */
+.admin-demo-banner { display:flex; align-items:center; gap:12px; margin:0 0 18px; padding:12px 15px; border:1px solid #e7d7aa; border-radius:5px; background:#fbf5e6; }
+.admin-demo-banner p { margin:0; color:#4f594f; font-size:12px; line-height:1.5; }
+.admin-demo-pill,.admin-prototype-tag { display:inline-flex; align-items:center; padding:5px 9px; border-radius:99px; color:#644d17; background:#efe1b9; font-size:9px; font-weight:800; letter-spacing:.08em; white-space:nowrap; }
+.admin-page-heading > div > p:last-child { max-width:720px; }
+.admin-page-heading .admin-prototype-tag { align-self:flex-start; }
+.admin-section-label { margin:0 0 10px; color:#687369; font-size:10px; font-weight:800; letter-spacing:.1em; }
+.admin-list-toolbar { display:flex; align-items:center; gap:12px; margin:12px 0; }
+.admin-list-toolbar label { color:#405144; font-size:11px; font-weight:700; }
+.admin-list-toolbar input { width:min(360px,55%); min-height:38px; padding:8px 11px; border:1px solid #d4cdbf; border-radius:4px; background:white; font:12px var(--sans); }
+.admin-list-toolbar input:focus-visible { outline:3px solid #c18e37; outline-offset:1px; }
+.admin-list-toolbar span { margin-left:auto; color:var(--muted); font-size:11px; }
+.admin-cms-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.admin-cms-card { display:grid; min-width:0; grid-template-columns:minmax(0,1fr); overflow:hidden; border:1px solid #e8e1d5; border-radius:6px; background:#fff; }
+.admin-cms-card.has-image { grid-template-columns:minmax(110px,145px) minmax(0,1fr); }
+.admin-record-image { display:block; width:100%; height:100%; min-height:155px; max-height:210px; object-fit:cover; background:#f3eedf; }
+.admin-cms-card-main { display:flex; min-width:0; flex-direction:column; gap:9px; padding:14px; }
+.admin-cms-card-main h2 { margin:0; color:#24382d; font:600 18px/1.2 var(--serif); }
+.admin-cms-card-main > p { margin:0; color:var(--muted); font-size:12px; line-height:1.5; }
+.admin-cms-card .admin-record-meta { align-items:flex-start; }
+.admin-cms-card .admin-actions { margin-top:auto; }
+.admin-image-caption,.admin-image-select-preview > span { color:#766343; font-size:10px; line-height:1.4; }
+.admin-image-select-preview { display:flex; min-height:32px; align-items:center; gap:10px; margin-top:2px; }
+.admin-image-select-preview img { width:112px; height:66px; border:1px solid #e5dfd3; border-radius:4px; object-fit:cover; }
+.admin-form-error { margin:14px 0 0; padding:10px 12px; border-left:3px solid #9a4738; color:#773a2f; background:#fbefeb; font-size:12px; }
+.admin-publishing-panel { display:grid; grid-template-columns:minmax(200px,.8fr) minmax(320px,1.2fr); gap:12px 28px; margin:20px 0; padding:20px; border:1px solid #e5dcc8; border-radius:6px; background:#fffdf8; }
+.admin-publishing-panel h2 { margin:2px 0 7px; color:#20372a; font:600 24px/1.2 var(--serif); }
+.admin-publishing-panel > div > p:last-child,.admin-publishing-note { margin:0; color:#586359; font-size:12px; line-height:1.6; }
+.admin-publishing-steps { display:grid; gap:10px; margin:0; padding-left:22px; color:#566057; font-size:12px; line-height:1.55; }
+.admin-publishing-steps strong { color:#20372a; }
+.admin-publishing-note,.admin-technical-details { grid-column:1/-1; }
+.admin-publishing-note { padding:10px 12px; background:#f4f1e6; }
+.admin-technical-details { color:#405448; font-size:11px; }
+.admin-technical-details summary { width:max-content; max-width:100%; cursor:pointer; font-weight:700; }
+.admin-technical-details > div { display:flex; flex-wrap:wrap; gap:10px 18px; padding:12px 0 2px; }
+.admin-reset-link { margin-top:14px; padding:6px 0; border:0; color:#516353; background:transparent; font:600 11px var(--sans); text-decoration:underline; cursor:pointer; }
+.admin-coming-soon { display:flex; gap:16px; padding:20px; border:1px solid #e8e1d5; border-radius:6px; background:#fffdf8; }
+.admin-coming-soon h2 { margin:0 0 7px; color:#20372a; font:600 22px/1.2 var(--serif); }
+.admin-coming-soon p { margin:0 0 10px; color:#586359; font-size:12px; line-height:1.6; }
+.admin-coming-soon .admin-card-icon { flex:0 0 34px; }
+.admin-subheading { margin:23px 0 10px; color:#20372a; font:600 20px/1.2 var(--serif); }
+.admin-link-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.admin-link-grid .admin-dashboard-card { display:flex; min-height:55px; align-items:center; justify-content:space-between; gap:10px; padding:13px; }
+.admin-link-grid .admin-dashboard-card strong { font:600 14px/1.3 var(--sans); }
+.admin-link-grid .admin-dashboard-card span { color:var(--green); }
+.admin-toast.is-error { background:#783c32; }
+.admin-preview-close { display:flex; justify-content:flex-end; }
+.admin-inline-preview { padding:20px clamp(16px,3vw,28px); }
+#admin-editor-form[hidden] { display:none; }
+@media(max-width:1050px) { .admin-cms-list { grid-template-columns:1fr; } .admin-publishing-panel { grid-template-columns:1fr; } .admin-publishing-note,.admin-technical-details { grid-column:auto; } }
+@media(max-width:650px) {
+  .admin-demo-banner { align-items:flex-start; flex-direction:column; gap:6px; }
+  .admin-list-toolbar { align-items:stretch; flex-direction:column; gap:6px; }
+  .admin-list-toolbar input { width:100%; }
+  .admin-list-toolbar span { margin-left:0; }
+  .admin-cms-card.has-image { grid-template-columns:1fr; }
+  .admin-record-image { height:150px; min-height:0; }
+  .admin-cms-card .admin-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .admin-publishing-panel { padding:15px; }
+  .admin-link-grid { grid-template-columns:1fr; }
+  .admin-coming-soon { padding:14px; }
+}
 /* Repository-backed content browser */
 .admin-main > h1,#admin-content > h1{margin:0 0 12px;color:#1d3027;font:600 clamp(29px,3vw,38px)/1.1 var(--serif);letter-spacing:-.025em}
 .admin-lead{max-width:780px;margin:0 0 20px;color:var(--muted);font-size:15px;line-height:1.6}
