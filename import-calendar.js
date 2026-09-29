@@ -2,9 +2,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = __dirname;
-const sourcePath = path.join(root, 'calendar-source.ics');
+const sourcePath = path.join(root, '_content', 'calendar-source.ics');
 const outputPath = path.join(root, 'events.json');
-const contentPath = path.join(root, 'calendar-content.json');
+const contentPath = path.join(root, '_content', 'calendar.json');
 const source = fs.readFileSync(sourcePath, 'utf8').replace(/^\uFEFF/, '').replace(/\r?\n[ \t]/g, '');
 
 function unescapeText(value) {
@@ -77,13 +77,13 @@ const items = blocks.map(block => {
   return item;
 });
 
-// calendar-source.ics remains the imported church feed. Editorial changes and
-// additional entries live in a separate, reviewable repository JSON file.
+// Raw feed data and editorial entries live under _content/, which GitHub Pages
+// (Jekyll) does not publish. The built events.json contains published entries only.
 const editorial = fs.existsSync(contentPath)
   ? JSON.parse(fs.readFileSync(contentPath, 'utf8'))
   : { hiddenEventIds: [], overrides: [], events: [] };
 if (!Array.isArray(editorial.hiddenEventIds) || !Array.isArray(editorial.overrides) || !Array.isArray(editorial.events)) {
-  throw new Error('calendar-content.json must contain hiddenEventIds, overrides and events arrays.');
+  throw new Error('_content/calendar.json must contain hiddenEventIds, overrides and events arrays.');
 }
 const feedIds = new Set(items.map(item => item.id));
 const overrideIds = new Set();
@@ -133,8 +133,8 @@ const ids = new Set(mergedItems.map(item => item.id));
 if (ids.size !== mergedItems.length) throw new Error('The published calendar contains duplicate event IDs.');
 
 const calendar = {
-  sourceFile: 'calendar-source.ics',
-  editorialFile: 'calendar-content.json',
+  sourceFile: '_content/calendar-source.ics',
+  editorialFile: '_content/calendar.json',
   timeZone: items[0].timeZone || sourceTimeZone,
   sourceTimeZone,
   searchPages: ['index.html', 'calendar.html', 'whats-on.html'],

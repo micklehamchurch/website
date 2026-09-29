@@ -1,6 +1,6 @@
 {
-  "sourceFile": "calendar-source.ics",
-  "editorialFile": "calendar-content.json",
+  "sourceFile": "_content/calendar-source.ics",
+  "editorialFile": "_content/calendar.json",
   "timeZone": "Europe/London",
   "sourceTimeZone": "UTC",
   "searchPages": [

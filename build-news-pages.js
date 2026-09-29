@@ -3,26 +3,35 @@ const path = require('node:path');
 
 const root = __dirname;
 const outputDirectory = path.join(root, 'news');
-const data = JSON.parse(fs.readFileSync(path.join(root, 'news-data.json'), 'utf8'));
+const data = JSON.parse(fs.readFileSync(path.join(root, '_content', 'news.json'), 'utf8'));
 if (!Array.isArray(data.articles)) throw new Error('news-data.json must contain an articles array.');
 const slugs = new Set();
 for (const article of data.articles) {
+  if (typeof article.slug !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) throw new Error(`Invalid article slug: ${article.slug || '(missing)'}`);
   for (const field of ['slug', 'title', 'category', 'dateLabel', 'excerpt']) {
     if (typeof article[field] !== 'string' || !article[field].trim()) throw new Error(`News article is missing required field ${field}: ${article.slug || '(no slug)'}`);
   }
   if (!Array.isArray(article.paragraphs) || !article.paragraphs.length || article.paragraphs.some(paragraph => typeof paragraph !== 'string' || !paragraph.trim())) throw new Error(`News article needs one or more non-empty paragraphs: ${article.slug}`);
   if (!['published', 'draft'].includes(article.status || 'published')) throw new Error(`Invalid news status for ${article.slug}: ${article.status}`);
+  if (article.galleryLink) {
+    if (typeof article.galleryLink !== 'string' || /^(?:[a-z]+:|\/|\\)|\.\./i.test(article.galleryLink)) throw new Error(`News gallery link must be a safe site-relative path: ${article.slug}`);
+    const linkTarget = path.resolve(root, article.galleryLink);
+    if (!linkTarget.startsWith(`${root}${path.sep}`) || !fs.existsSync(linkTarget)) throw new Error(`News gallery link target does not exist: ${article.galleryLink}`);
+  }
   if (slugs.has(article.slug)) throw new Error(`Duplicate news article slug: ${article.slug}`);
   slugs.add(article.slug);
 }
 const articles = data.articles.filter(article => (article.status || 'published') === 'published');
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
+// The browser consumes this published-only projection. Draft text stays in
+// _content/news.json, which is not emitted by GitHub Pages' Jekyll build.
+fs.writeFileSync(path.join(root, 'news-data.json'), `${JSON.stringify({ articles }, null, 2)}\n`, 'utf8');
+
 fs.mkdirSync(outputDirectory, { recursive: true });
 const expectedFiles = new Set(articles.map(article => `${article.slug}.html`));
 
 for (const article of articles) {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) throw new Error(`Invalid article slug: ${article.slug}`);
   const paragraphs = (article.paragraphs || []).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n          ');
   const galleryLink = article.galleryLink
     ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
@@ -81,4 +90,4 @@ for (const entry of fs.readdirSync(outputDirectory, { withFileTypes: true })) {
   if (/<meta\s+name=["']generated-news-article["']\s+content=["']true["']\s*\/?\s*>/i.test(existing)) fs.unlinkSync(filepath);
 }
 
-console.log(`Built ${articles.length} sample news article pages from news-data.json.`);
+console.log(`Built ${articles.length} published news article pages from _content/news.json.`);
