@@ -530,3 +530,103 @@ h3 { font-family: var(--serif); }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; }
 }
+
+/* Giving page: warm, clearly marked prototype content, with compact desktop spacing. */
+.giving-page { overflow: hidden; }
+.giving-hero { padding: 38px 0; color: white; background: linear-gradient(115deg,var(--deep),#315d49); }
+.giving-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(28px,5vw,60px); }
+.giving-hero-copy { max-width: 620px; }
+.giving-hero-copy h1 { max-width: 650px; margin: 0 0 14px; font: 600 clamp(38px,4vw,54px)/1.08 var(--serif); letter-spacing: -.03em; }
+.giving-hero-lead { max-width: 570px; margin: 0; color: #f2f4ee; font: 21px/1.48 var(--serif); }
+.giving-hero-note { max-width: 530px; margin: 14px 0 22px; color: #d6e0d8; font-size: 14px; }
+.giving-hero-image { min-width: 0; margin: 0; padding: 9px; border: 1px solid #ffffff55; border-radius: 7px; background: #ffffff12; }
+.giving-hero-image img { display: block; width: 100%; max-height: 340px; aspect-ratio: 4 / 3; border-radius: 3px; object-fit: cover; }
+.giving-hero-image figcaption { padding: 9px 4px 0; color: #e8dfca; font-size: 9px; font-weight: 700; letter-spacing: .1em; }
+.giving-difference { background: var(--paper); }
+.giving-section-heading { max-width: 800px; margin: 0 auto 24px; }
+.giving-section-heading h2 { margin-bottom: 10px; }
+.giving-section-heading > p:last-child { margin: 0; color: var(--muted); }
+.giving-benefit-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 13px; }
+.giving-benefit-card { display: flex; min-width: 0; gap: 13px; padding: 19px 17px; border: 1px solid var(--stone); background: white; }
+.giving-icon, .giving-method-icon { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border-radius: 50%; color: var(--green); background: #eee8d9; font-size: 19px; }
+.giving-benefit-card h3 { margin: 0 0 5px; color: var(--deep); font-size: 18px; line-height: 1.25; }
+.giving-benefit-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.giving-ways { background: var(--cream); }
+.giving-method-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.giving-method-card { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; padding: 21px; border: 1px solid var(--stone); background: white; }
+.giving-method-featured { border-top: 3px solid var(--gold); }
+.giving-method-icon { margin-bottom: 15px; }
+.giving-method-card .eyebrow { margin-bottom: 4px; font-size: 9px; }
+.giving-method-card h3 { margin: 0 0 7px; color: var(--deep); font-size: 23px; line-height: 1.2; }
+.giving-method-card > p:not(.eyebrow) { margin: 0 0 12px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.giving-method-card .giving-availability { margin-top: auto !important; padding-top: 12px; color: var(--green) !important; font-size: 12px !important; font-weight: 700; }
+.giving-method-card .giving-card-note { margin: 0; color: #777b70; font-size: 11px !important; }
+.giving-method-card .btn { margin-top: 8px; }
+.giving-method-card .btn:disabled, .giving-appeal-card .btn:disabled { cursor: not-allowed; opacity: .68; transform: none; }
+.giving-qr-placeholder { display: grid; width: 138px; min-height: 124px; align-content: center; justify-items: center; gap: 7px; margin: 0 0 11px; padding: 12px; border: 1px dashed #9d906e; color: var(--deep); background: repeating-linear-gradient(135deg,#faf8f0 0,#faf8f0 8px,#f3efe4 8px,#f3efe4 16px); text-align: center; }
+.giving-qr-placeholder > span { font-size: 32px; line-height: 1; }
+.giving-qr-placeholder strong { max-width: 115px; font-size: 10px; line-height: 1.35; }
+.giving-method-link { margin-top: auto; padding-top: 10px; }
+.giving-development-note { margin: 20px 0 0; padding: 13px 16px; border-left: 3px solid var(--gold); color: #5f655e; background: #fffdf8; font-size: 12px; }
+.giving-development-note strong { color: var(--deep); }
+.giving-assurance { background: var(--paper); }
+.giving-assurance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.giving-assurance-card { padding: 23px 24px; border: 1px solid var(--stone); background: white; }
+.giving-assurance-card h2 { margin: 0 0 9px; color: var(--deep); font-size: clamp(25px,2.4vw,32px); }
+.giving-assurance-card > p:not(.eyebrow) { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.giving-assurance-card .giving-availability { color: var(--green) !important; font-weight: 700; }
+.giving-assurance-card .giving-card-note { margin: 0; font-size: 11px !important; }
+.giving-security-card { background: var(--cream); }
+.giving-security-status { display: flex; align-items: flex-start; gap: 8px; color: var(--deep) !important; font-weight: 700; }
+.giving-security-status span { color: var(--gold); }
+.giving-appeals { padding-top: 0; background: var(--paper); }
+.giving-appeal-card { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 25px 28px; color: white; background: linear-gradient(110deg,var(--deep),#315d49); }
+.giving-appeal-card .eyebrow { margin-bottom: 7px; color: #e3d4af; }
+.giving-demo-label { display: inline-flex; margin-bottom: 8px; padding: 4px 8px; border: 1px solid #ffffff90; color: white; font-size: 9px; font-weight: 700; letter-spacing: .1em; }
+.giving-appeal-card h2 { margin: 0 0 4px; font-size: clamp(25px,2.6vw,34px); }
+.giving-appeal-card h3 { margin: 0 0 5px; font-size: 17px; }
+.giving-appeal-card p:last-child { max-width: 680px; margin: 0; color: #e3eae4; font-size: 13px; }
+.giving-legacy { padding: 0 0 44px; background: var(--paper); }
+.giving-legacy-inner { display: grid; grid-template-columns: 48px minmax(0,700px); align-items: start; gap: 17px; padding: 21px 0 0; border-top: 1px solid var(--stone); }
+.giving-legacy-mark { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid var(--stone); border-radius: 50%; color: var(--gold); font-size: 25px; }
+.giving-legacy-inner h2 { margin: 0 0 6px; color: var(--deep); font-size: clamp(25px,2.5vw,33px); }
+.giving-legacy-inner p:not(.eyebrow) { margin: 0 0 5px; color: var(--muted); font-size: 14px; }
+.giving-legacy-inner .giving-card-note { color: #777b70 !important; font-size: 11px !important; }
+.giving-thanks { padding: 32px 0; color: white; background: var(--deep); }
+.giving-thanks-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.giving-thanks-inner > div { max-width: 760px; }
+.giving-thanks-inner .eyebrow { margin-bottom: 5px; color: #dfd0aa; }
+.giving-thanks-inner h2 { margin: 0 0 6px; font-size: clamp(26px,3vw,37px); }
+.giving-thanks-inner p:last-child { margin: 0; color: #d6e0d8; font-size: 14px; }
+.giving-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+@media (min-width: 1051px) {
+  .giving-hero { padding: 32px 0; }
+  .giving-hero-image img { max-height: 310px; }
+  .giving-method-card { min-height: 250px; padding: 19px; }
+  .giving-benefit-card { min-height: 118px; }
+}
+@media (max-width: 900px) {
+  .giving-benefit-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .giving-method-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 760px) {
+  .giving-hero { padding: 30px 0; }
+  .giving-hero-grid { grid-template-columns: 1fr; gap: 22px; }
+  .giving-hero-copy h1 { font-size: clamp(36px,9vw,48px); }
+  .giving-hero-lead { font-size: 19px; }
+  .giving-hero-image { max-width: 560px; }
+  .giving-hero-image img { max-height: 290px; }
+  .giving-assurance-grid { grid-template-columns: 1fr; }
+  .giving-appeal-card { align-items: flex-start; flex-direction: column; gap: 15px; padding: 21px; }
+  .giving-thanks-inner { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 520px) {
+  .giving-benefit-grid, .giving-method-grid { grid-template-columns: 1fr; }
+  .giving-benefit-card { padding: 16px; }
+  .giving-method-card { min-height: 0; padding: 19px; }
+  .giving-qr-placeholder { width: 100%; min-height: 102px; }
+  .giving-assurance-card { padding: 19px; }
+  .giving-legacy-inner { grid-template-columns: 38px minmax(0,1fr); gap: 12px; }
+  .giving-legacy-mark { width: 36px; height: 36px; font-size: 20px; }
+  .giving-thanks { padding: 26px 0; }
+}
