@@ -53,7 +53,7 @@ function renderUpcomingPreview(items, container, timeZone) {
   const upcoming = items.filter(event => event.start >= now).slice(0, 3);
   container.classList.add('calendar-preview');
   if (!upcoming.length) {
-    container.innerHTML = '<p class="calendar-empty">There are no upcoming events in the supplied calendar feed. View the Calendar for all dates in the feed.</p>';
+    container.innerHTML = '<p class="calendar-empty">There are no upcoming events to show. View the Calendar for other dates.</p>';
     return;
   }
   container.innerHTML = upcoming.map(compactEventCard).join('');
@@ -134,7 +134,7 @@ function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone)
   if (!daysWithEvents.length) {
     const empty = document.createElement('p');
     empty.className = 'calendar-empty';
-    empty.textContent = 'No events in the supplied calendar feed for this month.';
+    empty.textContent = 'There are no events listed for this month.';
     agenda.append(empty);
   }
   status.textContent = `${byDate.size} ${byDate.size === 1 ? 'date' : 'dates'} with events in ${formatMonth(year, month)}.`;

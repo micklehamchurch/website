@@ -3,20 +3,11 @@ const featuredSection = document.querySelector('.news-featured');
 const articlesContainer = document.querySelector('#news-articles');
 const categoryFilter = document.querySelector('#news-category');
 const status = document.querySelector('#news-status');
-const notice = document.querySelector('#news-notice');
 let articles = [];
-
-function sampleBadge() {
-  const badge = document.createElement('span');
-  badge.className = 'sample-badge';
-  badge.textContent = 'SAMPLE / DEMO · FICTIONAL';
-  return badge;
-}
 
 function makeArticleCard(article, featured = false) {
   const card = document.createElement('article');
   card.className = featured ? 'news-feature-card' : 'news-article-card';
-  if (article.demo !== false) card.append(sampleBadge());
   const category = document.createElement('p');
   category.className = 'eyebrow';
   category.textContent = article.category;
@@ -64,13 +55,6 @@ async function initializeNews() {
     if (!response.ok) throw new Error(`Unable to load articles (${response.status})`);
     const data = await response.json();
     articles = (data.articles || []).filter(article => (article.status || 'published') === 'published');
-    const sampleCount = articles.filter(article => article.demo !== false).length;
-    if (sampleCount) {
-      notice.hidden = false;
-      notice.innerHTML = sampleCount === articles.length
-        ? '<strong>SAMPLE / DEMO CONTENT — FICTIONAL</strong><p>Every article and date shown is fictional demonstration content, not a real church announcement. Replace it with parish-approved material when available.</p>'
-        : '<strong>Sample content is clearly marked</strong><p>Articles labelled SAMPLE / DEMO are fictional examples. Other published articles are parish-supplied content.</p>';
-    }
     const categories = [...new Set(articles.map(article => article.category))].sort((a, b) => a.localeCompare(b));
     categories.forEach(category => {
       const option = document.createElement('option');
@@ -84,9 +68,9 @@ async function initializeNews() {
     renderArticles();
   } catch (error) {
     console.error(error);
-    featuredContainer.textContent = 'Sample articles are temporarily unavailable.';
+    featuredContainer.textContent = 'Parish news is temporarily unavailable.';
     articlesContainer.textContent = 'Please try again later.';
-    status.textContent = 'The sample news could not be loaded.';
+    status.textContent = 'Parish news could not be loaded.';
   }
 }
 

@@ -1,19 +1,649 @@
 {
   "pages": [
-    {"slug":"weekly-worship","section":"worship","category":"Worship","title":"Weekly Worship","summary":"A welcoming overview of regular worship and the different ways people might take part.","paragraphs":["This demonstration page shows how the parish could explain its regular worship. The wording is sample copy and does not publish service times or a confirmed schedule.","A finished page can include the current pattern of services, accessibility information, music and what to expect. The parish team can replace this text when details are approved."],"image":"assets/demo/sanctuary-interior-demo.jpg","alt":"Illustrative generated demo image of a calm historic church interior; not a photograph of this parish.","imageCaption":"DEMO IMAGE · Replace with a church-approved interior photograph.","action":"See Sunday Services","href":"sunday-services.html","back":"worship.html"},
-    {"slug":"baptisms","section":"worship","category":"Life events","title":"Baptisms","summary":"A gentle introduction to baptism and how to ask the parish about taking the next step.","paragraphs":["Baptism is a special moment in Christian life and a way of welcoming someone into the church family. This demonstration copy is a starting point, not a statement of local arrangements.","The parish can replace this with approved guidance about baptism, preparation, godparents and how to arrange a conversation. Please contact the church for current information."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated demo image of a traditional English parish church exterior; not a photograph of St Michael and All Angels.","imageCaption":"DEMO IMAGE · Illustrative church exterior, not the actual parish church.","action":"Contact the parish","href":"contact.html","back":"worship.html"},
-    {"slug":"weddings","section":"worship","category":"Life events","title":"Weddings","summary":"A sample welcome for couples exploring a church wedding and the questions they may want to ask.","paragraphs":["A church wedding can be a meaningful way to celebrate a marriage. This sample page demonstrates how the parish might welcome enquiries and explain the first conversation.","Eligibility, availability, preparation and fees depend on current guidance and individual circumstances. The parish should replace this text with approved information before publication."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated demo image of an English parish church in soft daylight; not a photograph of this church or a wedding.","imageCaption":"DEMO IMAGE · Illustrative church exterior; no real wedding is depicted.","action":"Ask about weddings","href":"contact.html","back":"worship.html"},
-    {"slug":"funerals","section":"worship","category":"Life events","title":"Funerals and remembrance","summary":"A compassionate sample page showing how to find support when someone has died.","paragraphs":["We know that arranging a funeral can be a difficult time. This sample page demonstrates a gentle welcome and a clear route to speak with the parish.","The church can offer prayer and pastoral support. Please contact the parish to discuss current arrangements; this demonstration does not name clergy or promise a specific service."],"image":"assets/demo/churchyard-demo.jpg","alt":"Illustrative generated demo image of a quiet churchyard path; not a photograph of this parish churchyard.","imageCaption":"DEMO IMAGE · Illustrative churchyard, not the actual churchyard.","action":"Contact the parish","href":"contact.html","back":"worship.html"},
-    {"slug":"prayer","section":"worship","category":"Worship","title":"Prayer","summary":"A calm introduction to prayer, reflection and ways to get in touch with the parish.","paragraphs":["Prayer can be a moment of stillness, gratitude, hope or asking for help. This sample page demonstrates a gentle introduction for people of any background.","The parish may later add approved details about prayer gatherings, pastoral support and ways to request prayer. No meeting times are published in this demonstration."],"image":"assets/demo/sanctuary-interior-demo.jpg","alt":"Illustrative generated demo image of a peaceful church interior with daylight; not a photograph of this parish.","imageCaption":"DEMO IMAGE · Replace with an approved photograph of the church interior.","action":"Explore worship","href":"worship.html","back":"worship.html"},
-    {"slug":"special-services","section":"worship","category":"Worship","title":"Special Services","summary":"A sample guide to seasonal and occasional services, with confirmed details to be added by the parish.","paragraphs":["Across the year churches mark important seasons and occasions through worship, music and prayer. This demonstration page shows where those notices could live.","There are no event dates or service times here. The parish team can add confirmed information and link each notice to the calendar when ready."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated demo image of a historic English church exterior in a leafy setting; not a photograph of this parish.","imageCaption":"DEMO IMAGE · Illustrative seasonal church image, not a record of a real service.","action":"View Services and Events","href":"whats-on.html","back":"worship.html"},
-    {"slug":"children-families","section":"community","category":"Our Community","title":"Children & Families","summary":"A friendly sample welcome for children, parents, carers and families exploring church life.","paragraphs":["Families are welcome in church. This demonstration page shows how practical information and a warm welcome could be shared in one place.","The parish should add approved details about family worship, safeguarding, facilities and age-specific activities before publication. Please contact the church with questions."],"image":"assets/demo/community-gathering-demo.png","alt":"Illustrative generated demo image of adults and children chatting at a fictional parish gathering; not a photograph of this church community.","imageCaption":"DEMO IMAGE · AI-generated illustrative people; not parishioners or a real event.","action":"Ask about family visits","href":"contact.html","back":"church-life.html"},
-    {"slug":"groups-activities","section":"community","category":"Our Community","title":"Groups & Activities","summary":"A flexible sample page for groups, shared interests and activities across parish life.","paragraphs":["Church communities often make space to learn, create, share interests and spend time together. This sample page shows how groups could be introduced.","No group names or meeting times are listed because those details need to come from the parish. Contact the church to ask what is currently available."],"image":"assets/demo/community-gathering-demo.png","alt":"Illustrative generated demo image of a mixed-age group sharing conversation; not a photograph of parish members.","imageCaption":"DEMO IMAGE · Fictional illustrative gathering, not an actual parish group.","action":"Ask about groups","href":"contact.html","back":"church-life.html"},
-    {"slug":"volunteering","section":"community","category":"Our Community","title":"Volunteering","summary":"An invitation to explore practical ways of helping, with roles confirmed by the parish team.","paragraphs":["Volunteers can help a community welcome people, care for shared spaces and support activities. This demonstration copy illustrates how the parish might describe opportunities.","Any real roles, training, safeguarding requirements and time commitments should be agreed and supplied by the church. Start by getting in touch."],"image":"assets/demo/community-gathering-demo.png","alt":"Illustrative generated demo image of people helping one another at a fictional community gathering; not a real volunteer team.","imageCaption":"DEMO IMAGE · AI-generated illustration of community life, not real volunteers.","action":"Ask about volunteering","href":"contact.html","back":"church-life.html"},
-    {"slug":"supporting-community","section":"community","category":"Our Community","title":"Supporting the Community","summary":"A sample overview of how a parish could share community support and signpost local help.","paragraphs":["Parishes can be places of welcome, connection and practical care. This sample page demonstrates how community support information might be organised.","The parish should add only confirmed services and partner details, with permission where needed. For now, please contact the church to ask about current support."],"image":"assets/demo/community-gathering-demo.png","alt":"Illustrative generated demo image of a welcoming fictional community gathering; not a photograph of a real parish project.","imageCaption":"DEMO IMAGE · Illustrative image only; no real project or organisation is shown.","action":"Contact the parish","href":"contact.html","back":"church-life.html"},
-    {"slug":"church-building","section":"visit","category":"Visit & Learn","title":"The Church Building","summary":"Explore the architecture, atmosphere and details of a historic parish church.","paragraphs":["This demonstration page shows how visitors could learn about the church building through photographs and short, accessible explanations.","The image is an illustration and does not depict St Michael and All Angels. The parish can replace it and this sample wording with approved photographs and verified building information."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated image of a historic English parish church exterior; it is not St Michael and All Angels.","imageCaption":"DEMO IMAGE · Generic illustration; replace with a photograph of the actual building.","action":"Read Church History","href":"our-history.html","back":"visit.html"},
-    {"slug":"churchyard","section":"visit","category":"Visit & Learn","title":"The Churchyard","summary":"A sample guide to the churchyard as a place of remembrance, reflection and care for nature.","paragraphs":["Churchyards can hold personal and local stories and provide peaceful spaces for reflection. This sample introduction avoids describing particular graves or making claims about this churchyard.","Opening arrangements, accessibility and any conservation information should be confirmed by the parish before this page is updated."],"image":"assets/demo/churchyard-demo.jpg","alt":"Illustrative generated image of a leafy English churchyard path; not the actual Mickleham churchyard.","imageCaption":"DEMO IMAGE · Illustrative churchyard, not a documentary photograph.","action":"Plan your visit","href":"visit.html","back":"visit.html"},
-    {"slug":"norman-architecture","section":"visit","category":"Visit & Learn","title":"Norman Architecture","summary":"A sample introduction to Norman architecture and how visitors might explore historic features.","paragraphs":["Norman architecture is often recognised by rounded arches, substantial masonry and simple decorative patterns. This sample page demonstrates an accessible introduction rather than a verified architectural assessment of this church.","The parish can add expert-reviewed details, labelled photographs and information about the building's protected status after review."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated image of a generic old English stone church; it does not show verified Norman features at the parish church.","imageCaption":"DEMO IMAGE · Generic generated church illustration; architectural details are not documentary.","action":"Explore Church History","href":"our-history.html","back":"visit.html"},
-    {"slug":"what-to-expect","section":"visit","category":"Visit & Learn","title":"What to Expect","summary":"A reassuring sample guide for first-time visitors to a Church of England parish church.","paragraphs":["If you are visiting a church for the first time, you are welcome to take things at your own pace. You may sit quietly, join in as much or as little as feels comfortable, and ask someone for help.","This is general demonstration guidance. The parish should add confirmed information about its services, access, facilities and safeguarding arrangements."],"image":"assets/demo/sanctuary-interior-demo.jpg","alt":"Illustrative generated demo view of a quiet church interior; not a photograph of this parish church.","imageCaption":"DEMO IMAGE · Replace with an approved photograph of the church interior.","action":"View worship information","href":"worship.html","back":"visit.html"},
-    {"slug":"finding-us","section":"visit","category":"Visit & Learn","title":"Finding Us","summary":"Address and route links for St Michael's & All Angels Church in Mickleham.","paragraphs":["St Michael's & All Angels Church, Old London Road, Mickleham, Dorking, Surrey RH5 6DU, England.","Use the route planner to enter your starting point. For current access, parking and public transport information, please check with the parish before travelling."],"image":"assets/demo/parish-exterior-demo.jpg","alt":"Illustrative generated demo image of a traditional English parish church; not a photograph of the destination.","imageCaption":"DEMO IMAGE · This illustration is not a picture of the church at the address.","action":"Open route planner","href":"visit.html#map","back":"visit.html"}
+    {
+      "slug": "weekly-worship",
+      "section": "worship",
+      "category": "Worship",
+      "title": "Weekly Worship",
+      "summary": "Gather for worship, prayer, Holy Communion and fellowship in the parish churches.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "A place to worship together",
+          "paragraphs": [
+            "The parish describes its services as opportunities to gather as Christians, worship, encourage one another and share in the life of the wider Church. Sunday worship includes prayer, Holy Communion and fellowship.",
+            "The previous parish service guide described a pattern of services at St Michael and All Angels and the Chapel of Ease. As service patterns can change, please use the live calendar or contact the parish to confirm the next service before travelling."
+          ]
+        },
+        {
+          "title": "Find a service",
+          "paragraphs": [
+            "The Calendar is the current source for dated services and events. The Sunday Services page provides more detail about the pattern recorded on the previous parish website; some arrangements need confirmation."
+          ]
+        }
+      ],
+      "action": "View the Calendar",
+      "href": "calendar.html"
+    },
+    {
+      "slug": "baptisms",
+      "section": "worship",
+      "category": "Worship · Life events",
+      "title": "Baptisms",
+      "summary": "Baptism welcomes children and adults into the Christian faith and the life of the church.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "A welcome into the church",
+          "paragraphs": [
+            "The parish’s previous information welcomed children and adults to consider baptism, also called christening, as a way of entering the Christian faith. It invited people who live in the parish or have a strong connection with the church to make contact.",
+            "The earlier page described baptisms within a Sunday service. Please contact the church to confirm current arrangements, preparation and availability."
+          ]
+        },
+        {
+          "title": "Start a conversation",
+          "paragraphs": [
+            "If you are thinking about baptism for yourself or a child, the parish can explain the next steps and answer your questions."
+          ]
+        }
+      ],
+      "action": "Contact the church",
+      "href": "contact.html"
+    },
+    {
+      "slug": "weddings",
+      "section": "worship",
+      "category": "Worship · Life events",
+      "title": "Weddings",
+      "summary": "Begin a conversation with the parish if you are considering a church wedding.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "A church wedding",
+          "paragraphs": [
+            "The parish welcomes enquiries from people thinking about getting married at St Michael and All Angels. The church’s earlier information directed couples to contact the wedding coordinator.",
+            "Eligibility, dates, preparation and fees depend on current Church of England guidance and individual circumstances. Contact the parish to discuss your situation and confirm present arrangements."
+          ]
+        }
+      ],
+      "action": "Ask the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "funerals",
+      "section": "worship",
+      "category": "Worship · Life events",
+      "title": "Funerals and remembrance",
+      "summary": "A place to begin when you are arranging a funeral or seeking prayer and support.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "With care and compassion",
+          "paragraphs": [
+            "The parish marks significant occasions, including funerals, for members of the church and the wider community. If someone has died, you may speak with your funeral director or contact the parish to ask about a service and the support available.",
+            "Arrangements depend on current availability and circumstances. The parish can discuss the options with you."
+          ]
+        }
+      ],
+      "action": "Contact the church",
+      "href": "contact.html"
+    },
+    {
+      "slug": "prayer",
+      "section": "worship",
+      "category": "Worship",
+      "title": "Prayer",
+      "summary": "Prayer is part of the worship and shared life of the parish.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "Prayer at St Michael’s",
+          "paragraphs": [
+            "The parish’s worship information describes prayer as part of gathering together, alongside Scripture, Holy Communion and fellowship. The church is a place to pause, reflect and bring what is on your heart.",
+            "The previous services page listed a quiet service of Compline or Night Prayer on selected Tuesdays. As that timetable may have changed, check the Calendar for current dates or contact the parish."
+          ]
+        },
+        {
+          "title": "A prayer request",
+          "paragraphs": [
+            "If you would like to ask for prayer or speak with someone, contact the church. Please share only information you are comfortable communicating by email."
+          ]
+        }
+      ],
+      "action": "Contact the church",
+      "href": "contact.html"
+    },
+    {
+      "slug": "special-services",
+      "section": "worship",
+      "category": "Worship",
+      "title": "Special Services",
+      "summary": "Seasonal and occasional services are listed in the parish Calendar when details are confirmed.",
+      "back": "worship.html",
+      "sections": [
+        {
+          "title": "Worship through the year",
+          "paragraphs": [
+            "The parish welcomes the opportunity to mark significant occasions through worship. Details of forthcoming special services should be checked in the Calendar, which is the current source for dates and times."
+          ]
+        }
+      ],
+      "action": "View the Calendar",
+      "href": "calendar.html"
+    },
+    {
+      "slug": "children-families",
+      "section": "community",
+      "category": "Our Community",
+      "title": "Children & Families",
+      "summary": "Children and families are warmly welcomed into worship and parish life.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "Worship together",
+          "paragraphs": [
+            "The parish’s previous service information welcomed families at services and described a carpeted area with resources for children. It also mentioned a creche in the vestry at some services. Please contact the church to confirm what is currently available.",
+            "The older service guide described a family service as part of its monthly pattern; check the Calendar for current arrangements."
+          ]
+        },
+        {
+          "title": "Baptism",
+          "paragraphs": [
+            "The parish welcomes enquiries about baptism for children and adults. Read the Baptisms page to learn more and contact the church about current arrangements."
+          ]
+        },
+        {
+          "title": "Safeguarding",
+          "paragraphs": [
+            "The church takes safeguarding seriously. If you have a question or concern, use the Safeguarding link in the site footer or contact the parish through the Contact page."
+          ]
+        }
+      ],
+      "action": "Read about Baptisms",
+      "href": "baptisms.html"
+    },
+    {
+      "slug": "alpha",
+      "section": "community",
+      "category": "Explore faith",
+      "title": "Alpha",
+      "summary": "A welcoming space to explore the basics of Christian faith, ask questions and share your point of view.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "What is Alpha?",
+          "paragraphs": [
+            "The parish describes Alpha as a series of sessions exploring the basics of Christian faith. It is for anyone who would like to explore, ask questions and share their point of view, whatever their background or context."
+          ]
+        },
+        {
+          "title": "What happens at a session?",
+          "paragraphs": [
+            "The format described by the parish begins with tea and cake, followed by a short film presentation on a question about Christian faith and time for discussion. The course material explores topics including Jesus, prayer, faith, the Holy Spirit, the Bible and how God guides us."
+          ]
+        },
+        {
+          "title": "Who is Alpha for?",
+          "paragraphs": [
+            "Alpha is intended for people who want space to explore Christian faith and ask questions. You do not need to have everything worked out before you come."
+          ]
+        },
+        {
+          "title": "Ask about a future course",
+          "paragraphs": [
+            "The old website listed a course contact and dates that may no longer be current, so no course date or named contact is shown here. Please use the Contact page to ask whether a new course is planned."
+          ]
+        }
+      ],
+      "action": "Ask about Alpha",
+      "href": "contact.html"
+    },
+    {
+      "slug": "bible-study-fellowship",
+      "section": "community",
+      "category": "Our Community",
+      "title": "Bible Study & Fellowship",
+      "summary": "The parish’s fellowship groups make space for Bible study, honest conversation, friendship and spiritual growth.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "Learning and growing together",
+          "paragraphs": [
+            "The parish describes fellowship and Bible study groups as an important part of church life. Their purpose is to make room for personal discovery and spiritual growth as people learn, ask questions and share the joys and challenges of Christian life.",
+            "The previous website described small groups meeting in Westhumble, with weekly gatherings at specific times. Those times and contacts may be out of date, so please ask the parish about current groups before making plans."
+          ]
+        },
+        {
+          "title": "Everyone is welcome",
+          "paragraphs": [
+            "These groups were described as informal and welcoming, with time for conversation and refreshments. Contact the parish to ask whether a group is currently meeting and whether it would suit you."
+          ]
+        }
+      ],
+      "action": "Ask about groups",
+      "href": "contact.html"
+    },
+    {
+      "slug": "pastoral-care",
+      "section": "community",
+      "category": "Our Community",
+      "title": "Pastoral Care",
+      "summary": "The parish seeks to care for one another through spiritual support, practical help and encouragement.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "Care within the parish",
+          "paragraphs": [
+            "The parish describes a community where people seek to share one another’s burdens and offer spiritual support, practical help and encouragement. The older team page listed a Parish Visitor role for pastoral care; the named contact may have changed.",
+            "If you would like to speak with someone, contact the parish and ask about current pastoral support. The church will respond as it is able; this page does not promise a particular service or response time."
+          ]
+        },
+        {
+          "title": "Privacy and safeguarding",
+          "paragraphs": [
+            "The parish says it respects privacy and places importance on confidentiality and safeguarding. Please use the Contact page for current information and share only details needed to make your enquiry."
+          ]
+        }
+      ],
+      "action": "Contact the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "volunteering",
+      "section": "community",
+      "category": "Our Community",
+      "title": "Volunteering",
+      "summary": "Many gifts and practical contributions help support the life of a church community.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "Taking part",
+          "paragraphs": [
+            "The parish describes church life as a shared effort in which people use their time, talents and resources to serve one another and the wider community. The old site does not provide a current list of volunteer roles.",
+            "If you would like to offer help, contact the parish to ask what is currently needed. Any role, training, time commitment and safeguarding requirements should be agreed with the church before it begins."
+          ]
+        }
+      ],
+      "action": "Ask about helping",
+      "href": "contact.html"
+    },
+    {
+      "slug": "supporting-community",
+      "section": "community",
+      "category": "Our Community",
+      "title": "Supporting the Community",
+      "summary": "The parish seeks to serve people in Mickleham and Westhumble through community life and mutual care.",
+      "back": "church-life.html",
+      "sections": [
+        {
+          "title": "A community of care",
+          "paragraphs": [
+            "The church describes its community life as including practical care, social outreach, courses and pastoral support. The old website does not set out a current directory of support services or partner organisations.",
+            "For a current enquiry, contact the parish. The church can let you know what support or signposting is available at present."
+          ]
+        }
+      ],
+      "action": "Contact the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "our-vision",
+      "section": "about",
+      "category": "About our parish",
+      "title": "Our Vision",
+      "summary": "Inspired by God’s love, the parish seeks to grow spiritually, make Jesus Christ known and welcome people at the heart of the community.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "Inspired by God’s love",
+          "paragraphs": [
+            "The parish vision is: “Inspired by God’s Love we seek to grow spiritually, make Jesus Christ known and be a loving, inclusive and welcoming church, at the heart of the community.”",
+            "This vision connects worship, spiritual growth, welcome and service in Mickleham and Westhumble."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "our-churches",
+      "section": "about",
+      "category": "About our parish",
+      "title": "Our Churches",
+      "summary": "The Parish of Mickleham includes St Michael and All Angels in Mickleham and the Chapel of Ease in Westhumble.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "St Michael and All Angels, Mickleham",
+          "paragraphs": [
+            "The parish describes St Michael and All Angels as a historic church at the heart of Mickleham, with Christian worship on the site for more than a thousand years. The church is listed Grade II* according to the old parish website. See Our History for the historical account."
+          ]
+        },
+        {
+          "title": "The Chapel of Ease, Westhumble",
+          "paragraphs": [
+            "Westhumble is the parish’s second church. The old website describes the Chapel of Ease as a former barn and notes a much older chapel ruin further up the lane. See the Westhumble Chapel page for the existing account; details should be checked with the parish before a visit."
+          ]
+        },
+        {
+          "title": "Part of a wider benefice",
+          "paragraphs": [
+            "The old parish welcome describes Mickleham as part of the United Benefice of Leatherhead and Mickleham within the Diocese of Guildford and the Church of England. Please confirm current organisational wording with the parish."
+          ]
+        }
+      ],
+      "action": "Visit both churches",
+      "href": "visit.html"
+    },
+    {
+      "slug": "our-team",
+      "section": "about",
+      "category": "About our parish",
+      "title": "Our Team",
+      "summary": "The parish is served by clergy, churchwardens, staff and volunteers across worship and community life.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "Clergy and parish leadership",
+          "paragraphs": [
+            "The previous team directory listed a Parish Priest, churchwardens and a deputy churchwarden. These roles serve the worshipping community and help care for the parish churches."
+          ]
+        },
+        {
+          "title": "Parish administration and PCC",
+          "paragraphs": [
+            "The old directory also listed a Parish Administrator, PCC Secretary and Treasurer, alongside members of the Parochial Church Council. Current office holders and responsibilities should be confirmed by the parish."
+          ]
+        },
+        {
+          "title": "Worship and music",
+          "paragraphs": [
+            "The earlier team page named an organist and people serving in worship-related roles. Names and arrangements are not repeated here until confirmed."
+          ]
+        },
+        {
+          "title": "Life events",
+          "paragraphs": [
+            "The old directory listed coordinators for baptism, weddings and funerals. Contact the parish for the current enquiry route for each."
+          ]
+        },
+        {
+          "title": "Pastoral care and safeguarding",
+          "paragraphs": [
+            "The older team page named a Parish Visitor for pastoral care and a Parish Safeguarding Officer. Current contacts must be confirmed; see the separate Pastoral Care and Safeguarding pages."
+          ]
+        },
+        {
+          "title": "Electoral Roll and parish magazine",
+          "paragraphs": [
+            "The previous directory also listed an Electoral Roll Officer and parish magazine editors. Contact the parish to confirm the current role-holders and how to get in touch."
+          ]
+        },
+        {
+          "title": "Get in touch",
+          "paragraphs": [
+            "This page intentionally uses role-based information rather than publishing personal phone numbers or email addresses from an older directory. Use the Contact page for the current parish contact directory."
+          ]
+        }
+      ],
+      "action": "Contact the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "electoral-roll",
+      "section": "about",
+      "category": "About our parish",
+      "title": "The Electoral Roll",
+      "summary": "The Electoral Roll is the parish’s formal list of lay members of the Church of England who meet the eligibility requirements.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "What it is",
+          "paragraphs": [
+            "Each Church of England parish maintains an Electoral Roll. Being on the roll records a person’s connection with the parish and allows them to take part in the parish’s governance, subject to the Church’s rules."
+          ]
+        },
+        {
+          "title": "Who can apply",
+          "paragraphs": [
+            "Eligibility depends on the Church of England’s current rules, including age, baptism and a qualifying connection with the parish or regular worship. Please ask the Electoral Roll Officer or parish for the current application form and guidance."
+          ]
+        },
+        {
+          "title": "Applications and privacy",
+          "paragraphs": [
+            "The previous website named an Electoral Roll Officer and included information connected to a past APCM. Dates and contact details may be out of date, so no deadline or named officer is published here. Contact the parish to ask how to apply and how Electoral Roll information is handled."
+          ]
+        }
+      ],
+      "action": "Ask the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "eco-church",
+      "section": "about",
+      "category": "About our parish",
+      "title": "Eco Church",
+      "summary": "The old parish website linked to Eco Church information; current accreditation and activity details need confirmation.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "Caring for creation",
+          "paragraphs": [
+            "The previous parish website included an Eco Church section and an award image. The current status, award level and related activities have not been verified for this migration.",
+            "The parish can share current information about its environmental work when confirmed. For now, contact the church if you would like to ask about this area of parish life."
+          ]
+        }
+      ],
+      "action": "Contact the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "safeguarding",
+      "section": "about",
+      "category": "Safeguarding",
+      "title": "Safeguarding",
+      "summary": "The parish’s safeguarding policy sets out its commitment to a safer church for children, young people and adults.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "A safer church",
+          "paragraphs": [
+            "The safeguarding statement published on the previous parish website says the church is committed to promoting a safer environment, safe recruitment and support, responding promptly to concerns, and offering pastoral care to people affected by abuse or allegations.",
+            "It also describes working with the incumbent, the Parochial Church Council, the Diocesan Safeguarding Adviser and statutory agencies when concerns arise."
+          ]
+        },
+        {
+          "title": "Policy and contacts",
+          "paragraphs": [
+            "The previous policy page said it was agreed in November 2021 and reviewed annually, with the next review stated as July 2026. That review date has passed, so the policy and local contact details need parish confirmation.",
+            "Read the existing parish safeguarding statement for the current published policy and contact information. If you have an immediate safeguarding concern, use the appropriate statutory services."
+          ]
+        }
+      ],
+      "action": "Read the existing safeguarding statement",
+      "href": "https://www.micklehamchurch.org.uk/469890773296.htm"
+    },
+    {
+      "slug": "privacy",
+      "section": "about",
+      "category": "Privacy & GDPR",
+      "title": "Privacy & GDPR",
+      "summary": "The parish publishes privacy information separately from general visitor information.",
+      "back": "about.html",
+      "sections": [
+        {
+          "title": "Privacy information",
+          "paragraphs": [
+            "The previous parish website provides a separate Privacy Statement. Its text was not available for this migration review, so it has not been rewritten or summarised here.",
+            "Use the parish’s existing privacy statement for its published information while the current notice is confirmed for this website."
+          ]
+        }
+      ],
+      "action": "Read the parish Privacy Statement",
+      "href": "https://www.micklehamchurch.org.uk/63762843608.htm"
+    },
+    {
+      "slug": "church-building",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "The Church Building",
+      "summary": "Explore the historic fabric of St Michael and All Angels through the parish’s account of the building.",
+      "back": "our-history.html",
+      "sections": [
+        {
+          "title": "Historic fabric",
+          "paragraphs": [
+            "The parish history describes a church with early Saxon traces and substantial Norman and medieval fabric. Among the features it records are the chancel arch, chancel lancet windows, stone font, Norbury Chapel, medieval tombstones, carved pulpit and six bells.",
+            "The building has been altered over the centuries. Read the fuller Our History account for the parish’s notes on restorations and historic features. Please confirm current opening and visitor arrangements before making a special journey."
+          ]
+        }
+      ],
+      "action": "Read Our History",
+      "href": "our-history.html"
+    },
+    {
+      "slug": "churchyard",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "The Churchyard",
+      "summary": "The churchyard is a place of remembrance and a part of Mickleham’s local history.",
+      "back": "visit.html",
+      "sections": [
+        {
+          "title": "A place of remembrance",
+          "paragraphs": [
+            "The old parish website describes the churchyard as a place of beauty and historical value and points to a guide to its oldest part. It also publishes detailed churchyard regulations covering burials, memorials, flowers and the Book of Remembrance.",
+            "Those regulations were stated as approved by the PCC on 7 November 2023. Because local rules and availability can change, contact the parish for the current regulations, forms and advice before arranging a memorial, planting or burial."
+          ]
+        }
+      ],
+      "action": "Read the regulations",
+      "href": "churchyard-regulations.html"
+    },
+    {
+      "slug": "churchyard-regulations",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "Churchyard Regulations",
+      "summary": "Ask the parish for the current approved churchyard regulations and forms before making arrangements.",
+      "back": "churchyard.html",
+      "sections": [
+        {
+          "title": "Current rules and advice",
+          "paragraphs": [
+            "The previous parish website published regulations approved by the Mickleham Parochial Church Council on 7 November 2023. They cover burial eligibility, memorials, flowers, planting, cremated remains and the Book of Remembrance.",
+            "As these rules are locally approved and date-sensitive, this page does not reproduce them as current. Please contact the parish for the latest version and any required forms before taking action."
+          ]
+        }
+      ],
+      "action": "Contact the parish",
+      "href": "contact.html"
+    },
+    {
+      "slug": "norman-architecture",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "Norman Architecture",
+      "summary": "The parish history identifies several Norman features within St Michael and All Angels.",
+      "back": "our-history.html",
+      "sections": [
+        {
+          "title": "Features described in the parish history",
+          "paragraphs": [
+            "The parish history describes the chancel arch as Norman, with chevron and dog-tooth ornament, and records the chancel lancet windows and stone font as early features. It places much of the present church in the Norman period, around the late twelfth century.",
+            "The same historical account describes earlier Saxon traces and later restoration. For context and the full story, see Our History. This page follows the parish account and is not a formal architectural assessment."
+          ]
+        }
+      ],
+      "action": "Explore the full history",
+      "href": "our-history.html"
+    },
+    {
+      "slug": "finding-us",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "Find Us",
+      "summary": "St Michael and All Angels is on Old London Road in Mickleham; Westhumble Chapel is on Crabtree Lane.",
+      "back": "visit.html",
+      "sections": [
+        {
+          "title": "St Michael and All Angels, Mickleham",
+          "paragraphs": [
+            "Old London Road, Mickleham, Dorking, Surrey RH5 6DU, England.",
+            "The old parish visitor information describes a bike rack by the main entrance and the 465 bus stopping outside the church. It also says Box Hill & Westhumble station is about 1.4 miles away, a walk of around 30 minutes. Bus routes, facilities and journey times can change; check current travel information before setting out."
+          ]
+        },
+        {
+          "title": "Chapel of Ease, Westhumble",
+          "paragraphs": [
+            "Crabtree Lane, Westhumble, Surrey RH5 6BG. The previous parish website gives this address. Please contact the parish if you need help confirming the precise entrance or current access arrangements."
+          ]
+        },
+        {
+          "title": "Map and access",
+          "paragraphs": [
+            "Use the map link for directions to St Michael and All Angels. The website does not yet have verified information about step-free access, parking or facilities, so please contact the parish if you need access information before your visit."
+          ]
+        }
+      ],
+      "action": "Open map directions",
+      "href": "https://maps.google.com/?q=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU"
+    },
+    {
+      "slug": "what-to-expect",
+      "section": "visit",
+      "category": "Visit & Learn",
+      "title": "What to Expect",
+      "summary": "You are welcome to visit, take your time and join in with worship as much or as little as feels comfortable.",
+      "back": "visit.html",
+      "sections": [
+        {
+          "title": "A warm welcome",
+          "paragraphs": [
+            "The parish welcomes visitors to its services and activities. You may take time to settle in, sit quietly, and ask someone if you need help.",
+            "Service formats vary. Check the Calendar for current service details, and contact the parish if you have a question about what to expect or need to confirm practical arrangements."
+          ]
+        }
+      ],
+      "action": "See worship information",
+      "href": "worship.html"
+    },
+    {
+      "slug": "war-memorial",
+      "section": "visit",
+      "category": "Local History",
+      "title": "Mickleham War Memorial",
+      "summary": "The war memorial stands in the churchyard at St Michael’s and commemorates local people who died in the two world wars.",
+      "back": "our-history.html",
+      "sections": [
+        {
+          "title": "Remembering local history",
+          "paragraphs": [
+            "The old parish website says the Mickleham War Memorial is in the churchyard of St Michael’s and bears the names of 11 men who died in the First World War and 11 who died in the Second World War. The Mickleham & Westhumble Local History Group produced an illustrated booklet with information about those commemorated.",
+            "The booklet and memorial details are linked from the earlier parish website. Contact the parish or local history group to confirm current access to the booklet."
+          ]
+        }
+      ],
+      "action": "Find the church",
+      "href": "finding-us.html"
+    },
+    {
+      "slug": "parish-magazine",
+      "section": "community",
+      "category": "News & Parish Magazine",
+      "title": "Parish Magazine",
+      "summary": "The parish magazine shares news and reflections from across Mickleham and Westhumble.",
+      "back": "news.html",
+      "sections": [
+        {
+          "title": "News from across the parish",
+          "paragraphs": [
+            "The old website linked to a current parish magazine edition and identified the magazine as a place for parish and village news. That issue link and editor contacts may now be out of date.",
+            "The new website’s News & Magazine section is ready to hold approved articles and updates. Use the News page for current published items; contact the parish if you are looking for a recent magazine edition."
+          ]
+        }
+      ],
+      "action": "Read News & Magazine",
+      "href": "news.html"
+    }
   ]
 }

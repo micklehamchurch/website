@@ -21,7 +21,9 @@ for (const article of data.articles) {
   if (slugs.has(article.slug)) throw new Error(`Duplicate news article slug: ${article.slug}`);
   slugs.add(article.slug);
 }
-const articles = data.articles.filter(article => (article.status || 'published') === 'published');
+// Fictional development samples remain in the repository for reference, but
+// are never written to the public listing, article pages, or search index.
+const articles = data.articles.filter(article => (article.status || 'published') === 'published' && article.demo !== true);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
 // The browser consumes this published-only projection. Draft text stays in
@@ -36,7 +38,6 @@ for (const article of articles) {
   const galleryLink = article.galleryLink
     ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
     : '';
-  const demoNotice = article.demo === false ? '' : '<div class="demo-notice article-demo-notice" role="note"><strong>SAMPLE / DEMO CONTENT — FICTIONAL</strong><p>This article and its date are fictional demonstration content. It is not a real church announcement, event or reflection.</p></div>';
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -65,7 +66,6 @@ for (const article of articles) {
     <div class="container article-container">
       <a class="article-back" href="news.html">← Back to News &amp; Magazine</a>
       <article class="article-content">
-        ${demoNotice}
         <p class="eyebrow">${escapeHtml(article.category)}</p>
         <h1>${escapeHtml(article.title)}</h1>
         <p class="sample-date">${escapeHtml(article.dateLabel)}</p>

@@ -11,7 +11,8 @@
         "This fictional weekly note shows how a concise parish update might bring together a few useful reminders in one place. It is a layout example only; no real announcement is being made.",
         "A finished edition could share approved information about volunteering, seasonal preparations, community support or where to find the latest parish magazine. The parish team would add confirmed details before publication.",
         "Thank you for exploring this sample. Please check the church's approved channels for genuine information."
-      ]
+      ],
+      "status": "draft"
     },
     {
       "slug": "imaginary-autumn-gathering",
@@ -23,7 +24,8 @@
         "This entirely imaginary gathering is an example of the kind of event story that could appear in the parish news. Its title and sample date are invented for this demonstration and do not describe an actual event.",
         "A real event page could include confirmed accessibility information, venue details and a link to the parish calendar once the organisers have approved them.",
         "No event time or venue is supplied here because this is sample content rather than a real invitation."
-      ]
+      ],
+      "status": "draft"
     },
     {
       "slug": "from-the-vicars-desk-sample",
@@ -35,7 +37,8 @@
         "SAMPLE REFLECTION — This is an invented writing example, not a message from the parish vicar or any real member of clergy.",
         "There is a quiet kindness in making room to listen. A shared pause can help neighbours feel seen, and can remind us that community is built through attention as much as through grand gestures.",
         "A future column could offer a brief seasonal thought, a question for reflection or a note of encouragement. The real writer and wording would be supplied and approved by the parish."
-      ]
+      ],
+      "status": "draft"
     },
     {
       "slug": "neighbourhood-kindness-demo",
@@ -47,7 +50,8 @@
         "This made-up story imagines a community noticeboard where neighbours can share small acts of kindness. It is a demonstration of a possible story format, not a report of a real parish project.",
         "Community news could include approved updates from local groups, thoughtful reflections on shared life or a thank-you to volunteers—with permission from anyone named or pictured.",
         "The parish team would provide verified details and consent before a genuine story appeared here."
-      ]
+      ],
+      "status": "draft"
     },
     {
       "slug": "season-of-light-demo",
@@ -59,7 +63,8 @@
         "This sample seasonal notice uses an invented date and wording to show how a parish message might be presented at a particular time of year. It does not announce a real service or activity.",
         "When the parish supplies approved seasonal information, the notice could include confirmed arrangements and links to any related pages. No service times or real event details are included in this example.",
         "All copy in this card is demonstration text only."
-      ]
+      ],
+      "status": "draft"
     },
     {
       "slug": "gallery-story-demo",
@@ -72,7 +77,8 @@
         "This fictional photo-story demonstrates how a short article can introduce an approved gallery and help visitors explore images from parish life.",
         "The gallery link below leads to the website's existing gallery page. This sample does not claim that any pictured event happened or that the gallery contains images associated with this fictional story.",
         "For real photo stories, the parish team can add a caption, context and images that have been approved for publication."
-      ]
+      ],
+      "status": "draft"
     }
   ]
 }

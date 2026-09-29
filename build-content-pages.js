@@ -13,8 +13,10 @@ for (const page of pages) {
     const generated = /<meta\s+name=["']generated-topic-page["']\s+content=["']true["']\s*\/?\s*>/i.test(existing) || /<strong>DEMONSTRATION PAGE · SAMPLE COPY AND IMAGE<\/strong>/.test(existing);
     if (!generated) throw new Error(`Refusing to replace a hand-maintained page: ${page.slug}.html`);
   }
-  const related = `<a class="btn btn-green" href="${esc(page.href)}">${esc(page.action)} <span aria-hidden="true">→</span></a> <a class="btn btn-outline-green" href="${esc(page.back)}">More in ${esc(page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn')}</a>`;
-  const paragraphs = page.paragraphs.map(paragraph => `<p>${esc(paragraph)}</p>`).join('\n          ');
+  const backLabel = page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn';
+  const related = `${page.href && page.action ? `<a class="btn btn-green" href="${esc(page.href)}">${esc(page.action)} <span aria-hidden="true">→</span></a>` : ''} <a class="btn btn-outline-green" href="${esc(page.back)}">More in ${esc(backLabel)}</a>`;
+  const paragraphs = (page.sections || [{ paragraphs: page.paragraphs || [] }]).map(section => `${section.title ? `<section class="topic-content-section"><h2>${esc(section.title)}</h2>` : '<section class="topic-content-section">'}${(section.paragraphs || []).map(paragraph => `<p>${esc(paragraph)}</p>`).join('\n          ')}${section.items ? `<ul>${section.items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>` : ''}</section>`).join('\n          ');
+  const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy"></figure>` : '';
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -41,19 +43,15 @@ for (const page of pages) {
   <main id="main-content" class="section topic-page" tabindex="-1">
     <div class="container topic-container">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn')}</a>
-      <div class="topic-grid">
+      <div class="topic-grid${page.image ? '' : ' topic-grid-text-only'}">
         <article class="topic-copy">
-          <div class="demo-notice topic-demo-notice" role="note"><strong>DEMONSTRATION PAGE · SAMPLE COPY AND IMAGE</strong><p>This is an example for the website design. The image is generated illustration, not a photograph of this parish. Replace the sample copy and image with church-approved material before publication.</p></div>
           <p class="eyebrow">${esc(page.category)}</p>
           <h1>${esc(page.title)}</h1>
           <p class="topic-lead">${esc(page.summary)}</p>
           <div class="topic-body">${paragraphs}</div>
           <div class="topic-actions">${related}</div>
         </article>
-        <figure class="topic-image">
-          <img src="${esc(page.image)}" alt="${esc(page.alt)}" loading="lazy">
-          <figcaption>${esc(page.imageCaption)}</figcaption>
-        </figure>
+        ${image}
       </div>
     </div>
   </main>
@@ -72,4 +70,4 @@ for (const name of fs.readdirSync(root)) {
   if (/<meta\s+name=["']generated-topic-page["']\s+content=["']true["']\s*\/?\s*>/i.test(html)) fs.unlinkSync(file);
 }
 
-console.log(`Built ${pages.length} demonstration topic pages from content-pages.json.`);
+console.log(`Built ${pages.length} topic pages from content-pages.json.`);
