@@ -49,6 +49,19 @@ const renderEcoChurchContent = page => {
     <section class="eco-involved-section" aria-labelledby="eco-involved-heading"><p class="eyebrow">A shared part of parish life</p><h2 id="eco-involved-heading">${esc(page.involvedTitle)}</h2><p>${esc(page.involvedText)}</p><a class="btn btn-green" href="mailto:${esc(page.involvedEmail)}">Email the churchwardens <span aria-hidden="true">→</span></a></section>
   </div>`;
 };
+const renderFellowshipContent = page => {
+  const themes = page.themes.map(theme => `<article class="fellowship-theme"><span aria-hidden="true">${esc(theme.mark)}</span><div><h3>${esc(theme.title)}</h3><p>${esc(theme.text)}</p></div></article>`).join('');
+  const groups = page.groups.map(group => `<article class="fellowship-group-card"><p class="fellowship-group-day">${esc(group.day)}</p><h3>${esc(group.title)}</h3><dl><div><dt>Time</dt><dd>${esc(group.time)}</dd></div><div><dt>Place</dt><dd>${esc(group.place)}</dd></div></dl></article>`).join('');
+  const links = page.related.map(link => `<a class="fellowship-related-card" href="${esc(link.href)}"><span>${esc(link.label)}</span><strong>${esc(link.title)} <span aria-hidden="true">→</span></strong></a>`).join('');
+  return `<div class="fellowship-content">
+    <section class="fellowship-growing" aria-labelledby="fellowship-growing-heading"><div class="fellowship-section-intro"><p class="eyebrow">Growing together</p><h2 id="fellowship-growing-heading">${esc(page.growingTitle)}</h2><p>${esc(page.growingIntro)}</p></div><div class="fellowship-themes">${themes}</div></section>
+    <section class="fellowship-regular" aria-labelledby="fellowship-groups-heading"><div class="fellowship-section-intro"><p class="eyebrow">Regular groups</p><h2 id="fellowship-groups-heading">${esc(page.groupsTitle)}</h2><p>${esc(page.groupsIntro)}</p></div><div class="fellowship-groups-grid">${groups}</div></section>
+    <section class="fellowship-welcome" aria-labelledby="fellowship-welcome-heading"><div><p class="eyebrow">Everyone is welcome</p><h2 id="fellowship-welcome-heading">${esc(page.welcomeTitle)}</h2></div><p>${esc(page.welcomeText)}</p></section>
+    <section class="fellowship-seasonal" aria-labelledby="fellowship-seasonal-heading"><p class="eyebrow">At particular seasons</p><h2 id="fellowship-seasonal-heading">${esc(page.seasonalTitle)}</h2><p>${esc(page.seasonalText)}</p></section>
+    <section class="fellowship-contact" aria-labelledby="fellowship-contact-heading"><div><p class="eyebrow">Find out more</p><h2 id="fellowship-contact-heading">${esc(page.contactTitle)}</h2><p>${esc(page.contactText)}</p></div><div class="fellowship-contact-actions"><a class="btn btn-green" href="mailto:${esc(page.contactEmail)}">Ask about a Bible Study Group <span aria-hidden="true">→</span></a><a class="fellowship-directory-link" href="${esc(page.contactDirectory)}">Parish Contact Directory</a></div></section>
+    <nav class="fellowship-related" aria-label="Related parish pages"><p class="eyebrow">More in parish life</p><div class="fellowship-related-grid">${links}</div></nav>
+  </div>`;
+};
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -62,6 +75,7 @@ for (const page of pages) {
   const isSafeguarding = page.layout === 'safeguarding';
   const isElectoralRoll = page.layout === 'electoral-roll';
   const isEcoChurch = page.layout === 'eco-church';
+  const isFellowship = page.layout === 'fellowship';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -88,11 +102,14 @@ for (const page of pages) {
   const safeguardingStylesheet = isSafeguarding ? '  <link rel="stylesheet" href="safeguarding.css">\n' : '';
   const electoralStylesheet = isElectoralRoll ? '  <link rel="stylesheet" href="electoral-roll.css">\n' : '';
   const ecoStylesheet = isEcoChurch ? '  <link rel="stylesheet" href="eco-church.css">\n' : '';
+  const fellowshipStylesheet = isFellowship ? '  <link rel="stylesheet" href="fellowship.css">\n' : '';
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
-  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
-  const pageStructure = isEcoChurch
+  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
+  const pageStructure = isFellowship
+    ? `<div class="fellowship-hero"><p class="eyebrow">${esc(page.category)}</p><h1>${esc(page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p></div>${pageContent}`
+    : isEcoChurch
     ? `<div class="topic-grid eco-hero-grid">
         <article class="topic-copy eco-hero-copy">
           <p class="eyebrow">${esc(page.category)}</p>
@@ -126,7 +143,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -136,7 +153,7 @@ ${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStyleshe
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : ''}" tabindex="-1">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : ''}" tabindex="-1">
     <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
       ${pageStructure}

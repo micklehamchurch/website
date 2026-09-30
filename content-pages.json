@@ -222,30 +222,81 @@
     {
       "slug": "bible-study-fellowship",
       "section": "community",
-      "category": "Our Community",
-      "title": "Bible Study & Fellowship",
-      "summary": "The parish’s fellowship groups make space for Bible study, honest conversation, friendship and spiritual growth.",
+      "category": "Community & Faith",
+      "title": "Fellowship & Bible Study Groups",
+      "summary": "Fellowship and Bible study groups are an important part of parish community life: a place to study the Bible, ask questions, share experiences and grow together.",
       "back": "church-life.html",
-      "sections": [
+      "layout": "fellowship",
+      "growingTitle": "Learning, sharing and growing together",
+      "growingIntro": "In a safe, confidential and non-judgemental setting, people can explore faith together, learn, ask questions and take part in one another’s lives.",
+      "themes": [
         {
-          "title": "Learning and growing together",
-          "paragraphs": [
-            "The parish describes fellowship and Bible study groups as an important part of church life. Their purpose is to make room for personal discovery and spiritual growth as people learn, ask questions and share the joys and challenges of Christian life.",
-            "The previous website described small groups meeting in Westhumble, with weekly gatherings at specific times. Those times and contacts may be out of date, so please ask the parish about current groups before making plans."
-          ]
+          "mark": "§",
+          "title": "Explore the Bible",
+          "text": "Study Scripture together and make space for personal discovery and spiritual growth."
         },
         {
-          "title": "Everyone is welcome",
-          "paragraphs": [
-            "These groups were described as informal and welcoming, with time for conversation and refreshments. Contact the parish to ask whether a group is currently meeting and whether it would suit you."
-          ]
+          "mark": "?",
+          "title": "Ask questions",
+          "text": "Share thoughts openly and learn alongside others in a safe, confidential and non-judgemental environment."
+        },
+        {
+          "mark": "♡",
+          "title": "Share life",
+          "text": "Talk about the joys and challenges of being a Christian in society today, and share refreshments."
+        },
+        {
+          "mark": "↗",
+          "title": "Build friendships",
+          "text": "Smaller meetings help relationships to develop, strengthening a sense of community and belonging."
         }
       ],
-      "action": "Ask about groups",
-      "href": "contact.html",
-      "image": "assets/demo/community-gathering-demo.png",
-      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of the parish community.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "groupsTitle": "Meet during the week",
+      "groupsIntro": "Two regular Bible study groups meet weekly in Westhumble. Everyone is welcome.",
+      "groups": [
+        {
+          "day": "Monday",
+          "title": "Monday Bible Study Group",
+          "time": "7:45 pm",
+          "place": "Westhumble"
+        },
+        {
+          "day": "Thursday",
+          "title": "Thursday Bible Study Group",
+          "time": "11:00 am",
+          "place": "Westhumble"
+        }
+      ],
+      "welcomeTitle": "Come as you are",
+      "welcomeText": "New members are always welcome. You do not need to be an expert in the Bible or theology to join. These informal groups are a chance to study, ask questions, share refreshments and get to know one another better.",
+      "seasonalTitle": "Groups through the seasons",
+      "seasonalText": "At particular seasons in life and in the church calendar, shorter fixed-length groups may also meet.",
+      "contactTitle": "Interested in joining?",
+      "contactText": "Contact the parish office to ask about joining a Bible study group or to check the current arrangements.",
+      "contactEmail": "admin@micklehamchurch.org.uk",
+      "contactDirectory": "parish-contact-directory.html",
+      "related": [
+        {
+          "label": "Explore faith",
+          "title": "Alpha Course",
+          "href": "alpha.html"
+        },
+        {
+          "label": "Prayer",
+          "title": "Prayer",
+          "href": "prayer.html"
+        },
+        {
+          "label": "Worship",
+          "title": "Worship",
+          "href": "worship.html"
+        },
+        {
+          "label": "Our Community",
+          "title": "Church life",
+          "href": "church-life.html"
+        }
+      ]
     },
     {
       "slug": "pastoral-care",
