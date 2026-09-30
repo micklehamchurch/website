@@ -63,6 +63,18 @@ const renderFellowshipContent = page => {
     <nav class="fellowship-related" aria-label="Related parish pages"><p class="eyebrow">More in parish life</p><div class="fellowship-related-grid">${links}</div></nav>
   </div>`;
 };
+const renderChildrenFamiliesContent = page => {
+  const cards = page.schoolCommunities.map((school, index) => `<article class="family-school-card"><p class="eyebrow">${esc(school.label)}</p><h3>${esc(school.name)}</h3><p>${esc(school.description)}</p><span class="family-school-mark" aria-hidden="true">${index === 0 ? '✦' : '♫'}</span></article>`).join('');
+  const quickLinks = page.firstVisitLinks.map(link => `<a class="family-quick-link" href="${esc(link.href)}"><span>${esc(link.label)}</span><strong>${esc(link.title)} <span aria-hidden="true">→</span></strong></a>`).join('');
+  return `<div class="family-content">
+    <section class="family-welcome" aria-labelledby="family-welcome-heading"><div class="family-section-copy"><p class="eyebrow">A place to grow together</p><h2 id="family-welcome-heading">${esc(page.welcomeTitle)}</h2><p>${esc(page.welcomeText)}</p></div><aside class="family-welcome-note"><span class="family-mark" aria-hidden="true">✝</span><p>${esc(page.welcomeAside)}</p></aside></section>
+    <section class="family-services" aria-labelledby="family-services-heading"><div class="family-section-copy"><p class="eyebrow">Worship for all ages</p><h2 id="family-services-heading">${esc(page.servicesTitle)}</h2><p>${esc(page.servicesIntro)}</p></div><div class="family-service-details">${page.serviceDetails.map(item => `<p><span aria-hidden="true">${esc(item.mark)}</span>${esc(item.text)}</p>`).join('')}</div><p class="family-calendar-note">${esc(page.servicesNote)}</p><a class="btn btn-green" href="calendar.html">See the church calendar <span aria-hidden="true">→</span></a></section>
+    <section class="family-schools" aria-labelledby="family-schools-heading"><div class="family-section-heading"><p class="eyebrow">Mickleham &amp; Westhumble</p><h2 id="family-schools-heading">${esc(page.schoolsTitle)}</h2><p>${esc(page.schoolsIntro)}</p></div><div class="family-school-grid">${cards}</div><p class="family-source-context">${esc(page.schoolsNote)}</p></section>
+    <section class="family-seasons" aria-labelledby="family-seasons-heading"><div><p class="eyebrow">Throughout the church year</p><h2 id="family-seasons-heading">${esc(page.seasonsTitle)}</h2><p>${esc(page.seasonsIntro)}</p></div><ul>${page.seasons.map(season => `<li>${esc(season)}</li>`).join('')}</ul><p class="family-calendar-note">${esc(page.seasonsNote)}</p></section>
+    <section class="family-first-visit" aria-labelledby="family-first-visit-heading"><p class="eyebrow">A first visit</p><h2 id="family-first-visit-heading">${esc(page.firstVisitTitle)}</h2><p>${esc(page.firstVisitIntro)}</p><nav class="family-quick-links" aria-label="Helpful pages for families">${quickLinks}</nav></section>
+    <section class="family-invitation" aria-labelledby="family-invitation-heading"><div><p class="eyebrow">You are welcome here</p><h2 id="family-invitation-heading">${esc(page.invitationTitle)}</h2><p>${esc(page.invitationText)}</p></div><div class="family-invitation-actions"><a class="btn btn-green" href="worship.html">Explore worship <span aria-hidden="true">→</span></a><a class="family-contact-link" href="contact.html">Contact the parish</a></div></section>
+  </div>`;
+};
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -77,6 +89,7 @@ for (const page of pages) {
   const isElectoralRoll = page.layout === 'electoral-roll';
   const isEcoChurch = page.layout === 'eco-church';
   const isFellowship = page.layout === 'fellowship';
+  const isChildrenFamilies = page.layout === 'children-families';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -105,11 +118,14 @@ for (const page of pages) {
   const electoralStylesheet = isElectoralRoll ? '  <link rel="stylesheet" href="electoral-roll.css">\n' : '';
   const ecoStylesheet = isEcoChurch ? '  <link rel="stylesheet" href="eco-church.css">\n' : '';
   const fellowshipStylesheet = isFellowship ? '  <link rel="stylesheet" href="fellowship.css">\n' : '';
+  const familyStylesheet = isChildrenFamilies ? '  <link rel="stylesheet" href="children-families.css">\n' : '';
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
-  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
-  const pageStructure = isFellowship
+  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
+  const pageStructure = isChildrenFamilies
+    ? `<div class="family-hero"><p class="eyebrow">CHILDREN &amp; FAMILIES</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="family-hero-links"><a class="btn btn-green" href="calendar.html">Find a service <span aria-hidden="true">→</span></a><a class="family-contact-link" href="finding-us.html">Find the church</a></div></div>${pageContent}`
+    : isFellowship
     ? `<div class="fellowship-hero"><p class="eyebrow">${esc(page.category)}</p><h1>${esc(page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p></div>${pageContent}`
     : isEcoChurch
     ? `<div class="topic-grid eco-hero-grid">
@@ -145,7 +161,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -155,7 +171,7 @@ ${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStyleshe
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : ''}" tabindex="-1">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : ''}" tabindex="-1">
     <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
       ${pageStructure}

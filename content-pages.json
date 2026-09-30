@@ -154,34 +154,82 @@
       "section": "community",
       "category": "Our Community",
       "title": "Children & Families",
-      "summary": "Children and families are warmly welcomed into worship and parish life.",
+      "summary": "Children and young people are encouraged to grow in Christian faith, with support for parents and families as they learn about God and share in the life of the church.",
       "back": "church-life.html",
-      "sections": [
+      "sections": [],
+      "action": "Explore worship",
+      "href": "worship.html",
+      "layout": "children-families",
+      "heroTitle": "A church for every generation",
+      "welcomeTitle": "Children are welcome here",
+      "welcomeText": "The parish seeks to encourage children and young people to develop their own Christian faith, while supporting parents and families as they learn about God. The hope is that each person can grow in confidence, discover the gifts God has given them and find support for life’s challenges.",
+      "welcomeAside": "Children, students and young families are invited to share in a loving church community, where there is room for fun as well as learning about God.",
+      "servicesTitle": "Family Services",
+      "servicesIntro": "The parish has described Family Services as worship shaped to be accessible across different ages. The approach is informal yet structured, with multimedia gospel presentations.",
+      "serviceDetails": [
         {
-          "title": "Worship together",
-          "paragraphs": [
-            "The parish’s previous service information welcomed families at services and described a carpeted area with resources for children. It also mentioned a creche in the vestry at some services. Please contact the church to confirm what is currently available.",
-            "The older service guide described a family service as part of its monthly pattern; check the Calendar for current arrangements."
-          ]
+          "mark": "◌",
+          "text": "Worship and presentations intended to be enjoyed by all ages"
         },
         {
-          "title": "Baptism",
-          "paragraphs": [
-            "The parish welcomes enquiries about baptism for children and adults. Read the Baptisms page to learn more and contact the church about current arrangements."
-          ]
+          "mark": "✦",
+          "text": "Multimedia used to support gospel presentations"
         },
         {
-          "title": "Safeguarding",
-          "paragraphs": [
-            "The church takes safeguarding seriously. If you have a question or concern, use the Safeguarding link in the site footer or contact the parish through the Contact page."
-          ]
+          "mark": "＋",
+          "text": "Refreshments and time to catch up together afterwards"
         }
       ],
-      "action": "Read about Baptisms",
-      "href": "baptisms.html",
-      "image": "assets/demo/community-gathering-demo.png",
-      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of the parish community.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "servicesNote": "For forthcoming service dates and times, use the live church calendar.",
+      "schoolsTitle": "Connected with local schools",
+      "schoolsIntro": "The parish has welcomed two nearby school communities into the life of the Parish Church.",
+      "schoolCommunities": [
+        {
+          "label": "PARISH SCHOOL COMMUNITY",
+          "name": "St Michael’s C of E (A) Infant School",
+          "description": "The church has hosted monthly assemblies and special services. Assemblies at the school have also been led by the parish priest. The parish has described workshops associated with Mothering Sunday, Harvest Festival and Christingle."
+        },
+        {
+          "label": "SCHOOL COMMUNITY",
+          "name": "RGS Surrey Hills",
+          "description": "The school community has joined services in church and used the church for concerts and recitals."
+        }
+      ],
+      "schoolsNote": "For current school activities and arrangements, please contact the parish.",
+      "seasonsTitle": "Marking the seasons together",
+      "seasonsIntro": "Family worship and school workshops have been associated with moments in the church year, with creative activities and time to gather.",
+      "seasons": [
+        "Mothering Sunday",
+        "Harvest Festival",
+        "Christingle"
+      ],
+      "seasonsNote": "Check the Calendar for current services and events; dates and programmes can vary.",
+      "firstVisitTitle": "New to church?",
+      "firstVisitIntro": "Bringing children is welcome. These pages can help you plan a visit and find current information.",
+      "firstVisitLinks": [
+        {
+          "label": "WORSHIP",
+          "title": "Service information",
+          "href": "worship.html"
+        },
+        {
+          "label": "WHAT’S ON",
+          "title": "Calendar",
+          "href": "calendar.html"
+        },
+        {
+          "label": "VISIT",
+          "title": "Find the church",
+          "href": "finding-us.html"
+        },
+        {
+          "label": "GET IN TOUCH",
+          "title": "Contact the parish",
+          "href": "contact.html"
+        }
+      ],
+      "invitationTitle": "Come and join us",
+      "invitationText": "Whether you are exploring church for the first time or returning with your family, you are warmly invited to find a service that suits you and be in touch if you have a question."
     },
     {
       "slug": "alpha",
