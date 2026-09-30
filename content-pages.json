@@ -494,28 +494,136 @@
     },
     {
       "slug": "privacy",
-      "section": "visit",
+      "section": "about",
       "category": "Privacy & GDPR",
       "title": "Privacy & GDPR",
-      "summary": "The parish’s privacy statement explains how personal information is handled. Its confirmed wording is being sought before this page is completed.",
-      "back": "visit.html",
+      "summary": "This is the Data Privacy Notice of the Parochial Church Council (PCC) of St. Michael and All Angels Church, Mickleham.",
+      "back": "about.html",
+      "parentLabel": "About our parish",
+      "layout": "privacy",
+      "documentHeading": {
+        "formTitle": "Data Privacy Consent Form",
+        "regulationTitle": "General Data Protection Regulation",
+        "noticeTitle": "Data Privacy Notice",
+        "controller": "The Parochial Church Council (PCC) of St. Michael and All Angels Church, Mickleham (St. Michael’s)"
+      },
       "sections": [
         {
-          "title": "Privacy statement",
+          "title": "1. Your personal data - what is it?",
           "paragraphs": [
-            "The full parish Privacy Statement was not available in the material migrated for this website. Its approved wording is being confirmed with the parish.",
-            "To avoid replacing the approved statement with unverified wording, this page does not set out policy terms. The confirmed statement can be added here once it is supplied and reviewed."
+            "Personal data relates to a living individual who can be identified from that data (for example a name, address, email address, photographs or videos). Identification can be by the information alone or in conjunction with any other information in the data controller’s possession or likely to come into such possession. The processing of personal data is governed by the General Data Protection Regulation (“the GDPR”)."
           ]
         },
         {
-          "title": "Contact the parish",
+          "title": "2. Who are we?",
           "paragraphs": [
-            "For a general parish enquiry while the statement is being confirmed, please use the Contact page."
+            "The PCC of St. Michael’s is the data controller (contact details below). This means it decides how your personal data is processed and for what purposes."
+          ]
+        },
+        {
+          "title": "3. How do we process your personal data?",
+          "paragraphs": [
+            "The PCC of St. Michael’s complies with its obligations under the GDPR by keeping personal data up to date; by storing and destroying it securely; by not collecting or retaining excessive amounts of data; by protecting personal data from loss, misuse, unauthorised access and disclosure and by ensuring that appropriate technical measures are in place to protect personal data.",
+            "We use your personal data for the following purposes:"
+          ],
+          "items": [
+            "To enable us to meet all legal, contractual and statutory obligations (which include maintaining and publishing our Electoral Roll in accordance with the Church Representation Rules).",
+            "To carry out comprehensive safeguarding procedures (including due diligence and complaints handling) in accordance with best safeguarding practice from time to time with the aim of ensuring that all children and adults-at-risk are provided with safe environments.",
+            "To enable us to provide a voluntary service for the benefit of the public in a particular geographical area as specified in our constitution.",
+            "To administer membership records.",
+            "To fundraise and promote the interests of the charity.",
+            "To manage our employees and volunteers.",
+            "To maintain our own accounts and records (including the processing of Gift Aid applications).",
+            "To inform you of news, events, activities and services running at St. Michael’s.",
+            "To share your contact details with the Diocesan office so they can keep you informed about news in the Diocese and events, activities and services that will be occurring in the Diocese and in which you may be interested."
+          ]
+        },
+        {
+          "title": "4. What is the legal basis for processing your personal data?",
+          "items": [
+            "Explicit consent of the data subject so that we can keep you informed about news, events, activities and services and keep you informed about diocesan events.",
+            "Processing is necessary for carrying out legal and contractual obligations in relation to Gift Aid.",
+            {
+              "text": "Processing is carried out by a not-for-profit body with a religious aim provided:",
+              "children": [
+                "the processing relates only to members or former members (or those who have regular contact with it in connection with those purposes), and",
+                "there is no disclosure to a third party without consent."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "5. Sharing your personal data",
+          "paragraphs": [
+            "Your personal data will be treated as strictly confidential and will only be shared with other members of the church in order to carry out a service to other church members or for purposes connected with the church. We will only share your data with third parties outside the parish with your consent."
+          ]
+        },
+        {
+          "title": "6. How long do we keep your personal data?",
+          "variant": "retention",
+          "footnoteRef": "1",
+          "paragraphs": [
+            "We keep data in accordance with the guidance set out in the guide “Keep or Bin: Care of Your Parish Records” which is available from the Church of England website [see footnote for link].",
+            "Specifically, we retain electoral roll data while it is still current; Gift Aid declarations and associated paperwork for up to 6 years after the calendar year to which they relate; financial records for a minimum period of 7 years to support HMRC audits; Charity Commission audits and parish registers (baptisms, marriages, funerals) permanently."
+          ]
+        },
+        {
+          "title": "7. Your rights and your personal data",
+          "paragraphs": [
+            "Unless subject to an exemption under the GDPR, you have the following rights with respect to your personal data:"
+          ],
+          "items": [
+            "The right to request a copy of your personal data which the PCC of St. Michael’s holds about you.",
+            "The right to request that the PCC of St. Michael’s corrects any personal data if it is found to be inaccurate or out of date.",
+            "The right to request your personal data is erased where it is no longer necessary for the PCC of St. Michael’s to retain such data.",
+            "The right to withdraw your consent to the processing at any time.",
+            "The right to request that the data controller provide the data subject with his/her personal data and where possible, to transmit that data directly to another data controller, (known as the right to data portability), (where applicable).",
+            "The right, where there is a dispute in relation to the accuracy or processing of your personal data, to request a restriction is placed on further processing.",
+            "The right to object to the processing of personal data, (where applicable).",
+            "The right to lodge a complaint with the Information Commissioners Office."
+          ]
+        },
+        {
+          "title": "8. Further processing",
+          "paragraphs": [
+            "If we wish to use your personal data for a new purpose, not covered by this Data Protection Notice, then we will provide you with a new notice explaining this new use prior to commencing the processing and setting out the relevant purposes and processing conditions. Where and whenever necessary, we will seek your prior consent to the new processing."
+          ]
+        },
+        {
+          "title": "9. Contact Details",
+          "variant": "contact",
+          "paragraphs": [
+            "To exercise all relevant rights, queries or complaints please in the first instance contact:"
           ]
         }
       ],
-      "action": "Contact the parish",
-      "href": "contact.html"
+      "contactDetails": {
+        "controllerName": "The Data Controller, the PCC of St. Michael’s",
+        "email": "admin@micklehamchurch.org.uk",
+        "phone": "01372 376443",
+        "address": [
+          "St. Michael and All Angels Church",
+          "Old London Road",
+          "Mickleham",
+          "Surrey RH5 6DU"
+        ],
+        "icoName": "Information Commissioner’s Office",
+        "icoSentenceBeforePhone": "You can contact the Information Commissioners Office on",
+        "icoPhone": "0303 123 1113",
+        "icoSentenceBeforeEmail": "or via email",
+        "icoEmailUrl": "https://ico.org.uk/global/contact-us/email/",
+        "icoSentenceBeforeAddress": "or at the Information Commissioner's Office,",
+        "icoAddress": "Wycliffe House, Water Lane, Wilmslow, Cheshire. SK9 5AF."
+      },
+      "footnotes": [
+        {
+          "id": "privacy-footnote-1",
+          "number": "1",
+          "text": "Details about retention periods can currently be found in the Record Management Guides located on the Church of England website at:",
+          "linkLabel": "https://www.churchofengland.org/more/libraries-and-archives/records-management-guides",
+          "href": "https://www.churchofengland.org/more/libraries-and-archives/records-management-guides"
+        }
+      ]
     },
     {
       "slug": "church-building",
