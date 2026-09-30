@@ -29,6 +29,7 @@ const renderSafeguardingContacts = contacts => `<div class="safeguarding-contact
     <p><span aria-hidden="true">✉</span> <a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a></p>
     <p><span aria-hidden="true">☎</span> <a href="${esc(telHref(contact.phone))}">${esc(contact.phone)}</a></p>
   </section>`).join('')}</div>`;
+const renderElectoralDocuments = documents => `<div class="electoral-documents" aria-label="Electoral Roll documents">${documents.map((document, index) => `<article class="electoral-document-card"><span class="electoral-document-icon" aria-hidden="true">${index === 0 ? '▤' : '◈'}</span><div><h3>${esc(document.title)}</h3><p>${esc(document.description)}</p><a class="btn btn-outline-green" href="${esc(document.href)}" target="_blank" rel="noopener">${esc(document.label)} <span aria-hidden="true">↗</span></a></div></article>`).join('')}</div>`;
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -40,6 +41,7 @@ for (const page of pages) {
   }
   const isPrivacy = page.layout === 'privacy';
   const isSafeguarding = page.layout === 'safeguarding';
+  const isElectoralRoll = page.layout === 'electoral-roll';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -54,6 +56,7 @@ for (const page of pages) {
     const safeguardingContactCards = isSafeguarding && section.variant === 'contacts' ? renderSafeguardingContacts(page.safeguardingContacts) : '';
     return `<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}</section>`;
   }).join('\n          ');
+  const electoralDocuments = isElectoralRoll ? `          <section class="electoral-documents-section" aria-labelledby="electoral-documents-heading"><h2 id="electoral-documents-heading">Application documents</h2><p>These parish documents open as PDFs in your browser. You can save or print them from the PDF viewer.</p>${renderElectoralDocuments(page.documents || [])}</section>\n` : '';
   const documentHeading = isPrivacy ? `          <div class="privacy-document-heading">
             <p class="privacy-form-title">${esc(page.documentHeading.formTitle)}</p>
             <h2>${esc(page.documentHeading.regulationTitle)}</h2>
@@ -63,6 +66,7 @@ for (const page of pages) {
   const footnotes = isPrivacy ? `          ${renderPrivacyFootnotes(page.footnotes)}\n` : '';
   const privacyStylesheet = isPrivacy ? '  <link rel="stylesheet" href="privacy.css">\n' : '';
   const safeguardingStylesheet = isSafeguarding ? '  <link rel="stylesheet" href="safeguarding.css">\n' : '';
+  const electoralStylesheet = isElectoralRoll ? '  <link rel="stylesheet" href="electoral-roll.css">\n' : '';
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async"><figcaption>${esc(page.imageCaption || 'Illustrative image, not an approved parish photograph.')}</figcaption></figure>` : '';
@@ -79,7 +83,7 @@ for (const page of pages) {
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -89,16 +93,16 @@ ${privacyStylesheet}${safeguardingStylesheet}  <script src="site.js" defer></scr
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : ''}" tabindex="-1">
-    <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : ''}">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : ''}" tabindex="-1">
+    <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
       <div class="topic-grid${page.image ? '' : ' topic-grid-text-only'}">
-        <article class="topic-copy${isPrivacy ? ' privacy-copy' : isSafeguarding ? ' safeguarding-copy' : ''}">
+        <article class="topic-copy${isPrivacy ? ' privacy-copy' : isSafeguarding ? ' safeguarding-copy' : isElectoralRoll ? ' electoral-roll-copy' : ''}">
           <p class="eyebrow">${esc(page.category)}</p>
           <h1>${esc(page.title)}</h1>
           <p class="topic-lead">${esc(page.summary)}</p>
 ${policyEntity}${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>
-${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
+${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
         </article>
         ${image}
       </div>

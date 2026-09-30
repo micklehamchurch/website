@@ -421,27 +421,44 @@
       "slug": "electoral-roll",
       "section": "about",
       "category": "About our parish",
-      "title": "The Electoral Roll",
-      "summary": "The Electoral Roll is the parish’s formal list of lay members of the Church of England who meet the eligibility requirements.",
+      "layout": "electoral-roll",
+      "title": "Electoral Roll",
+      "summary": "The Church Electoral Roll is the parish’s formal list of lay members. It records a person’s connection with the parish and enables participation in parish governance.",
       "back": "about.html",
       "sections": [
         {
-          "title": "What it is",
+          "title": "What is the Church Electoral Roll?",
           "paragraphs": [
-            "Each Church of England parish maintains an Electoral Roll. Being on the roll records a person’s connection with the parish and allows them to take part in the parish’s governance, subject to the Church’s rules."
+            "Each Church of England parish maintains an Electoral Roll. Being on the roll records a person’s connection with the parish and enables participation in parish governance, subject to the Church Representation Rules."
           ]
         },
         {
-          "title": "Who can apply",
+          "title": "Why join the Electoral Roll?",
           "paragraphs": [
-            "Eligibility depends on the Church of England’s current rules, including age, baptism and a qualifying connection with the parish or regular worship. Please ask the Electoral Roll Officer or parish for the current application form and guidance."
+            "Membership gives a formal place in the life of the parish. It enables participation in the Annual Parochial Church Meeting and, where applicable under the Church Representation Rules, elections to the Parochial Church Council and wider Church synods. The application form explains the declarations required."
           ]
         },
         {
-          "title": "Applications and privacy",
+          "title": "How to join",
           "paragraphs": [
-            "The previous website named an Electoral Roll Officer and included information connected to a past APCM. Dates and contact details may be out of date, so no deadline or named officer is published here. Contact the parish to ask how to apply and how Electoral Roll information is handled."
+            "Download and complete the application form below. The form includes the declarations and notes needed to apply for inclusion on the parish Electoral Roll."
           ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Electoral Roll Application Form",
+          "description": "The form used to apply for inclusion on the Church Electoral Roll.",
+          "label": "Download application form (PDF)",
+          "href": "assets/documents/electoral-roll/electoral-roll-application-form.pdf",
+          "icon": "form"
+        },
+        {
+          "title": "Electoral Roll Privacy Notice",
+          "description": "This notice describes how personal information supplied for the Electoral Roll is processed.",
+          "label": "Read Privacy Notice (PDF)",
+          "href": "assets/documents/electoral-roll/electoral-roll-privacy-notice.pdf",
+          "icon": "privacy"
         }
       ],
       "action": "Ask the parish",
