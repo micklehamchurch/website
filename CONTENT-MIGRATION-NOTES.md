@@ -8,7 +8,7 @@ Internal working notes. This file is not part of the public site or its search i
 - Worship and Sunday services: `/services.htm` and `/sundays.htm`
 - Alpha: `/914257228374.htm`
 - Fellowship/Bible Study: `/homegroups.htm`
-- Parish contact/team roles: `/contactus.htm`
+- Parish contact/team roles: `/contactus.htm` (migrated to `parish-contact-directory.html`)
 - History: `/history.htm`
 - Westhumble Chapel: `/chapelofease.htm`
 - Find Us: `/findus.htm`
@@ -33,6 +33,7 @@ The source site changes over time. Historical/operational details below were rev
 - **Find Us:** old information described the 465 bus, a bike rack and Box Hill & Westhumble station at roughly 1.4 miles/30 minutes’ walk. Confirm routes, facilities and current access information.
 - **Giving:** old page listed PGS, standing orders, free-will envelopes, Payaz contactless, cheque/cash gifts, Gift Aid, legacy/share gifts and bank details. Current availability, provider, Gift Aid process and every payment detail require explicit confirmation. Bank details and charity registration number were not copied into the new page.
 - **Parish Magazine:** old issue link and editor contacts may be out of date; no old issue is presented as current.
+- **Parish Contact Directory:** the named roles, people, telephone numbers and email addresses on the new directory were transcribed from the old `/contactus.htm` page on 30 September 2026. Confirm all office holders and every contact route before treating them as current. In particular, the source gives the Organist email as `organist@micklehamchurcg.org.uk` (spelling preserved; verify before any correction), lists different area codes for Vickie Leney’s baptism and safeguarding contacts, gives the Magazine Editor Charlotte Daruwalla’s number as `07933 30074` (preserved; verify its length), and groups two Magazine Editors with one shared editor email. The source gives no telephone number for the Electoral Roll Officer. PCC membership and the Website Editor role should also be reconfirmed.
 - **History:** expanded page preserves the old parish account, including its interpretations and dates. Have a church history/building specialist review the text before treating it as a definitive conservation record.
 
 ## Photography

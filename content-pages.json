@@ -410,12 +410,12 @@
         {
           "title": "Get in touch",
           "paragraphs": [
-            "This page intentionally uses role-based information rather than publishing personal phone numbers or email addresses from an older directory. Use the Contact page for the current parish contact directory."
+            "For published telephone numbers and email addresses for parish roles, use the Parish Contact Directory."
           ]
         }
       ],
-      "action": "Contact the parish",
-      "href": "contact.html"
+      "action": "Open the Parish Contact Directory",
+      "href": "parish-contact-directory.html"
     },
     {
       "slug": "electoral-roll",
