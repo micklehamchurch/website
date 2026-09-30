@@ -30,6 +30,25 @@ const renderSafeguardingContacts = contacts => `<div class="safeguarding-contact
     <p><span aria-hidden="true">☎</span> <a href="${esc(telHref(contact.phone))}">${esc(contact.phone)}</a></p>
   </section>`).join('')}</div>`;
 const renderElectoralDocuments = documents => `<div class="electoral-documents" aria-label="Electoral Roll documents">${documents.map((document, index) => `<article class="electoral-document-card"><span class="electoral-document-icon" aria-hidden="true">${index === 0 ? '▤' : '◈'}</span><div><h3>${esc(document.title)}</h3><p>${esc(document.description)}</p><a class="btn btn-outline-green" href="${esc(document.href)}" target="_blank" rel="noopener">${esc(document.label)} <span aria-hidden="true">↗</span></a></div></article>`).join('')}</div>`;
+const renderEcoPhotos = photos => `<div class="eco-photo-gallery">${photos.map(photo => `<figure><img src="${esc(photo.src)}" alt="${esc(photo.alt)}" loading="lazy" decoding="async"><figcaption>${esc(photo.caption)}</figcaption></figure>`).join('')}</div>`;
+const renderEcoChurchContent = page => {
+  const items = page.initiatives.map((item, index) => `<article class="eco-initiative-card"><span class="eco-card-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><div><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p></div></article>`).join('');
+  const wildlife = page.wildlife.map(item => `<article class="eco-wildlife-card"><h3>${esc(item.title)}</h3><p>${esc(item.detail)}</p></article>`).join('');
+  const trailPhotos = renderEcoPhotos(page.trailPhotos);
+  const flowerPhotos = renderEcoPhotos(page.flowers.images);
+  const flowers = page.flowers;
+  const phone = String(flowers.contact.phone || '').replace(/[^\d+]/g, '');
+  return `<div class="eco-content">
+    <blockquote class="eco-quote"><p>“${esc(page.quote)}”</p></blockquote>
+    <p class="eco-award-context">${esc(page.awardContext)}</p>
+    <section class="eco-section" aria-labelledby="eco-journey-heading"><div class="eco-section-heading"><p class="eyebrow">Practical care for creation</p><h2 id="eco-journey-heading">${esc(page.journeyTitle)}</h2><p>${esc(page.journeyIntro)}</p></div><div class="eco-initiative-grid">${items}</div></section>
+    <section class="eco-section eco-wildlife-section" aria-labelledby="eco-wildlife-heading"><div class="eco-section-heading"><p class="eyebrow">A living churchyard</p><h2 id="eco-wildlife-heading">${esc(page.wildlifeTitle)}</h2><p>${esc(page.wildlifeIntro)}</p></div><div class="eco-wildlife-grid">${wildlife}</div></section>
+    <section class="eco-trail-section" aria-labelledby="eco-trail-heading"><div class="eco-trail-feature"><figure class="eco-map"><img src="${esc(page.trailMap.src)}" alt="${esc(page.trailMap.alt)}" loading="lazy" decoding="async"><figcaption>Churchyard trail route map</figcaption></figure><div class="eco-trail-copy"><p class="eyebrow">Explore the churchyard</p><h2 id="eco-trail-heading">${esc(page.trailTitle)}</h2><p>${esc(page.trailDescription)}</p><a class="btn btn-green" href="${esc(page.trailDocument)}" target="_blank" rel="noopener">View / Download Churchyard Trail (DOCX) <span aria-hidden="true">↓</span></a></div></div>${trailPhotos}</section>
+    <section class="eco-flowers-section" aria-labelledby="eco-flowers-heading"><div class="eco-section-heading"><p class="eyebrow">Flowers for worship and special occasions</p><h2 id="eco-flowers-heading">${esc(flowers.title)}</h2><p>${esc(flowers.intro)}</p></div><div class="eco-flowers-grid"><div class="eco-flowers-copy"><ul>${flowers.details.map(detail => `<li>${esc(detail)}</li>`).join('')}</ul><p class="eco-flower-link"><a href="${esc(flowers.website)}" target="_blank" rel="noopener noreferrer">Sustainable Church Flowers <span aria-hidden="true">↗</span></a></p><aside class="eco-contact-card"><h3>Church flowers contact</h3><p>${esc(flowers.contact.name)}</p><p><a href="mailto:${esc(flowers.contact.email)}">${esc(flowers.contact.email)}</a></p><p><a href="tel:${esc(phone)}">${esc(flowers.contact.phone)}</a></p></aside><a class="btn btn-outline-green eco-doc-link" href="${esc(flowers.document)}" target="_blank" rel="noopener">Read our Sustainable Flowers guidance (DOCX) <span aria-hidden="true">↓</span></a></div><div class="eco-flowers-photos">${flowerPhotos}</div></div></section>
+    <section class="eco-energy-section" aria-labelledby="eco-energy-heading"><div><p class="eyebrow">Caring for our church buildings</p><h2 id="eco-energy-heading">${esc(page.energyTitle)}</h2></div><p>${esc(page.energyText)}</p></section>
+    <section class="eco-involved-section" aria-labelledby="eco-involved-heading"><p class="eyebrow">A shared part of parish life</p><h2 id="eco-involved-heading">${esc(page.involvedTitle)}</h2><p>${esc(page.involvedText)}</p><a class="btn btn-green" href="mailto:${esc(page.involvedEmail)}">Email the churchwardens <span aria-hidden="true">→</span></a></section>
+  </div>`;
+};
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -42,6 +61,7 @@ for (const page of pages) {
   const isPrivacy = page.layout === 'privacy';
   const isSafeguarding = page.layout === 'safeguarding';
   const isElectoralRoll = page.layout === 'electoral-roll';
+  const isEcoChurch = page.layout === 'eco-church';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -67,9 +87,32 @@ for (const page of pages) {
   const privacyStylesheet = isPrivacy ? '  <link rel="stylesheet" href="privacy.css">\n' : '';
   const safeguardingStylesheet = isSafeguarding ? '  <link rel="stylesheet" href="safeguarding.css">\n' : '';
   const electoralStylesheet = isElectoralRoll ? '  <link rel="stylesheet" href="electoral-roll.css">\n' : '';
+  const ecoStylesheet = isEcoChurch ? '  <link rel="stylesheet" href="eco-church.css">\n' : '';
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
-  const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async"><figcaption>${esc(page.imageCaption || 'Illustrative image, not an approved parish photograph.')}</figcaption></figure>` : '';
+  const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
+  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
+  const pageStructure = isEcoChurch
+    ? `<div class="topic-grid eco-hero-grid">
+        <article class="topic-copy eco-hero-copy">
+          <p class="eyebrow">${esc(page.category)}</p>
+          <h1>${esc(page.title)}</h1>
+          <p class="topic-lead">${esc(page.summary)}</p>
+        </article>
+        ${image}
+      </div>
+      ${pageContent}
+      <div class="topic-actions eco-page-actions">${related}</div>`
+    : `<div class="topic-grid${page.image ? '' : ' topic-grid-text-only'}">
+        <article class="topic-copy${isPrivacy ? ' privacy-copy' : isSafeguarding ? ' safeguarding-copy' : isElectoralRoll ? ' electoral-roll-copy' : ''}">
+          <p class="eyebrow">${esc(page.category)}</p>
+          <h1>${esc(page.title)}</h1>
+          <p class="topic-lead">${esc(page.summary)}</p>
+${policyEntity}${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>
+${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
+        </article>
+        ${image}
+      </div>`;
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -83,7 +126,7 @@ for (const page of pages) {
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -93,19 +136,10 @@ ${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}  <script src
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : ''}" tabindex="-1">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : ''}" tabindex="-1">
     <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
-      <div class="topic-grid${page.image ? '' : ' topic-grid-text-only'}">
-        <article class="topic-copy${isPrivacy ? ' privacy-copy' : isSafeguarding ? ' safeguarding-copy' : isElectoralRoll ? ' electoral-roll-copy' : ''}">
-          <p class="eyebrow">${esc(page.category)}</p>
-          <h1>${esc(page.title)}</h1>
-          <p class="topic-lead">${esc(page.summary)}</p>
-${policyEntity}${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>
-${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
-        </article>
-        ${image}
-      </div>
+      ${pageStructure}
     </div>
   </main>
   <footer class="footer" data-site-footer></footer>

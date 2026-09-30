@@ -1,0 +1,84 @@
+.eco-church-page { background: var(--paper); }
+.eco-church-page .topic-container { max-width: 1240px; }
+.eco-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(360px, .92fr); gap: clamp(30px, 5vw, 64px); }
+.eco-hero-copy h1 { font-size: clamp(42px, 5vw, 62px); }
+.eco-hero-image { margin: 0; }
+.eco-hero-image img { width: 100%; height: clamp(290px, 34vw, 410px); object-fit: cover; object-position: center; }
+.eco-hero-image figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
+.eco-content { display: grid; gap: clamp(38px, 5vw, 62px); width: 100%; margin: 28px auto 0; }
+.eco-quote { max-width: 950px; margin: 0 auto; padding: 25px 32px; border-left: 3px solid var(--gold); color: var(--deep); background: #f3efe3; }
+.eco-quote p { margin: 0; font: 500 clamp(21px, 2.6vw, 30px)/1.45 var(--serif); }
+.eco-award-context { max-width: 900px; margin: -34px auto 0; padding: 17px 21px; border: 1px solid var(--stone); color: var(--muted); background: #fffefa; line-height: 1.7; }
+.eco-section-heading { max-width: 850px; margin: 0 auto 24px; text-align: center; }
+.eco-section-heading .eyebrow, .eco-trail-copy .eyebrow, .eco-energy-section .eyebrow, .eco-involved-section .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.eco-section-heading h2, .eco-trail-copy h2, .eco-energy-section h2, .eco-involved-section h2 { margin: 0 0 10px; color: var(--deep); font: 600 clamp(28px, 3vw, 38px)/1.2 var(--serif); }
+.eco-section-heading > p:last-child { margin: 0 auto; color: var(--muted); line-height: 1.7; }
+.eco-initiative-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.eco-initiative-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; min-width: 0; padding: 19px; border: 1px solid var(--stone); background: #fffefa; }
+.eco-card-number { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid #d8c994; border-radius: 50%; color: var(--green); font-size: 12px; font-weight: 700; }
+.eco-initiative-card h3, .eco-wildlife-card h3 { margin: 0 0 7px; color: var(--deep); font: 600 20px/1.25 var(--serif); }
+.eco-initiative-card p, .eco-wildlife-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+.eco-wildlife-section { padding: 36px 34px; background: #f3efe3; }
+.eco-wildlife-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+.eco-wildlife-card { min-width: 0; padding: 18px 20px; border: 1px solid #e0dac9; background: #fffefa; }
+.eco-trail-section { padding: 28px; border: 1px solid var(--stone); background: #fffefa; }
+.eco-trail-feature { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1fr); align-items: center; gap: clamp(26px, 4vw, 48px); }
+.eco-map { margin: 0; padding: 10px; border: 1px solid var(--stone); background: var(--paper); }
+.eco-map img { width: 100%; max-height: 250px; object-fit: contain; }
+.eco-map figcaption { margin-top: 6px; color: var(--muted); font-size: 13px; }
+.eco-trail-copy h2 { font-size: clamp(26px, 2.8vw, 36px); }
+.eco-trail-copy p:not(.eyebrow) { color: var(--muted); line-height: 1.7; }
+.eco-trail-copy .btn { margin-top: 5px; }
+.eco-photo-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.eco-photo-gallery figure { min-width: 0; margin: 0; }
+.eco-photo-gallery img { width: 100%; height: 170px; object-fit: cover; }
+.eco-photo-gallery figcaption { padding-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.eco-flowers-section { padding: clamp(26px, 4vw, 42px); background: #f3efe3; }
+.eco-flowers-section .eco-section-heading { text-align: left; margin-left: 0; }
+.eco-flowers-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .78fr); align-items: start; gap: clamp(26px, 4vw, 46px); }
+.eco-flowers-copy > ul { display: grid; gap: 12px; margin: 0 0 18px; padding-left: 22px; color: var(--muted); line-height: 1.7; }
+.eco-flower-link { margin: 0 0 20px; }
+.eco-flower-link a { color: var(--green); font-weight: 700; overflow-wrap: anywhere; }
+.eco-contact-card { margin: 0 0 18px; padding: 17px 19px; border: 1px solid var(--stone); background: #fffefa; }
+.eco-contact-card h3 { margin: 0 0 8px; color: var(--deep); font: 600 20px/1.25 var(--serif); }
+.eco-contact-card p { margin: 4px 0; color: var(--muted); overflow-wrap: anywhere; }
+.eco-contact-card a { color: var(--green); font-weight: 600; }
+.eco-doc-link { display: inline-flex; max-width: 100%; }
+.eco-flowers-photos .eco-photo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+.eco-flowers-photos .eco-photo-gallery img { height: 220px; }
+.eco-energy-section { display: grid; grid-template-columns: .7fr 1.3fr; align-items: start; gap: 32px; padding: 26px 30px; border-left: 3px solid var(--gold); background: #fffefa; }
+.eco-energy-section h2 { font-size: clamp(25px, 2.7vw, 34px); }
+.eco-energy-section > p { margin: 0; color: var(--muted); line-height: 1.75; }
+.eco-involved-section { padding: 30px; text-align: center; color: #f8f5ec; background: var(--deep); }
+.eco-involved-section .eyebrow { color: #e0c878; }
+.eco-involved-section h2 { color: #fffefa; }
+.eco-involved-section > p:not(.eyebrow) { max-width: 760px; margin: 0 auto 20px; color: #f0ede4; line-height: 1.7; }
+.eco-involved-section .btn { background: #fffefa; color: var(--deep); }
+.eco-page-actions { justify-content: center; margin-top: 0; }
+.eco-church-page a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+@media (max-width: 950px) {
+  .eco-initiative-grid, .eco-wildlife-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eco-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(280px, .9fr); }
+}
+@media (max-width: 720px) {
+  .eco-hero-grid, .eco-trail-feature, .eco-flowers-grid, .eco-energy-section { grid-template-columns: minmax(0, 1fr); }
+  .eco-hero-grid { gap: 18px; }
+  .eco-hero-image img { height: 270px; }
+  .eco-content { gap: 36px; margin-top: 20px; }
+  .eco-quote { padding: 19px 21px; }
+  .eco-award-context { margin: -18px 0 0; padding: 15px 17px; }
+  .eco-initiative-grid, .eco-wildlife-grid { grid-template-columns: minmax(0, 1fr); }
+  .eco-wildlife-section { padding: 25px 18px; }
+  .eco-trail-section { padding: 17px; }
+  .eco-trail-copy .btn, .eco-doc-link, .eco-involved-section .btn { width: 100%; justify-content: center; text-align: center; }
+  .eco-photo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eco-photo-gallery img { height: 150px; }
+  .eco-flowers-section { padding: 24px 18px; }
+  .eco-flowers-photos .eco-photo-gallery img { height: 190px; }
+  .eco-energy-section { gap: 10px; padding: 22px 19px; }
+  .eco-involved-section { padding: 25px 18px; }
+}
+@media (max-width: 380px) {
+  .eco-photo-gallery, .eco-flowers-photos .eco-photo-gallery { grid-template-columns: minmax(0, 1fr); }
+  .eco-photo-gallery img, .eco-flowers-photos .eco-photo-gallery img { height: 210px; }
+}
