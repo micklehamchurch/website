@@ -16,7 +16,7 @@ for (const page of pages) {
   const backLabel = page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn';
   const related = `${page.href && page.action ? `<a class="btn btn-green" href="${esc(page.href)}">${esc(page.action)} <span aria-hidden="true">→</span></a>` : ''} <a class="btn btn-outline-green" href="${esc(page.back)}">More in ${esc(backLabel)}</a>`;
   const paragraphs = (page.sections || [{ paragraphs: page.paragraphs || [] }]).map(section => `${section.title ? `<section class="topic-content-section"><h2>${esc(section.title)}</h2>` : '<section class="topic-content-section">'}${(section.paragraphs || []).map(paragraph => `<p>${esc(paragraph)}</p>`).join('\n          ')}${section.items ? `<ul>${section.items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>` : ''}</section>`).join('\n          ');
-  const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy"></figure>` : '';
+  const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async"><figcaption>${esc(page.imageCaption || 'Illustrative image, not an approved parish photograph.')}</figcaption></figure>` : '';
   const html = `<!doctype html>
 <html lang="en">
 <head>

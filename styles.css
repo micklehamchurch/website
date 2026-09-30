@@ -47,6 +47,7 @@ img { max-width: 100%; }
 .btn-small { min-height: 40px; padding: 8px 15px; }
 .hero { position: relative; min-height: 590px; background: linear-gradient(115deg,#173d2d 0%,#315d49 65%,#758a70 100%); }
 .home-hero { background-position: center 55%; }
+.home-hero { background-image: linear-gradient(90deg,#173d2ddd 0%,#244b39a6 62%,#244b3955 100%),url('church-hero.jpg'); background-position: center,center 55%; background-size: cover; background-repeat: no-repeat; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, #12251cc9, #12251c33 70%, #0001); }
 .hero-content { position: relative; padding-top: clamp(100px, 13vw, 155px); padding-bottom: 120px; color: white; }
 .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
@@ -532,6 +533,8 @@ h3 { font-family: var(--serif); }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; }
 }
+@media (max-width: 760px) { .about-photo-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 460px) { .about-photo-grid { grid-template-columns: 1fr; } }
 
 /* Giving page: warm, clearly marked prototype content, with compact desktop spacing. */
 .giving-page { overflow: hidden; }
@@ -640,8 +643,13 @@ h3 { font-family: var(--serif); }
 .history-context h2 { margin-top: 0; font-size: 25px; }
 .history-context p:last-child { margin-bottom: 0; }
 .parish-place-card { display: grid; min-height: 340px; place-items: center; align-content: center; gap: 36px; border: 1px solid var(--stone); color: var(--deep); background: radial-gradient(circle at 50% 38%,#f7f2e7 0,#e9e3d5 45%,#dce4d9 100%); }
+.parish-place-card img { display: block; width: 100%; height: auto; min-height: 340px; max-height: 420px; aspect-ratio: 4 / 3; object-fit: cover; }
 .parish-place-mark { display: grid; width: 128px; height: 128px; place-items: center; border: 1px solid #b9a56d; border-radius: 50%; font: 64px/1 var(--serif); }
 .parish-place-card .image-caption { position: static; padding: 0; color: var(--deep); background: transparent; }
+.about-photo-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+.visit-image { margin: 18px 0 0; }
+.visit-image img { display: block; width: 100%; max-height: 200px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.visit-image figcaption, .gallery-single figcaption { padding: 8px 12px; color: #695b4f; font-size: 11px; line-height: 1.4; }
 .gallery-empty { display: grid; max-width: 760px; margin: 0 auto; padding: 42px 30px; place-items: center; border: 1px solid var(--stone); background: var(--paper); text-align: center; }
 .gallery-empty-mark { display: grid; width: 68px; height: 68px; margin-bottom: 17px; place-items: center; border: 1px solid #b9a56d; border-radius: 50%; color: var(--green); font: 34px/1 var(--serif); }
 .gallery-empty h2 { margin: 0 0 8px; font-size: 28px; }

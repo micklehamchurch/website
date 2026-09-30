@@ -23,7 +23,10 @@
         }
       ],
       "action": "View the Calendar",
-      "href": "calendar.html"
+      "href": "calendar.html",
+      "image": "assets/demo/sanctuary-interior-demo.jpg",
+      "alt": "Illustrative generated image of a church interior with pews and an altar; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "baptisms",
@@ -48,7 +51,10 @@
         }
       ],
       "action": "Contact the church",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "weddings",
@@ -67,7 +73,10 @@
         }
       ],
       "action": "Ask the parish",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "funerals",
@@ -86,7 +95,10 @@
         }
       ],
       "action": "Contact the church",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/churchyard-demo.jpg",
+      "alt": "Illustrative generated image of a churchyard path and headstones; not a photograph of the parish churchyard.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "prayer",
@@ -111,7 +123,10 @@
         }
       ],
       "action": "Contact the church",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/sanctuary-interior-demo.jpg",
+      "alt": "Illustrative generated image of a church interior with pews and an altar; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "special-services",
@@ -129,7 +144,10 @@
         }
       ],
       "action": "View the Calendar",
-      "href": "calendar.html"
+      "href": "calendar.html",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "children-families",
@@ -160,7 +178,10 @@
         }
       ],
       "action": "Read about Baptisms",
-      "href": "baptisms.html"
+      "href": "baptisms.html",
+      "image": "assets/demo/community-gathering-demo.png",
+      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of the parish community.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "alpha",
@@ -221,7 +242,10 @@
         }
       ],
       "action": "Ask about groups",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/community-gathering-demo.png",
+      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of the parish community.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "pastoral-care",
@@ -265,7 +289,10 @@
         }
       ],
       "action": "Ask about helping",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/community-gathering-demo.png",
+      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of parish volunteers.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "supporting-community",
@@ -284,7 +311,10 @@
         }
       ],
       "action": "Contact the parish",
-      "href": "contact.html"
+      "href": "contact.html",
+      "image": "assets/demo/community-gathering-demo.png",
+      "alt": "Illustrative generated image of people of different ages talking together indoors; not a photograph of the parish community.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "our-vision",
@@ -498,7 +528,10 @@
         }
       ],
       "action": "Read Our History",
-      "href": "our-history.html"
+      "href": "our-history.html",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "churchyard",
@@ -517,7 +550,10 @@
         }
       ],
       "action": "Read the regulations",
-      "href": "churchyard-regulations.html"
+      "href": "churchyard-regulations.html",
+      "image": "assets/demo/churchyard-demo.jpg",
+      "alt": "Illustrative generated image of a churchyard path and headstones; not a photograph of the parish churchyard.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "churchyard-regulations",
@@ -555,7 +591,10 @@
         }
       ],
       "action": "Explore the full history",
-      "href": "our-history.html"
+      "href": "our-history.html",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "finding-us",
@@ -586,7 +625,10 @@
         }
       ],
       "action": "Open map directions",
-      "href": "https://maps.google.com/?q=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU"
+      "href": "https://maps.google.com/?q=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU",
+      "image": "assets/demo/parish-exterior-demo.jpg",
+      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "what-to-expect",
@@ -605,7 +647,10 @@
         }
       ],
       "action": "See worship information",
-      "href": "worship.html"
+      "href": "worship.html",
+      "image": "assets/demo/sanctuary-interior-demo.jpg",
+      "alt": "Illustrative generated image of a church interior with pews and an altar; not a photograph of St Michael and All Angels.",
+      "imageCaption": "Illustrative image · not an approved parish photograph."
     },
     {
       "slug": "war-memorial",
