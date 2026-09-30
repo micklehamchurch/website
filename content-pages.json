@@ -806,7 +806,13 @@
           "linkLabel": "https://www.churchofengland.org/more/libraries-and-archives/records-management-guides",
           "href": "https://www.churchofengland.org/more/libraries-and-archives/records-management-guides"
         }
-      ]
+      ],
+      "consentForm": {
+        "title": "Data Privacy Consent Form",
+        "description": "Use this form to tell St. Michael and All Angels Church which contact methods and information-processing purposes you consent to, as described in the form.",
+        "href": "assets/documents/privacy/data-privacy-consent-form.pdf",
+        "label": "Download Data Privacy Consent Form (PDF)"
+      }
     },
     {
       "slug": "church-building",

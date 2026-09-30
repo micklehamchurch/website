@@ -70,6 +70,19 @@
 .privacy-section li::marker { color: var(--gold); }
 .privacy-section li:last-child { margin-bottom: 0; }
 .privacy-section li ul { margin-top: 8px; }
+.privacy-consent-form {
+  max-width: none;
+  margin: 28px auto;
+  padding: clamp(22px, 3.5vw, 32px);
+  border: 1px solid #ded2b5;
+  border-top: 3px solid var(--gold);
+  background: #f8f5ec;
+}
+.privacy-consent-form .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.privacy-consent-form h2 { margin-bottom: 10px; }
+.privacy-consent-form p:not(.eyebrow) { margin: 0 0 18px; color: var(--muted); }
+.privacy-consent-form .btn { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; white-space: normal; text-align: left; }
+.privacy-consent-form .btn:focus-visible { outline: 3px solid #a88836; outline-offset: 3px; }
 .privacy-footnote-ref { margin-left: 2px; font: 600 12px/1 var(--sans); vertical-align: super; }
 .privacy-footnote-ref a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
 .privacy-retention {

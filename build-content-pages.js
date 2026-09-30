@@ -23,6 +23,7 @@ const renderPrivacyContact = details => `<div class="privacy-contact-grid">
   </section>
 </div>`;
 const renderPrivacyFootnotes = footnotes => footnotes?.length ? `<ol class="privacy-footnotes">${footnotes.map(note => `<li id="${esc(note.id)}"><span>${esc(note.text)}</span> <a href="${esc(note.href)}">${esc(note.linkLabel)}</a></li>`).join('')}</ol>` : '';
+const renderPrivacyConsentForm = form => form ? `<section class="privacy-section privacy-consent-form" aria-labelledby="privacy-consent-form-heading"><p class="eyebrow">A form for your preferences</p><h2 id="privacy-consent-form-heading">${esc(form.title)}</h2><p>${esc(form.description)}</p><a class="btn btn-green" href="${esc(form.href)}" target="_blank" rel="noopener">${esc(form.label)} <span aria-hidden="true">↓</span></a></section>` : '';
 const renderSafeguardingContacts = contacts => `<div class="safeguarding-contact-grid">${contacts.map((contact, index) => `<section class="safeguarding-contact-card" aria-labelledby="safeguarding-contact-${index + 1}">
     <p class="safeguarding-contact-role">${esc(contact.role)}</p>
     <h3 id="safeguarding-contact-${index + 1}">${esc(contact.name)}</h3>
@@ -88,7 +89,8 @@ for (const page of pages) {
     const items = section.items?.length ? renderItems(section.items) : '';
     const contact = isPrivacy && section.variant === 'contact' ? renderPrivacyContact(page.contactDetails) : '';
     const safeguardingContactCards = isSafeguarding && section.variant === 'contacts' ? renderSafeguardingContacts(page.safeguardingContacts) : '';
-    return `<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}</section>`;
+    const consentForm = isPrivacy && section.variant === 'contact' ? renderPrivacyConsentForm(page.consentForm) : '';
+    return `${consentForm}<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}</section>`;
   }).join('\n          ');
   const electoralDocuments = isElectoralRoll ? `          <section class="electoral-documents-section" aria-labelledby="electoral-documents-heading"><h2 id="electoral-documents-heading">Application documents</h2><p>These parish documents open as PDFs in your browser. You can save or print them from the PDF viewer.</p>${renderElectoralDocuments(page.documents || [])}</section>\n` : '';
   const documentHeading = isPrivacy ? `          <div class="privacy-document-heading">
