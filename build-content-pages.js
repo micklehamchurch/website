@@ -98,6 +98,17 @@ const renderPastoralContent = page => {
     <section class="pastoral-prayer" aria-labelledby="pastoral-prayer-heading"><div><p class="eyebrow">Prayer and care together</p><h2 id="pastoral-prayer-heading">${esc(page.prayerTitle)}</h2><p>${esc(page.prayerText)}</p></div><a class="btn btn-outline-green" href="prayer.html">Prayer and prayer requests <span aria-hidden="true">→</span></a></section>
   </div>`;
 };
+const renderWorshipLifeContent = page => {
+  const life = page.lifeEvent || {};
+  const sections = (page.sections || []).map(section => `<section class="life-section"><h2>${esc(section.title)}</h2>${(section.paragraphs || []).map(text => `<p>${esc(text)}</p>`).join('')}${section.items?.length ? renderItems(section.items) : ''}</section>`).join('');
+  const cards = life.cards?.length ? `<section class="life-card-section" aria-label="Service types"><div class="life-card-grid">${life.cards.map(card => `<article class="life-card"><span class="life-card-mark" aria-hidden="true">✦</span><h3>${esc(card.title)}</h3><p>${esc(card.text)}</p></article>`).join('')}</div></section>` : '';
+  const documents = life.documents?.length ? `<section class="life-documents" aria-labelledby="life-documents-heading"><p class="eyebrow">Parish documents</p><h2 id="life-documents-heading">Useful documents</h2><div class="life-document-grid">${life.documents.map(doc => `<article class="life-document"><span class="life-document-icon" aria-hidden="true">▤</span><div><h3>${esc(doc.title)}</h3><p>${esc(doc.description)}</p><a class="btn btn-outline-green" href="${esc(doc.href)}" target="_blank" rel="noopener">${esc(doc.label)} <span aria-hidden="true">↗</span></a></div></article>`).join('')}</div></section>` : '';
+  const flowers = life.flowerDocument ? `<section class="life-resource" id="sustainable-flowers" aria-labelledby="life-flowers-heading"><div><p class="eyebrow">A shared parish resource</p><h2 id="life-flowers-heading">Sustainable flowers guidance</h2><p>Read the parish guidance for church flowers at services and special occasions.</p><a class="btn btn-outline-green" href="${esc(life.flowerDocument)}" target="_blank" rel="noopener">${esc(life.flowerLabel)} <span aria-hidden="true">↗</span></a></div></section>` : '';
+  const contacts = life.contacts?.length ? `<section class="life-contacts" aria-label="Enquiry contact">${life.contacts.map(contact => `<article class="life-contact"><p class="eyebrow">${esc(contact.role)}</p><h3>${esc(contact.name)}</h3><p><a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a></p></article>`).join('')}</section>` : '';
+  const guidance = life.guidance ? `<section class="life-guidance"><div><p class="eyebrow">Further information</p><h2>${esc(life.guidance.label)}</h2><p>${esc(life.guidance.description)}</p></div><a class="btn btn-outline-green" href="${esc(life.guidance.href)}" target="_blank" rel="noopener noreferrer">${esc(life.guidance.label)} <span aria-hidden="true">↗</span></a></section>` : '';
+  const related = life.related?.length ? `<nav class="life-related" aria-label="Related parish pages"><p class="eyebrow">Related pages</p><div>${life.related.map(link => `<a href="${esc(link.href)}"><span>${esc(link.label)}</span><strong>${esc(link.title)} <span aria-hidden="true">→</span></strong></a>`).join('')}</div></nav>` : '';
+  return `<div class="life-content life-${esc(life.kind || 'page')}">${sections}${cards}${contacts}${documents}${flowers}${guidance}${related}</div>`;
+};
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -115,6 +126,7 @@ for (const page of pages) {
   const isChildrenFamilies = page.layout === 'children-families';
   const isPrayer = page.layout === 'prayer';
   const isPastoralCare = page.layout === 'pastoral-care';
+  const isWorshipLife = page.layout === 'worship-life';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -148,8 +160,11 @@ for (const page of pages) {
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
-  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? renderPastoralContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
-  const pageStructure = isPrayer || isPastoralCare
+  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? renderPastoralContent(page) : isWorshipLife ? renderWorshipLifeContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
+  const lifeStylesheet = isWorshipLife ? '  <link rel="stylesheet" href="worship-life.css">\n' : '';
+  const pageStructure = isWorshipLife
+    ? `<div class="life-hero life-hero-${esc(page.lifeEvent?.kind || 'page')}"><p class="eyebrow">${esc(page.lifeEvent?.heroLabel || page.category)}</p><h1>${esc(page.lifeEvent?.heroTitle || page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="life-hero-actions"><a class="btn btn-green" href="${esc(page.lifeEvent?.primary?.href || page.href || 'contact.html')}">${esc(page.lifeEvent?.primary?.label || page.action || 'Find out more')} <span aria-hidden="true">→</span></a>${page.lifeEvent?.secondary ? `<a class="btn btn-outline-green" href="${esc(page.lifeEvent.secondary.href)}">${esc(page.lifeEvent.secondary.label)}</a>` : ''}</div></div>${pageContent}<div class="topic-actions"><a class="btn btn-outline-green" href="${esc(page.back)}">Back to ${esc(backLabel)}</a></div>`
+    : isPrayer || isPastoralCare
     ? `<div class="care-hero ${isPrayer ? 'prayer-hero' : 'pastoral-hero'}"><p class="eyebrow">${esc(page.heroLabel)}</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="care-hero-actions"><a class="btn btn-green" href="${esc(page.heroAction.href)}">${esc(page.heroAction.label)} <span aria-hidden="true">→</span></a><a class="care-hero-secondary" href="${esc(page.heroSecondary.href)}">${esc(page.heroSecondary.label)}</a></div></div>${pageContent}`
     : isChildrenFamilies
     ? `<div class="family-hero"><p class="eyebrow">CHILDREN &amp; FAMILIES</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="family-hero-links"><a class="btn btn-green" href="calendar.html">Find a service <span aria-hidden="true">→</span></a><a class="family-contact-link" href="finding-us.html">Find the church</a></div></div>${pageContent}`
@@ -189,7 +204,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">

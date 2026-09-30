@@ -4,101 +4,345 @@
       "slug": "weekly-worship",
       "section": "worship",
       "category": "Worship",
-      "title": "Weekly Worship",
-      "summary": "Gather for worship, prayer, Holy Communion and fellowship in the parish churches.",
+      "title": "Services",
+      "summary": "You are welcome to worship with us at St Michael and All Angels, Mickleham, and at the Chapel of Ease in Westhumble.",
       "back": "worship.html",
       "sections": [
         {
-          "title": "A place to worship together",
+          "title": "Sunday worship at Mickleham",
           "paragraphs": [
-            "The parish describes its services as opportunities to gather as Christians, worship, encourage one another and share in the life of the wider Church. Sunday worship includes prayer, Holy Communion and fellowship.",
-            "The previous parish service guide described a pattern of services at St Michael and All Angels and the Chapel of Ease. As service patterns can change, please use the live calendar or contact the parish to confirm the next service before travelling."
+            "The current parish Calendar lists Sunday worship at 10.00 am at St Michael and All Angels. It includes monthly All-Age Worship and Holy Communion on other Sundays shown in the Calendar. Each event listing gives the service details for that date."
           ]
         },
         {
-          "title": "Find a service",
+          "title": "Westhumble Chapel",
           "paragraphs": [
-            "The Calendar is the current source for dated services and events. The Sunday Services page provides more detail about the pattern recorded on the previous parish website; some arrangements need confirmation."
+            "The Calendar currently lists Book of Common Prayer Holy Communion at the Chapel of Ease, Westhumble, on the second and fourth Sundays of the month at 8.00 am. Please check the Calendar before travelling, as it is the current source for dates and service details."
+          ]
+        },
+        {
+          "title": "A first visit",
+          "paragraphs": [
+            "Everyone is welcome. The Calendar is the best place to check what is happening on a particular date. If you have a question before visiting, please use the Contact page."
           ]
         }
       ],
-      "action": "View the Calendar",
+      "action": "See upcoming services",
       "href": "calendar.html",
       "image": "assets/demo/sanctuary-interior-demo.jpg",
       "alt": "Illustrative generated image of a church interior with pews and an altar; not a photograph of St Michael and All Angels.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "imageCaption": "Illustrative image · not an approved parish photograph.",
+      "layout": "worship-life",
+      "lifeEvent": {
+        "kind": "services",
+        "heroLabel": "WORSHIP TOGETHER",
+        "heroTitle": "Worship with us",
+        "primary": {
+          "label": "See upcoming services",
+          "href": "calendar.html"
+        },
+        "secondary": {
+          "label": "Plan your visit",
+          "href": "finding-us.html"
+        },
+        "cards": [
+          {
+            "title": "Sunday worship",
+            "text": "The current Calendar lists worship at St Michael and All Angels at 10.00 am on Sundays. Check the individual listing for that week’s service."
+          },
+          {
+            "title": "All-Age Worship",
+            "text": "The Calendar lists a monthly All-Age Worship service at Mickleham, described as suitable for all ages and without Holy Communion."
+          },
+          {
+            "title": "Holy Communion",
+            "text": "Holy Communion is listed at Mickleham on Sundays other than the monthly All-Age service. The Calendar gives each date’s details."
+          },
+          {
+            "title": "Westhumble Chapel",
+            "text": "Book of Common Prayer Holy Communion is listed at the Chapel of Ease on the second and fourth Sundays at 8.00 am."
+          }
+        ],
+        "related": [
+          {
+            "label": "For families",
+            "title": "Children & Families",
+            "href": "children-families.html"
+          },
+          {
+            "label": "Find us",
+            "title": "Church locations and directions",
+            "href": "finding-us.html"
+          }
+        ]
+      }
     },
     {
       "slug": "baptisms",
       "section": "worship",
       "category": "Worship · Life events",
       "title": "Baptisms",
-      "summary": "Baptism welcomes children and adults into the Christian faith and the life of the church.",
+      "summary": "A joyful welcome into the life of the Church. Enquiries are welcome for children and adults.",
       "back": "worship.html",
       "sections": [
         {
-          "title": "A welcome into the church",
+          "title": "What is baptism?",
           "paragraphs": [
-            "The parish’s previous information welcomed children and adults to consider baptism, also called christening, as a way of entering the Christian faith. It invited people who live in the parish or have a strong connection with the church to make contact.",
-            "The earlier page described baptisms within a Sunday service. Please contact the church to confirm current arrangements, preparation and availability."
+            "Baptism is a significant step in the Christian faith and marks a person’s welcome into the life of the Church. The parish welcomes enquiries for children and adults."
           ]
         },
         {
-          "title": "Start a conversation",
+          "title": "Who may be baptised?",
           "paragraphs": [
-            "If you are thinking about baptism for yourself or a child, the parish can explain the next steps and answer your questions."
+            "Under the parish policy agreed by the PCC in September 2026, baptism will normally be available to people who live in the parish, belong to the church, regularly worship here, are on the Electoral Roll, or have another recognised connection with the parish or church. The clergy may consider other requests where there is a strong pastoral reason and, where appropriate, may seek the consent of the candidate’s own parish priest or incumbent."
+          ]
+        },
+        {
+          "title": "Preparing for baptism",
+          "paragraphs": [
+            "Candidates—and, for a child, their parents or carers—will be offered appropriate preparation. This helps those involved understand the meaning of baptism, the promises made in the service and baptism’s place in Christian faith and the worshipping life of the church. Parents or carers should be able to make the promises with integrity. Godparents are welcome to take part in preparation where possible."
+          ]
+        },
+        {
+          "title": "Children and godparents",
+          "paragraphs": [
+            "Parents or carers take part in a child’s preparation and baptism service. Before a baptism is arranged, the parish expects the family to attend several church services to become familiar with and connected to the worshipping life of the church. Godparents are chosen by the parents or carers and must be baptised. The usual expectation is three godparents, ideally two of the same sex as the child; the minimum is two, and the policy suggests a maximum of six, with flexibility where appropriate. Someone who is not baptised may be included as a sponsor or may consider baptism before the service."
+          ]
+        },
+        {
+          "title": "Adults and older candidates",
+          "paragraphs": [
+            "Adults and older candidates receive preparation suited to their circumstances. Where appropriate, baptism may be linked with preparation for confirmation. Two or more sponsors may be chosen."
+          ]
+        },
+        {
+          "title": "When and where?",
+          "paragraphs": [
+            "Baptisms normally take place during the main Sunday morning service, usually the All-Age Worship service listed on the first Sunday of the month. Another time may be arranged for a good pastoral or practical reason, with the clergy’s agreement. In that case, the person baptised is expected to be welcomed at a main Sunday service on another occasion. Please check the Calendar for current service dates."
+          ]
+        },
+        {
+          "title": "Thanksgiving or blessing",
+          "paragraphs": [
+            "Where baptism is not possible, not desired or not yet the right step, the church may offer a service of thanksgiving or blessing. This provides an opportunity to give thanks, pray for the child or candidate and mark the occasion without the baptismal promises."
+          ]
+        },
+        {
+          "title": "How to begin",
+          "paragraphs": [
+            "Initial enquiries and bookings are made through the parish clergy or parish baptism officer. The clergy agree arrangements, ensure preparation takes place and decide how exceptional circumstances should be handled. After baptism, the church continues to welcome and support the person and their family through worship, teaching, pastoral care and appropriate information about church activities."
           ]
         }
       ],
-      "action": "Contact the church",
-      "href": "contact.html",
+      "action": "Ask about baptism",
+      "href": "mailto:baptisms@micklehamchurch.org.uk",
       "image": "assets/demo/parish-exterior-demo.jpg",
       "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "imageCaption": "Illustrative image · not an approved parish photograph.",
+      "layout": "worship-life",
+      "lifeEvent": {
+        "kind": "baptism",
+        "heroLabel": "LIFE EVENTS",
+        "heroTitle": "Baptisms",
+        "primary": {
+          "label": "Ask about baptism",
+          "href": "mailto:baptisms@micklehamchurch.org.uk"
+        },
+        "secondary": {
+          "label": "Children & Families",
+          "href": "children-families.html"
+        },
+        "documents": [
+          {
+            "title": "Baptism Policy",
+            "description": "The parish policy agreed by the PCC in September 2026.",
+            "href": "assets/documents/baptism/baptism-policy-2026.docx",
+            "label": "Read the Baptism Policy (DOCX)"
+          },
+          {
+            "title": "Baptism Application Form",
+            "description": "The parish application form supplied for baptism enquiries.",
+            "href": "assets/documents/baptism/baptism-application-form-2024.pdf",
+            "label": "Download Baptism Application Form (PDF)"
+          }
+        ],
+        "contacts": [
+          {
+            "role": "Baptism enquiries",
+            "name": "Parish baptism officer",
+            "email": "baptisms@micklehamchurch.org.uk"
+          }
+        ],
+        "related": [
+          {
+            "label": "Worship",
+            "title": "Services",
+            "href": "weekly-worship.html"
+          },
+          {
+            "label": "Visit",
+            "title": "Find the church",
+            "href": "finding-us.html"
+          },
+          {
+            "label": "Care",
+            "title": "Pastoral care",
+            "href": "pastoral-care.html"
+          }
+        ]
+      }
     },
     {
       "slug": "weddings",
       "section": "worship",
       "category": "Worship · Life events",
       "title": "Weddings",
-      "summary": "Begin a conversation with the parish if you are considering a church wedding.",
+      "summary": "If you are considering marriage at St Michael and All Angels, the parish welcomes you to begin with a local enquiry.",
       "back": "worship.html",
       "sections": [
         {
-          "title": "A church wedding",
+          "title": "A wedding at St Michael’s",
           "paragraphs": [
-            "The parish welcomes enquiries from people thinking about getting married at St Michael and All Angels. The church’s earlier information directed couples to contact the wedding coordinator.",
-            "Eligibility, dates, preparation and fees depend on current Church of England guidance and individual circumstances. Contact the parish to discuss your situation and confirm present arrangements."
+            "The parish welcomes enquiries from couples considering a wedding at St Michael and All Angels. The local parish is the place to begin a conversation about your circumstances and what may be possible."
+          ]
+        },
+        {
+          "title": "Planning your service",
+          "paragraphs": [
+            "The parish can discuss the next steps with you. Eligibility, dates, preparation and fees depend on current Church of England guidance and your circumstances, so they should be confirmed directly with the parish."
+          ]
+        },
+        {
+          "title": "Creating beauty, sustainably",
+          "paragraphs": [
+            "For regular and occasional services, the parish encourages seasonal, local flowers and foliage and asks that floral foam (including Oasis) is not used. Flowers do best arranged in water; the guidance links to Sustainable Church Flowers for sustainable mechanics and inspiration. Flower use in church is discouraged during Advent and Lent. If you are planning a wedding in either season, please ask the Wedding Co-ordinator what may be appropriate.",
+            "For a special occasion or information about local providers, contact Alison Wood at flowers@micklehamchurch.org.uk or 01372 376443."
+          ]
+        },
+        {
+          "title": "Church of England wedding guidance",
+          "paragraphs": [
+            "The Church of England’s national guidance offers further information about eligibility, banns, the ceremony and practical preparations. For local questions, contact the parish."
           ]
         }
       ],
-      "action": "Ask the parish",
+      "action": "Contact the parish",
       "href": "contact.html",
       "image": "assets/demo/parish-exterior-demo.jpg",
       "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "imageCaption": "Illustrative image · not an approved parish photograph.",
+      "layout": "worship-life",
+      "lifeEvent": {
+        "kind": "wedding",
+        "heroLabel": "LIFE EVENTS",
+        "heroTitle": "Weddings at St Michael & All Angels",
+        "primary": {
+          "label": "Enquire with the parish",
+          "href": "contact.html"
+        },
+        "secondary": {
+          "label": "Plan your visit",
+          "href": "finding-us.html"
+        },
+        "flowerDocument": "assets/documents/eco-church/sustainable-church-flowers-guidance.docx",
+        "flowerLabel": "Read the sustainable flowers guidance (DOCX)",
+        "flowerEmail": "flowers@micklehamchurch.org.uk",
+        "flowerPhone": "01372 376443",
+        "guidance": {
+          "label": "Explore Church of England wedding guidance",
+          "href": "https://www.churchofengland.org/life-events/your-church-wedding",
+          "description": "Explore the Church of England’s guidance on planning a church wedding, including eligibility, banns, the ceremony and practical preparations."
+        },
+        "related": [
+          {
+            "label": "Flowers",
+            "title": "Our sustainable approach",
+            "href": "#sustainable-flowers"
+          },
+          {
+            "label": "Find us",
+            "title": "Visit St Michael’s",
+            "href": "finding-us.html"
+          }
+        ]
+      }
     },
     {
       "slug": "funerals",
       "section": "worship",
       "category": "Worship · Life events",
-      "title": "Funerals and remembrance",
-      "summary": "A place to begin when you are arranging a funeral or seeking prayer and support.",
+      "title": "Funerals",
+      "summary": "If someone has died, we are sorry. The parish is here to listen and to help you ask about a funeral or memorial service.",
       "back": "worship.html",
       "sections": [
         {
-          "title": "With care and compassion",
+          "title": "Here when you need us",
           "paragraphs": [
-            "The parish marks significant occasions, including funerals, for members of the church and the wider community. If someone has died, you may speak with your funeral director or contact the parish to ask about a service and the support available.",
-            "Arrangements depend on current availability and circumstances. The parish can discuss the options with you."
+            "A funeral is a time to remember someone who has died, to give thanks for their life and to seek comfort. You may contact the parish or speak with your funeral director about arranging a service at St Michael and All Angels."
+          ]
+        },
+        {
+          "title": "Arranging a funeral or memorial",
+          "paragraphs": [
+            "The parish can talk with you about a funeral or memorial service and the options for your circumstances. Arrangements, availability and any interment of ashes should be discussed directly with the parish; no particular service or arrangement is assumed here."
+          ]
+        },
+        {
+          "title": "Flowers",
+          "paragraphs": [
+            "The parish asks that floral foam is not used and encourages seasonal, local flowers and foliage. See the shared sustainable flowers guidance for more information."
+          ]
+        },
+        {
+          "title": "Church of England funeral guidance",
+          "paragraphs": [
+            "The Church of England’s national guidance provides general information about arranging a funeral, what happens at a Church of England funeral and bereavement support. The parish remains your local point of contact."
           ]
         }
       ],
-      "action": "Contact the church",
+      "action": "Contact the parish",
       "href": "contact.html",
       "image": "assets/demo/churchyard-demo.jpg",
       "alt": "Illustrative generated image of a churchyard path and headstones; not a photograph of the parish churchyard.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "imageCaption": "Illustrative image · not an approved parish photograph.",
+      "layout": "worship-life",
+      "lifeEvent": {
+        "kind": "funeral",
+        "heroLabel": "LIFE EVENTS",
+        "heroTitle": "Funerals & remembering",
+        "primary": {
+          "label": "Contact the parish",
+          "href": "contact.html"
+        },
+        "secondary": {
+          "label": "Prayer and pastoral care",
+          "href": "prayer.html"
+        },
+        "flowerDocument": "assets/documents/eco-church/sustainable-church-flowers-guidance.docx",
+        "flowerLabel": "Read the sustainable flowers guidance (DOCX)",
+        "guidance": {
+          "label": "Read Church of England funeral guidance",
+          "href": "https://www.churchofengland.org/life-events/funerals",
+          "description": "Find general information about arranging a funeral, what happens at a Church of England funeral and bereavement support."
+        },
+        "related": [
+          {
+            "label": "Care",
+            "title": "Pastoral care",
+            "href": "pastoral-care.html"
+          },
+          {
+            "label": "Prayer",
+            "title": "Prayer",
+            "href": "prayer.html"
+          },
+          {
+            "label": "Flowers",
+            "title": "Sustainable flowers guidance",
+            "href": "weddings.html#sustainable-flowers"
+          }
+        ]
+      }
     },
     {
       "slug": "prayer",
@@ -658,56 +902,129 @@
       "journeyTitle": "Our Eco Journey",
       "journeyIntro": "The parish’s source material records the following work by the Eco Group and volunteers.",
       "initiatives": [
-        {"title":"Hedgerow planting","description":"More than 80 metres of hedgerow were planted. The 2024 trail describes newly planted hedges around the newer churchyard as future green corridors for mammals and birds."},
-        {"title":"Churchyard composting","description":"The compost area was reorganised so green waste could be composted and the resulting soil returned to areas within the churchyards."},
-        {"title":"A small fruit orchard","description":"The Churchyard Trail records that an orchard was planted in winter 2022/23, with apple, pear, damson, quince and medlar trees."},
-        {"title":"Garden of Remembrance","description":"Lavender and rosemary were planted around the Garden of Remembrance to provide summer nectar for insects."},
-        {"title":"Wildlife-friendly mowing","description":"The trail describes the area behind the church being mown twice a year, and a three-year mowing and raking rotation in the newer churchyard, leaving areas unmown each year."},
-        {"title":"Seasonal pond","description":"A rainwater-fed seasonal pond was created in 2024. The trail describes dragonflies, damselflies, pond insects and birds using the area."},
-        {"title":"Information around the churchyard","description":"Information boards were installed to explain the changes taking place and why they matter."},
-        {"title":"Reducing harmful chemicals and plastics","description":"The Eco Church page and trail describe work to phase out chemical herbicides and pesticides harmful to wildlife, and reduce new or single-use plastics. The trail says churchyard herbicide use had been phased out in favour of a weed burner for paving."},
-        {"title":"Sustainable flower arranging","description":"The parish stopped using floral foam and trained flower arrangers to support stems with crumpled chicken wire instead."}
+        {
+          "title": "Hedgerow planting",
+          "description": "More than 80 metres of hedgerow were planted. The 2024 trail describes newly planted hedges around the newer churchyard as future green corridors for mammals and birds."
+        },
+        {
+          "title": "Churchyard composting",
+          "description": "The compost area was reorganised so green waste could be composted and the resulting soil returned to areas within the churchyards."
+        },
+        {
+          "title": "A small fruit orchard",
+          "description": "The Churchyard Trail records that an orchard was planted in winter 2022/23, with apple, pear, damson, quince and medlar trees."
+        },
+        {
+          "title": "Garden of Remembrance",
+          "description": "Lavender and rosemary were planted around the Garden of Remembrance to provide summer nectar for insects."
+        },
+        {
+          "title": "Wildlife-friendly mowing",
+          "description": "The trail describes the area behind the church being mown twice a year, and a three-year mowing and raking rotation in the newer churchyard, leaving areas unmown each year."
+        },
+        {
+          "title": "Seasonal pond",
+          "description": "A rainwater-fed seasonal pond was created in 2024. The trail describes dragonflies, damselflies, pond insects and birds using the area."
+        },
+        {
+          "title": "Information around the churchyard",
+          "description": "Information boards were installed to explain the changes taking place and why they matter."
+        },
+        {
+          "title": "Reducing harmful chemicals and plastics",
+          "description": "The Eco Church page and trail describe work to phase out chemical herbicides and pesticides harmful to wildlife, and reduce new or single-use plastics. The trail says churchyard herbicide use had been phased out in favour of a weed burner for paving."
+        },
+        {
+          "title": "Sustainable flower arranging",
+          "description": "The parish stopped using floral foam and trained flower arrangers to support stems with crumpled chicken wire instead."
+        }
       ],
       "wildlifeTitle": "Churchyard & Wildlife",
       "wildlifeIntro": "These examples and counts are drawn from the supplied Churchyard Trail (2024) and the earlier Eco Church page. They are records from those sources, not a new survey.",
       "wildlife": [
-        {"title":"Four bat species","detail":"Serotine, Common Pipistrelle, Soprano Pipistrelle and Brown Long-Eared bats are recorded in the Churchyard Trail."},
-        {"title":"251 lichen species","detail":"The 2024 Churchyard Trail says 251 lichen species had been found in the churchyard."},
-        {"title":"Slow worms","detail":"The trail records slow worms in the churchyard and explains the rotational mowing approach that leaves areas undisturbed."},
-        {"title":"Pond and pollinators","detail":"The trail describes dragonflies, damselflies and pond insects at the seasonal pond, as well as birds using it."},
-        {"title":"Earlier wildlife records","detail":"The earlier Eco Church page listed 120 flowering plants and 15 butterfly species in its first-year records; it said records for bees, birds, mammals and reptiles were still to be collated."}
+        {
+          "title": "Four bat species",
+          "detail": "Serotine, Common Pipistrelle, Soprano Pipistrelle and Brown Long-Eared bats are recorded in the Churchyard Trail."
+        },
+        {
+          "title": "251 lichen species",
+          "detail": "The 2024 Churchyard Trail says 251 lichen species had been found in the churchyard."
+        },
+        {
+          "title": "Slow worms",
+          "detail": "The trail records slow worms in the churchyard and explains the rotational mowing approach that leaves areas undisturbed."
+        },
+        {
+          "title": "Pond and pollinators",
+          "detail": "The trail describes dragonflies, damselflies and pond insects at the seasonal pond, as well as birds using it."
+        },
+        {
+          "title": "Earlier wildlife records",
+          "detail": "The earlier Eco Church page listed 120 flowering plants and 15 butterfly species in its first-year records; it said records for bees, birds, mammals and reptiles were still to be collated."
+        }
       ],
       "trailTitle": "St Michael and All Angels Churchyard – Connections with Nature",
       "trailDescription": "Follow the churchyard trail to see the route, environmental work and wildlife described in the 2024 guide.",
-      "trailMap": {"src":"assets/eco-church/churchyard-trail-map.jpg","alt":"Illustrated route map for the St Michael and All Angels Churchyard nature trail, with numbered stops around the churchyard."},
+      "trailMap": {
+        "src": "assets/eco-church/churchyard-trail-map.jpg",
+        "alt": "Illustrated route map for the St Michael and All Angels Churchyard nature trail, with numbered stops around the churchyard."
+      },
       "trailDocument": "assets/documents/eco-church/churchyard-trail-2024.docx",
       "trailPhotos": [
-        {"src":"assets/eco-church/lichen-gravestones.jpg","alt":"Lichen-covered gravestones and a tomb among grass in the churchyard.","caption":"Lichens on churchyard stonework"},
-        {"src":"assets/eco-church/churchyard-compost-bays.jpg","alt":"Timber bays used for green waste composting in the churchyard.","caption":"The churchyard compost area"},
-        {"src":"assets/eco-church/seasonal-pond.jpg","alt":"The seasonal pond among plants and grass in the churchyard.","caption":"The seasonal pond"},
-        {"src":"assets/eco-church/garden-of-remembrance-lavender.jpg","alt":"Lavender growing beside the path in the Garden of Remembrance.","caption":"Lavender around the Garden of Remembrance"}
+        {
+          "src": "assets/eco-church/lichen-gravestones.jpg",
+          "alt": "Lichen-covered gravestones and a tomb among grass in the churchyard.",
+          "caption": "Lichens on churchyard stonework"
+        },
+        {
+          "src": "assets/eco-church/churchyard-compost-bays.jpg",
+          "alt": "Timber bays used for green waste composting in the churchyard.",
+          "caption": "The churchyard compost area"
+        },
+        {
+          "src": "assets/eco-church/seasonal-pond.jpg",
+          "alt": "The seasonal pond among plants and grass in the churchyard.",
+          "caption": "The seasonal pond"
+        },
+        {
+          "src": "assets/eco-church/garden-of-remembrance-lavender.jpg",
+          "alt": "Lavender growing beside the path in the Garden of Remembrance.",
+          "caption": "Lavender around the Garden of Remembrance"
+        }
       ],
       "flowers": {
-        "title":"Creating Beauty, Sustainably",
-        "intro":"For regular and occasional services, the parish encourages seasonal, locally sourced flowers and foliage, and the elimination of floral foam. Flowers are part of many important events; the guidance asks suppliers and arrangers to consider the environmental impact of their materials and the provenance of flowers.",
-        "details":[
+        "title": "Creating Beauty, Sustainably",
+        "intro": "For regular and occasional services, the parish encourages seasonal, locally sourced flowers and foliage, and the elimination of floral foam. Flowers are part of many important events; the guidance asks suppliers and arrangers to consider the environmental impact of their materials and the provenance of flowers.",
+        "details": [
           "The parish asks that floral foam, including the brand Oasis, is not used. Flowers can be arranged in water; the guidance points to sustainable mechanics for supporting stems and links to Sustainable Church Flowers for ideas and instruction.",
           "The source guidance says that flower suppliers and floral creators may be asked about sustainability, provenance and air miles.",
           "The source guidance discourages flowers in church during Advent and Lent. Anyone planning a wedding in either season is asked to speak with the Wedding Co-ordinator about what is appropriate."
         ],
-        "website":"https://suschurchflowers.com/",
-        "document":"assets/documents/eco-church/sustainable-church-flowers-guidance.docx",
-        "images":[
-          {"src":"assets/eco-church/church-flowers-vase.jpg","alt":"A seasonal flower arrangement in a metal container beside the church wall.","caption":"Flowers arranged for the church"},
-          {"src":"assets/eco-church/church-flowers-altar.jpg","alt":"A flower arrangement attached to a wooden church pew.","caption":"Flowers for a church service"}
+        "website": "https://suschurchflowers.com/",
+        "document": "assets/documents/eco-church/sustainable-church-flowers-guidance.docx",
+        "images": [
+          {
+            "src": "assets/eco-church/church-flowers-vase.jpg",
+            "alt": "A seasonal flower arrangement in a metal container beside the church wall.",
+            "caption": "Flowers arranged for the church"
+          },
+          {
+            "src": "assets/eco-church/church-flowers-altar.jpg",
+            "alt": "A flower arrangement attached to a wooden church pew.",
+            "caption": "Flowers for a church service"
+          }
         ],
-        "contact":{"name":"Alison Wood","email":"flowers@micklehamchurch.org.uk","phone":"01372 376443"}
+        "contact": {
+          "name": "Alison Wood",
+          "email": "flowers@micklehamchurch.org.uk",
+          "phone": "01372 376443"
+        }
       },
-      "energyTitle":"Energy & Sustainability",
-      "energyText":"The earlier Eco Church page records that the church had received an Energy Audit assessing its energy footprint. It identified formulating a phased plan to implement the findings as the next step; the supplied sources do not confirm what happened afterwards.",
-      "involvedTitle":"Get Involved",
-      "involvedText":"If you are interested in wildlife, gardening, churchyard conservation or sustainability, contact the churchwardens to ask about Eco Church activities. The 2024 Churchyard Trail lists this parish email for further information.",
-      "involvedEmail":"churchwardens@micklehamchurch.org.uk",
+      "energyTitle": "Energy & Sustainability",
+      "energyText": "The earlier Eco Church page records that the church had received an Energy Audit assessing its energy footprint. It identified formulating a phased plan to implement the findings as the next step; the supplied sources do not confirm what happened afterwards.",
+      "involvedTitle": "Get Involved",
+      "involvedText": "If you are interested in wildlife, gardening, churchyard conservation or sustainability, contact the churchwardens to ask about Eco Church activities. The 2024 Churchyard Trail lists this parish email for further information.",
+      "involvedEmail": "churchwardens@micklehamchurch.org.uk",
       "sections": [],
       "action": "Contact the parish",
       "href": "contact.html"
