@@ -494,22 +494,28 @@
     },
     {
       "slug": "privacy",
-      "section": "about",
+      "section": "visit",
       "category": "Privacy & GDPR",
       "title": "Privacy & GDPR",
-      "summary": "The parish publishes privacy information separately from general visitor information.",
-      "back": "about.html",
+      "summary": "The parish’s privacy statement explains how personal information is handled. Its confirmed wording is being sought before this page is completed.",
+      "back": "visit.html",
       "sections": [
         {
-          "title": "Privacy information",
+          "title": "Privacy statement",
           "paragraphs": [
-            "The previous parish website provides a separate Privacy Statement. Its text was not available for this migration review, so it has not been rewritten or summarised here.",
-            "Use the parish’s existing privacy statement for its published information while the current notice is confirmed for this website."
+            "The full parish Privacy Statement was not available in the material migrated for this website. Its approved wording is being confirmed with the parish.",
+            "To avoid replacing the approved statement with unverified wording, this page does not set out policy terms. The confirmed statement can be added here once it is supplied and reviewed."
+          ]
+        },
+        {
+          "title": "Contact the parish",
+          "paragraphs": [
+            "For a general parish enquiry while the statement is being confirmed, please use the Contact page."
           ]
         }
       ],
-      "action": "Read the parish Privacy Statement",
-      "href": "https://www.micklehamchurch.org.uk/63762843608.htm"
+      "action": "Contact the parish",
+      "href": "contact.html"
     },
     {
       "slug": "church-building",
