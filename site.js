@@ -21,7 +21,7 @@ const footer = `
     <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p></div>
     <div><h2>Explore</h2><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="whats-on.html">Services and events</a><a href="church-life.html">Church life</a><a href="about.html">Our Parish</a><a href="visit.html">Visit the Church</a><a href="news.html">News</a><a href="gallery.html">Gallery</a><a href="sunday-services.html">Media · Sunday services</a></div>
     <div><h2>Our churches</h2><p>St Michael &amp; All Angels<br>Mickleham, Surrey</p><p>Westhumble Chapel<br>Westhumble, Surrey</p><a href="visit.html">Plan a visit <span aria-hidden="true">→</span></a></div>
-    <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="parish-contact-directory.html">Parish Contact Directory</a><a href="give.html">Support our church</a></div>
+    <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="parish-contact-directory.html">Parish Contact Directory</a><a href="safeguarding.html">Safeguarding</a><a href="give.html">Support our church</a></div>
   </div>
   <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>`;
 

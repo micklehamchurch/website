@@ -1,0 +1,148 @@
+.safeguarding-page {
+  padding-top: clamp(30px, 5vw, 58px);
+  padding-bottom: clamp(42px, 6vw, 72px);
+}
+.safeguarding-copy { width: 100%; min-width: 0; }
+.safeguarding-copy .topic-lead { max-width: 780px; margin-bottom: 14px; }
+.safeguarding-policy-entity {
+  max-width: 780px;
+  margin: 0 0 32px;
+  color: var(--muted);
+  font: 600 17px/1.6 var(--serif);
+}
+.safeguarding-body {
+  max-width: none;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.72;
+}
+.safeguarding-section {
+  max-width: 82ch;
+  margin: 0 auto;
+  padding: clamp(24px, 3.5vw, 36px) 0;
+  border-bottom: 1px solid var(--stone);
+  overflow-wrap: anywhere;
+}
+.safeguarding-section h2,
+.safeguarding-approval h2 {
+  margin: 0 0 16px;
+  color: var(--deep);
+  font: 600 clamp(23px, 2.8vw, 30px)/1.25 var(--serif);
+  letter-spacing: -.01em;
+}
+.safeguarding-section p { margin: 0 0 13px; }
+.safeguarding-section p:last-child { margin-bottom: 0; }
+.safeguarding-section ul {
+  margin: 16px 0 0;
+  padding-left: 1.4rem;
+}
+.safeguarding-section li { margin: 0 0 11px; padding-left: .22rem; }
+.safeguarding-section li::marker { color: var(--gold); }
+.safeguarding-section li:last-child { margin-bottom: 0; }
+.safeguarding-commitments ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.safeguarding-commitments li {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: 16px 18px 16px 42px;
+  border: 1px solid var(--stone);
+  border-radius: 7px;
+  background: #fffefa;
+}
+.safeguarding-commitments li::before {
+  position: absolute;
+  top: 16px;
+  left: 17px;
+  color: var(--green);
+  content: "✓";
+  font-weight: 700;
+}
+.safeguarding-commitments li::marker { content: ""; }
+.safeguarding-responsibilities ul { padding-left: 1.4rem; }
+.safeguarding-contacts {
+  max-width: none;
+  margin-top: 26px;
+  padding: clamp(22px, 4vw, 36px);
+  border: 1px solid #315d49;
+  border-radius: 10px;
+  color: #f9f7ef;
+  background: var(--deep);
+}
+.safeguarding-contacts h2 { color: #fffdf8; }
+.safeguarding-contacts > p { color: #e3e9e4; }
+.safeguarding-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.safeguarding-contact-card {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #ffffff35;
+  border-radius: 8px;
+  background: #ffffff0b;
+  overflow-wrap: anywhere;
+}
+.safeguarding-contact-role {
+  margin: 0 0 8px !important;
+  color: #f0dba9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.safeguarding-contact-card h3 {
+  margin: 0 0 18px;
+  color: #fffdf8;
+  font: 600 26px/1.2 var(--serif);
+}
+.safeguarding-contact-card p:not(.safeguarding-contact-role) { margin: 0 0 12px; }
+.safeguarding-contact-card p:last-child { margin-bottom: 0; }
+.safeguarding-contact-card p > span[aria-hidden="true"] {
+  display: inline-block;
+  width: 1.5em;
+  color: #f0dba9;
+}
+.safeguarding-contact-card a {
+  color: #f3dfb1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.safeguarding-contact-card a:hover { color: white; }
+.safeguarding-contact-card a:focus-visible {
+  outline: 3px solid #e7c777;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.safeguarding-approval {
+  max-width: 82ch;
+  margin: 26px auto 0;
+  padding: 22px 25px;
+  border: 1px solid var(--stone);
+  border-left: 4px solid var(--gold);
+  background: var(--cream);
+}
+.safeguarding-approval h2 { font-size: 23px; }
+.safeguarding-approval p { margin: 6px 0; color: var(--ink); }
+.safeguarding-approval p:last-child { margin-bottom: 0; }
+.safeguarding-approval address { margin-top: 14px; color: var(--muted); font-style: normal; line-height: 1.55; }
+.safeguarding-copy .topic-actions { justify-content: flex-start; margin-top: 26px; }
+
+@media (max-width: 760px) {
+  .safeguarding-page { padding-top: 28px; }
+  .safeguarding-policy-entity { font-size: 16px; }
+  .safeguarding-section { padding: 24px 0; }
+  .safeguarding-commitments ul,
+  .safeguarding-contact-grid { grid-template-columns: 1fr; }
+  .safeguarding-contacts { padding: 22px 18px; }
+  .safeguarding-contact-card { padding: 18px; }
+  .safeguarding-approval { padding: 20px 18px; }
+}

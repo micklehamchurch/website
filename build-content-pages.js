@@ -23,6 +23,12 @@ const renderPrivacyContact = details => `<div class="privacy-contact-grid">
   </section>
 </div>`;
 const renderPrivacyFootnotes = footnotes => footnotes?.length ? `<ol class="privacy-footnotes">${footnotes.map(note => `<li id="${esc(note.id)}"><span>${esc(note.text)}</span> <a href="${esc(note.href)}">${esc(note.linkLabel)}</a></li>`).join('')}</ol>` : '';
+const renderSafeguardingContacts = contacts => `<div class="safeguarding-contact-grid">${contacts.map((contact, index) => `<section class="safeguarding-contact-card" aria-labelledby="safeguarding-contact-${index + 1}">
+    <p class="safeguarding-contact-role">${esc(contact.role)}</p>
+    <h3 id="safeguarding-contact-${index + 1}">${esc(contact.name)}</h3>
+    <p><span aria-hidden="true">✉</span> <a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a></p>
+    <p><span aria-hidden="true">☎</span> <a href="${esc(telHref(contact.phone))}">${esc(contact.phone)}</a></p>
+  </section>`).join('')}</div>`;
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -33,18 +39,20 @@ for (const page of pages) {
     if (!generated) throw new Error(`Refusing to replace a hand-maintained page: ${page.slug}.html`);
   }
   const isPrivacy = page.layout === 'privacy';
+  const isSafeguarding = page.layout === 'safeguarding';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
     ? `<a class="btn btn-outline-green" href="${esc(page.back)}">Back to ${esc(backLabel)}</a>`
     : `${page.href && page.action ? `<a class="btn btn-green" href="${esc(page.href)}">${esc(page.action)} <span aria-hidden="true">→</span></a>` : ''} <a class="btn btn-outline-green" href="${esc(page.back)}">More in ${esc(backLabel)}</a>`;
   const sections = (page.sections || [{ paragraphs: page.paragraphs || [] }]).map(section => {
-    const sectionClass = isPrivacy ? `privacy-section${section.variant ? ` privacy-${esc(section.variant)}` : ''}` : 'topic-content-section';
+    const sectionClass = isPrivacy ? `privacy-section${section.variant ? ` privacy-${esc(section.variant)}` : ''}` : isSafeguarding ? `safeguarding-section${section.variant ? ` safeguarding-${esc(section.variant)}` : ''}` : 'topic-content-section';
     const footnoteRef = section.footnoteRef ? `<sup class="privacy-footnote-ref"><a href="#privacy-footnote-${esc(section.footnoteRef)}" aria-label="See footnote ${esc(section.footnoteRef)}">${esc(section.footnoteRef)}</a></sup>` : '';
     const paragraphs = (section.paragraphs || []).map(paragraph => `<p>${esc(paragraph)}</p>`).join('\n          ');
     const items = section.items?.length ? renderItems(section.items) : '';
     const contact = isPrivacy && section.variant === 'contact' ? renderPrivacyContact(page.contactDetails) : '';
-    return `<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}</section>`;
+    const safeguardingContactCards = isSafeguarding && section.variant === 'contacts' ? renderSafeguardingContacts(page.safeguardingContacts) : '';
+    return `<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}</section>`;
   }).join('\n          ');
   const documentHeading = isPrivacy ? `          <div class="privacy-document-heading">
             <p class="privacy-form-title">${esc(page.documentHeading.formTitle)}</p>
@@ -54,6 +62,9 @@ for (const page of pages) {
           </div>\n` : '';
   const footnotes = isPrivacy ? `          ${renderPrivacyFootnotes(page.footnotes)}\n` : '';
   const privacyStylesheet = isPrivacy ? '  <link rel="stylesheet" href="privacy.css">\n' : '';
+  const safeguardingStylesheet = isSafeguarding ? '  <link rel="stylesheet" href="safeguarding.css">\n' : '';
+  const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
+  const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async"><figcaption>${esc(page.imageCaption || 'Illustrative image, not an approved parish photograph.')}</figcaption></figure>` : '';
   const html = `<!doctype html>
 <html lang="en">
@@ -68,7 +79,7 @@ for (const page of pages) {
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -78,16 +89,16 @@ ${privacyStylesheet}  <script src="site.js" defer></script>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : ''}" tabindex="-1">
-    <div class="container topic-container${isPrivacy ? ' privacy-container' : ''}">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : ''}" tabindex="-1">
+    <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
       <div class="topic-grid${page.image ? '' : ' topic-grid-text-only'}">
-        <article class="topic-copy${isPrivacy ? ' privacy-copy' : ''}">
+        <article class="topic-copy${isPrivacy ? ' privacy-copy' : isSafeguarding ? ' safeguarding-copy' : ''}">
           <p class="eyebrow">${esc(page.category)}</p>
           <h1>${esc(page.title)}</h1>
           <p class="topic-lead">${esc(page.summary)}</p>
-${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : ''}">${sections}</div>
-${footnotes}          <div class="topic-actions">${related}</div>
+${policyEntity}${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>
+${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
         </article>
         ${image}
       </div>

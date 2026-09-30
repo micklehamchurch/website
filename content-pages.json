@@ -471,26 +471,90 @@
       "section": "about",
       "category": "Safeguarding",
       "title": "Safeguarding",
-      "summary": "The parish’s safeguarding policy sets out its commitment to a safer church for children, young people and adults.",
+      "summary": "The following policy was agreed at the Parochial Church Council (PCC) meeting in September 2026 and is reviewed annually.",
       "back": "about.html",
+      "parentLabel": "About our parish",
+      "layout": "safeguarding",
+      "policyEntity": "The Parochial Church Council (PCC) of St. Michael and All Angels Church, Mickleham (St. Michael’s)",
       "sections": [
         {
-          "title": "A safer church",
+          "title": "Our safeguarding commitments",
+          "variant": "commitments",
           "paragraphs": [
-            "The safeguarding statement published on the previous parish website says the church is committed to promoting a safer environment, safe recruitment and support, responding promptly to concerns, and offering pastoral care to people affected by abuse or allegations.",
-            "It also describes working with the incumbent, the Parochial Church Council, the Diocesan Safeguarding Adviser and statutory agencies when concerns arise."
+            "This policy statement actively underpins all safeguarding work within the church.",
+            "In accordance with the Church of England Safeguarding Policy our church is committed to:"
+          ],
+          "items": [
+            "Promoting a safer environment and culture",
+            "Safely recruiting and supporting all those with any responsibility related to children, young people and vulnerable adults within the church",
+            "Responding promptly to every safeguarding concern or allegation",
+            "Caring pastorally for any victims/survivors of abuse and other affected persons",
+            "Caring pastorally for those who are the subject of concerns or allegations of abuse and other affected persons",
+            "Responding to those who may present a risk to others"
           ]
         },
         {
-          "title": "Policy and contacts",
+          "title": "How the parish keeps people safe",
+          "variant": "responsibilities",
           "paragraphs": [
-            "The previous policy page said it was agreed in November 2021 and reviewed annually, with the next review stated as July 2026. That review date has passed, so the policy and local contact details need parish confirmation.",
-            "Read the existing parish safeguarding statement for the current published policy and contact information. If you have an immediate safeguarding concern, use the appropriate statutory services."
+            "The parish will:"
+          ],
+          "items": [
+            "Create a safe and caring place for all",
+            "Have a named Parish Safeguarding Officer (PSO) to work with the incumbent and the PCC to implement policy and procedures",
+            "Safely recruit, train and support all those with any responsibility for children, young people and adults to have the confidence and skills to recognise and respond to abuse",
+            "Ensure that there is appropriate insurance cover for all activities involving children and adults undertaken in the name of the parish",
+            "Display in church premises and on the Parish website the details of who to contact if there are safeguarding concerns or support needs",
+            "Listen to and take seriously all those who disclose abuse",
+            "Take steps to protect children and adults when a safeguarding concern of any kind arises, following House of Bishops guidance, including notifying the Diocesan Safeguarding Adviser (DSA) and statutory agencies immediately",
+            "Offer support to victims/survivors of abuse regardless of the type of abuse, when or where it occurred",
+            "Care for an monitor any member of the church community who may pose a risk to children and adults whilst maintaining appropriate confidentiality and the safety of all parties (after taking advice from the DSA)",
+            "Ensure that Health and Safety Policy, procedures and risk assessments are in place and that these are reviewed annually",
+            "Review the implementation of the Safeguarding Policy, Procedures and Practices at least annually"
+          ]
+        },
+        {
+          "title": "Working together",
+          "paragraphs": [
+            "Each person who works within this church community will agree to abide by this policy and the guidelines established by this church.",
+            "Mickleham appoints Vickie Leney as the Safeguarding Officer"
+          ]
+        },
+        {
+          "title": "Need to report a safeguarding concern?",
+          "variant": "contacts",
+          "paragraphs": [
+            "Our Parish Safeguarding Officer is:",
+            "The Diocesan Safeguarding Adviser is:"
           ]
         }
       ],
-      "action": "Read the existing safeguarding statement",
-      "href": "https://www.micklehamchurch.org.uk/469890773296.htm"
+      "safeguardingContacts": [
+        {
+          "role": "Parish Safeguarding Officer",
+          "name": "Vickie Leney",
+          "email": "safeguarding@micklehamchurch.org.uk",
+          "phone": "01306 884054"
+        },
+        {
+          "role": "Diocesan Safeguarding Adviser",
+          "name": "Natasha McMillan",
+          "email": "safeguarding@cofeguildford.org.uk",
+          "phone": "01483 790379"
+        }
+      ],
+      "policyApproval": {
+        "signed": "Sandra Faccini (Parish Priest)",
+        "name": "Reverend Dr. Sandra Faccini",
+        "review": "Next reviewed in July 2027",
+        "address": [
+          "St. Michael and All Angels Church",
+          "Old London Road",
+          "Mickleham",
+          "Surrey",
+          "RH5 6DU"
+        ]
+      }
     },
     {
       "slug": "privacy",
