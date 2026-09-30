@@ -1,0 +1,116 @@
+.prayer-page,.pastoral-care-page { padding-top: 34px; }
+.prayer-page .topic-container,.pastoral-care-page .topic-container { max-width: 1240px; }
+.care-hero { max-width: 1240px; margin: 0 auto 48px; padding: clamp(42px,6vw,72px); }
+.care-hero .eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+.care-hero h1 { max-width: 800px; margin: 0; font: 600 clamp(42px,5vw,62px)/1.08 var(--serif); }
+.care-hero .topic-lead { max-width: 760px; margin: 18px 0 0; font-size: clamp(17px,1.7vw,20px); line-height: 1.65; }
+.prayer-hero { border: 1px solid #e3decf; color: var(--deep); background: linear-gradient(125deg,#f2efe5 0%,#faf9f4 68%,#e9ede5 100%); }
+.prayer-hero .eyebrow { color: #8d7740; }
+.prayer-hero h1 { color: var(--deep); }
+.prayer-hero .topic-lead { color: var(--muted); }
+.pastoral-hero { color: #fff; background: linear-gradient(115deg,#243f32,#3f624d); }
+.pastoral-hero .eyebrow { color: #e4cf91; }
+.pastoral-hero h1 { color: white; }
+.pastoral-hero .topic-lead { color: rgb(255 255 255 / 88%); }
+.care-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 25px; }
+.care-hero-secondary { color: var(--green); font-weight: 700; text-underline-offset: 4px; }
+.pastoral-hero .care-hero-secondary { color: white; }
+.pastoral-hero .btn-green { color: var(--deep); background: #e3ce91; }
+.prayer-content,.pastoral-content { max-width: 1080px; margin: 0 auto; }
+.prayer-content h2,.pastoral-content h2 { margin: 0 0 13px; color: var(--deep); font: 600 clamp(27px,3vw,36px)/1.2 var(--serif); }
+.prayer-content p,.pastoral-content p { color: var(--muted); line-height: 1.72; }
+.prayer-content .eyebrow,.pastoral-content .eyebrow { margin: 0 0 9px; color: #8e7844; font-size: 11px; font-weight: 700; letter-spacing: .15em; }
+.prayer-intro { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 23px; align-items: start; max-width: 850px; margin: 0 auto 48px; }
+.prayer-cross { display: grid; width: 58px; height: 58px; place-items: center; border: 1px solid #c7b578; border-radius: 50%; color: var(--green); font-size: 26px; }
+.prayer-intro h2 { margin-bottom: 8px; }
+.prayer-intro p:last-child { max-width: 730px; margin: 0; font-size: 17px; }
+.prayer-together { max-width: 870px; margin: 0 auto 48px; padding: 0 0 38px; border-bottom: 1px solid var(--stone); }
+.prayer-section-lead { max-width: 760px; margin: 0 0 18px; }
+.prayer-practice-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; margin: 22px 0 18px; }
+.prayer-practice { display: flex; gap: 14px; padding: 19px; border: 1px solid var(--stone); background: #fff; }
+.prayer-practice > span { color: #a18a4b; font-size: 20px; }
+.prayer-practice h3,.pastoral-practice h3 { margin: 0 0 5px; color: var(--deep); font: 600 20px/1.3 var(--serif); }
+.prayer-practice p,.pastoral-practice p { margin: 0; font-size: 14px; }
+.prayer-text-link,.pastoral-inline-link { color: var(--green); font-weight: 700; text-underline-offset: 3px; }
+.prayer-request { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(220px,.65fr); gap: 35px; align-items: center; margin: 0 0 48px; padding: 30px 34px; color: #fff; background: var(--green); }
+.prayer-request h2,.prayer-request p { color: white; }
+.prayer-request > div:first-child > p:not(.eyebrow) { max-width: 650px; margin: 0 0 19px; }
+.prayer-request .eyebrow { color: #ead99e; }
+.prayer-request .btn-green { color: var(--deep); background: #e3ce91; }
+.prayer-request-aside { padding-left: 24px; border-left: 1px solid rgb(255 255 255 / 34%); }
+.prayer-request-aside > span { color: #e4cf91; font-size: 24px; }
+.prayer-request-aside p { margin: 8px 0 0; font: 500 17px/1.6 var(--serif); }
+.prayer-cycle { max-width: 870px; margin: 0 auto 48px; }
+.prayer-cycle > p:not(.eyebrow) { max-width: 790px; margin: 0; }
+.prayer-archive { display: flex; justify-content: space-between; align-items: center; gap: 25px; margin-top: 22px; padding: 19px 21px; border: 1px solid #e2ddcf; background: #f6f4ed; }
+.prayer-archive .eyebrow { margin-bottom: 5px; font-size: 10px; }
+.prayer-archive h3 { margin: 0 0 4px; color: var(--deep); font: 600 19px/1.3 var(--serif); }
+.prayer-archive p:not(.eyebrow) { margin: 0; font-size: 13px; }
+.prayer-archive > a { flex: 0 0 auto; color: var(--green); font-size: 14px; font-weight: 700; text-underline-offset: 3px; }
+.prayer-personal { display: flex; justify-content: space-between; align-items: center; gap: 24px; max-width: 870px; margin: 0 auto 44px; padding: 23px 0; border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone); }
+.prayer-personal > div { max-width: 650px; }
+.prayer-personal h2 { margin-bottom: 6px; font-size: 27px; }
+.prayer-personal p:last-child { margin: 0; }
+.prayer-related { max-width: 870px; margin: 0 auto 28px; }
+.prayer-related > div { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.prayer-related-link { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; gap: 15px; padding: 15px; border: 1px solid var(--stone); background: #fff; color: var(--deep); text-decoration: none; }
+.prayer-related-link > span { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+.prayer-related-link strong { font: 600 17px/1.35 var(--serif); }
+.prayer-related-link strong span { color: #9b8242; font-family: var(--sans); }
+.prayer-related-link:hover,.prayer-related-link:focus-visible { border-color: #9b8242; outline: 2px solid #9b8242; outline-offset: 2px; }
+.pastoral-intro { max-width: 850px; margin: 0 auto 45px; }
+.pastoral-intro > p:not(.eyebrow) { font-size: 18px; }
+.pastoral-intro blockquote { display: flex; align-items: baseline; gap: 12px; margin: 23px 0 0; padding: 15px 18px; border-left: 3px solid #b69d59; background: #f4f1e7; }
+.pastoral-intro blockquote p { margin: 0; color: var(--deep); font: 500 16px/1.55 var(--serif); }
+.pastoral-intro cite { flex: 0 0 auto; color: var(--green); font-size: 12px; font-style: normal; font-weight: 700; }
+.pastoral-care { max-width: 900px; margin: 0 auto 45px; }
+.pastoral-section-heading { max-width: 760px; margin-bottom: 20px; }
+.pastoral-section-heading > p:last-child { margin-bottom: 0; }
+.pastoral-practice-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.pastoral-practice { display: flex; gap: 12px; padding: 18px; border: 1px solid var(--stone); background: #fff; }
+.pastoral-practice > span { color: #a18a4b; font-size: 20px; }
+.pastoral-practice h3 { font-size: 19px; }
+.pastoral-practice p { font-size: 14px; }
+.pastoral-support { display: flex; justify-content: space-between; align-items: center; gap: 25px; margin: 0 0 42px; padding: 27px 30px; background: #f3f0e6; }
+.pastoral-support > div { max-width: 680px; }
+.pastoral-support > div > p:last-child { margin: 0; }
+.pastoral-support .btn { flex: 0 0 auto; }
+.pastoral-community { display: flex; justify-content: space-between; align-items: center; gap: 25px; max-width: 900px; margin: 0 auto 42px; }
+.pastoral-community > div { max-width: 680px; }
+.pastoral-community > div > p:last-child { margin: 0; }
+.pastoral-inline-link { flex: 0 0 auto; }
+.pastoral-prayer { display: flex; justify-content: space-between; align-items: center; gap: 25px; margin: 0 0 28px; padding: 27px 30px; border: 1px solid var(--stone); }
+.pastoral-prayer > div { max-width: 680px; }
+.pastoral-prayer > div > p:last-child { margin: 0; }
+.pastoral-prayer .btn { flex: 0 0 auto; }
+@media (max-width: 800px) {
+  .prayer-related > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .pastoral-practice-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .prayer-page,.pastoral-care-page { padding-top: 20px; }
+  .care-hero { margin-bottom: 31px; padding: 32px 24px; }
+  .care-hero h1 { font-size: clamp(39px,10vw,49px); }
+  .care-hero-actions { gap: 14px; }
+  .prayer-content h2,.pastoral-content h2 { font-size: 29px; }
+  .prayer-intro { grid-template-columns: 43px minmax(0,1fr); gap: 13px; margin-bottom: 34px; }
+  .prayer-cross { width: 42px; height: 42px; font-size: 19px; }
+  .prayer-intro p:last-child { font-size: 16px; }
+  .prayer-together { margin-bottom: 32px; padding-bottom: 28px; }
+  .prayer-practice-list { grid-template-columns: 1fr; gap: 9px; }
+  .prayer-request { grid-template-columns: 1fr; gap: 19px; margin-bottom: 34px; padding: 23px 20px; }
+  .prayer-request-aside { padding: 0; border: 0; }
+  .prayer-request-aside p { font-size: 15px; }
+  .prayer-cycle { margin-bottom: 32px; }
+  .prayer-archive { align-items: flex-start; flex-direction: column; gap: 13px; padding: 17px; }
+  .prayer-personal,.pastoral-community,.pastoral-support,.pastoral-prayer { align-items: flex-start; flex-direction: column; }
+  .prayer-personal { margin-bottom: 32px; }
+  .prayer-related > div { gap: 8px; }
+  .prayer-related-link { padding: 13px; }
+  .prayer-related-link strong { font-size: 15px; }
+  .pastoral-intro { margin-bottom: 34px; }
+  .pastoral-intro > p:not(.eyebrow) { font-size: 16px; }
+  .pastoral-intro blockquote { align-items: flex-start; flex-direction: column; gap: 7px; margin-top: 18px; padding: 14px; }
+  .pastoral-support,.pastoral-prayer { gap: 18px; margin-bottom: 32px; padding: 22px 19px; }
+  .pastoral-community { margin-bottom: 32px; }
+}

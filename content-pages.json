@@ -105,7 +105,7 @@
       "section": "worship",
       "category": "Worship",
       "title": "Prayer",
-      "summary": "Prayer is part of the worship and shared life of the parish.",
+      "summary": "Prayer is an important part of Christian life and of the shared worship and care of the parish.",
       "back": "worship.html",
       "sections": [
         {
@@ -124,9 +124,63 @@
       ],
       "action": "Contact the church",
       "href": "contact.html",
-      "image": "assets/demo/sanctuary-interior-demo.jpg",
-      "alt": "Illustrative generated image of a church interior with pews and an altar; not a photograph of St Michael and All Angels.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "layout": "prayer",
+      "heroLabel": "PRAYER",
+      "heroTitle": "A place for prayer",
+      "heroAction": {
+        "label": "Ask about prayer",
+        "href": "contact.html"
+      },
+      "heroSecondary": {
+        "label": "See the Calendar",
+        "href": "calendar.html"
+      },
+      "introTitle": "A place to bring what is on your heart",
+      "introText": "Prayer is central to Christian life. The parish trusts that God hears and answers prayer, though not always as we expect and sometimes in surprising ways.",
+      "togetherTitle": "Praying together",
+      "togetherIntro": "Praying together is part of the life of the parish. Sunday intercessions bring the needs of the church, the community and the wider world into worship.",
+      "prayerPractices": [
+        {
+          "mark": "✦",
+          "title": "Sunday intercessions",
+          "text": "Prayer is shared during Sunday worship. Check the Calendar for upcoming services and their details."
+        },
+        {
+          "mark": "◌",
+          "title": "Prayer through the week",
+          "text": "The parish has also held Compline and occasional prayer workshops. For current opportunities, please ask the church or check the Calendar."
+        }
+      ],
+      "requestTitle": "Can we pray for you?",
+      "requestText": "The parish wants to offer prayer for people who are struggling. If you would like a prayer request to be included in Sunday prayers, or would value individual prayer with the priest, please contact the church and ask about the current arrangements.",
+      "requestAside": "You only need to share what you feel comfortable sharing. For a private conversation, contact the parish directly.",
+      "cycleTitle": "The parish Cycle of Prayer",
+      "cycleText": "The parish has produced a Cycle of Prayer twice a year, naming three causes for each Sunday: two within the community and one further afield. A previous edition is kept in the parish archive below; it covers August 2023 to March 2024 and is not a current prayer schedule.",
+      "cycleDocument": "assets/documents/prayer/cycle-of-prayer-2023-4.pdf",
+      "personalTitle": "Personal prayer",
+      "personalText": "If you would like to speak with the priest or ask about individual prayer, please get in touch through the parish Contact page.",
+      "relatedLinks": [
+        {
+          "label": "WORSHIP",
+          "title": "Worship",
+          "href": "worship.html"
+        },
+        {
+          "label": "PASTORAL CARE",
+          "title": "Pastoral Care",
+          "href": "pastoral-care.html"
+        },
+        {
+          "label": "WHAT’S ON",
+          "title": "Calendar",
+          "href": "calendar.html"
+        },
+        {
+          "label": "GET IN TOUCH",
+          "title": "Contact",
+          "href": "contact.html"
+        }
+      ]
     },
     {
       "slug": "special-services",
@@ -351,25 +405,50 @@
       "section": "community",
       "category": "Our Community",
       "title": "Pastoral Care",
-      "summary": "The parish seeks to care for one another through spiritual support, practical help and encouragement.",
+      "summary": "Pastoral care is something the parish shares: noticing one another and reaching out in Christian love.",
       "back": "church-life.html",
-      "sections": [
+      "action": "Contact the parish",
+      "href": "contact.html",
+      "layout": "pastoral-care",
+      "heroLabel": "PASTORAL CARE",
+      "heroTitle": "Caring for one another",
+      "heroAction": {
+        "label": "Contact us about pastoral care",
+        "href": "contact.html"
+      },
+      "heroSecondary": {
+        "label": "Prayer and prayer requests",
+        "href": "prayer.html"
+      },
+      "introTitle": "Care belongs to the whole parish",
+      "introText": "In the Parish of Mickleham, people are encouraged to extend pastoral care to one another. It is not only the responsibility of church leaders; everyone has a part to play in reaching out in Christian love.",
+      "scripture": "I give you a new command: Love one another. Just as I have loved you, you are also to love one another. By this everyone will know that you are my disciples, if you love one another.",
+      "scriptureReference": "John 13:34–35",
+      "careTitle": "Here for one another",
+      "careIntro": "A close community can help people notice when someone has not been around or when they may need support. The parish describes responding both practically and prayerfully.",
+      "carePractices": [
         {
-          "title": "Care within the parish",
-          "paragraphs": [
-            "The parish describes a community where people seek to share one another’s burdens and offer spiritual support, practical help and encouragement. The older team page listed a Parish Visitor role for pastoral care; the named contact may have changed.",
-            "If you would like to speak with someone, contact the parish and ask about current pastoral support. The church will respond as it is able; this page does not promise a particular service or response time."
-          ]
+          "mark": "◌",
+          "title": "Notice",
+          "text": "Pay attention to one another and notice when someone may need support."
         },
         {
-          "title": "Privacy and safeguarding",
-          "paragraphs": [
-            "The parish says it respects privacy and places importance on confidentiality and safeguarding. Please use the Contact page for current information and share only details needed to make your enquiry."
-          ]
+          "mark": "＋",
+          "title": "Respond practically",
+          "text": "Offer practical help where it is needed and possible."
+        },
+        {
+          "mark": "✦",
+          "title": "Pray and encourage",
+          "text": "Support one another in prayer, friendship and Christian love."
         }
       ],
-      "action": "Contact the parish",
-      "href": "contact.html"
+      "supportTitle": "Need support?",
+      "supportText": "If you would like to speak with someone about pastoral support, contact the parish. The church can explain what help or signposting may be available.",
+      "communityTitle": "Community and friendship",
+      "communityText": "Shared meals, refreshments and informal gatherings have been part of parish life. For current activities and arrangements, please check the Calendar or contact the parish.",
+      "prayerTitle": "Prayer is part of care",
+      "prayerText": "The parish welcomes prayer for people who are struggling. Visit the Prayer page to find out how to ask about prayer and current arrangements."
     },
     {
       "slug": "volunteering",

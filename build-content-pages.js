@@ -75,6 +75,29 @@ const renderChildrenFamiliesContent = page => {
     <section class="family-invitation" aria-labelledby="family-invitation-heading"><div><p class="eyebrow">You are welcome here</p><h2 id="family-invitation-heading">${esc(page.invitationTitle)}</h2><p>${esc(page.invitationText)}</p></div><div class="family-invitation-actions"><a class="btn btn-green" href="worship.html">Explore worship <span aria-hidden="true">→</span></a><a class="family-contact-link" href="contact.html">Contact the parish</a></div></section>
   </div>`;
 };
+const renderPrayerContent = page => {
+  const practices = page.prayerPractices.map(item => `<article class="prayer-practice"><span aria-hidden="true">${esc(item.mark)}</span><div><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></div></article>`).join('');
+  const related = page.relatedLinks.map(item => `<a class="prayer-related-link" href="${esc(item.href)}"><span>${esc(item.label)}</span><strong>${esc(item.title)} <span aria-hidden="true">→</span></strong></a>`).join('');
+  const archive = `<aside class="prayer-archive" aria-label="Archived Cycle of Prayer"><div><p class="eyebrow">Parish archive</p><h3>Previous Cycle of Prayer</h3><p>This edition covers August 2023 – March 2024. It is an archived document, not a current prayer schedule.</p></div><a href="${esc(page.cycleDocument)}">View archived Cycle of Prayer (PDF) <span aria-hidden="true">↗</span></a></aside>`;
+  return `<div class="prayer-content">
+    <section class="prayer-intro" aria-labelledby="prayer-intro-heading"><span class="prayer-cross" aria-hidden="true">✝</span><div><p class="eyebrow">A quiet place to begin</p><h2 id="prayer-intro-heading">${esc(page.introTitle)}</h2><p>${esc(page.introText)}</p></div></section>
+    <section class="prayer-together" aria-labelledby="prayer-together-heading"><p class="eyebrow">Shared worship</p><h2 id="prayer-together-heading">${esc(page.togetherTitle)}</h2><p class="prayer-section-lead">${esc(page.togetherIntro)}</p><div class="prayer-practice-list">${practices}</div><a class="prayer-text-link" href="calendar.html">See services and events in the Calendar <span aria-hidden="true">→</span></a></section>
+    <section class="prayer-request" aria-labelledby="prayer-request-heading"><div><p class="eyebrow">You do not have to carry it alone</p><h2 id="prayer-request-heading">${esc(page.requestTitle)}</h2><p>${esc(page.requestText)}</p><a class="btn btn-green" href="contact.html">Contact the parish <span aria-hidden="true">→</span></a></div><div class="prayer-request-aside"><span aria-hidden="true">♡</span><p>${esc(page.requestAside)}</p></div></section>
+    <section class="prayer-cycle" aria-labelledby="prayer-cycle-heading"><p class="eyebrow">Prayer across the parish</p><h2 id="prayer-cycle-heading">${esc(page.cycleTitle)}</h2><p>${esc(page.cycleText)}</p>${archive}</section>
+    <section class="prayer-personal" aria-labelledby="prayer-personal-heading"><div><p class="eyebrow">A moment of quiet</p><h2 id="prayer-personal-heading">${esc(page.personalTitle)}</h2><p>${esc(page.personalText)}</p></div><a class="prayer-text-link" href="contact.html">Contact the church <span aria-hidden="true">→</span></a></section>
+    <nav class="prayer-related" aria-label="Related pages"><p class="eyebrow">More to explore</p><div>${related}</div></nav>
+  </div>`;
+};
+const renderPastoralContent = page => {
+  const practices = page.carePractices.map(item => `<article class="pastoral-practice"><span aria-hidden="true">${esc(item.mark)}</span><div><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></div></article>`).join('');
+  return `<div class="pastoral-content">
+    <section class="pastoral-intro" aria-labelledby="pastoral-intro-heading"><p class="eyebrow">A parish that cares</p><h2 id="pastoral-intro-heading">${esc(page.introTitle)}</h2><p>${esc(page.introText)}</p><blockquote><p>“${esc(page.scripture)}”</p><cite>${esc(page.scriptureReference)}</cite></blockquote></section>
+    <section class="pastoral-care" aria-labelledby="pastoral-care-heading"><div class="pastoral-section-heading"><p class="eyebrow">Care in ordinary moments</p><h2 id="pastoral-care-heading">${esc(page.careTitle)}</h2><p>${esc(page.careIntro)}</p></div><div class="pastoral-practice-list">${practices}</div></section>
+    <section class="pastoral-support" aria-labelledby="pastoral-support-heading"><div><p class="eyebrow">A conversation can be a beginning</p><h2 id="pastoral-support-heading">${esc(page.supportTitle)}</h2><p>${esc(page.supportText)}</p></div><a class="btn btn-green" href="contact.html">Contact us about pastoral care <span aria-hidden="true">→</span></a></section>
+    <section class="pastoral-community" aria-labelledby="pastoral-community-heading"><div><p class="eyebrow">Friendship and belonging</p><h2 id="pastoral-community-heading">${esc(page.communityTitle)}</h2><p>${esc(page.communityText)}</p></div><a class="pastoral-inline-link" href="calendar.html">See current parish events <span aria-hidden="true">→</span></a></section>
+    <section class="pastoral-prayer" aria-labelledby="pastoral-prayer-heading"><div><p class="eyebrow">Prayer and care together</p><h2 id="pastoral-prayer-heading">${esc(page.prayerTitle)}</h2><p>${esc(page.prayerText)}</p></div><a class="btn btn-outline-green" href="prayer.html">Prayer and prayer requests <span aria-hidden="true">→</span></a></section>
+  </div>`;
+};
 
 for (const page of pages) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
@@ -90,6 +113,8 @@ for (const page of pages) {
   const isEcoChurch = page.layout === 'eco-church';
   const isFellowship = page.layout === 'fellowship';
   const isChildrenFamilies = page.layout === 'children-families';
+  const isPrayer = page.layout === 'prayer';
+  const isPastoralCare = page.layout === 'pastoral-care';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -119,11 +144,14 @@ for (const page of pages) {
   const ecoStylesheet = isEcoChurch ? '  <link rel="stylesheet" href="eco-church.css">\n' : '';
   const fellowshipStylesheet = isFellowship ? '  <link rel="stylesheet" href="fellowship.css">\n' : '';
   const familyStylesheet = isChildrenFamilies ? '  <link rel="stylesheet" href="children-families.css">\n' : '';
+  const careStylesheet = isPrayer || isPastoralCare ? '  <link rel="stylesheet" href="care-pages.css">\n' : '';
   const policyEntity = isSafeguarding ? `          <p class="safeguarding-policy-entity">${esc(page.policyEntity)}</p>\n` : '';
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
-  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
-  const pageStructure = isChildrenFamilies
+  const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? renderPastoralContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
+  const pageStructure = isPrayer || isPastoralCare
+    ? `<div class="care-hero ${isPrayer ? 'prayer-hero' : 'pastoral-hero'}"><p class="eyebrow">${esc(page.heroLabel)}</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="care-hero-actions"><a class="btn btn-green" href="${esc(page.heroAction.href)}">${esc(page.heroAction.label)} <span aria-hidden="true">→</span></a><a class="care-hero-secondary" href="${esc(page.heroSecondary.href)}">${esc(page.heroSecondary.label)}</a></div></div>${pageContent}`
+    : isChildrenFamilies
     ? `<div class="family-hero"><p class="eyebrow">CHILDREN &amp; FAMILIES</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="family-hero-links"><a class="btn btn-green" href="calendar.html">Find a service <span aria-hidden="true">→</span></a><a class="family-contact-link" href="finding-us.html">Find the church</a></div></div>${pageContent}`
     : isFellowship
     ? `<div class="fellowship-hero"><p class="eyebrow">${esc(page.category)}</p><h1>${esc(page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p></div>${pageContent}`
@@ -161,7 +189,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}  <script src="site.js" defer></script>
+${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -171,7 +199,7 @@ ${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStyleshe
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : ''}" tabindex="-1">
+  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : isPrayer ? ' prayer-page' : isPastoralCare ? ' pastoral-care-page' : ''}" tabindex="-1">
     <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
       <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
       ${pageStructure}
