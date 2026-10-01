@@ -31,10 +31,11 @@ function testEnvironment(privateKey = generateTestKey()) {
   };
 }
 
-test('validates the fixed GitHub App target and normalizes escaped PEM newlines', () => {
+test('validates the fixed target and accepts both real and escaped PEM newlines', () => {
   const privateKey = generateTestKey();
   const escaped = privateKey.replace(/\n/g, '\\n');
   assert.equal(normalizePrivateKey(escaped), privateKey.trim());
+  assert.equal(normalizePrivateKey(privateKey), privateKey.trim());
   const configuration = readGithubConfiguration(testEnvironment(escaped));
   assert.equal(configuration.appId, 5153326);
   assert.equal(configuration.installationId, 166969054);
@@ -44,9 +45,9 @@ test('validates the fixed GitHub App target and normalizes escaped PEM newlines'
   assert.equal(configuration.privateKey, privateKey.trim());
 
   for (const [key, value] of Object.entries({ GITHUB_OWNER: 'another-owner', GITHUB_REPO: 'another-repo', GITHUB_BRANCH: 'main' })) {
-    assert.throws(() => readGithubConfiguration({ ...testEnvironment(), [key]: value }), { code: 'invalid_configuration' });
+    assert.throws(() => readGithubConfiguration({ ...testEnvironment(), [key]: value }), { code: 'github-config-invalid' });
   }
-  assert.throws(() => readGithubConfiguration({ ...testEnvironment(), GITHUB_INSTALLATION_ID: '' }), { code: 'invalid_configuration' });
+  assert.throws(() => readGithubConfiguration({ ...testEnvironment(), GITHUB_INSTALLATION_ID: '' }), { code: 'github-config-invalid' });
 });
 
 test('Octokit exchanges a mocked App JWT for a repo-scoped installation token, then reads only repository and Dev branch', async () => {
@@ -112,7 +113,7 @@ test('Octokit exchanges a mocked App JWT for a repo-scoped installation token, t
   assert.equal(responseText.includes('Authorization'), false);
 });
 
-test('rejects a missing repository or Dev ref with safe responses and logs only categories', async () => {
+test('repository and branch failures have distinct safe categories and logs', async () => {
   const env = testEnvironment();
   const logger = loggerStub();
   const repositoryMissing = createGithubStatusService({
@@ -124,8 +125,8 @@ test('rejects a missing repository or Dev ref with safe responses and logs only 
     } } })
   });
   const repoFailure = await repositoryMissing();
-  assert.deepEqual(repoFailure, { status: 502, jsonBody: { ok: false, error: 'repository_unavailable' } });
-  assert.deepEqual(logger.warnings, ['[GitHub status] repository-check-failed http-404']);
+  assert.deepEqual(repoFailure, { status: 502, jsonBody: { ok: false, error: 'github-repository-unavailable' } });
+  assert.deepEqual(logger.warnings, ['[GitHub status] github-repository-unavailable']);
 
   const branchMissing = createGithubStatusService({
     env,
@@ -138,10 +139,10 @@ test('rejects a missing repository or Dev ref with safe responses and logs only 
       }
     } } })
   });
-  assert.deepEqual(await branchMissing(), { status: 502, jsonBody: { ok: false, error: 'repository_unavailable' } });
+  assert.deepEqual(await branchMissing(), { status: 502, jsonBody: { ok: false, error: 'github-branch-unavailable' } });
 });
 
-test('configuration errors produce a safe response without disclosing credential material', async () => {
+test('invalid configuration and invalid PEM are safely distinguished', async () => {
   const logger = loggerStub();
   const sensitiveValue = 'PRIVATE-KEY-AND-TOKEN-DO-NOT-RETURN';
   const getStatus = createGithubStatusService({
@@ -150,8 +151,53 @@ test('configuration errors produce a safe response without disclosing credential
     createClient() { throw new Error('must not create a client'); }
   });
   const result = await getStatus();
-  assert.deepEqual(result, { status: 503, jsonBody: { ok: false, error: 'configuration_unavailable' } });
-  assert.deepEqual(logger.warnings, ['[GitHub status] configuration-invalid']);
+  assert.deepEqual(result, { status: 503, jsonBody: { ok: false, error: 'github-private-key-invalid' } });
+  assert.deepEqual(logger.warnings, ['[GitHub status] github-private-key-invalid']);
   assert.equal(JSON.stringify(result).includes(sensitiveValue), false);
   assert.equal(logger.warnings.join(' ').includes(sensitiveValue), false);
+
+  const badSettings = createGithubStatusService({
+    env: { ...testEnvironment(), GITHUB_INSTALLATION_ID: 'wrong' },
+    logger: loggerStub()
+  });
+  assert.deepEqual(await badSettings(), { status: 503, jsonBody: { ok: false, error: 'github-config-invalid' } });
+});
+
+test('App JWT signing and installation token exchange failures are separate and sanitized', async () => {
+  const configuration = readGithubConfiguration(testEnvironment());
+  const createAuthWith = (authHandler) => () => authHandler;
+
+  await assert.rejects(
+    createInstallationClient(configuration, createAuthWith(async () => { throw new Error(configuration.privateKey); })),
+    { code: 'github-app-auth-failed' }
+  );
+
+  let calls = 0;
+  await assert.rejects(
+    createInstallationClient(configuration, createAuthWith(async () => {
+      calls += 1;
+      if (calls === 1) return { token: 'app-jwt-secret' };
+      throw new Error('installation-token-secret');
+    })),
+    { code: 'github-installation-token-failed' }
+  );
+
+  const logger = loggerStub();
+  const status = createGithubStatusService({
+    env: testEnvironment(), logger,
+    createClient: async () => { throw Object.assign(new Error('secret-bearing detail'), { code: 'github-installation-token-failed' }); }
+  });
+  const response = await status();
+  assert.deepEqual(response, { status: 502, jsonBody: { ok: false, error: 'github-installation-token-failed' } });
+  assert.deepEqual(logger.warnings, ['[GitHub status] github-installation-token-failed']);
+  assert.equal(JSON.stringify(response).includes('secret-bearing'), false);
+  assert.equal(logger.warnings.join(' ').includes('secret-bearing'), false);
+});
+
+test('unexpected GitHub client failures use a safe API category', async () => {
+  const status = createGithubStatusService({
+    env: testEnvironment(), logger: loggerStub(),
+    createClient: async () => { throw new Error('sensitive provider response'); }
+  });
+  assert.deepEqual(await status(), { status: 502, jsonBody: { ok: false, error: 'github-api-unavailable' } });
 });

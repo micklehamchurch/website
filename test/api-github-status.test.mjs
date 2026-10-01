@@ -27,6 +27,19 @@ test('GitHub status failure categories never expose response bodies or credentia
     assert.equal(options.headers.Authorization, `Bearer ${token}`);
     return new Response(JSON.stringify({ error: token, privateKey: token }), { status: 502 });
   }), { state: 'connection-failed', diagnostic: 'http-502' });
+  assert.deepEqual(await checkGithubRepositoryStatus(token, async () => new Response(JSON.stringify({
+    ok: false, error: 'github-installation-token-failed'
+  }), { status: 502 })), {
+    state: 'connection-failed', diagnostic: 'github-installation-token-failed'
+  });
+  assert.deepEqual(await checkGithubRepositoryStatus(token, async () => new Response(JSON.stringify({
+    ok: false, error: 'github-private-key-invalid', detail: 'must never surface'
+  }), { status: 502 })), {
+    state: 'connection-failed', diagnostic: 'github-private-key-invalid'
+  });
+  assert.deepEqual(await checkGithubRepositoryStatus(token, async () => new Response(JSON.stringify({
+    error: 'private key value: secret'
+  }), { status: 502 })), { state: 'connection-failed', diagnostic: 'http-502' });
   assert.deepEqual(await checkGithubRepositoryStatus(token, async () => {
     throw new Error(token);
   }), { state: 'connection-failed', diagnostic: 'network' });
