@@ -23,6 +23,10 @@ const footer = `
     <div><h2>Our churches</h2><p>St Michael &amp; All Angels<br>Mickleham, Surrey</p><p>Westhumble Chapel<br>Westhumble, Surrey</p><a href="visit.html">Plan a visit <span aria-hidden="true">→</span></a></div>
     <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="parish-contact-directory.html">Parish Contact Directory</a><a href="safeguarding.html">Safeguarding</a><a href="give.html">Support our church</a></div>
   </div>
+  <section class="container footer-diocese" aria-labelledby="footer-diocese-title">
+    <div class="footer-diocese-copy"><p class="footer-diocese-kicker">Our wider church</p><h2 id="footer-diocese-title">Part of the Diocese of Guildford</h2><p>St Michael &amp; All Angels Church is part of the Church of England and the Diocese of Guildford.</p><a class="footer-diocese-link" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer">Learn more about the Diocese <span aria-hidden="true">→</span></a></div>
+    <a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><img src="assets/branding/diocese-of-guildford-colour.png" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></a>
+  </section>
   <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>`;
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
