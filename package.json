@@ -2,10 +2,17 @@
   "name": "mickleham-church-website",
   "private": true,
   "scripts": {
-    "build": "node import-calendar.js && node build-news-pages.js && node build-content-pages.js && node build-contact-directory.js && node build-search-index.js",
+    "build": "node build-admin-auth.js && node import-calendar.js && node build-news-pages.js && node build-content-pages.js && node build-contact-directory.js && node build-search-index.js",
+    "test": "node --test",
     "preview": "node preview.js"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "4.30.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
   }
 }

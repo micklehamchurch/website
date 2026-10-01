@@ -14,14 +14,20 @@ on:
       - 'build-news-pages.js'
       - 'build-content-pages.js'
       - 'build-contact-directory.js'
+      - 'build-admin-auth.js'
       - 'build-search-index.js'
       - 'news.js'
+      - 'admin/msal-auth.js'
+      - 'admin/auth-policy.mjs'
+      - 'admin/AUTH-ARCHITECTURE.md'
       - 'admin/admin.js'
       - 'admin/admin.css'
+      - 'admin/demo-dashboard.css'
       - 'admin/index.html'
       - '*.html'
       - '**/*.html'
       - 'package.json'
+      - 'package-lock.json'
       - '.github/workflows/build-content.yml'
   workflow_dispatch:
 
@@ -45,13 +51,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install project dependencies
+        run: npm ci
       - name: Build calendar, articles, contacts and search index
         run: npm run build
       - name: Commit generated website files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A events.json news-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json search-index.json news
+          git add -A events.json news-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json news
           node -e "const d=require('./content-pages.json'); for (const p of d.pages) console.log(p.slug + '.html')" | while IFS= read -r page; do git add -A "$page"; done
           if git diff --cached --quiet; then
             echo "Generated website files are already current."

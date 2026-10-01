@@ -23,15 +23,16 @@
     <a class="admin-login-brand" href="../index.html"><img src="./favicon-32x32.png" alt="" width="42" height="42"><span>ST MICHAEL &amp; ALL ANGELS</span></a>
     <section class="admin-login-card" aria-labelledby="admin-login-title">
       <p class="admin-kicker">CHURCH WEBSITE ADMINISTRATION</p>
-      <h1 id="admin-login-title">St Michael &amp; All Angels<br>Admin Dashboard</h1>
-      <p>Please enter the administrator password to continue.</p>
-      <form id="admin-login-form">
-        <label for="admin-password">Administrator password</label>
-        <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
-        <p class="admin-login-error" id="admin-login-error" role="alert" hidden></p>
-        <button class="admin-button" type="submit">Sign in</button>
-      </form>
-      <p class="admin-login-demo-note"><strong>Temporary demonstration gate.</strong> This static website does not provide secure authentication. Anyone with access to the site can inspect or bypass this screen. Do not use it to protect private or sensitive information.</p>
+      <h1 id="admin-login-title">St Michael &amp; All Angels<br>Administration</h1>
+      <p id="admin-login-copy">Sign in with an authorised Microsoft account to manage the church website.</p>
+      <p class="admin-auth-status" id="admin-auth-status" role="status">Checking Microsoft sign-in…</p>
+      <div class="admin-auth-error" id="admin-auth-error" role="alert" hidden></div>
+      <div class="admin-auth-accounts" id="admin-auth-accounts" hidden></div>
+      <button class="admin-button admin-ms-button" type="button" id="admin-ms-sign-in" hidden><span class="admin-ms-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Sign in with Microsoft</button>
+      <section class="admin-auth-denied" id="admin-auth-denied" aria-labelledby="admin-auth-denied-title" hidden>
+        <h2 id="admin-auth-denied-title">This Microsoft account is not authorised to administer this website.</h2>
+        <div class="admin-auth-actions"><button class="admin-button secondary" type="button" id="admin-ms-sign-out">Sign out</button><button class="admin-button" type="button" id="admin-ms-switch">Sign in with another account</button></div>
+      </section>
     </section>
     <a class="admin-login-home" href="../index.html">← Return to the church website</a>
   </main>
@@ -65,6 +66,7 @@
         <button class="admin-mobile-menu" type="button" aria-label="Open administration menu" aria-expanded="false" aria-controls="admin-nav">☰</button>
         <span class="admin-topbar-title">Church website · Admin demo</span>
         <a class="admin-public-link" href="../index.html">View public website <span aria-hidden="true">↗</span></a>
+        <div class="admin-account" id="admin-account" aria-label="Signed-in account"><strong id="admin-account-name"></strong><span id="admin-account-email"></span></div>
         <button class="admin-sign-out" type="button" id="admin-sign-out">Sign out</button>
       </header>
       <div class="admin-preview-notice" role="note">
@@ -82,7 +84,7 @@
   </div>
   <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title"></dialog>
   <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
-  <script src="admin-auth.js" defer></script>
+  <script src="msal-auth.bundle.js" defer></script>
   <script src="admin.js" defer></script>
 </body>
 </html>
