@@ -7,6 +7,7 @@ import {
 import { isAuthorisedProfile, verifiedAdminEmail } from './auth-policy.mjs';
 import { GRAPH_USER_SCOPE } from './auth-config.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
+import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 
 const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
@@ -29,6 +30,11 @@ const adminApiStatusLabels = {
   checking: 'Checking…',
   connected: 'Connected',
   'authentication-required': 'Authentication required',
+  'connection-failed': 'Connection failed'
+};
+const githubRepositoryStatusLabels = {
+  checking: 'Checking…',
+  connected: 'Connected',
   'connection-failed': 'Connection failed'
 };
 
@@ -133,23 +139,50 @@ function updateAdminApiStatus(state, diagnostic = null, needsInteraction = false
   }
 }
 
+function updateGithubRepositoryStatus(state, diagnostic = null) {
+  const safeState = githubRepositoryStatusLabels[state] ? state : 'connection-failed';
+  window.dispatchEvent(new CustomEvent('github-repository-status-change', { detail: { state: safeState } }));
+  if (diagnostic && safeState !== 'connected') {
+    console.warn(`[GitHub Repository] Status category: ${diagnostic}.`);
+  }
+}
+
+async function checkGithubRepositoryConnection(accessToken) {
+  updateGithubRepositoryStatus('checking');
+  try {
+    const result = await checkGithubRepositoryStatus(accessToken);
+    updateGithubRepositoryStatus(result.state, result.diagnostic);
+  } catch {
+    updateGithubRepositoryStatus('connection-failed', 'request-failed');
+  }
+}
+
 async function checkAdminApiConnection(account, { interactive = false } = {}) {
   updateAdminApiStatus('checking');
+  updateGithubRepositoryStatus('checking');
   try {
     const accessToken = await acquireAdminApiToken(msal, account, { interactive });
     const result = await checkAdminApiHealth(accessToken);
     updateAdminApiStatus(result.state, result.diagnostic);
+    if (result.state === 'connected') {
+      void checkGithubRepositoryConnection(accessToken);
+    } else {
+      updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
+    }
   } catch (error) {
     if (error instanceof InteractionRequiredAuthError) {
       updateAdminApiStatus('authentication-required', 'interaction-required', true);
+      updateGithubRepositoryStatus('connection-failed', 'admin-api-authentication-required');
       return;
     }
     const errorCode = String(error?.errorCode || '').toLowerCase();
     if (interactive && ['user_cancelled', 'access_denied', 'interaction_required', 'consent_required', 'login_required'].includes(errorCode)) {
       updateAdminApiStatus('authentication-required', 'interactive-authentication-incomplete', true);
+      updateGithubRepositoryStatus('connection-failed', 'admin-api-authentication-required');
       return;
     }
     updateAdminApiStatus('connection-failed', 'token-acquisition-failed');
+    updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
   }
 }
 

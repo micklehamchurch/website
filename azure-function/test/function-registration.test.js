@@ -7,7 +7,7 @@ const Module = require('node:module');
 const projectRoot = path.join(__dirname, '..');
 const packageJson = require(path.join(projectRoot, 'package.json'));
 
-test('configured package entry point registers the expected health HTTP function', async () => {
+test('configured package entry point registers only the health and GitHub status HTTP functions', async () => {
   const entryPoint = path.join(projectRoot, packageJson.main);
   assert.equal(fs.existsSync(entryPoint), true, 'package main entry must exist');
 
@@ -21,6 +21,8 @@ test('configured package entry point registers the expected health HTTP function
   const originalLoad = Module._load;
   const entryPointModule = require.resolve(entryPoint);
   const healthFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/health.js'));
+  const githubFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/github-status.js'));
+  const githubStatusModule = require.resolve(path.join(projectRoot, 'src/github-status.js'));
 
   try {
     Module._load = function (request, parent, isMain) {
@@ -29,15 +31,22 @@ test('configured package entry point registers the expected health HTTP function
     };
     delete require.cache[entryPointModule];
     delete require.cache[healthFunctionModule];
+    delete require.cache[githubFunctionModule];
+    delete require.cache[githubStatusModule];
     require(entryPointModule);
   } finally {
     Module._load = originalLoad;
     delete require.cache[entryPointModule];
     delete require.cache[healthFunctionModule];
+    delete require.cache[githubFunctionModule];
+    delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 1, 'the entry point should register one HTTP function');
-  const [health] = registrations;
+  assert.equal(registrations.length, 2, 'the entry point should register exactly two HTTP functions');
+  const health = registrations.find(item => item.name === 'health');
+  const githubStatus = registrations.find(item => item.name === 'github-status');
+  assert.ok(health);
+  assert.ok(githubStatus);
   assert.equal(health.name, 'health');
   assert.deepEqual(health.options.methods, ['GET']);
   assert.equal(health.options.route, 'health');
@@ -49,6 +58,11 @@ test('configured package entry point registers the expected health HTTP function
       service: 'stmichael-church-admin-api'
     }
   });
+
+  assert.deepEqual(githubStatus.options.methods, ['GET']);
+  assert.equal(githubStatus.options.route, 'github/status');
+  assert.equal(githubStatus.options.authLevel, 'anonymous');
+  assert.equal(githubStatus.options.handler.length, 0, 'the endpoint does not accept request parameters');
 
   const host = require(path.join(projectRoot, 'host.json'));
   assert.equal(host.extensions.http.routePrefix, 'api');

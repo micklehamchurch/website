@@ -40,8 +40,14 @@
     'authentication-required': 'Authentication required',
     'connection-failed': 'Connection failed'
   };
+  const githubRepositoryStatusLabels = {
+    checking: 'Checking…',
+    connected: 'Connected',
+    'connection-failed': 'Connection failed'
+  };
   let adminApiStatus = document.documentElement.dataset.adminApiStatus || 'checking';
   let adminApiNeedsInteraction = document.documentElement.dataset.adminApiNeedsInteraction === 'true';
+  let githubRepositoryStatus = 'checking';
 
   const safe = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
   const escAttr = safe;
@@ -56,7 +62,8 @@
 
   function adminApiStatusPanel() {
     const label = adminApiStatusLabels[adminApiStatus] || adminApiStatusLabels.checking;
-    return `<section class="admin-api-status" id="admin-api-status" data-state="${escAttr(adminApiStatus)}" aria-label="Admin API status" role="status" aria-live="polite"><span class="admin-api-status-dot" aria-hidden="true"></span><span class="admin-api-status-copy">Admin API <strong data-api-state-label>${safe(label)}</strong></span><button class="admin-button secondary small" id="admin-api-authorize" type="button" ${adminApiNeedsInteraction ? '' : 'hidden'}>Authorise connection</button></section>`;
+    const githubLabel = githubRepositoryStatusLabels[githubRepositoryStatus] || githubRepositoryStatusLabels.checking;
+    return `<div class="admin-service-statuses"><section class="admin-api-status" id="admin-api-status" data-state="${escAttr(adminApiStatus)}" aria-label="Admin API status" role="status" aria-live="polite"><span class="admin-api-status-dot" aria-hidden="true"></span><span class="admin-api-status-copy">Admin API <strong data-api-state-label>${safe(label)}</strong></span><button class="admin-button secondary small" id="admin-api-authorize" type="button" ${adminApiNeedsInteraction ? '' : 'hidden'}>Authorise connection</button></section><section class="admin-github-status" id="admin-github-status" data-state="${escAttr(githubRepositoryStatus)}" aria-label="GitHub Repository status" role="status" aria-live="polite"><span class="admin-github-status-dot" aria-hidden="true"></span><span class="admin-api-status-copy">GitHub Repository <strong data-github-state-label>${safe(githubLabel)}</strong></span></section></div>`;
   }
 
   function updateAdminApiIndicator({ state, needsInteraction = false }) {
@@ -71,6 +78,15 @@
   }
 
   window.addEventListener('admin-api-status-change', event => updateAdminApiIndicator(event.detail || {}));
+
+  window.addEventListener('github-repository-status-change', event => {
+    const state = event.detail?.state;
+    githubRepositoryStatus = githubRepositoryStatusLabels[state] ? state : 'connection-failed';
+    const indicator = document.querySelector('#admin-github-status');
+    if (!indicator) return;
+    indicator.dataset.state = githubRepositoryStatus;
+    indicator.querySelector('[data-github-state-label]').textContent = githubRepositoryStatusLabels[githubRepositoryStatus];
+  });
 
   function readDemoState() {
     try {
