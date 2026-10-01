@@ -5,10 +5,12 @@ import {
   PublicClientApplication
 } from '@azure/msal-browser';
 import { isAuthorisedProfile, verifiedAdminEmail } from './auth-policy.mjs';
+import { GRAPH_USER_SCOPE } from './auth-config.mjs';
+import { checkAdminApiHealth } from './api-health.mjs';
+import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 
 const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
 const redirectUri = new URL('.', window.location.href).href;
-const graphScope = 'User.Read';
 const login = document.querySelector('#admin-login');
 const app = document.querySelector('#admin-app');
 const loginCopy = document.querySelector('#admin-login-copy');
@@ -21,6 +23,14 @@ const signOutButton = document.querySelector('#admin-ms-sign-out');
 const switchAccountButton = document.querySelector('#admin-ms-switch');
 const dashboardSignOut = document.querySelector('#admin-sign-out');
 let msal;
+let activeAdminApiAccount = null;
+
+const adminApiStatusLabels = {
+  checking: 'Checking…',
+  connected: 'Connected',
+  'authentication-required': 'Authentication required',
+  'connection-failed': 'Connection failed'
+};
 
 const publicClient = new PublicClientApplication({
   auth: {
@@ -107,11 +117,47 @@ function showDashboard(profile, email) {
   document.querySelector('#admin-main')?.focus({ preventScroll: true });
 }
 
+function updateAdminApiStatus(state, diagnostic = null, needsInteraction = false) {
+  document.documentElement.dataset.adminApiStatus = state;
+  document.documentElement.dataset.adminApiNeedsInteraction = String(needsInteraction);
+  window.dispatchEvent(new CustomEvent('admin-api-status-change', { detail: { state, needsInteraction } }));
+  const indicator = document.querySelector('#admin-api-status');
+  if (indicator) {
+    indicator.dataset.state = state;
+    indicator.querySelector('[data-api-state-label]').textContent = adminApiStatusLabels[state];
+    const authorize = indicator.querySelector('#admin-api-authorize');
+    if (authorize) authorize.hidden = !needsInteraction;
+  }
+  if (diagnostic && state !== 'connected') {
+    console.warn(`[Admin API] Health check category: ${diagnostic}.`);
+  }
+}
+
+async function checkAdminApiConnection(account, { interactive = false } = {}) {
+  updateAdminApiStatus('checking');
+  try {
+    const accessToken = await acquireAdminApiToken(msal, account, { interactive });
+    const result = await checkAdminApiHealth(accessToken);
+    updateAdminApiStatus(result.state, result.diagnostic);
+  } catch (error) {
+    if (error instanceof InteractionRequiredAuthError) {
+      updateAdminApiStatus('authentication-required', 'interaction-required', true);
+      return;
+    }
+    const errorCode = String(error?.errorCode || '').toLowerCase();
+    if (interactive && ['user_cancelled', 'access_denied', 'interaction_required', 'consent_required', 'login_required'].includes(errorCode)) {
+      updateAdminApiStatus('authentication-required', 'interactive-authentication-incomplete', true);
+      return;
+    }
+    updateAdminApiStatus('connection-failed', 'token-acquisition-failed');
+  }
+}
+
 async function graphProfile(account, response = null) {
   msal.setActiveAccount(account);
   let accessToken = response?.accessToken;
   if (!accessToken) {
-    const token = await msal.acquireTokenSilent({ scopes: [graphScope], account });
+    const token = await acquireGraphUserToken(msal, account);
     accessToken = token.accessToken;
   }
   const result = await fetch('https://graph.microsoft.com/v1.0/me?$select=displayName,mail,userPrincipalName', {
@@ -125,6 +171,8 @@ async function graphProfile(account, response = null) {
     return;
   }
   showDashboard(profile, email);
+  activeAdminApiAccount = account;
+  void checkAdminApiConnection(account);
 }
 
 async function restoreAccount(account) {
@@ -150,7 +198,7 @@ async function beginSignIn() {
   status.textContent = 'Opening Microsoft sign-in…';
   signIn.disabled = true;
   try {
-    await msal.loginRedirect({ scopes: [graphScope], prompt: 'select_account', redirectUri });
+    await msal.loginRedirect({ scopes: [GRAPH_USER_SCOPE], prompt: 'select_account', redirectUri });
   } catch (error) {
     signIn.disabled = false;
     showCancelledOrFailed(error);
@@ -170,6 +218,14 @@ signIn.addEventListener('click', beginSignIn);
 switchAccountButton.addEventListener('click', beginSignIn);
 signOutButton.addEventListener('click', signOut);
 dashboardSignOut.addEventListener('click', signOut);
+document.addEventListener('click', event => {
+  if (!event.target.closest('#admin-api-authorize') || !activeAdminApiAccount) return;
+  const button = event.target.closest('#admin-api-authorize');
+  button.disabled = true;
+  void checkAdminApiConnection(activeAdminApiAccount, { interactive: true }).finally(() => {
+    button.disabled = false;
+  });
+});
 
 async function start() {
   try {

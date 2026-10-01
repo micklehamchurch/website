@@ -40,6 +40,15 @@
 .admin-dashboard-intro { margin-bottom: 25px; }
 .admin-dashboard-intro h1 { margin-bottom: 8px; font: 600 clamp(30px,3.2vw,42px)/1.1 var(--serif); letter-spacing: -.03em; }
 .admin-dashboard-intro > p:last-child { margin: 0; color: var(--muted); font-size: 15px; }
+.admin-api-status { display: inline-flex; max-width: 100%; min-height: 38px; align-items: center; gap: 9px; margin: 0 0 18px; padding: 7px 11px; border: 1px solid #e5dfd2; border-radius: 99px; color: #526254; background: #fffdf8; font-size: 11px; }
+.admin-api-status-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: #b18a43; }
+.admin-api-status[data-state="connected"] .admin-api-status-dot { background: #39764d; }
+.admin-api-status[data-state="authentication-required"] .admin-api-status-dot { background: #a4782e; }
+.admin-api-status[data-state="connection-failed"] .admin-api-status-dot { background: #a24b3c; }
+.admin-api-status-copy { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.admin-api-status-copy strong { color: #33483a; font-weight: 700; }
+.admin-api-status #admin-api-authorize { min-height: 29px; margin-left: 3px; }
+.admin-api-status #admin-api-authorize[hidden] { display: none; }
 .admin-summary-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 23px; }
 .admin-summary-card { padding: 15px 17px; border: 1px solid #e9e1d1; border-radius: 6px; background: white; }
 .admin-summary-card strong { display: block; color: #24382d; font: 600 27px/1 var(--serif); }

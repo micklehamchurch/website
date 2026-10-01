@@ -34,6 +34,14 @@
   let documentGroups = [];
   let recordsReady = false;
   let toastTimer;
+  const adminApiStatusLabels = {
+    checking: 'Checking…',
+    connected: 'Connected',
+    'authentication-required': 'Authentication required',
+    'connection-failed': 'Connection failed'
+  };
+  let adminApiStatus = document.documentElement.dataset.adminApiStatus || 'checking';
+  let adminApiNeedsInteraction = document.documentElement.dataset.adminApiNeedsInteraction === 'true';
 
   const safe = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
   const escAttr = safe;
@@ -45,6 +53,24 @@
   const slugify = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'demo-article';
   const idFor = prefix => `${prefix}-${globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
   const optionsForImages = selected => `<option value="">No image selected</option>${images.map(image => `<option value="${escAttr(image.value)}" ${selected === image.value ? 'selected' : ''}>${safe(image.label)}</option>`).join('')}`;
+
+  function adminApiStatusPanel() {
+    const label = adminApiStatusLabels[adminApiStatus] || adminApiStatusLabels.checking;
+    return `<section class="admin-api-status" id="admin-api-status" data-state="${escAttr(adminApiStatus)}" aria-label="Admin API status" role="status" aria-live="polite"><span class="admin-api-status-dot" aria-hidden="true"></span><span class="admin-api-status-copy">Admin API <strong data-api-state-label>${safe(label)}</strong></span><button class="admin-button secondary small" id="admin-api-authorize" type="button" ${adminApiNeedsInteraction ? '' : 'hidden'}>Authorise connection</button></section>`;
+  }
+
+  function updateAdminApiIndicator({ state, needsInteraction = false }) {
+    adminApiStatus = adminApiStatusLabels[state] ? state : 'connection-failed';
+    adminApiNeedsInteraction = Boolean(needsInteraction);
+    const indicator = document.querySelector('#admin-api-status');
+    if (!indicator) return;
+    indicator.dataset.state = adminApiStatus;
+    indicator.querySelector('[data-api-state-label]').textContent = adminApiStatusLabels[adminApiStatus];
+    const authorize = indicator.querySelector('#admin-api-authorize');
+    if (authorize) authorize.hidden = !adminApiNeedsInteraction;
+  }
+
+  window.addEventListener('admin-api-status-change', event => updateAdminApiIndicator(event.detail || {}));
 
   function readDemoState() {
     try {
@@ -116,6 +142,7 @@
       website: ['↗', 'Website', 'Open the current public Dev website.']
     };
     return `${pageHeading('CHURCH WEBSITE CONTENT', 'Welcome', 'Manage the St Michael & All Angels website and preview how future updates could work.', '<span class="admin-prototype-tag">DEVELOPMENT DEMO</span>')}
+      ${adminApiStatusPanel()}
       <div class="admin-summary-grid"><div class="admin-summary-card"><strong>${baseEvents.length}</strong><span>real calendar events loaded</span></div><div class="admin-summary-card"><strong>${demoState.calendar.created.length}</strong><span>demo events added in this tab</span></div><div class="admin-summary-card"><strong>${counts.newsCount}</strong><span>news articles in this preview</span></div><div class="admin-summary-card"><strong>${contactRecords().filter(item => item.status === 'published').length}</strong><span>published parish contacts</span></div><div class="admin-summary-card"><strong>${counts.drafts}</strong><span>drafts in this preview</span></div></div>
       <div class="admin-section-label">MANAGE THE WEBSITE</div><div class="admin-card-grid admin-overview-grid">${Object.entries(labels).map(([id, [icon, title, desc]]) => id === 'website' ? `<a class="admin-section-card" href="../index.html"><span class="admin-card-icon" aria-hidden="true">${icon}</span><strong>${safe(title)}</strong><small>${safe(desc)}</small></a>` : `<button class="admin-section-card" type="button" data-go="${id}"><span class="admin-card-icon" aria-hidden="true">${icon}</span><strong>${safe(title)}</strong><small>${safe(desc)}</small></button>`).join('')}</div>
       <div class="admin-quick-links"><a href="../calendar.html">Open Calendar ↗</a><a href="../news.html">Open News ↗</a><a href="../parish-contact-directory.html">Open Contact Directory ↗</a></div>
