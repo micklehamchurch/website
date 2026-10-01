@@ -1,0 +1,17 @@
+{
+  "name": "stmichael-church-admin-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Server-side API foundation for the St Michael & All Angels Church Admin Dashboard.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "func start",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.7.2"
+  }
+}
