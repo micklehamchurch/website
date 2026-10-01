@@ -224,6 +224,29 @@
   .admin-link-grid { grid-template-columns:1fr; }
   .admin-coming-soon { padding:14px; }
 }
+/* Parish Contacts repository-backed editor */
+.admin-contact-toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 22px}
+.admin-contact-toolbar .admin-button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 13px;text-decoration:none}
+.admin-contact-section{margin:24px 0 30px}
+.admin-contact-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:11px;padding-bottom:10px;border-bottom:1px solid #e5dcc8}
+.admin-contact-section-head h2{margin:2px 0 0;color:#20372a;font:600 24px/1.2 var(--serif)}
+.admin-contact-section-head p:not(.admin-kicker){margin:5px 0 0;color:var(--muted);font-size:12px}
+.admin-contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.admin-contact-card{display:flex;min-width:0;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid #e6dfce;border-top:2px solid #af9854;border-radius:5px;background:#fffdf8;overflow-wrap:anywhere}
+.admin-contact-card .admin-record-meta{justify-content:flex-end}
+.admin-contact-card h3{margin:0;color:#20372a;font:600 19px/1.3 var(--serif)}
+.admin-contact-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.admin-contact-card .admin-contact-role{color:#405144;font-size:11px;font-weight:700;letter-spacing:.035em}
+.admin-contact-card .admin-actions{margin-top:8px}
+.admin-pcc-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.admin-pcc-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:9px 12px;border:1px solid #e6dfce;border-radius:4px;background:#fffdf8}
+.admin-pcc-row>strong{color:#20372a;font-size:12px}
+.admin-pcc-row .admin-actions{display:flex;gap:5px}
+.admin-pcc-row .admin-button:disabled{opacity:.45;cursor:not-allowed}
+.admin-contact-note{padding:11px 13px;border-left:3px solid #af9854;background:#f4f1e6;color:#536156;font-size:12px;line-height:1.55}
+.admin-contact-note code,.admin-demo-banner code{font-size:.95em}
+@media(max-width:760px){.admin-contact-grid{grid-template-columns:1fr}.admin-contact-section-head{align-items:flex-start;flex-direction:column}.admin-contact-section-head>.admin-button{align-self:flex-start}.admin-contact-toolbar{display:grid;grid-template-columns:1fr}.admin-contact-toolbar .admin-button{width:100%}}
+@media(max-width:520px){.admin-pcc-row{grid-template-columns:minmax(0,1fr) auto}.admin-pcc-row .admin-status{grid-column:2;grid-row:1}.admin-pcc-row .admin-actions{grid-column:1/-1;justify-content:flex-end}}
 /* Repository-backed content browser */
 .admin-main > h1,#admin-content > h1{margin:0 0 12px;color:#1d3027;font:600 clamp(29px,3vw,38px)/1.1 var(--serif);letter-spacing:-.025em}
 .admin-lead{max-width:780px;margin:0 0 20px;color:var(--muted);font-size:15px;line-height:1.6}

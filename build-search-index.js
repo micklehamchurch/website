@@ -48,7 +48,7 @@ const publishedNewsSlugs = new Set(publishedArticles.map(article => `${article.s
 
 function htmlFiles(directory, relative = '') {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    if (entry.name.startsWith('.') || ['node_modules', '.git'].includes(entry.name)) return [];
+    if (entry.name.startsWith('.') || entry.name.startsWith('_') || ['node_modules', '.git'].includes(entry.name)) return [];
     const absolute = path.join(directory, entry.name);
     const relativePath = path.posix.join(relative, entry.name);
     if (entry.isDirectory()) return htmlFiles(absolute, relativePath);

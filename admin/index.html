@@ -12,14 +12,31 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="demo-dashboard.css">
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 </head>
 <body class="admin-body">
-  <a class="admin-skip-link" href="#admin-main">Skip to administration content</a>
-  <div class="admin-app">
+  <main class="admin-login" id="admin-login">
+    <a class="admin-login-brand" href="../index.html"><img src="./favicon-32x32.png" alt="" width="42" height="42"><span>ST MICHAEL &amp; ALL ANGELS</span></a>
+    <section class="admin-login-card" aria-labelledby="admin-login-title">
+      <p class="admin-kicker">CHURCH WEBSITE ADMINISTRATION</p>
+      <h1 id="admin-login-title">St Michael &amp; All Angels<br>Admin Dashboard</h1>
+      <p>Please enter the administrator password to continue.</p>
+      <form id="admin-login-form">
+        <label for="admin-password">Administrator password</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+        <p class="admin-login-error" id="admin-login-error" role="alert" hidden></p>
+        <button class="admin-button" type="submit">Sign in</button>
+      </form>
+      <p class="admin-login-demo-note"><strong>Temporary demonstration gate.</strong> This static website does not provide secure authentication. Anyone with access to the site can inspect or bypass this screen. Do not use it to protect private or sensitive information.</p>
+    </section>
+    <a class="admin-login-home" href="../index.html">← Return to the church website</a>
+  </main>
+  <div class="admin-app" id="admin-app" hidden>
+    <a class="admin-skip-link" href="#admin-main">Skip to administration content</a>
     <aside class="admin-sidebar" aria-label="Administration navigation">
       <a class="admin-brand" href="../index.html">
         <img class="admin-brand-icon" src="./favicon-32x32.png" alt="" width="38" height="38">
@@ -30,6 +47,8 @@
         <button type="button" data-view="dashboard" class="is-active"><span aria-hidden="true">⌂</span> Overview</button>
         <button type="button" data-view="news"><span aria-hidden="true">▤</span> News &amp; Magazine</button>
         <button type="button" data-view="calendar"><span aria-hidden="true">▦</span> Calendar</button>
+        <button type="button" data-view="contacts"><span aria-hidden="true">♧</span> Parish Contacts</button>
+        <button type="button" data-view="documents"><span aria-hidden="true">▧</span> Documents</button>
         <button type="button" data-view="services"><span aria-hidden="true">✝</span> Worship &amp; Services</button>
         <button type="button" data-view="gallery"><span aria-hidden="true">▧</span> Gallery</button>
         <button type="button" data-view="media"><span aria-hidden="true">▷</span> Media / YouTube</button>
@@ -46,6 +65,7 @@
         <button class="admin-mobile-menu" type="button" aria-label="Open administration menu" aria-expanded="false" aria-controls="admin-nav">☰</button>
         <span class="admin-topbar-title">Church website · Admin demo</span>
         <a class="admin-public-link" href="../index.html">View public website <span aria-hidden="true">↗</span></a>
+        <button class="admin-sign-out" type="button" id="admin-sign-out">Sign out</button>
       </header>
       <div class="admin-preview-notice" role="note">
         <strong>DEVELOPMENT DEMO.</strong>
@@ -62,6 +82,7 @@
   </div>
   <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title"></dialog>
   <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
+  <script src="admin-auth.js" defer></script>
   <script src="admin.js" defer></script>
 </body>
 </html>

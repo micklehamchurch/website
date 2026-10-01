@@ -1,0 +1,33 @@
+[
+  {
+    "section": "Safeguarding & privacy",
+    "items": [
+      { "title": "Safeguarding information", "kind": "Web page", "path": "safeguarding.html", "source": "content-pages.json", "note": "Current parish safeguarding information and contacts." },
+      { "title": "Privacy & GDPR", "kind": "Web page", "path": "privacy.html", "source": "content-pages.json", "note": "Parish Data Privacy Notice." },
+      { "title": "Data Privacy Consent Form", "kind": "PDF form", "path": "assets/documents/privacy/data-privacy-consent-form.pdf", "source": "assets/documents/privacy/data-privacy-consent-form.pdf", "note": "Original consent form PDF." }
+    ]
+  },
+  {
+    "section": "Electoral Roll",
+    "items": [
+      { "title": "Electoral Roll Application Form", "kind": "PDF form", "path": "assets/documents/electoral-roll/electoral-roll-application-form.pdf", "source": "assets/documents/electoral-roll/electoral-roll-application-form.pdf", "note": "Downloadable application form." },
+      { "title": "Electoral Roll Privacy Notice", "kind": "PDF notice", "path": "assets/documents/electoral-roll/electoral-roll-privacy-notice.pdf", "source": "assets/documents/electoral-roll/electoral-roll-privacy-notice.pdf", "note": "The supplied notice is dated 2019; confirm that it remains current." }
+    ]
+  },
+  {
+    "section": "Worship & life events",
+    "items": [
+      { "title": "Baptism Policy", "kind": "Word document", "path": "assets/documents/baptism/baptism-policy-2026.docx", "source": "assets/documents/baptism/baptism-policy-2026.docx", "note": "Policy agreed by the PCC in September 2026." },
+      { "title": "Baptism Application Form", "kind": "PDF form", "path": "assets/documents/baptism/baptism-application-form-2024.pdf", "source": "assets/documents/baptism/baptism-application-form-2024.pdf", "note": "Parish baptism application form." }
+    ]
+  },
+  {
+    "section": "Prayer & parish life",
+    "items": [
+      { "title": "Cycle of Prayer (August 2023–March 2024)", "kind": "Archived PDF", "path": "assets/documents/prayer/cycle-of-prayer-2023-4.pdf", "source": "assets/documents/prayer/cycle-of-prayer-2023-4.pdf", "note": "Historic copy; not presented as the current prayer cycle." },
+      { "title": "Churchyard Trail 2024", "kind": "Word document", "path": "assets/documents/eco-church/churchyard-trail-2024.docx", "source": "assets/documents/eco-church/churchyard-trail-2024.docx", "note": "Parish churchyard trail document." },
+      { "title": "Sustainable Church Flowers Guidance", "kind": "Word document", "path": "assets/documents/eco-church/sustainable-church-flowers-guidance.docx", "source": "assets/documents/eco-church/sustainable-church-flowers-guidance.docx", "note": "Guidance for church flowers." },
+      { "title": "Eco Church", "kind": "Web page", "path": "eco-church.html", "source": "content-pages.json", "note": "Parish care for creation and churchyard information." }
+    ]
+  }
+]

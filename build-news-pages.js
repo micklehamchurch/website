@@ -29,6 +29,8 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character =>
 // The browser consumes this published-only projection. Draft text stays in
 // _content/news.json, which is not emitted by GitHub Pages' Jekyll build.
 fs.writeFileSync(path.join(root, 'news-data.json'), `${JSON.stringify({ articles }, null, 2)}\n`, 'utf8');
+const dashboardSamples = data.articles.filter(article => article.demo === true);
+fs.writeFileSync(path.join(root, 'admin', 'news-demo-data.json'), `${JSON.stringify({ articles: dashboardSamples }, null, 2)}\n`, 'utf8');
 
 fs.mkdirSync(outputDirectory, { recursive: true });
 const expectedFiles = new Set(articles.map(article => `${article.slug}.html`));

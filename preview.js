@@ -3,6 +3,7 @@ const http = require('node:http');
 const path = require('node:path');
 
 const root = __dirname;
+const port = Number(process.env.MICKLEHAM_PREVIEW_PORT) || 4173;
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -20,7 +21,8 @@ http.createServer((request, response) => {
     response.writeHead(400).end('Bad request');
     return;
   }
-  const filename = path.resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+  const requestedPath = pathname === '/' ? '/index.html' : pathname.endsWith('/') ? `${pathname}index.html` : pathname;
+  const filename = path.resolve(root, `.${requestedPath}`);
   if (!filename.startsWith(`${root}${path.sep}`)) {
     response.writeHead(403).end('Forbidden');
     return;
@@ -33,6 +35,6 @@ http.createServer((request, response) => {
     response.writeHead(200, { 'Content-Type': mimeTypes[path.extname(filename)] || 'application/octet-stream' });
     response.end(content);
   });
-}).listen(4173, '127.0.0.1', () => {
-  console.log('Website preview: http://127.0.0.1:4173');
+}).listen(port, '127.0.0.1', () => {
+  console.log(`Website preview: http://127.0.0.1:${port}`);
 });
