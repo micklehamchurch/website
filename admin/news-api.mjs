@@ -41,5 +41,5 @@ export function createNewsApi({ getToken, fetchImpl = fetch }) {
 }
 export function attachNewsApi(msal, getAccount, fetchImpl = fetch) {
   window.churchNewsApi = createNewsApi({ fetchImpl, getToken: async () => { const account = getAccount(); if (!account) throw new Error(); return acquireAdminApiToken(msal, account); } });
-  window.dispatchEvent(new Event('admin-news-ready'));
+  if (getAccount()) window.dispatchEvent(new Event('admin-news-ready'));
 }

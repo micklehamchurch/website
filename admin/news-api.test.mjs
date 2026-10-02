@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { createNewsApi, newsMessage } from './news-api.mjs';
+import { createNewsApi, newsMessage, attachNewsApi } from './news-api.mjs';
 const sha = 'a'.repeat(40), headSha = 'b'.repeat(40);
 test('News and publication operations acquire API token privately and use only their scoped authenticated routes', async () => {
   const calls = []; let acquisitions = 0;
@@ -30,4 +30,11 @@ test('duplicate writes are blocked while a scoped request is pending', async () 
 test('invalid successful responses and unknown operations never expose raw data', async () => {
   const api = createNewsApi({ getToken: async () => 'fixture', fetchImpl: async () => Response.json({ ok: true, sha: 'bad', secret: 'upstream text' }) });
   assert.equal((await api.loadNews()).category, 'network-failure');
+});
+
+test('News bridge announces readiness only after an account exists, with no token exposure', () => {
+  const original = globalThis.window, events = [];
+  globalThis.window = { dispatchEvent: event => events.push(event.type) };
+  try { attachNewsApi({}, () => null); assert.deepEqual(events, []); attachNewsApi({}, () => ({})); assert.deepEqual(events, ['admin-news-ready']); assert.equal('token' in window.churchNewsApi, false); }
+  finally { if (original === undefined) delete globalThis.window; else globalThis.window = original; }
 });

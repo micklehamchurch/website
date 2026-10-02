@@ -98,7 +98,7 @@
     if (sharedNews.busy || !window.churchNewsApi) return;
     sharedNews.busy = true;
     const result = await window.churchNewsApi.loadNews(); sharedNews.busy = false;
-    if (result.ok) { baseArticles = result.articles.filter(item => !item.demo).map(item => ({ ...item, id: item.slug, image: item.image ? '../' + item.image : '', demo: false })); demoState.news = initialState().news; Object.assign(sharedNews, { loaded: true, sha: result.sha, headSha: result.headSha }); }
+    if (result.ok) { baseArticles = result.articles.filter(item => !item.demo).map(item => ({ ...item, id: item.slug, image: item.image ? '../' + item.image : '', demo: false })); demoState.news = initialState().news; Object.assign(sharedNews, { loaded: true, sha: result.sha, headSha: result.headSha }); if (!/published successfully|Draft saved/.test(sharedNews.message)) sharedNews.message = ''; }
     else { sharedNews.loaded = false; sharedNews.message = window.churchNewsApi.message(result.category); }
     if (currentView() === 'news') render({ focus: false });
   }

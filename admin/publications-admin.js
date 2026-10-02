@@ -6,7 +6,7 @@
     if (publishing) return false;
     const api = window.churchNewsApi; if (!api) { message = 'Sign in and authorise the Admin API connection.'; return false; }
     const result = await api.loadPublications();
-    if (result.ok) { records = model.parse(result); loaded = true; failed = false; version = { sha: result.sha, headSha: result.headSha }; }
+    if (result.ok) { records = model.parse(result); loaded = true; failed = false; version = { sha: result.sha, headSha: result.headSha }; if (!/published successfully/.test(message)) message = ''; }
     else { version = null; message = api.message(result.category); }
     window.dispatchEvent(new Event('admin-publications-ready')); return result.ok;
   }
