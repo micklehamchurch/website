@@ -18,7 +18,8 @@ function liveRequest(overrides = {}, mapped = false) {
 }
 
 test('exact complete pasted live fixture authorizes through raw and mapped Easy Auth parsing', () => {
-  // Fixture is extracted verbatim from the user message, including the old false result and fingerprints.
+  // Subject corrected from the final live diagnostic: lowercase l after 93.
+  // The false result and build fingerprints describe the pre-correction snapshot.
   assert.equal(live.administrator, false);
   for (const field of ['provider', 'tenantId', 'objectId', 'subject', 'issuer']) assert.equal(live[field], allowlist[0][field]);
   for (const mapped of [false, true]) {
@@ -26,12 +27,23 @@ test('exact complete pasted live fixture authorizes through raw and mapped Easy 
     const response = identityDiagnostic(req);
     assert.equal(response.jsonBody.administrator, true);
     assert.equal(authorizationStatus(req).status, 200);
-    assert.equal(response.jsonBody.authorizationBuild.allowlistSha256, live.authorizationBuild.allowlistSha256);
+    assert.notEqual(response.jsonBody.authorizationBuild.allowlistSha256, live.authorizationBuild.allowlistSha256);
     assert.equal(response.jsonBody.authorizationBuild.policySha256, live.authorizationBuild.policySha256);
     assert.deepEqual(response.jsonBody.authorizationPolicy.entries[0].failedFields, []);
     assert.equal(response.jsonBody.authorizationPolicy.entries[0].administrator, true);
     assert.deepEqual(response.jsonBody.identity, readIdentity(req));
   }
+});
+
+test('old subject transcription with digit 1 remains unauthorized', () => {
+  const req = liveRequest({ subject: 'AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB9318aduYc' });
+  const response = identityDiagnostic(req);
+  assert.equal(response.jsonBody.administrator, false);
+  assert.equal(authorizationStatus(req).status, 403);
+  assert.deepEqual(response.jsonBody.authorizationPolicy.entries[0].failedFields, ['subject']);
+  assert.deepEqual(response.jsonBody.authorizationPolicy.entries[0].matches, {
+    provider: true, tenantId: true, issuer: true, objectId: true, subject: false
+  });
 });
 
 test('safe diagnostics name every failed binding while authorization stays denied', () => {
