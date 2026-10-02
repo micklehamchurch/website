@@ -25,7 +25,7 @@ const version = data => createHash('sha256').update(JSON.stringify(data)).digest
     }
     const a = JSON.parse(fs.readFileSync(path.join(root, 'events.json'), 'utf8'));
     const b = structuredClone(a);
-    b.items.push({ id: 'isolated-browser-regression', title: 'Browser-only refresh regression', start: '2026-09-15T10:00', end: '2026-09-15T11:00', timeZone: 'Europe/London', location: 'Simulation only', description: 'Never published' });
+    b.items.push({ id: 'isolated-browser-regression', title: 'Browser-only refresh regression', start: '2026-11-15T10:00', end: '2026-11-15T11:00', timeZone: 'Europe/London', location: 'Simulation only', description: 'Never published' });
     let changed = false;
     await page.route('**/calendar-version.json?*', route => {
       // Model a shared cache which ignores query changes until revalidation is
@@ -37,9 +37,9 @@ const version = data => createHash('sha256').update(JSON.stringify(data)).digest
     await page.route('**/events.json?*', route => route.fulfill({ json: changed ? b : a }));
     await page.goto(base + 'calendar.html');
     await page.waitForFunction(() => document.querySelector('#calendar-grid').dataset.calendarRefresh === 'unchanged');
-    await page.getByRole('button', { name: 'Previous month', exact: true }).click();
+    await page.getByRole('button', { name: 'Next month', exact: true }).click();
     const month = await page.locator('#calendar-month-label').textContent();
-    assert.equal(month, 'September 2026');
+    assert.equal(month, 'November 2026');
     await page.evaluate(() => {
       window.calendarRebuildCount = 0;
       new MutationObserver(records => { window.calendarRebuildCount += records.filter(record => record.type === 'childList').length; }).observe(document.querySelector('#calendar-grid'), { childList: true });
