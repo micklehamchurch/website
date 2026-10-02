@@ -524,6 +524,19 @@
         "latitude": 51.267535
       },
       "address": "St Michael's & All Angels Church, Old London Road, Mickleham, Dorking, Surrey RH5 6DU, England"
+    },
+    {
+      "id": "event-774f7c22-dca1-4dad-84a8-18e1b68b17fd",
+      "title": "test2",
+      "start": "2026-10-02T10:00",
+      "end": "2026-10-02T10:30",
+      "timeZone": "Europe/London",
+      "location": "test",
+      "description": "test",
+      "category": "Other",
+      "image": "",
+      "externalLink": "",
+      "status": "published"
     }
   ]
 }
