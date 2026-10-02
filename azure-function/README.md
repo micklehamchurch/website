@@ -22,12 +22,12 @@ The Octokit GitHub App authentication library creates a short-lived App JWT and 
 
 `GET /api/auth/status` exercises the administrator gate: missing/invalid identity returns 401, a non-allowlisted identity returns 403, and an approved identity returns 200. `requireAdministrator` provides the same reusable gate for future explicitly scoped operations. The existing health and read-only GitHub status routes retain their current Easy Auth protection and responses; they do not imply administrator approval.
 
-The checked-in `src/admin-identities.json` is deliberately empty: Ed's immutable identity has not yet been verified. No administrator is authorized in production yet. The browser's existing Graph email check remains a dashboard display gate only; it cannot grant server authorization. After Ed signs in and checks the diagnostic, verify the returned identifiers before adding an entry through a reviewed Dev-only change:
+The checked-in `src/admin-identities.json` contains Ed's live verified Microsoft personal-account identity. This entry requires the exact `aad` provider, tenant ID, object ID, subject and issuer returned by Easy Auth. It uses `kind: "subject"` with additional tenant/object bindings; ALL four claims must be present and match. There is no fallback to a partial match. The browser's existing Graph email check remains a dashboard display gate only; it cannot grant server authorization. For future enrollment, verify the identifiers before adding an entry through a reviewed Dev-only change:
 
 - Prefer `{ "provider": "aad", "kind": "object", "tenantId": "<verified tid>", "objectId": "<verified oid>" }` if both IDs exist.
 - Otherwise use `{ "provider": "aad", "kind": "subject", "issuer": "<verified iss>", "subject": "<verified sub>" }`. A subject is scoped to the issuer and this fixed API application; never match a bare subject globally.
 
-Copy the exact normalized diagnostic values, never infer them from the email or SPA client ID. Do not add an entry if the required scope identifier is absent. Recheck status after deployment: Ed should receive 200; another authenticated user should receive 403. Remove the temporary diagnostic and dashboard setup control after enrollment is verified. No write endpoint or Calendar publishing is enabled at this stage.
+Copy the exact normalized diagnostic values, never infer them from the email or SPA client ID. Do not add an entry if the required scope identifier is absent. Recheck status after deployment: Ed should receive 200 with `administrator: true`; another authenticated user should receive 403. The temporary diagnostic and dashboard setup control remain available for this live enrollment test. No write endpoint or Calendar publishing is enabled at this stage.
 
 Claim structure and the Azure-injected header trust boundary follow [Microsoft's Easy Auth identity documentation](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-user-identities).
 

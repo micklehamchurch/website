@@ -42,6 +42,11 @@ function isAdministrator(identity, allowlist = administrators) {
   if (!identity || identity.provider !== 'aad' || !Array.isArray(allowlist)) return false;
   return allowlist.some(entry => {
     if (!entry || entry.provider !== 'aad') return false;
+    // An entry can additionally pin tenant/object IDs. All configured bindings
+    // must match; absent claims cannot fall back to the subject/issuer pair.
+    for (const key of ['tenantId', 'objectId']) {
+      if (Object.hasOwn(entry, key) && (!entry[key] || entry[key] !== identity[key])) return false;
+    }
     // Object IDs are tenant-scoped; subjects are issuer/application-scoped.
     if (entry.kind === 'object') return Boolean(identity.tenantId && identity.objectId &&
       entry.tenantId === identity.tenantId && entry.objectId === identity.objectId);

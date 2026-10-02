@@ -8,6 +8,73 @@ function request(values = claims, auth_typ = 'aad') {
   return { headers: new Headers({ 'x-ms-client-principal': Buffer.from(JSON.stringify({ auth_typ, claims: values })).toString('base64') }) };
 }
 const allowed = [{ provider: 'aad', kind: 'object', tenantId: tid, objectId: oid }];
+// Independent fixture from Ed's live Easy Auth diagnostic, not the allowlist file.
+const ed = {
+  tenantId: '9188040d-6c67-4c5b-b112-36a304b66dad',
+  objectId: '00000000-0000-0000-f978-44e4d44cc925',
+  subject: 'AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB9318aduYc',
+  issuer: 'https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'
+};
+function edRequest(overrides = {}) {
+  const value = { ...ed, ...overrides };
+  return request(Object.entries({ tid: value.tenantId, oid: value.objectId, sub: value.subject, iss: value.issuer })
+    .filter(([, val]) => val !== undefined).map(([typ, val]) => ({ typ, val })));
+}
+
+test('Ed exact verified identity is authorized by production allowlist and both endpoints', () => {
+  const req = edRequest();
+  assert.equal(requireAdministrator(req), null);
+  assert.equal(isAdministrator(readIdentity(req)), true);
+  assert.deepEqual(authorizationStatus(req).jsonBody, { ok: true, administrator: true });
+  assert.equal(authorizationStatus(req).status, 200);
+  assert.deepEqual(identityDiagnostic(req).jsonBody, { ok: true, identity: { provider: 'aad', ...ed }, administrator: true });
+});
+
+test('Ed identifiers with a different tenant or issuer are denied', () => {
+  for (const overrides of [{ tenantId: tid }, { issuer: 'https://login.microsoftonline.com/another/v2.0' }]) {
+    assert.equal(authorizationStatus(edRequest(overrides)).status, 403);
+    assert.equal(identityDiagnostic(edRequest(overrides)).jsonBody.administrator, false);
+  }
+});
+
+test('same tenant with different subject or object ID is denied', () => {
+  for (const overrides of [{ subject: 'another-subject' }, { objectId: oid }]) {
+    assert.equal(authorizationStatus(edRequest(overrides)).status, 403);
+  }
+});
+
+test('near matches and missing claim bindings cannot authorize Ed', () => {
+  for (const overrides of [
+    { tenantId: ed.tenantId.slice(0, -1) + 'e' }, { objectId: ed.objectId.slice(0, -1) + '6' },
+    { subject: ed.subject + 'x' }, { subject: ed.subject.toLowerCase() }, { issuer: ed.issuer + '/' },
+    ...Object.keys(ed).map(key => ({ [key]: undefined }))
+  ]) {
+    const response = authorizationStatus(edRequest(overrides));
+    assert.ok([401, 403].includes(response.status));
+    assert.notEqual(response.jsonBody.administrator, true);
+  }
+});
+
+test('missing and malformed Easy Auth identity never authorize the configured administrator', () => {
+  for (const req of [{}, request([{ typ: 'tid', val: ed.tenantId }, { typ: 'oid', val: 4 }]),
+    request([...claims, { typ: 'oid', val: ed.objectId }]),
+    { headers: new Headers({ 'x-ms-client-principal': Buffer.from('{broken').toString('base64') }) }]) {
+    assert.equal(authorizationStatus(req).status, 401);
+  }
+});
+
+test('browser email, display name, body, query and standalone ID headers cannot grant Ed access', () => {
+  const req = edRequest({ subject: 'another-subject' });
+  req.body = { ...ed, email: 'edward.popov@outlook.com', displayName: 'Eduard Popov' };
+  req.query = new URLSearchParams({ ...ed, administrator: 'true' });
+  req.headers.set('x-ms-client-principal-id', ed.objectId);
+  req.headers.set('x-ms-client-principal-name', 'edward.popov@outlook.com');
+  req.headers.set('email', 'edward.popov@outlook.com');
+  req.headers.set('display-name', 'Eduard Popov');
+  assert.equal(authorizationStatus(req).status, 403);
+  req.headers.delete('x-ms-client-principal');
+  assert.equal(authorizationStatus(req).status, 401);
+});
 
 test('missing/malformed identities deny access; body/email/standalone headers cannot authenticate', () => {
   for (const req of [undefined, {}, { body: { email: 'edward.popov@outlook.com', oid }, headers: new Headers({ 'x-ms-client-principal-id': oid, 'x-ms-client-principal-name': 'edward.popov@outlook.com' }) },
