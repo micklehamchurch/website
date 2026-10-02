@@ -6,7 +6,7 @@ import { calendarMessage } from './calendar-api.mjs';
 const code = fs.readFileSync(new URL('./admin.js', import.meta.url), 'utf8');
 const feed = { id: 'feed-id', uid: 'source-uid', title: 'Feed event', start: '2026-12-01T10:00:00', end: '2026-12-01T11:00:00', timeZone: 'Europe/London', location: 'Church', description: 'Feed description', sourceUrl: 'https://example.org', geo: { latitude: 51, longitude: 0 }, address: 'Original address' };
 const initial = () => ({ ok: true, sha: 'a'.repeat(40), sourceSha: 'b'.repeat(40), feedItems: [structuredClone(feed)], calendar: { hiddenEventIds: [], overrides: [], events: [] } });
-async function harness({ publish = async () => ({ ok: true, sha: 'c'.repeat(40) }) } = {}) {
+async function harness({ load = initial, publish = async () => ({ ok: true, sha: 'c'.repeat(40) }) } = {}) {
   const elements = new Map(), listeners = {}, calls = [], storage = [], monitors = [];
   const node = selector => {
     if (!elements.has(selector)) elements.set(selector, { innerHTML: '', textContent: '', dataset: {}, hidden: false, listeners: {}, classList: { toggle() {}, add() {}, remove() {} }, querySelector: node, querySelectorAll: () => [], setAttribute() {}, focus() {}, showModal() {}, close() {}, reportValidity: () => true,
@@ -14,11 +14,11 @@ async function harness({ publish = async () => ({ ok: true, sha: 'c'.repeat(40) 
     return elements.get(selector);
   };
   const window = { monitorPublishedCalendar: (sha, onLive, onTimeout) => monitors.push({ sha, onLive, onTimeout }), confirm: () => true, addEventListener: (name, fn) => { listeners[name] = fn; }, churchCalendarApi: {
-    load: async () => { calls.push({ method: 'GET' }); return initial(); },
+    load: async () => { calls.push({ method: 'GET' }); return load(); },
     publish: async payload => { calls.push({ method: 'PUT', payload: structuredClone(payload) }); return publish(payload); }, message: calendarMessage
   } };
   const location = { hash: '#calendar' };
-  const context = { window, location, document: { querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ calendar: { created: [{ id: 'old-demo' }] } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
+  const context = { window, location, document: { addEventListener(name, fn) { listeners['document-' + name] = fn; }, querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ calendar: { created: [{ id: 'old-demo' }] } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
     fetch: async url => ({ ok: true, json: async () => url.includes('events') ? { items: [] } : url.includes('contacts') ? { sections: [], contacts: [], pccMembers: [] } : url.includes('news') ? { articles: [] } : url.includes('pages') ? { pages: [] } : [] }) };
   vm.runInNewContext(code, context);
   const flush = async () => { for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve)); };
@@ -60,13 +60,14 @@ test('actual editor stages Add/Delete, confirms publishing and prevents duplicat
   assert.match(h.node('#admin-content').innerHTML, /published successfully/);
 });
 test('actual editor keeps staged data on conflict and requires explicit reload before another publication', async () => {
-  const h = await harness({ publish: async () => ({ ok: false, category: 'calendar-version-conflict' }) });
+  let loads = 0;
+  const h = await harness({ load: () => { const data = initial(); if (loads++) data.calendar.events.push({ ...feed, id: 'remote-newer', title: 'Newer remote event' }); return data; }, publish: async () => ({ ok: false, category: 'calendar-version-conflict' }) });
   h.submit({ title: 'Staged change' }, feed.id); h.click('publish-calendar'); await h.flush();
   assert.match(h.node('#admin-content').innerHTML, /shared Calendar changed/); assert.match(h.node('#admin-content').innerHTML, /Staged change/);
   h.click('publish-calendar'); assert.equal(h.calls.filter(c => c.method === 'PUT').length, 1);
   h.window.confirm = () => false; h.click('reload-calendar'); await h.flush(); assert.equal(h.calls.filter(c => c.method === 'GET').length, 1);
   h.window.confirm = () => true; h.click('reload-calendar'); await h.flush(); assert.equal(h.calls.filter(c => c.method === 'GET').length, 2);
-  assert.match(h.node('#admin-content').innerHTML, /Feed event/); assert.doesNotMatch(h.node('#admin-content').innerHTML, /Staged change/);
+  assert.match(h.node('#admin-content').innerHTML, /Feed event/); assert.match(h.node('#admin-content').innerHTML, /Newer remote event/); assert.doesNotMatch(h.node('#admin-content').innerHTML, /Staged change/);
 });
 
 test('dashboard reports rebuilding until verified live confirmation, and timeout never falsely claims live', async () => {
@@ -76,4 +77,45 @@ test('dashboard reports rebuilding until verified live confirmation, and timeout
   assert.match(h.node('#admin-content').innerHTML, /individual visitor refreshes cannot be confirmed/);
   const waiting = await harness(); waiting.submit({}, feed.id); waiting.click('publish-calendar'); await waiting.flush(); waiting.monitors[0].onTimeout();
   assert.match(waiting.node('#admin-content').innerHTML, /not yet been confirmed/); assert.doesNotMatch(waiting.node('#admin-content').innerHTML, /Calendar is live/);
+});
+
+test('one-off deletion stays explicitly unpublished until persistence succeeds, then survives authoritative reload', async () => {
+  const event = { ...feed, id: 'oneoff-fixture', title: 'One-off fixture' };
+  let remote = { ...initial(), feedItems: [], calendar: { hiddenEventIds: [], overrides: [], events: [event] } };
+  const h = await harness({ load: () => structuredClone(remote), publish: async payload => {
+    assert.equal(payload.sha, remote.sha);
+    remote = { ...remote, sha: 'c'.repeat(40), calendar: structuredClone(payload.calendar) };
+    return { ok: true, sha: remote.sha };
+  } });
+  h.click('delete', 'calendar', event.id);
+  h.node('#admin-dialog').listeners.click({ target: { closest: selector => selector === '[data-action="confirm-delete"]' ? { dataset: { kind: 'calendar', id: event.id } } : null } });
+  assert.doesNotMatch(h.node('#admin-content').innerHTML, /One-off fixture/);
+  assert.match(h.node('#admin-content').innerHTML, /Unpublished Calendar changes/);
+  assert.match(h.node('#admin-content').innerHTML, /does not remove it from the website yet/);
+  assert.equal(h.calls.filter(c => c.method === 'PUT').length, 0);
+  const leaving = { preventDefault() { this.prevented = true; } };
+  h.listeners.beforeunload(leaving); assert.equal(leaving.prevented, true);
+  h.window.confirm = () => false;
+  const navigation = { target: { closest: () => ({ getAttribute: () => '#contacts' }) }, preventDefault() { this.prevented = true; }, stopImmediatePropagation() {} };
+  h.listeners['document-click'](navigation); assert.equal(navigation.prevented, true); h.window.confirm = () => true;
+  h.click('publish-calendar-pending'); await h.flush();
+  assert.deepEqual(h.calls.find(c => c.method === 'PUT').payload.calendar.events, []);
+  assert.match(h.node('#admin-content').innerHTML, /published successfully/);
+  assert.doesNotMatch(h.node('#admin-content').innerHTML, /Unpublished Calendar changes/);
+  const saved = { preventDefault() { this.prevented = true; } }; h.listeners.beforeunload(saved); assert.equal(saved.prevented, undefined);
+  h.click('reload-calendar'); await h.flush();
+  assert.doesNotMatch(h.node('#admin-content').innerHTML, /One-off fixture/);
+  h.submit({ title: 'Next fixture' }); h.click('publish-calendar'); await h.flush();
+  assert.equal(h.calls.filter(c => c.method === 'PUT')[1].payload.sha, 'c'.repeat(40));
+});
+
+test('failed deletion publication remains staged, warns before leaving, and never claims persistence', async () => {
+  const h = await harness({ publish: async () => ({ ok: false, category: 'http-403' }) });
+  h.click('delete', 'calendar', feed.id);
+  h.node('#admin-dialog').listeners.click({ target: { closest: selector => selector === '[data-action="confirm-delete"]' ? { dataset: { kind: 'calendar', id: feed.id } } : null } });
+  h.click('publish-calendar-pending'); await h.flush();
+  const html = h.node('#admin-content').innerHTML;
+  assert.match(html, /Publication not confirmed/); assert.match(html, /Your changes are still staged/);
+  assert.doesNotMatch(html, /published successfully/);
+  const leaving = { preventDefault() { this.prevented = true; } }; h.listeners.beforeunload(leaving); assert.equal(leaving.prevented, true);
 });

@@ -44,6 +44,17 @@
     sharedCalendar.message = `${action}. Changes are staged; choose Publish changes to update the shared Dev website.`;
     showToast(sharedCalendar.message);
   }
+  window.addEventListener('beforeunload', event => {
+    if (!sharedCalendar.dirty) return;
+    event.preventDefault(); event.returnValue = '';
+  });
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    const href = link?.getAttribute('href');
+    if (sharedCalendar.dirty && href?.startsWith('#') && href !== '#calendar' && !window.confirm('Calendar changes are not published. Leave this section? Return to Calendar to publish them.')) {
+      event.preventDefault(); event.stopImmediatePropagation();
+    }
+  }, true);
   async function loadSharedCalendar() {
     if (sharedCalendar.busy) return;
     if (sharedCalendar.dirty && !window.confirm('Reload the shared Calendar and discard your staged changes?')) return;
@@ -85,7 +96,7 @@
       // Uncertain network/GitHub results also require a reload rather than a
       // blind retry that could overwrite a successful but unacknowledged write.
       sharedCalendar.conflict = ['calendar-version-conflict', 'network-failure', 'calendar-publish-unavailable', 'calendar-publish-result-unavailable'].includes(result.category);
-      sharedCalendar.message = api?.message(result.category) || 'Sign in and reload Calendar.';
+      sharedCalendar.message = 'Publication was not confirmed. Your changes are still staged. ' + (api?.message(result.category) || 'Sign in and reload Calendar.');
     }
     render({ focus: false }); showToast(sharedCalendar.message, !result.ok);
   }
@@ -327,7 +338,8 @@
     });
     const action = `<div class="admin-heading-actions"><a class="admin-button secondary" href="../calendar.html" target="_blank" rel="noopener noreferrer">Preview public calendar ↗</a><button class="admin-button secondary" type="button" data-action="reload-calendar" ${sharedCalendar.busy ? 'disabled' : ''}>Reload shared Calendar</button><button class="admin-button" type="button" data-action="add" data-kind="calendar" ${calendarCanEdit() ? '' : 'disabled'}>＋ Add event</button><button class="admin-button" type="button" data-action="publish-calendar" ${calendarCanEdit() && sharedCalendar.dirty ? '' : 'disabled'}>${sharedCalendar.busy ? 'Please wait…' : 'Publish changes'}</button></div>`;
     return `${pageHeading('SHARED DEV WEBSITE', 'Calendar', 'Add, edit or remove events, then publish your staged changes to the shared Dev website.', action)}
-      <div class="admin-section-note"><strong>Calendar publishing is enabled for Dev.</strong> Feed events are preserved through overrides and hidden IDs. Draft events stay out of the public Calendar. Other dashboard sections remain demo-only.</div>
+      ${sharedCalendar.dirty ? `<div class="admin-calendar-pending" role="status" aria-live="polite"><div><strong>${sharedCalendar.busy ? 'Publishing Calendar changes…' : sharedCalendar.error ? 'Publication not confirmed' : 'Unpublished Calendar changes'}</strong><p>${sharedCalendar.error ? 'Do not assume the website has changed. Your staged changes remain here; check the message below before continuing.' : sharedCalendar.busy ? 'Please wait for confirmation. The public website updates after deployment.' : 'Removing an event here does not remove it from the website yet. Choose Publish changes to save your edits and removals.'}</p></div><button class="admin-button" type="button" data-action="publish-calendar-pending" ${calendarCanEdit() ? '' : 'disabled'}>${sharedCalendar.busy ? 'Publishing…' : 'Publish changes'}</button></div>` : ''}
+      <div class="admin-section-note"><strong>Calendar changes require publication.</strong> Add, edit and delete work in this preview first. Publish changes saves them to the shared website; deployment follows. Draft events stay out of the public Calendar.</div>
       <p role="status">${safe(sharedCalendar.message || 'Sign in, then load the shared Calendar.')}</p>
       <div class="admin-list-toolbar"><label for="calendar-filter">Find an event</label><input id="calendar-filter" type="search" placeholder="Search title, date or location"><span>${records.length} items shown</span></div>
       ${calendarSeriesPanel()}<fieldset class="admin-calendar-records" aria-label="Calendar events" ${calendarCanEdit() ? '' : 'disabled'}><div class="admin-cms-list" id="calendar-records">${sharedCalendar.loaded ? records.map(item => recordCard('calendar', item)).join('') || '<p class="admin-empty">No calendar items match this view.</p>' : ''}</div></fieldset>`;
@@ -837,9 +849,9 @@
     else if (!collection.deleted.includes(id)) collection.deleted.push(id);
     delete collection.updated[id];
     if (kind !== 'calendar' && !persistDemoState()) return;
+    if (kind === 'calendar') calendarStaged('Event removal staged');
     render({ focus: false });
-    if (kind === 'calendar') { calendarStaged('Event removal staged'); render({ focus: false }); }
-    else savedToast('Item removed from this preview');
+    if (kind !== 'calendar') savedToast('Item removed from this preview');
   }
   function resetDemo() {
     const dialog = document.querySelector('#admin-dialog');
@@ -900,7 +912,7 @@
     }
     if (action === 'restore-calendar-occurrence') { if (calendarCanEdit()) {demoState.calendar.exceptions=demoState.calendar.exceptions.filter(e=>e.seriesId!==id||e.occurrenceStart!==button.dataset.start);calendarStaged('Occurrence restored');render({focus:false});} return; }
     if (action === 'reload-calendar') { void loadSharedCalendar(); return; }
-    if (action === 'publish-calendar') { void publishCalendar(); return; }
+    if (action === 'publish-calendar' || action === 'publish-calendar-pending') { void publishCalendar(); return; }
     if (action === 'add-contact') { openContactEditor('', button.dataset.section || ''); return; }
     if (action === 'edit-contact') { openContactEditor(id); return; }
     if (action === 'toggle-contact-status') { changeContactStatus(id); return; }

@@ -28,3 +28,14 @@ test('configured malformed feeds still fail; no-feed cannot reference hidden or 
   assert.throws(()=>buildCalendar(null,{...empty,hiddenEventIds:['obsolete']}));
   assert.throws(()=>buildCalendar(null,{...empty,overrides:[{id:'obsolete'}]}));
 });
+
+test('removed Test iPhone is absent from authoritative Calendar and every public output', () => {
+  const id = 'event-94fb2473-d3a7-46f9-83c9-929ef18e1a8a';
+  for (const file of ['_content/calendar.json', 'events.json', 'calendar.ics', 'search-index.json']) {
+    const text = fs.readFileSync(require('node:path').join(__dirname, '..', file), 'utf8');
+    assert(!text.includes(id)); assert(!text.includes('Test iPhone'));
+  }
+  assert.deepEqual(buildCalendar(null, calendar).items, before.items);
+  assert.deepEqual(require('../events.json').items, before.items);
+  assert.equal(before.items.length, 116);
+});
