@@ -7,7 +7,7 @@ const Module = require('node:module');
 const projectRoot = path.join(__dirname, '..');
 const packageJson = require(path.join(projectRoot, 'package.json'));
 
-test('configured package entry point registers only the health and GitHub status HTTP functions', async () => {
+test('configured package entry point registers only four read-only HTTP functions', async () => {
   const entryPoint = path.join(projectRoot, packageJson.main);
   assert.equal(fs.existsSync(entryPoint), true, 'package main entry must exist');
 
@@ -22,6 +22,7 @@ test('configured package entry point registers only the health and GitHub status
   const entryPointModule = require.resolve(entryPoint);
   const healthFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/health.js'));
   const githubFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/github-status.js'));
+  const identityFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/identity.js'));
   const githubStatusModule = require.resolve(path.join(projectRoot, 'src/github-status.js'));
 
   try {
@@ -32,6 +33,7 @@ test('configured package entry point registers only the health and GitHub status
     delete require.cache[entryPointModule];
     delete require.cache[healthFunctionModule];
     delete require.cache[githubFunctionModule];
+    delete require.cache[identityFunctionModule];
     delete require.cache[githubStatusModule];
     require(entryPointModule);
   } finally {
@@ -39,10 +41,18 @@ test('configured package entry point registers only the health and GitHub status
     delete require.cache[entryPointModule];
     delete require.cache[healthFunctionModule];
     delete require.cache[githubFunctionModule];
+    delete require.cache[identityFunctionModule];
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 2, 'the entry point should register exactly two HTTP functions');
+  assert.equal(registrations.length, 4);
+  for (const registration of registrations) assert.deepEqual(registration.options.methods, ['GET']);
+  const identity = registrations.find(item => item.name === 'identity');
+  assert.equal(identity.options.route, 'auth/identity');
+  assert.equal((await identity.options.handler({})).status, 401);
+  const authorization = registrations.find(item => item.name === 'authorization-status');
+  assert.equal(authorization.options.route, 'auth/status');
+  assert.equal((await authorization.options.handler({})).status, 401);
   const health = registrations.find(item => item.name === 'health');
   const githubStatus = registrations.find(item => item.name === 'github-status');
   assert.ok(health);

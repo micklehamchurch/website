@@ -5,7 +5,7 @@ import {
   PublicClientApplication
 } from '@azure/msal-browser';
 import { isAuthorisedProfile, verifiedAdminEmail } from './auth-policy.mjs';
-import { GRAPH_USER_SCOPE } from './auth-config.mjs';
+import { GRAPH_USER_SCOPE, ADMIN_API_HEALTH_URL } from './auth-config.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
@@ -248,6 +248,32 @@ async function signOut() {
 }
 
 signIn.addEventListener('click', beginSignIn);
+document.querySelector('#admin-check-identity').addEventListener('click', async event => {
+  const button = event.currentTarget;
+  const result = document.querySelector('#admin-identity-result');
+  button.disabled = true;
+  result.textContent = 'Checking verified identity…';
+  try {
+    if (!activeAdminApiAccount) throw new Error('account-required');
+    const token = await acquireAdminApiToken(msal, activeAdminApiAccount, { interactive: true });
+    const response = await fetch(ADMIN_API_HEALTH_URL.replace(/health$/, 'auth/identity'), {
+      method: 'GET', cache: 'no-store', headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error('identity-unavailable');
+    const body = await response.json();
+    const identity = body?.identity;
+    if (body?.ok !== true || identity?.provider !== 'aad') throw new Error('invalid-response');
+    // Display only the documented identifier fields, never arbitrary API output.
+    result.textContent = JSON.stringify({
+      provider: identity.provider, tenantId: identity.tenantId, objectId: identity.objectId,
+      subject: identity.subject, issuer: identity.issuer, administrator: body.administrator === true
+    }, null, 2);
+  } catch {
+    result.textContent = 'Identity check could not be completed. Sign in and authorise the Admin API connection, then try again.';
+  } finally {
+    button.disabled = false;
+  }
+});
 switchAccountButton.addEventListener('click', beginSignIn);
 signOutButton.addEventListener('click', signOut);
 dashboardSignOut.addEventListener('click', signOut);

@@ -74,6 +74,12 @@
         <span>Practise creating and previewing content here. Changes are saved only in this browser tab, not to the shared website.</span>
       </div>
       <main id="admin-main" class="admin-main" tabindex="-1">
+        <details>
+          <summary>Administrator access setup</summary>
+          <p>Check your verified Microsoft identity for administrator setup. Publishing remains disabled.</p>
+          <button type="button" class="admin-button secondary" id="admin-check-identity">Check administrator identity</button>
+          <pre id="admin-identity-result" aria-live="polite"></pre>
+        </details>
         <div id="admin-content" aria-live="polite" aria-busy="true"><p class="admin-loading">Loading the administration preview…</p></div>
       </main>
       <footer class="admin-footer">

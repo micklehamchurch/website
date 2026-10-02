@@ -14,9 +14,22 @@ The API registration uses audience `api://3262101f-94ec-494a-8aa2-42b3e43c43fe` 
 
 The Octokit GitHub App authentication library creates a short-lived App JWT and exchanges it for an installation token in memory. The token request is restricted to the `website` repository and the `contents: read` permission, despite the GitHub App's broader permission for future stages. The endpoint makes only repository and branch read requests and returns only the repository name and branch on success. It does not return or persist credentials and does not modify GitHub.
 
-## Easy Auth identity context for a future write stage
+## Stage 2C server-side administrator authorization
 
-After Easy Auth authenticates a request, Azure App Service exposes identity headers to the Function, including `x-ms-client-principal` (Base64-encoded JSON claims), `x-ms-client-principal-id`, `x-ms-client-principal-name`, and `x-ms-client-principal-idp`. Entra claims can be mapped, so the claim names in the principal object may differ from their original token names. The current read-only status endpoint does not make per-user authorization decisions beyond Easy Auth. Before any write endpoint is added, implement a server-side administrator allow-list using verified tenant and immutable user object identifiers from the Easy Auth principal; do not authorize by an email or identity supplied by the browser. Keep Easy Auth required and ensure no alternate route bypasses it.
+`src/identity.js` reads only the Azure-injected `x-ms-client-principal` payload. It accepts the `aad` provider, handles original and mapped tenant/object/subject claims, rejects malformed or conflicting identifiers, and ignores emails, names, standalone identity headers, request bodies and query parameters. Easy Auth must remain required on ALL routes, with the API audience validated and no alternate ingress bypass. These headers are trusted only because Azure strips external copies and supplies authenticated claims; local simulated headers do not prove authentication.
+
+`GET /api/auth/identity` is a temporary, authenticated self-only diagnostic. It returns only provider, available tenant/object/subject/issuer identifiers, and administrator status. It never returns the full principal, email, names, tokens or settings, and does not log identities. Responses use `Cache-Control: no-store`. The dashboard's **Administrator access setup > Check administrator identity** button uses its existing API token and displays only those fields. No token copying is needed.
+
+`GET /api/auth/status` exercises the administrator gate: missing/invalid identity returns 401, a non-allowlisted identity returns 403, and an approved identity returns 200. `requireAdministrator` provides the same reusable gate for future explicitly scoped operations. The existing health and read-only GitHub status routes retain their current Easy Auth protection and responses; they do not imply administrator approval.
+
+The checked-in `src/admin-identities.json` is deliberately empty: Ed's immutable identity has not yet been verified. No administrator is authorized in production yet. The browser's existing Graph email check remains a dashboard display gate only; it cannot grant server authorization. After Ed signs in and checks the diagnostic, verify the returned identifiers before adding an entry through a reviewed Dev-only change:
+
+- Prefer `{ "provider": "aad", "kind": "object", "tenantId": "<verified tid>", "objectId": "<verified oid>" }` if both IDs exist.
+- Otherwise use `{ "provider": "aad", "kind": "subject", "issuer": "<verified iss>", "subject": "<verified sub>" }`. A subject is scoped to the issuer and this fixed API application; never match a bare subject globally.
+
+Copy the exact normalized diagnostic values, never infer them from the email or SPA client ID. Do not add an entry if the required scope identifier is absent. Recheck status after deployment: Ed should receive 200; another authenticated user should receive 403. Remove the temporary diagnostic and dashboard setup control after enrollment is verified. No write endpoint or Calendar publishing is enabled at this stage.
+
+Claim structure and the Azure-injected header trust boundary follow [Microsoft's Easy Auth identity documentation](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-user-identities).
 
 ## Local development
 
