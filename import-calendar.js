@@ -12,3 +12,7 @@ const version = createHash('sha256').update(JSON.stringify(calendar)).digest('he
 const editorialSha = execFileSync('git', ['hash-object', '--path=_content/calendar.json', contentPath], { cwd: root, encoding: 'utf8' }).trim();
 fs.writeFileSync(path.join(root, 'calendar-version.json'), JSON.stringify({ version, editorialSha }) + '\n');
 console.log('Generated ' + calendar.items.length + ' published calendar events.');
+
+// ICS is public output only; never read as a website Calendar source.
+const feedPath = path.join(root, 'calendar.ics');
+require('./calendar-export').calendar(calendar.items, { previous: fs.existsSync(feedPath) ? fs.readFileSync(feedPath, 'utf8') : '' }).then(feed => fs.writeFileSync(feedPath, feed)).catch(error => { console.error(error.message); process.exitCode = 1; });

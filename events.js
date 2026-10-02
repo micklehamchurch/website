@@ -27,10 +27,11 @@ function formatMonth(year, month) {
 
 function googleCalendarLink(event, data) {
   if (!event.title || !event.start || !event.end || !event.timeZone || !event.location) return null;
+  const googleTime = value => (value.length === 16 ? value + ':00' : value).replace(/[-:]/g, '');
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: event.title,
-    dates: event.allDay ? `${event.start.slice(0,10).replace(/-/g,'')}/${event.end.slice(0,10).replace(/-/g,'')}` : `${event.start.replace(/[-:]/g, '')}/${event.end.replace(/[-:]/g, '')}`,
+    dates: event.allDay ? `${event.start.slice(0,10).replace(/-/g,'')}/${event.end.slice(0,10).replace(/-/g,'')}` : `${googleTime(event.start)}/${googleTime(event.end)}`,
     ctz: event.timeZone,
     details: event.description || ''
   });
@@ -157,8 +158,19 @@ function showEvent(event, dialog, timeZone) {
     ${event.location ? `<div><dt>Location</dt><dd>${escapeHTML(location)}</dd></div>` : ''}
     ${event.description ? `<div><dt>Description</dt><dd>${escapeHTML(event.description)}</dd></div>` : ''}
   </dl>
-  <div class="calendar-event-actions">${googleUrl ? `<a class="btn btn-green" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer">Add to Google Calendar <span aria-hidden="true">↗</span></a>` : ''}
-    ${event.sourceUrl ? `<a class="btn btn-outline-green" href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">View source event <span aria-hidden="true">↗</span></a>` : ''}</div>`;
+  <h3 class="calendar-action-title">Add this event</h3><div class="calendar-event-actions">${googleUrl ? `<a class="btn btn-green" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer">Google Calendar <span aria-hidden="true">↗</span></a>` : ''}
+    <button class="btn btn-outline-green" type="button" data-event-ics>Apple / Outlook</button>
+    ${event.sourceUrl ? `<a class="btn btn-outline-green" href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">View source event <span aria-hidden="true">↗</span></a>` : ''}</div>
+    <p><button class="btn btn-outline-green" type="button" data-calendar-subscribe>Subscribe to Church Calendar</button></p>
+    <p class="calendar-download-status" role="status"></p>`;
+  details.querySelector('[data-event-ics]').addEventListener('click', async () => {
+    try {
+      const text = await churchCalendarExport.calendar([event]);
+      const url = URL.createObjectURL(new Blob([text], { type: 'text/calendar;charset=utf-8' }));
+      const link = document.createElement('a'); link.href = url; link.download = 'church-event.ics'; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch { details.querySelector('.calendar-download-status').textContent = 'The event could not be downloaded. Please try again.'; }
+  });
   if (!dialog.open) dialog.showModal();
 }
 

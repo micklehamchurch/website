@@ -9,7 +9,7 @@ async function renderFixture(items = [event]) {
   const buttons = node => [ ...(node.tag === 'button' ? [node] : []), ...node.children.flatMap(buttons) ];
   function node(tag = 'div') {
     return { tag, children: [], dataset: {}, listeners: {}, textContent: '', open: false, classList: { add() {} },
-      append(child) { this.children.push(child); }, replaceChildren() { this.children = []; }, setAttribute() {}, focus() {},
+      append(child) { this.children.push(child); }, replaceChildren() { this.children = []; }, setAttribute() {}, focus() {}, querySelector() { return node('button'); },
       showModal() { this.open = true; }, close() { this.open = false; }, addEventListener(name, fn) { this.listeners[name] = fn; }, querySelectorAll() { return buttons(this); },
       set innerHTML(html) { this.html = html; const id = html.match(/data-event-id="([^"]+)"/); this.firstElementChild = node('button'); if (id) this.firstElementChild.dataset.eventId = id[1]; }, get innerHTML() { return this.html; } };
   }

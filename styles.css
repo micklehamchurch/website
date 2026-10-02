@@ -346,6 +346,12 @@ h3 { font-family: var(--serif); }
 .calendar-event-facts dt { color: var(--green); font-size: 12px; font-weight: 700; }
 .calendar-event-facts dd { margin: 0; overflow-wrap: anywhere; }
 .calendar-event-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.calendar-action-title { font-size: 1.1rem; margin-top: 1.4rem; }
+.calendar-subscription-dialog input { width: 100%; min-width: 0; padding: .7rem; border: 1px solid var(--green, #254d3f); border-radius: 5px; font: inherit; }
+.calendar-subscription-dialog details { margin: 1rem 0; }
+.calendar-subscription-dialog summary { cursor: pointer; font-weight: 600; }
+.calendar-subscription-dialog .btn { white-space: normal; }
+@media (max-width: 520px) { .calendar-event-actions { flex-direction: column; } .calendar-event-actions .btn { width: 100%; text-align: center; } }
 .footer { padding: 56px 0 18px; color: #e9eee9; background: #15382c; }
 .footer-grid { display: grid; grid-template-columns: 1.45fr 1fr 1.2fr 1.1fr; gap: 34px; }
 .footer-brand { color: white; }
