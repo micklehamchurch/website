@@ -60,3 +60,21 @@ test('missing API token prevents requests; identity response strips arbitrary fi
   });
   assert.equal(JSON.stringify(result).includes('never-display'), false);
 });
+
+test('policy diagnostics stay boolean and field-only; strings cannot grant administrator access', async () => {
+  const result = await checkAdministratorIdentity({ acquireTokenSilent: async () => ({ accessToken: 'synthetic-api-token' }) }, {}, {
+    fetchImpl: async url => url.endsWith('/status') ? { status: 403, ok: false } : {
+      ok: true, json: async () => ({ ok: true, identity: { provider: 'aad' }, administrator: 'true',
+        authorizationPolicy: { allowlistIsArray: true, secret: 'never-display', entries: [{
+          kindSupported: true, requiredFields: ['subject', 'never-display'],
+          matches: { subject: false, token: 'never-display' }, failedFields: ['subject', 'never-display'], administrator: false
+        }] }
+      })
+    }
+  });
+  assert.equal(result.identity.administrator, false);
+  assert.equal(result.identity.serverAdministratorType, 'string');
+  assert.equal(result.identity.authorizationStatus, 'http-403');
+  assert.deepEqual(result.identity.authorizationPolicy.entries[0].failedFields, ['subject']);
+  assert.equal(JSON.stringify(result).includes('never-display'), false);
+});

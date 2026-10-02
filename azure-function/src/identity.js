@@ -65,6 +65,30 @@ function response(status, jsonBody) {
   return { status, headers: { 'Cache-Control': 'no-store', Pragma: 'no-cache' }, jsonBody };
 }
 
+function authorizationPolicy(identity) {
+  return {
+    allowlistIsArray: Array.isArray(administrators),
+    entries: Array.isArray(administrators) ? administrators.map(entry => {
+      const requiredFields = ['provider'];
+      if (entry?.kind === 'object') requiredFields.push('tenantId', 'objectId');
+      if (entry?.kind === 'subject') requiredFields.push('issuer', 'subject');
+      for (const field of ['tenantId', 'objectId']) {
+        if (entry && Object.hasOwn(entry, field) && !requiredFields.includes(field)) requiredFields.push(field);
+      }
+      const matches = {};
+      for (const field of ['provider', 'tenantId', 'issuer', 'objectId', 'subject']) {
+        matches[field] = Boolean(identity?.[field] && entry?.[field] && identity[field] === entry[field]);
+      }
+      return {
+        kindSupported: entry?.kind === 'object' || entry?.kind === 'subject',
+        requiredFields, matches,
+        failedFields: requiredFields.filter(field => !matches[field]),
+        administrator: isAdministrator(identity, [entry])
+      };
+    }) : []
+  };
+}
+
 function authorizationBuild() {
   // Fingerprint the actual in-memory allowlist and comparator used by this worker.
   // These are public source artifacts, not identities from the request or settings.
@@ -86,11 +110,14 @@ function requireAdministrator(request, allowlist = administrators) {
 function identityDiagnostic(request) {
   const identity = readIdentity(request);
   if (!identity) return response(401, { ok: false, error: 'authentication-required' });
-  return response(200, { ok: true, identity, administrator: isAdministrator(identity), authorizationBuild: authorizationBuild() });
+  return response(200, {
+    ok: true, identity, administrator: isAdministrator(identity),
+    authorizationBuild: authorizationBuild(), authorizationPolicy: authorizationPolicy(identity)
+  });
 }
 
 function authorizationStatus(request) {
   return requireAdministrator(request) || response(200, { ok: true, administrator: true });
 }
 
-module.exports = { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus, authorizationBuild };
+module.exports = { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus, authorizationBuild, authorizationPolicy };

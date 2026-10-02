@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus, authorizationBuild } = require('../src/identity');
+const { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus, authorizationBuild, authorizationPolicy } = require('../src/identity');
 const tid = '11111111-1111-1111-1111-111111111111';
 const oid = '22222222-2222-2222-2222-222222222222';
 const claims = [{ typ: 'tid', val: tid }, { typ: 'oid', val: oid }, { typ: 'sub', val: 'subject-1' }, { typ: 'iss', val: 'https://login.microsoftonline.com/example/v2.0' }];
@@ -27,7 +27,7 @@ test('Ed exact verified identity is authorized by production allowlist and both 
   assert.equal(isAdministrator(readIdentity(req)), true);
   assert.deepEqual(authorizationStatus(req).jsonBody, { ok: true, administrator: true });
   assert.equal(authorizationStatus(req).status, 200);
-  assert.deepEqual(identityDiagnostic(req).jsonBody, { ok: true, identity: { provider: 'aad', ...ed }, administrator: true, authorizationBuild: authorizationBuild() });
+  assert.deepEqual(identityDiagnostic(req).jsonBody, { ok: true, identity: { provider: 'aad', ...ed }, administrator: true, authorizationBuild: authorizationBuild(), authorizationPolicy: authorizationPolicy(readIdentity(req)) });
 });
 
 test('Ed identifiers with a different tenant or issuer are denied', () => {
@@ -121,7 +121,7 @@ test('authorization is denied by default and requires exact immutable identity A
 test('diagnostic discloses only caller identifiers, disables caching and does not log', () => {
   const req = request([...claims, { typ: 'email', val: 'private@example.com' }, { typ: 'token', val: 'secret-token' }]);
   const response = identityDiagnostic(req);
-  assert.deepEqual(response.jsonBody, { ok: true, identity: readIdentity(request()), administrator: false, authorizationBuild: authorizationBuild() });
+  assert.deepEqual(response.jsonBody, { ok: true, identity: readIdentity(request()), administrator: false, authorizationBuild: authorizationBuild(), authorizationPolicy: authorizationPolicy(readIdentity(req)) });
   assert.equal(response.headers['Cache-Control'], 'no-store');
   assert.equal(JSON.stringify(response).includes('secret-token'), false);
   assert.equal(JSON.stringify(response).includes('private@example.com'), false);

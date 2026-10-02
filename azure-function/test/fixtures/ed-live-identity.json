@@ -1,0 +1,13 @@
+{
+  "provider": "aad",
+  "tenantId": "9188040d-6c67-4c5b-b112-36a304b66dad",
+  "objectId": "00000000-0000-0000-f978-44e4d44cc925",
+  "subject": "AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB9318aduYc",
+  "issuer": "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0",
+  "administrator": false,
+  "authorizationBuild": {
+    "revision": "2dfc63b4900f08d931f54b4b34f430381aac04c9",
+    "allowlistSha256": "d11a50164b24841d1676c45317a25f8b95faef59b99653c99fa36a4f04e1df34",
+    "policySha256": "a47616456df4d0c1ef28d8d5350733568cb52186b1908c8b95e1a76e37fb9912"
+  }
+}
