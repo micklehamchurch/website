@@ -164,7 +164,7 @@ function showEvent(event, dialog, timeZone) {
 
 async function initializeEvents() {
   try {
-    const response = await fetch(`events.json?check=${Date.now()}`, { cache: 'no-store', credentials: 'omit' });
+    const response = await fetch(`events.json?check=${Date.now()}`, { cache: 'no-store', credentials: 'omit', headers: { 'Cache-Control': 'no-cache, max-age=0', Pragma: 'no-cache' } });
     if (!response.ok) throw new Error(`Unable to load calendar (${response.status})`);
     let calendar = await response.json();
     let items = [...calendar.items].sort((a, b) => a.start.localeCompare(b.start));
@@ -222,9 +222,28 @@ async function initializeEvents() {
     }
     // Replace the event collection, never append it. Month and view controls
     // remain in place; unchanged versions do not rebuild any Calendar DOM.
+    let updatesStarted = false;
+    async function startUpdates() {
+    if (updatesStarted) return;
+    if (document.hidden) { setTimeout(() => void startUpdates(), 20000); return; }
     try {
-      const { watchCalendar, calendarVersion } = await import('./calendar-updates.mjs');
-      watchCalendar({ initialVersion: await calendarVersion(calendar), onData: latest => {
+      // Retry with a fresh module URL if initialization fails. Browsers cache
+      // failed dynamic imports too; one transient failure must not stop updates forever.
+      const { watchCalendar, calendarVersion } = await import(`./calendar-updates.mjs?v=2&attempt=${Date.now()}`);
+      grid.dataset.calendarRefresh = 'starting';
+      watchCalendar({ initialVersion: await calendarVersion(calendar), onState: state => {
+        grid.dataset.calendarRefresh = state;
+        grid.dataset.calendarLastCheck = new Date().toISOString();
+        const indicator = document.querySelector('#calendar-refresh-status');
+        if (indicator) {
+          const checked = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date());
+          indicator.textContent = state === 'paused' ? 'Automatic checks pause while this tab is hidden.'
+            : state === 'current' ? `Calendar updated automatically at ${checked}.`
+            : state === 'unchanged' ? `Last automatic check: ${checked}. No new Calendar version.`
+            : state === 'checking' ? `Checking for Calendar updates at ${checked}…`
+            : `Keeping the displayed Calendar; the automatic check will retry. Last check: ${checked}.`;
+        }
+      }, onData: latest => {
         calendar = latest;
         items = [...latest.items].sort((a, b) => a.start.localeCompare(b.start));
         const newMonths = items.map(event => event.start.slice(0, 7)).sort();
@@ -232,6 +251,7 @@ async function initializeEvents() {
         bounds = { first: newMonths[0] || displayedMonth, last: newMonths.at(-1) || displayedMonth };
         const focusedId = document.activeElement?.dataset?.eventId;
         update();
+        grid.dataset.calendarLastUpdate = new Date().toISOString();
         renderUpcomingPreview(items, document.querySelector('[data-event-preview]'), calendar.timeZone);
         if (dialog.open && openEventId) {
           const selected = items.find(item => item.id === openEventId);
@@ -240,7 +260,15 @@ async function initializeEvents() {
         }
         if (focusedId) [...grid.querySelectorAll('[data-event-id]'), ...agenda.querySelectorAll('[data-event-id]')].find(node => node.dataset.eventId === focusedId)?.focus({ preventScroll: true });
       } });
-    } catch { /* Refresh support failing must not replace the rendered Calendar. */ }
+      updatesStarted = true;
+    } catch {
+      grid.dataset.calendarRefresh = 'initialization-failed';
+      const indicator = document.querySelector('#calendar-refresh-status');
+      if (indicator) indicator.textContent = 'Keeping the displayed Calendar; automatic checks will retry shortly.';
+      setTimeout(() => void startUpdates(), 20000);
+    }
+    }
+    void startUpdates();
   } catch (error) {
     console.error(error);
     document.querySelectorAll('[data-event-preview], #calendar-grid, #calendar-agenda').forEach(node => {

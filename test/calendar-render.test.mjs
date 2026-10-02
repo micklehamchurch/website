@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const script = fs.readFileSync(new URL('../events.js', import.meta.url), 'utf8').replace("await import('./calendar-updates.mjs')", 'updates');
+const script = fs.readFileSync(new URL('../events.js', import.meta.url), 'utf8').replace("await import(`./calendar-updates.mjs?v=2&attempt=${Date.now()}`)", 'updates');
 const event = { id: 'one', title: 'First event', start: '2026-12-01T10:00', end: '2026-12-01T11:00', location: 'Church', timeZone: 'Europe/London' };
 async function renderFixture(items = [event]) {
   const nodes = new Map(); let refresh;

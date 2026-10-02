@@ -16,14 +16,18 @@ Calendar without visitor-facing errors. Polling timers pause in hidden tabs and
 visibility restoration triggers a check.
 
 Only Calendar requests use timestamp query parameters and `cache: no-store`;
-event requests additionally carry the advertised fingerprint. Caching elsewhere
+event requests additionally carry the advertised fingerprint. Explicit request
+Cache-Control/Pragma directives request HTTP-cache revalidation as well as
+browser no-store behavior; timestamp query changes alone do not guarantee a
+fresh Pages CDN response. Caching elsewhere
 is unchanged. During deployment, mismatched manifest/data responses are retried
 on the next check. Requests use no authentication headers or cookies.
 
 After publishing, the dashboard reports that GitHub has accepted the change and
 the website is rebuilding. For up to five minutes, the same static watcher checks
 for the exact editorial blob SHA returned by publishing and verifies the served
-event fingerprint. Only then can it report “Calendar is live.” A timeout leaves
+event fingerprint. Only then can it report “Public Calendar data is deployed.”
+The dashboard cannot verify individual visitors' browser refreshes. A timeout leaves
 publication successful but public availability unconfirmed. Browser polling
 cannot shorten GitHub Actions or Pages deployment/CDN delays; visitors detect
 the new static version on a subsequent visible-tab check.
@@ -31,3 +35,14 @@ the new static version on a subsequent visible-tab check.
 No Function code, authorization policy, token acquisition, write target,
 validation or concurrency protection changed. Calendar content remains under
 administrator control. No actual content publication is performed by tests.
+
+Safe runtime state is available on the Calendar grid's data-calendar-refresh,
+data-calendar-last-check and data-calendar-last-update attributes. Initialization
+failure, retries and version/data disagreement are distinguishable without
+showing alarming errors to visitors. No identity or credential data is recorded.
+
+scripts/verify-calendar-browser.cjs runs an isolated real-browser A-to-B replay
+against the deployed Calendar HTML. It checks actual timer requests, HTTP cache
+revalidation headers, data replacement, retained month, no duplicates and no
+unchanged rerender. Use --deployed to test the actual deployed scripts. Its
+intercepted responses are browser-local test fixtures, never shared content writes.

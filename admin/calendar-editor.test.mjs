@@ -72,7 +72,8 @@ test('actual editor keeps staged data on conflict and requires explicit reload b
 test('dashboard reports rebuilding until verified live confirmation, and timeout never falsely claims live', async () => {
   const h = await harness(); h.submit({ title: 'Published event' }, feed.id); h.click('publish-calendar'); await h.flush();
   assert.match(h.node('#admin-content').innerHTML, /website is rebuilding/); assert.doesNotMatch(h.node('#admin-content').innerHTML, /Calendar is live/);
-  assert.equal(h.monitors[0].sha, 'c'.repeat(40)); h.monitors[0].onLive(); assert.match(h.node('#admin-content').innerHTML, /Calendar is live/);
+  assert.equal(h.monitors[0].sha, 'c'.repeat(40)); h.monitors[0].onLive(); assert.match(h.node('#admin-content').innerHTML, /Public Calendar data is deployed/);
+  assert.match(h.node('#admin-content').innerHTML, /individual visitor refreshes cannot be confirmed/);
   const waiting = await harness(); waiting.submit({}, feed.id); waiting.click('publish-calendar'); await waiting.flush(); waiting.monitors[0].onTimeout();
   assert.match(waiting.node('#admin-content').innerHTML, /not yet been confirmed/); assert.doesNotMatch(waiting.node('#admin-content').innerHTML, /Calendar is live/);
 });

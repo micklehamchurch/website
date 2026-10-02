@@ -25,7 +25,7 @@ async function harness({ initial = data([event]), latest = initial, targetEditor
 test('unchanged versions check only a tiny cache-busted manifest and never re-render/download events', async () => {
   const h = await harness(); await h.watcher.check();
   assert.equal(h.changes.length, 0); assert.equal(h.calls.length, 2);
-  for (const call of h.calls) { assert.match(call.url, /calendar-version.json\?check=100$/); assert.equal(call.options.cache, 'no-store'); assert.equal(call.options.credentials, 'omit'); assert.equal(call.options.headers, undefined); }
+  for (const call of h.calls) { assert.match(call.url, /calendar-version.json\?check=100$/); assert.equal(call.options.cache, 'no-store'); assert.equal(call.options.credentials, 'omit'); assert.deepEqual(call.options.headers, { 'Cache-Control': 'no-cache, max-age=0', Pragma: 'no-cache' }); }
   assert.equal(CALENDAR_CHECK_MS, 20000); assert.ok([...h.timers.values()].some(t => t.ms === 20000)); h.watcher.stop();
 });
 test('a new version replaces the event collection once, with no duplicates on repeated checks', async () => {

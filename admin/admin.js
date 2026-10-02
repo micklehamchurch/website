@@ -72,7 +72,7 @@
       sharedCalendar.sha = result.sha; sharedCalendar.dirty = false; sharedCalendar.message = api.message(result.unchanged ? 'unchanged' : 'success');
       if (!result.unchanged) window.monitorPublishedCalendar?.(result.sha, () => {
         if (sharedCalendar.sha !== result.sha || sharedCalendar.dirty) return;
-        sharedCalendar.message = 'Calendar is live. The published version is available on the Dev website and open public Calendars will update automatically.';
+        sharedCalendar.message = 'Public Calendar data is deployed. The published version is verified on Dev; individual visitor refreshes cannot be confirmed from this dashboard.';
         render({ focus: false }); showToast(sharedCalendar.message);
       }, () => {
         if (sharedCalendar.sha !== result.sha || sharedCalendar.dirty) return;
