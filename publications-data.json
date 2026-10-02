@@ -1,3 +1,13 @@
 {
-  "publications": []
+  "publications": [
+    {
+      "id": "pews-news-2026-09-27",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-09-27",
+      "description": "Services, events and parish notices for the week ahead.",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-09-27.pdf",
+      "published": true
+    }
+  ]
 }
