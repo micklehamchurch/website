@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: admin-api-Dev
+  cancel-in-progress: false
+
 jobs:
   validate-and-test:
     runs-on: ubuntu-latest
@@ -40,7 +44,7 @@ jobs:
       - name: Check out Dev
         uses: actions/checkout@v4
         with:
-          ref: Dev
+          ref: ${{ github.sha }}
 
       - name: Set up Node.js 24
         uses: actions/setup-node@v4
@@ -68,7 +72,44 @@ jobs:
       - name: Check out Dev
         uses: actions/checkout@v4
         with:
-          ref: Dev
+          ref: ${{ github.sha }}
+
+      - name: Set up Node.js 24 for the deployment package
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install production API dependencies
+        working-directory: azure-function
+        run: npm ci --omit=dev
+
+      - name: Build and verify the exact deployment ZIP
+        env:
+          DEPLOY_REVISION: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, zipfile
+          root = pathlib.Path('azure-function')
+          with zipfile.ZipFile('admin-api.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              for name in ('host.json', 'package.json', 'package-lock.json'):
+                  archive.write(root / name, name)
+              for directory in ('src', 'node_modules'):
+                  for file in sorted((root / directory).rglob('*')):
+                      if file.is_file():
+                          archive.write(file, file.relative_to(root))
+              archive.writestr('src/deployment.json', json.dumps({'revision': os.environ['DEPLOY_REVISION']}))
+          with zipfile.ZipFile('admin-api.zip') as archive:
+              assert 'src/admin-identities.json' in archive.namelist()
+              archive.extractall('verified-admin-api')
+          PY
+          node azure-function/verify-package.js verified-admin-api "$DEPLOY_REVISION"
+
+      - name: Retain the verified source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-api-${{ github.sha }}
+          path: admin-api.zip
+          retention-days: 7
 
       - name: Log in to Azure with GitHub OIDC
         uses: azure/login@v3
@@ -81,5 +122,11 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: stmichael-church-admin-api
-          package: azure-function
-          remote-build: true
+          package: admin-api.zip
+          remote-build: false
+
+      - name: Restart the API to discard stale worker modules
+        run: |
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          test -n "$resource_group"
+          az functionapp restart --name stmichael-church-admin-api --resource-group "$resource_group" --only-show-errors

@@ -31,6 +31,14 @@ Copy the exact normalized diagnostic values, never infer them from the email or 
 
 Claim structure and the Azure-injected header trust boundary follow [Microsoft's Easy Auth identity documentation](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-user-identities).
 
+### Deployment verification
+
+The reported live identity matches the configured entry character-for-character and authorizes under this source. The previous workflow's successful deployment did not prove the running worker loaded that revision; stale package/worker state is the suspected cause, not a demonstrated claim mismatch. Authorization comparisons remain unchanged.
+
+The workflow now pins both checkouts to the triggering commit, serializes API deployments, installs production dependencies on Linux, constructs an explicit ready-to-run ZIP, extracts it, and runs `verify-package.js` against that exact package. This independent regression uses the reported live identity, requires both authorization endpoints to approve it, and denies altered tenant, issuer, object and subject. The ZIP includes `src/admin-identities.json` at the case-correct relative path and is retained as a short-lived build artifact. Remote rebuilding is disabled so Azure receives the verified ZIP; the Function App is restarted afterward to discard cached modules. No application settings or secrets are changed by these steps.
+
+The authenticated identity diagnostic additionally returns `authorizationBuild`: the deployed commit revision and SHA-256 fingerprints of the actual in-memory allowlist and comparison function. The dashboard displays only these public build fields alongside the existing minimal identity. Compare them with the verified-package step's output. Matching fingerprints confirm the live worker loaded the intended allowlist/comparator; a missing or different revision identifies stale code. No token or environment configuration is returned. Live authenticated verification still requires Ed's sign-in; a workflow success alone does not replace this check.
+
 ## Local development
 
 Use Node.js 24 and Azure Functions Core Tools v4. Install dependencies with `npm ci`, run unit tests with `npm test`, then start the Functions host with `npm start`. Local Functions Core Tools do not reproduce Azure Easy Auth; a local request must not be treated as evidence of production authentication. Do not place credentials in source control. Local `local.settings.json`, `.env*`, private keys, and publish settings are ignored by the repository.

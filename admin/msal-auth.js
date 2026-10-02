@@ -266,7 +266,12 @@ document.querySelector('#admin-check-identity').addEventListener('click', async 
     // Display only the documented identifier fields, never arbitrary API output.
     result.textContent = JSON.stringify({
       provider: identity.provider, tenantId: identity.tenantId, objectId: identity.objectId,
-      subject: identity.subject, issuer: identity.issuer, administrator: body.administrator === true
+      subject: identity.subject, issuer: identity.issuer, administrator: body.administrator === true,
+      authorizationBuild: {
+        revision: /^[0-9a-f]{40}$/.test(body.authorizationBuild?.revision) ? body.authorizationBuild.revision : 'unversioned',
+        allowlistSha256: /^[0-9a-f]{64}$/.test(body.authorizationBuild?.allowlistSha256) ? body.authorizationBuild.allowlistSha256 : 'unavailable',
+        policySha256: /^[0-9a-f]{64}$/.test(body.authorizationBuild?.policySha256) ? body.authorizationBuild.policySha256 : 'unavailable'
+      }
     }, null, 2);
   } catch {
     result.textContent = 'Identity check could not be completed. Sign in and authorise the Admin API connection, then try again.';

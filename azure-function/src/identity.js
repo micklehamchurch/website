@@ -1,4 +1,9 @@
 const administrators = require('./admin-identities.json');
+const { createHash } = require('node:crypto');
+const fs = require('node:fs');
+const path = require('node:path');
+const revisionPath = path.join(__dirname, 'deployment.json');
+const revision = fs.existsSync(revisionPath) ? require('./deployment.json').revision : 'unversioned';
 
 const claimTypes = {
   tenantId: ['tid', 'http://schemas.microsoft.com/identity/claims/tenantid'],
@@ -60,6 +65,16 @@ function response(status, jsonBody) {
   return { status, headers: { 'Cache-Control': 'no-store', Pragma: 'no-cache' }, jsonBody };
 }
 
+function authorizationBuild() {
+  // Fingerprint the actual in-memory allowlist and comparator used by this worker.
+  // These are public source artifacts, not identities from the request or settings.
+  return {
+    revision,
+    allowlistSha256: createHash('sha256').update(JSON.stringify(administrators)).digest('hex'),
+    policySha256: createHash('sha256').update(isAdministrator.toString().replace(/\r/g, '')).digest('hex')
+  };
+}
+
 function requireAdministrator(request, allowlist = administrators) {
   const identity = readIdentity(request);
   if (!identity) return response(401, { ok: false, error: 'authentication-required' });
@@ -71,11 +86,11 @@ function requireAdministrator(request, allowlist = administrators) {
 function identityDiagnostic(request) {
   const identity = readIdentity(request);
   if (!identity) return response(401, { ok: false, error: 'authentication-required' });
-  return response(200, { ok: true, identity, administrator: isAdministrator(identity) });
+  return response(200, { ok: true, identity, administrator: isAdministrator(identity), authorizationBuild: authorizationBuild() });
 }
 
 function authorizationStatus(request) {
   return requireAdministrator(request) || response(200, { ok: true, administrator: true });
 }
 
-module.exports = { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus };
+module.exports = { readIdentity, isAdministrator, requireAdministrator, identityDiagnostic, authorizationStatus, authorizationBuild };
