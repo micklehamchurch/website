@@ -90,6 +90,7 @@ jobs:
           python - <<'PY'
           import json, os, pathlib, zipfile
           root = pathlib.Path('azure-function')
+          (root / 'src/deployment.json').write_text(json.dumps({'revision': os.environ['DEPLOY_REVISION']}))
           with zipfile.ZipFile('admin-api.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
               for name in ('host.json', 'package.json', 'package-lock.json'):
                   archive.write(root / name, name)
@@ -97,7 +98,6 @@ jobs:
                   for file in sorted((root / directory).rglob('*')):
                       if file.is_file():
                           archive.write(file, file.relative_to(root))
-              archive.writestr('src/deployment.json', json.dumps({'revision': os.environ['DEPLOY_REVISION']}))
           with zipfile.ZipFile('admin-api.zip') as archive:
               assert 'src/admin-identities.json' in archive.namelist()
               archive.extractall('verified-admin-api')
@@ -118,15 +118,38 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Inspect existing runtime and indexed function names
+        run: |
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          test -n "$resource_group"
+          az functionapp show --name stmichael-church-admin-api --resource-group "$resource_group" --query functionAppConfig.runtime --only-show-errors
+          if ! az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[].name" --only-show-errors 2>/dev/null; then
+            echo "Existing host function inventory unavailable."
+          fi
+
       - name: Deploy only the Admin API Function App
         uses: Azure/functions-action@v1
         with:
           app-name: stmichael-church-admin-api
-          package: admin-api.zip
-          remote-build: false
+          package: azure-function
+          remote-build: true
 
-      - name: Restart the API to discard stale worker modules
+      - name: Verify all deployed HTTP functions are indexed
         run: |
           resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
           test -n "$resource_group"
-          az functionapp restart --name stmichael-church-admin-api --resource-group "$resource_group" --only-show-errors
+          for attempt in $(seq 1 12); do
+            if az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[].name" -o json --only-show-errors > indexed-functions.json 2>/dev/null; then
+              if python - <<'PY'
+          import json
+          names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
+          expected = {'health', 'github-status', 'identity', 'authorization-status'}
+          print('Indexed HTTP functions:', ', '.join(sorted(names)))
+          assert expected <= names, 'Required HTTP functions are not indexed'
+          PY
+              then exit 0; fi
+            fi
+            sleep 10
+          done
+          echo "::error::Deployed API host did not index all four HTTP functions."
+          exit 1

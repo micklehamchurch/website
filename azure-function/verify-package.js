@@ -2,6 +2,26 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const fs = require('node:fs');
 const { createHash } = require('node:crypto');
+const Module = require('node:module');
+
+function verifyEntrypoint(root) {
+  root = path.resolve(root);
+  const entry = path.join(root, require(path.join(root, 'package.json')).main);
+  const originalLoad = Module._load;
+  const registrations = [];
+  try {
+    Module._load = function (name, parent, isMain) {
+      if (name === '@azure/functions') return { app: { http(name, options) { registrations.push({ name, options }); } } };
+      return originalLoad.call(this, name, parent, isMain);
+    };
+    require(entry); // Also resolves production GitHub dependencies; never invokes GitHub handlers.
+  } finally {
+    Module._load = originalLoad;
+  }
+  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'github-status', 'health', 'identity']);
+  for (const { options } of registrations) assert.deepEqual(options.methods, ['GET']);
+  assert.equal(require(path.join(root, 'host.json')).extensions.http.routePrefix, 'api');
+}
 
 function verifyPackage(root, expectedRevision) {
   root = path.resolve(root);
@@ -35,7 +55,8 @@ function verifyPackage(root, expectedRevision) {
 }
 
 if (require.main === module) {
+  verifyEntrypoint(process.argv[2]);
   // Output public artifact fingerprints only, never request claims or settings.
   console.log(JSON.stringify(verifyPackage(process.argv[2], process.argv[3])));
 }
-module.exports = { verifyPackage };
+module.exports = { verifyPackage, verifyEntrypoint };

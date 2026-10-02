@@ -1,4 +1,5 @@
 node_modules/
+azure-function/src/deployment.json
 .env
 .env.*
 !.env.example

@@ -5,7 +5,8 @@ import {
   PublicClientApplication
 } from '@azure/msal-browser';
 import { isAuthorisedProfile, verifiedAdminEmail } from './auth-policy.mjs';
-import { GRAPH_USER_SCOPE, ADMIN_API_HEALTH_URL } from './auth-config.mjs';
+import { GRAPH_USER_SCOPE } from './auth-config.mjs';
+import { checkAdministratorIdentity } from './api-identity.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
@@ -126,6 +127,8 @@ function showDashboard(profile, email) {
 function updateAdminApiStatus(state, diagnostic = null, needsInteraction = false) {
   document.documentElement.dataset.adminApiStatus = state;
   document.documentElement.dataset.adminApiNeedsInteraction = String(needsInteraction);
+  const connectionDiagnostic = document.querySelector('#admin-api-diagnostic');
+  if (connectionDiagnostic) connectionDiagnostic.textContent = diagnostic ? `Connection diagnostic: ${diagnostic}` : '';
   window.dispatchEvent(new CustomEvent('admin-api-status-change', { detail: { state, needsInteraction } }));
   const indicator = document.querySelector('#admin-api-status');
   if (indicator) {
@@ -255,24 +258,10 @@ document.querySelector('#admin-check-identity').addEventListener('click', async 
   result.textContent = 'Checking verified identity…';
   try {
     if (!activeAdminApiAccount) throw new Error('account-required');
-    const token = await acquireAdminApiToken(msal, activeAdminApiAccount, { interactive: true });
-    const response = await fetch(ADMIN_API_HEALTH_URL.replace(/health$/, 'auth/identity'), {
-      method: 'GET', cache: 'no-store', headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!response.ok) throw new Error('identity-unavailable');
-    const body = await response.json();
-    const identity = body?.identity;
-    if (body?.ok !== true || identity?.provider !== 'aad') throw new Error('invalid-response');
-    // Display only the documented identifier fields, never arbitrary API output.
-    result.textContent = JSON.stringify({
-      provider: identity.provider, tenantId: identity.tenantId, objectId: identity.objectId,
-      subject: identity.subject, issuer: identity.issuer, administrator: body.administrator === true,
-      authorizationBuild: {
-        revision: /^[0-9a-f]{40}$/.test(body.authorizationBuild?.revision) ? body.authorizationBuild.revision : 'unversioned',
-        allowlistSha256: /^[0-9a-f]{64}$/.test(body.authorizationBuild?.allowlistSha256) ? body.authorizationBuild.allowlistSha256 : 'unavailable',
-        policySha256: /^[0-9a-f]{64}$/.test(body.authorizationBuild?.policySha256) ? body.authorizationBuild.policySha256 : 'unavailable'
-      }
-    }, null, 2);
+    const check = await checkAdministratorIdentity(msal, activeAdminApiAccount, { interactive: true });
+    result.textContent = check.ok
+      ? JSON.stringify(check.identity, null, 2)
+      : `Identity check failed (${check.diagnostic}).`;
   } catch {
     result.textContent = 'Identity check could not be completed. Sign in and authorise the Admin API connection, then try again.';
   } finally {

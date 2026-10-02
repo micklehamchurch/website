@@ -20,6 +20,7 @@ on:
       - 'admin/msal-auth.js'
       - 'admin/auth-config.mjs'
       - 'admin/api-health.mjs'
+      - 'admin/api-identity.mjs'
       - 'admin/auth-tokens.mjs'
       - 'admin/auth-policy.mjs'
       - 'admin/AUTH-ARCHITECTURE.md'
