@@ -70,6 +70,7 @@ const pages = htmlFiles(siteRoot).sort((a, b) => a.localeCompare(b)).map(filenam
     const description = metaContent(html, 'description');
     let content = visibleText(main);
     if (eventSearchPages.has(filename) && eventContent) content = `${content} ${eventContent}`.trim();
+    if (filename === 'our-team.html') content = `Our Team Parish Contact Directory contact vicar churchwarden PCC safeguarding ${content}`;
     if (filename === 'news.html') content = `${content} ${newsContent} ${publicationContent}`.trim();
     return { url: filename, title, documentTitle, description, content };
   })

@@ -620,7 +620,7 @@
       "contactTitle": "Interested in joining?",
       "contactText": "Contact the parish office to ask about joining a Bible study group or to check the current arrangements.",
       "contactEmail": "admin@micklehamchurch.org.uk",
-      "contactDirectory": "parish-contact-directory.html",
+      "contactDirectory": "our-team.html",
       "related": [
         {
           "label": "Explore faith",
@@ -792,52 +792,8 @@
       "title": "Our Team",
       "summary": "The parish is served by clergy, churchwardens, staff and volunteers across worship and community life.",
       "back": "about.html",
-      "sections": [
-        {
-          "title": "Clergy and parish leadership",
-          "paragraphs": [
-            "The previous team directory listed a Parish Priest, churchwardens and a deputy churchwarden. These roles serve the worshipping community and help care for the parish churches."
-          ]
-        },
-        {
-          "title": "Parish administration and PCC",
-          "paragraphs": [
-            "The old directory also listed a Parish Administrator, PCC Secretary and Treasurer, alongside members of the Parochial Church Council. Current office holders and responsibilities should be confirmed by the parish."
-          ]
-        },
-        {
-          "title": "Worship and music",
-          "paragraphs": [
-            "The earlier team page named an organist and people serving in worship-related roles. Names and arrangements are not repeated here until confirmed."
-          ]
-        },
-        {
-          "title": "Life events",
-          "paragraphs": [
-            "The old directory listed coordinators for baptism, weddings and funerals. Contact the parish for the current enquiry route for each."
-          ]
-        },
-        {
-          "title": "Pastoral care and safeguarding",
-          "paragraphs": [
-            "The older team page named a Parish Visitor for pastoral care and a Parish Safeguarding Officer. Current contacts must be confirmed; see the separate Pastoral Care and Safeguarding pages."
-          ]
-        },
-        {
-          "title": "Electoral Roll and parish magazine",
-          "paragraphs": [
-            "The previous directory also listed an Electoral Roll Officer and parish magazine editors. Contact the parish to confirm the current role-holders and how to get in touch."
-          ]
-        },
-        {
-          "title": "Get in touch",
-          "paragraphs": [
-            "For published telephone numbers and email addresses for parish roles, use the Parish Contact Directory."
-          ]
-        }
-      ],
-      "action": "Open the Parish Contact Directory",
-      "href": "parish-contact-directory.html"
+      "sections": [],
+      "source": "contacts"
     },
     {
       "slug": "electoral-roll",

@@ -4,7 +4,7 @@ const path = require('node:path');
 const root = __dirname;
 const sourcePath = path.join(root, '_content', 'contacts.json');
 const templatePath = path.join(root, '_templates', 'parish-contact-directory.html');
-const publicPath = path.join(root, 'parish-contact-directory.html');
+const publicPath = path.join(root, 'our-team.html');
 const adminDataPath = path.join(root, 'admin', 'contacts-data.json');
 const data = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 require('./azure-function/src/contacts-model').validateContacts(data);
@@ -69,5 +69,8 @@ const adminData = {
   contacts: contacts.filter(contact => contact.status === 'published'),
   pccMembers: pccMembers.filter(member => member.status === 'published')
 };
+fs.writeFileSync(path.join(root, 'parish-contact-directory.html'), `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="search-index" content="exclude"><meta name="robots" content="noindex"><link rel="canonical" href="https://micklehamchurch.github.io/website/our-team.html"><title>Our Team | St Michael &amp; All Angels</title><script>location.replace('our-team.html' + location.search + location.hash);</script><link rel="stylesheet" href="styles.css"></head><body><main class="container section"><h1>Our Team</h1><p>The Parish Contact Directory is now part of Our Team.</p><a href="our-team.html">Meet our team and find parish contacts →</a></main></body></html>
+`, 'utf8');
 fs.writeFileSync(adminDataPath, `${JSON.stringify(adminData, null, 2)}\n`, 'utf8');
-console.log(`Generated Parish Contact Directory with ${contacts.filter(contact => contact.status === 'published').length} published contacts and ${publishedMembers.length} published PCC members.`);
+console.log(`Generated Our Team from Contacts with ${contacts.filter(contact => contact.status === 'published').length} published contacts and ${publishedMembers.length} published PCC members.`);

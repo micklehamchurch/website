@@ -59,7 +59,7 @@ const renderFellowshipContent = page => {
     <section class="fellowship-regular" aria-labelledby="fellowship-groups-heading"><div class="fellowship-section-intro"><p class="eyebrow">Regular groups</p><h2 id="fellowship-groups-heading">${esc(page.groupsTitle)}</h2><p>${esc(page.groupsIntro)}</p></div><div class="fellowship-groups-grid">${groups}</div></section>
     <section class="fellowship-welcome" aria-labelledby="fellowship-welcome-heading"><div><p class="eyebrow">Everyone is welcome</p><h2 id="fellowship-welcome-heading">${esc(page.welcomeTitle)}</h2></div><p>${esc(page.welcomeText)}</p></section>
     <section class="fellowship-seasonal" aria-labelledby="fellowship-seasonal-heading"><p class="eyebrow">At particular seasons</p><h2 id="fellowship-seasonal-heading">${esc(page.seasonalTitle)}</h2><p>${esc(page.seasonalText)}</p></section>
-    <section class="fellowship-contact" aria-labelledby="fellowship-contact-heading"><div><p class="eyebrow">Find out more</p><h2 id="fellowship-contact-heading">${esc(page.contactTitle)}</h2><p>${esc(page.contactText)}</p></div><div class="fellowship-contact-actions"><a class="btn btn-green" href="mailto:${esc(page.contactEmail)}">Ask about a Bible Study Group <span aria-hidden="true">→</span></a><a class="fellowship-directory-link" href="${esc(page.contactDirectory)}">Parish Contact Directory</a></div></section>
+    <section class="fellowship-contact" aria-labelledby="fellowship-contact-heading"><div><p class="eyebrow">Find out more</p><h2 id="fellowship-contact-heading">${esc(page.contactTitle)}</h2><p>${esc(page.contactText)}</p></div><div class="fellowship-contact-actions"><a class="btn btn-green" href="mailto:${esc(page.contactEmail)}">Ask about a Bible Study Group <span aria-hidden="true">→</span></a><a class="fellowship-directory-link" href="${esc(page.contactDirectory)}">Our Team</a></div></section>
     <nav class="fellowship-related" aria-label="Related parish pages"><p class="eyebrow">More in parish life</p><div class="fellowship-related-grid">${links}</div></nav>
   </div>`;
 };
@@ -111,6 +111,7 @@ const renderWorshipLifeContent = page => {
 };
 
 for (const page of pages) {
+  if (page.source === 'contacts') continue;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
   const outputFile = path.join(root, `${page.slug}.html`);
   if (fs.existsSync(outputFile)) {
