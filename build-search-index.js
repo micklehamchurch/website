@@ -44,6 +44,10 @@ const newsDataPath = path.join(siteRoot, 'news-data.json');
 const newsData = fs.existsSync(newsDataPath) ? JSON.parse(fs.readFileSync(newsDataPath, 'utf8')) : { articles: [] };
 const publishedArticles = (newsData.articles || []).filter(article => (article.status || 'published') === 'published');
 const newsContent = publishedArticles.map(article => [article.category, article.dateLabel, article.title, article.excerpt, ...(article.paragraphs || [])].filter(Boolean).join(' — ')).join('. ');
+const publicationModel = require('./publications-model.js');
+const publicationPath = path.join(siteRoot, 'publications-data.json');
+const publications = fs.existsSync(publicationPath) ? publicationModel.ordered(publicationModel.parse(JSON.parse(fs.readFileSync(publicationPath, 'utf8')))) : [];
+const publicationContent = publications.map(item => [publicationModel.label(item.type), item.title, item.date, publicationModel.dateLabel(item), item.description].join(' — ')).join('. ');
 const publishedNewsSlugs = new Set(publishedArticles.map(article => `${article.slug}.html`));
 
 function htmlFiles(directory, relative = '') {
@@ -66,7 +70,7 @@ const pages = htmlFiles(siteRoot).sort((a, b) => a.localeCompare(b)).map(filenam
     const description = metaContent(html, 'description');
     let content = visibleText(main);
     if (eventSearchPages.has(filename) && eventContent) content = `${content} ${eventContent}`.trim();
-    if (filename === 'news.html' && newsContent) content = `${content} ${newsContent}`.trim();
+    if (filename === 'news.html') content = `${content} ${newsContent} ${publicationContent}`.trim();
     return { url: filename, title, documentTitle, description, content };
   })
   .filter(Boolean);

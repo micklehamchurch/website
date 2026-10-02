@@ -1,0 +1,1 @@
+Place real date-based Pews News PDFs here. First requested edition: `pews-news-2026-09-27.pdf` (Sunday 27 September 2026). No PDF has yet been supplied. Add its record to `_content/publications.json` once available; retain older editions. See `NEWS-MAGAZINE.md`.

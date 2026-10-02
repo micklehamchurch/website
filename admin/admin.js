@@ -92,6 +92,7 @@
   window.addEventListener('admin-calendar-ready', () => {
     if (currentView() === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy) void loadSharedCalendar();
   });
+  window.addEventListener('admin-publications-ready', () => { if (currentView() === 'news') render({ focus: false }); });
   let toastTimer;
   const adminApiStatusLabels = {
     checking: 'Checking…',
@@ -292,6 +293,7 @@
       category: item.category || 'Parish news',
       date: item.date || articleDateToInput(item.dateLabel),
       image: item.image || '',
+      expires: item.expires || '',
       status: item.status || 'published',
       demo: item.demo !== false,
       galleryLink: item.galleryLink || '',
@@ -300,9 +302,9 @@
   }
   function newsView() {
     const records = listRecords('news').map(articleFields).sort((a, b) => b.date.localeCompare(a.date));
-    const action = '<button class="admin-button" type="button" data-action="add" data-kind="news">＋ Add article</button>';
-    return `${pageHeading('PARISH STORIES & UPDATES', 'News & Magazine', 'Practise drafting a parish article, choosing an image and checking its preview.', action)}
-      ${demoBanner()}<div class="admin-section-note"><strong>Current news:</strong> published articles are shown from the public news feed; explicitly marked fictional samples are shown as SAMPLE / DEMO previews. Edits in this screen stay in this tab and do not update the public listing, generated article pages or search index.</div>
+    const action = '<button class="admin-button" type="button" data-action="add" data-kind="news">＋ Add news story</button>';
+    return `${pageHeading('PARISH STORIES & UPDATES', 'News & Magazine', 'Prepare website stories and PDF editions, with clear local previews.', action)}
+      ${demoBanner()}<p class="admin-section-note" id="news-publishing-unavailable">Publishing connection not yet configured for News &amp; Magazine. Previews do not update the public website.</p>${window.publicationsAdmin?.render() || ''}<h2>Website News</h2><div class="admin-section-note"><strong>Current news:</strong> published articles are shown from the public news feed; explicitly marked fictional samples are shown as SAMPLE / DEMO previews. Edits in this screen stay in this tab and do not update the public listing, generated article pages or search index.</div>
       <div class="admin-list-toolbar"><label for="news-filter">Find an article</label><input id="news-filter" type="search" placeholder="Search title, category or summary"><span>${records.length} items shown</span></div>
       <div class="admin-cms-list news-list" id="news-records">${records.map(item => recordCard('news', item)).join('') || '<p class="admin-empty">No news items match this view.</p>'}</div>`;
   }
@@ -566,10 +568,11 @@
         ${field('Article content', 'content', current.content, { type: 'textarea', required: true, full: true, rows: 8, placeholder: 'Write the article. Separate paragraphs with a blank line.' })}
         ${field('Category', 'category', current.category || 'Parish news', { required: true, choices: ['Weekly announcements', 'Upcoming parish events', 'Reflection', 'Community news', 'Seasonal notice', 'Parish life & photos', 'Parish news', 'Other'].map(value => [value, value]) })}
         ${field('Date', 'date', current.date || new Date().toISOString().slice(0, 10), { type: 'date', required: true })}
-        ${field('Status', 'status', current.status || 'published', { required: true, choices: [['published', 'Published in preview'], ['draft', 'Draft']] })}
+        ${field('Status', 'status', current.status || 'draft', { required: true, choices: [['published', 'Published in local preview only'], ['draft', 'Draft']] })}
+        ${field('Archive after (optional)', 'expires', current.expires, { type: 'date', hint: 'The story leaves the current listing after this date; its article remains accessible.' })}
         ${commonImage}
       </div>`;
-    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'DEVELOPMENT DEMO · NEWS & MAGAZINE'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Changes are preview-only and stay in this browser tab.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save in development preview'}</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'DEVELOPMENT DEMO · NEWS & MAGAZINE'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Changes are preview-only and stay in this browser tab.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save in development preview'}</button>${event ? '' : '<button type="button" class="admin-button" disabled title="Publishing connection not yet configured for News &amp; Magazine">Publish</button>'}</div></div></form>`;
     dialog.showModal();
     const editorForm = dialog.querySelector('#admin-editor-form');
     editorForm.addEventListener('submit', event => {
@@ -634,7 +637,7 @@
       const existingSlugs = new Set(listRecords('news').filter(item => item.id !== id && item.slug !== id).map(item => item.slug));
       if (isNew) { let suffix = 2; const stem = slug; while (existingSlugs.has(slug)) slug = `${stem}-${suffix++}`; }
       const recordId = id || slug;
-      value = { id: recordId, slug, title: values.title.trim(), excerpt: values.summary.trim(), paragraphs: values.content.split(/\n\s*\n/).map(part => part.trim()).filter(Boolean), category: values.category, date: values.date, dateLabel: dateLabelForArticle(values.date), image: values.image, status: values.status, demo: true };
+      value = { id: recordId, slug, title: values.title.trim(), excerpt: values.summary.trim(), paragraphs: values.content.split(/\n\s*\n/).map(part => part.trim()).filter(Boolean), category: values.category, date: values.date, expires: values.expires || undefined, dateLabel: dateLabelForArticle(values.date), image: values.image, status: values.status, demo: true };
       updateRecord('news', recordId, value, isNew);
     }
     if (kind !== 'calendar' && !persistDemoState()) return;

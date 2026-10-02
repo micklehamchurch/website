@@ -6,6 +6,7 @@ const outputDirectory = path.join(root, 'news');
 const data = JSON.parse(fs.readFileSync(path.join(root, '_content', 'news.json'), 'utf8'));
 if (!Array.isArray(data.articles)) throw new Error('news-data.json must contain an articles array.');
 const slugs = new Set();
+const { dateValid } = require('./publications-model.js');
 for (const article of data.articles) {
   if (typeof article.slug !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) throw new Error(`Invalid article slug: ${article.slug || '(missing)'}`);
   for (const field of ['slug', 'title', 'category', 'dateLabel', 'excerpt']) {
@@ -13,6 +14,9 @@ for (const article of data.articles) {
   }
   if (!Array.isArray(article.paragraphs) || !article.paragraphs.length || article.paragraphs.some(paragraph => typeof paragraph !== 'string' || !paragraph.trim())) throw new Error(`News article needs one or more non-empty paragraphs: ${article.slug}`);
   if (!['published', 'draft'].includes(article.status || 'published')) throw new Error(`Invalid news status for ${article.slug}: ${article.status}`);
+  if (article.demo !== true && !dateValid(article.date)) throw new Error('Real news articles require an ISO publication date.');
+  if (article.expires && (!dateValid(article.expires) || article.expires < article.date)) throw new Error('Invalid news archive date.');
+  if (article.image && (!/^assets\/[a-zA-Z0-9/_-]+\.(?:jpg|jpeg|png|webp)$/.test(article.image) || !fs.existsSync(path.join(root, article.image)))) throw new Error('News image must be an existing safe site asset.');
   if (article.galleryLink) {
     if (typeof article.galleryLink !== 'string' || /^(?:[a-z]+:|\/|\\)|\.\./i.test(article.galleryLink)) throw new Error(`News gallery link must be a safe site-relative path: ${article.slug}`);
     const linkTarget = path.resolve(root, article.galleryLink);
@@ -54,6 +58,7 @@ for (const article of articles) {
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
+  <link rel="stylesheet" href="news-magazine.css">
   <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -72,6 +77,7 @@ for (const article of articles) {
         <h1>${escapeHtml(article.title)}</h1>
         <p class="sample-date">${escapeHtml(article.dateLabel)}</p>
         <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+        ${article.image ? `<img class="news-article-image" src="${escapeHtml(article.image)}" alt="${escapeHtml(article.imageAlt || '')}">` : ''}
         <div class="article-copy">${paragraphs}</div>
         ${galleryLink}
         <div class="article-bottom-nav"><a class="btn btn-green" href="news.html">Back to News &amp; Magazine</a></div>

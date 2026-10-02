@@ -1,0 +1,1 @@
+Place real Parish Magazine PDFs here with permanent month-based names, such as `parish-magazine-2026-10.pdf`. No current edition is assumed. Add each record to `_content/publications.json`; retain older editions. See `NEWS-MAGAZINE.md`.
