@@ -25,6 +25,13 @@ function formatMonth(year, month) {
   return new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month, 1)));
 }
 
+// A wording hint only: platform detection does not imply native import support.
+function individualCalendarLabel(info = typeof navigator === 'undefined' ? {} : navigator) {
+  const platform = info.userAgentData?.platform || info.platform || '';
+  const apple = /^(Mac|iPhone|iPad|iPod)/i.test(platform) || /iPhone|iPad|iPod/.test(info.userAgent || '');
+  return apple ? 'Apple Calendar' : 'Apple / Outlook';
+}
+
 function googleCalendarLink(event, data) {
   if (!event.title || !event.start || !event.end || !event.timeZone || !event.location) return null;
   const googleTime = value => (value.length === 16 ? value + ':00' : value).replace(/[-:]/g, '');
@@ -159,8 +166,9 @@ function showEvent(event, dialog, timeZone) {
     ${event.description ? `<div><dt>Description</dt><dd>${escapeHTML(event.description)}</dd></div>` : ''}
   </dl>
   <h3 class="calendar-action-title">Add this event</h3><div class="calendar-event-actions">${googleUrl ? `<a class="btn btn-green" href="${escapeHTML(googleUrl)}" target="_blank" rel="noopener noreferrer">Google Calendar <span aria-hidden="true">↗</span></a>` : ''}
-    <button class="btn btn-outline-green" type="button" data-event-ics>Apple / Outlook</button>
+    <button class="btn btn-outline-green" type="button" data-event-ics aria-describedby="individual-calendar-help">${individualCalendarLabel()}</button>
     ${event.sourceUrl ? `<a class="btn btn-outline-green" href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">View source event <span aria-hidden="true">↗</span></a>` : ''}</div>
+    <p id="individual-calendar-help">Downloads one event. How you open or add it depends on your device’s calendar app.</p>
     <p><button class="btn btn-outline-green" type="button" data-calendar-subscribe>Subscribe to Church Calendar</button></p>
     <p class="calendar-download-status" role="status"></p>`;
   details.querySelector('[data-event-ics]').addEventListener('click', async () => {

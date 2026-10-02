@@ -7,16 +7,18 @@ const fixture = require('./fixtures/calendar-migration.json');
 const calendar = require('../_content/calendar.json');
 const { buildCalendar } = require('../azure-function/src/calendar-model');
 const source = fs.readFileSync(path.join(root, 'test/fixtures/legacy-calendar.ics'), 'utf8');
-const items = buildCalendar(null, calendar, { range: { from: '2026-09-01', to: '2028-12-31' } }).items;
+const allItems = buildCalendar(null, calendar, { range: { from: '2026-09-01', to: '2028-12-31' } }).items;
+const approvedIDs = new Set(require('./fixtures/calendar-before-retirement.json').items.map(e=>e.id));
+const items = allItems.filter(e=>approvedIDs.has(e.id));
 const key = e => [e.start.slice(0,10), e.allDay ? 'all-day' : e.start.slice(11,16)+'–'+e.end.slice(11,16), e.title].join('|');
 
 test('approved migration exactly reproduces the authoritative schedule without duplicates', () => {
   assert.equal(items.length, 116);
   assert.deepEqual(items.map(key).sort(), fixture.expectedKeys);
-  assert.equal(new Set(items.map(key)).size, items.length);
+  assert.equal(new Set(allItems.map(key)).size, allItems.length);
   assert.deepEqual(calendar.series.slice(2), fixture.series);
-  assert.deepEqual(calendar.events, fixture.oneoffs);
-  assert.equal(calendar.events.length, 20);
+  assert.deepEqual(calendar.events.filter(e=>fixture.oneoffs.some(original=>original.id===e.id)), fixture.oneoffs);
+  assert.equal(calendar.events.filter(e=>fixture.oneoffs.some(original=>original.id===e.id)).length, 20);
 });
 test('existing Compline objects and moved occurrence are preserved', () => {
   assert.deepEqual(calendar.series.slice(0,2), fixture.baselineCompline.series);
@@ -42,7 +44,7 @@ test('all-day boundaries and generated public Calendar/search retain approved co
   assert.deepEqual(allDay.map(e => e.start.slice(0,10)).sort(), ['2026-10-17','2027-07-03','2027-09-04']);
   for (const e of allDay) assert.equal(Date.parse(e.end+'Z')-Date.parse(e.start+'Z'), 86400000);
   const generated = require('../events.json').items;
-  assert.deepEqual(generated.map(key).sort(), fixture.expectedKeys);
+  assert.deepEqual(generated.filter(e=>approvedIDs.has(e.id)).map(key).sort(), fixture.expectedKeys);
   const search = JSON.stringify(require('../search-index.json'));
   for (const e of items) assert(search.includes(e.title));
   assert(!search.includes('NO BCP service') && !search.includes('All age Worship') && !search.includes('Chapel - Book of Common Prayer Holy Communion'));

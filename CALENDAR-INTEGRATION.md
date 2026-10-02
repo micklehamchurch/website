@@ -16,3 +16,11 @@ Official workflow references:
 - https://support.google.com/calendar/answer/37100
 - https://support.microsoft.com/en-us/outlook/import-or-subscribe-to-a-calendar-in-outlook-com-or-outlook-on-the-web
 - https://www.rfc-editor.org/rfc/rfc5545
+
+## Apple single-event wording
+
+The single-event action remains a standard Blob download, not webcal. Its HTML download attribute explicitly requests that behavior. Apple platform strings (including iPadOS desktop-style MacIntel) affect the label only: Apple Calendar on Apple platforms, Apple / Outlook elsewhere. This is a wording hint, not a capability guarantee. The visible help explains that one event is downloaded and import behavior depends on the calendar app.
+
+Current Apple documentation describes subscriptions on iPhone and calendar-file import on Mac, but does not provide a guaranteed current Safari single-event handoff contract for direct HTTPS, inline content disposition, data URLs or Blob URLs. Removing download or using a proprietary scheme is therefore not justified as a reliably tested improvement. Real iPhone/iPad testing is still required; no native Apple success is claimed.
+
+References: https://support.apple.com/en-gb/guide/iphone/iph3d1110d4/ios and https://support.apple.com/en-gb/guide/calendar/icl1023/mac ; WebKit download behavior: https://webkit.org/blog/7477/new-web-features-in-safari-10-1/ .

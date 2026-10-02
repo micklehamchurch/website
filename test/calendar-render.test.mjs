@@ -21,6 +21,13 @@ async function renderFixture(items = [event]) {
   for (let i = 0; i < 3; i++) await new Promise(resolve => setImmediate(resolve));
   return { select, refresh, buttons, eventButton: context.eventButton };
 }
+
+test('individual calendar wording recognizes Apple platforms without claiming native handoff', () => {
+  const context = { document: { addEventListener() {} }, console };
+  vm.runInNewContext(script.replace(/initializeEvents\(\);?\s*$/, ''), context);
+  for (const info of [{platform:'iPhone'}, {platform:'iPad'}, {platform:'MacIntel',maxTouchPoints:5}, {platform:'MacIntel'}, {userAgent:'iPhone Safari'}]) assert.equal(context.individualCalendarLabel(info),'Apple Calendar');
+  for (const info of [{platform:'Win32',userAgent:'AppleWebKit Chrome'}, {platform:'Linux'}, {}]) assert.equal(context.individualCalendarLabel(info),'Apple / Outlook');
+});
 test('actual public renderer preserves the displayed month and replaces rather than appends event buttons', async () => {
   const h = await renderFixture(); assert.equal(h.select('#calendar-month-label').textContent, 'December 2026');
   h.select('#calendar-previous').listeners.click(); const month = h.select('#calendar-month-label').textContent;

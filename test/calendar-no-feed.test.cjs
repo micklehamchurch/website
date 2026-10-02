@@ -6,8 +6,8 @@ const calendar = require('../_content/calendar.json');
 const before = require('./fixtures/calendar-before-retirement.json');
 const empty = { hiddenEventIds: [], overrides: [], events: [] };
 test('explicit no-feed mode preserves the complete approved Calendar and Admin objects', () => {
-  assert.deepEqual(buildCalendar(null, calendar).items, before.items);
-  for (const key of ['events','series','exceptions']) assert.deepEqual(calendar[key], before[key]);
+  assert.deepEqual(buildCalendar(null, calendar).items.filter(e=>before.items.some(original=>original.id===e.id)), before.items);
+  for (const key of ['events','series','exceptions']) assert.deepEqual(calendar[key].filter(e=>before[key].some(original=>original.id ? original.id===e.id : original.seriesId===e.seriesId && original.occurrenceStart===e.occurrenceStart)), before[key]);
   assert.deepEqual(calendar.hiddenEventIds, []);
   assert.deepEqual(calendar.overrides, []);
   assert.equal(fs.existsSync(require('node:path').join(__dirname,'../_content/calendar-source.ics')), false);

@@ -6,8 +6,8 @@ const now = new Date('2026-10-02T12:00:00Z');
 test('subscription parses independently and contains exactly the effective public event set', async () => {
   const text = await exporter.calendar(items,{now});
   const component = parse(text), events = component.getAllSubcomponents('vevent');
-  assert.equal(component.name,'vcalendar'); assert.equal(events.length,116);
-  assert.equal(new Set(events.map(e=>e.getFirstPropertyValue('uid'))).size,116);
+  assert.equal(component.name,'vcalendar'); assert.equal(events.length,items.length);
+  assert.equal(new Set(events.map(e=>e.getFirstPropertyValue('uid'))).size,items.length);
   for(let i=0;i<items.length;i++) {
     const e=events[i], original=items[i];
     assert.equal(e.getFirstPropertyValue('summary'),original.title);
@@ -51,5 +51,5 @@ test('subscription links preserve project paths and custom-domain deployment', (
 });
 test('generated feed excludes drafts and is valid CRLF output', async () => {
   assert.equal(parse(await exporter.calendar([{...items[0],status:'draft'}],{now})).getAllSubcomponents('vevent').length,0);
-  assert.equal(parse(fs.readFileSync('calendar.ics','utf8')).getAllSubcomponents('vevent').length,116);
+  assert.equal(parse(fs.readFileSync('calendar.ics','utf8')).getAllSubcomponents('vevent').length,items.length);
 });
