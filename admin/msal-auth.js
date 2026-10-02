@@ -10,6 +10,7 @@ import { checkAdministratorIdentity } from './api-identity.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
+import { attachContactsApi } from './contacts-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
 
@@ -172,6 +173,7 @@ async function checkAdminApiConnection(account, { interactive = false } = {}) {
     if (result.state === 'connected') {
       void checkGithubRepositoryConnection(accessToken);
       window.dispatchEvent(new Event('admin-news-ready'));
+      window.dispatchEvent(new Event('admin-contacts-ready'));
     } else {
       updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
     }
@@ -290,6 +292,7 @@ async function start() {
     await publicClient.initialize();
     msal = publicClient;
     attachCalendarApi(msal, () => activeAdminApiAccount);
+    attachContactsApi(msal, () => activeAdminApiAccount);
     attachNewsApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();
     if (response?.account) {

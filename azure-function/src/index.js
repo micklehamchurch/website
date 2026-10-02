@@ -4,3 +4,5 @@ require('./functions/identity');
 require('./functions/calendar');
 
 require('./functions/news-publishing');
+
+require('./functions/contacts');

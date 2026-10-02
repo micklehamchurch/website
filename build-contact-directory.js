@@ -7,6 +7,7 @@ const templatePath = path.join(root, '_templates', 'parish-contact-directory.htm
 const publicPath = path.join(root, 'parish-contact-directory.html');
 const adminDataPath = path.join(root, 'admin', 'contacts-data.json');
 const data = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
+require('./azure-function/src/contacts-model').validateContacts(data);
 const sections = data.sections || [];
 const contacts = data.contacts || [];
 const pccMembers = data.pccMembers || [];

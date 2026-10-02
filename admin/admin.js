@@ -116,6 +116,32 @@
     if (result.ok) { sharedNews.message = article.status === 'draft' ? 'Draft saved to shared Dev content. It is not public.' : 'Website News published successfully. The Dev website is rebuilding.'; document.querySelector('#admin-dialog').close(); await loadSharedNews(); showToast(sharedNews.message); }
     else { sharedNews.loaded = false; error.textContent = window.churchNewsApi.message(result.category); sharedNews.message = error.textContent; }
   }
+  const sharedContacts = { loaded: false, busy: false, dirty: false, conflict: false, error: '', message: '', sha: null };
+  const contactsCanEdit = () => sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.conflict;
+  async function loadSharedContacts() {
+    if (sharedContacts.busy) return;
+    if (sharedContacts.dirty && !window.confirm('Reload the shared directory and discard your staged Contacts changes?')) return;
+    sharedContacts.busy = true; sharedContacts.error = ''; sharedContacts.message = 'Loading shared Dev Contacts…'; render({ focus: false });
+    const api = window.churchContactsApi;
+    const result = api ? await api.load() : { ok: false, category: 'authentication-required' };
+    sharedContacts.busy = false;
+    if (result.ok) { baseContacts = result.contacts; demoState.contacts.working = JSON.parse(JSON.stringify(result.contacts)); Object.assign(sharedContacts, { loaded: true, dirty: false, conflict: false, sha: result.sha, message: 'Shared Dev Contacts loaded. Changes remain staged until you publish.' }); }
+    else { sharedContacts.loaded = false; sharedContacts.error = result.category; sharedContacts.message = api?.message(result.category) || 'Sign in and authorise the Admin API connection, then reload Contacts.'; }
+    render({ focus: false });
+  }
+  async function publishContacts() {
+    if (!contactsCanEdit() || !sharedContacts.dirty) return;
+    if (!window.confirm('Publish these Contacts changes to the shared Dev website? Staged deletions will remove records from shared data.')) return;
+    const snapshot = contactData(); sharedContacts.busy = true; sharedContacts.message = 'Publishing Contacts…'; render({ focus: false });
+    const api = window.churchContactsApi;
+    const result = api ? await api.publish({ sha: sharedContacts.sha, contacts: snapshot }) : { ok: false, category: 'authentication-required' };
+    sharedContacts.busy = false;
+    if (result.ok) { sharedContacts.sha = result.sha; sharedContacts.dirty = false; baseContacts = snapshot; sharedContacts.message = api.message(result.unchanged ? 'unchanged' : 'success'); }
+    else { sharedContacts.error = result.category; sharedContacts.conflict = true; sharedContacts.message = api?.message(result.category) || 'Reload Contacts before trying again.'; }
+    render({ focus: false }); showToast(sharedContacts.message, !result.ok);
+  }
+  window.addEventListener('admin-contacts-ready', () => { if (currentView() === 'contacts' && !sharedContacts.dirty && !sharedContacts.busy) void loadSharedContacts(); });
+  window.addEventListener('hashchange', () => { if (currentView() === 'contacts' && !sharedContacts.dirty && !sharedContacts.busy) { sharedContacts.loaded = false; sharedContacts.error = ''; } });
   let toastTimer;
   const adminApiStatusLabels = {
     checking: 'Checking…',
@@ -182,7 +208,7 @@
       return {
         calendar: initialState().calendar,
         news: { ...initialState().news, ...(parsed.news || {}) },
-        contacts: { ...initialState().contacts, ...(parsed.contacts || {}) }
+        contacts: initialState().contacts
       };
     } catch (error) {
       console.warn('The development preview could not read its session data.', error);
@@ -191,7 +217,7 @@
   }
   function persistDemoState() {
     try {
-      sessionStorage.setItem(stateKey, JSON.stringify({ news: demoState.news, contacts: demoState.contacts }));
+      sessionStorage.setItem(stateKey, JSON.stringify({ news: demoState.news }));
       return true;
     } catch (error) {
       console.error(error);
@@ -343,18 +369,18 @@
       const records = data.contacts.filter(item => item.section === section.id);
       return `<section class="admin-contact-section"><div class="admin-contact-section-head"><div><p class="admin-kicker">${safe(section.eyebrow)}</p><h2>${safe(section.title)}</h2></div><button class="admin-button secondary small" type="button" data-action="add-contact" data-section="${escAttr(section.id)}">＋ Add contact</button></div><div class="admin-contact-grid">${records.map(item => contactCard(item)).join('') || '<p class="admin-empty">No contacts in this section.</p>'}</div></section>`;
     }).join('');
-    const pcc = data.pccMembers.map((item, index) => `<li class="admin-pcc-row"><strong>${safe(item.name)}</strong><span class="admin-status ${item.status === 'draft' ? 'draft' : 'feed'}">${item.status === 'draft' ? 'Draft' : 'Published'}</span><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="-1" aria-label="Move ${escAttr(item.name)} up" ${index === 0 ? 'disabled' : ''}>↑</button><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="1" aria-label="Move ${escAttr(item.name)} down" ${index === data.pccMembers.length - 1 ? 'disabled' : ''}>↓</button><button class="admin-button secondary small" type="button" data-action="edit-pcc" data-id="${escAttr(item.id)}">Edit</button><button class="admin-button danger small" type="button" data-action="delete-pcc" data-id="${escAttr(item.id)}">Delete</button></div></li>`).join('');
-    const downloadLink = `<button class="admin-button" type="button" data-action="download-contacts">Download updated contacts file</button>`;
+    const pcc = data.pccMembers.map((item, index) => `<li class="admin-pcc-row"><strong>${safe(item.name)}</strong><span class="admin-status ${item.status === 'draft' ? 'draft' : 'feed'}">${item.status === 'draft' ? 'Draft' : 'Published'}</span><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="-1" aria-label="Move ${escAttr(item.name)} up" ${index === 0 ? 'disabled' : ''}>↑</button><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="1" aria-label="Move ${escAttr(item.name)} down" ${index === data.pccMembers.length - 1 ? 'disabled' : ''}>↓</button><button class="admin-button secondary small" type="button" data-action="edit-pcc" data-id="${escAttr(item.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-pcc-status" data-id="${escAttr(item.id)}">${item.status === "draft" ? "Restore from draft" : "Move to draft"}</button><button class="admin-button danger small" type="button" data-action="delete-pcc" data-id="${escAttr(item.id)}">Delete</button></div></li>`).join('');
+    const downloadLink = `<button class="admin-button" type="button" data-action="download-contacts">Download Contacts backup</button>`;
     return `${pageHeading('PEOPLE & PARISH CONTACTS', 'Parish Contacts', 'Review and prepare contact updates for the shared Parish Contact Directory.', '<a class="admin-button" href="../parish-contact-directory.html" target="_blank" rel="noopener noreferrer">Preview public directory ↗</a>')}
-      <div class="admin-demo-banner" role="note"><span class="admin-demo-pill">REPOSITORY WORKFLOW</span><p>Edits here are a development preview saved in this browser tab. To publish them: download the updated <code>contacts.json</code>, open the source on GitHub, replace the file contents with the downloaded JSON, then commit the change to <code>Dev</code>. The website build regenerates the public directory and search index. This dashboard does not commit changes or use GitHub credentials.</p></div>
+      <div class="admin-section-note" id="contacts-shared-status" role="status">${safe(sharedContacts.message || "Loading shared Dev Contacts…")} ${sharedContacts.dirty ? "Unsaved / staged changes." : ""}<div class="admin-actions"><button class="admin-button secondary" type="button" data-action="reload-contacts" ${sharedContacts.busy ? "disabled" : ""}>Reload shared Contacts</button><button class="admin-button" type="button" data-action="publish-contacts" ${contactsCanEdit() && sharedContacts.dirty ? "" : "disabled"}>${sharedContacts.busy ? "Please wait…" : "Publish changes"}</button></div></div><fieldset style="border:0;padding:0;margin:0;min-width:0" ${contactsCanEdit() ? "" : "disabled"}>
       <div class="admin-section-note"><strong>${published} published · ${drafts} draft</strong><br>Published items appear in the public directory after the repository update is built. Draft contacts and draft PCC members are left out of the public page and search index.</div>
-      <div class="admin-contact-toolbar"><button class="admin-button" type="button" data-action="add-contact">＋ Add contact</button><button class="admin-button secondary" type="button" data-action="add-pcc">＋ Add PCC member</button>${downloadLink}<a class="admin-button secondary" href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Open source on GitHub ↗</a></div>
+      <div class="admin-contact-toolbar"><button class="admin-button" type="button" data-action="add-contact">＋ Add contact</button><button class="admin-button secondary" type="button" data-action="add-pcc">＋ Add PCC member</button></div>
       ${sectionViews}
       <section class="admin-contact-section admin-pcc-section"><div class="admin-contact-section-head"><div><p class="admin-kicker">PARISH COUNCIL</p><h2>PCC members</h2><p>Names only; no phone or email fields are collected for this separate list.</p></div><button class="admin-button secondary small" type="button" data-action="add-pcc">＋ Add PCC member</button></div><ol class="admin-pcc-list">${pcc || '<li class="admin-empty">No PCC members are listed.</li>'}</ol></section>
-      <p class="admin-contact-note">The public page is built from <code>_content/contacts.json</code>. The dashboard uses temporary session changes for review; download the file and commit it to share approved updates.</p>`;
+      </fieldset><p class="admin-contact-note">Changes are staged in this tab until Publish changes. Move to draft to temporarily hide an entry.</p><details class="admin-technical-details"><summary>Advanced backup and source</summary>${downloadLink}<a class="admin-button secondary" href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Open source on GitHub ↗</a></details>`;
   }
   function contactCard(item) {
-    return `<article class="admin-contact-card"><div class="admin-record-meta"><span class="admin-status ${item.status === 'draft' ? 'draft' : 'feed'}">${item.status === 'draft' ? 'Draft' : 'Published'}</span></div><p class="admin-contact-role">${safe(item.role)}</p><h3>${safe(item.name)}</h3>${item.phone ? `<p>${safe(item.phone)}</p>` : ''}${item.email ? `<p>${safe(item.email)}</p>` : ''}<div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="edit-contact" data-id="${escAttr(item.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-contact-status" data-id="${escAttr(item.id)}">${item.status === 'draft' ? 'Publish in preview' : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete-contact" data-id="${escAttr(item.id)}">Delete</button></div></article>`;
+    return `<article class="admin-contact-card"><div class="admin-record-meta"><span class="admin-status ${item.status === 'draft' ? 'draft' : 'feed'}">${item.status === 'draft' ? 'Draft' : 'Published'}</span></div><p class="admin-contact-role">${safe(item.role)}</p><h3>${safe(item.name)}</h3>${item.phone ? `<p>${safe(item.phone)}</p>` : ''}${item.email ? `<p>${safe(item.email)}</p>` : ''}<div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="edit-contact" data-id="${escAttr(item.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-contact-status" data-id="${escAttr(item.id)}">${item.status === 'draft' ? 'Restore from draft' : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete-contact" data-id="${escAttr(item.id)}">Delete</button></div></article>`;
   }
   function recordCard(kind, item) {
     const fields = item;
@@ -365,7 +391,7 @@
     const origin = kind === 'calendar' ? '<span class="admin-status feed">Shared Dev / staged content</span>' : item._origin === 'repository' ? '<span class="admin-status feed">Current website content</span>' : '<span class="admin-status demo">DEMO ITEM</span>';
     const sample = kind === 'news' && item.demo ? '<span class="admin-status demo">SAMPLE / DEMO</span>' : '';
     const image = fields.image ? `<img class="admin-record-image" src="${escAttr(fields.image)}" alt="${safe(imageAlt(fields.image))}"><small class="admin-image-caption">Demo image · replace with church-approved photography in a future CMS</small>` : '';
-    return `<article class="admin-cms-card ${fields.image ? 'has-image' : ''}" data-record-card data-search="${escAttr(`${title} ${fields.category} ${fields.location || ''} ${fields.summary || ''} ${fields.date}`.toLowerCase())}">${image}<div class="admin-cms-card-main"><div class="admin-record-meta"><span>${safe(fields.category)}</span><span>${safe(date)}${time}</span>${origin}${sample}<span class="admin-status ${fields.status === 'draft' ? 'draft' : ''}">${fields.status === 'draft' ? 'Draft' : kind === 'calendar' ? 'Public after publishing' : 'Published in preview'}</span></div><h2>${safe(title)}</h2><p>${safe(description || (kind === 'calendar' ? 'No location supplied' : 'No summary supplied'))}</p><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="preview" data-kind="${kind}" data-id="${escAttr(fields.id)}">Preview</button><button class="admin-button secondary small" type="button" data-action="edit" data-kind="${kind}" data-id="${escAttr(fields.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-status" data-kind="${kind}" data-id="${escAttr(fields.id)}">${fields.status === 'draft' ? (kind === 'calendar' ? 'Mark for publication' : 'Publish in preview') : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete" data-kind="${kind}" data-id="${escAttr(fields.id)}">Delete</button></div></div></article>`;
+    return `<article class="admin-cms-card ${fields.image ? 'has-image' : ''}" data-record-card data-search="${escAttr(`${title} ${fields.category} ${fields.location || ''} ${fields.summary || ''} ${fields.date}`.toLowerCase())}">${image}<div class="admin-cms-card-main"><div class="admin-record-meta"><span>${safe(fields.category)}</span><span>${safe(date)}${time}</span>${origin}${sample}<span class="admin-status ${fields.status === 'draft' ? 'draft' : ''}">${fields.status === 'draft' ? 'Draft' : kind === 'calendar' ? 'Public after publishing' : 'Published in preview'}</span></div><h2>${safe(title)}</h2><p>${safe(description || (kind === 'calendar' ? 'No location supplied' : 'No summary supplied'))}</p><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="preview" data-kind="${kind}" data-id="${escAttr(fields.id)}">Preview</button><button class="admin-button secondary small" type="button" data-action="edit" data-kind="${kind}" data-id="${escAttr(fields.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-status" data-kind="${kind}" data-id="${escAttr(fields.id)}">${fields.status === 'draft' ? (kind === 'calendar' ? 'Mark for publication' : 'Restore from draft') : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete" data-kind="${kind}" data-id="${escAttr(fields.id)}">Delete</button></div></div></article>`;
   }
   function imageAlt(path) { return images.find(item => item.value === path)?.alt || 'Demonstration church website image'; }
 
@@ -419,7 +445,7 @@
     return `${pageHeading('CMS AREA PREVIEW', title, desc)}${demoBanner()}<section class="admin-coming-soon"><span class="admin-card-icon" aria-hidden="true">${safe(sections.find(([id]) => id === view)?.[1] || '◇')}</span><div><h2>Future CMS area</h2><p>This section previews where a secure online CMS could manage this content. The current publishing workflow remains the repository build on <code>Dev</code>; no changes made here are saved to the website.</p><p class="admin-image-caption">Future media library: authorised editors could upload, replace, caption and reuse church-approved images stored in secure cloud media storage.</p></div></section><h2 class="admin-subheading">Explore the current website</h2><div class="admin-link-grid">${links.map(([label, href]) => `<a class="admin-dashboard-card" href="${escAttr(href)}" ${href.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}><strong>${safe(label)}</strong><span aria-hidden="true"> ↗</span></a>`).join('')}</div>`;
   }
   function publishingView() {
-    return `${pageHeading('SHARED DEV WEBSITE', 'How publishing works today', 'Calendar publishes to shared Dev through the Admin API. Other areas remain development previews.')}${workflowPanel()}<div class="admin-section-note"><strong>About storage:</strong> Calendar loads shared repository content; unpublished Calendar changes are lost on refresh. Other demo changes use this browser tab’s session storage, which clears when the tab session ends. They are not in the project files, not visible to other visitors and not published. There is no GitHub token or credential in the dashboard.</div><button type="button" class="admin-button secondary" data-action="reset-demo">Clear this tab’s demo changes</button>`;
+    return `${pageHeading('SHARED DEV WEBSITE', 'How publishing works today', 'Calendar, News publications and Parish Contacts publish to shared Dev through the Admin API.')}${workflowPanel()}<div class="admin-section-note"><strong>About storage:</strong> Calendar and Contacts load shared repository content; staged changes are lost on refresh. Remaining demo changes use this browser tab’s session storage, which clears when the tab session ends. They are not in the project files, not visible to other visitors and not published. There is no GitHub token or credential in the dashboard.</div><button type="button" class="admin-button secondary" data-action="reset-demo">Clear this tab’s demo changes</button>`;
   }
   function render({ focus = true } = {}) {
     const view = currentView();
@@ -428,6 +454,7 @@
       root.innerHTML = `<p class="admin-loading" role="status">Loading the church calendar and sample articles…</p>`;
       return;
     }
+    if (view === 'contacts' && !sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.error) { void loadSharedContacts(); return; }
     if (view === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.error) { void loadSharedCalendar(); return; }
     const markup = view === 'dashboard' ? overview()
       : view === 'calendar' ? calendarView()
@@ -452,90 +479,98 @@
     return `<div class="admin-field ${full ? 'full' : ''}"><label for="${id}">${safe(label)}${required ? ' <span aria-hidden="true">*</span>' : ''}</label>${control}${hint ? `<span class="admin-field-hint">${safe(hint)}</span>` : ''}</div>`;
   }
   function openContactEditor(id = '', sectionId = '') {
+    if (!contactsCanEdit()) return;
     const data = contactData();
     const item = id ? data.contacts.find(contact => contact.id === id) : null;
     if (id && !item) return showToast('That contact is no longer available in this preview.', true);
     const sectionChoices = data.sections.filter(section => section.id !== 'pcc-members').map(section => [section.id, section.title]);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · DEVELOPMENT PREVIEW</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Save a preview, then download and commit the source file to publish.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Save in development preview</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Stage changes, then choose Publish changes to update shared Dev.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-contact-form');
     form.addEventListener('submit', event => { event.preventDefault(); saveContactForm(form); });
     form.querySelector('[name="role"]')?.focus();
   }
   function openPccEditor(id = '') {
+    if (!contactsCanEdit()) return;
     const data = contactData();
     const item = id ? data.pccMembers.find(member => member.id === id) : null;
     if (id && !item) return showToast('That PCC member is no longer available in this preview.', true);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · DEVELOPMENT PREVIEW</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>This list stores names only.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Save in development preview</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>This list stores names only.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-pcc-form');
     form.addEventListener('submit', event => { event.preventDefault(); savePccForm(form); });
     form.querySelector('[name="name"]')?.focus();
   }
   function saveContactData(data, message) {
+    if (!contactsCanEdit()) return;
     demoState.contacts.working = data;
-    if (!persistDemoState()) return;
+    sharedContacts.dirty = true;
+    sharedContacts.message = `${message}. Changes are staged; choose Publish changes to update shared Dev.`;
     document.querySelector('#admin-dialog').close();
     render({ focus: false });
-    savedToast(message);
+    showToast(sharedContacts.message);
   }
   function contactIdFor(data, role, name) {
     const stem = slugify(`${role}-${name}`);
     let id = stem, suffix = 2;
-    while (data.contacts.some(item => item.id === id)) id = `${stem}-${suffix++}`;
+    while ([...data.contacts, ...data.pccMembers].some(item => item.id === id)) id = `${stem}-${suffix++}`;
     return id;
   }
   function saveContactForm(form) {
+    if (!contactsCanEdit()) return;
     if (!form.reportValidity()) return;
     const values = Object.fromEntries(new FormData(form).entries());
     const error = document.querySelector('#admin-form-error');
     let message = '';
-    if (!values.name.trim()) message = 'Enter a name.';
-    else if (!values.role.trim()) message = 'Enter a role.';
+    if (!values.name.trim() || values.name.trim().length > 180 || /[<>\u0000-\u001f\u007f]/.test(values.name)) message = 'Enter a plain-text name of at most 180 characters.';
+    else if (!values.role.trim() || values.role.trim().length > 180 || /[<>\u0000-\u001f\u007f]/.test(values.role)) message = 'Enter a plain-text role of at most 180 characters.';
     else if (!baseContacts.sections.some(section => section.id === values.section && section.id !== 'pcc-members')) message = 'Choose one of the supported contact sections.';
     else if (!['published', 'draft'].includes(values.status)) message = 'Choose Published or Draft.';
-    else if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) message = 'Enter a valid email address.';
-    else if (values.phone && (!/^[+0-9().\s-]+$/.test(values.phone) || values.phone.replace(/\D/g, '').length < 7)) message = 'Enter a valid telephone number using normal UK formatting.';
+    else if (values.email && (values.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))) message = 'Enter a valid email address.';
+    else if (values.phone && (values.phone.length > 60 || values.phone.replace(/\D/g, '').length > 20 || !/^[+0-9().\s-]+$/.test(values.phone) || values.phone.replace(/\D/g, '').length < 7)) message = 'Enter a valid telephone number using normal UK formatting.';
     error.textContent = message; error.hidden = !message;
     if (message) return;
     const data = contactData();
     const index = data.contacts.findIndex(item => item.id === values.id);
     const old = index >= 0 ? data.contacts[index] : null;
-    const entry = { id: old?.id || contactIdFor(data, values.role.trim(), values.name.trim()), role: values.role.trim(), name: values.name.trim(), phone: values.phone.trim(), email: values.email.trim(), section: values.section, status: values.status };
-    if (old?.groupId && old.role === entry.role && old.section === entry.section) entry.groupId = old.groupId;
+    const entry = { ...old, id: old?.id || contactIdFor(data, values.role.trim(), values.name.trim()), role: values.role.trim(), name: values.name.trim(), phone: values.phone.trim(), email: values.email.trim(), section: values.section, status: values.status };
+    if (old?.groupId && (old.role !== entry.role || old.section !== entry.section)) delete entry.groupId;
     if (index >= 0) data.contacts[index] = entry; else data.contacts.push(entry);
     saveContactData(data, old ? 'Contact updated' : 'Contact added');
   }
   function savePccForm(form) {
+    if (!contactsCanEdit()) return;
     if (!form.reportValidity()) return;
     const values = Object.fromEntries(new FormData(form).entries());
     const error = document.querySelector('#admin-form-error');
-    const message = !values.name.trim() ? 'Enter a name.' : !['published', 'draft'].includes(values.status) ? 'Choose Published or Draft.' : '';
+    const message = !values.name.trim() || values.name.trim().length > 180 || /[<>\u0000-\u001f\u007f]/.test(values.name) ? 'Enter a plain-text name of at most 180 characters.' : !['published', 'draft'].includes(values.status) ? 'Choose Published or Draft.' : '';
     error.textContent = message; error.hidden = !message;
     if (message) return;
     const data = contactData();
     const index = data.pccMembers.findIndex(member => member.id === values.id);
     let memberId = index >= 0 ? data.pccMembers[index].id : `pcc-${slugify(values.name)}`;
-    if (index < 0) { let suffix = 2; const stem = memberId; while (data.pccMembers.some(existing => existing.id === memberId)) memberId = `${stem}-${suffix++}`; }
-    const member = { id: memberId, name: values.name.trim(), status: values.status };
+    if (index < 0) { let suffix = 2; const stem = memberId; while ([...data.contacts, ...data.pccMembers].some(existing => existing.id === memberId)) memberId = `${stem}-${suffix++}`; }
+    const member = { ...(index >= 0 ? data.pccMembers[index] : {}), id: memberId, name: values.name.trim(), status: values.status };
     if (index >= 0) data.pccMembers[index] = member; else data.pccMembers.push(member);
     saveContactData(data, index >= 0 ? 'PCC member updated' : 'PCC member added');
   }
-  function changeContactStatus(id) {
+  function changeContactStatus(id, type = 'contact') {
+    if (!contactsCanEdit()) return;
     const data = contactData();
-    const item = data.contacts.find(contact => contact.id === id);
+    const item = (type === 'pcc' ? data.pccMembers : data.contacts).find(contact => contact.id === id);
     if (!item) return;
     item.status = item.status === 'draft' ? 'published' : 'draft';
-    saveContactData(data, item.status === 'draft' ? 'Contact moved to draft' : 'Contact published in preview');
+    saveContactData(data, item.status === 'draft' ? 'Contact moved to draft' : 'Contact restored from draft');
   }
   function confirmContactDelete(id, type = 'contact') {
+    if (!contactsCanEdit()) return;
     const data = contactData();
     const item = type === 'pcc' ? data.pccMembers.find(member => member.id === id) : data.contacts.find(contact => contact.id === id);
     if (!item) return;
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · PREVIEW ONLY</p><h2 id="admin-dialog-title">Delete ${type === 'pcc' ? 'PCC member' : 'contact'}?</h2><p>${safe(type === 'pcc' ? item.name : `${item.role} · ${item.name}`)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel deletion">×</button></div><div class="admin-section-note">This removes the entry from the current development preview. To remove it from the shared website, download and commit the updated contacts source file.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="button" class="admin-button danger" data-action="confirm-contact-delete" data-kind="${type}" data-id="${escAttr(id)}">Delete from preview</button></div></div>`;
+    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">Delete ${type === 'pcc' ? 'PCC member' : 'contact'}?</h2><p>${safe(type === 'pcc' ? item.name : `${item.role} · ${item.name}`)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel deletion">×</button></div><div class="admin-section-note">This stages permanent deletion. Publishing will remove the record from shared Contacts data. Use Move to draft instead to hide it temporarily.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="button" class="admin-button danger" data-action="confirm-contact-delete" data-kind="${type}" data-id="${escAttr(id)}">Stage permanent deletion</button></div></div>`;
     dialog.showModal();
   }
   function deleteContactFromPreview(id, type) {
@@ -545,6 +580,7 @@
     saveContactData(data, `${type === 'pcc' ? 'PCC member' : 'Contact'} deleted`);
   }
   function reorderPcc(id, direction) {
+    if (!contactsCanEdit()) return;
     const data = contactData();
     const index = data.pccMembers.findIndex(item => item.id === id);
     const next = index + Number(direction);
@@ -559,7 +595,7 @@
     const link = document.createElement('a');
     link.href = url; link.download = 'contacts.json'; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    showToast('Updated contacts.json downloaded. Commit it to _content/contacts.json on Dev to publish.');
+    showToast('Contacts backup downloaded. Normal publishing uses Publish changes.');
   }
   function openEditor(kind, id = '') {
     if (kind === 'calendar' && !calendarCanEdit()) return;
@@ -730,11 +766,11 @@
   }
   function resetDemo() {
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">DEVELOPMENT DEMO · PREVIEW ONLY</p><h2 id="admin-dialog-title">Clear this tab’s demo changes?</h2></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel clearing demo changes">×</button></div><div class="admin-section-note">This resets News and Parish Contacts demo changes made in this tab. Calendar changes are preserved. Repository files and the public website will not be changed.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Keep changes</button><button type="button" class="admin-button danger" data-action="confirm-reset">Clear demo changes</button></div></div>`;
+    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">DEVELOPMENT DEMO · PREVIEW ONLY</p><h2 id="admin-dialog-title">Clear this tab’s demo changes?</h2></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel clearing demo changes">×</button></div><div class="admin-section-note">This resets News demo changes made in this tab. Calendar and staged Contacts changes are preserved. Repository files and the public website will not be changed.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Keep changes</button><button type="button" class="admin-button danger" data-action="confirm-reset">Clear demo changes</button></div></div>`;
     dialog.showModal();
   }
   function resetDemoState() {
-    demoState = { ...initialState(), calendar: demoState.calendar };
+    demoState = { ...initialState(), calendar: demoState.calendar, contacts: demoState.contacts };
     try { sessionStorage.removeItem(stateKey); }
     catch { /* State resets for the current page even if the browser blocks session storage. */ }
     render({ focus: false });
@@ -775,6 +811,9 @@
     const button = event.target.closest('[data-action]');
     if (!button) return;
     const { action, kind, id } = button.dataset;
+    if (action === 'reload-contacts') { void loadSharedContacts(); return; }
+    if (action === 'publish-contacts') { void publishContacts(); return; }
+    if (action === 'toggle-pcc-status') { changeContactStatus(id, 'pcc'); return; }
     if (action === 'reload-news') { void loadSharedNews(); return; }
     if (action === 'reload-calendar') { void loadSharedCalendar(); return; }
     if (action === 'publish-calendar') { void publishCalendar(); return; }
@@ -846,7 +885,7 @@
       ...(news.articles || []).map((article, index) => ({ ...article, id: article.slug, image: article.image || images[(index + 1) % images.length].value, demo: article.demo === true })),
       ...(newsSamples.articles || []).map((article, index) => ({ ...article, id: article.slug, image: article.image || images[(index + 1) % images.length].value, demo: true }))
     ];
-    baseContacts = contacts || { sections: [], contacts: [], pccMembers: [] };
+    if (!sharedContacts.loaded) baseContacts = contacts || { sections: [], contacts: [], pccMembers: [] };
     basePages = Array.isArray(pages) ? pages : (pages.pages || []);
     contentManagedSlugs = new Set((managedPages.pages || []).map(page => page.slug));
     documentGroups = Array.isArray(documents) ? documents : [];

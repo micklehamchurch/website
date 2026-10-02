@@ -18,10 +18,12 @@ function verifyEntrypoint(root) {
   } finally {
     Module._load = originalLoad;
   }
-  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'calendar', 'github-status', 'health', 'identity', 'news', 'publications']);
-  for (const { name, options } of registrations) assert.deepEqual(options.methods, name === 'calendar' ? ['GET', 'PUT'] : ['news', 'publications'].includes(name) ? ['GET', 'POST'] : ['GET']);
+  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'calendar', 'contacts', 'github-status', 'health', 'identity', 'news', 'publications']);
+  for (const { name, options } of registrations) assert.deepEqual(options.methods, ['calendar', 'contacts'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications'].includes(name) ? ['GET', 'POST'] : ['GET']);
   assert.equal(registrations.find(r => r.name === 'calendar').options.route, 'calendar');
   assert.equal(typeof require(path.join(root, 'src/calendar-model.js')).buildCalendar, 'function');
+  assert.equal(registrations.find(r => r.name === 'contacts').options.route, 'contacts');
+  assert.equal(typeof require(path.join(root, 'src/contacts-model.js')).validateContacts, 'function');
   assert.equal(require(path.join(root, 'host.json')).extensions.http.routePrefix, 'api');
 }
 
