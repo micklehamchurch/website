@@ -30,7 +30,8 @@ function validateEditorial(editorial) {
 
 function buildCalendar(input, editorial, { includeDrafts = false, range = recurrence.defaultRange() } = {}) {
   validateEditorial(editorial);
-  const source = input.replace(/^\uFEFF/, '').replace(/\r?\n[ \t]/g, '');
+  if (input !== null && typeof input !== 'string') throw new Error('Invalid configured calendar feed.');
+  const source = (input === null ? '' : input).replace(/^\uFEFF/, '').replace(/\r?\n[ \t]/g, '');
   function unescapeText(value) {
     return value.replace(/\\([nN,;\\])/g, (_, character) => ({ n: '\n', N: '\n', ',': ',', ';': ';', '\\': '\\' })[character]);
   }
@@ -72,7 +73,7 @@ function buildCalendar(input, editorial, { includeDrafts = false, range = recurr
 
   const sourceTimeZone = source.match(/^X-WR-TIMEZONE:(.+)$/m)?.[1]?.trim() || 'Europe/London';
   const blocks = [...source.matchAll(/BEGIN:VEVENT\s*\n([\s\S]*?)\nEND:VEVENT/g)].map(match => match[1]);
-  if (!blocks.length) throw new Error('The calendar source contains no VEVENT entries.');
+  if (input !== null && !blocks.length) throw new Error('The calendar source contains no VEVENT entries.');
 
   const items = blocks.map(block => {
     const properties = parseProperties(block);
@@ -161,9 +162,9 @@ function buildCalendar(input, editorial, { includeDrafts = false, range = recurr
   if (ids.size !== mergedItems.length) throw new Error('The published calendar contains duplicate event IDs.');
 
   return {
-    sourceFile: '_content/calendar-source.ics',
+    sourceFile: input === null ? null : 'configured-ics',
     editorialFile: '_content/calendar.json',
-    timeZone: items[0].timeZone || sourceTimeZone,
+    timeZone: items[0]?.timeZone || sourceTimeZone,
     sourceTimeZone,
     searchPages: ['index.html', 'calendar.html', 'whats-on.html'],
     items: mergedItems.filter(item => !hiddenIds.has(item.id) && (includeDrafts || item.status !== 'draft'))

@@ -1,6 +1,6 @@
 # Recurring Calendar events (Dev)
 
-The Calendar still uses the read-only `_content/calendar-source.ics` feed and authoritative `_content/calendar.json`. Existing `hiddenEventIds`, `overrides` and `events` require no migration. GET/PUT `/api/calendar`, verified Easy Auth administrator authorization, private GitHub App credentials, fixed `micklehamchurch/website` / `Dev` / `_content/calendar.json` writes, 256 KiB request bounds and both editorial/source SHA protections are unchanged. No genuine entries or real recurring series were created during implementation.
+Calendar production builds and the Azure API explicitly use buildCalendar(null, editorial): _content/calendar.json is the sole source. hiddenEventIds and overrides are empty; supplied malformed feeds still fail in the optional parser used by isolated tests. GET/PUT retain verified Easy Auth administrator authorization, fixed Dev repository/path writes, request limits and atomic Calendar blob SHA protection. Deprecated API compatibility fields are feedItems: [] and sourceSha equal to the Calendar SHA; legacy clients may send that alias, while new clients may omit it. No second feed blob is read or checked.
 
 ## Stored rules and stable exceptions
 

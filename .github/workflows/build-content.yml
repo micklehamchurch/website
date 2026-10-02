@@ -4,7 +4,6 @@ on:
   push:
     branches: [Dev]
     paths:
-      - '_content/calendar-source.ics'
       - '_content/calendar.json'
       - '_content/news.json'
       - '_content/publications.json'

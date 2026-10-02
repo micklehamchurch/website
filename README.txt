@@ -11,7 +11,7 @@ HOW CHANGES REACH THE DEV WEBSITE
 The workflow needs GitHub Actions enabled and permission for its repository GITHUB_TOKEN to write contents. The token exists only in the GitHub Actions environment; no token is sent to the public website. A content-edit commit may briefly reach branch-based Pages before the generated-output commit finishes.
 
 CALENDAR
-- _content/calendar-source.ics is the supplied church feed and remains preserved as the source for its 36 imported real events.
+- _content/calendar.json is the sole production Calendar source. Builds and the secure API explicitly use no-feed mode. Legacy ICS fixtures are isolated tests only.
 - _content/calendar.json is the repository-managed layer. It supports manual published events, edits/overrides keyed by an imported event's exact generated id, drafts, and hidden feed event ids.
 - Do not edit events.json. It is generated from the ICS feed and _content/calendar.json on every build.
 - To add an event, append a complete object to _content/calendar.json's events array. Required fields: unique id, title, start, end, timeZone and location. Use ISO local datetimes such as 2026-10-10T10:00:00 and the matching IANA zone, for example Europe/London. Description is optional. Use status "draft" to keep a valid item out of the public calendar; omit status or use "published" to publish it.

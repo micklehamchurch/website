@@ -4,7 +4,7 @@ const { buildCalendar, validateEditorial } = require('./calendar-model');
 const { isDeepStrictEqual } = require('node:util');
 
 const CALENDAR_PATH = '_content/calendar.json';
-const SOURCE_PATH = '_content/calendar-source.ics';
+// Feed fields are deprecated compatibility aliases; only the Calendar blob is read.
 const MAX_BODY_BYTES = 256 * 1024;
 const shaValid = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 const response = (status, body) => ({ status, headers: { 'Cache-Control': 'no-store', Pragma: 'no-cache' }, jsonBody: body });
@@ -53,24 +53,24 @@ function createCalendarHandler({ env = process.env, readConfiguration = readGith
     if (request.method === 'PUT') {
       try {
         body = await readBoundedJson(request);
-        if (!body || Object.keys(body).length !== 3 || !shaValid(body.sha) || !shaValid(body.sourceSha) || !Object.hasOwn(body, 'calendar')) throw new SyntaxError();
+        if (!body || Object.keys(body).some(key => !['sha','sourceSha','calendar'].includes(key)) || !shaValid(body.sha) || (Object.hasOwn(body,'sourceSha') && !shaValid(body.sourceSha)) || !Object.hasOwn(body, 'calendar')) throw new SyntaxError();
         validateEditorial(body.calendar);
       } catch (error) { return failure(error instanceof RangeError ? 413 : 400, error instanceof RangeError ? 'calendar-too-large' : 'invalid-calendar'); }
     }
-    let configuration, current, source, editorial;
+    let configuration, current, editorial;
     try {
       configuration = readConfiguration(env);
       const client = await createClient(configuration, 'read');
-      [current, source] = await Promise.all([readFile(client, CALENDAR_PATH, MAX_BODY_BYTES), readFile(client, SOURCE_PATH, 1024 * 1024)]);
+      current = await readFile(client, CALENDAR_PATH, MAX_BODY_BYTES);
       editorial = JSON.parse(current.text);
-      buildCalendar(source.text, editorial, { includeDrafts: true });
+      buildCalendar(null, editorial, { includeDrafts: true });
     } catch { return failure(502, 'calendar-repository-unavailable'); }
     if (request.method === 'GET') {
-      return response(200, { ok: true, sha: current.sha, sourceSha: source.sha, calendar: editorial,
-        feedItems: buildCalendar(source.text, { hiddenEventIds: [], overrides: [], events: [] }, { includeDrafts: true }).items });
+      return response(200, { ok: true, sha: current.sha, sourceSha: current.sha, calendar: editorial,
+        feedItems: [] });
     }
-    if (body.sha !== current.sha || body.sourceSha !== source.sha) return failure(409, 'calendar-version-conflict');
-    try { buildCalendar(source.text, body.calendar, { includeDrafts: true }); }
+    if (body.sha !== current.sha || (Object.hasOwn(body,'sourceSha') && body.sourceSha !== current.sha)) return failure(409, 'calendar-version-conflict');
+    try { buildCalendar(null, body.calendar, { includeDrafts: true }); }
     catch { return failure(400, 'invalid-calendar'); }
     if (isDeepStrictEqual(body.calendar, editorial)) return response(200, { ok: true, sha: current.sha, unchanged: true });
     try {

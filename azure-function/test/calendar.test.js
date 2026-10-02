@@ -6,9 +6,9 @@ const { createCalendarHandler, MAX_BODY_BYTES } = require('../src/calendar');
 const { buildCalendar } = require('../src/calendar-model');
 const { createInstallationClient } = require('../src/github-status');
 const editorial = JSON.parse(fs.readFileSync(path.join(__dirname, '../../_content/calendar.json'), 'utf8'));
-const source = fs.readFileSync(path.join(__dirname, '../../_content/calendar-source.ics'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../../test/fixtures/legacy-calendar.ics'), 'utf8');
 const identity = { auth_typ: 'aad', claims: Object.entries({ tid: '9188040d-6c67-4c5b-b112-36a304b66dad', oid: '00000000-0000-0000-f978-44e4d44cc925', sub: 'AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB93l8aduYc', iss: 'https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0' }).map(([typ, val]) => ({ typ, val })) };
-const SHA = 'a'.repeat(40), SOURCE_SHA = 'b'.repeat(40), NEXT_SHA = 'c'.repeat(40), COMMIT = 'd'.repeat(40);
+const SHA = 'a'.repeat(40), SOURCE_SHA = SHA, NEXT_SHA = 'c'.repeat(40), COMMIT = 'd'.repeat(40);
 const empty = () => ({ hiddenEventIds: [], overrides: [], events: [] });
 const event = () => ({ id: 'test-event', title: 'Test event', start: '2026-12-01T10:00', end: '2026-12-01T11:00', timeZone: 'Europe/London', location: 'Church', description: 'Mock test only', status: 'published' });
 function request(method = 'PUT', calendar = { ...empty(), events: [event()] }, options = {}) {
@@ -44,10 +44,10 @@ test('Calendar GET loads complete editorial data and preserves every current fee
   const f = fixture(); const result = await f.handler(request('GET'));
   assert.equal(result.status, 200); assert.deepEqual(result.jsonBody.calendar, editorial);
   assert.equal(result.jsonBody.sha, SHA); assert.equal(result.jsonBody.sourceSha, SOURCE_SHA);
-  assert.equal(result.jsonBody.feedItems.length, 36); assert.deepEqual(f.permissions, ['read']); assert.equal(f.writes.length, 0);
+  assert.equal(result.jsonBody.feedItems.length, 0); assert.equal(f.reads.length,1); assert.deepEqual(f.permissions, ['read']); assert.equal(f.writes.length, 0);
   for (const read of f.reads) assert.deepEqual({ owner: read.owner, repo: read.repo, ref: read.ref }, { owner: 'micklehamchurch', repo: 'website', ref: 'Dev' });
   const generated = JSON.parse(fs.readFileSync(path.join(__dirname, '../../events.json'), 'utf8'));
-  assert.deepEqual(buildCalendar(source, editorial), generated);
+  assert.deepEqual(buildCalendar(null, editorial), generated);
 });
 
 test('Calendar auth rejects missing/malformed principal, non-admin and browser-supplied identity before GitHub access', async () => {
@@ -97,7 +97,7 @@ test('complete schema validation rejects unknown properties, malformed objects, 
   for (const changes of [ { title: '' }, { title: '<script>alert(1)</script>' }, { description: '\u0000bad' }, { start: '2026-02-30T10:00' }, { start: '2026-12-01T24:00' }, { end: '2026-12-01T09:00' }, { timeZone: 'Not/AZone' }, { location: 5 }, { status: 'invalid' }, { externalLink: 'javascript:alert(1)' }, { image: '../secrets/x.png' }, { image: 'assets/../../x.png' }, { geo: { latitude: 91, longitude: 0 } }, { unexpected: 'field' } ]) bad.push({ ...empty(), events: [{ ...event(), ...changes }] });
   bad.push({ ...empty(), events: [event(), event()] });
   const feedId = buildCalendar(source, empty()).items[0].id;
-  bad.push({ ...empty(), events: [{ ...event(), id: feedId }] }, { ...empty(), overrides: [{ id: 'unknown' }] }, { ...empty(), overrides: [{ id: feedId }, { id: feedId }] }, { ...empty(), hiddenEventIds: ['unknown'] }, { ...empty(), hiddenEventIds: [feedId, feedId] }, { ...empty(), hiddenEventIds: [feedId], overrides: [{ id: feedId, end: 'bad' }] });
+  bad.push({ ...empty(), overrides: [{ id: 'unknown' }] }, { ...empty(), overrides: [{ id: feedId }, { id: feedId }] }, { ...empty(), hiddenEventIds: ['unknown'] }, { ...empty(), hiddenEventIds: [feedId, feedId] }, { ...empty(), hiddenEventIds: [feedId], overrides: [{ id: feedId, end: 'bad' }] });
   for (const calendar of bad) { const f = fixture(); assert.equal((await f.handler(request('PUT', calendar))).status, 400); assert.equal(f.writes.length, 0); assert.ok(!f.permissions.includes('write')); }
 });
 
@@ -107,7 +107,7 @@ test('invalid JSON and excessive streamed or declared payload size cannot commit
   }
 });
 
-test('stale editorial or feed SHA returns conflict with no commit; GitHub race also returns conflict', async () => {
+test('stale editorial or deprecated SHA alias returns conflict with no commit; GitHub race also returns conflict', async () => {
   for (const extra of [{ sha: NEXT_SHA }, { sourceSha: NEXT_SHA }]) { const f = fixture(); assert.equal((await f.handler(request('PUT', { ...empty(), events: [event()] }, { extra }))).status, 409); assert.equal(f.writes.length, 0); assert.deepEqual(f.permissions, ['read']); }
   for (const status of [409, 422]) { const f = fixture({ writeError: status }); assert.equal((await f.handler(request())).status, 409); }
 });
@@ -115,6 +115,16 @@ test('stale editorial or feed SHA returns conflict with no commit; GitHub race a
 test('unchanged calendar does not request a write token or create a formatting commit', async () => {
   const f = fixture(); const result = await f.handler(request('PUT', editorial));
   assert.deepEqual(result.jsonBody, { ok: true, sha: SHA, unchanged: true }); assert.deepEqual(f.permissions, ['read']); assert.equal(f.writes.length, 0);
+});
+
+test('no-feed PUT supports Calendar SHA without a deprecated source alias', async () => {
+  const f = fixture();
+  const result = await f.handler(request('PUT', editorial, { body: { sha: SHA, calendar: editorial } }));
+  assert.equal(result.status, 200);
+  assert.equal(result.jsonBody.unchanged, true);
+  assert.equal(f.reads.length, 1);
+  assert.equal(f.reads[0].path, '_content/calendar.json');
+  assert.equal(f.writes.length, 0);
 });
 
 test('repository and publish failures return safe categories without credential details or false success', async () => {

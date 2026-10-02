@@ -6,8 +6,8 @@ const root = path.resolve(__dirname, '..');
 const fixture = require('./fixtures/calendar-migration.json');
 const calendar = require('../_content/calendar.json');
 const { buildCalendar } = require('../azure-function/src/calendar-model');
-const source = fs.readFileSync(path.join(root, '_content/calendar-source.ics'), 'utf8');
-const items = buildCalendar(source, calendar, { range: { from: '2026-09-01', to: '2028-12-31' } }).items;
+const source = fs.readFileSync(path.join(root, 'test/fixtures/legacy-calendar.ics'), 'utf8');
+const items = buildCalendar(null, calendar, { range: { from: '2026-09-01', to: '2028-12-31' } }).items;
 const key = e => [e.start.slice(0,10), e.allDay ? 'all-day' : e.start.slice(11,16)+'–'+e.end.slice(11,16), e.title].join('|');
 
 test('approved migration exactly reproduces the authoritative schedule without duplicates', () => {
@@ -28,7 +28,7 @@ test('existing Compline objects and moved occurrence are preserved', () => {
 });
 test('legacy IDs, cancelled BCP and unidentified March event are absent', () => {
   assert.equal(fixture.hiddenIds.length, 36);
-  assert.deepEqual(calendar.hiddenEventIds, fixture.hiddenIds);
+  assert.deepEqual(calendar.hiddenEventIds, []);
   assert(items.every(e => !fixture.hiddenIds.includes(e.id)));
   assert(!items.some(e => e.title.includes('BCP') && (e.start.startsWith('2026-11-08') || e.start.startsWith('2027-02'))));
   assert(!items.some(e => e.title.startsWith('NO BCP') || e.start.startsWith('2027-03-18')));

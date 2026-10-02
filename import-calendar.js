@@ -4,9 +4,8 @@ const { createHash } = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { buildCalendar } = require('./azure-function/src/calendar-model');
 const root = __dirname;
-const sourcePath = path.join(root, '_content/calendar-source.ics');
 const contentPath = path.join(root, '_content/calendar.json');
-const calendar = buildCalendar(fs.readFileSync(sourcePath, 'utf8'), JSON.parse(fs.readFileSync(contentPath, 'utf8')));
+const calendar = buildCalendar(null, JSON.parse(fs.readFileSync(contentPath, 'utf8')));
 fs.writeFileSync(path.join(root, 'events.json'), JSON.stringify(calendar, null, 2) + '\n');
 // Public build metadata only; no draft content or administrator identity.
 const version = createHash('sha256').update(JSON.stringify(calendar)).digest('hex');

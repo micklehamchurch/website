@@ -405,7 +405,7 @@
   function sourceForPage(page) {
     const route = String(page.url || '').replace(/^\//, '');
     const slug = route.replace(/\.html?$/i, '');
-    if (slug === 'calendar') return '_content/calendar-source.ics';
+    if (slug === 'calendar') return '_content/calendar.json';
     if (slug === 'news' || route.startsWith('news/')) return '_content/news.json';
     if (slug === 'parish-contact-directory') return '_content/contacts.json';
     if (contentManagedSlugs.has(slug)) return 'content-pages.json';

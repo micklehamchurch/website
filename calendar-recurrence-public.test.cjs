@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
-const {buildCalendar}=require('./azure-function/src/calendar-model');const root=__dirname,source=fs.readFileSync(path.join(root,'_content/calendar-source.ics'),'utf8');
+const {buildCalendar}=require('./azure-function/src/calendar-model');const root=__dirname,source=fs.readFileSync(path.join(root,'test/fixtures/legacy-calendar.ics'),'utf8');
 const series={id:'fixture-search',title:'UpcomingRecurrenceFixture',start:'2027-01-01T10:00',end:'2027-01-01T11:00',timeZone:'Europe/London',location:'Fixture venue',status:'published',recurrence:{frequency:'monthly',interval:1,ordinal:1,weekday:2,end:{type:'date',until:'2027-05-31'}}};
 const fixedBuild=(source,data)=>buildCalendar(source,data,{range:{from:'2027-01-01',to:'2027-12-31'}});
 const editorial=exceptions=>({hiddenEventIds:[],overrides:[],events:[],series:[series],exceptions});

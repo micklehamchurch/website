@@ -59,7 +59,7 @@ test('admin monitor can confirm an unchanged public payload after a draft-only p
   const waiting = await harness({ targetEditorialSha: 'b'.repeat(40), maxWaitMs: 1000 }); waiting.clock = 1200; await waiting.watcher.check(); assert.equal(waiting.live, 0); assert.equal(waiting.timeout, 1);
 });
 test('existing generator excludes drafts and hidden events from public data; manifest holds only hashes', () => {
-  const source = fs.readFileSync(new URL('../_content/calendar-source.ics', import.meta.url), 'utf8');
+  const source = fs.readFileSync(new URL('./fixtures/legacy-calendar.ics', import.meta.url), 'utf8');
   const feed = buildCalendar(source, { hiddenEventIds: [], overrides: [], events: [] }).items;
   const result = buildCalendar(source, { hiddenEventIds: [feed[0].id], overrides: [{ id: feed[1].id, status: 'draft', title: 'Private draft' }], events: [{ ...event, id: 'secret-draft', status: 'draft', title: 'Private draft' }] });
   assert.equal(result.items.length, feed.length - 2); assert.doesNotMatch(JSON.stringify(result), /Private draft|secret-draft/);
