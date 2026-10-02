@@ -8,6 +8,15 @@
       "description": "Services, events and parish notices for the week ahead.",
       "pdf": "assets/documents/news/pews-news/pews-news-2026-09-27.pdf",
       "published": true
+    },
+    {
+      "id": "parish-magazine-2026-10",
+      "type": "parish-magazine",
+      "title": "Parish Magazine",
+      "date": "2026-10-01",
+      "description": "The October edition of the Mickleham Parish Magazine.",
+      "pdf": "assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf",
+      "published": true
     }
   ]
 }

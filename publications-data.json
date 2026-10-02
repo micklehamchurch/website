@@ -1,6 +1,15 @@
 {
   "publications": [
     {
+      "id": "parish-magazine-2026-10",
+      "type": "parish-magazine",
+      "title": "Parish Magazine",
+      "date": "2026-10-01",
+      "description": "The October edition of the Mickleham Parish Magazine.",
+      "pdf": "assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf",
+      "published": true
+    },
+    {
       "id": "pews-news-2026-09-27",
       "type": "pews-news",
       "title": "Pews News",
