@@ -51,5 +51,23 @@
         "weekday": 2
       }
     }
+  ],
+  "exceptions": [
+    {
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2026-11-17T19:00",
+      "changes": {
+        "title": "Compline in Church",
+        "start": "2026-11-17T19:00",
+        "end": "2026-11-24T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church",
+        "category": "Worship & Services",
+        "image": "",
+        "externalLink": "",
+        "status": "published"
+      }
+    }
   ]
 }
