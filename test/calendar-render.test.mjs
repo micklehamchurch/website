@@ -19,7 +19,7 @@ async function renderFixture(items = [event]) {
     location: { search: '' }, sessionStorage: { getItem: () => null, removeItem() {} } };
   vm.runInNewContext(script, context);
   for (let i = 0; i < 3; i++) await new Promise(resolve => setImmediate(resolve));
-  return { select, refresh, buttons };
+  return { select, refresh, buttons, eventButton: context.eventButton };
 }
 test('actual public renderer preserves the displayed month and replaces rather than appends event buttons', async () => {
   const h = await renderFixture(); assert.equal(h.select('#calendar-month-label').textContent, 'December 2026');
@@ -38,3 +38,4 @@ test('open event details update with edited data and close when the event is rem
 test('existing Calendar renders empty event data without an invalid initial month', async () => {
   const h = await renderFixture([]); assert.match(h.select('#calendar-month-label').textContent, /\w+ \d{4}/); assert.equal(h.buttons(h.select('#calendar-grid')).length, 0);
 });
+test('generated recurring all-day events show All day and export date-only Google dates',async()=>{const item={...event,id:'series@2026-12-01T00:00',seriesId:'series',occurrenceStart:'2026-12-01T00:00',start:'2026-12-01T00:00',end:'2026-12-02T00:00',allDay:true};const h=await renderFixture([item]);assert.match(h.eventButton(item),/All day/);h.select('#calendar-grid').listeners.click({target:{closest:()=>({dataset:{eventId:item.id}})}});assert.match(h.select('#event-detail-content').innerHTML,/All day/);assert.match(h.select('#event-detail-content').innerHTML,/dates=20261201%2F20261202/)});

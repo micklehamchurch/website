@@ -1,16 +1,17 @@
-const EVENT_FIELDS = new Set(['id', 'uid', 'title', 'start', 'end', 'timeZone', 'location', 'description', 'sourceUrl', 'geo', 'address', 'category', 'image', 'externalLink', 'status']);
+const recurrence = require('./calendar-recurrence');
+const EVENT_FIELDS = new Set(['id', 'uid', 'title', 'start', 'end', 'timeZone', 'location', 'description', 'sourceUrl', 'geo', 'address', 'category', 'image', 'externalLink', 'status', 'allDay']);
 function validateEditorial(editorial) {
   const fail = () => { throw new Error('Invalid calendar schema or content.'); };
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
-  if (!object(editorial) || Object.keys(editorial).length !== 3 || !['hiddenEventIds', 'overrides', 'events'].every(key => Array.isArray(editorial[key]))) fail();
-  for (const entries of Object.values(editorial)) if (entries.length > 1000) fail();
+  if (!object(editorial) || Object.keys(editorial).some(key => !['hiddenEventIds','overrides','events','series','exceptions'].includes(key)) || !['hiddenEventIds', 'overrides', 'events'].every(key => Array.isArray(editorial[key]))) fail();
+  for (const entries of Object.values(editorial)) if (!Array.isArray(entries) || entries.length > 1000) fail();
   const text = value => typeof value === 'string' && value.length <= 16000 && !/[<>\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value);
   if (editorial.hiddenEventIds.some(id => !text(id) || !id.trim()) || new Set(editorial.hiddenEventIds).size !== editorial.hiddenEventIds.length) fail();
   for (const event of [...editorial.overrides, ...editorial.events]) {
     if (!object(event) || !text(event.id) || !event.id.trim() || event.id.length > 500) fail();
     for (const [key, value] of Object.entries(event)) {
       if (!EVENT_FIELDS.has(key)) fail();
-      if (key === 'geo') {
+      if (key === 'allDay') { if (typeof value !== 'boolean') fail(); } else if (key === 'geo') {
         if (!object(value) || Object.keys(value).length !== 2 || !Number.isFinite(value.latitude) || !Number.isFinite(value.longitude) || Math.abs(value.latitude) > 90 || Math.abs(value.longitude) > 180) fail();
       } else if (!text(value)) fail();
       if (['sourceUrl', 'externalLink'].includes(key) && value) {
@@ -20,9 +21,14 @@ function validateEditorial(editorial) {
       if (key === 'status' && !['published', 'draft'].includes(value)) fail();
     }
   }
+  recurrence.validateCollections(editorial.series || [], editorial.exceptions || [], event => {
+    validateEditorial({ hiddenEventIds: [], overrides: [], events: [event] });
+    if (!event.title?.trim() || !event.location?.trim() || !event.timeZone || recurrence.local(event.end) <= recurrence.local(event.start)) fail();
+    if (event.allDay && (!/T00:00(?::00)?$/.test(event.start) || !/T00:00(?::00)?$/.test(event.end))) fail();
+  });
 }
 
-function buildCalendar(input, editorial, { includeDrafts = false } = {}) {
+function buildCalendar(input, editorial, { includeDrafts = false, range = recurrence.defaultRange() } = {}) {
   validateEditorial(editorial);
   const source = input.replace(/^\uFEFF/, '').replace(/\r?\n[ \t]/g, '');
   function unescapeText(value) {
@@ -121,6 +127,7 @@ function buildCalendar(input, editorial, { includeDrafts = false } = {}) {
     });
 
   for (const item of mergedItems) {
+    if (item.allDay && (!/T00:00(?::00)?$/.test(item.start) || !/T00:00(?::00)?$/.test(item.end))) throw new Error('Invalid all-day event dates.');
     if (item.status && !['published', 'draft'].includes(item.status)) throw new Error(`Invalid status for calendar event ${item.id}: ${item.status}`);
     if (!String(item.title || '').trim() || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || !item.timeZone || !String(item.location || '').trim() || comparableDateTime(item.end) <= comparableDateTime(item.start)) throw new Error(`Calendar event has incomplete or invalid details: ${item.id}`);
     try { new Intl.DateTimeFormat('en', { timeZone: item.timeZone }); }
@@ -138,11 +145,18 @@ function buildCalendar(input, editorial, { includeDrafts = false } = {}) {
     if (!String(item.title).trim() || !String(item.location).trim() || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || comparableDateTime(item.end) <= comparableDateTime(item.start)) {
       throw new Error(`Editorial calendar event has an invalid time range: ${item.id}`);
     }
+    if (item.allDay && (!/T00:00(?::00)?$/.test(item.start) || !/T00:00(?::00)?$/.test(item.end))) throw new Error('Invalid all-day event dates.');
     try { new Intl.DateTimeFormat('en', { timeZone: item.timeZone }); }
     catch { throw new Error(`Editorial calendar event has an invalid time zone: ${item.id}`); }
     if (includeDrafts || item.status !== 'draft') mergedItems.push(item);
   }
 
+  for (const series of editorial.series || []) {
+    if (allIds.has(series.id)) throw new Error('Duplicate calendar series ID.');
+    allIds.add(series.id);
+    mergedItems.push(...recurrence.expandSeries(series, editorial.exceptions || [], { range, includeDrafts }));
+  }
+  if (mergedItems.length > recurrence.LIMITS.occurrences) throw new Error('Calendar expansion limit exceeded.');
   const ids = new Set(mergedItems.map(item => item.id));
   if (ids.size !== mergedItems.length) throw new Error('The published calendar contains duplicate event IDs.');
 

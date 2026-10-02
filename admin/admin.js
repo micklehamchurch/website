@@ -21,7 +21,7 @@
   ];
   const workflowView = 'publishing';
   const initialState = () => ({
-    calendar: { created: [], updated: {}, deleted: [] },
+    calendar: { created: [], updated: {}, deleted: [], series: [], exceptions: [] },
     news: { created: [], updated: {}, deleted: [] },
     contacts: { working: null }
   });
@@ -37,7 +37,7 @@
   const calendarCanEdit = () => sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.conflict;
   function calendarData() {
     const clean = item => { const { _origin, ...event } = item; return event; };
-    return { hiddenEventIds: [...demoState.calendar.deleted], overrides: Object.values(demoState.calendar.updated).map(clean), events: demoState.calendar.created.map(clean) };
+    return { hiddenEventIds: [...demoState.calendar.deleted], overrides: Object.values(demoState.calendar.updated).map(clean), events: demoState.calendar.created.map(clean), ...(demoState.calendar.series?.length ? {series:demoState.calendar.series} : {}), ...(demoState.calendar.exceptions?.length ? {exceptions:demoState.calendar.exceptions} : {}) };
   }
   function calendarStaged(action) {
     sharedCalendar.dirty = true;
@@ -54,7 +54,7 @@
     sharedCalendar.busy = false;
     if (result.ok) {
       baseEvents = result.feedItems;
-      demoState.calendar = { created: result.calendar.events, updated: Object.fromEntries(result.calendar.overrides.map(item => [item.id, item])), deleted: result.calendar.hiddenEventIds };
+      demoState.calendar = { created: result.calendar.events, updated: Object.fromEntries(result.calendar.overrides.map(item => [item.id, item])), deleted: result.calendar.hiddenEventIds, series: result.calendar.series || [], exceptions: result.calendar.exceptions || [] };
       Object.assign(sharedCalendar, { loaded: true, dirty: false, conflict: false, sha: result.sha, sourceSha: result.sourceSha, message: 'Shared Dev Calendar loaded. Edits remain staged until you publish.' });
     } else { sharedCalendar.error = result.category; sharedCalendar.message = api?.message(result.category) || 'Sign in and authorise the Admin API connection, then reload Calendar.'; }
     render({ focus: false });
@@ -89,6 +89,7 @@
     }
     render({ focus: false }); showToast(sharedCalendar.message, !result.ok);
   }
+  window.addEventListener('admin-recurrence-ready', () => { if (recordsReady) render({focus:false}); });
   window.addEventListener('admin-calendar-ready', () => {
     if (currentView() === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy) void loadSharedCalendar();
   });
@@ -282,7 +283,12 @@
     const source = kind === 'calendar' ? demoState.calendar : demoState.news;
     const baseline = kind === 'calendar' ? baseEvents : baseArticles;
     const changed = baseline.filter(item => !source.deleted.includes(item.id)).map(item => ({ ...item, ...(source.updated[item.id] || {}), id: item.id, _origin: 'repository' }));
-    return [...changed, ...source.created.map(item => ({ ...item, _origin: 'demo' }))];
+    let generated = [];
+    if (kind === 'calendar' && window.churchRecurrence) {
+      try { generated = (source.series || []).flatMap(series => window.churchRecurrence.expandSeries(series, source.exceptions || [], {includeDrafts:true})); }
+      catch { sharedCalendar.message = 'The repeat pattern needs correction before publishing.'; }
+    }
+    return [...changed, ...source.created.map(item => ({ ...item, _origin: 'demo' })), ...generated];
   }
   function eventCategory(item) {
     const title = `${item.title || ''} ${item.location || ''}`.toLowerCase();
@@ -306,6 +312,7 @@
       externalLink: item.externalLink || item.sourceUrl || '',
       status: item.status || 'published',
       timeZone: item.timeZone || 'Europe/London',
+      allDay: item.allDay === true, seriesId: item.seriesId, occurrenceStart: item.occurrenceStart,
       _origin: item._origin
     };
   }
@@ -323,7 +330,7 @@
       <div class="admin-section-note"><strong>Calendar publishing is enabled for Dev.</strong> Feed events are preserved through overrides and hidden IDs. Draft events stay out of the public Calendar. Other dashboard sections remain demo-only.</div>
       <p role="status">${safe(sharedCalendar.message || 'Sign in, then load the shared Calendar.')}</p>
       <div class="admin-list-toolbar"><label for="calendar-filter">Find an event</label><input id="calendar-filter" type="search" placeholder="Search title, date or location"><span>${records.length} items shown</span></div>
-      <fieldset class="admin-calendar-records" aria-label="Calendar events" ${calendarCanEdit() ? '' : 'disabled'}><div class="admin-cms-list" id="calendar-records">${sharedCalendar.loaded ? records.map(item => recordCard('calendar', item)).join('') || '<p class="admin-empty">No calendar items match this view.</p>' : ''}</div></fieldset>`;
+      ${calendarSeriesPanel()}<fieldset class="admin-calendar-records" aria-label="Calendar events" ${calendarCanEdit() ? '' : 'disabled'}><div class="admin-cms-list" id="calendar-records">${sharedCalendar.loaded ? records.map(item => recordCard('calendar', item)).join('') || '<p class="admin-empty">No calendar items match this view.</p>' : ''}</div></fieldset>`;
   }
   function articleDateToInput(value) {
     const match = String(value || '').match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
@@ -385,7 +392,7 @@
   function recordCard(kind, item) {
     const fields = item;
     const date = kind === 'calendar' ? dateLabel(fields.date) : dateLabel(fields.date);
-    const time = kind === 'calendar' ? ` · ${safe(fields.startTime || 'Time not set')}` : '';
+    const time = kind === 'calendar' ? ` · ${safe(fields.allDay ? 'All day' : fields.startTime || 'Time not set')}` : '';
     const title = fields.title || 'Untitled';
     const description = kind === 'calendar' ? fields.location : fields.summary;
     const origin = kind === 'calendar' ? '<span class="admin-status feed">Shared Dev / staged content</span>' : item._origin === 'repository' ? '<span class="admin-status feed">Current website content</span>' : '<span class="admin-status demo">DEMO ITEM</span>';
@@ -597,10 +604,12 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     showToast('Contacts backup downloaded. Normal publishing uses Publish changes.');
   }
-  function openEditor(kind, id = '') {
+  function openEditor(kind, id = '', scope = '') {
     if (kind === 'calendar' && !calendarCanEdit()) return;
     const collection = listRecords(kind);
-    const item = id ? collection.find(record => record.id === id || (kind === 'news' && record.slug === id)) : null;
+    let item = id ? collection.find(record => record.id === id || (kind === 'news' && record.slug === id)) : null;
+    if (kind === 'calendar' && item?.seriesId && !scope) return chooseSeriesScope(item, 'edit');
+    if (kind === 'calendar' && scope === 'series') item = demoState.calendar.series.find(series => series.id === (item?.seriesId || id));
     if (id && !item) return showToast('That item is no longer available in this preview.', true);
     const event = kind === 'calendar';
     const current = item ? (event ? eventFields(item) : articleFields(item)) : {};
@@ -611,8 +620,9 @@
       <div class="admin-form-grid">
         ${field('Event name', 'title', current.title, { required: true, full: true, placeholder: 'Enter a clear event name' })}
         ${field('Date', 'date', current.date, { type: 'date', required: true })}
+        ${field('All day', 'allDay', current.allDay ? 'true' : '', {choices: [['','Timed event'],['true','All-day event']]})}
         ${field('Start time', 'startTime', current.startTime, { type: 'time', required: true })}
-        ${field('End date', 'endDate', current.endDate, { type: 'date', hint: 'Leave blank for the same date as the start.' })}
+        ${field('End date', 'endDate', current.endDate, { type: 'date', hint: 'Timed events: blank means the same date. All-day events: choose the following date (exclusive end).' })}
         ${field('End time', 'endTime', current.endTime, { type: 'time', required: true })}
         ${field('Category', 'category', current.category || 'Parish event', { required: true, choices: ['Worship & Services', 'Weekly worship', 'Special service', 'Parish event', 'Community', 'Children & families', 'Other'].map(value => [value, value]) })}
         ${field('Status', 'status', current.status || 'published', { required: true, choices: [['published', 'Public after publishing'], ['draft', 'Draft']] })}
@@ -620,6 +630,7 @@
         ${field('Description', 'description', current.description, { type: 'textarea', required: true, full: true, placeholder: 'Add useful event details' })}
         ${field('Optional YouTube or external link', 'externalLink', current.externalLink, { type: 'url', full: true, placeholder: 'https://…' })}
         ${commonImage}
+        <div class="admin-field full">${scope === 'occurrence' ? '<p>Editing this date only. The repeat rule is unchanged.</p>' : window.churchRecurrence?.controls(item?.recurrence ? item : null) || '<p>Repeat controls are loading. Reopen the editor to create a series.</p>'}</div>
       </div>` : `
       <div class="admin-form-grid">
         ${field('Slug / ID', 'slug', current.slug, { full: true, placeholder: 'Generated from the title if left blank', hint: 'Existing article slugs are permanent.' })}
@@ -632,16 +643,50 @@
         ${field('Archive after (optional)', 'expires', current.expires, { type: 'date', hint: 'The story leaves the current listing after this date; its article remains accessible.' })}
         ${commonImage}
       </div>`;
-    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'SHARED DEV · WEBSITE NEWS'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Preview stays local. Publish saves the story or draft to shared Dev content.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save local preview'}</button>${event ? '' : '<button type="button" class="admin-button" data-action="publish-news" '+ (sharedNews.loaded ? '' : 'disabled') +'>Publish / Save draft</button>'}</div></div></form>`;
+    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'SHARED DEV · WEBSITE NEWS'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Preview stays local. Publish saves the story or draft to shared Dev content.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="seriesScope" value="${scope}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save local preview'}</button>${event ? '' : '<button type="button" class="admin-button" data-action="publish-news" '+ (sharedNews.loaded ? '' : 'disabled') +'>Publish / Save draft</button>'}</div></div></form>`;
     dialog.showModal();
     const editorForm = dialog.querySelector('#admin-editor-form');
     editorForm.addEventListener('submit', event => {
       event.preventDefault();
       saveForm(editorForm);
     });
+    if (event) window.churchRecurrence?.wire(editorForm);
     updateImagePreview(dialog.querySelector('[name="image"]')?.value || '');
     dialog.querySelector('[name="image"]')?.addEventListener('change', event => updateImagePreview(event.target.value));
     dialog.querySelector('input:not([type="hidden"]),textarea,select')?.focus();
+  }
+  function calendarSeriesPanel() {
+    const series = demoState.calendar.series || [], cancelled = (demoState.calendar.exceptions || []).filter(e=>e.cancelled);
+    if (!series.length) return '';
+    return '<section class="admin-section-note"><h2>Recurring series</h2><p>Occurrences are displayed from '+(new Date().getUTCFullYear()-1)+' through '+(new Date().getUTCFullYear()+2)+'. Rules remain stored beyond this window; each website build advances it. Use this list to manage series outside the displayed window.</p>'+series.map(s=>'<div class="admin-record-card"><strong>'+safe(s.title)+'</strong><p>'+safe(window.churchRecurrence?.summary(s)||'Repeating event')+'</p><div class="admin-actions"><button class="admin-button secondary" data-action="edit-calendar-series" data-id="'+escAttr(s.id)+'" '+(calendarCanEdit()?'':'disabled')+'>Edit entire series</button><button class="admin-button danger" data-action="delete-calendar-series" data-id="'+escAttr(s.id)+'" '+(calendarCanEdit()?'':'disabled')+'>Delete entire series</button></div></div>').join('')+(cancelled.length?'<h3>Cancelled dates</h3>'+cancelled.map(e=>'<p>'+safe(series.find(s=>s.id===e.seriesId)?.title)+' · '+safe(e.occurrenceStart)+' <button class="admin-button secondary small" data-action="restore-calendar-occurrence" data-id="'+escAttr(e.seriesId)+'" data-start="'+escAttr(e.occurrenceStart)+'" '+(calendarCanEdit()?'':'disabled')+'>Restore this event</button></p>').join(''):'')+'</section>';
+  }
+  function calendarFormTimes(values) {
+    if (window.churchRecurrence) return { ...window.churchRecurrence.eventValues(values), allDay: values.allDay === 'true' };
+    return { start: values.date+'T'+values.startTime, end:(values.endDate||values.date)+'T'+values.endTime, timeZone:'Europe/London' };
+  }
+  function stageOccurrence(item, changes = null) {
+    demoState.calendar.exceptions ||= [];
+    const previous = demoState.calendar.exceptions.find(e=>e.seriesId===item.seriesId && e.occurrenceStart===item.occurrenceStart);
+    demoState.calendar.exceptions = demoState.calendar.exceptions.filter(e=>e!==previous);
+    demoState.calendar.exceptions.push({seriesId:item.seriesId,occurrenceStart:item.occurrenceStart,...(changes ? {changes:{...previous?.changes,...changes}} : {cancelled:true})});
+  }
+  function chooseSeriesScope(item, action) {
+    const dialog = document.querySelector('#admin-dialog');
+    dialog.innerHTML = '<div class="admin-dialog-inner"><h2 id="admin-dialog-title">'+(action==='edit'?'Edit recurring event':'Remove recurring event')+'</h2><p>Choose this date only or the entire series. This and future events is not available yet.</p><div class="admin-form-actions"><button class="admin-button secondary" data-action="close-dialog">Cancel</button><button class="admin-button" data-series-scope="occurrence">This event</button><button class="admin-button danger" data-series-scope="series">Entire series</button></div></div>';
+    dialog.showModal();
+    const select = event => {
+      const button=event.target.closest('[data-series-scope]');if(!button)return;
+      cleanup();dialog.close();
+      if(action==='edit') { openEditor('calendar',item.id,button.dataset.seriesScope); return; }
+      if(!window.confirm(button.dataset.seriesScope==='series'?'Remove the entire recurring series and all its date exceptions? This is staged until Publish changes.':'Cancel this occurrence only? The recurring series remains. This is staged until Publish changes.'))return;
+      if(button.dataset.seriesScope==='series') { demoState.calendar.series=demoState.calendar.series.filter(s=>s.id!==item.seriesId);demoState.calendar.exceptions=demoState.calendar.exceptions.filter(e=>e.seriesId!==item.seriesId); }
+      else stageOccurrence(item);
+      calendarStaged('Recurring event removal staged');render({focus:false});
+    };
+    const cleanup = () => { dialog.removeEventListener('click',select); dialog.removeEventListener('cancel',cleanup); };
+    dialog.addEventListener('click',select);
+    dialog.addEventListener('cancel',cleanup,{once:true});
+    dialog.querySelector('[data-action="close-dialog"]').addEventListener('click',cleanup,{once:true});
   }
   function updateImagePreview(path) {
     const target = document.querySelector('#admin-image-preview');
@@ -656,7 +701,10 @@
     if (!form.reportValidity()) return false;
     const data = readForm(form);
     let message = '';
-    if (data.kind === 'calendar' && `${data.endDate || data.date}T${data.endTime}` <= `${data.date}T${data.startTime}`) message = 'The end must be later than the start.';
+    if (data.kind === 'calendar') {
+      try { const details = calendarFormTimes(data); if (details.end <= details.start) throw new Error(); const rule = window.churchRecurrence?.read(data); if (rule) window.churchRecurrence.validateCollections([{id:'preview-series',...details,recurrence:rule}],[],()=>{}); }
+      catch { message = 'Check the start/end dates, times, repeat pattern and ending. All-day events need an end date after the start.'; }
+    }
     if (data.kind === 'calendar' && data.externalLink) {
       try { if (!['http:', 'https:'].includes(new URL(data.externalLink).protocol)) message = 'Use a web link beginning with http:// or https://.'; }
       catch { message = 'Enter a valid web link.'; }
@@ -685,12 +733,34 @@
     if (kind === 'calendar' && !calendarCanEdit()) return;
     const id = values.id;
     const isNew = !id;
-    const oldItem = id ? listRecords(kind).find(item => item.id === id || (kind === 'news' && item.slug === id)) : null;
+    let oldItem = id ? listRecords(kind).find(item => item.id === id || (kind === 'news' && item.slug === id)) : null;
+    if (kind === 'calendar' && values.seriesScope === 'series') oldItem = demoState.calendar.series.find(s => s.id === (oldItem?.seriesId || id));
     let value;
     if (kind === 'calendar') {
       const recordId = id || idFor('event');
-      value = { ...oldItem, id: recordId, title: values.title.trim(), start: `${values.date}T${values.startTime}`, end: `${values.endDate || values.date}T${values.endTime}`, timeZone: oldItem?.timeZone || 'Europe/London', location: values.location.trim(), description: values.description.trim(), category: values.category, image: values.image, externalLink: values.externalLink.trim(), status: values.status };
-      updateRecord('calendar', recordId, value, isNew);
+      value = { ...oldItem, id: recordId, title: values.title.trim(), ...calendarFormTimes(values), timeZone: oldItem?.timeZone || 'Europe/London', location: values.location.trim(), description: values.description.trim(), category: values.category, image: values.image, externalLink: values.externalLink.trim(), status: values.status };
+      const model = window.churchRecurrence;
+      if (oldItem?.seriesId && values.seriesScope === 'occurrence') {
+        const {id: generatedId, seriesId, occurrenceStart, _origin, timeZone, uid, ...changes} = value; stageOccurrence(oldItem, changes);
+      } else {
+        const rule = model?.read(values);
+        if (oldItem?.recurrence || rule) {
+          const seriesId = oldItem?.recurrence ? oldItem.id : idFor('series');
+          const {id: unusedId, _origin, ...fields} = value; const series = { ...fields, id:seriesId, recurrence:rule };
+          if (oldItem?.recurrence) {
+            if (!rule && !window.confirm('Replace the entire recurring series with one non-repeating event? All other occurrences will be removed after publishing.')) return;
+            const obsolete = (demoState.calendar.exceptions || []).filter(e => e.seriesId === seriesId && (!rule || !model.targetExists(series,e.occurrenceStart)));
+            if (obsolete.length && !window.confirm('This rule change would remove '+obsolete.length+' existing date exceptions. Continue?')) return;
+            demoState.calendar.exceptions = (demoState.calendar.exceptions || []).filter(e=>!obsolete.includes(e));
+            demoState.calendar.series = demoState.calendar.series.filter(s=>s.id!==seriesId);
+          } else if (!isNew) {
+            if (demoState.calendar.created.some(e=>e.id===recordId)) demoState.calendar.created=demoState.calendar.created.filter(e=>e.id!==recordId);
+            else demoState.calendar.deleted.push(recordId); delete demoState.calendar.updated[recordId];
+          }
+          if(rule) { demoState.calendar.series ||= []; demoState.calendar.series.push(series); }
+          else { const {recurrence,...oneOff}=series; demoState.calendar.created.push(oneOff); }
+        } else updateRecord('calendar', recordId, value, isNew);
+      }
     } else {
       const priorSlug = oldItem?.slug;
       let slug = priorSlug || slugify(values.title);
@@ -710,7 +780,7 @@
     const isEvent = kind === 'calendar';
     const image = item.image ? `<img class="admin-preview-image" src="${escAttr(item.image)}" alt="${safe(imageAlt(item.image))}"><p class="admin-image-caption">DEMO IMAGE · temporary selection</p>` : '';
     const body = isEvent
-      ? `<p><strong>${safe(dateLabel(item.date))} · ${safe(item.startTime || 'Time not set')}${item.endTime ? `–${safe(item.endTime)}` : ''}</strong></p><p>${safe(item.location)}</p><p>${safe(item.description)}</p>${item.externalLink ? `<p><a href="${escAttr(item.externalLink)}" target="_blank" rel="noopener noreferrer">Open event link ↗</a></p>` : ''}`
+      ? `<p><strong>${safe(dateLabel(item.date))} · ${safe(item.allDay ? 'All day' : item.startTime || 'Time not set')}${item.endTime ? `–${safe(item.endTime)}` : ''}</strong></p><p>${safe(item.location)}</p><p>${safe(item.description)}</p>${item.externalLink ? `<p><a href="${escAttr(item.externalLink)}" target="_blank" rel="noopener noreferrer">Open event link ↗</a></p>` : ''}`
       : `${item.demo ? '<p class="admin-demo-caption">SAMPLE / DEMO ARTICLE · FICTIONAL CONTENT</p>' : ''}<p>${safe(item.summary)}</p>${item.content.split(/\n\s*\n/).filter(Boolean).map(paragraph => `<p>${safe(paragraph)}</p>`).join('')}`;
     return `<div class="admin-dialog-head"><div><p class="admin-kicker">PREVIEW ONLY · ${isEvent ? 'CALENDAR EVENT' : 'NEWS ARTICLE'}</p><h2 id="admin-dialog-title">${safe(item.title)}</h2><p>${safe(item.category)} · ${safe(dateLabel(item.date))} · ${item.status === 'draft' ? 'Draft preview' : 'Preview status'}</p></div></div><article class="admin-preview-card">${image}${!isEvent && item.demo ? '<p class="admin-demo-caption">SAMPLE / DEMO — this local preview is not a published church announcement.</p>' : ''}<h3>${safe(item.title)}</h3>${body}</article>`;
   }
@@ -726,7 +796,7 @@
     if (!validateForm(form)) return;
     const data = readForm(form);
     const item = data.kind === 'calendar'
-      ? { ...data, id: data.id || 'preview', start: `${data.date}T${data.startTime}`, end: data.endTime ? `${data.endDate || data.date}T${data.endTime}` : '' }
+      ? { ...data, id: data.id || 'preview', ...calendarFormTimes(data) }
       : { ...data, id: data.id || 'preview', slug: slugify(data.title), excerpt: data.summary, paragraphs: data.content.split(/\n\s*\n/).filter(Boolean), dateLabel: dateLabelForArticle(data.date), demo: true };
     const preview = document.createElement('section');
     preview.className = 'admin-inline-preview';
@@ -739,6 +809,7 @@
     const item = listRecords(kind).find(record => record.id === id || (kind === 'news' && record.slug === id));
     if (!item) return;
     const next = { ...item, status: item.status === 'draft' ? 'published' : 'draft' };
+    if (kind === 'calendar' && item.seriesId) { stageOccurrence(item, {status:next.status}); calendarStaged('Occurrence status changed'); render({focus:false}); return; }
     updateRecord(kind, id, next, false);
     if (kind !== 'calendar' && !persistDemoState()) return;
     render({ focus: false });
@@ -749,6 +820,7 @@
     if (kind === 'calendar' && !calendarCanEdit()) return;
     const item = listRecords(kind).find(record => record.id === id || (kind === 'news' && record.slug === id));
     if (!item) return;
+    if (kind === 'calendar' && item.seriesId) return chooseSeriesScope(item, 'delete');
     const dialog = document.querySelector('#admin-dialog');
     dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${kind === 'calendar' ? 'CALENDAR · SHARED DEV' : 'DEVELOPMENT DEMO · PREVIEW ONLY'}</p><h2 id="admin-dialog-title">Remove this ${kind === 'calendar' ? 'event' : 'article'}?</h2><p>${safe(item.title)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel removal">×</button></div><div class="admin-section-note">${kind === 'calendar' ? 'This stages an event removal. Choose Publish changes from Calendar to remove it from the shared Dev website.' : 'This removes the item from this browser tab’s preview only. It will not change the repository or the shared public website.'}</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Keep item</button><button type="button" class="admin-button danger" data-action="confirm-delete" data-kind="${kind}" data-id="${escAttr(id)}">${kind === 'calendar' ? 'Stage removal' : 'Remove from preview'}</button></div></div>`;
     dialog.showModal();
@@ -815,6 +887,13 @@
     if (action === 'publish-contacts') { void publishContacts(); return; }
     if (action === 'toggle-pcc-status') { changeContactStatus(id, 'pcc'); return; }
     if (action === 'reload-news') { void loadSharedNews(); return; }
+    if (action === 'edit-calendar-series') { if (calendarCanEdit()) openEditor('calendar',id,'series'); return; }
+    if (action === 'delete-calendar-series') {
+      if (calendarCanEdit() && window.confirm('Delete the entire recurring series and its date exceptions? This remains staged until Publish changes.')) {
+        demoState.calendar.series=demoState.calendar.series.filter(s=>s.id!==id);demoState.calendar.exceptions=demoState.calendar.exceptions.filter(e=>e.seriesId!==id);calendarStaged('Series deletion staged');render({focus:false});
+      } return;
+    }
+    if (action === 'restore-calendar-occurrence') { if (calendarCanEdit()) {demoState.calendar.exceptions=demoState.calendar.exceptions.filter(e=>e.seriesId!==id||e.occurrenceStart!==button.dataset.start);calendarStaged('Occurrence restored');render({focus:false});} return; }
     if (action === 'reload-calendar') { void loadSharedCalendar(); return; }
     if (action === 'publish-calendar') { void publishCalendar(); return; }
     if (action === 'add-contact') { openContactEditor('', button.dataset.section || ''); return; }

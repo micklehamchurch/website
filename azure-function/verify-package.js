@@ -22,6 +22,9 @@ function verifyEntrypoint(root) {
   for (const { name, options } of registrations) assert.deepEqual(options.methods, ['calendar', 'contacts'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications'].includes(name) ? ['GET', 'POST'] : ['GET']);
   assert.equal(registrations.find(r => r.name === 'calendar').options.route, 'calendar');
   assert.equal(typeof require(path.join(root, 'src/calendar-model.js')).buildCalendar, 'function');
+  const recurrence = require(path.join(root, 'src/calendar-recurrence.js'));
+  const series = {id:'package-fixture',start:'2027-01-01T19:00',end:'2027-01-01T20:00',timeZone:'Europe/London',recurrence:{frequency:'monthly',interval:1,ordinal:1,weekday:2,end:{type:'count',count:2}}};
+  assert.deepEqual(recurrence.expandSeries(series,[],{range:{from:'2027-01-01',to:'2027-12-31'}}).map(e=>e.start),['2027-01-05T19:00','2027-02-02T19:00']);
   assert.equal(registrations.find(r => r.name === 'contacts').options.route, 'contacts');
   assert.equal(typeof require(path.join(root, 'src/contacts-model.js')).validateContacts, 'function');
   assert.equal(require(path.join(root, 'host.json')).extensions.http.routePrefix, 'api');

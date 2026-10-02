@@ -22,6 +22,8 @@ on:
       - 'events.js'
       - 'calendar-updates.mjs'
       - 'azure-function/src/calendar-model.js'
+      - 'azure-function/src/calendar-recurrence.js'
+      - 'admin/calendar-recurrence-editor.mjs'
       - 'admin/calendar-api.mjs'
       - 'admin/contacts-api.mjs'
       - 'azure-function/src/contacts-model.js'

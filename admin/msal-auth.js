@@ -1,3 +1,6 @@
+import recurrence from './calendar-recurrence-editor.mjs';
+window.churchRecurrence = recurrence;
+window.dispatchEvent(new Event('admin-recurrence-ready'));
 import {
   BrowserCacheLocation,
   InteractionRequiredAuthError,

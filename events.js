@@ -30,7 +30,7 @@ function googleCalendarLink(event, data) {
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: event.title,
-    dates: `${event.start.replace(/[-:]/g, '')}/${event.end.replace(/[-:]/g, '')}`,
+    dates: event.allDay ? `${event.start.slice(0,10).replace(/-/g,'')}/${event.end.slice(0,10).replace(/-/g,'')}` : `${event.start.replace(/[-:]/g, '')}/${event.end.replace(/[-:]/g, '')}`,
     ctz: event.timeZone,
     details: event.description || ''
   });
@@ -41,7 +41,7 @@ function googleCalendarLink(event, data) {
 function compactEventCard(event) {
   const date = formatDate(event.start, { day: 'numeric', month: 'short' });
   return `<article class="event-card event-card-compact">
-    <div class="event-date"><span>${escapeHTML(date)}</span><strong>${escapeHTML(event.start.slice(11, 16))}</strong></div>
+    <div class="event-date"><span>${escapeHTML(date)}</span><strong>${escapeHTML(event.allDay ? 'All day' : event.start.slice(11, 16))}</strong></div>
     <div class="event-details"><p class="eyebrow">${escapeHTML(event.location)}</p><h3>${escapeHTML(event.title)}</h3><p class="event-venue">${escapeHTML(event.description)}</p></div>
     <a class="event-link" href="calendar.html?event=${encodeURIComponent(event.id)}">Event details <span aria-hidden="true">→</span></a>
   </article>`;
@@ -61,7 +61,7 @@ function renderUpcomingPreview(items, container, timeZone) {
 
 function eventButton(event) {
   const date = formatDate(event.start, { weekday: 'long', day: 'numeric', month: 'long' });
-  return `<button class="calendar-event-button" type="button" data-event-id="${escapeHTML(event.id)}" aria-label="${escapeHTML(`${event.title}, ${date}, ${event.start.slice(11, 16)}`)}"><time>${escapeHTML(event.start.slice(11, 16))}</time><span>${escapeHTML(event.title)}</span></button>`;
+  return `<button class="calendar-event-button" type="button" data-event-id="${escapeHTML(event.id)}" aria-label="${escapeHTML(`${event.title}, ${date}, ${event.allDay ? 'All day' : event.start.slice(11, 16)}`)}"><time>${escapeHTML(event.allDay ? 'All day' : event.start.slice(11, 16))}</time><span>${escapeHTML(event.title)}</span></button>`;
 }
 
 function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone) {
@@ -153,7 +153,7 @@ function showEvent(event, dialog, timeZone) {
   title.textContent = event.title;
   details.innerHTML = `<dl class="calendar-event-facts">
     <div><dt>Date</dt><dd>${escapeHTML(date)}</dd></div>
-    <div><dt>Time</dt><dd>${escapeHTML(event.start.slice(11, 16))}–${escapeHTML(event.end.slice(11, 16))} (${escapeHTML(event.timeZone || timeZone)})</dd></div>
+    <div><dt>Time</dt><dd>${event.allDay ? 'All day' : `${escapeHTML(event.start.slice(11, 16))}–${escapeHTML(event.end.slice(11, 16))} (${escapeHTML(event.timeZone || timeZone)})`}</dd></div>
     ${event.location ? `<div><dt>Location</dt><dd>${escapeHTML(location)}</dd></div>` : ''}
     ${event.description ? `<div><dt>Description</dt><dd>${escapeHTML(event.description)}</dd></div>` : ''}
   </dl>

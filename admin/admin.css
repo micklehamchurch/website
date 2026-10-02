@@ -280,3 +280,9 @@
 @media(max-width:760px){.admin-dashboard-grid,.admin-record-list{grid-template-columns:1fr}.admin-repository-notice,.admin-workflow,.admin-section-note{padding:15px}.admin-source-actions{display:grid;grid-template-columns:1fr}}
 
 .admin-calendar-records { border: 0; padding: 0; margin: 0; min-width: 0; }
+.admin-recurrence-controls { border: 1px solid #cfc9bd; border-radius: 4px; padding: 16px; min-width: 0; }
+.admin-recurrence-controls legend { font-weight: 700; padding: 0 6px; }
+.admin-recurrence-controls [hidden] { display: none !important; }
+.admin-recurrence-controls .admin-repeat-weekday { display: inline-flex; align-items: center; gap: 5px; margin: 4px 12px 4px 0; }
+.admin-recurrence-controls .admin-repeat-weekday input { width: 18px; min-height: 18px; }
+#admin-recurrence-summary { overflow-wrap: anywhere; }
