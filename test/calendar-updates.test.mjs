@@ -13,11 +13,12 @@ async function harness({ initial = data([event]), latest = initial, targetEditor
   let manifest = { version: await calendarVersion(latest), editorialSha: sha }, payload = latest, failing = failure, clock = 100, live = 0, timeout = 0;
   const documentImpl = { hidden: false, addEventListener(_name, fn) { this.listener = fn; }, removeEventListener() { this.listener = null; } };
   const calls = [], changes = [], timers = new Map(); let nextTimer = 0;
+  let settle; const settled = new Promise(resolve => { settle = resolve; });
   const watcher = watchCalendar({ baseUrl: 'https://example.org/website/', initialVersion: await calendarVersion(initial), targetEditorialSha, documentImpl, now: () => clock, maxWaitMs,
-    setTimer: (fn, ms) => { timers.set(++nextTimer, { fn, ms }); return nextTimer; }, clearTimer: id => timers.delete(id),
+    setTimer: (fn, ms) => { timers.set(++nextTimer, { fn, ms }); return nextTimer; }, clearTimer: id => { if (timers.get(id)?.ms === 10000) settle(); timers.delete(id); },
     fetchImpl: async (url, options) => { calls.push({ url, options }); if (failing) throw new Error('temporary'); return Response.json(url.includes('calendar-version.json') ? manifest : payload); },
     onData: latest => changes.push(latest), onLive: () => live++, onTimeout: () => timeout++ });
-  await flush();
+  await settled;
   return { watcher, calls, changes, timers, documentImpl, get live() { return live; }, get timeout() { return timeout; }, set failing(value) { failing = value; }, set clock(value) { clock = value; },
     async setData(value, editorialSha = sha) { payload = value; manifest = { version: await calendarVersion(value), editorialSha }; },
     setPayload(value) { payload = value; } };

@@ -93,6 +93,29 @@
     if (currentView() === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy) void loadSharedCalendar();
   });
   window.addEventListener('admin-publications-ready', () => { if (currentView() === 'news') render({ focus: false }); });
+  const sharedNews = { loaded: false, busy: false, sha: null, headSha: null, message: '' };
+  async function loadSharedNews() {
+    if (sharedNews.busy || !window.churchNewsApi) return;
+    sharedNews.busy = true;
+    const result = await window.churchNewsApi.loadNews(); sharedNews.busy = false;
+    if (result.ok) { baseArticles = result.articles.filter(item => !item.demo).map(item => ({ ...item, id: item.slug, image: item.image ? '../' + item.image : '', demo: false })); demoState.news = initialState().news; Object.assign(sharedNews, { loaded: true, sha: result.sha, headSha: result.headSha }); }
+    else { sharedNews.loaded = false; sharedNews.message = window.churchNewsApi.message(result.category); }
+    if (currentView() === 'news') render({ focus: false });
+  }
+  window.addEventListener('admin-news-ready', () => { void loadSharedNews(); });
+  async function publishNewsForm() {
+    const form = document.querySelector('#admin-editor-form');
+    if (!form || sharedNews.busy || !sharedNews.loaded || !validateForm(form)) return;
+    const values = readForm(form), prior = baseArticles.find(item => item.id === values.id);
+    const article = { slug: values.slug || prior?.slug || slugify(values.title), title: values.title.trim(), date: values.date, excerpt: values.summary.trim(), paragraphs: values.content.split(/\n\s*\n/).map(part => part.trim()).filter(Boolean), category: values.category, status: values.status, ...(values.expires ? { expires: values.expires } : {}), ...(values.image ? { image: values.image.replace(/^\.\.\//, '') } : {}) };
+    if (!window.confirm(article.status === 'draft' ? 'Save this draft to shared Dev content? It will not appear on the public website.' : 'Publish this story to the shared Dev website?')) return;
+    sharedNews.busy = true; const button = form.querySelector('[data-action="publish-news"]'); button.disabled = true;
+    const error = form.querySelector('#admin-form-error'); error.hidden = false; error.textContent = 'Saving shared news…';
+    const result = await window.churchNewsApi.publishNews({ sha: sharedNews.sha, headSha: sharedNews.headSha, originalSlug: prior?.slug || null, article });
+    sharedNews.busy = false;
+    if (result.ok) { sharedNews.message = article.status === 'draft' ? 'Draft saved to shared Dev content. It is not public.' : 'Website News published successfully. The Dev website is rebuilding.'; document.querySelector('#admin-dialog').close(); await loadSharedNews(); showToast(sharedNews.message); }
+    else { sharedNews.loaded = false; error.textContent = window.churchNewsApi.message(result.category); sharedNews.message = error.textContent; }
+  }
   let toastTimer;
   const adminApiStatusLabels = {
     checking: 'Checking…',
@@ -202,7 +225,7 @@
     return `<div class="admin-page-heading"><div><p class="admin-kicker">${safe(kicker)}</p><h1>${safe(title)}</h1><p>${safe(description)}</p></div>${action}</div>`;
   }
   function workflowPanel(compact = false) {
-    return `<section class="admin-publishing-panel ${compact ? 'compact' : ''}"><div><p class="admin-kicker">SHARED WEBSITE · CURRENT PROCESS</p><h2>How publishing works today</h2><p>Calendar now loads and publishes shared Dev content through the authenticated Admin API. Other sections remain development previews; their shared content still needs repository editing.</p></div><ol class="admin-publishing-steps"><li><strong>Edit Calendar.</strong> Load shared Dev data, stage changes and choose Publish changes. Other sections remain previews.</li><li><strong>Commit the approved content.</strong> An authorised editor records it in <code>_content/calendar.json</code>, <code>_content/news.json</code> or <code>_content/contacts.json</code> on <code>Dev</code>.</li><li><strong>Build and review.</strong> GitHub Actions validates the files and regenerates calendar pages, article pages, the contact directory and search.</li><li><strong>Deploy.</strong> GitHub Pages serves the generated version after the workflow completes.</li></ol><p class="admin-publishing-note">Calendar publishing requires server-side administrator authorization. Publishing other content types and uploading media are not enabled.</p><details class="admin-technical-details"><summary>Repository editing links for authorised editors</summary><div><a href="${githubEdit}_content/calendar.json" target="_blank" rel="noopener noreferrer">Calendar source on GitHub ↗</a><a href="${githubEdit}_content/news.json" target="_blank" rel="noopener noreferrer">News source on GitHub ↗</a><a href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Parish contacts source on GitHub ↗</a></div></details></section>`;
+    return `<section class="admin-publishing-panel ${compact ? 'compact' : ''}"><div><p class="admin-kicker">SHARED WEBSITE · CURRENT PROCESS</p><h2>How publishing works today</h2><p>Calendar, Website News and PDF editions publish shared Dev content through the authenticated Admin API. Other sections remain development previews.</p></div><ol class="admin-publishing-steps"><li><strong>Edit Calendar.</strong> Load shared Dev data, stage changes and choose Publish changes. News & Magazine has separate story and PDF publishing controls. Other sections remain previews.</li><li><strong>Commit the approved content.</strong> An authorised editor records it in <code>_content/calendar.json</code>, <code>_content/news.json</code> or <code>_content/contacts.json</code> on <code>Dev</code>.</li><li><strong>Build and review.</strong> GitHub Actions validates the files and regenerates calendar pages, article pages, the contact directory and search.</li><li><strong>Deploy.</strong> GitHub Pages serves the generated version after the workflow completes.</li></ol><p class="admin-publishing-note">Calendar publishing requires server-side administrator authorization. News and Magazine publishing requires the same server-side administrator authorization. Contacts, Pages and Media publishing are not enabled.</p><details class="admin-technical-details"><summary>Repository editing links for authorised editors</summary><div><a href="${githubEdit}_content/calendar.json" target="_blank" rel="noopener noreferrer">Calendar source on GitHub ↗</a><a href="${githubEdit}_content/news.json" target="_blank" rel="noopener noreferrer">News source on GitHub ↗</a><a href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Parish contacts source on GitHub ↗</a></div></details></section>`;
   }
   function demoCounts() {
     const events = listRecords('calendar');
@@ -213,7 +236,7 @@
     const counts = demoCounts();
     const labels = {
       calendar: ['▦', 'Calendar / Events', `${baseEvents.length} current church events. Edit events and publish changes to shared Dev.`],
-      news: ['▤', 'News & Announcements', `${counts.newsCount} current articles. Practise an article preview.`],
+      news: ['▤', 'News & Announcements', `${counts.newsCount} current articles. Manage shared stories and PDF editions.`],
       pages: ['▱', 'Pages', `${basePages.length} public pages with links to their current content source.`],
       contacts: ['♧', 'Contacts', `${contactRecords().length} parish contacts across ${baseContacts.sections.length} sections.`],
       documents: ['▧', 'Documents', `${documentGroups.reduce((total, group) => total + group.items.length, 0)} migrated pages and files to view or manage.`],
@@ -301,10 +324,10 @@
     };
   }
   function newsView() {
-    const records = listRecords('news').map(articleFields).sort((a, b) => b.date.localeCompare(a.date));
+    const records = (sharedNews.loaded ? listRecords('news') : []).map(articleFields).sort((a, b) => b.date.localeCompare(a.date));
     const action = '<button class="admin-button" type="button" data-action="add" data-kind="news">＋ Add news story</button>';
     return `${pageHeading('PARISH STORIES & UPDATES', 'News & Magazine', 'Prepare website stories and PDF editions, with clear local previews.', action)}
-      ${demoBanner()}<p class="admin-section-note" id="news-publishing-unavailable">Publishing connection not yet configured for News &amp; Magazine. Previews do not update the public website.</p>${window.publicationsAdmin?.render() || ''}<h2>Website News</h2><div class="admin-section-note"><strong>Current news:</strong> published articles are shown from the public news feed; explicitly marked fictional samples are shown as SAMPLE / DEMO previews. Edits in this screen stay in this tab and do not update the public listing, generated article pages or search index.</div>
+      <p class="admin-section-note" id="news-publishing-unavailable">${safe(sharedNews.message || (sharedNews.loaded ? 'Shared Website News loaded from Dev. Publish saves an approved story or draft to the repository.' : 'Sign in and reload shared news before publishing.'))} <button type="button" class="admin-button secondary small" data-action="reload-news">Reload shared news</button></p>${window.publicationsAdmin?.render() || ''}<h2>Website News</h2><div class="admin-section-note"><strong>Current news:</strong> shared published articles and drafts are loaded from Dev. Preview is local. Publish saves to shared Dev content; the site rebuilds afterwards.</div>
       <div class="admin-list-toolbar"><label for="news-filter">Find an article</label><input id="news-filter" type="search" placeholder="Search title, category or summary"><span>${records.length} items shown</span></div>
       <div class="admin-cms-list news-list" id="news-records">${records.map(item => recordCard('news', item)).join('') || '<p class="admin-empty">No news items match this view.</p>'}</div>`;
   }
@@ -563,16 +586,17 @@
         ${commonImage}
       </div>` : `
       <div class="admin-form-grid">
+        ${field('Slug / ID', 'slug', current.slug, { full: true, placeholder: 'Generated from the title if left blank', hint: 'Existing article slugs are permanent.' })}
         ${field('Article title', 'title', current.title, { required: true, full: true, placeholder: 'Enter an article title' })}
         ${field('Summary', 'summary', current.summary, { type: 'textarea', required: true, full: true, rows: 2, placeholder: 'A short introduction for the News listing' })}
         ${field('Article content', 'content', current.content, { type: 'textarea', required: true, full: true, rows: 8, placeholder: 'Write the article. Separate paragraphs with a blank line.' })}
         ${field('Category', 'category', current.category || 'Parish news', { required: true, choices: ['Weekly announcements', 'Upcoming parish events', 'Reflection', 'Community news', 'Seasonal notice', 'Parish life & photos', 'Parish news', 'Other'].map(value => [value, value]) })}
         ${field('Date', 'date', current.date || new Date().toISOString().slice(0, 10), { type: 'date', required: true })}
-        ${field('Status', 'status', current.status || 'draft', { required: true, choices: [['published', 'Published in local preview only'], ['draft', 'Draft']] })}
+        ${field('Status', 'status', current.status || 'draft', { required: true, choices: [['published', 'Public after publishing'], ['draft', 'Draft']] })}
         ${field('Archive after (optional)', 'expires', current.expires, { type: 'date', hint: 'The story leaves the current listing after this date; its article remains accessible.' })}
         ${commonImage}
       </div>`;
-    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'DEVELOPMENT DEMO · NEWS & MAGAZINE'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Changes are preview-only and stay in this browser tab.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save in development preview'}</button>${event ? '' : '<button type="button" class="admin-button" disabled title="Publishing connection not yet configured for News &amp; Magazine">Publish</button>'}</div></div></form>`;
+    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'SHARED DEV · WEBSITE NEWS'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Preview stays local. Publish saves the story or draft to shared Dev content.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save local preview'}</button>${event ? '' : '<button type="button" class="admin-button" data-action="publish-news" '+ (sharedNews.loaded ? '' : 'disabled') +'>Publish / Save draft</button>'}</div></div></form>`;
     dialog.showModal();
     const editorForm = dialog.querySelector('#admin-editor-form');
     editorForm.addEventListener('submit', event => {
@@ -751,6 +775,7 @@
     const button = event.target.closest('[data-action]');
     if (!button) return;
     const { action, kind, id } = button.dataset;
+    if (action === 'reload-news') { void loadSharedNews(); return; }
     if (action === 'reload-calendar') { void loadSharedCalendar(); return; }
     if (action === 'publish-calendar') { void publishCalendar(); return; }
     if (action === 'add-contact') { openContactEditor('', button.dataset.section || ''); return; }
@@ -783,8 +808,10 @@
     const count = event.target.closest('.admin-list-toolbar')?.querySelector('span');
     if (count) count.textContent = `${shown} item${shown === 1 ? '' : 's'} shown`;
   });
+  document.querySelector('#admin-dialog').addEventListener('cancel', event => { if (sharedNews.busy) event.preventDefault(); });
   document.querySelector('#admin-dialog').addEventListener('click', event => {
-    if (event.target.closest('[data-action="close-dialog"]')) document.querySelector('#admin-dialog').close();
+    if (event.target.closest('[data-action="close-dialog"]')) { if (!sharedNews.busy) document.querySelector('#admin-dialog').close(); }
+    else if (event.target.closest('[data-action="publish-news"]')) void publishNewsForm();
     else if (event.target.closest('[data-action="preview-form"]')) previewFromForm();
     else if (event.target.closest('[data-action="back-to-editor"]')) {
       document.querySelector('.admin-inline-preview')?.remove();
@@ -815,7 +842,7 @@
     fetch('./documents-data.json').then(response => { if (!response.ok) throw new Error('The document list is unavailable.'); return response.json(); })
   ]).then(([calendar, news, newsSamples, contacts, pages, managedPages, documents]) => {
     baseEvents = calendar.items || [];
-    baseArticles = [
+    if (!sharedNews.loaded) baseArticles = [
       ...(news.articles || []).map((article, index) => ({ ...article, id: article.slug, image: article.image || images[(index + 1) % images.length].value, demo: article.demo === true })),
       ...(newsSamples.articles || []).map((article, index) => ({ ...article, id: article.slug, image: article.image || images[(index + 1) % images.length].value, demo: true }))
     ];

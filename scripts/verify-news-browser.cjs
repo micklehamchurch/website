@@ -47,28 +47,46 @@ const edition = (date, type = 'pews-news') => ({ id: `${type}-${date}`, type, ti
     await page.goto(base + '/admin/index.html#news');
     await page.evaluate(() => { document.querySelector('#admin-login').hidden = true; document.querySelector('#admin-app').hidden = false; });
     await page.waitForSelector('[data-publication-action="upload"]');
+    await page.evaluate(() => {
+      const sha = 'a'.repeat(40), headSha = 'b'.repeat(40), articles = [], publications = [];
+      window.simulatedNewsWrites = [];
+      window.churchNewsApi = {
+        loadNews: async () => ({ ok: true, sha, headSha, articles }), loadPublications: async () => ({ ok: true, sha, headSha, publications }), message: category => category,
+        publishPublication: async payload => { window.simulatedNewsWrites.push({ kind: 'pdf', type: payload.type }); const stamp = payload.type === 'parish-magazine' ? payload.date.slice(0,7) : payload.date; publications.push({ id: payload.type + '-' + stamp, type: payload.type, date: payload.date, title: payload.title, description: payload.description, published: true, pdf: 'assets/documents/news/' + payload.type + '/' + payload.type + '-' + stamp + '.pdf' }); return { ok: true, sha, headSha, commitSha: headSha }; },
+        publishNews: async payload => { window.simulatedNewsWrites.push({ kind: 'news', status: payload.article.status }); const index = articles.findIndex(item => item.slug === payload.article.slug); const record = { ...payload.article, dateLabel: payload.article.date }; if (index < 0) articles.push(record); else articles[index] = record; return { ok: true, sha, headSha, commitSha: headSha }; }
+      };
+      window.dispatchEvent(new Event('admin-news-ready'));
+    });
+    page.on('dialog', dialog => dialog.accept());
+    await page.waitForFunction(() => document.querySelector('#news-publishing-unavailable').textContent.includes('loaded from Dev'));
     for (const width of [390, 768, 1366, 1440, 1920]) {
       await page.setViewportSize({ width, height: 1000 });
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Admin overflow at ${width}`);
     }
     await page.locator('[data-publication-type="pews-news"]').click();
-    assert.equal(await page.getByRole('button', { name: 'Publish', exact: true }).isDisabled(), true);
+    assert.equal(await page.locator('#publication-publish').isDisabled(), false);
     for (const width of [390, 768, 1366, 1440, 1920]) { await page.setViewportSize({ width, height: 1000 }); assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Dialog overflow at ${width}`); }
     await page.locator('#publication-date').fill('2026-09-27');
     await page.locator('#publication-file').setInputFiles({ name: 'fixture.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7\nBrowser test only') });
     await page.getByRole('button', { name: 'Preview PDF', exact: true }).click(); await page.waitForSelector('#publication-local-preview a');
     assert.match(await page.locator('#publication-local-preview').innerText(), /NOT PUBLISHED/);
     assert.match(await page.locator('#publication-local-preview a').getAttribute('href'), /^blob:/);
-    await page.getByRole('button', { name: 'Close publication preview' }).click();
-    await page.locator('[data-publication-type="parish-magazine"]').click(); assert.equal(await page.locator('#publication-date').getAttribute('type'), 'month'); await page.keyboard.press('Escape');
+    await page.locator('#publication-publish').click();
+    await page.waitForFunction(() => !document.querySelector('#admin-dialog').open);
+    assert.equal(await page.evaluate(() => window.simulatedNewsWrites.length), 1);
+    await page.locator('[data-publication-type="parish-magazine"]').click(); assert.equal(await page.locator('#publication-date').getAttribute('type'), 'month'); await page.locator('#publication-date').fill('2026-10'); await page.locator('#publication-file').setInputFiles({ name: 'magazine.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7\nBrowser test only') }); await page.locator('#publication-publish').click(); await page.waitForFunction(() => !document.querySelector('#admin-dialog').open);
     await page.getByRole('button', { name: '＋ Add news story' }).click();
-    assert.equal(await page.getByRole('button', { name: 'Publish', exact: true }).isDisabled(), true);
+    assert.equal(await page.locator('[data-action="publish-news"]').isDisabled(), false);
     await page.locator('[name="title"]').fill('Local story fixture'); await page.locator('[name="summary"]').fill('Local summary'); await page.locator('[name="content"]').fill('Local body');
     await page.locator('#admin-dialog').getByRole('button', { name: 'Preview', exact: true }).click();
     assert.match(await page.locator('#admin-dialog').innerText(), /Local body/);
+    await page.locator('[data-action="back-to-editor"]').click();
+    await page.locator('[name="status"]').selectOption('published');
+    await page.locator('[data-action="publish-news"]').click();
+    await page.waitForFunction(() => !document.querySelector('#admin-dialog').open);
+    assert.equal(await page.evaluate(() => window.simulatedNewsWrites.length), 3);
+    await page.locator('[data-kind="news"][data-action="edit"]').first().click(); await page.locator('[name="status"]').selectOption('draft'); await page.locator('[data-action="publish-news"]').click(); await page.waitForFunction(() => !document.querySelector('#admin-dialog').open); assert.equal(await page.evaluate(() => window.simulatedNewsWrites.length), 4);
     assert.deepEqual(errors, []); assert.deepEqual(writes, []);
-    console.log(JSON.stringify({ emptyStates: true, latestByDate: true, archiveRetained: true, filtersAndKeyboard: true, websiteNews: true, pdfPreview: true, storyPreview: true, publishingDisabled: true, noWrites: true, widths: [390,768,1366,1440,1920], browserErrors: 0 }));
+    console.log(JSON.stringify({ emptyStates: true, latestByDate: true, archiveRetained: true, filtersAndKeyboard: true, websiteNews: true, pdfPreview: true, storyPreview: true, scopedPublishingSimulation: true, storyEditAndDraft: true, noWrites: true, widths: [390,768,1366,1440,1920], browserErrors: 0 }));
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error.message); server.close(); process.exitCode = 1; });
-
-

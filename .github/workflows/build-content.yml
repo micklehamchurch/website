@@ -23,6 +23,7 @@ on:
       - 'calendar-updates.mjs'
       - 'azure-function/src/calendar-model.js'
       - 'admin/calendar-api.mjs'
+      - 'admin/news-api.mjs'
       - 'build-news-pages.js'
       - 'build-content-pages.js'
       - 'build-contact-directory.js'

@@ -7,7 +7,7 @@ const Module = require('node:module');
 const projectRoot = path.join(__dirname, '..');
 const packageJson = require(path.join(projectRoot, 'package.json'));
 
-test('configured package entry point registers four unchanged diagnostic functions and the constrained Calendar route', async () => {
+test('configured package entry point registers four unchanged diagnostics, Calendar and two scoped News publishing routes', async () => {
   const entryPoint = path.join(projectRoot, packageJson.main);
   assert.equal(fs.existsSync(entryPoint), true, 'package main entry must exist');
 
@@ -45,11 +45,12 @@ test('configured package entry point registers four unchanged diagnostic functio
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 5);
-  for (const registration of registrations) assert.deepEqual(registration.options.methods, registration.name === 'calendar' ? ['GET', 'PUT'] : ['GET']);
+  assert.equal(registrations.length, 7);
+  for (const registration of registrations) assert.deepEqual(registration.options.methods, registration.name === 'calendar' ? ['GET', 'PUT'] : ['news', 'publications'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   const calendar = registrations.find(r => r.name === 'calendar');
   assert.equal(calendar.options.route, 'calendar');
   assert.equal((await calendar.options.handler({ method: 'PUT' })).status, 401);
+  for (const name of ['news', 'publications']) { const route = registrations.find(item => item.name === name); assert.equal(route.options.route, name); assert.equal((await route.options.handler({ method: 'POST' })).status, 401); }
   const identity = registrations.find(item => item.name === 'identity');
   assert.equal(identity.options.route, 'auth/identity');
   assert.equal((await identity.options.handler({})).status, 401);
