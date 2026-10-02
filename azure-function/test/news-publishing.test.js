@@ -77,6 +77,18 @@ test('PDF and body limits apply even without Content-Length', async () => {
   const f = fixture(); const result = await f.handler(request('POST', { ...upload(), pdfBase64: Buffer.alloc(MAX_PDF_BYTES + 1).toString('base64') })); assert.equal(result.status, 413); assert.equal(f.operations.length, 0);
   const g = fixture(); assert.equal((await g.handler(request('POST', 'x'.repeat(MAX_BODY_BYTES + 1)))).status, 413); assert.equal(g.operations.length, 0);
 });
+test('both publication types accept valid PDFs above the former limit and exactly at 15 MiB', () => {
+  assert.equal(MAX_PDF_BYTES, 15 * 1024 * 1024);
+  const prefix = Buffer.from('%PDF-1.7\n1 0 obj\n<< /Type /Catalog >>\nendobj\n');
+  for (const size of [5 * 1024 * 1024 + 1, 15 * 1024 * 1024]) {
+    const footer = offset => Buffer.from(`xref\n0 1\n0000000000 65535 f \ntrailer\n<< /Root 1 0 R >>\nstartxref\n${offset}\n%%EOF\n`);
+    let offset = size - 120;
+    for (let i = 0; i < 3; i++) offset = size - footer(offset).length;
+    const file = Buffer.concat([prefix, Buffer.alloc(offset - prefix.length, 32), footer(offset)]);
+    assert.equal(file.length, size);
+    for (const type of ['pews-news', 'parish-magazine']) assert.equal(publication({ ...upload(type), pdfBase64: file.toString('base64') }).pdf.length, size);
+  }
+});
 test('duplicate metadata date/ID and existing PDF produce conflict without writing', async () => {
   for (const options of [{ current: { publications: [publication(upload()).record] } }, { pdfExists: true }]) { const f = fixture('publications', options); assert.equal((await f.handler(request('POST', upload()))).status, 409); assert.deepEqual(f.permissions, ['read']); }
 });

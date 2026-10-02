@@ -6,7 +6,7 @@ const messages = Object.freeze({
   'news-version-conflict': 'The shared version changed. Reload News & Magazine before publishing again. Your changes were not published.',
   'publication-already-exists': 'An edition for this date or month already exists. It has not been overwritten.',
   'invalid-news-request': 'Check the title, date, content and PDF details. Only valid PDFs and plain text are accepted.',
-  'news-payload-too-large': 'The PDF must be no larger than 5 MB. Shorten oversized article content and try again.',
+  'news-payload-too-large': 'The PDF must be no larger than 15 MiB. Shorten oversized article content and try again.',
   'news-repository-unavailable': 'Shared content could not be loaded. Try reloading News & Magazine.',
   'news-publish-unavailable': 'Publication could not be confirmed. Reload the shared content before trying again.',
   'network-failure': 'The request could not be completed. Reload shared content to check whether it was published.',

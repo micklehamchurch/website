@@ -34,7 +34,7 @@ Never overwrite or remove an older PDF when adding an edition. Append a new reco
 
 Continue using `_content/news.json` and the existing generator. Real articles require `slug`, `title`, ISO `date`, `dateLabel`, `category`, `excerpt`, `paragraphs` (plain text), and `status` (`draft` or `published`). Optional fields: `featured`, `image` (existing site-relative asset), `imageAlt`, `expires` (ISO date, inclusive). After `expires`, an article leaves the current listing but its generated page remains accessible and searchable. Fictional `demo: true` records remain excluded from the public site.
 
-Admin provides the existing story editor, optional image selection, draft state, expiry date and local Preview. Local save remains a browser-tab preview; Publish / Save draft commits to shared Dev content. PDF forms validate a selected local PDF (maximum 5 MB), provide an explicitly unpublished preview, without uploading until Publish is confirmed. Object URLs are revoked when the preview closes. No administrator has to use GitHub for the preview workflow; publishing uses the same server-side administrator authorization as Calendar.
+Admin provides the existing story editor, optional image selection, draft state, expiry date and local Preview. Local save remains a browser-tab preview; Publish / Save draft commits to shared Dev content. PDF forms validate a selected local PDF (maximum 15 MiB), provide an explicitly unpublished preview, without uploading until Publish is confirmed. Object URLs are revoked when the preview closes. No administrator has to use GitHub for the preview workflow; publishing uses the same server-side administrator authorization as Calendar.
 
 ## Verification
 

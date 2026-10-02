@@ -1,4 +1,4 @@
-const MAX_PDF_BYTES = 5 * 1024 * 1024;
+const MAX_PDF_BYTES = 15 * 1024 * 1024;
 const MAX_METADATA_BYTES = 512 * 1024;
 const shaValid = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 const plain = value => value && typeof value === 'object' && !Array.isArray(value);
@@ -20,7 +20,10 @@ function publication(body) {
   date(body.date); text(body.title, 180); text(body.description, 500, true);
   if (body.type === 'parish-magazine' && !body.date.endsWith('-01')) throw new Error('invalid-magazine-month');
   if (body.mimeType !== 'application/pdf' || typeof body.fileName !== 'string' || body.fileName.length > 180 || !/^[a-zA-Z0-9][a-zA-Z0-9 _().-]*\.pdf$/i.test(body.fileName) || body.fileName.includes('..')) throw new Error('invalid-pdf-name');
-  if (typeof body.pdfBase64 !== 'string' || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(body.pdfBase64)) throw new Error('invalid-pdf');
+  // Linear scan avoids regex stack overflow on large valid uploads. The
+  // round-trip below still enforces exact canonical alphabet/padding/pad bits.
+  if (typeof body.pdfBase64 !== 'string' || body.pdfBase64.length % 4 !== 0 || /[^A-Za-z0-9+/=]/.test(body.pdfBase64)) throw new Error('invalid-pdf');
+  if (body.pdfBase64.length > Math.ceil(MAX_PDF_BYTES / 3) * 4) throw new RangeError('pdf-too-large');
   const pdf = Buffer.from(body.pdfBase64, 'base64');
   if (pdf.toString('base64') !== body.pdfBase64) throw new Error('invalid-pdf');
   if (pdf.length > MAX_PDF_BYTES) throw new RangeError('pdf-too-large');
