@@ -69,7 +69,8 @@ function readGithubConfiguration(env = process.env) {
   });
 }
 
-async function createInstallationClient(configuration, createAppAuthImplementation = createAppAuth) {
+async function createInstallationClient(configuration, createAppAuthImplementation = createAppAuth, contentsPermission = 'read') {
+  if (!['read', 'write'].includes(contentsPermission)) throw categorizedError('github-config-invalid');
   let appAuth;
   try {
     appAuth = createAppAuthImplementation({
@@ -92,7 +93,7 @@ async function createInstallationClient(configuration, createAppAuthImplementati
       type: 'installation',
       installationId: configuration.installationId,
       repositoryNames: [configuration.repository],
-      permissions: { contents: 'read' }
+      permissions: { contents: contentsPermission }
     });
   } catch {
     throw categorizedError('github-installation-token-failed');

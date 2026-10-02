@@ -7,7 +7,7 @@ const Module = require('node:module');
 const projectRoot = path.join(__dirname, '..');
 const packageJson = require(path.join(projectRoot, 'package.json'));
 
-test('configured package entry point registers only four read-only HTTP functions', async () => {
+test('configured package entry point registers four unchanged diagnostic functions and the constrained Calendar route', async () => {
   const entryPoint = path.join(projectRoot, packageJson.main);
   assert.equal(fs.existsSync(entryPoint), true, 'package main entry must exist');
 
@@ -45,8 +45,11 @@ test('configured package entry point registers only four read-only HTTP function
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 4);
-  for (const registration of registrations) assert.deepEqual(registration.options.methods, ['GET']);
+  assert.equal(registrations.length, 5);
+  for (const registration of registrations) assert.deepEqual(registration.options.methods, registration.name === 'calendar' ? ['GET', 'PUT'] : ['GET']);
+  const calendar = registrations.find(r => r.name === 'calendar');
+  assert.equal(calendar.options.route, 'calendar');
+  assert.equal((await calendar.options.handler({ method: 'PUT' })).status, 401);
   const identity = registrations.find(item => item.name === 'identity');
   assert.equal(identity.options.route, 'auth/identity');
   assert.equal((await identity.options.handler({})).status, 401);

@@ -278,3 +278,5 @@
 .admin-record-card p{line-height:1.55}
 .admin-demo-caption{font-size:.85rem;color:#5b6d60;font-weight:700}
 @media(max-width:760px){.admin-dashboard-grid,.admin-record-list{grid-template-columns:1fr}.admin-repository-notice,.admin-workflow,.admin-section-note{padding:15px}.admin-source-actions{display:grid;grid-template-columns:1fr}}
+
+.admin-calendar-records { border: 0; padding: 0; margin: 0; min-width: 0; }

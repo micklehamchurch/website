@@ -11,6 +11,8 @@ on:
       - '_templates/**'
       - 'content-pages.json'
       - 'import-calendar.js'
+      - 'azure-function/src/calendar-model.js'
+      - 'admin/calendar-api.mjs'
       - 'build-news-pages.js'
       - 'build-content-pages.js'
       - 'build-contact-directory.js'
@@ -37,6 +39,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
   group: dev-content-build
@@ -71,3 +74,14 @@ jobs:
             git commit -m "Build Dev website content [skip pages]"
             git push origin HEAD:Dev
           fi
+      - name: Request Pages build of the generated Dev content
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source_branch=$(gh api repos/micklehamchurch/website/pages --jq '.source.branch')
+          if [ "$source_branch" != "Dev" ]; then
+            echo "::error::Pages is not sourced from Dev; refusing to request a build."
+            exit 1
+          fi
+          gh api --method POST repos/micklehamchurch/website/pages/builds --silent
+          echo "Requested the existing Pages build from Dev after content generation."

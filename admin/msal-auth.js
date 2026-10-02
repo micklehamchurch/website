@@ -10,6 +10,7 @@ import { checkAdministratorIdentity } from './api-identity.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
+import { attachCalendarApi } from './calendar-api.mjs';
 
 const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
 const redirectUri = new URL('.', window.location.href).href;
@@ -208,6 +209,7 @@ async function graphProfile(account, response = null) {
   }
   showDashboard(profile, email);
   activeAdminApiAccount = account;
+  window.dispatchEvent(new CustomEvent('admin-calendar-ready'));
   void checkAdminApiConnection(account);
 }
 
@@ -284,6 +286,7 @@ async function start() {
   try {
     await publicClient.initialize();
     msal = publicClient;
+    attachCalendarApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();
     if (response?.account) {
       await graphProfile(response.account, response);
