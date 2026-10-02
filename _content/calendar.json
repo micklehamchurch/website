@@ -26,6 +26,30 @@
         "ordinal": 1,
         "weekday": 2
       }
+    },
+    {
+      "title": "Compline in Church",
+      "start": "2026-10-20T19:00",
+      "end": "2026-10-20T19:30",
+      "timeZone": "Europe/London",
+      "allDay": false,
+      "location": "St Michael & All Angels Church",
+      "description": "Compline in Church",
+      "category": "Worship & Services",
+      "image": "",
+      "externalLink": "",
+      "status": "published",
+      "id": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "end": {
+          "type": "date",
+          "until": "2027-12-31"
+        },
+        "ordinal": 3,
+        "weekday": 2
+      }
     }
   ]
 }
