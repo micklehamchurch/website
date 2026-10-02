@@ -791,6 +791,11 @@
     dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-preview-close"><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close preview">×</button></div>${previewMarkup(kind, item)}<div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Close preview</button></div></div>`;
     if (!dialog.open) dialog.showModal();
   }
+  function recurringPreviewMarkup(values) {
+    const details = window.churchRecurrence?.previewDetails(values);
+    if (!details) return '';
+    return '<section class="admin-preview-card" aria-label="Recurring event"><p class="admin-kicker">RECURRING EVENT</p><h3>Repeats</h3><p>'+safe(details.pattern)+'</p><p>'+safe(details.time)+' · Europe/London</p><p>'+safe(details.ending)+'</p><h3>Next occurrences</h3>'+(details.dates.length?'<ol>'+details.dates.map(date=>'<li>'+safe(date)+'</li>').join('')+'</ol>':'<p>No scheduled dates remain.</p>')+'</section>';
+  }
   function previewFromForm() {
     const form = document.querySelector('#admin-editor-form');
     if (!validateForm(form)) return;
@@ -800,7 +805,7 @@
       : { ...data, id: data.id || 'preview', slug: slugify(data.title), excerpt: data.summary, paragraphs: data.content.split(/\n\s*\n/).filter(Boolean), dateLabel: dateLabelForArticle(data.date), demo: true };
     const preview = document.createElement('section');
     preview.className = 'admin-inline-preview';
-    preview.innerHTML = `${previewMarkup(data.kind, data.kind === 'calendar' ? eventFields(item) : articleFields(item))}<div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="back-to-editor">Back to editing</button></div>`;
+    preview.innerHTML = `${previewMarkup(data.kind, data.kind === 'calendar' ? eventFields(item) : articleFields(item))}${data.kind === 'calendar' ? recurringPreviewMarkup(data) : ''}<div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="back-to-editor">Back to editing</button></div>`;
     form.hidden = true;
     document.querySelector('#admin-dialog').append(preview);
   }

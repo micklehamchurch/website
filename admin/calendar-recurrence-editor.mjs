@@ -23,6 +23,37 @@ function eventValues(values) {
  const allDay=values.allDay==='true';
  return {start:`${values.date}T${allDay?'00:00':values.startTime}`,end:`${values.endDate||values.date}T${allDay?'00:00':values.endTime}`,timeZone:'Europe/London',...(allDay?{allDay:true}:{})};
 }
+
+function previewDetails(values) {
+ const rule = read(values);
+ if (!rule) return null;
+ const series = {id:'preview-series', ...eventValues(values), recurrence:rule};
+ recurrence.validateCollections([series], [], () => {});
+ const dateLabel = value => new Intl.DateTimeFormat('en-GB', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(value.slice(0,10)+'T00:00:00Z'));
+ let pattern;
+ if (rule.frequency === 'daily') pattern = rule.interval === 1 ? 'Every day' : 'Every '+rule.interval+' days';
+ else if (rule.frequency === 'weekly') pattern = rule.interval === 1 ? 'Every '+rule.weekdays.map(d=>days[d]).join(', ') : 'Every '+rule.interval+' weeks on '+rule.weekdays.map(d=>days[d]).join(', ');
+ else {
+  const months = rule.interval === 1 ? 'every month' : 'every '+rule.interval+' months';
+  pattern = rule.dayOfMonth ? (rule.interval === 1 ? 'Every month' : 'Every '+rule.interval+' months')+' on day '+rule.dayOfMonth : ({1:'First',2:'Second',3:'Third',4:'Fourth','-1':'Last'}[rule.ordinal])+' '+days[rule.weekday]+' of '+months;
+ }
+ // Use the existing expansion engine in bounded, disjoint windows. This also
+ // finds five dates for sparse rules without inventing another recurrence algorithm.
+ let from = series.start.slice(0,10);
+ const occurrences = [];
+ while (from <= '2100-12-31' && occurrences.length < 5) {
+  const to = Math.min(2100,Number(from.slice(0,4))+3)+'-12-31';
+  occurrences.push(...recurrence.expandSeries(series,[],{range:{from,to},includeDrafts:true}).slice(0,5-occurrences.length));
+  if (rule.end.type === 'date' && rule.end.until <= to) break;
+  if (rule.end.type === 'count' && occurrences.length >= rule.end.count) break;
+  if (to === '2100-12-31') break;
+  from = (Number(to.slice(0,4))+1)+'-01-01';
+ }
+ return {pattern, time:series.allDay?'All day':series.start.slice(11,16)+'–'+series.end.slice(11,16),
+  ending:rule.end.type==='date'?'Until '+dateLabel(rule.end.until):rule.end.type==='count'?'After '+rule.end.count+' occurrences':'No end date',
+  dates:occurrences.map(e=>dateLabel(e.start))};
+}
+
 function wire(form) {
  const update=()=>{
   const values=Object.fromEntries(new FormData(form)),repeat=values.repeat!=='none',custom=values.repeat==='custom';
@@ -37,5 +68,5 @@ function wire(form) {
  if(!form.querySelector('[name="until"]')?.value){const input=form.querySelector('[name="until"]'),date=form.querySelector('[name="date"]')?.value||new Date().toISOString().slice(0,10);if(input)input.value=Number(date.slice(0,4))+1+date.slice(4);}
  form.addEventListener('change',update);form.addEventListener('input',update);update();
 }
-export { controls,read,eventValues,wire };
-export default {...recurrence,controls,read,eventValues,wire};
+export { controls,read,eventValues,previewDetails,wire };
+export default {...recurrence,controls,read,eventValues,previewDetails,wire};
