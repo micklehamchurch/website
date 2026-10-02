@@ -68,7 +68,18 @@
     const api = window.churchCalendarApi;
     const result = api ? await api.publish({ sha: sharedCalendar.sha, sourceSha: sharedCalendar.sourceSha, calendar: snapshot }) : { ok: false, category: 'authentication-required' };
     sharedCalendar.busy = false;
-    if (result.ok) { sharedCalendar.sha = result.sha; sharedCalendar.dirty = false; sharedCalendar.message = api.message(result.unchanged ? 'unchanged' : 'success'); }
+    if (result.ok) {
+      sharedCalendar.sha = result.sha; sharedCalendar.dirty = false; sharedCalendar.message = api.message(result.unchanged ? 'unchanged' : 'success');
+      if (!result.unchanged) window.monitorPublishedCalendar?.(result.sha, () => {
+        if (sharedCalendar.sha !== result.sha || sharedCalendar.dirty) return;
+        sharedCalendar.message = 'Calendar is live. The published version is available on the Dev website and open public Calendars will update automatically.';
+        render({ focus: false }); showToast(sharedCalendar.message);
+      }, () => {
+        if (sharedCalendar.sha !== result.sha || sharedCalendar.dirty) return;
+        sharedCalendar.message = 'Calendar was published to GitHub. The public version has not yet been confirmed; the website may still be rebuilding. Open public Calendars will keep checking automatically.';
+        render({ focus: false });
+      });
+    }
     else {
       sharedCalendar.error = result.category;
       // Uncertain network/GitHub results also require a reload rather than a

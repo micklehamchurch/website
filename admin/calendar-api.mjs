@@ -1,5 +1,6 @@
 import { ADMIN_API_HEALTH_URL } from './auth-config.mjs';
 import { acquireAdminApiToken } from './auth-tokens.mjs';
+import { watchCalendar } from '../calendar-updates.mjs';
 
 export const CALENDAR_URL = new URL('calendar', ADMIN_API_HEALTH_URL).href;
 export const calendarMessages = Object.freeze({
@@ -14,7 +15,7 @@ export const calendarMessages = Object.freeze({
   'calendar-publish-result-unavailable': 'The publish result could not be confirmed. Reload Calendar to check the shared version.',
   'network-failure': 'The request could not be completed. Reload Calendar to check the shared version before trying again.',
   busy: 'A Calendar request is already in progress.',
-  success: 'Calendar published successfully to the Dev website. The website is rebuilding and may take a minute or two to update.',
+  success: 'Calendar published successfully. The Dev website is rebuilding. The public Calendar will update automatically when the new version is available.',
   unchanged: 'The shared Calendar is already up to date.'
 });
 export function calendarMessage(category) { return calendarMessages[category] || 'The Calendar request failed. Reload and try again.'; }
@@ -62,4 +63,10 @@ export function attachCalendarApi(msal, getAccount, fetchImpl = fetch) {
     if (!account) throw new Error('account-required');
     return acquireAdminApiToken(msal, account);
   } });
+  let monitor;
+  window.monitorPublishedCalendar = (sha, onLive, onTimeout) => {
+    monitor?.stop();
+    monitor = watchCalendar({ baseUrl: new URL('../', window.location.href), targetEditorialSha: sha,
+      maxWaitMs: 5 * 60 * 1000, onLive, onTimeout });
+  };
 }

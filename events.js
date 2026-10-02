@@ -164,10 +164,10 @@ function showEvent(event, dialog, timeZone) {
 
 async function initializeEvents() {
   try {
-    const response = await fetch('events.json');
+    const response = await fetch(`events.json?check=${Date.now()}`, { cache: 'no-store', credentials: 'omit' });
     if (!response.ok) throw new Error(`Unable to load calendar (${response.status})`);
-    const calendar = await response.json();
-    const items = [...calendar.items].sort((a, b) => a.start.localeCompare(b.start));
+    let calendar = await response.json();
+    let items = [...calendar.items].sort((a, b) => a.start.localeCompare(b.start));
     renderUpcomingPreview(items, document.querySelector('[data-event-preview]'), calendar.timeZone);
 
     const grid = document.querySelector('#calendar-grid');
@@ -177,10 +177,11 @@ async function initializeEvents() {
     const dialog = document.querySelector('#event-detail-dialog');
     const closeButton = document.querySelector('#event-detail-close');
     const months = items.map(event => event.start.slice(0, 7)).sort();
-    const bounds = { first: months[0], last: months.at(-1) };
     const nowMonth = localDateTime(calendar.timeZone).slice(0, 7);
+    let bounds = { first: months[0] || nowMonth, last: months.at(-1) || nowMonth };
     const initialMonth = nowMonth < bounds.first ? bounds.first : nowMonth > bounds.last ? bounds.last : nowMonth;
     let [year, month] = initialMonth.split('-').map(Number);
+    let openEventId = null;
     month -= 1;
     const update = () => renderMonth(year, month, items, grid, agenda, status, bounds, calendar.timeZone);
     update();
@@ -191,14 +192,14 @@ async function initializeEvents() {
       const button = event.target.closest('[data-event-id]');
       if (button) {
         const selected = items.find(item => item.id === button.dataset.eventId);
-        if (selected) showEvent(selected, dialog, calendar.timeZone);
+        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone); }
       }
     });
     agenda.addEventListener('click', event => {
       const button = event.target.closest('[data-event-id]');
       if (button) {
         const selected = items.find(item => item.id === button.dataset.eventId);
-        if (selected) showEvent(selected, dialog, calendar.timeZone);
+        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone); }
       }
     });
     document.querySelector('[data-event-preview]')?.addEventListener('click', event => {
@@ -216,8 +217,30 @@ async function initializeEvents() {
         month = Number(selected.start.slice(5, 7)) - 1;
         update();
         showEvent(selected, dialog, calendar.timeZone);
+        openEventId = selected.id;
       }
     }
+    // Replace the event collection, never append it. Month and view controls
+    // remain in place; unchanged versions do not rebuild any Calendar DOM.
+    try {
+      const { watchCalendar, calendarVersion } = await import('./calendar-updates.mjs');
+      watchCalendar({ initialVersion: await calendarVersion(calendar), onData: latest => {
+        calendar = latest;
+        items = [...latest.items].sort((a, b) => a.start.localeCompare(b.start));
+        const newMonths = items.map(event => event.start.slice(0, 7)).sort();
+        const displayedMonth = `${year}-${String(month + 1).padStart(2, '0')}`;
+        bounds = { first: newMonths[0] || displayedMonth, last: newMonths.at(-1) || displayedMonth };
+        const focusedId = document.activeElement?.dataset?.eventId;
+        update();
+        renderUpcomingPreview(items, document.querySelector('[data-event-preview]'), calendar.timeZone);
+        if (dialog.open && openEventId) {
+          const selected = items.find(item => item.id === openEventId);
+          if (selected) showEvent(selected, dialog, calendar.timeZone);
+          else dialog.close();
+        }
+        if (focusedId) [...grid.querySelectorAll('[data-event-id]'), ...agenda.querySelectorAll('[data-event-id]')].find(node => node.dataset.eventId === focusedId)?.focus({ preventScroll: true });
+      } });
+    } catch { /* Refresh support failing must not replace the rendered Calendar. */ }
   } catch (error) {
     console.error(error);
     document.querySelectorAll('[data-event-preview], #calendar-grid, #calendar-agenda').forEach(node => {

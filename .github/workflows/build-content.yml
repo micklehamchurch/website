@@ -11,6 +11,8 @@ on:
       - '_templates/**'
       - 'content-pages.json'
       - 'import-calendar.js'
+      - 'events.js'
+      - 'calendar-updates.mjs'
       - 'azure-function/src/calendar-model.js'
       - 'admin/calendar-api.mjs'
       - 'build-news-pages.js'
@@ -66,7 +68,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A events.json news-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json news
+          git add -A events.json calendar-version.json news-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json news
           node -e "const d=require('./content-pages.json'); for (const p of d.pages) console.log(p.slug + '.html')" | while IFS= read -r page; do git add -A "$page"; done
           if git diff --cached --quiet; then
             echo "Generated website files are already current."
