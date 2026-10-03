@@ -797,3 +797,15 @@ h3 { font-family: var(--serif); }
 .directory-person.has-portrait { display: flex; align-items: center; gap: 14px; margin: 8px 0; }
 .directory-portrait { display: block; flex: none; width: 88px; height: 132px; object-fit: contain; border: 1px solid var(--stone); border-radius: 6px; background: var(--cream); }
 .directory-person-details { min-width: 0; }
+
+/* Homepage care-for-creation feature, using the unaltered official award badge. */
+.home-eco { padding-top: 0; }
+.home-eco-panel { display: grid; grid-template-columns: minmax(0,1fr) 216px; align-items: center; gap: clamp(24px,5vw,64px); padding: 32px 40px; border: 1px solid var(--stone); border-left: 3px solid var(--gold); border-radius: 8px; background: var(--cream); }
+.home-eco-copy h2 { font-size: clamp(26px,3vw,36px); }
+.home-eco-copy > p:not(.eyebrow) { max-width: 620px; color: var(--muted); }
+.home-eco-badge { display: block; width: 216px; height: auto; aspect-ratio: 1; object-fit: contain; }
+.home-eco .text-link:focus-visible { outline: 2px solid var(--green); outline-offset: 5px; border-radius: 2px; }
+@media (max-width: 760px) {
+  .home-eco-panel { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  .home-eco-badge { width: 176px; justify-self: center; }
+}
