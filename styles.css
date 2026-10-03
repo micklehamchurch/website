@@ -771,3 +771,24 @@ h3 { font-family: var(--serif); }
 @media (prefers-reduced-motion: reduce) { .nav-youtube { transition: none; } }
 /* Transparent hit area prevents outside dismissal from activating embedded/page content. */
 .navigation-dismiss-backdrop:not([hidden]) { position: fixed; inset: 0; z-index: 19; background: transparent; }
+
+/* Mobile accordion and shared utility area; desktop children retain their layout. */
+.nav-chevron { display: none; }
+.nav-actions { display: contents; }
+@media (max-width: 1200px) {
+  .nav { gap: 0; padding: 8px 16px 16px; max-height: calc(100vh - 70px); max-height: calc(100dvh - 70px); overscroll-behavior: contain; }
+  .nav > * { flex-shrink: 0; }
+  .nav-trigger, .nav > .nav-link { display: flex; align-items: center; min-height: 44px; padding: 10px 8px; line-height: 24px; }
+  .nav-chevron { display: block; flex: none; margin-left: 12px; color: var(--green); transition: transform 180ms ease; }
+  .nav-trigger[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+  .dropdown { max-height: none; overflow: visible; margin: 0 0 6px 16px; padding: 0 0 0 8px; background: transparent; border-left: 1px solid var(--gold); }
+  .dropdown a { display: flex; align-items: center; min-height: 44px; padding: 8px 10px; font-size: 14px; font-weight: 400; line-height: 1.45; }
+  #menu-worship > a[href="calendar.html"] { display: none; }
+  .nav-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--stone); }
+  .nav-actions > a { flex: none; margin: 0; min-height: 44px; font-size: 14px; }
+  .nav-actions .nav-youtube { gap: 6px; padding: 8px; }
+  .nav-actions .nav-calendar { padding: 8px 10px; }
+  .nav-actions .nav-give { padding: 8px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .nav-chevron { transition: none; } }
+
