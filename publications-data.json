@@ -1,6 +1,15 @@
 {
   "publications": [
     {
+      "id": "pews-news-2026-10-04",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-10-04",
+      "description": "Eighteenth Sunday after Trinity",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-10-04.pdf",
+      "published": true
+    },
+    {
       "id": "parish-magazine-2026-10",
       "type": "parish-magazine",
       "title": "Parish Magazine",
