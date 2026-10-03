@@ -733,15 +733,16 @@ h3 { font-family: var(--serif); }
 .dropdown a:hover,.dropdown a:focus-visible { background: var(--cream); color: var(--deep); text-decoration: underline; text-underline-offset: 4px; }
 .nav-trigger.is-current-section,.nav-link[aria-current="page"],.dropdown a[aria-current="page"] { color: var(--deep); box-shadow: inset 0 -2px var(--green); }
 .footer .footer-credit { margin-top: 12px; margin-bottom: 0; color: #bdcbc2; font-size: 11px; text-align: right; }
-.footer-diocese { grid-template-columns: minmax(0,1fr) 300px; }
-.footer a.footer-diocese-logo { min-height: 0; padding: 12px; background: white; border: 1px solid transparent; }
-.diocese-logo-crop { position: relative; display: block; width: 100%; aspect-ratio: 2.1; overflow: hidden; }
-.footer-diocese-logo .diocese-logo-crop img { position: absolute; width: 152%; max-width: none; max-height: none; height: auto; left: -26%; top: -54%; object-fit: initial; }
+.footer-diocese { grid-template-columns: minmax(0,1fr) 250px; gap: 18px; padding: 9px 20px; }
+.footer a.footer-diocese-logo { min-height: 0; padding: 9px; background: white; border: 1px solid transparent; }
+/* Source artwork bounds: (395,401)–(1896,1127) in 2291×1521; retain breathing room on every side. */
+.diocese-logo-crop { position: relative; display: block; width: 100%; aspect-ratio: 1.95; overflow: hidden; }
+.footer-diocese-logo .diocese-logo-crop img { position: absolute; width: 144%; max-width: none; max-height: none; height: auto; left: -22%; top: -44%; object-fit: initial; }
 .footer a.footer-diocese-logo:hover { border-color: #e6cf88; box-shadow: 0 0 0 2px #e6cf8850; }
 @media (max-width: 680px) {
   .calendar-month-actions { gap: 6px; }
-  .footer-diocese { grid-template-columns: 1fr; }
-  .footer a.footer-diocese-logo { width: min(100%,300px); min-height: 0; }
+  .footer-diocese { grid-template-columns: 1fr; gap: 13px; padding: 15px 17px; }
+  .footer a.footer-diocese-logo { width: min(100%,250px); min-height: 0; }
   .footer .footer-credit { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
