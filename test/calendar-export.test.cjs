@@ -3,6 +3,7 @@ const ICAL = require('ical.js'), exporter = require('../calendar-export');
 const items = require('../events.json').items;
 const parse = text => new ICAL.Component(ICAL.parse(text));
 const now = new Date('2026-10-02T12:00:00Z');
+const { applied } = require('./fixtures/calendar-stage1-expected.cjs');
 test('subscription parses independently and contains exactly the effective public event set', async () => {
   const text = await exporter.calendar(items,{now});
   const component = parse(text), events = component.getAllSubcomponents('vevent');
@@ -15,8 +16,13 @@ test('subscription parses independently and contains exactly the effective publi
     if(original.allDay) { assert(e.getFirstPropertyValue('dtstart').isDate); assert.equal(e.getFirstPropertyValue('dtend').toString(),original.end.slice(0,10)); }
     else assert.equal(e.getFirstPropertyValue('dtstart').toString(),exporter.instant(original.start,original.timeZone).replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/,'$1-$2-$3T$4:$5:$6Z'));
   }
-  assert(!text.includes('NO BCP') && !text.includes('7.30pm'));
-  assert(!items.some(e=>e.title.includes('BCP')&&(e.start.startsWith('2026-11-08')||e.start.startsWith('2027-02'))));
+  if (applied) {
+    assert.equal(items.filter(e=>e.id==='google-d4e5493965896c8487880c703ab50037' && e.title==='NO BCP service at Westhumble Chapel' && e.start==='2026-11-08T08:00' && e.end==='2026-11-08T09:00').length,1);
+    assert.equal(items.filter(e=>e.id==='google-077f148d76d2421ec53b4324e19f0af5' && e.title==='7.30pm' && e.start==='2027-03-18T19:30' && e.end==='2027-03-18T20:30').length,1);
+    assert.equal(events.filter(e=>e.getFirstPropertyValue('summary')==='NO BCP service at Westhumble Chapel').length,1);
+    assert.equal(events.filter(e=>e.getFirstPropertyValue('summary')==='7.30pm').length,1);
+  } else assert(!text.includes('NO BCP') && !text.includes('7.30pm'));
+  assert(!items.some(e=>e.title==='BCP Holy Communion at Westhumble Chapel'&&(e.start.startsWith('2026-11-08')||e.start.startsWith('2027-02'))));
   assert(items.some(e=>e.start==='2026-11-22T10:00'&&e.title==='Holy Communion with Baptism'));
   assert(items.some(e=>e.start==='2026-11-24T19:00'));
 });
