@@ -3,7 +3,10 @@ const {createGoogleSyncService,PATHS}=require('../src/google-sync-service');
 const {parseGoogleCalendar}=require('../src/google-calendar-adapter');
 const {emptyState}=require('../src/google-sync-store');
 const raw=fs.readFileSync(path.join(__dirname,'../../_sync/fixtures/google-stage1.ics'),'utf8');
-const calendar=require('../../_content/calendar.json'),registry=require('../../_sync/google-calendar.json');
+// Stable approved fixtures, independent of future legitimate live Google edits.
+const {reconcile}=require('../src/google-calendar-sync-model');
+const baseline=reconcile(require('../../_sync/fixtures/website-before-stage1.json'),require('../../_sync/fixtures/registry-before-stage1.json'),parseGoogleCalendar(raw));
+const calendar=baseline.calendar,registry=baseline.registry;
 const principal={auth_typ:'aad',claims:Object.entries({tid:'9188040d-6c67-4c5b-b112-36a304b66dad',oid:'00000000-0000-0000-f978-44e4d44cc925',sub:'AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB93l8aduYc',iss:'https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'}).map(([typ,val])=>({typ,val}))};
 function request(method='GET',body,identity=principal){return{method,query:new URLSearchParams(),headers:new Headers({'content-type':'application/json',...(identity?{'x-ms-client-principal':Buffer.from(JSON.stringify(identity)).toString('base64')}:{})}),body:new Blob([JSON.stringify(body||{})]).stream()};}
 function fixture(options={}) {
@@ -18,7 +21,7 @@ function fixture(options={}) {
     createCommit:async p=>{target(p);assert.deepEqual(p.parents,[state.head]);return{data:{sha:(++index).toString(16).padStart(40,'0')}};},
     updateRef:async p=>{target(p);assert.equal(p.ref,'heads/Dev');assert.equal(p.force,false);if(options.race)throw Object.assign(Error('fixture'),{status:422});for(const e of state.pending)state[e.path===PATHS.calendar?'calendar':'registry']=blobs.get(e.sha);state.head=p.sha;state.writes.push(p);}
   }}};
-  const store={read:async()=>structuredClone(state.runtime),locked:async action=>{if(options.busy)return{busy:true};return action({state:structuredClone(state.runtime),guard:async()=>{if(options.lostLease)throw Error('fixture lock lost');},save:async value=>{state.runtime=structuredClone(value);state.saved++;}});}};
+  const store={read:async()=>structuredClone(state.runtime),locked:async action=>{if(options.busy)return{busy:true};return action({state:structuredClone(state.runtime),guard:async()=>{if(options.lostLease)throw Error('fixture lock lost');},save:async value=>{if(options.failSaveAfterPublication&&state.writes.length)throw Error('private fixture storage detail');state.runtime=structuredClone(value);state.saved++;}});}};
   const dependencies={store,readConfiguration:()=>({}),createClient:async(c,p)=>{if(options.earlyRace&&p==='write')state.head='f'.repeat(40);return client;},fetchFeed:async()=>{if(state.failure)throw state.failure;return structuredClone(state.feed);},now:()=>state.at};
   return {state,dependencies,service:createGoogleSyncService(dependencies)};
 }

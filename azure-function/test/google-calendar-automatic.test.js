@@ -51,6 +51,9 @@ test('reordered and timestamp-only Google source changes create no automatic com
 test('concurrent Dev editor at either ref check aborts publication; busy or lost storage lease prevents publication',async()=>{
  for(const option of [{race:true},{earlyRace:true},{lostLease:true},{busy:true}]){const f=fixture(option);add(f.state);const before=structuredClone(f.state.calendar);await f.service.automatic();assert.equal(f.state.writes.length,0);assert.deepEqual(f.state.calendar,before);if(option.race||option.earlyRace)assert.equal(f.state.runtime.lastAutomatic.result,'concurrent-change');}
 });
+test('status storage failure after a successful publication does not falsely persist a failed or unchanged Calendar result',async()=>{
+ const f=fixture({failSaveAfterPublication:true});add(f.state);await assert.rejects(f.service.automatic());assert.equal(f.state.writes.length,1);assert.equal(items(f).length,119);assert.equal(f.state.saved,0);assert.equal(f.state.runtime.lastAutomatic,null);assert.equal(f.state.registry.audit.mode,'automatic');
+});
 test('all five approved special mappings and bounded Compline identities survive automatic no-op',async()=>{
  const f=fixture(),before=items(f);await f.service.automatic();assert.deepEqual(items(f),before);const at=(date,title)=>items(f).find(e=>e.start.startsWith(date)&&e.title===title);assert.equal(at('2026-10-11','BCP Holy Communion at Westhumble Chapel').start,'2026-10-11T08:00');assert(at('2026-11-08','NO BCP service at Westhumble Chapel'));assert(!at('2026-11-08','BCP Holy Communion at Westhumble Chapel'));assert.equal(at('2026-11-24','Compline in Church').end,'2026-11-24T20:00');assert(!at('2026-11-17','Compline in Church'));assert.equal(at('2027-03-10','Parish Council meet in Ranmore Room').start,'2027-03-10T19:30');assert.equal(at('2027-03-18','7.30pm').end,'2027-03-18T20:30');assert(items(f).filter(e=>e.title==='Compline in Church').every(e=>e.start.slice(0,10)<='2027-12-31'));
 });

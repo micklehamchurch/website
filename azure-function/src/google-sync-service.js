@@ -93,14 +93,14 @@ function createGoogleSyncService({ env = process.env, readConfiguration = readGi
         else state.observations = {};
         if (result?.calendarChanged) state.lastCalendarUpdate=at;
         else state.lastCalendarUpdate ||= current.registry.lastSuccessfulSync || null;
-        await save(state);
-        return publicStatus(state);
       } catch (e) {
         state.observations = {};
         state.lastAutomatic = {at,result:e.code==='sync-version-conflict'?'concurrent-change':'failed',added:0,updated:0,removed:0,unchanged:0,conflicts:[],needsReview:[],warnings:[],failure:({'sync-repository-unavailable':'The website repository could not be checked.','sync-version-conflict':'An editor changed Calendar during the check. Nothing was overwritten.','sync-publish-unconfirmed':'Publication could not be confirmed. Check the current Calendar before retrying.'})[e.code] || 'Google Calendar could not be safely checked. Published Calendar data was retained.',headBefore:current?.headSha||null,headAfter:null,calendarChanged:false};
-        await save(state);
-        return publicStatus(state);
       }
+      // A storage outage after a successful publication must not relabel it as
+      // a failed Google check or claim that the Calendar was never updated.
+      await save(state);
+      return publicStatus(state);
     });
   }
   return {snapshot,prepare,review,publish,automatic,store,now};
