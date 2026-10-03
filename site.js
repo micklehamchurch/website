@@ -1,3 +1,12 @@
+const officialYouTubeChannel = 'https://www.youtube.com/@stmichaelandallangelschurc3012';
+// Add future confirmed accounts here, with their own accessible name and inline icon.
+const socialLinks = [{
+  name: 'YouTube',
+  url: officialYouTubeChannel,
+  label: 'St Michael & All Angels Church on YouTube (opens in a new tab)',
+  icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>'
+}];
+
 const navigation = `
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="St Michael and All Angels home">
@@ -12,18 +21,12 @@ const navigation = `
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit and learn</button><div class="dropdown" id="menu-visit"><a href="visit.html">Visit the Church</a><a href="what-to-expect.html">What to Expect</a><a href="finding-us.html">Find Us</a><a href="our-history.html">Church History</a><a href="church-building.html">The Church Building</a><a href="churchyard.html">Churchyard</a><a href="churchyard-regulations.html">Churchyard Regulations</a><a href="war-memorial.html">War Memorial</a><a href="westhumble-chapel.html">Westhumble Chapel</a></div></div>
       <a class="nav-link" href="sunday-services.html">Media</a>
       <a class="nav-link" href="search.html" aria-label="Search the website">Search</a>
+      <a class="nav-youtube" href="${officialYouTubeChannel}" target="_blank" rel="noopener noreferrer" aria-label="${socialLinks[0].label}" title="YouTube">${socialLinks[0].icon}<span class="nav-social-label">YouTube</span></a>
+      <a class="nav-link nav-calendar" href="calendar.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
       <a class="btn btn-small btn-green nav-give" href="give.html">♥ Give</a>
     </nav>
   </div>`;
 
-const officialYouTubeChannel = 'https://www.youtube.com/@stmichaelandallangelschurc3012';
-// Add future confirmed accounts here, with their own accessible name and inline icon.
-const socialLinks = [{
-  name: 'YouTube',
-  url: officialYouTubeChannel,
-  label: 'St Michael & All Angels Church on YouTube (opens in a new tab)',
-  icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>'
-}];
 const socialArea = `<section class="footer-social" aria-labelledby="footer-social-title"><h2 id="footer-social-title">Follow St Michael &amp; All Angels</h2><ul class="social-links">${socialLinks.map(link => `<li><a class="social-link" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${link.label}">${link.icon}<span>${link.name}</span><span class="social-external" aria-hidden="true">↗</span></a></li>`).join('')}</ul></section>`;
 const footer = `
   <div class="container footer-grid">
