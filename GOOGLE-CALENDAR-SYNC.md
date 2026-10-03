@@ -1,5 +1,7 @@
 # Google Calendar synchronization — Stage 1
 
+This documents the original Stage 1 rollout. Stage 2 now adds hourly synchronization and conservative confirmed-missing handling; see [GOOGLE-CALENDAR-AUTOMATIC.md](GOOGLE-CALENDAR-AUTOMATIC.md) for the current operating policy.
+
 Alison continues editing micklehamcalendar@gmail.com in Google Calendar. The website still reads its effective Calendar from `_content/calendar.json`; the public browser never fetches Google. No timer or scheduled synchronization is enabled.
 
 ## Editor workflow

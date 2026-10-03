@@ -15,7 +15,8 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   const mockApp = {
     http(name, options) {
       registrations.push({ name, options });
-    }
+    },
+    timer(name, options) { registrations.push({name,options,timer:true}); }
   };
 
   const originalLoad = Module._load;
@@ -45,8 +46,13 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 9);
-  for (const registration of registrations) assert.deepEqual(registration.options.methods, ['calendar', 'contacts'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.length, 11);
+  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, ['calendar', 'contacts'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  const timer=registrations.find(r=>r.timer);
+  assert.equal(timer.name,'google-calendar-hourly');
+  assert.equal(timer.options.schedule,'0 0 * * * *');
+  assert.equal(timer.options.runOnStartup,false);assert.equal(timer.options.useMonitor,true);
+  assert.equal((await registrations.find(r=>r.name==='google-calendar-sync-status').options.handler({method:'GET'})).status,401);
   const calendar = registrations.find(r => r.name === 'calendar');
   assert.equal(calendar.options.route, 'calendar');
   assert.equal((await calendar.options.handler({ method: 'PUT' })).status, 401);

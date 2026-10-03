@@ -143,13 +143,27 @@ jobs:
               if python - <<'PY'
           import json
           names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
-          expected = {'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'google-calendar-sync'}
+          expected = {'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly'}
           print('Indexed HTTP functions:', ', '.join(sorted(names)))
           assert expected <= names, 'Required HTTP functions are not indexed'
           PY
-              then exit 0; fi
+              then
+                az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[?ends_with(name, '/google-calendar-hourly')].config.bindings" -o json --only-show-errors > timer-bindings.json
+                python - <<'PY'
+          import json
+          groups = json.load(open('timer-bindings.json'))
+          timers = [binding for group in groups for binding in group if binding.get('type', '').lower() == 'timertrigger']
+          assert len(timers) == 1, 'Hourly timer binding was not found'
+          timer = timers[0]
+          assert timer['schedule'] == '0 0 * * * *', 'Unexpected hourly schedule'
+          assert timer.get('runOnStartup', False) is False
+          assert timer.get('useMonitor', True) is True
+          print('Verified hourly timer: top of every UTC hour; startup execution disabled; monitoring enabled.')
+          PY
+                exit 0
+              fi
             fi
             sleep 10
           done
-          echo "::error::Deployed API host did not index all nine HTTP functions."
+          echo "::error::Deployed API host did not index all ten HTTP functions and the hourly timer."
           exit 1

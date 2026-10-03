@@ -12,3 +12,8 @@ test('missing API token does not send requests; unauthorized, conflicts and tran
  const missing=createGoogleSyncApi({getToken:async()=>{throw Error('fixture-only');},fetchImpl:async()=>{throw Error('must not fetch');}});assert.equal((await missing.check()).error,'authentication-required');
  for(const [status,error] of [[401,'authentication-required'],[403,'administrator-required'],[409,'review-again'],[502,'sync-unavailable']]){const api=createGoogleSyncApi({getToken:async()=> 'fixture-token',fetchImpl:async()=>({ok:false,status})});assert.equal((await api.check()).error,error);}
 });
+test('automatic status is a scoped read-only request to its fixed route, independent of Google dry-run',async()=>{
+ const calls=[],data={ok:true,automaticSynchronization:'on',lastAutomatic:{at:'2026-10-03T08:00:00Z',result:'up-to-date',unchanged:118}};
+ const api=createGoogleSyncApi({getToken:async()=> 'fixture-token',fetchImpl:async(url,options)=>{calls.push({url,options});return{ok:true,json:async()=>data};}});
+ assert.deepEqual(await api.status(),data);assert.match(calls[0].url,/\/api\/google-calendar-sync\/status$/);assert.equal(calls[0].options.method,'GET');assert.equal(calls[0].options.body,undefined);assert.equal(calls[0].options.headers.Authorization,'Bearer fixture-token');
+});

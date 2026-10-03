@@ -8,3 +8,4 @@ require('./functions/news-publishing');
 require('./functions/contacts');
 
 require('./functions/google-calendar-sync');
+require('./functions/google-calendar-timer');

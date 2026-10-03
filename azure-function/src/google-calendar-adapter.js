@@ -49,16 +49,21 @@ function parseGoogleCalendar(text, range = HORIZON) {
     } else { if (masters.has(uid)) fail(); masters.set(uid, component); }
   }
   for (const exception of exceptions.values()) if (!masters.has(value(exception,'uid'))) fail();
-  const rows = [], seen = new Set(); let steps = 0;
+  const rows = [], seen = new Set(), outsideKeys = new Set(); let steps = 0;
+  for (const c of allComponents) if (!c.hasProperty('rrule') && !c.hasProperty('recurrence-id')) {
+    const date = value(c,'dtstart').slice(0,10);
+    if (date < range.from || date > range.to) outsideKeys.add(JSON.stringify([value(c,'uid'),'']));
+  }
   for (const [uid, component] of masters) {
     const event = new ICAL.Event(component);
     for (const exception of exceptions.values()) if (value(exception,'uid') === uid) event.relateException(new ICAL.Event(exception));
     const add = details => {
       const start = local(details.startDate), end = local(details.endDate);
-      if (start.slice(0,10) < range.from || start.slice(0,10) > range.to || value(details.item.component,'status') === 'CANCELLED') return;
-      if (end <= start || rows.length >= 1000) fail();
       const original = details.recurrenceId ? (details.recurrenceId.isDate ? details.recurrenceId.toString() : local(details.recurrenceId)) : '';
       const key = JSON.stringify([uid, original]);
+      if (start.slice(0,10) < range.from || start.slice(0,10) > range.to) {outsideKeys.add(key);return;}
+      if (value(details.item.component,'status') === 'CANCELLED') return;
+      if (end <= start || rows.length >= 1000) fail();
       if (seen.has(key)) fail(); seen.add(key);
       const state = { title: clean(details.item.summary), start, end, allDay: details.startDate.isDate, location: clean(details.item.location), description: clean(details.item.description) };
       if (!state.title || Object.values(state).some(v => typeof v === 'string' && v.length > 16000)) fail();
@@ -76,7 +81,7 @@ function parseGoogleCalendar(text, range = HORIZON) {
   }
   rows.sort((a,b) => a.key.localeCompare(b.key));
   if (!rows.length) fail();
-  return { rows, fingerprint: fingerprint(rows.map(r => [r.key,r.state])), series: [...masters].filter(([,c])=>c.hasProperty('rrule')).map(([uid,c])=>({uid,rule:value(c,'rrule')})).sort((a,b)=>a.uid.localeCompare(b.uid)) };
+  return { rows, outsideKeys: [...outsideKeys].sort(), fingerprint: fingerprint(rows.map(r => [r.key,r.state])), series: [...masters].filter(([,c])=>c.hasProperty('rrule')).map(([uid,c])=>({uid,rule:value(c,'rrule')})).sort((a,b)=>a.uid.localeCompare(b.uid)) };
 }
 async function fetchGoogleCalendar(fetchImpl = fetch) {
   const controller = new AbortController(), timeout = setTimeout(()=>controller.abort(),15000);

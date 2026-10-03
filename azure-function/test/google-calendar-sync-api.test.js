@@ -8,6 +8,8 @@ const principal={auth_typ:'aad',claims:Object.entries({tid:'9188040d-6c67-4c5b-b
 function request(method='GET',body,identity=principal){return{method,query:new URLSearchParams(),headers:new Headers({'content-type':'application/json',...(identity?{'x-ms-client-principal':Buffer.from(JSON.stringify(identity)).toString('base64')}:{})}),body:new Blob([JSON.stringify(body||{})]).stream()};}
 const reviewBody=r=>({headSha:r.headSha,calendarSha:r.calendarSha,registrySha:r.registrySha,reviewDigest:r.reviewDigest,confirm:true});
 function fixture(options={}){
+ const {emptyState}=require('../src/google-sync-store');let runtime=emptyState();
+ const store={read:async()=>structuredClone(runtime),locked:async action=>action({state:structuredClone(runtime),guard:async()=>{},save:async value=>{runtime=structuredClone(value);}})};
  const state={head:A,calendar:structuredClone(baseCalendar),registry:structuredClone(baseRegistry)},reads=[],writes=[],permissions=[],blobs=new Map();let blobIndex=0;
  const target={owner:'micklehamchurch',repo:'website'};
  const checked=p=>{assert.equal(p.owner,target.owner);assert.equal(p.repo,target.repo);};
@@ -19,7 +21,7 @@ function fixture(options={}){
   createCommit:async p=>{checked(p);assert.deepEqual(p.parents,[state.head]);return{data:{sha:D}};},
   updateRef:async p=>{checked(p);assert.equal(p.ref,'heads/Dev');assert.equal(p.force,false);if(options.race)throw Object.assign(Error('private upstream'),{status:422});for(const entry of state.pending)state[entry.path===PATHS.calendar?'calendar':'registry']=blobs.get(entry.sha);state.head=p.sha;}
  }}};
- const handler=createGoogleSyncHandler({readConfiguration:()=>({}),createClient:async(c,p)=>{permissions.push(p);return client;},fetchFeed:options.fetchFeed||(async()=>parseGoogleCalendar(raw)),now:()=> '2026-10-03T12:00:00Z'});
+ const handler=createGoogleSyncHandler({store,readConfiguration:()=>({}),createClient:async(c,p)=>{permissions.push(p);return client;},fetchFeed:options.fetchFeed||(async()=>parseGoogleCalendar(raw)),now:()=> '2026-10-03T12:00:00Z'});
  return{handler,state,reads,writes,permissions};
 }
 test('authenticated dry-run performs no write; explicit apply atomically publishes only two fixed Dev paths; unchanged repeat makes no commit',async()=>{

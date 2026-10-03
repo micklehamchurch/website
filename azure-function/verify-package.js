@@ -11,15 +11,17 @@ function verifyEntrypoint(root) {
   const registrations = [];
   try {
     Module._load = function (name, parent, isMain) {
-      if (name === '@azure/functions') return { app: { http(name, options) { registrations.push({ name, options }); } } };
+      if (name === '@azure/functions') return { app: { http(name, options) { registrations.push({ name, options }); }, timer(name, options) { registrations.push({name,options,timer:true}); } } };
       return originalLoad.call(this, name, parent, isMain);
     };
     require(entry); // Also resolves production GitHub dependencies; never invokes GitHub handlers.
   } finally {
     Module._load = originalLoad;
   }
-  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'calendar', 'contacts', 'github-status', 'google-calendar-sync', 'health', 'identity', 'news', 'publications']);
-  for (const { name, options } of registrations) assert.deepEqual(options.methods, ['calendar', 'contacts'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(name) ? ['GET', 'POST'] : ['GET']);
+  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'calendar', 'contacts', 'github-status', 'google-calendar-hourly', 'google-calendar-sync', 'google-calendar-sync-status', 'health', 'identity', 'news', 'publications']);
+  for (const { name, options, timer } of registrations) if (!timer) assert.deepEqual(options.methods, ['calendar', 'contacts'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(name) ? ['GET', 'POST'] : ['GET']);
+  assert.deepEqual(registrations.find(r=>r.timer).options, {schedule:'0 0 * * * *',runOnStartup:false,useMonitor:true,handler:registrations.find(r=>r.timer).options.handler});
+  assert.equal(require(path.join(root,'host.json')).extensionBundle.version,'[4.0.0, 5.0.0)');
   assert.equal(registrations.find(r => r.name === 'calendar').options.route, 'calendar');
   assert.equal(typeof require(path.join(root, 'src/calendar-model.js')).buildCalendar, 'function');
   const recurrence = require(path.join(root, 'src/calendar-recurrence.js'));
