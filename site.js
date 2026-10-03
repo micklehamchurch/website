@@ -62,6 +62,14 @@ document.querySelectorAll('[data-current-year]').forEach(node => { node.textCont
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('#mainNav');
 const dropdownButtons = [...document.querySelectorAll('.nav-trigger')];
+const navigationBackdrop = document.createElement('div');
+navigationBackdrop.className = 'navigation-dismiss-backdrop';
+navigationBackdrop.setAttribute('aria-hidden', 'true');
+navigationBackdrop.hidden = true;
+document.body.append(navigationBackdrop);
+function syncNavigationBackdrop() {
+  navigationBackdrop.hidden = !nav?.classList.contains('is-open') && !dropdownButtons.some(button => button.getAttribute('aria-expanded') === 'true');
+}
 
 function closeDropdowns(except = null) {
   dropdownButtons.forEach(button => {
@@ -77,6 +85,7 @@ menuButton?.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', String(isOpen));
   menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
   if (!isOpen) closeDropdowns();
+  syncNavigationBackdrop();
 });
 
 dropdownButtons.forEach(button => {
@@ -85,30 +94,64 @@ dropdownButtons.forEach(button => {
     closeDropdowns(button);
     button.setAttribute('aria-expanded', String(!isOpen));
     button.closest('.nav-item')?.classList.toggle('is-open', !isOpen);
+    syncNavigationBackdrop();
   });
 });
 
+// Only the two read-only public dialogs opt in. Admin/forms are never registered.
+const publicDialogIds = new Set(['event-detail-dialog', 'calendar-subscription-dialog']);
+const publicDialogOpeners = new WeakMap();
+let publicDialogStack = [];
+function openPublicDialog(dialog, opener = document.activeElement) {
+  if (!publicDialogIds.has(dialog.id) || dialog.open) return;
+  if (!publicDialogOpeners.has(dialog)) dialog.addEventListener('close', () => {
+    publicDialogStack = publicDialogStack.filter(item => item !== dialog);
+    let previous = publicDialogOpeners.get(dialog);
+    if (previous?.dataset?.eventId && !previous.isConnected) previous = [...document.querySelectorAll('[data-event-id]')].find(item => item.dataset.eventId === previous.dataset.eventId && item.getClientRects().length);
+    if (previous?.isConnected) previous.focus({ preventScroll: true });
+  });
+  publicDialogOpeners.set(dialog, opener);
+  publicDialogStack.push(dialog);
+  dialog.showModal();
+}
+function activePublicDialog() { return [...publicDialogStack].reverse().find(dialog => dialog.open); }
+function outsidePanel(event, panel) {
+  const rect = panel.getBoundingClientRect();
+  return event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+}
+let outsidePress = null;
+document.addEventListener('pointerdown', event => {
+  const dialog = activePublicDialog();
+  outsidePress = event.isPrimary && event.button === 0 && dialog && outsidePanel(event, dialog) ? dialog : null;
+}, true);
+function closeNavigation(returnFocus = false) {
+  const opener = nav?.classList.contains('is-open') ? menuButton : dropdownButtons.find(button => button.getAttribute('aria-expanded') === 'true');
+  closeDropdowns();
+  nav?.classList.remove('is-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-label', 'Open navigation');
+  syncNavigationBackdrop();
+  if (returnFocus) opener?.focus({ preventScroll: true });
+}
 document.addEventListener('click', event => {
-  if (!event.target.closest('.site-header')) {
-    closeDropdowns();
-    nav?.classList.remove('is-open');
-    menuButton?.setAttribute('aria-expanded', 'false');
-    menuButton?.setAttribute('aria-label', 'Open navigation');
+  const dialog = activePublicDialog();
+  if (dialog) {
+    const dismiss = outsidePress === dialog && outsidePanel(event, dialog);
+    outsidePress = null;
+    if (dismiss) { event.preventDefault(); event.stopImmediatePropagation(); dialog.close(); }
+    return;
   }
-});
-
+  outsidePress = null;
+  const navigationOpen = nav?.classList.contains('is-open') || dropdownButtons.some(button => button.getAttribute('aria-expanded') === 'true');
+  if (navigationOpen && !event.target.closest('#mainNav, .menu-toggle')) {
+    // Capture before page controls: the dismissal tap cannot also activate them.
+    event.preventDefault(); event.stopImmediatePropagation(); closeNavigation(true);
+  }
+}, true);
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') {
-    closeDropdowns();
-    if (nav?.classList.contains('is-open')) {
-      nav.classList.remove('is-open');
-      menuButton?.setAttribute('aria-expanded', 'false');
-      menuButton?.setAttribute('aria-label', 'Open navigation');
-      menuButton?.focus();
-    }
-  }
+  // Native modal Escape/cancel handles the top dialog, preserving nested dialogs.
+  if (event.key === 'Escape' && !activePublicDialog()) closeNavigation(true);
 });
-
 const currentPage = location.pathname.split('/').pop() || 'index.html';
 const directNavigationPage = document.querySelector(`.nav > a[href="${currentPage}"]`);
 document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
@@ -118,7 +161,7 @@ document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
     if (!directNavigationPage && !document.querySelector('.nav-trigger.is-current-section')) link.closest('.nav-item')?.querySelector('.nav-trigger')?.classList.add('is-current-section');
   }
   link.addEventListener('click', () => {
-    nav?.classList.remove('is-open');
+    closeNavigation();
     menuButton?.setAttribute('aria-expanded', 'false');
   });
 });

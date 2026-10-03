@@ -30,7 +30,7 @@
   document.addEventListener('click',event=>{
     if(event.target.closest('[data-calendar-subscribe]')) {
       dialog.querySelector('[data-copy-calendar-status]').textContent='';
-      if(!dialog.open) dialog.showModal();
+      if(!dialog.open) openPublicDialog(dialog, event.target.closest('[data-calendar-subscribe]'));
     }
   });
   dialog.querySelector('[data-copy-calendar-link]').addEventListener('click',async()=>{

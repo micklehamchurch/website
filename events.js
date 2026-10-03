@@ -154,7 +154,7 @@ function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone)
   document.querySelector('#calendar-month-label').textContent = formatMonth(year, month);
 }
 
-function showEvent(event, dialog, timeZone) {
+function showEvent(event, dialog, timeZone, opener) {
   const title = document.querySelector('#event-detail-title');
   const details = document.querySelector('#event-detail-content');
   const date = formatDate(event.start, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
@@ -181,7 +181,7 @@ function showEvent(event, dialog, timeZone) {
       setTimeout(() => URL.revokeObjectURL(url), 60000);
     } catch { details.querySelector('.calendar-download-status').textContent = 'The event could not be downloaded. Please try again.'; }
   });
-  if (!dialog.open) dialog.showModal();
+  if (!dialog.open) { if (typeof openPublicDialog === 'function') openPublicDialog(dialog, opener); else dialog.showModal(); }
 }
 
 async function initializeEvents() {
@@ -220,14 +220,14 @@ async function initializeEvents() {
       const button = event.target.closest('[data-event-id]');
       if (button) {
         const selected = items.find(item => item.id === button.dataset.eventId);
-        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone); }
+        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone, button); }
       }
     });
     agenda.addEventListener('click', event => {
       const button = event.target.closest('[data-event-id]');
       if (button) {
         const selected = items.find(item => item.id === button.dataset.eventId);
-        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone); }
+        if (selected) { openEventId = selected.id; showEvent(selected, dialog, calendar.timeZone, button); }
       }
     });
     document.querySelector('[data-event-preview]')?.addEventListener('click', event => {
