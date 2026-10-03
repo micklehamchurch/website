@@ -16,9 +16,18 @@ const navigation = `
     </nav>
   </div>`;
 
+const officialYouTubeChannel = 'https://www.youtube.com/@stmichaelandallangelschurc3012';
+// Add future confirmed accounts here, with their own accessible name and inline icon.
+const socialLinks = [{
+  name: 'YouTube',
+  url: officialYouTubeChannel,
+  label: 'St Michael & All Angels Church on YouTube (opens in a new tab)',
+  icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>'
+}];
+const socialArea = `<section class="footer-social" aria-labelledby="footer-social-title"><h2 id="footer-social-title">Follow St Michael &amp; All Angels</h2><ul class="social-links">${socialLinks.map(link => `<li><a class="social-link" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${link.label}">${link.icon}<span>${link.name}</span><span class="social-external" aria-hidden="true">↗</span></a></li>`).join('')}</ul></section>`;
 const footer = `
   <div class="container footer-grid">
-    <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p></div>
+    <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
     <div><h2>Explore</h2><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="whats-on.html">Services and events</a><a href="church-life.html">Church life</a><a href="about.html">Our Parish</a><a href="eco-church.html">Eco Church</a><a href="visit.html">Visit the Church</a><a href="news.html">News</a><a href="gallery.html">Gallery</a><a href="sunday-services.html">Media · Sunday services</a></div>
     <div><h2>Our churches</h2><p>St Michael &amp; All Angels<br>Mickleham, Surrey</p><p>Westhumble Chapel<br>Westhumble, Surrey</p><a href="visit.html">Plan a visit <span aria-hidden="true">→</span></a></div>
     <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="give.html">Support our church</a></div>
@@ -31,6 +40,8 @@ const footer = `
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
+// The contextual Media link shares the same confirmed channel as the footer.
+document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 
 const siteScript = document.querySelector('script[src$="site.js"]');
 const footerBottom = document.querySelector('.footer-bottom');

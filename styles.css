@@ -711,3 +711,14 @@ h3 { font-family: var(--serif); }
   .giving-legacy-mark { width: 36px; height: 36px; font-size: 20px; }
   .giving-thanks { padding: 26px 0; }
 }
+
+/* Confirmed social accounts sit within the parish introduction, ready to wrap. */
+.footer-social { margin-top: 28px; }
+.footer .footer-social h2 { max-width: 260px; color: #f1e5bc; font: 500 15px/1.5 var(--serif); letter-spacing: 0; text-transform: none; }
+.social-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.footer a.social-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin: 0; padding: 8px 12px; border: 1px solid #ffffff40; border-radius: 5px; color: #f7f4eb; text-decoration: none; }
+.social-link svg { flex: none; }
+.social-external { font-size: 14px; }
+.footer a.social-link:hover,.footer a.social-link:focus-visible { background: #244b3b; border-color: #e6cf88; text-decoration: underline; text-underline-offset: 4px; }
+.footer a.social-link:focus-visible { outline: 3px solid #e6cf88; outline-offset: 4px; }
+.media-channel-link { margin: 12px 0 0; text-align: center; }
