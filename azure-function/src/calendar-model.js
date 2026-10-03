@@ -137,13 +137,13 @@ function buildCalendar(input, editorial, { includeDrafts = false, range = recurr
 
   const allIds = new Set(items.map(item => item.id));
   for (const item of editorial.events || []) {
-    if (!item.id || !item.title || !item.start || !item.end || !item.timeZone || !item.location) {
+    if (!item.id || !item.title || !item.start || !item.end || !item.timeZone || typeof item.location !== 'string') {
       throw new Error(`Editorial calendar event needs id, title, start, end, timeZone and location: ${item.id || '(unknown)'}`);
     }
     if (item.status && !['published', 'draft'].includes(item.status)) throw new Error(`Invalid status for editorial calendar event ${item.id}: ${item.status}`);
     if (allIds.has(item.id)) throw new Error(`Duplicate calendar event id: ${item.id}`);
     allIds.add(item.id);
-    if (!String(item.title).trim() || !String(item.location).trim() || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || comparableDateTime(item.end) <= comparableDateTime(item.start)) {
+    if (!String(item.title).trim() || (!String(item.location).trim() && !/^google-[a-f0-9]{32}$/.test(item.id)) || !validLocalDateTime(item.start) || !validLocalDateTime(item.end) || comparableDateTime(item.end) <= comparableDateTime(item.start)) {
       throw new Error(`Editorial calendar event has an invalid time range: ${item.id}`);
     }
     if (item.allDay && (!/T00:00(?::00)?$/.test(item.start) || !/T00:00(?::00)?$/.test(item.end))) throw new Error('Invalid all-day event dates.');

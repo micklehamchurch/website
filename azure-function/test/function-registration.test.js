@@ -45,12 +45,12 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 8);
-  for (const registration of registrations) assert.deepEqual(registration.options.methods, ['calendar', 'contacts'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.length, 9);
+  for (const registration of registrations) assert.deepEqual(registration.options.methods, ['calendar', 'contacts'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   const calendar = registrations.find(r => r.name === 'calendar');
   assert.equal(calendar.options.route, 'calendar');
   assert.equal((await calendar.options.handler({ method: 'PUT' })).status, 401);
-  for (const name of ['news', 'publications']) { const route = registrations.find(item => item.name === name); assert.equal(route.options.route, name); assert.equal((await route.options.handler({ method: 'POST' })).status, 401); }
+  for (const name of ['news', 'publications','google-calendar-sync']) { const route = registrations.find(item => item.name === name); assert.equal(route.options.route, name); assert.equal((await route.options.handler({ method: 'POST' })).status, 401); }
   const contacts = registrations.find(r => r.name === 'contacts');
   assert.equal(contacts.options.route, 'contacts');
   assert.equal((await contacts.options.handler({ method: 'PUT' })).status, 401);

@@ -6,3 +6,5 @@ require('./functions/calendar');
 require('./functions/news-publishing');
 
 require('./functions/contacts');
+
+require('./functions/google-calendar-sync');

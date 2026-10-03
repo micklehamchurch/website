@@ -3,7 +3,9 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
-const fixture = require('./fixtures/calendar-migration.json');
+const fixture = structuredClone(require('./fixtures/calendar-migration.json'));
+const {applied} = require('./fixtures/calendar-stage1-expected.cjs');
+if(applied){fixture.expectedKeys=fixture.expectedKeys.map(k=>k.replace('2026-11-24|19:00–19:30','2026-11-24|19:00–20:00')).sort();fixture.baselineCompline.exceptions[0].changes.end='2026-11-24T20:00';}
 const calendar = require('../_content/calendar.json');
 const { buildCalendar } = require('../azure-function/src/calendar-model');
 const source = fs.readFileSync(path.join(root, 'test/fixtures/legacy-calendar.ics'), 'utf8');
@@ -47,5 +49,5 @@ test('all-day boundaries and generated public Calendar/search retain approved co
   assert.deepEqual(generated.filter(e=>approvedIDs.has(e.id)).map(key).sort(), fixture.expectedKeys);
   const search = JSON.stringify(require('../search-index.json'));
   for (const e of items) assert(search.includes(e.title));
-  assert(!search.includes('NO BCP service') && !search.includes('All age Worship') && !search.includes('Chapel - Book of Common Prayer Holy Communion'));
+  assert((applied || !search.includes('NO BCP service')) && !search.includes('All age Worship') && !search.includes('Chapel - Book of Common Prayer Holy Communion'));
 });

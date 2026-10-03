@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { buildCalendar } = require('../azure-function/src/calendar-model');
 const calendar = require('../_content/calendar.json');
-const before = require('./fixtures/calendar-before-retirement.json');
+const {before,applied} = require('./fixtures/calendar-stage1-expected.cjs');
 const empty = { hiddenEventIds: [], overrides: [], events: [] };
 test('explicit no-feed mode preserves the complete approved Calendar and Admin objects', () => {
   assert.deepEqual(buildCalendar(null, calendar).items.filter(e=>before.items.some(original=>original.id===e.id)), before.items);
@@ -37,5 +37,5 @@ test('removed Test iPhone is absent from authoritative Calendar and every public
   }
   assert.deepEqual(buildCalendar(null, calendar).items, before.items);
   assert.deepEqual(require('../events.json').items, before.items);
-  assert.equal(before.items.length, 116);
+  assert.equal(before.items.length, applied ? 118 : 116);
 });

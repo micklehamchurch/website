@@ -16,6 +16,7 @@ import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 import { attachContactsApi } from './contacts-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
+import { attachGoogleSyncApi } from './google-calendar-sync-api.mjs';
 
 const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
 const redirectUri = new URL('.', window.location.href).href;
@@ -295,6 +296,7 @@ async function start() {
     await publicClient.initialize();
     msal = publicClient;
     attachCalendarApi(msal, () => activeAdminApiAccount);
+    attachGoogleSyncApi(msal, () => activeAdminApiAccount);
     attachContactsApi(msal, () => activeAdminApiAccount);
     attachNewsApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();

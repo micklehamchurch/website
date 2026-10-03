@@ -34,7 +34,24 @@
   let documentGroups = [];
   let recordsReady = false;
   const sharedCalendar = { loaded: false, busy: false, dirty: false, conflict: false, error: '', message: '', sha: null, sourceSha: null };
-  const calendarCanEdit = () => sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.conflict;
+  const googleSync = {busy:false,review:null,message:'Not checked yet.',checkedAt:null,lastSuccessfulSync:null};
+  function googleSyncPanel() {
+    const report=googleSync.review?.report;
+    const names={additions:'Additions',updates:'Updates',missing:'Missing — retained for review',conflicts:'Conflicts — not applied',unchanged:'Unchanged',suppressed:'Suppressed — not recreated',unsupported:'Needs approval'};
+    return '<section class="admin-section-note" aria-labelledby="google-sync-heading"><h2 id="google-sync-heading">Google Calendar sync</h2><p>Alison continues to manage the parish Google Calendar. This tool checks those changes before updating the website. Automatic synchronization is not enabled.</p><p>Last checked: '+safe(googleSync.checkedAt ? new Date(googleSync.checkedAt).toLocaleString('en-GB') : 'Not yet')+' · Last successful sync: '+safe(googleSync.lastSuccessfulSync ? new Date(googleSync.lastSuccessfulSync).toLocaleString('en-GB') : 'Not yet')+'</p><p role="status">'+safe(googleSync.message)+'</p>'+(sharedCalendar.dirty?'<p>Publish or discard your staged Calendar changes before checking Google.</p>':'')+'<div class="admin-heading-actions"><button class="admin-button secondary" data-action="google-check" '+(googleSync.busy||sharedCalendar.dirty||sharedCalendar.busy?'disabled':'')+'>Check Google Calendar</button>'+(googleSync.review?.canApply?'<button class="admin-button" data-action="google-apply" '+(googleSync.busy||sharedCalendar.dirty||sharedCalendar.busy?'disabled':'')+'>Apply safe updates</button>':'')+'</div>'+(report?'<details><summary>Review changes</summary><p>Missing records and conflicting edits will not be removed or overwritten.</p>'+report.warnings.map(w=>'<p><strong>'+safe(w)+'</strong></p>').join('')+Object.entries(names).map(([key,label])=>'<h3>'+label+' ('+report[key].length+')</h3>'+(key==='unchanged'?'':report[key].map(e=>'<p>'+safe(e.date)+' — '+safe(e.title)+(e.fields?' · '+safe(e.fields.map(f=>({end:'End time',start:'Start time',allDay:'All-day setting',title:'Title',location:'Location',description:'Description'}[f]||f)).join(', ')):'')+(e.reason?' · '+safe(e.reason):'')+'</p>').join(''))).join('')+'</details>':'')+'</section>';
+  }
+  async function googleSyncAction(apply=false) {
+    if(googleSync.busy||sharedCalendar.busy||sharedCalendar.dirty)return;
+    if(apply && (!googleSync.review?.canApply || !window.confirm('Apply the reviewed safe Google Calendar updates to Dev? Missing records and conflicts will not be removed or overwritten.')))return;
+    googleSync.busy=true;googleSync.message=apply?'Applying reviewed safe updates…':'Checking Alison’s Google Calendar…';render({focus:false});
+    const api=window.churchGoogleSyncApi;
+    const result=api ? await (apply?api.apply(googleSync.review):api.check()) : {ok:false,error:'authentication-required'};
+    googleSync.busy=false;
+    if(!result.ok){googleSync.review=null;googleSync.message=({ 'authentication-required':'Sign in and authorise the Admin API connection, then try again.', 'administrator-required':'This account does not have administrator access.', 'review-again':'Calendar or Google data changed. Reload Calendar and check Google again before applying.', 'sync-unavailable':'The check or publication could not be confirmed. No removal was made; reload Calendar before retrying.' })[result.error]||'Check could not be completed. Reload Calendar and try again.';}
+    else {googleSync.review=apply?null:result;googleSync.checkedAt=result.checkedAt;googleSync.lastSuccessfulSync=result.lastSuccessfulSync;googleSync.message=apply?(result.unchanged?'Google Calendar is already up to date.':result.calendarChanged===false?'Sync review saved. No public Calendar changes were needed.':'Safe updates saved to Dev. The public website is rebuilding.'):'Check complete: '+result.report.additions.length+' additions, '+result.report.updates.length+' updates, '+result.report.conflicts.length+' conflicts, '+result.report.missing.length+' missing. Review before applying.';if(apply){await loadSharedCalendar();if(result.calendarChanged && window.monitorPublishedCalendar)window.monitorPublishedCalendar(result.calendarSha,()=>{googleSync.message='Safe Google updates are saved and the public Calendar data is deployed.';render({focus:false});},()=>{googleSync.message='Safe Google updates are saved; public deployment has not yet been confirmed.';render({focus:false});});}}
+    render({focus:false});
+  }
+  const calendarCanEdit = () => sharedCalendar.loaded && !sharedCalendar.busy && !googleSync.busy && !sharedCalendar.conflict;
   function calendarData() {
     const clean = item => { const { _origin, ...event } = item; return event; };
     return { hiddenEventIds: [...demoState.calendar.deleted], overrides: Object.values(demoState.calendar.updated).map(clean), events: demoState.calendar.created.map(clean), ...(demoState.calendar.series?.length ? {series:demoState.calendar.series} : {}), ...(demoState.calendar.exceptions?.length ? {exceptions:demoState.calendar.exceptions} : {}) };
@@ -336,13 +353,13 @@
       const bFuture = b.date >= today;
       return aFuture !== bFuture ? (aFuture ? -1 : 1) : eventStart(a).localeCompare(eventStart(b));
     });
-    const action = `<div class="admin-heading-actions"><a class="admin-button secondary" href="../calendar.html" target="_blank" rel="noopener noreferrer">Preview public calendar ↗</a><button class="admin-button secondary" type="button" data-action="reload-calendar" ${sharedCalendar.busy ? 'disabled' : ''}>Reload shared Calendar</button><button class="admin-button" type="button" data-action="add" data-kind="calendar" ${calendarCanEdit() ? '' : 'disabled'}>＋ Add event</button><button class="admin-button" type="button" data-action="publish-calendar" ${calendarCanEdit() && sharedCalendar.dirty ? '' : 'disabled'}>${sharedCalendar.busy ? 'Please wait…' : 'Publish changes'}</button></div>`;
+    const action = `<div class="admin-heading-actions"><a class="admin-button secondary" href="../calendar.html" target="_blank" rel="noopener noreferrer">Preview public calendar ↗</a><button class="admin-button secondary" type="button" data-action="reload-calendar" ${sharedCalendar.busy || googleSync.busy ? 'disabled' : ''}>Reload shared Calendar</button><button class="admin-button" type="button" data-action="add" data-kind="calendar" ${calendarCanEdit() ? '' : 'disabled'}>＋ Add event</button><button class="admin-button" type="button" data-action="publish-calendar" ${calendarCanEdit() && sharedCalendar.dirty ? '' : 'disabled'}>${sharedCalendar.busy ? 'Please wait…' : 'Publish changes'}</button></div>`;
     return `${pageHeading('SHARED DEV WEBSITE', 'Calendar', 'Add, edit or remove events, then publish your staged changes to the shared Dev website.', action)}
       ${sharedCalendar.dirty ? `<div class="admin-calendar-pending" role="status" aria-live="polite"><div><strong>${sharedCalendar.busy ? 'Publishing Calendar changes…' : sharedCalendar.error ? 'Publication not confirmed' : 'Unpublished Calendar changes'}</strong><p>${sharedCalendar.error ? 'Do not assume the website has changed. Your staged changes remain here; check the message below before continuing.' : sharedCalendar.busy ? 'Please wait for confirmation. The public website updates after deployment.' : 'Removing an event here does not remove it from the website yet. Choose Publish changes to save your edits and removals.'}</p></div><button class="admin-button" type="button" data-action="publish-calendar-pending" ${calendarCanEdit() ? '' : 'disabled'}>${sharedCalendar.busy ? 'Publishing…' : 'Publish changes'}</button></div>` : ''}
       <div class="admin-section-note"><strong>Calendar changes require publication.</strong> Add, edit and delete work in this preview first. Publish changes saves them to the shared website; deployment follows. Draft events stay out of the public Calendar.</div>
       <p role="status">${safe(sharedCalendar.message || 'Sign in, then load the shared Calendar.')}</p>
       <div class="admin-list-toolbar"><label for="calendar-filter">Find an event</label><input id="calendar-filter" type="search" placeholder="Search title, date or location"><span>${records.length} items shown</span></div>
-      ${calendarSeriesPanel()}<fieldset class="admin-calendar-records" aria-label="Calendar events" ${calendarCanEdit() ? '' : 'disabled'}><div class="admin-cms-list" id="calendar-records">${sharedCalendar.loaded ? records.map(item => recordCard('calendar', item)).join('') || '<p class="admin-empty">No calendar items match this view.</p>' : ''}</div></fieldset>`;
+      ${googleSyncPanel()}${calendarSeriesPanel()}<fieldset class="admin-calendar-records" aria-label="Calendar events" ${calendarCanEdit() ? '' : 'disabled'}><div class="admin-cms-list" id="calendar-records">${sharedCalendar.loaded ? records.map(item => recordCard('calendar', item)).join('') || '<p class="admin-empty">No calendar items match this view.</p>' : ''}</div></fieldset>`;
   }
   function articleDateToInput(value) {
     const match = String(value || '').match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
@@ -638,7 +655,7 @@
         ${field('End time', 'endTime', current.endTime, { type: 'time', required: true })}
         ${field('Category', 'category', current.category || 'Parish event', { required: true, choices: ['Worship & Services', 'Weekly worship', 'Special service', 'Parish event', 'Community', 'Children & families', 'Other'].map(value => [value, value]) })}
         ${field('Status', 'status', current.status || 'published', { required: true, choices: [['published', 'Public after publishing'], ['draft', 'Draft']] })}
-        ${field('Location', 'location', current.location, { required: true, full: true, placeholder: 'Add a confirmed venue' })}
+        ${field('Location', 'location', current.location, { required: !/^google-[a-f0-9]{32}$/.test(current.id || ''), full: true, placeholder: 'Add a confirmed venue' })}
         ${field('Description', 'description', current.description, { type: 'textarea', required: true, full: true, placeholder: 'Add useful event details' })}
         ${field('Optional YouTube or external link', 'externalLink', current.externalLink, { type: 'url', full: true, placeholder: 'https://…' })}
         ${commonImage}
@@ -911,6 +928,7 @@
       } return;
     }
     if (action === 'restore-calendar-occurrence') { if (calendarCanEdit()) {demoState.calendar.exceptions=demoState.calendar.exceptions.filter(e=>e.seriesId!==id||e.occurrenceStart!==button.dataset.start);calendarStaged('Occurrence restored');render({focus:false});} return; }
+    if (action === 'google-check' || action === 'google-apply') { void googleSyncAction(action === 'google-apply'); return; }
     if (action === 'reload-calendar') { void loadSharedCalendar(); return; }
     if (action === 'publish-calendar' || action === 'publish-calendar-pending') { void publishCalendar(); return; }
     if (action === 'add-contact') { openContactEditor('', button.dataset.section || ''); return; }
