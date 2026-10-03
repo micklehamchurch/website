@@ -76,7 +76,8 @@ function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone)
   const firstDate = new Date(Date.UTC(year, month, 1));
   const firstWeekday = (firstDate.getUTCDay() + 6) % 7;
   const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
-  const today = dateKey(localDateTime(timeZone));
+  const visitorDate = new Date();
+  const today = `${visitorDate.getFullYear()}-${String(visitorDate.getMonth() + 1).padStart(2, '0')}-${String(visitorDate.getDate()).padStart(2, '0')}`;
   const byDate = new Map();
   items.forEach(event => {
     const key = dateKey(event.start);
@@ -114,6 +115,7 @@ function renderMonth(year, month, items, grid, agenda, status, bounds, timeZone)
     const number = document.createElement('time');
     number.className = 'calendar-day-number';
     number.dateTime = iso;
+    if (iso === today) { number.setAttribute('aria-current', 'date'); cell.setAttribute('aria-label', cell.getAttribute('aria-label') + ', today'); }
     number.textContent = String(dayNumber);
     cell.append(number);
     (byDate.get(iso) || []).forEach(event => {
@@ -208,6 +210,12 @@ async function initializeEvents() {
 
     document.querySelector('#calendar-previous').addEventListener('click', () => { month -= 1; if (month < 0) { month = 11; year -= 1; } update(); });
     document.querySelector('#calendar-next').addEventListener('click', () => { month += 1; if (month > 11) { month = 0; year += 1; } update(); });
+    document.querySelector('#calendar-today').addEventListener('click', () => {
+      const visitorDate = new Date();
+      year = visitorDate.getFullYear();
+      month = visitorDate.getMonth();
+      update();
+    });
     grid.addEventListener('click', event => {
       const button = event.target.closest('[data-event-id]');
       if (button) {

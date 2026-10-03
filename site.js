@@ -34,9 +34,10 @@ const footer = `
   </div>
   <section class="container footer-diocese" aria-labelledby="footer-diocese-title">
     <div class="footer-diocese-copy"><p class="footer-diocese-kicker">Our wider church</p><h2 id="footer-diocese-title">Part of the Diocese of Guildford</h2><p>St Michael &amp; All Angels Church is part of the Church of England and the Diocese of Guildford.</p><a class="footer-diocese-link" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer">Learn more about the Diocese <span aria-hidden="true">→</span></a></div>
-    <a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><img src="assets/branding/diocese-of-guildford-colour.png" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></a>
+    <a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><span class="diocese-logo-crop"><img src="assets/branding/diocese-of-guildford-colour.png" width="2291" height="1521" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></span></a>
   </section>
-  <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>`;
+  <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>
+  <p class="container footer-credit">Website by Ed Popov</p>`;
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
@@ -106,8 +107,13 @@ document.addEventListener('keydown', event => {
 });
 
 const currentPage = location.pathname.split('/').pop() || 'index.html';
+const directNavigationPage = document.querySelector(`.nav > a[href="${currentPage}"]`);
 document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
-  if (link.getAttribute('href') === currentPage) link.setAttribute('aria-current', 'page');
+  if (link.getAttribute('href') === currentPage) {
+    link.setAttribute('aria-current', 'page');
+    // Prefer a direct page link; otherwise the first matching section is canonical.
+    if (!directNavigationPage && !document.querySelector('.nav-trigger.is-current-section')) link.closest('.nav-item')?.querySelector('.nav-trigger')?.classList.add('is-current-section');
+  }
   link.addEventListener('click', () => {
     nav?.classList.remove('is-open');
     menuButton?.setAttribute('aria-expanded', 'false');
