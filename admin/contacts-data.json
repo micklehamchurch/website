@@ -34,6 +34,7 @@
   "contacts": [
     {
       "id": "parish-priest",
+      "photo": "assets/images/contacts/sandra-faccini.jpg",
       "section": "parish-leadership",
       "role": "Parish Priest",
       "name": "Revd. Dr. Sandra Faccini",

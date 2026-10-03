@@ -41,7 +41,7 @@ for (const member of pccMembers) if (!member.name?.trim()) throw new Error(`PCC 
 
 function contactCard(records) {
   const first = records[0];
-  const people = records.map(record => `<div class="directory-person"><p class="directory-name">${esc(record.name)}</p>${record.phone ? `<p class="directory-method"><span class="contact-icon" aria-hidden="true">☎</span><a href="tel:${esc(record.phone.replace(/[^+\d]/g, ''))}">${esc(record.phone)}</a></p>` : ''}</div>`).join('');
+  const people = records.map(record => `<div class="directory-person${record.photo ? ' has-portrait' : ''}">${record.photo ? `<img class="directory-portrait" src="${esc(record.photo)}" alt="${esc(record.name)}" width="88" height="132" loading="lazy" decoding="async">` : ''}<div class="directory-person-details"><p class="directory-name">${esc(record.name)}</p>${record.phone ? `<p class="directory-method"><span class="contact-icon" aria-hidden="true">☎</span><a href="tel:${esc(record.phone.replace(/[^+\d]/g, ''))}">${esc(record.phone)}</a></p>` : ''}</div></div>`).join('');
   const emails = [...new Set(records.map(record => record.email).filter(Boolean))];
   return `<article class="directory-entry"><h3>${esc(first.role)}</h3>${people}<div class="directory-contacts">${emails.map(email => `<p class="directory-method"><span class="contact-icon" aria-hidden="true">✉</span><a href="mailto:${esc(email)}">${esc(email)}</a></p>`).join('')}</div></article>`;
 }

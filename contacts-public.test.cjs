@@ -18,3 +18,21 @@ test('Our Team is the single contact destination, preserves all published record
  const compatibility=fs.readFileSync(path.join(root,'parish-contact-directory.html'),'utf8');assert.match(compatibility,/location.replace\('our-team.html' \+ location.search \+ location.hash\)/);assert.match(compatibility,/href="our-team.html"/);
  const nav=fs.readFileSync(path.join(root,'site.js'),'utf8');assert(!nav.includes('parish-contact-directory.html'));assert.match(nav,/href="our-team.html">Our Team/);
 });
+
+test('Optional contact portraits use authoritative references, reserve proportions and leave other profiles text-only',()=>{
+ const out=build(real),sandra=real.contacts.find(c=>c.id==='parish-priest');
+ assert.equal(sandra.photo,'assets/images/contacts/sandra-faccini.jpg');
+ assert.match(out.html,/<img class="directory-portrait" src="assets\/images\/contacts\/sandra-faccini.jpg" alt="Revd. Dr. Sandra Faccini" width="88" height="132" loading="lazy" decoding="async">/);
+ assert.equal((out.html.match(/class="directory-portrait"/g)||[]).length,1);
+ assert.equal(JSON.parse(out.admin).contacts.find(c=>c.id===sandra.id).photo,sandra.photo);
+ const without=structuredClone(real);delete without.contacts.find(c=>c.id===sandra.id).photo;
+ assert.doesNotMatch(build(without).html,/directory-portrait/);
+ assert.match(out.html,/mailto:parishpriest@micklehamchurch.org.uk/);
+ assert.match(out.html,/tel:01372417664/);
+});
+test('Optional contact portraits retain safe local-asset validation',()=>{
+ const {validateContacts}=require('./azure-function/src/contacts-model');
+ for(const photo of ['https://example.org/person.jpg','../person.jpg','assets/images/contacts/../person.jpg','assets/images/contacts/person.svg','assets/images/contacts/person.jpg" onerror="alert(1)']){
+  const data=structuredClone(real);data.contacts[0].photo=photo;assert.throws(()=>validateContacts(data),/invalid-photo/);
+ }
+});

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { contactsMessage as calendarMessage } from './contacts-api.mjs';
 const code = fs.readFileSync(new URL('./admin.js', import.meta.url), 'utf8');
-const directory = () => ({ sections: ['parish-leadership','parish-office-pcc','worship-life-events','pastoral-care-safeguarding','parish-life-communications','pcc-members'].map(id => ({id,title:id,eyebrow:'Section'})), contacts: [{id:'fixture-contact',section:'parish-leadership',role:'Fixture role',name:'Fixture Person',email:'',phone:'',status:'published',photo:''}], pccMembers:[{id:'pcc-one',name:'PCC One',status:'published'},{id:'pcc-two',name:'PCC Two',status:'draft'}] });
+const directory = () => ({ sections: ['parish-leadership','parish-office-pcc','worship-life-events','pastoral-care-safeguarding','parish-life-communications','pcc-members'].map(id => ({id,title:id,eyebrow:'Section'})), contacts: [{id:'fixture-contact',section:'parish-leadership',role:'Fixture role',name:'Fixture Person',email:'',phone:'',status:'published',photo:'assets/images/contacts/fixture-person.jpg'}], pccMembers:[{id:'pcc-one',name:'PCC One',status:'published'},{id:'pcc-two',name:'PCC Two',status:'draft'}] });
 const initial = () => ({ok:true,sha:'a'.repeat(40),contacts:directory()});
 async function harness({ publish = async () => ({ ok: true, sha: 'c'.repeat(40) }) } = {}) {
   const elements = new Map(), listeners = {}, calls = [], storage = [], monitors = [];
@@ -37,7 +37,7 @@ test('Contacts editor loads shared data, ignores stale tab data, stages edits an
  const h=await harness(); assert.equal(h.calls[0].method,'GET');assert.doesNotMatch(h.node('#admin-content').innerHTML,/Old demo/);
  assert.match(h.node('#admin-content').innerHTML,/data-action="publish-contacts" disabled/);
  h.submit({name:'Updated fixture'},'fixture-contact');assert.match(h.node('#admin-content').innerHTML,/Changes are staged/);
- h.click('publish-contacts');await h.flush();const p=h.calls[1].payload;assert.equal(p.sha,'a'.repeat(40));assert.equal(p.contacts.contacts[0].name,'Updated fixture');assert.equal(p.contacts.contacts[0].photo,'');assert.equal(h.storage.length,0);
+ h.click('publish-contacts');await h.flush();const p=h.calls[1].payload;assert.equal(p.sha,'a'.repeat(40));assert.equal(p.contacts.contacts[0].name,'Updated fixture');assert.equal(p.contacts.contacts[0].photo,'assets/images/contacts/fixture-person.jpg');assert.equal(h.storage.length,0);
  assert.match(h.node('#admin-content').innerHTML,/website is rebuilding/);assert.doesNotMatch(h.node('#admin-content').innerHTML,/Contacts live/);
  h.submit({name:'Second fixture'},'fixture-contact');h.click('publish-contacts');await h.flush();assert.equal(h.calls[2].payload.sha,'c'.repeat(40));
 });

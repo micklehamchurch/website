@@ -792,3 +792,8 @@ h3 { font-family: var(--serif); }
 }
 @media (prefers-reduced-motion: reduce) { .nav-chevron { transition: none; } }
 
+
+/* Optional contact portrait: full source proportions, no synthetic placeholders. */
+.directory-person.has-portrait { display: flex; align-items: center; gap: 14px; margin: 8px 0; }
+.directory-portrait { display: block; flex: none; width: 88px; height: 132px; object-fit: contain; border: 1px solid var(--stone); border-radius: 6px; background: var(--cream); }
+.directory-person-details { min-width: 0; }
