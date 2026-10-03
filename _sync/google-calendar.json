@@ -3434,6 +3434,33 @@
       "suppressed": false,
       "conflicts": [],
       "missingChecks": 0
+    },
+    {
+      "key": "[\"5f3dkc65s18fekilg2ti90iph1@google.com\",\"\"]",
+      "uid": "5f3dkc65s18fekilg2ti90iph1@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-0163a8f3db412053c009d27fcaa40544",
+      "google": {
+        "title": "Test event",
+        "start": "2027-01-05T00:00",
+        "end": "2027-01-06T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Test event",
+        "start": "2027-01-05T00:00",
+        "end": "2027-01-06T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "286712e134f3410994a04510f4fc003e6fc0c99cfba3e58cbeadce3fcc776b8a",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3450,11 +3477,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-03T05:59:17.553Z",
+  "lastSuccessfulSync": "2026-10-03T21:00:04.969Z",
   "audit": {
-    "at": "2026-10-03T05:59:17.553Z",
-    "additions": 2,
-    "updates": 1,
+    "at": "2026-10-03T21:00:04.969Z",
+    "mode": "automatic",
+    "added": 1,
+    "updated": 0,
+    "removed": 0,
+    "unchanged": 118,
     "missing": 0,
     "conflicts": 0,
     "suppressed": 0

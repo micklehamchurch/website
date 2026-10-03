@@ -263,6 +263,17 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-0163a8f3db412053c009d27fcaa40544",
+      "title": "Test event",
+      "start": "2027-01-05T00:00",
+      "end": "2027-01-06T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
