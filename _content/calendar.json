@@ -241,6 +241,28 @@
       "title": "Wedding in church",
       "start": "2027-09-04T00:00",
       "end": "2027-09-05T00:00"
+    },
+    {
+      "id": "google-077f148d76d2421ec53b4324e19f0af5",
+      "title": "7.30pm",
+      "start": "2027-03-18T19:30",
+      "end": "2027-03-18T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-d4e5493965896c8487880c703ab50037",
+      "title": "NO BCP service at Westhumble Chapel",
+      "start": "2026-11-08T08:00",
+      "end": "2026-11-08T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
@@ -433,7 +455,7 @@
       "changes": {
         "title": "Compline in Church",
         "start": "2026-11-24T19:00",
-        "end": "2026-11-24T19:30",
+        "end": "2026-11-24T20:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": "Compline in Church",

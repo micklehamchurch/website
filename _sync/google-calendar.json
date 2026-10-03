@@ -25,7 +25,7 @@
       "website": {
         "title": "Compline in Church",
         "start": "2026-11-24T19:00",
-        "end": "2026-11-24T19:30",
+        "end": "2026-11-24T20:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": "Compline in Church"
@@ -34,10 +34,7 @@
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
-      "missingChecks": 0,
-      "initialUpdate": {
-        "end": "2026-11-24T20:00"
-      }
+      "missingChecks": 0
     },
     {
       "key": "[\"0t8tcsm6njhv2g8dl8opfqu8p0@google.com\",\"\"]",
@@ -2633,13 +2630,20 @@
         "location": "",
         "description": ""
       },
-      "website": null,
+      "website": {
+        "title": "7.30pm",
+        "start": "2027-03-18T19:30",
+        "end": "2027-03-18T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
       "fingerprint": "5c33e6549684ea21560065ac6f0ddc6635aada525210180202b65406e2b608d1",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
       "missingChecks": 0,
-      "approvedAddition": true
+      "approvedAddition": false
     },
     {
       "key": "[\"4jthsf8uhsskpoa35jsjkl7qqt@google.com\",\"\"]",
@@ -2894,13 +2898,20 @@
         "location": "",
         "description": ""
       },
-      "website": null,
+      "website": {
+        "title": "NO BCP service at Westhumble Chapel",
+        "start": "2026-11-08T08:00",
+        "end": "2026-11-08T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
       "fingerprint": "150aa7fb11252c4b2268382a947841a8e3a3108269d8b84b70b647ea6dd76973",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
       "missingChecks": 0,
-      "approvedAddition": true
+      "approvedAddition": false
     },
     {
       "key": "[\"7d7brsj6fkcjiioq3gk6377dge@google.com\",\"\"]",
@@ -3439,6 +3450,13 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": null,
-  "audit": null
+  "lastSuccessfulSync": "2026-10-03T05:59:17.553Z",
+  "audit": {
+    "at": "2026-10-03T05:59:17.553Z",
+    "additions": 2,
+    "updates": 1,
+    "missing": 0,
+    "conflicts": 0,
+    "suppressed": 0
+  }
 }
