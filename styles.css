@@ -881,8 +881,8 @@ h3 { font-family: var(--serif); }
 @media (prefers-reduced-motion: reduce) { .brand-mark { transition: none; } }
 .footer .footer-photo-credit { margin-top: 18px; margin-bottom: 12px; color: #c4d0c7; font-size: 11px; line-height: 1.6; } .footer .footer-photo-credit a { display: inline; margin: 0; color: #e6cf88; font-size: inherit; text-decoration: underline; text-underline-offset: 3px; } .footer-photo-credit a:focus-visible { outline: 2px solid #e6cf88; outline-offset: 3px; }
 @media (min-width: 1201px) {
-  /* A taller photographic canvas retains both the spire and entrance with cover. */
-  .home-hero { min-height: 0; }
+  /* Light desktop trim: about 6.5% above and 4% below, without increasing image scale. */
+  .home-hero { min-height: 0; aspect-ratio: 4786 / 2409; background-size: 100% auto; background-position: center 62%; }
 }
 
 /* Compact shared parish footer: paired features, three information areas, slim credits. */
