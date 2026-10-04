@@ -66,10 +66,21 @@ test('a Google import moved beyond the publication horizon is retained for revie
 test('the deployed timer invokes the shared synchronization service and never logs exception details',async()=>{
  const fs=require('node:fs'),vm=require('node:vm');const code=fs.readFileSync(require.resolve('../src/functions/google-calendar-timer'),'utf8');
  const registrations=[],logs=[];let called=0,fail=false;
- vm.runInNewContext(code,{require:name=>name==='@azure/functions'?{app:{timer:(name,options)=>registrations.push({name,options}),http:()=>{}}}:name==='../google-sync-service'?{SCHEDULE:'0 0 * * * *',createGoogleSyncService:()=>({automatic:async()=>{called++;if(fail)throw Error('private fixture credential');return{lastAutomatic:{result:'up-to-date'}};}})}:{createGoogleSyncStatusHandler:()=>()=>{}}});
- const timer=registrations[0];assert.equal(timer.options.schedule,'0 0 * * * *');await timer.options.handler({}, {log:(...x)=>logs.push(x),error:(...x)=>logs.push(x)});assert.equal(called,1);fail=true;await timer.options.handler({}, {log:(...x)=>logs.push(x),error:(...x)=>logs.push(x)});assert.equal(called,2);assert(!JSON.stringify(logs).includes('private fixture'));
+ vm.runInNewContext(code,{require:name=>name==='@azure/functions'?{app:{timer:(name,options)=>registrations.push({name,options}),http:()=>{}}}:name==='../google-sync-service'?{SCHEDULE:'0 */15 * * * *',createGoogleSyncService:()=>({automatic:async()=>{called++;if(fail)throw Error('private fixture credential');return{lastAutomatic:{result:'up-to-date'}};}})}:{createGoogleSyncStatusHandler:()=>()=>{}}});
+ const timer=registrations[0];assert.equal(timer.options.schedule,'0 */15 * * * *');await timer.options.handler({}, {log:(...x)=>logs.push(x),error:(...x)=>logs.push(x)});assert.equal(called,1);fail=true;await timer.options.handler({}, {log:(...x)=>logs.push(x),error:(...x)=>logs.push(x)});assert.equal(called,2);assert(!JSON.stringify(logs).includes('private fixture'));
 });
 test('administrator-only status performs no Google request; manual dry-run and confirmed apply share automatic reconciliation',async()=>{
  const f=fixture();await f.service.automatic();const status=createGoogleSyncStatusHandler(f.dependencies);assert.equal((await status(request())).jsonBody.lastAutomatic.unchanged,118);assert.equal((await status(request('GET',null,null))).status,401);const wrong=structuredClone(principal);wrong.claims.find(c=>c.typ==='sub').val+='x';assert.equal((await status(request('GET',null,wrong))).status,403);
  add(f.state);const handler=createGoogleSyncHandler(f.dependencies);const check=await handler(request());assert.equal(check.jsonBody.report.additions.length,1);assert.equal(f.state.writes.length,0);const r=check.jsonBody;assert.equal((await handler(request('POST',{headSha:r.headSha,calendarSha:r.calendarSha,registrySha:r.registrySha,reviewDigest:r.reviewDigest,confirm:true}))).status,200);assert.equal(f.state.writes.length,1);
+});
+
+test('quarter-hour checks remain no-ops and cannot accelerate hourly deletion evidence',async()=>{
+ const unchanged=fixture();
+ for(const minute of ['00','15','30','45']){unchanged.state.at=`2026-10-03T08:${minute}:00Z`;await unchanged.service.automatic();}
+ assert.equal(unchanged.state.writes.length,0);
+ assert.equal(unchanged.state.runtime.lastAutomatic.calendarChanged,false);
+ const missing=fixture(),entry=missing.state.registry.entries.find(e=>e.websiteId==='google-077f148d76d2421ec53b4324e19f0af5');
+ missing.state.feed.rows=missing.state.feed.rows.filter(r=>r.key!==entry.key);
+ for(const minute of ['00','15','30','45']){missing.state.at=`2026-10-03T08:${minute}:00Z`;await missing.service.automatic();assert.equal(missing.state.runtime.observations[entry.key].count,1);}
+ assert.equal(missing.state.writes.length,0);
 });

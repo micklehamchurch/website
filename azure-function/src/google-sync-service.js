@@ -3,7 +3,7 @@ const { fetchGoogleCalendar, fingerprint } = require('./google-calendar-adapter'
 const { reconcile, validateRegistry } = require('./google-calendar-sync-model');
 const { createBlobSyncStore } = require('./google-sync-store');
 const PATHS = Object.freeze({ calendar: '_content/calendar.json', registry: '_sync/google-calendar.json' });
-const SCHEDULE = '0 0 * * * *';
+const SCHEDULE = '0 */15 * * * *';
 const sha = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 const error = (code, status = 502) => Object.assign(Error(code), { code, status });
 const counts = report => ({ added: report.additions.length, updated: report.updates.length, removed: report.removals.length, unchanged: report.unchanged.length });
@@ -17,7 +17,7 @@ function observeMissing(registry, feed, state, at) {
   return observations;
 }
 function publicStatus(state) {
-  return { automaticSynchronization: 'on', cadence: 'Checks approximately hourly', lastAutomatic: state.lastAutomatic, lastSuccessfulAutomatic: state.lastSuccessfulAutomatic, lastCalendarUpdate: state.lastCalendarUpdate };
+  return { automaticSynchronization: 'on', cadence: 'Checks every 15 minutes', lastAutomatic: state.lastAutomatic, lastSuccessfulAutomatic: state.lastSuccessfulAutomatic, lastCalendarUpdate: state.lastCalendarUpdate };
 }
 function createGoogleSyncService({ env = process.env, readConfiguration = readGithubConfiguration, createClient = (c,p) => createInstallationClient(c,undefined,p), fetchFeed = fetchGoogleCalendar, now = () => new Date().toISOString(), store = createBlobSyncStore({env}) } = {}) {
   const target = { owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARGET.repository };

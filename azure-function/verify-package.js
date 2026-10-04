@@ -20,7 +20,7 @@ function verifyEntrypoint(root) {
   }
   assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'calendar', 'contacts', 'github-status', 'google-calendar-hourly', 'google-calendar-sync', 'google-calendar-sync-status', 'health', 'identity', 'news', 'publications']);
   for (const { name, options, timer } of registrations) if (!timer) assert.deepEqual(options.methods, ['calendar', 'contacts'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(name) ? ['GET', 'POST'] : ['GET']);
-  assert.deepEqual(registrations.find(r=>r.timer).options, {schedule:'0 0 * * * *',runOnStartup:false,useMonitor:true,handler:registrations.find(r=>r.timer).options.handler});
+  assert.deepEqual(registrations.find(r=>r.timer).options, {schedule:'0 */15 * * * *',runOnStartup:false,useMonitor:true,handler:registrations.find(r=>r.timer).options.handler});
   assert.equal(require(path.join(root,'host.json')).extensionBundle.version,'[4.0.0, 5.0.0)');
   assert.equal(registrations.find(r => r.name === 'calendar').options.route, 'calendar');
   assert.equal(typeof require(path.join(root, 'src/calendar-model.js')).buildCalendar, 'function');

@@ -50,7 +50,7 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, ['calendar', 'contacts'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   const timer=registrations.find(r=>r.timer);
   assert.equal(timer.name,'google-calendar-hourly');
-  assert.equal(timer.options.schedule,'0 0 * * * *');
+  assert.equal(timer.options.schedule,'0 */15 * * * *');
   assert.equal(timer.options.runOnStartup,false);assert.equal(timer.options.useMonitor,true);
   assert.equal((await registrations.find(r=>r.name==='google-calendar-sync-status').options.handler({method:'GET'})).status,401);
   const calendar = registrations.find(r => r.name === 'calendar');
