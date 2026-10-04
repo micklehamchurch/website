@@ -11,7 +11,7 @@
   }
   function renderLatest(records, type) {
     const target = document.querySelector(`#latest-${type}`), record = model.latest(records, type);
-    target.replaceChildren(create('p', 'Latest edition', 'eyebrow'), create('h2', model.label(type)));
+    target.replaceChildren(create('p', 'Latest edition', 'eyebrow'), create('h2', model.label(type)), create('p', type === 'pews-news' ? 'Our regular weekly church news sheet.' : 'News and features from parish life.'));
     if (!record) { target.append(create('p', type === 'pews-news' ? 'The next Pews News edition will be available here when it is supplied by the parish.' : 'Our Parish Magazine will be available here when the parish supplies an edition.', 'publication-empty')); return; }
     const date = create('time', model.dateLabel(record), 'publication-date'); date.dateTime = record.date;
     target.append(create('h3', record.title), date, create('p', record.description), actions(record));

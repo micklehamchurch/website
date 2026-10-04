@@ -57,7 +57,7 @@ for (const article of articles) {
   <base href="../">
   <meta name="generated-news-article" content="true">
   <meta name="description" content="${escapeHtml(article.excerpt)}">
-  <title>${escapeHtml(article.title)} | News &amp; Magazine | St Michael &amp; All Angels</title>
+  <title>${escapeHtml(article.title)} | News | St Michael &amp; All Angels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -77,7 +77,7 @@ for (const article of articles) {
   <header class="site-header" data-site-header></header>
   <main id="main-content" class="section article-page ${photos ? 'story-article' : ''}" tabindex="-1">
     <div class="container article-container">
-      <a class="article-back" href="news-stories.html">← Back to News &amp; Stories</a>
+      <a class="article-back" href="news.html">← Back to News</a>
       <article class="article-content">
         <p class="eyebrow">${escapeHtml(article.category)}</p>
         <h1>${escapeHtml(article.title)}</h1>
@@ -86,7 +86,7 @@ for (const article of articles) {
         ${photos ? `<figure class="story-lead">${stories.photo(photos.lead,true)}</figure>` : article.image ? `<img class="news-article-image" src="${escapeHtml(article.image)}" alt="${escapeHtml(article.imageAlt || '')}">` : ''}
         ${photos ? stories.body(article,photos) : `<div class="article-copy">${paragraphs}</div>`}
         ${galleryLink}
-        <div class="article-bottom-nav"><a class="btn btn-green" href="news-stories.html">Back to News &amp; Stories</a></div>
+        <div class="article-bottom-nav"><a class="btn btn-green" href="news.html">Back to News</a></div>
       </article>
     </div>
   </main>

@@ -32,3 +32,10 @@
   .latest-story .section-heading { display: block; }
   .story-article .article-excerpt { font-size: 18px; }
 }
+.news-landing .story-journal-list { margin: 12px 0 40px; }
+.news-landing .news-publications { display: grid; gap: 28px; max-width: 940px; margin-block: 24px 32px; }
+.news-landing .publication-card { padding: clamp(24px,3vw,36px); }
+.news-landing .news-edition-archive { max-width: 940px; border-block: 1px solid var(--stone); }
+.news-landing .news-edition-archive > summary { cursor: pointer; padding: 22px 4px; color: var(--green); font-weight: 600; }
+.news-landing .news-edition-archive > summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.news-landing .publication-archive-section { border: 0; margin-bottom: 24px; padding-top: 12px; }

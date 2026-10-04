@@ -33,12 +33,14 @@ function teaser(article, media) {
 function buildJournal(articles, media, root) {
   const live = published(articles);
   const template = fs.readFileSync(path.join(root,'news.html'),'utf8');
-  const main = `<main id="main-content" class="story-journal section" tabindex="-1"><div class="container"><p class="eyebrow">Life in our parish</p><h1>News &amp; Stories</h1><p class="story-journal-intro">Services, celebrations and moments of community at St Michael &amp; All Angels.</p><div class="story-journal-list">${live.map(a => teaser(a,media[a.slug])).join('') || '<p>Our parish stories will appear here as they are published.</p>'}</div><p><a class="text-link" href="news.html">Pews News &amp; Parish Magazine →</a></p></div></main>`;
-  const html = template.replace(/<main[\s\S]*?<\/main>/,main).replace(/  <script src="(?:publications-model|publications|news)\.js" defer><\/script>\r?\n/g,'').replace('News &amp; Magazine |','News &amp; Stories |').replace('<link rel="stylesheet" href="news-magazine.css">','<link rel="stylesheet" href="news-stories.css">');
-  fs.writeFileSync(path.join(root,'news-stories.html'),html);
+  const html = template.replace(/<!-- news-stories:start -->[\s\S]*?<!-- news-stories:end -->/, `<!-- news-stories:start -->
+${live.map(a => teaser(a,media[a.slug])).join('') || '<p>Our parish stories will appear here as they are published.</p>'}
+<!-- news-stories:end -->`);
+  fs.writeFileSync(path.join(root,'news.html'),html);
+  fs.writeFileSync(path.join(root,'news-stories.html'),`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="search-index" content="exclude"><meta http-equiv="refresh" content="0; url=news.html"><link rel="canonical" href="news.html"><title>News | St Michael &amp; All Angels</title></head><body><p>Our news has moved to <a href="news.html">News from St Michael's</a>.</p></body></html>`);
   const homePath = path.join(root,'index.html');
   const home = fs.readFileSync(homePath,'utf8');
-  const latest = `<section class="section latest-story" aria-labelledby="latest-story-heading"><div class="container"><div class="section-heading split"><h2 id="latest-story-heading">Latest from St Michael’s</h2><a class="text-link" href="news-stories.html">More news &amp; stories →</a></div>${live[0] ? teaser(live[0],media[live[0].slug]) : '<p>Parish stories will appear here as they are published.</p>'}</div></section>`;
+  const latest = `<section class="section latest-story" aria-labelledby="latest-story-heading"><div class="container"><div class="section-heading split"><h2 id="latest-story-heading">Latest from St Michael’s</h2><a class="text-link" href="news.html">More news →</a></div>${live[0] ? teaser(live[0],media[live[0].slug]) : '<p>Parish stories will appear here as they are published.</p>'}</div></section>`;
   fs.writeFileSync(homePath,home.replace(/<!-- latest-story:start -->[\s\S]*?<!-- latest-story:end -->/,`<!-- latest-story:start -->\n${latest}\n    <!-- latest-story:end -->`));
 }
 module.exports = {published,validateMedia,photo,body,teaser,buildJournal};
