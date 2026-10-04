@@ -48,8 +48,8 @@ img { max-width: 100%; }
 .hero { position: relative; min-height: 590px; background: linear-gradient(115deg,#173d2d 0%,#315d49 65%,#758a70 100%); }
 .home-hero { background-position: center 55%; }
 .home-hero { background-color: var(--deep); background-image: url('assets/images/home/church-hero-large.jpg'); background-image: image-set(url('assets/images/home/church-hero-large.webp') type('image/webp'),url('assets/images/home/church-hero-large.jpg') type('image/jpeg')); background-position: center 15%; background-size: cover; background-repeat: no-repeat; }
-.home-hero .hero-overlay { background: linear-gradient(90deg,#18392dd9 0%,#18392dbf 30%,#18392d66 45%,#18392d14 60%,transparent 72%); }
-@media (max-width: 1200px) { .home-hero { background-image: url('assets/images/home/church-hero-medium.jpg'); background-image: image-set(url('assets/images/home/church-hero-medium.webp') type('image/webp'),url('assets/images/home/church-hero-medium.jpg') type('image/jpeg')); } }
+.home-hero .hero-overlay { background: linear-gradient(90deg,#18392dd9 0%,#18392dd1 30%,#18392da6 45%,#18392d14 60%,transparent 72%); }
+@media (max-width: 1200px) { .home-hero { background-image: url('assets/images/home/church-hero-medium.jpg'); background-image: image-set(url('assets/images/home/church-hero-medium.webp') type('image/webp'),url('assets/images/home/church-hero-medium.jpg') type('image/jpeg')); } .home-hero .hero-overlay { background: linear-gradient(90deg,#18392dd9 0%,#18392dbf 45%,#18392d99 75%,#18392d26 100%); } }
 @media (max-width: 600px) {
   .home-hero { background-image: url('assets/images/home/church-hero-mobile.jpg'); background-image: image-set(url('assets/images/home/church-hero-mobile.webp') type('image/webp'),url('assets/images/home/church-hero-mobile.jpg') type('image/jpeg')); background-size: cover; background-position: 50% center; }
   .home-hero .hero-overlay { background: linear-gradient(90deg,#18392dcc 0%,#18392d99 65%,#18392d40 100%); }
