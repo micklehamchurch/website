@@ -880,3 +880,33 @@ h3 { font-family: var(--serif); }
   /* A taller photographic canvas retains both the spire and entrance with cover. */
   .home-hero { min-height: clamp(590px, 48vw, 920px); }
 }
+
+/* Compact shared parish footer: paired features, three information areas, slim credits. */
+.footer { padding: 28px 0 20px; }
+.footer-features { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; padding-bottom: 28px; border-bottom: 1px solid #ffffff24; }
+.footer-features > section { min-width: 0; }
+.footer-feature-diocese { display: grid; grid-template-columns: minmax(0,1fr) 160px; gap: 20px; align-items: center; border-left: 1px solid #ffffff24; padding-left: 32px; }
+.footer .footer-feature-kicker { color: #dcc58a; margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.footer .footer-features h2 { font: 600 26px/1.25 var(--serif); color: #fff9ed; letter-spacing: 0; text-transform: none; margin-bottom: 10px; }
+.footer .footer-features p:not(.footer-feature-kicker) { max-width: 440px; margin: 0 0 12px; font-size: 14px; line-height: 1.6; }
+.footer a.footer-feature-link { display: inline-block; color: #f1e5bc; margin: 0; font-size: 14px; font-weight: 600; padding-block: 6px; }
+.footer .footer-feature-diocese a.footer-diocese-logo { width: 160px; padding: 7px; margin: 0; align-self: center; }
+.footer .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; gap: 36px; padding-top: 28px; }
+.footer .footer-grid > .footer-identity > p { margin: 10px 0 0 56px; max-width: 340px; }
+.footer .footer-social { margin-top: 12px; margin-left: 56px; }
+.footer .footer-social h2 { margin-bottom: 5px; }
+.footer .social-links { margin: 0; }
+.footer a.social-link { margin: 0; padding: 5px 9px; }
+.footer-explore-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 20px; }
+.footer .footer-grid a:not(.brand):not(.social-link) { margin: 0; padding-block: 7px; }
+.footer .footer-bottom { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 8px 20px; margin-top: 24px; padding-top: 14px; }
+.footer-bottom-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.footer .footer-bottom a { display: inline; margin: 0; font-size: 12px; }
+.footer .footer-credit { margin: 0; font-size: 12px; }
+.footer .footer-photo-credit { grid-column: 1 / -1; margin: 0; font-size: 12px; }
+.footer a:focus-visible { outline: 3px solid #e6cf88; outline-offset: 4px; }
+@media (max-width: 1100px) { .footer-feature-diocese { grid-template-columns: 1fr; gap: 12px; } .footer .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; gap: 24px; } .footer-explore-links { grid-template-columns: 1fr; } }
+@media (max-width: 899px) { .footer-features { grid-template-columns: 1fr; gap: 22px; } .footer-feature-diocese { grid-template-columns: minmax(0,1fr) 160px; padding: 22px 0 0; border-left: 0; border-top: 1px solid #ffffff24; } .footer .footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .footer-identity { grid-column: 1 / -1; } .footer-explore-links { grid-template-columns: repeat(2,minmax(0,1fr)); } .footer .footer-bottom { grid-template-columns: 1fr; } .footer .footer-credit { text-align: left; } }
+@media (max-width: 599px) { .footer { padding-top: 24px; } .footer-features { padding-bottom: 24px; } .footer-feature-diocese { grid-template-columns: 1fr; } .footer .footer-grid { gap: 24px 18px; } .footer-explore-links { grid-template-columns: 1fr; } .footer .footer-grid > .footer-identity > p, .footer .footer-social { margin-left: 0; } .footer .footer-photo-credit { line-height: 1.8; } }
+
+.footer-feature-diocese > div { align-self: start; }

@@ -32,19 +32,17 @@ const navigation = `
 
 const socialArea = `<section class="footer-social" aria-labelledby="footer-social-title"><h2 id="footer-social-title">Follow St Michael &amp; All Angels</h2><ul class="social-links">${socialLinks.map(link => `<li><a class="social-link" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${link.label}">${link.icon}<span>${link.name}</span><span class="social-external" aria-hidden="true">↗</span></a></li>`).join('')}</ul></section>`;
 const footer = `
-  <div class="container footer-grid">
-    <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
-    <div><h2>Explore</h2><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="whats-on.html">Services and events</a><a href="church-life.html">Church life</a><a href="about.html">Our Parish</a><a href="eco-church.html">Eco Church</a><a href="visit.html">Visit the Church</a><a href="news.html">News</a><a href="gallery.html">Gallery</a><a href="sunday-services.html">Media · Sunday services</a></div>
-    <div><h2>Our churches</h2><p>St Michael &amp; All Angels<br>Mickleham, Surrey</p><p>Westhumble Chapel<br>Westhumble, Surrey</p><a href="visit.html">Plan a visit <span aria-hidden="true">→</span></a></div>
-    <div><h2>Get in touch</h2><p>Questions about visiting, worship or parish life?</p><a href="contact.html">Contact the church <span aria-hidden="true">→</span></a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="give.html">Support our church</a></div>
+  <div class="container footer-features">
+    <section class="footer-feature-support" aria-labelledby="footer-support-title"><p class="footer-feature-kicker">Help us continue our work</p><h2 id="footer-support-title">Support our church</h2><p>Help care for our buildings, support ministry and serve our community.</p><a class="footer-feature-link" href="give.html">Ways to give <span aria-hidden="true">→</span></a></section>
+    <section class="footer-feature-diocese" aria-labelledby="footer-diocese-title"><div><p class="footer-feature-kicker">Our wider church</p><h2 id="footer-diocese-title">Part of the Diocese of Guildford</h2><p>Part of the Church of England and the Diocese of Guildford.</p><a class="footer-feature-link" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer">Learn more about the Diocese <span aria-hidden="true">→</span></a></div><a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><span class="diocese-logo-crop"><img src="assets/branding/diocese-of-guildford-colour.png" width="2291" height="1521" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></span></a></section>
   </div>
-  <section class="container footer-diocese" aria-labelledby="footer-diocese-title">
-    <div class="footer-diocese-copy"><p class="footer-diocese-kicker">Our wider church</p><h2 id="footer-diocese-title">Part of the Diocese of Guildford</h2><p>St Michael &amp; All Angels Church is part of the Church of England and the Diocese of Guildford.</p><a class="footer-diocese-link" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer">Learn more about the Diocese <span aria-hidden="true">→</span></a></div>
-    <a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><span class="diocese-logo-crop"><img src="assets/branding/diocese-of-guildford-colour.png" width="2291" height="1521" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></span></a>
-  </section>
-  <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>
-  <p class="container footer-photo-credit">Homepage photograph: JFVoll / <a href="https://commons.wikimedia.org/wiki/File:St._Michael%27s_Church_-_Mickleham,_UK.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> · cropped/optimised for web</p>
-  <p class="container footer-credit">Website by Ed Popov</p>`;
+  <div class="container footer-grid">
+    <div class="footer-identity"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
+    <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Gallery</a></div></div>
+    <div><h2>Get in touch</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a></div>
+  </div>
+  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div><p class="footer-credit">Website by Ed Popov</p><p class="footer-photo-credit">Homepage photograph: JFVoll / <a href="https://commons.wikimedia.org/wiki/File:St._Michael%27s_Church_-_Mickleham,_UK.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> · cropped/optimised for web</p></div>`;
+
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
@@ -52,7 +50,7 @@ document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', f
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 
 const siteScript = document.querySelector('script[src$="site.js"]');
-const footerBottom = document.querySelector('.footer-bottom');
+const footerBottom = document.querySelector('.footer-bottom-links');
 if (siteScript && footerBottom) {
   const adminUrl = new URL('admin/', new URL('.', siteScript.src)).href;
   const adminLink = document.createElement('a');
