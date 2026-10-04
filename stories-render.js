@@ -20,7 +20,7 @@ function validateMedia(media, root) {
   }
 }
 function photo(p, lead = false) {
-  return `<img src="${escape(p.src)}" srcset="${escape(p.small)} 640w, ${escape(p.src)} 1280w" sizes="(max-width: 700px) calc(100vw - 40px), 1100px" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" ${lead ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  return `<img src="${escape(p.src)}" srcset="${escape(p.small)} 640w, ${escape(p.src)} ${p.width}w" sizes="(max-width: 700px) calc(100vw - 40px), 1100px" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" ${lead ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 function body(article, media) {
   return article.paragraphs.map((p,i) => `<div class="story-prose"><p>${escape(p)}</p></div>` + (media?.groups || []).filter(g => g.after === i).map(g => `<div class="story-photo-group${g.photos.length === 2 ? ' story-photo-pair' : ''}">${g.photos.map(p => `<figure>${photo(p)}</figure>`).join('')}</div>`).join('')).join('\n');
