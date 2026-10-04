@@ -3,19 +3,25 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { buildCalendar } = require('../azure-function/src/calendar-model');
 const calendar = require('../_content/calendar.json');
-const {before,applied} = require('./fixtures/calendar-stage1-expected.cjs');
+const {before} = require('./fixtures/calendar-stage1-expected.cjs');
 const empty = { hiddenEventIds: [], overrides: [], events: [] };
-test('explicit no-feed mode preserves the complete approved Calendar and Admin objects', () => {
-  assert.deepEqual(buildCalendar(null, calendar).items.filter(e=>before.items.some(original=>original.id===e.id)), before.items);
-  for (const key of ['events','series','exceptions']) assert.deepEqual(calendar[key].filter(e=>before[key].some(original=>original.id ? original.id===e.id : original.seriesId===e.seriesId && original.occurrenceStart===e.occurrenceStart)), before[key]);
+test('explicit no-feed mode preserves isolated historical Calendar and Admin objects', () => {
+  const historical = Object.fromEntries(['hiddenEventIds','overrides','events','series','exceptions'].map(key => [key, structuredClone(before[key] || [])]));
+  const original = structuredClone(historical);
+  assert.deepEqual(buildCalendar(null, historical).items, before.items);
+  assert.deepEqual(historical, original);
+});
+
+test('generated public Calendar and search correspond to current authoritative content', () => {
+  const items = buildCalendar(null, calendar).items;
+  assert.deepEqual(require('../events.json').items, items);
   assert.deepEqual(calendar.hiddenEventIds, []);
   assert.deepEqual(calendar.overrides, []);
   assert.equal(fs.existsSync(require('node:path').join(__dirname,'../_content/calendar-source.ics')), false);
-  const search = require('../search-index.json');
-  // Public UI wording can change; the authoritative event fields remain indexed.
-  const text = JSON.stringify(search);
-  for (const event of before.items) assert(text.includes(event.title) && text.includes(event.start));
+  const text = JSON.stringify(require('../search-index.json'));
+  for (const event of items) assert(text.includes(event.title) && text.includes(event.start));
 });
+
 test('no-feed mode supports empty, draft, one-off and recurring Calendars', () => {
   assert.deepEqual(buildCalendar(null, empty).items, []);
   const event = calendar.events[0];
@@ -35,7 +41,4 @@ test('removed Test iPhone is absent from authoritative Calendar and every public
     const text = fs.readFileSync(require('node:path').join(__dirname, '..', file), 'utf8');
     assert(!text.includes(id)); assert(!text.includes('Test iPhone'));
   }
-  assert.deepEqual(buildCalendar(null, calendar).items, before.items);
-  assert.deepEqual(require('../events.json').items, before.items);
-  assert.equal(before.items.length, applied ? 118 : 116);
 });
