@@ -47,12 +47,12 @@ img { max-width: 100%; }
 .btn-small { min-height: 40px; padding: 8px 15px; }
 .hero { position: relative; min-height: 590px; background: linear-gradient(115deg,#173d2d 0%,#315d49 65%,#758a70 100%); }
 .home-hero { background-position: center 55%; }
-.home-hero { background-color: var(--deep); background-image: url('assets/images/home/church-hero-large.jpg'); background-image: image-set(url('assets/images/home/church-hero-large.webp') type('image/webp'),url('assets/images/home/church-hero-large.jpg') type('image/jpeg')); background-position: right center; background-size: auto 100%; background-repeat: no-repeat; }
-.home-hero .hero-overlay { background: linear-gradient(90deg,#18392d 0%,#18392de6 30%,#18392d80 50%,#18392d14 75%,transparent 100%); }
+.home-hero { background-color: var(--deep); background-image: url('assets/images/home/church-hero-large.jpg'); background-image: image-set(url('assets/images/home/church-hero-large.webp') type('image/webp'),url('assets/images/home/church-hero-large.jpg') type('image/jpeg')); background-position: center 15%; background-size: cover; background-repeat: no-repeat; }
+.home-hero .hero-overlay { background: linear-gradient(90deg,#18392dd9 0%,#18392dbf 30%,#18392d66 45%,#18392d14 60%,transparent 72%); }
 @media (max-width: 1200px) { .home-hero { background-image: url('assets/images/home/church-hero-medium.jpg'); background-image: image-set(url('assets/images/home/church-hero-medium.webp') type('image/webp'),url('assets/images/home/church-hero-medium.jpg') type('image/jpeg')); } }
 @media (max-width: 600px) {
   .home-hero { background-image: url('assets/images/home/church-hero-mobile.jpg'); background-image: image-set(url('assets/images/home/church-hero-mobile.webp') type('image/webp'),url('assets/images/home/church-hero-mobile.jpg') type('image/jpeg')); background-size: cover; background-position: 50% center; }
-  .home-hero .hero-overlay { background: linear-gradient(90deg,#12251cbf 0%,#12251c85 65%,#12251c33 100%); }
+  .home-hero .hero-overlay { background: linear-gradient(90deg,#18392dcc 0%,#18392d99 65%,#18392d40 100%); }
 }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, #12251cc9, #12251c33 70%, #0001); }
 .hero-content { position: relative; padding-top: clamp(100px, 13vw, 155px); padding-bottom: 120px; color: white; }
@@ -877,6 +877,6 @@ h3 { font-family: var(--serif); }
 @media (prefers-reduced-motion: reduce) { .brand-mark { transition: none; } }
 .footer .footer-photo-credit { margin-top: 18px; margin-bottom: 12px; color: #c4d0c7; font-size: 11px; line-height: 1.6; } .footer .footer-photo-credit a { display: inline; margin: 0; color: #e6cf88; font-size: inherit; text-decoration: underline; text-underline-offset: 3px; } .footer-photo-credit a:focus-visible { outline: 2px solid #e6cf88; outline-offset: 3px; }
 @media (min-width: 1201px) {
-  /* Blend the full-height photograph into the existing green text area. */
-  .home-hero .hero-overlay { background: linear-gradient(90deg,#18392d 0%,#18392d calc(100% - 782px),#18392de6 calc(100% - 682px),#18392d4d calc(100% - 432px),transparent 100%); }
+  /* A taller photographic canvas retains both the spire and entrance with cover. */
+  .home-hero { min-height: clamp(590px, 48vw, 920px); }
 }
