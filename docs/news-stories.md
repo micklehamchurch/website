@@ -1,0 +1,21 @@
+# News & Stories
+
+Story text, date, slug, excerpt, image and publication status remain in _content/news.json, edited by the existing Admin News workflow. build-news-pages.js generates the published article pages, News & Stories journal and homepage latest-story section. Drafts and demo samples are excluded. Stories sort newest first; expired stories are omitted from the journal/home feature. Existing News & Magazine/PDF publications remain available.
+
+Optional editorial photography is in _content/news-media.json, keyed by the same slug. It contains no independent story text/status: cover (homepage/listing), lead (article opening), and groups of one/two photographs placed after zero-based paragraph indexes. Each photo has src, small, width, height and descriptive alt. This metadata stays intact when the existing Admin saves article text. Additional photo layouts currently require a repository edit, not an Admin rewrite. Keep group indexes in range when changing paragraph structure.
+
+Harvest 4 October 2026: Ed supplied ten selected real photographs and confirmed permission for website use including adults and children. Originals were EXIF-oriented, resized (640/1280px widths) and compressed as WebP, without colour/scene alterations. Embedded metadata was removed. Originals are not served. No photographer name or licence was invented.
+
+Selected files and roles:
+- welcome-doors: WhatsApp Image 2026-10-04 at 16.25.47.jpeg
+- congregation: 2WhatsApp Image 2026-10-04 at 14.31.21.jpeg
+- sunflowers: WhatsApp Image 2026-10-04 at 16.22.48.jpeg
+- window-flowers: 1WhatsApp Image 2026-10-04 at 16.22.48.jpeg
+- harvest-altar: 4WhatsApp Image 2026-10-04 at 16.25.47.jpeg
+- harvest-reflection: 3WhatsApp Image 2026-10-04 at 14.31.21.jpeg
+- family-crafts: WhatsApp Image 2026-10-04 at 14.31.20.jpeg
+- shared-table: WhatsApp Image 2026-10-04 at 12.29.59.jpeg
+- fellowship: 7WhatsApp Image 2026-10-04 at 16.25.47.jpeg
+- church-welcome: 1WhatsApp Image 2026-10-04 at 14.31.21.jpeg
+
+Run npm run build and npm test. Dev-only content workflow rebuilds when story text/media changes. Never edit generated article pages directly.

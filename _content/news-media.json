@@ -1,0 +1,101 @@
+{
+  "a-harvest-of-thankfulness": {
+    "cover": {
+      "src": "assets/images/stories/harvest-2026/welcome-doors-1280.webp",
+      "small": "assets/images/stories/harvest-2026/welcome-doors-640.webp",
+      "width": 1280,
+      "height": 960,
+      "alt": "Open red church doors frame autumn flowers in the entrance porch"
+    },
+    "lead": {
+      "src": "assets/images/stories/harvest-2026/congregation-1280.webp",
+      "small": "assets/images/stories/harvest-2026/congregation-640.webp",
+      "width": 1280,
+      "height": 960,
+      "alt": "The Harvest congregation seen from the gallery, looking towards the altar"
+    },
+    "groups": [
+      {
+        "after": 0,
+        "photos": [
+          {
+            "src": "assets/images/stories/harvest-2026/sunflowers-1280.webp",
+            "small": "assets/images/stories/harvest-2026/sunflowers-640.webp",
+            "width": 1280,
+            "height": 1707,
+            "alt": "Sunflowers, hydrangeas and autumn foliage arranged inside the church"
+          },
+          {
+            "src": "assets/images/stories/harvest-2026/window-flowers-1280.webp",
+            "small": "assets/images/stories/harvest-2026/window-flowers-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "Autumn flowers and pumpkins beneath a stained-glass window"
+          }
+        ]
+      },
+      {
+        "after": 1,
+        "photos": [
+          {
+            "src": "assets/images/stories/harvest-2026/harvest-altar-1280.webp",
+            "small": "assets/images/stories/harvest-2026/harvest-altar-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "The altar frontal reads Praise God for Harvest beneath the carved reredos"
+          }
+        ]
+      },
+      {
+        "after": 2,
+        "photos": [
+          {
+            "src": "assets/images/stories/harvest-2026/harvest-reflection-1280.webp",
+            "small": "assets/images/stories/harvest-2026/harvest-reflection-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "A Harvest reflection at the front of the congregation with a basket of produce"
+          }
+        ]
+      },
+      {
+        "after": 3,
+        "photos": [
+          {
+            "src": "assets/images/stories/harvest-2026/family-crafts-1280.webp",
+            "small": "assets/images/stories/harvest-2026/family-crafts-640.webp",
+            "width": 1200,
+            "height": 1600,
+            "alt": "Two children and an adult share their colourful Harvest crafts"
+          },
+          {
+            "src": "assets/images/stories/harvest-2026/shared-table-1280.webp",
+            "small": "assets/images/stories/harvest-2026/shared-table-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "Members of the parish beside the table of food after the Harvest service"
+          }
+        ]
+      },
+      {
+        "after": 4,
+        "photos": [
+          {
+            "src": "assets/images/stories/harvest-2026/fellowship-1280.webp",
+            "small": "assets/images/stories/harvest-2026/fellowship-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "Children and adults share food and conversation after worship"
+          },
+          {
+            "src": "assets/images/stories/harvest-2026/church-welcome-1280.webp",
+            "small": "assets/images/stories/harvest-2026/church-welcome-640.webp",
+            "width": 1200,
+            "height": 1600,
+            "alt": "Parishioners talking outside the church porch in autumn sunshine"
+          }
+        ]
+      }
+    ]
+  }
+}

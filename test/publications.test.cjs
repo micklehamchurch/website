@@ -48,8 +48,10 @@ test('real website stories generate readable escaped articles; expired articles 
   const source = fs.readFileSync(path.join(root, 'build-news-pages.js'), 'utf8');
   const story = { slug: 'test-story', title: 'Fixture <title>', date: '2026-09-27', dateLabel: '27 September 2026', category: 'News', excerpt: 'Test summary', paragraphs: ['Full body <script>'], status: 'published', expires: '2026-09-28' };
   const outputs = new Map();
-  const fakeFs = { readFileSync: () => JSON.stringify({ articles: [story, { ...story, slug: 'draft-fixture', status: 'draft' }] }), writeFileSync: (file, text) => outputs.set(path.basename(file), text), mkdirSync() {}, readdirSync: () => [], existsSync: () => true };
-  const run = () => vm.runInNewContext(source, { __dirname: root, require: name => name === 'node:fs' ? fakeFs : name === './publications-model.js' ? model : require(name), console: { log() {} } });
+  const fakeFs = { readFileSync: file => path.basename(file) === 'news-media.json' ? '{}' : path.basename(file) === 'index.html' ? '<!-- latest-story:start --><!-- latest-story:end -->' : path.basename(file) === 'news.html' ? '<html><main></main></html>' : JSON.stringify({ articles: [story, { ...story, slug: 'draft-fixture', status: 'draft' }] }), writeFileSync: (file, text) => outputs.set(path.basename(file), text), mkdirSync() {}, readdirSync: () => [], existsSync: () => true };
+  const storiesModule = { exports: {} };
+  vm.runInNewContext(fs.readFileSync(path.join(root,'stories-render.js'),'utf8'), { module: storiesModule, require: name => name === 'node:fs' ? fakeFs : require(name) });
+  const run = () => vm.runInNewContext(source, { __dirname: root, require: name => name === 'node:fs' ? fakeFs : name === './publications-model.js' ? model : name === './stories-render' ? storiesModule.exports : require(name), console: { log() {} } });
   run(); assert.match(outputs.get('test-story.html'), /Full body &lt;script&gt;/);
   assert.equal(outputs.has('draft-fixture.html'), false);
   assert.equal(JSON.parse(outputs.get('news-data.json')).articles[0].expires, '2026-09-28');

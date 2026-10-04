@@ -6,6 +6,10 @@ on:
     paths:
       - '_content/calendar.json'
       - '_content/news.json'
+      - '_content/news-media.json'
+      - 'stories-render.js'
+      - 'news-stories.css'
+      - 'assets/images/stories/**'
       - '_content/publications.json'
       - 'assets/documents/news/**'
       - 'publications-model.js'
@@ -81,7 +85,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A calendar.ics events.json calendar-version.json news-data.json publications-data.json admin/publications-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json news
+          git add -A calendar.ics events.json calendar-version.json news-data.json publications-data.json admin/publications-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json index.html news-stories.html news
           node -e "const d=require('./content-pages.json'); for (const p of d.pages) console.log(p.slug + '.html')" | while IFS= read -r page; do git add -A "$page"; done
           if git diff --cached --quiet; then
             echo "Generated website files are already current."

@@ -6,6 +6,10 @@ const outputDirectory = path.join(root, 'news');
 const data = JSON.parse(fs.readFileSync(path.join(root, '_content', 'news.json'), 'utf8'));
 if (!Array.isArray(data.articles)) throw new Error('news-data.json must contain an articles array.');
 const slugs = new Set();
+const stories = require('./stories-render');
+const mediaPath = path.join(root, '_content', 'news-media.json');
+const media = fs.existsSync(mediaPath) ? JSON.parse(fs.readFileSync(mediaPath,'utf8')) : {};
+stories.validateMedia(media, root);
 const { dateValid } = require('./publications-model.js');
 for (const article of data.articles) {
   if (typeof article.slug !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) throw new Error(`Invalid article slug: ${article.slug || '(missing)'}`);
@@ -40,6 +44,7 @@ fs.mkdirSync(outputDirectory, { recursive: true });
 const expectedFiles = new Set(articles.map(article => `${article.slug}.html`));
 
 for (const article of articles) {
+  const photos = media[article.slug];
   const paragraphs = (article.paragraphs || []).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n          ');
   const galleryLink = article.galleryLink
     ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
@@ -59,6 +64,7 @@ for (const article of articles) {
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
   <link rel="stylesheet" href="news-magazine.css">
+  <link rel="stylesheet" href="news-stories.css">
   <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -69,18 +75,18 @@ for (const article of articles) {
 <body>
   <a class="skip-link" href="news/${escapeHtml(article.slug)}.html#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section article-page" tabindex="-1">
+  <main id="main-content" class="section article-page ${photos ? 'story-article' : ''}" tabindex="-1">
     <div class="container article-container">
-      <a class="article-back" href="news.html">← Back to News &amp; Magazine</a>
+      <a class="article-back" href="news-stories.html">← Back to News &amp; Stories</a>
       <article class="article-content">
         <p class="eyebrow">${escapeHtml(article.category)}</p>
         <h1>${escapeHtml(article.title)}</h1>
         <p class="sample-date">${escapeHtml(article.dateLabel)}</p>
         <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
-        ${article.image ? `<img class="news-article-image" src="${escapeHtml(article.image)}" alt="${escapeHtml(article.imageAlt || '')}">` : ''}
-        <div class="article-copy">${paragraphs}</div>
+        ${photos ? `<figure class="story-lead">${stories.photo(photos.lead,true)}</figure>` : article.image ? `<img class="news-article-image" src="${escapeHtml(article.image)}" alt="${escapeHtml(article.imageAlt || '')}">` : ''}
+        ${photos ? stories.body(article,photos) : `<div class="article-copy">${paragraphs}</div>`}
         ${galleryLink}
-        <div class="article-bottom-nav"><a class="btn btn-green" href="news.html">Back to News &amp; Magazine</a></div>
+        <div class="article-bottom-nav"><a class="btn btn-green" href="news-stories.html">Back to News &amp; Stories</a></div>
       </article>
     </div>
   </main>
@@ -99,3 +105,5 @@ for (const entry of fs.readdirSync(outputDirectory, { withFileTypes: true })) {
 }
 
 console.log(`Built ${articles.length} published news article pages from _content/news.json.`);
+
+stories.buildJournal(data.articles, media, root);

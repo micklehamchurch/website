@@ -1,3 +1,23 @@
 {
-  "articles": []
+  "articles": [
+    {
+      "slug": "a-harvest-of-thankfulness",
+      "title": "A Harvest of Thankfulness",
+      "date": "2026-10-04",
+      "dateLabel": "Sunday 4 October 2026",
+      "category": "Harvest Family Service",
+      "status": "published",
+      "featured": true,
+      "image": "assets/images/stories/harvest-2026/welcome-doors-1280.webp",
+      "imageAlt": "Open red church doors frame autumn flowers in the entrance porch",
+      "excerpt": "Our church was filled with the colours of autumn as we came together for our Harvest Family Service — a joyful celebration of gratitude, generosity and community.",
+      "paragraphs": [
+        "Our church was filled with the colours of autumn this Sunday as we came together for our Harvest Family Service — a joyful celebration of God's goodness and of the food, people and places that sustain us.",
+        "Harvest is traditionally a time to give thanks for the gifts of the earth and for those whose work brings food to our tables. During the service, we were also encouraged to look beyond our own tables and think about how differently food is experienced around the world.",
+        "We remembered especially those living in places affected by war and conflict, where something as ordinary as sharing a meal can no longer be taken for granted. In the midst of our celebration, Harvest reminded us that gratitude and generosity belong together.",
+        "With beautiful autumn flowers throughout the church, contributions from our younger members, worship together and plenty of conversation and food afterwards, it was a wonderfully warm Sunday in Mickleham.",
+        "Thank you to everyone who decorated the church, contributed, helped with the service and shared in the day."
+      ]
+    }
+  ]
 }
