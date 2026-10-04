@@ -19,3 +19,5 @@ Selected files and roles:
 - church-welcome: 1WhatsApp Image 2026-10-04 at 14.31.21.jpeg
 
 Run npm run build and npm test. Dev-only content workflow rebuilds when story text/media changes. Never edit generated article pages directly.
+
+Editorial refinement: Harvest uses eight article photographs. The congregation leads at a maximum 800px width; flowers and altar follow paragraphs 1–2; reflection follows paragraphs 3–4; crafts follow paragraph 5; shared-table and fellowship follow paragraph 6; window-flowers closes after the final thanks. Single landscapes are capped at 650px, portraits at 380px (300px on mobile), and paired rows at 840px. Cover images in teasers are capped at 420px. The excerpt is used for teasers/metadata rather than repeated above the opening photograph on editorial photo stories.

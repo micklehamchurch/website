@@ -12,7 +12,8 @@ test('editorial photos use responsive sources, meaningful alt and escaped articl
  assert.throws(()=>validateMedia({fixture:{...media,cover:{...media.cover,src:'../secret'}}},__dirname));
 });
 test('published journal, Harvest article, latest teaser and search are generated from shared News content',()=>{
- const html=fs.readFileSync(require('node:path').join(__dirname,'../news/a-harvest-of-thankfulness.html'),'utf8');assert.equal((html.match(/<img /g)||[]).length,9);assert.match(html,/congregation-1280.webp/);assert.match(html,/family-crafts-1280.webp/);
+ const html=fs.readFileSync(require('node:path').join(__dirname,'../news/a-harvest-of-thankfulness.html'),'utf8');assert.equal((html.match(/<img /g)||[]).length,8);assert.match(html,/congregation-1280.webp/);assert.match(html,/family-crafts-1280.webp/);
  const home=fs.readFileSync(require('node:path').join(__dirname,'../index.html'),'utf8');assert.match(home,/welcome-doors-1280.webp/);
+ const article=require('../_content/news.json').articles.find(a=>a.slug==='a-harvest-of-thankfulness');assert.equal(article.paragraphs.length,8);assert(!/<p class="article-excerpt">/.test(html));assert(!html.includes('<p>'+article.excerpt+'</p>'));assert.match(home,/Flowers, worship, food and fellowship/);assert.match(home,/Harvest Family Service · 4 October 2026/);
  const search=require('../search-index.json');assert(search.some(p=>p.url==='news-stories.html'));assert(search.some(p=>p.url==='news/a-harvest-of-thankfulness.html'));
 });

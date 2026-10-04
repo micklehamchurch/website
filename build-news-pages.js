@@ -82,7 +82,7 @@ for (const article of articles) {
         <p class="eyebrow">${escapeHtml(article.category)}</p>
         <h1>${escapeHtml(article.title)}</h1>
         <p class="sample-date">${escapeHtml(article.dateLabel)}</p>
-        <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+        ${photos ? '' : `<p class="article-excerpt">${escapeHtml(article.excerpt)}</p>`}
         ${photos ? `<figure class="story-lead">${stories.photo(photos.lead,true)}</figure>` : article.image ? `<img class="news-article-image" src="${escapeHtml(article.image)}" alt="${escapeHtml(article.imageAlt || '')}">` : ''}
         ${photos ? stories.body(article,photos) : `<div class="article-copy">${paragraphs}</div>`}
         ${galleryLink}

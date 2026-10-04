@@ -20,14 +20,15 @@ function validateMedia(media, root) {
   }
 }
 function photo(p, lead = false) {
-  return `<img src="${escape(p.src)}" srcset="${escape(p.small)} 640w, ${escape(p.src)} ${p.width}w" sizes="(max-width: 700px) calc(100vw - 40px), 1100px" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" ${lead ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  return `<img src="${escape(p.src)}" srcset="${escape(p.small)} 640w, ${escape(p.src)} ${p.width}w" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 900px) 80vw, 800px" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" ${lead ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 function body(article, media) {
-  return article.paragraphs.map((p,i) => `<div class="story-prose"><p>${escape(p)}</p></div>` + (media?.groups || []).filter(g => g.after === i).map(g => `<div class="story-photo-group${g.photos.length === 2 ? ' story-photo-pair' : ''}">${g.photos.map(p => `<figure>${photo(p)}</figure>`).join('')}</div>`).join('')).join('\n');
+  return article.paragraphs.map((p,i) => `<div class="story-prose"><p>${escape(p)}</p></div>` + (media?.groups || []).filter(g => g.after === i).map(g => `<div class="story-photo-group${g.photos.length === 2 ? ' story-photo-pair' : ''}">${g.photos.map(p => `<figure${p.height > p.width ? ' class="story-photo-portrait"' : ''}>${photo(p)}</figure>`).join('')}</div>`).join('')).join('\n');
 }
 function teaser(article, media) {
   const cover = media?.cover;
-  return `<article class="story-teaser">${cover ? `<a class="story-cover" href="news/${escape(article.slug)}.html" tabindex="-1" aria-hidden="true">${photo(cover)}</a>` : article.image ? `<img src="${escape(article.image)}" alt="${escape(article.imageAlt || '')}" loading="lazy">` : ''}<div class="story-teaser-copy"><p class="eyebrow">${escape(article.category)} · ${escape(article.dateLabel)}</p><h2><a href="news/${escape(article.slug)}.html">${escape(article.title)}</a></h2><p>${escape(article.excerpt)}</p><a class="text-link" href="news/${escape(article.slug)}.html">Read the story <span aria-hidden="true">→</span></a></div></article>`;
+  const dateLabel = article.date ? new Intl.DateTimeFormat('en-GB', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${article.date}T00:00:00Z`)) : article.dateLabel;
+  return `<article class="story-teaser">${cover ? `<a class="story-cover" href="news/${escape(article.slug)}.html" tabindex="-1" aria-hidden="true">${photo(cover)}</a>` : article.image ? `<img src="${escape(article.image)}" alt="${escape(article.imageAlt || '')}" loading="lazy">` : ''}<div class="story-teaser-copy"><p class="eyebrow">${escape(article.category)} · ${escape(dateLabel)}</p><h2><a href="news/${escape(article.slug)}.html">${escape(article.title)}</a></h2><p>${escape(article.excerpt)}</p><a class="text-link" href="news/${escape(article.slug)}.html">Read the story <span aria-hidden="true">→</span></a></div></article>`;
 }
 function buildJournal(articles, media, root) {
   const live = published(articles);
