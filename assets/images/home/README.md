@@ -1,12 +1,13 @@
 # Homepage photograph
 
-Original filename: St._Michael's_Church_-_Mickleham,_UK.jpg
-Photographer: JFVoll
-Source: https://commons.wikimedia.org/wiki/File:St._Michael%27s_Church_-_Mickleham,_UK.jpg
-Licence: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
-Licence URL: https://creativecommons.org/licenses/by-sa/4.0/
+Original filename: WhatsApp Image 2026-10-04 at 19.56.46.jpeg
+Photographer: Ed Popov
+Supplied: 4 October 2026; original dimensions: 5120 × 2879 pixels.
 
-Supplied by Ed on 4 October 2026. Original: 6000 × 3376 pixels.
-Website derivatives retain the supplied colours and were resized/compressed to WebP and progressive JPEG. Large/medium retain the whole photograph; mobile crops the original rectangle (1700, 0, 4700, 3376) to prioritise the church/tower/entrance. CSS also crops responsively where needed. No AI manipulation.
+Ed Popov expressly permitted St Michael & All Angels Church, Mickleham & Westhumble to use this photograph on the church website. No public photo credit is required. This permission is specific to this photograph; do not assume it grants a Creative Commons licence or unrestricted third-party reuse.
 
-These photographic derivatives retain CC BY-SA 4.0. Attribution is in the shared footer. Preserve the photographer, source, licence links and modification statement when maintaining/reusing these files. The licence applies to the photograph/derivatives, not an assertion about all website code or other assets.
+Web derivatives: 2880-pixel large, 1920-pixel medium and 1000-pixel mobile versions, in WebP and progressive JPEG. Desktop/tablet files retain the complete original scene. Mobile uses the original rectangle (1100, 0, 3900, 2879), retaining the tower, spire and entrance. CSS cover positioning also crops the visible scene responsively.
+
+Only resizing, cropping and compression were applied. Colours and objects were not altered; no AI processing, artificial blur or colour grading was used.
+
+These files replace the previous JFVoll / Wikimedia Commons homepage photograph. Its homepage-only public attribution was removed because that photograph is no longer used as the hero. Unrelated asset licences remain unchanged.

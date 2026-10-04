@@ -41,7 +41,7 @@ const footer = `
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Gallery</a></div></div>
     <div><h2>Get in touch</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a></div>
   </div>
-  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div><p class="footer-credit">Website by Ed Popov</p><p class="footer-photo-credit">Homepage photograph: JFVoll / <a href="https://commons.wikimedia.org/wiki/File:St._Michael%27s_Church_-_Mickleham,_UK.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> · cropped/optimised for web</p></div>`;
+  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
