@@ -1,13 +1,8 @@
 # Homepage photograph
 
-Original filename: WhatsApp Image 2026-10-04 at 19.56.46.jpeg
-Photographer: Ed Popov
-Supplied: 4 October 2026; original dimensions: 5120 × 2879 pixels.
+Original: IMG_E6523.JPG, 4786 × 2692 pixels. Photographer: Ed Popov.
+Supplied 4 October 2026. Ed Popov permitted St Michael & All Angels Church, Mickleham & Westhumble to use this photograph on the website; no public credit is required. This is not a Creative Commons licence.
 
-Ed Popov expressly permitted St Michael & All Angels Church, Mickleham & Westhumble to use this photograph on the church website. No public photo credit is required. This permission is specific to this photograph; do not assume it grants a Creative Commons licence or unrestricted third-party reuse.
+Large: 3200 × 1800; medium: 1920 × 1080. These retain the entire scene. Mobile: 1000 × 1077, cropped from original rectangle (850, 0, 3350, 2692). Each has WebP and progressive JPEG versions. Only cropping, resizing and compression were applied, with no AI manipulation or colour grading.
 
-Web derivatives: 2880-pixel large, 1920-pixel medium and 1000-pixel mobile versions, in WebP and progressive JPEG. Desktop/tablet files retain the complete original scene. Mobile uses the original rectangle (1100, 0, 3900, 2879), retaining the tower, spire and entrance. CSS cover positioning also crops the visible scene responsively.
-
-Only resizing, cropping and compression were applied. Colours and objects were not altered; no AI processing, artificial blur or colour grading was used.
-
-These files replace the previous JFVoll / Wikimedia Commons homepage photograph. Its homepage-only public attribution was removed because that photograph is no longer used as the hero. Unrelated asset licences remain unchanged.
+Desktop hero uses the original aspect ratio to show the entire scene without cover cropping. Mobile uses its dedicated crop, positioned 40% top, and lower text shading. The previous Wikimedia hero and its homepage-only attribution are no longer used.
