@@ -43,6 +43,7 @@ const footer = `
     <a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><span class="diocese-logo-crop"><img src="assets/branding/diocese-of-guildford-colour.png" width="2291" height="1521" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></span></a>
   </section>
   <div class="container footer-bottom"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div>
+  <p class="container footer-photo-credit">Homepage photograph: JFVoll / <a href="https://commons.wikimedia.org/wiki/File:St._Michael%27s_Church_-_Mickleham,_UK.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> · cropped/optimised for web</p>
   <p class="container footer-credit">Website by Ed Popov</p>`;
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
