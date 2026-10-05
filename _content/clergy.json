@@ -693,7 +693,7 @@
       "biography": [],
       "parishContext": [],
       "didYouKnow": [],
-      "published": true,
+      "published": false,
       "internalNotes": "",
       "sources": []
     }
@@ -708,5 +708,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T13:33:55.134Z"
+  "updatedAt": "2026-10-05T14:38:08.918Z"
 }
