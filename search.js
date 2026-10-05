@@ -71,7 +71,7 @@ function renderSearch(query) {
 async function initializeSearch() {
   searchInput.value = new URLSearchParams(location.search).get('q') || '';
   try {
-    const response = await fetch('search-index.json');
+    const response = await fetch('search-index.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Unable to load search index (${response.status})`);
     searchIndex = await response.json();
     renderSearch(searchInput.value);
