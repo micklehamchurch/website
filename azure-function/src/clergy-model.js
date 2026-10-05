@@ -26,19 +26,22 @@ function validateArchive(value, pending = false) {
   if (value.updatedAt !== undefined && !/^\d{4}-\d\d-\d\dT[\d:.]+Z$/.test(value.updatedAt)) throw new Error('invalid-audit');
   const ids = new Set();
   for (const record of value.records) {
-    keys(record, ['id','displayName','role','servicePeriods','primaryImage','archiveImages','biography','parishContext','didYouKnow','published','internalNotes','sources']);
+    keys(record, ['id','displayName','role','servicePeriods','primaryImage','archiveImages','biography','parishContext','didYouKnow','published','internalNotes','sources'], ['id','displayName','published']);
+    for(const [key,defaultValue] of Object.entries({role:'',servicePeriods:[],primaryImage:null,archiveImages:[],biography:[],parishContext:[],didYouKnow:[],internalNotes:'',sources:[]}))if(!Object.hasOwn(record,key))record[key]=structuredClone(defaultValue);
     if (typeof record.id !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.id) || record.id.length > 100 || ids.has(record.id)) throw new Error('invalid-id');
     ids.add(record.id); text(record.displayName, 200); text(record.role, 150);
-    if (!record.displayName.trim() || !record.role.trim() || typeof record.published !== 'boolean') throw new Error('invalid-record');
-    if (!Array.isArray(record.servicePeriods) || !record.servicePeriods.length || record.servicePeriods.length > 20) throw new Error('invalid-periods');
+    if(!record.displayName.trim())throw new Error('missing-name');
+    if(typeof record.published !== 'boolean')throw new Error('invalid-record');
+    if (!Array.isArray(record.servicePeriods) || record.servicePeriods.length > 20) throw new Error('invalid-periods');
     for (const period of record.servicePeriods) {
-      keys(period, ['start','end']);
-      if (!Number.isInteger(period.start) || period.start < 1 || period.start > 9999 || !(period.end === null || (Number.isInteger(period.end) && period.end >= period.start && period.end <= 9999))) throw new Error('invalid-year');
+      keys(period, ['start','end'], []);
+      if(!Object.hasOwn(period,'start'))period.start=null;
+      if(!Object.hasOwn(period,'end'))period.end=null;
+      if (!(period.start === null || (Number.isInteger(period.start) && period.start >= 1 && period.start <= 9999)) || !(period.end === null || (Number.isInteger(period.end) && period.end >= 1 && period.end <= 9999 && (period.start === null || period.end >= period.start)))) throw new Error('invalid-year');
     }
     if (record.primaryImage !== null) image(record.primaryImage, pending);
     if (!Array.isArray(record.archiveImages) || record.archiveImages.length > 100) throw new Error('invalid-gallery');
     record.archiveImages.forEach(i => image(i, pending));
-    if (record.published && [record.primaryImage,...record.archiveImages].filter(Boolean).some(i => !i.alt.trim())) throw new Error('missing-public-alt-text');
     for (const field of ['biography','parishContext','didYouKnow','sources']) {
       if (!Array.isArray(record[field]) || record[field].length > 100) throw new Error('invalid-paragraphs');
       record[field].forEach(p => text(p));
@@ -65,7 +68,7 @@ async function uploads(values) {
     const format = jpeg ? 'jpeg' : png ? 'png' : webp ? 'webp' : null;
     if (!format || value.mimeType !== `image/${format}` || !(format === 'jpeg' ? /\.jpe?g$/i : new RegExp(`\\.${format}$`,'i')).test(value.fileName)) throw new Error('invalid-image-format');
     const decoder = sharp(original, { limitInputPixels: 40000000, failOn: 'warning' });
-    const metadata = await decoder.metadata();
+    const metadata = await decoder.metadata().catch(()=>{throw new Error('invalid-image');});
     if (metadata.format !== format || (metadata.pages || 1) !== 1 || !metadata.width || !metadata.height) throw new Error('invalid-image');
     const id = randomUUID();
     const src = `assets/images/clergy/uploads/${id}-1600.jpg`, thumbnail = `assets/images/clergy/uploads/${id}-360.jpg`;

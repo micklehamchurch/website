@@ -22,4 +22,3 @@
 @media(max-width:600px){.archive-admin-row>.archive-person-actions{margin-left:0}.archive-person-actions button{padding:.55rem .7rem}}
 @media(max-width:600px){.archive-admin-row{flex-wrap:wrap}.archive-admin-row>div{flex-basis:calc(100% - 85px)}.archive-editor-grid,.archive-image-fields{grid-template-columns:1fr}.archive-period{grid-template-columns:1fr 1fr}.archive-period button{grid-column:1/-1}.archive-admin-actions button{white-space:normal}#archive-admin-dialog{padding:1rem}}
 
-.archive-accuracy-note{font-size:.875rem;color:#56635a;margin:.75rem 0;line-height:1.5}.archive-accuracy-note strong{font-weight:600}

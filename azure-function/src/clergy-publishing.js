@@ -5,6 +5,7 @@ const model = require('./clergy-model');
 const metadataPath = '_content/clergy.json';
 const target = Object.freeze({owner:EXPECTED_TARGET.owner,repo:EXPECTED_TARGET.repository});
 const response = (status,jsonBody) => ({status,headers:{'Cache-Control':'no-store',Pragma:'no-cache'},jsonBody});
+const validationError = e => ({'missing-name':'archive-name-required','invalid-year':'archive-invalid-years','invalid-periods':'archive-invalid-years','invalid-image-format':'archive-invalid-image','invalid-image':'archive-invalid-image','invalid-filename':'archive-invalid-image','invalid-image-path':'archive-unsafe-image','unknown-image':'archive-unsafe-image','unknown-upload':'archive-unsafe-image','invalid-text':'archive-unsafe-text','invalid-id':'archive-invalid-id','use-unpublish':'archive-record-removal'})[e?.message] || 'invalid-archive-request';
 const failure = (status,error) => response(status,{ok:false,error});
 function createClergyHandler({env=process.env,readConfiguration=readGithubConfiguration,createClient=(c,p)=>createInstallationClient(c,undefined,p)}={}) {
   return async request => {
@@ -16,7 +17,7 @@ function createClergyHandler({env=process.env,readConfiguration=readGithubConfig
       body = await readJson(request,model.MAX_BODY); model.keys(body,['sha','headSha','archive','uploads']);
       if (!model.shaValid(body.sha) || !model.shaValid(body.headSha)) throw new Error();
       model.validateArchive(body.archive,true);
-    } catch(e) { return failure(e instanceof RangeError ? 413 : 400,e instanceof RangeError ? 'archive-payload-too-large' : 'invalid-archive-request'); }
+    } catch(e) { return failure(e instanceof RangeError ? 413 : 400,e instanceof RangeError ? 'archive-payload-too-large' : validationError(e)); }
     let configuration,reader,head,current,sha;
     try {
       configuration=readConfiguration(env); reader=await createClient(configuration,'read');
@@ -30,7 +31,7 @@ function createClergyHandler({env=process.env,readConfiguration=readGithubConfig
     if(body.sha !== sha || body.headSha !== head) return failure(409,'archive-version-conflict');
     let files;
     try {files=model.resolveImages(body.archive,current,await model.uploads(body.uploads));}
-    catch(e){return failure(e instanceof RangeError ? 413 : 400,e instanceof RangeError ? 'archive-payload-too-large' : 'invalid-archive-request');}
+    catch(e){return failure(e instanceof RangeError ? 413 : 400,e instanceof RangeError ? 'archive-payload-too-large' : validationError(e));}
     body.archive.updatedAt=new Date().toISOString();
     try {model.validateArchive(body.archive);} catch {return failure(413,'archive-payload-too-large');}
     files.push({path:metadataPath,bytes:Buffer.from(JSON.stringify(body.archive,null,2)+'\n')});
