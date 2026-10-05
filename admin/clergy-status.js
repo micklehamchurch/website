@@ -26,5 +26,7 @@
     for(const old of committed.records.filter(r=>!r.published))if(!next.records.some(r=>r.id===old.id))next.records.push(structuredClone(old));
     return next;
   }
-  return Object.freeze({status,pending,toggleLabel,undoRecord,changeCount,draftArchive});
+  // A generated-site commit can advance Dev without changing the archive blob.
+  function sameSavedArchive(loaded,current){return loaded.sha===current.sha&&JSON.stringify(loaded.archive)===JSON.stringify(current.archive);}
+  return Object.freeze({status,pending,toggleLabel,undoRecord,changeCount,draftArchive,sameSavedArchive});
 });

@@ -28,7 +28,7 @@
     host.innerHTML=`<section><h1>Historical Archive</h1><p>Manage clergy profiles, biographies and historical photographs.</p>
       <p class="archive-admin-status" role="status" aria-live="polite" aria-atomic="true">${esc(message||(!working?'Sign in to load the archive.':count?'Your changes are not published yet.':'No unpublished changes.'))}</p>
       ${shared?.archive.updatedAt?`<p class="archive-last-saved">Last saved: ${esc(savedTime(shared.archive.updatedAt))}</p>`:''}
-      <div class="archive-admin-actions">${working?button('+ Add person','add',disabled):''}${button(needsReload?'Refresh archive':'Refresh','reload',disabled)}</div>
+      <div class="archive-admin-actions">${working?button('+ Add person','add',disabled):''}${needsReload?button('Check saved version','check-version',disabled):''}${button(needsReload?'Refresh archive':'Refresh','reload',disabled)}</div>
       ${count?`<div class="archive-pending-summary"><p><strong>You have ${count} unpublished ${count===1?'change':'changes'}.</strong></p><div class="archive-admin-actions">${button('Discard changes','discard',disabled)}${canSaveDrafts?button('Save drafts','save-drafts',publishDisabled):''}<button type="button" class="admin-button" data-archive-action="publish" ${publishDisabled}>Publish changes</button></div><p class="archive-editor-note">Published changes normally appear on the website within a few minutes.</p>${canSaveDrafts?'<p class="archive-editor-note">Save drafts keeps draft profiles private. Published profiles and other pending changes are left as they are.</p>':''}</div>`:''}
       ${working?`<ol class="archive-admin-list">${[...working.records].sort((a,b)=>renderer.firstYear(a)-renderer.firstYear(b)).map(r=>{
         const committed=shared.archive.records.find(old=>old.id===r.id),pending=removals.has(r.id)?'Will be removed':state.pending(r,committed);
@@ -36,13 +36,22 @@
       }).join('')}</ol>`:''}</section>`;
   }
   async function load(force=false){
-    if(busy)return;if(force&&changed()&&!window.confirm('Discard your unpublished changes and refresh the archive? Copy any information you want to keep first.'))return;
+    if(busy)return;if(force&&changed()&&!window.confirm('Refreshing will discard pending edits and uploaded photographs. Choose Cancel to keep them, or OK to load the saved archive.'))return;
     if(!window.churchClergyApi){message='Sign in with an authorised administrator account to load the archive.';render();return;}
     busy=true;message='Loading archive…';render();
     const result=await window.churchClergyApi.load();busy=false;
     if(result.ok){shared=result;working=copy(result.archive);clearUploads();removals.clear();needsReload=false;message='';}else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
     render();
   }
+  async function checkSavedVersion(){
+    const current=await window.churchClergyApi.load();
+    if(!current.ok){message=window.churchClergyApi.message(current.category);needsReload=true;return false;}
+    if(!state.sameSavedArchive(shared,current)){message=window.churchClergyApi.message('archive-version-conflict');needsReload=true;return false;}
+    // Adopt the authoritative branch token only when the saved archive is identical.
+    // Keep working records, local File objects and removal intents untouched.
+    shared=current;needsReload=false;return true;
+  }
+  async function recheck(){if(busy||!shared)return;busy=true;try{if(await checkSavedVersion())message='Saved archive checked. Your pending edits and photographs are kept. Choose Publish changes when ready.';}finally{busy=false;render();}}
   function show(content,trigger){opener=trigger||document.activeElement;dialog.innerHTML=content;dialog.showModal();dialog.querySelector('button,input')?.focus();}
   function restoreFocus(){
     if(opener?.isConnected){opener.focus();return;}
@@ -70,7 +79,7 @@
     editor=id?copy(working.records.find(r=>r.id===id)):{id:`clergy-${crypto.randomUUID()}`,displayName:'',role:'Rector',servicePeriods:[{start:'',end:null}],primaryImage:null,archiveImages:[],biography:[],parishContext:[],didYouKnow:[],published:false,internalNotes:'',sources:[]};
     editorDirty=false;show(editorHTML(),trigger);
   }
-  function stage(){if(!readEditor())return;const index=working.records.findIndex(r=>r.id===editor.id);if(index<0)working.records.push(copy(editor));else working.records[index]=copy(editor);message='Changes not published. Choose Save drafts or Publish changes when ready.';const savedId=editor.id;close();render();host.querySelector(`[data-archive-action="edit"][data-id="${savedId}"]`)?.focus();}
+  function stage(){if(!readEditor())return;const index=working.records.findIndex(r=>r.id===editor.id);if(index<0)working.records.push(copy(editor));else working.records[index]=copy(editor);message='Changes not published. Choose Save drafts or Publish changes when ready.';const savedId=editor.id;close();render();host.querySelector(`[data-archive-action="edit"][data-id="${savedId}"]`)?.focus();if(needsReload)void recheck();}
   function preview(record,fromEditor=false,trigger){
     const publicRecord=copy(record);for(const image of [publicRecord.primaryImage,...publicRecord.archiveImages].filter(Boolean)){image.thumbnail=imageURL(image);image.src=imageURL(image);}
     previewRecord=publicRecord;
@@ -104,6 +113,7 @@
     busy=true;message=draftsOnly?'Saving drafts…':'Publishing changes…';render();
     const before=copy(working);
     try{
+      if(!await checkSavedVersion())return;
       const ids=referencedUploads(next),pending=[];
       for(const id of ids){const value=uploads.get(id);pending.push({id,fileName:value.file.name,mimeType:value.file.type,base64:await base64(value.file)});}
       const result=await window.churchClergyApi.publish({sha:shared.sha,headSha:shared.headSha,archive:next,uploads:pending,...(!draftsOnly&&removals.size?{removedRecordIds:[...removals]}:{})});
@@ -111,9 +121,10 @@
         if(draftsOnly){for(const r of before.records){const old=next.records.find(n=>n.id===r.id);if(!old||JSON.stringify(old)!==JSON.stringify(r)){const index=working.records.findIndex(n=>n.id===r.id);if(index<0)working.records.push(r);else working.records[index]=r;}}}
         pruneUploads();message=`${draftsOnly?'Drafts saved. Draft profiles remain private.':'Changes published successfully. Your changes have been saved. The public website is updating and normally appears within a few minutes.'}${changed()?' Other unpublished changes remain.':''}`;
       }else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
-    }catch{needsReload=true;message='Saving could not be confirmed. Refresh the archive to check its current state before trying again. Copy any changes you want to keep first.';}finally{busy=false;render();}
+    }catch{needsReload=true;message='Saving could not be confirmed. Refresh the archive to check its current state before trying again. Pending edits and uploaded photographs are kept in this browser. Do not refresh or close it until you have decided how to resolve the saved version.';}finally{busy=false;render();}
   }
   function listAction(event){const target=event.target.closest('[data-archive-action]');if(!target||target.disabled)return;const action=target.dataset.archiveAction,id=target.dataset.id;
+    if(action==='check-version')void recheck();
     if(action==='reload')void load(true);if(action==='add')edit(null,target);if(action==='edit')edit(id,target);if(action==='preview')preview(working.records.find(r=>r.id===id),false,target);if(action==='publish')void publish();if(action==='save-drafts')void publish(true);
     if(action==='discard'){if(!confirm('Discard all unpublished changes? Saved profiles and photographs will be kept.'))return;working=copy(shared.archive);removals.clear();clearUploads();message=needsReload?'Changes discarded. Refresh the archive before making further changes.':'Unpublished changes discarded.';render();host.querySelector('[data-archive-action="add"]')?.focus();}
     if(action==='unpublish'&&shared.archive.records.some(r=>r.id===id&&r.published)){

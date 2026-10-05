@@ -1,6 +1,6 @@
 .archive-admin-list{display:grid;gap:1rem;margin:1.5rem 0;padding:0;list-style:none}
 .archive-admin-row{display:flex;align-items:center;gap:1rem;padding:1rem;background:white;border:1px solid #d7e1dc;border-radius:.75rem}
-.archive-admin-row img{width:64px;height:80px;object-fit:cover;border-radius:.3rem;flex-shrink:0}
+.archive-admin-row img{width:64px;height:80px;object-fit:contain;border-radius:.3rem;flex-shrink:0;background:#edf4ef}
 .archive-admin-row>div{flex:1;min-width:0}.archive-admin-row h2{font-size:1.2rem;margin:0}.archive-admin-row p{margin:.3rem 0;overflow-wrap:anywhere}
 .archive-admin-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.archive-admin-status{padding:1rem;background:#edf4ef;border-radius:.5rem;overflow-wrap:anywhere}
 :is(#archive-admin-dialog,#archive-removal-dialog){width:min(960px,calc(100% - 2rem));max-height:90dvh;overflow:auto;padding:1.5rem}
@@ -13,7 +13,7 @@
 :is(#archive-admin-dialog,#archive-removal-dialog) :focus-visible,.archive-admin-actions :focus-visible,.archive-admin-row :focus-visible{outline:3px solid #ab7828;outline-offset:3px}
 .archive-editor-note{font-size:.95rem;color:#465d50}.archive-editor-error{color:#9b2424}
 .archive-person-actions{display:flex;flex-wrap:wrap;gap:.5rem;max-width:100%}
-.archive-no-portrait{width:64px;min-height:80px;display:grid;place-items:center;background:#edf4ef;border-radius:.3rem;flex-shrink:0}
+.archive-no-portrait{width:64px;min-height:80px;display:grid;place-items:center;background:#edf4ef;border-radius:.3rem;flex-shrink:0;background:#edf4ef}
 .archive-state{display:inline-block;border-radius:1rem;padding:.2rem .65rem;font-size:.9rem;font-weight:700;background:#edf4ef;color:#173d2b}.archive-state.draft{background:#f4eddf;color:#674718}
 .archive-pending-label{font-size:.95rem;font-weight:600;color:#674718}.archive-pending-summary{border:1px solid #c7d7cb;background:#f5f8f5;border-radius:.6rem;padding:1rem}.archive-pending-summary p{margin:.3rem 0}.archive-last-saved{font-size:.9rem;color:#465d50}
 .archive-admin-active .admin-preview-notice,.archive-admin-active .admin-sidebar-label,.archive-admin-active .admin-footer{display:none}

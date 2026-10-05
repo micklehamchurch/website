@@ -3,7 +3,7 @@ import { acquireAdminApiToken } from './auth-tokens.mjs';
 const messages = Object.freeze({
   'authentication-required':'Sign in with an authorised administrator account, then refresh the archive.',
   'administrator-required':'This account does not have permission to manage the archive.',
-  'archive-version-conflict':'This archive has been updated since you opened it. Your changes were not published. Refresh the archive before publishing so another administrator’s changes are not overwritten. Copy any changes you want to keep first.',
+  'archive-version-conflict':'A newer saved archive exists. Publishing has stopped to protect it. Your pending edits and uploaded photographs are kept in this browser. Use Check saved version to check again; refreshing discards them.',
   'archive-name-required':'Please enter a name before publishing.',
   'archive-invalid-sources':'Give each source a title. Its link and notes are optional.',
   'archive-invalid-source-url':'Source links must use a full http:// or https:// address, or be left blank.',
@@ -17,8 +17,8 @@ const messages = Object.freeze({
   'invalid-archive-request':'The archive request has an invalid data structure. Refresh the archive before retrying.',
   'archive-payload-too-large':'Each image must be at most 10 MiB, with at most six images and 20 MiB total per publication. Shorten oversized text.',
   'archive-repository-unavailable':'The archive could not be loaded. Try refreshing.',
-  'archive-publish-unavailable':'Saving could not be confirmed. Refresh the archive to check its current state before trying again. Copy any changes you want to keep first.',
-  'network-failure':'The request could not be confirmed. Refresh the archive before trying again. Copy any changes you want to keep first.',
+  'archive-publish-unavailable':'Saving could not be confirmed. Refresh the archive to check its current state before trying again. Your pending edits and uploaded photographs are kept in this browser. Use Check saved version before deciding whether to refresh; refreshing discards them.',
+  'network-failure':'The request could not be confirmed. Refresh the archive before trying again. Your pending edits and uploaded photographs are kept in this browser. Use Check saved version before deciding whether to refresh; refreshing discards them.',
   busy:'Another archive request is in progress.'
 });
 export function createClergyApi({getToken,fetchImpl=fetch}) {
