@@ -661,7 +661,7 @@
     },
     {
       "id": "clergy-7e0f24d5-f3ae-4383-831f-3962cc832c92",
-      "displayName": "W m.Mowsurth",
+      "displayName": "William Mowsurth",
       "role": "Rector",
       "servicePeriods": [
         {
@@ -739,5 +739,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T18:50:51.491Z"
+  "updatedAt": "2026-10-05T18:53:41.004Z"
 }
