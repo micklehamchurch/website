@@ -17,8 +17,8 @@
     // including images and any editor normalization. Unsaved people remain drafts.
     return committed?structuredClone(committed):{...structuredClone(record),published:false};
   }
-  function changeCount(working,committed){
-    return working.records.filter(r=>!committed.records.some(old=>old.id===r.id&&JSON.stringify(old)===JSON.stringify(r))).length;
+  function changeCount(working,committed,removals=[]){
+    return working.records.filter(r=>removals.includes(r.id)||!committed.records.some(old=>old.id===r.id&&JSON.stringify(old)===JSON.stringify(r))).length;
   }
   function draftArchive(working,committed){
     const next=structuredClone(working);

@@ -10,7 +10,8 @@ const messages = Object.freeze({
   'archive-unsafe-image':'A photograph has an invalid or unrecognised path. Refresh and select an existing photograph or upload it again.',
   'archive-unsafe-text':'A text field contains unsupported markup or exceeds its length limit. Remove HTML tags and shorten oversized text.',
   'archive-invalid-id':'A profile has a missing, invalid or duplicate identifier. Refresh the archive before retrying.',
-  'archive-record-removal':'Existing records cannot be deleted. Choose Unpublish to remove a profile from public display.',
+  'archive-invalid-removal':'The requested removal does not match the saved archive. Refresh before selecting a person to remove.',
+  'archive-record-removal':'Archive source references cannot be changed through this request. Refresh the archive before retrying.',
   'invalid-archive-request':'The archive request has an invalid data structure. Refresh the archive before retrying.',
   'archive-payload-too-large':'Each image must be at most 10 MiB, with at most six images and 20 MiB total per publication. Shorten oversized text.',
   'archive-repository-unavailable':'The archive could not be loaded. Try refreshing.',
@@ -26,7 +27,7 @@ export function createClergyApi({getToken,fetchImpl=fetch}) {
     try{
       let token;try{token=await getToken();}catch{return {ok:false,category:'authentication-required'};}
       if(!token)return {ok:false,category:'authentication-required'};
-      const result=await fetchImpl(new URL('historical-archive',ADMIN_API_HEALTH_URL).href,{method,cache:'no-store',credentials:'omit',signal:controller.signal,headers:{Authorization:`Bearer ${token}`,...(method==='PUT'?{'Content-Type':'application/json'}:{})},...(method==='PUT'?{body:JSON.stringify({sha:payload.sha,headSha:payload.headSha,archive:payload.archive,uploads:payload.uploads})}:{})});
+      const result=await fetchImpl(new URL('historical-archive',ADMIN_API_HEALTH_URL).href,{method,cache:'no-store',credentials:'omit',signal:controller.signal,headers:{Authorization:`Bearer ${token}`,...(method==='PUT'?{'Content-Type':'application/json'}:{})},...(method==='PUT'?{body:JSON.stringify({sha:payload.sha,headSha:payload.headSha,archive:payload.archive,uploads:payload.uploads,...(payload.removedRecordIds?{removedRecordIds:payload.removedRecordIds}:{})})}:{})});
       if(!result.ok){let category=({401:'authentication-required',403:'administrator-required',409:'archive-version-conflict',400:'invalid-archive-request',413:'archive-payload-too-large'})[result.status]||(method==='GET'?'archive-repository-unavailable':'archive-publish-unavailable');try{const data=await result.json();if(Object.hasOwn(messages,data?.error))category=data.error;}catch{}return {ok:false,category};}
       const data=await result.json(),sha=v=>typeof v==='string'&&/^[a-f0-9]{40}$/.test(v);
       if(data.ok!==true||!sha(data.sha)||!sha(data.headSha)||!Array.isArray(data.archive?.records)||(method==='PUT'&&!sha(data.commitSha)))throw new Error();

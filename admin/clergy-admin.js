@@ -3,6 +3,7 @@
   const renderer=window.churchClergyRender,esc=renderer.esc,copy=value=>structuredClone(value);
   let host,shared=null,working=null,busy=false,message='',editor=null,opener=null,editorDirty=false,needsReload=false;
   const uploads=new Map();
+  const removals=new Set();
   const dialog=document.createElement('dialog');dialog.id='archive-admin-dialog';dialog.className='admin-dialog';dialog.setAttribute('aria-labelledby','archive-editor-title');document.body.append(dialog);
   const imageDialog=document.createElement('dialog');imageDialog.className='clergy-image-dialog';imageDialog.setAttribute('aria-labelledby','archive-preview-image-title');document.body.append(imageDialog);
   let previewRecord=null,imageIndex=0,imageOpener=null;
@@ -11,7 +12,7 @@
   imageDialog.addEventListener('close',()=>requestAnimationFrame(()=>imageOpener?.focus()));
   const button=(text,action,extra='')=>`<button type="button" class="admin-button secondary" data-archive-action="${action}" ${extra}>${text}</button>`;
   const field=(label,name,value='',type='text',wide=false)=>`<label class="${wide?'wide':''}" for="archive-${name}">${esc(label)}${type==='textarea'?`<textarea id="archive-${name}" name="${name}" rows="5">${esc(value)}</textarea>`:`<input id="archive-${name}" name="${name}" type="${type}" value="${esc(value)}" ${name==='displayName'?'required maxlength="200"':name==='role'?'maxlength="150"':''}>`}</label>`;
-  const changed=()=>working&&shared&&JSON.stringify(working)!==JSON.stringify(shared.archive);
+  const changed=()=>working&&shared&&(removals.size>0||JSON.stringify(working)!==JSON.stringify(shared.archive));
   const state=window.churchClergyStatus;
     const savedTime=value=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(value));
   const imageURL=image=>image.src.startsWith('upload:')?uploads.get(image.src.slice(7))?.url:'../'+image.src;
@@ -21,7 +22,7 @@
   function render(){
     if(!host||location.hash!=='#archive')return;
     const disabled=busy?'disabled':'';
-    const count=working&&shared?state.changeCount(working,shared.archive):0;
+    const count=working&&shared?state.changeCount(working,shared.archive,[...removals]):0;
     const canSaveDrafts=count&&JSON.stringify(state.draftArchive(working,shared.archive))!==JSON.stringify(shared.archive);
     const publishDisabled=busy||needsReload?'disabled':'';
     host.innerHTML=`<section><h1>Historical Archive</h1><p>Manage clergy profiles, biographies and historical photographs.</p>
@@ -30,8 +31,8 @@
       <div class="archive-admin-actions">${working?button('+ Add person','add',disabled):''}${button(needsReload?'Refresh archive':'Refresh','reload',disabled)}</div>
       ${count?`<div class="archive-pending-summary"><p><strong>You have ${count} unpublished ${count===1?'change':'changes'}.</strong></p><div class="archive-admin-actions">${button('Discard changes','discard',disabled)}${canSaveDrafts?button('Save drafts','save-drafts',publishDisabled):''}<button type="button" class="admin-button" data-archive-action="publish" ${publishDisabled}>Publish changes</button></div><p class="archive-editor-note">Published changes normally appear on the website within a few minutes.</p>${canSaveDrafts?'<p class="archive-editor-note">Save drafts keeps draft profiles private. Published profiles and other pending changes are left as they are.</p>':''}</div>`:''}
       ${working?`<ol class="archive-admin-list">${[...working.records].sort((a,b)=>renderer.firstYear(a)-renderer.firstYear(b)).map(r=>{
-        const committed=shared.archive.records.find(old=>old.id===r.id),pending=state.pending(r,committed);
-        return `<li class="archive-admin-row">${r.primaryImage?`<img src="${esc(imageURL(r.primaryImage))}" alt="${esc(renderer.altText(r.primaryImage,r))}">`:'<span class="archive-no-portrait" aria-label="No portrait">▧</span>'}<div class="archive-person-info"><h2>${esc(r.displayName)}</h2><p>${esc(r.role)} · ${esc(renderer.dates(r))}</p><p><span class="archive-state ${committed?.published?'published':'draft'}">${esc(state.status(r,committed))}</span></p>${pending?`<p class="archive-pending-label">${esc(pending)}</p>`:''}</div><div class="archive-person-actions">${button('Edit','edit',`data-id="${esc(r.id)}" ${disabled}`)}${button('Preview','preview',`data-id="${esc(r.id)}" ${disabled}`)}${button(state.toggleLabel(r,committed),committed&&r.published!==committed.published?'undo':r.published?'unpublish':'mark-published',`data-id="${esc(r.id)}" ${disabled}`)}</div></li>`;
+        const committed=shared.archive.records.find(old=>old.id===r.id),pending=removals.has(r.id)?'Will be removed':state.pending(r,committed);
+        return `<li class="archive-admin-row">${r.primaryImage?`<img src="${esc(imageURL(r.primaryImage))}" alt="${esc(renderer.altText(r.primaryImage,r))}">`:'<span class="archive-no-portrait" aria-label="No portrait">▧</span>'}<div class="archive-person-info"><h2>${esc(r.displayName)}</h2><p>${esc(r.role)} · ${esc(renderer.dates(r))}</p><p><span class="archive-state ${committed?.published?'published':'draft'}">${esc(state.status(r,committed))}</span></p>${pending?`<p class="archive-pending-label">${esc(pending)}</p>`:''}</div><div class="archive-person-actions">${button('Edit','edit',`data-id="${esc(r.id)}" ${disabled|| (removals.has(r.id)?'disabled':'')}`)}${button('Preview','preview',`data-id="${esc(r.id)}" ${disabled}`)}${button(removals.has(r.id)?'Undo':state.toggleLabel(r,committed),removals.has(r.id)?'undo-removal':committed&&r.published!==committed.published?'undo':r.published?'unpublish':'mark-published',`data-id="${esc(r.id)}" ${disabled}`)}</div></li>`;
       }).join('')}</ol>`:''}</section>`;
   }
   async function load(force=false){
@@ -39,7 +40,7 @@
     if(!window.churchClergyApi){message='Sign in with an authorised administrator account to load the archive.';render();return;}
     busy=true;message='Loading archive…';render();
     const result=await window.churchClergyApi.load();busy=false;
-    if(result.ok){shared=result;working=copy(result.archive);clearUploads();needsReload=false;message='';}else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
+    if(result.ok){shared=result;working=copy(result.archive);clearUploads();removals.clear();needsReload=false;message='';}else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
     render();
   }
   function show(content,trigger){opener=trigger||document.activeElement;dialog.innerHTML=content;dialog.showModal();dialog.querySelector('button,input')?.focus();}
@@ -51,7 +52,7 @@
   dialog.addEventListener('close',()=>requestAnimationFrame(restoreFocus));
   function periods(){return editor.servicePeriods.map((p,i)=>`<div class="archive-period">${field('Start year',`start-${i}`,p.start??'','number')}${field('End year (blank if unknown / open)',`end-${i}`,p.end??'','number')}${button('Remove period','remove-period',`data-index="${i}" ${editor.servicePeriods.length===1?'disabled':''}`)}</div>`).join('');}
   function imageFields(image,index){const prefix=index===-1?'primary':`image-${index}`;return `<div class="archive-image-editor"><h3>${index===-1?'Primary portrait':`Archive photograph ${index+1}`}</h3><img src="${esc(imageURL(image))}" alt="${esc(image.alt)}"><p class="archive-editor-note">Original: ${esc(image.originalFilename)} · originals are retained.</p><div class="archive-image-fields">${['alt','caption','date','source','credit','copyrightPermission'].map(k=>field(({alt:'Alt text',caption:'Caption',date:'Date or approximate date',source:'Source',credit:'Photographer / credit',copyrightPermission:'Copyright / permission notes (internal)'})[k],`${prefix}-${k}`,image[k]??'','text',k==='caption'||k==='alt')).join('')}</div><div class="archive-admin-actions">${index===-1?button('Remove portrait from display','remove-primary'):button('Use as primary portrait','use-primary',`data-index="${index}"`)+button('Move up','move-up',`data-index="${index}" ${index===0?'disabled':''}`)+button('Move down','move-down',`data-index="${index}" ${index===editor.archiveImages.length-1?'disabled':''}`)+button('Remove from gallery','remove-image',`data-index="${index}"`)}</div></div>`;}
-  function editorHTML(error=''){return `<h2 id="archive-editor-title">${esc(editor.displayName||'Add person')}</h2><p role="alert" class="archive-editor-error">${esc(error)}</p><form id="archive-editor-form"><div class="archive-editor-grid">${field('Display name (including title / qualifications)','displayName',editor.displayName)}${field('Role','role',editor.role)}<fieldset class="wide"><legend>Service periods</legend>${periods()}${button('+ Add service period','add-period')}</fieldset>${field('Their story (blank line between paragraphs)','biography',editor.biography.join('\n\n'),'textarea',true)}${field('St Michael’s in their time','parishContext',editor.parishContext.join('\n\n'),'textarea',true)}${field('Did you know?','didYouKnow',editor.didYouKnow.join('\n\n'),'textarea',true)}${field('Internal research notes — never shown publicly','internalNotes',editor.internalNotes,'textarea',true)}${field('Internal sources (one per line)','sources',editor.sources.join('\n'),'textarea',true)}<label class="wide"><span><input type="checkbox" name="published" ${editor.published?'checked':''}> Ready to publish (leave unchecked to keep as a draft)</span></label></div>${editor.primaryImage?imageFields(editor.primaryImage,-1):'<p>No primary portrait. A photograph is optional.</p>'}<label for="archive-primary-upload">${editor.primaryImage?'Replace primary portrait':'Add primary portrait'}</label><input id="archive-primary-upload" type="file" data-upload="primary" accept="image/jpeg,image/png,image/webp"><h3>Additional archive photographs</h3>${editor.archiveImages.map((i,n)=>imageFields(i,n)).join('')}<label for="archive-gallery-upload">+ Add archive photograph</label><input id="archive-gallery-upload" type="file" data-upload="gallery" accept="image/jpeg,image/png,image/webp"><p class="archive-editor-note">JPEG, PNG or WebP. Up to 10 MiB each, six uploads and 20 MiB total per publication. Originals are preserved; device metadata is removed from public web versions.</p><p class="archive-editor-note">Save changes returns to the list. Then choose Save drafts or Publish changes. Drafts stay private.</p><div class="archive-admin-actions"><button type="submit" class="admin-button">Save changes</button>${button('Preview','preview-editor')}${button('Cancel','cancel')}</div></form>`;}
+  function editorHTML(error=''){return `<h2 id="archive-editor-title">${esc(editor.displayName||'Add person')}</h2><p role="alert" class="archive-editor-error">${esc(error)}</p><form id="archive-editor-form"><div class="archive-editor-grid">${field('Display name (including title / qualifications)','displayName',editor.displayName)}${field('Role','role',editor.role)}<fieldset class="wide"><legend>Service periods</legend>${periods()}${button('+ Add service period','add-period')}</fieldset>${field('Their story (blank line between paragraphs)','biography',editor.biography.join('\n\n'),'textarea',true)}${field('St Michael’s in their time','parishContext',editor.parishContext.join('\n\n'),'textarea',true)}${field('Did you know?','didYouKnow',editor.didYouKnow.join('\n\n'),'textarea',true)}${field('Internal research notes — never shown publicly','internalNotes',editor.internalNotes,'textarea',true)}${field('Internal sources (one per line)','sources',editor.sources.join('\n'),'textarea',true)}<label class="wide"><span><input type="checkbox" name="published" ${editor.published?'checked':''}> Ready to publish (leave unchecked to keep as a draft)</span></label></div>${editor.primaryImage?imageFields(editor.primaryImage,-1):'<p>No primary portrait. A photograph is optional.</p>'}<label for="archive-primary-upload">${editor.primaryImage?'Replace primary portrait':'Add primary portrait'}</label><input id="archive-primary-upload" type="file" data-upload="primary" accept="image/jpeg,image/png,image/webp"><h3>Additional archive photographs</h3>${editor.archiveImages.map((i,n)=>imageFields(i,n)).join('')}<label for="archive-gallery-upload">+ Add archive photograph</label><input id="archive-gallery-upload" type="file" data-upload="gallery" accept="image/jpeg,image/png,image/webp"><p class="archive-editor-note">JPEG, PNG or WebP. Up to 10 MiB each, six uploads and 20 MiB total per publication. Originals are preserved; device metadata is removed from public web versions.</p><p class="archive-editor-note">Save changes returns to the list. Then choose Save drafts or Publish changes. Drafts stay private.</p><div class="archive-admin-actions"><button type="submit" class="admin-button">Save changes</button>${button('Preview','preview-editor')}${button('Cancel','cancel')}</div><details class="archive-danger-zone"><summary>More actions</summary><p>Unpublish keeps the person in Admin. Permanent removal deletes the archive record after publication.</p><button type="button" class="admin-button archive-destructive" data-archive-action="remove">Remove permanently</button></details></form>`;}
   function readEditor(validate=true){
     const form=dialog.querySelector('form');if(!form)return true;
     if(validate&&!form.reportValidity())return false;
@@ -93,17 +94,18 @@
   async function publish(draftsOnly=false){
     if(busy||needsReload||!changed())return;
     const next=draftsOnly?state.draftArchive(working,shared.archive):copy(working);
+    if(!draftsOnly)next.records=next.records.filter(r=>!removals.has(r.id));
     if(draftsOnly){
       if(JSON.stringify(next)===JSON.stringify(shared.archive)){message='No draft changes to save. Choose Publish changes to update published profiles.';render();return;}
     }
-    if(!window.confirm(draftsOnly?'Save drafts? Draft profiles will stay private and published profiles will remain unchanged.':'Publish these changes? Draft profiles will stay private. Profiles you chose to unpublish will be removed from the public archive.'))return;
+    if(!window.confirm(draftsOnly?'Save drafts? Draft profiles will stay private and published profiles will remain unchanged.':'Publish these changes? Draft profiles will stay private. Profiles you chose to unpublish will be hidden. Profiles marked Will be removed will be permanently removed from Admin and the public archive.'))return;
     busy=true;message=draftsOnly?'Saving drafts…':'Publishing changes…';render();
     const before=copy(working);
     try{
       const ids=referencedUploads(next),pending=[];
       for(const id of ids){const value=uploads.get(id);pending.push({id,fileName:value.file.name,mimeType:value.file.type,base64:await base64(value.file)});}
-      const result=await window.churchClergyApi.publish({sha:shared.sha,headSha:shared.headSha,archive:next,uploads:pending});
-      if(result.ok){shared=result;working=copy(result.archive);
+      const result=await window.churchClergyApi.publish({sha:shared.sha,headSha:shared.headSha,archive:next,uploads:pending,...(!draftsOnly&&removals.size?{removedRecordIds:[...removals]}:{})});
+      if(result.ok){shared=result;working=copy(result.archive);if(!draftsOnly)removals.clear();
         if(draftsOnly){for(const r of before.records){const old=next.records.find(n=>n.id===r.id);if(!old||JSON.stringify(old)!==JSON.stringify(r)){const index=working.records.findIndex(n=>n.id===r.id);if(index<0)working.records.push(r);else working.records[index]=r;}}}
         pruneUploads();message=`${draftsOnly?'Drafts saved. Draft profiles remain private.':'Changes published successfully. Your changes have been saved. The public website is updating and normally appears within a few minutes.'}${changed()?' Other unpublished changes remain.':''}`;
       }else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
@@ -111,11 +113,12 @@
   }
   function listAction(event){const target=event.target.closest('[data-archive-action]');if(!target||target.disabled)return;const action=target.dataset.archiveAction,id=target.dataset.id;
     if(action==='reload')void load(true);if(action==='add')edit(null,target);if(action==='edit')edit(id,target);if(action==='preview')preview(working.records.find(r=>r.id===id),false,target);if(action==='publish')void publish();if(action==='save-drafts')void publish(true);
-    if(action==='discard'){if(!confirm('Discard all unpublished changes? Saved profiles and photographs will be kept.'))return;working=copy(shared.archive);clearUploads();message=needsReload?'Changes discarded. Refresh the archive before making further changes.':'Unpublished changes discarded.';render();host.querySelector('[data-archive-action="add"]')?.focus();}
+    if(action==='discard'){if(!confirm('Discard all unpublished changes? Saved profiles and photographs will be kept.'))return;working=copy(shared.archive);removals.clear();clearUploads();message=needsReload?'Changes discarded. Refresh the archive before making further changes.':'Unpublished changes discarded.';render();host.querySelector('[data-archive-action="add"]')?.focus();}
     if(action==='unpublish'&&shared.archive.records.some(r=>r.id===id&&r.published)){
       const person=working.records.find(r=>r.id===id);
       show(`<h2 id="archive-editor-title">Unpublish ${esc(person.displayName)}?</h2><p>This will remove the profile from the public Historical Archive after you publish the pending changes. The record and photographs will be kept in Admin.</p><div class="archive-admin-actions">${button('Cancel','cancel')}<button type="button" class="admin-button" data-archive-action="confirm-unpublish" data-id="${esc(id)}">Unpublish</button></div>`,target);return;
     }
+    if(action==='undo-removal'){removals.delete(id);const index=working.records.findIndex(r=>r.id===id);working.records[index]=state.undoRecord(working.records[index],shared.archive.records.find(r=>r.id===id));pruneUploads();message=changed()?'Removal cancelled. Other unpublished changes remain.':'Removal cancelled. No unpublished changes.';render();host.querySelector(`[data-archive-action="edit"][data-id="${id}"]`)?.focus();return;}
     if(action==='undo'){
       const index=working.records.findIndex(r=>r.id===id);
       working.records[index]=state.undoRecord(working.records[index],shared.archive.records.find(r=>r.id===id));
@@ -125,11 +128,29 @@
     if(action==='unpublish'||action==='mark-published')setVisibility(id,action==='mark-published');
   }
   function setVisibility(id,published){working.records.find(r=>r.id===id).published=published;message='Changes not published. Choose Publish changes when ready.';render();host.querySelector(`[data-id="${id}"][data-archive-action="${published?'unpublish':'mark-published'}"]`)?.focus();}
+  const removalDialog=document.createElement('dialog');removalDialog.id='archive-removal-dialog';removalDialog.className='admin-dialog';removalDialog.setAttribute('aria-labelledby','archive-removal-title');document.body.append(removalDialog);
+  let removalId,removalOpener;
+  function showRemoval(){
+    removalId=editor.id;removalOpener=dialog.querySelector('[data-archive-action="remove"]');
+    removalDialog.innerHTML=`<h2 id="archive-removal-title">Remove ${esc(editor.displayName||'this person')}?</h2><p>This permanently removes this person from the Historical Archive after you publish the pending changes. If you only want to hide the profile from the public website, use Unpublish instead.</p><p>Image files and originals are retained for recovery and other records.</p><label for="archive-removal-confirmation">Type REMOVE to confirm</label><input id="archive-removal-confirmation" autocomplete="off"><div class="archive-admin-actions"><button type="button" class="admin-button secondary" data-removal-cancel>Cancel</button><button type="button" class="admin-button archive-destructive" data-removal-confirm disabled>Remove permanently</button></div>`;
+    removalDialog.showModal();removalDialog.querySelector('input').focus();
+  }
+  removalDialog.addEventListener('input',()=>{removalDialog.querySelector('[data-removal-confirm]').disabled=removalDialog.querySelector('input').value!=='REMOVE';});
+  removalDialog.addEventListener('close',()=>requestAnimationFrame(()=>removalOpener?.isConnected&&dialog.open&&removalOpener.focus()));
+  removalDialog.addEventListener('click',event=>{
+    if(event.target.closest('[data-removal-cancel]')){removalDialog.close();return;}
+    if(!event.target.closest('[data-removal-confirm]')||removalDialog.querySelector('input').value!=='REMOVE')return;
+    const saved=shared.archive.records.find(r=>r.id===removalId);
+    if(saved){const index=working.records.findIndex(r=>r.id===removalId);working.records[index]=copy(saved);removals.add(removalId);}
+    else working.records=working.records.filter(r=>r.id!==removalId);
+    removalDialog.close();close();pruneUploads();message=saved?'Removal not published. Choose Publish changes to permanently remove this person.':'Unsaved person removed. No saved record or photograph was deleted.';render();host.querySelector(saved?`[data-archive-action="undo-removal"][data-id="${removalId}"]`:'[data-archive-action="add"]')?.focus();
+  });
   dialog.addEventListener('input',()=>editorDirty=true);
   dialog.addEventListener('change',event=>{if(event.target.matches('[data-upload]'))void upload(event.target);});
   dialog.addEventListener('submit',event=>{event.preventDefault();stage();});
   dialog.addEventListener('cancel',event=>{event.preventDefault();if(!editorDirty||confirm('Discard unsaved editor changes?'))close();});
   dialog.addEventListener('click',event=>{const image=event.target.closest('.archive-preview [data-archive-image]');if(image){event.preventDefault();imageIndex=Number(image.dataset.archiveImage);imageOpener=image;renderPreviewImage();imageDialog.showModal();imageDialog.querySelector('button').focus();return;}const target=event.target.closest('[data-archive-action]');if(!target||target.disabled)return;const action=target.dataset.archiveAction,index=Number(target.dataset.index);
+    if(action==='remove'){showRemoval();return;}
     if(action==='cancel'){if(!editorDirty||confirm('Discard unsaved editor changes?'))close();return;}
     if(action==='confirm-unpublish'){const id=target.dataset.id;close();setVisibility(id,false);return;}
     if(action==='close-preview'){close();return;}if(action==='back-editor'){dialog.innerHTML=editorHTML();return;}

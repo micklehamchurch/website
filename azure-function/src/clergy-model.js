@@ -79,8 +79,10 @@ async function uploads(values) {
   }
   return result;
 }
-function resolveImages(next, current, uploaded) {
-  if (JSON.stringify(next.unassignedSources) !== JSON.stringify(current.unassignedSources) || current.records.some(r => !next.records.some(n => n.id === r.id))) throw new Error('use-unpublish');
+function resolveImages(next, current, uploaded, removedRecordIds=[]) {
+  if (JSON.stringify(next.unassignedSources) !== JSON.stringify(current.unassignedSources)) throw new Error('use-unpublish');
+  // Only explicitly named existing records may disappear. No file paths or asset deletes.
+  if(!Array.isArray(removedRecordIds)||removedRecordIds.length>250||new Set(removedRecordIds).size!==removedRecordIds.length||removedRecordIds.some(id=>typeof id!=='string'||!current.records.some(r=>r.id===id)||next.records.some(r=>r.id===id))||current.records.some(r=>!next.records.some(n=>n.id===r.id)&&!removedRecordIds.includes(r.id)))throw new Error('invalid-removal');
   const known = new Map(current.records.flatMap(r => [r.primaryImage,...r.archiveImages].filter(Boolean)).map(i => [`${i.src}|${i.thumbnail}`,i]));
   const used = new Set();
   for (const record of next.records) for (const item of [record.primaryImage,...record.archiveImages].filter(Boolean)) {
