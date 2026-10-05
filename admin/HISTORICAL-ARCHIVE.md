@@ -6,6 +6,8 @@ Open **Historical Archive** in the existing signed-in Admin dashboard. Authorise
 
 The chronological list shows display name, role, service periods, portrait and Published/Draft status. Display name already includes titles and qualifications; there are no duplicate identity fields.
 
+Row status uses the last authoritative API snapshot, separately from staged edits. A new record marked for publication is **Unpublished — marked for publication** until the API successfully commits it. A saved draft remains **Draft on Dev — publication pending** while staged for publication. An existing public record staged for removal remains **Published on Dev — unpublish pending** until that removal is committed. **Published on Dev** confirms repository persistence, not completion of the asynchronous Pages deployment.
+
 1. **Edit** or **Add clergy record**. A new record starts as a draft. A photograph and biography are optional; enter a name, role and at least one known start year.
 2. Add any number of service periods up to the practical limit of 20. Leave an unknown/open end year blank. Returning clergy remain one record.
 3. Enter narrative paragraphs separated by a blank line. Research notes and source references are internal. Verify historical facts; do not guess missing details.
