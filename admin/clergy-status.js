@@ -10,7 +10,7 @@
   }
   function toggleLabel(record,committed){
     if(record.published)return committed?.published?'Unpublish':'Undo';
-    return committed?.published?'Keep published':'Ready to publish';
+    return committed?.published?'Keep published':'Select for publication';
   }
   function undoRecord(record,committed){
     // Cancel a saved person's pending action by restoring the authoritative snapshot,
