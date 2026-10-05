@@ -49,7 +49,7 @@ document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', f
 // The contextual Media link shares the same confirmed channel as the footer.
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 
-const siteScript = document.querySelector('script[src$="site.js"]');
+const siteScript = document.querySelector('script[src*="site.js"]');
 const footerBottom = document.querySelector('.footer-bottom-links');
 if (siteScript && footerBottom) {
   const adminUrl = new URL('admin/', new URL('.', siteScript.src)).href;
@@ -166,4 +166,9 @@ document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
     closeNavigation();
     menuButton?.setAttribute('aria-expanded', 'false');
   });
+});
+// A versioned Home destination avoids the separately cached / and /index.html documents.
+// Relative URLs retain GitHub Pages and custom-domain base-path behaviour.
+document.querySelectorAll('a[href="index.html"]').forEach(link => {
+  link.setAttribute('href', 'index.html?hero=20261005-v3');
 });

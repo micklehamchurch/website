@@ -10,11 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v2-large.webp" media="(min-width: 1201px)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v2-tablet.webp" media="(min-width: 601px) and (max-width: 1200px)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v2-mobile.webp" media="(max-width: 600px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v3-mobile.webp" media="(max-width: 600px)" fetchpriority="high">
   <link rel="stylesheet" href="styles.css?v=hero-e6523-v2">
   <link rel="stylesheet" href="news-stories.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-  <script src="site.js" defer></script>
+  <link rel="stylesheet" href="home-hero-v3.css">
+  <script src="site.js?hero=20261005-v3" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -26,6 +27,11 @@
   <header class="site-header" data-site-header></header>
   <main id="main-content" tabindex="-1">
     <section class="hero home-hero">
+      <picture class="home-hero-photo">
+        <source media="(max-width: 600px)" type="image/webp" srcset="assets/images/home/ed-popov-e6523-v3-mobile.webp">
+        <source media="(max-width: 600px)" type="image/jpeg" srcset="assets/images/home/ed-popov-e6523-v3-mobile.jpg">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='600'/%3E" width="960" height="600" alt="St Michael and All Angels Church, with its spire, blue clock and red entrance door in the churchyard" loading="eager" fetchpriority="high" decoding="async">
+      </picture>
       <div class="hero-overlay"></div>
       <div class="container hero-content">
         <p class="eyebrow light">A warm welcome to</p>

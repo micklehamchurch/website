@@ -1,14 +1,14 @@
 # Homepage photograph
 
 Original source: IMG_E6523.JPG, 4786 × 2692 pixels. Photographer: Ed Popov.
-Supplied 4 October 2026. Ed Popov permitted St Michael & All Angels Church, Mickleham & Westhumble to use it on the website; no public credit is required. This is not a Creative Commons licence.
+Ed Popov permitted St Michael & All Angels Church, Mickleham & Westhumble to use this photograph on its website; no public credit is required. This permission is not a Creative Commons licence.
 
-Versioned assets ed-popov-e6523-v2-* all derive from that source:
-- large: 3200 × 1800, whole scene, WebP and progressive JPEG.
-- tablet: 1920 × 1080, whole scene, WebP and progressive JPEG.
-- mobile: 1000 × 1021, original crop (850, 140, 3350, 2692), WebP and progressive JPEG.
-Only cropping, resizing and compression were applied; no AI or colour grading.
+Assets:
+- ed-popov-e6523-v2-large.webp/.jpg: 3200 × 1800, whole original scene.
+- ed-popov-e6523-v2-tablet.webp/.jpg: 1920 × 1080, whole original scene.
+- ed-popov-e6523-v3-mobile.webp/.jpg: 960 × 600, original crop (200, 100, 4200, 2600).
+All use normal cropping/resizing/compression, without AI manipulation or colour grading. JPEGs are progressive. Previous v2 portrait phone assets were removed.
 
-Desktop (>1200px) preserves image width/scale with the approved trim: 4786 / 2409 hero aspect ratio, background-size 100% auto and center 62% position. Landscape tablets retain the full original proportions, center position. Portrait tablets (601–1200px) have a 640px minimum photographic canvas with cover at 35% top and welcome content below the upper tower. Mobile uses its dedicated crop at 40% top with a 650px minimum canvas. Localised radial desktop/landscape shading and lower portrait/mobile gradients retain text contrast.
+home-hero-v3.css is the sole homepage hero stylesheet, loaded after shared styles. Desktop retains the approved 4786 / 2409 frame, 100% auto background sizing and center 62% position. Tablet portrait retains the 640px minimum composition at 35% top; tablet landscape retains the original scene proportions and compact welcome text. Phones present a natural 8:5 picture above compact welcome content instead of a tall cover background.
 
-The homepage stylesheet reference and every hero preload/background URL were versioned to prevent reuse of cached earlier bytes. Old church-hero-large/medium/mobile derivatives were removed. There is no homepage picture/srcset or service worker. The separate root church-hero.jpg used in other page content is unrelated and retained. Former Wikimedia homepage attribution remains removed.
+Hero assets, stylesheet and homepage script are versioned. Home links use a relative versioned index.html destination, preventing old cached root/index documents from being selected during Home returns. Navigation active-state matching is applied before adding the version parameter. No service worker or page-load-only crop logic exists. The former Wikimedia homepage attribution remains removed; unrelated root church-hero.jpg page imagery is retained.
