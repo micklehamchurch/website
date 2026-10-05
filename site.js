@@ -170,5 +170,5 @@ document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
 // A versioned Home destination avoids the separately cached / and /index.html documents.
 // Relative URLs retain GitHub Pages and custom-domain base-path behaviour.
 document.querySelectorAll('a[href="index.html"]').forEach(link => {
-  link.setAttribute('href', 'index.html?hero=20261005-v3');
+  link.setAttribute('href', 'index.html?hero=20261005-v4');
 });
