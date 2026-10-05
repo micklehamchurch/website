@@ -17,3 +17,6 @@ Derivatives in `assets/images/clergy` apply only EXIF orientation, rectangular c
 ## Checks before future changes
 
 Run `npm test` and `npm run build`, inspect the generated diff, and check Dev HEAD for concurrent publishing updates before committing. The hero CSS must not change as a side effect. Test native keyboard focus, Escape, outside dismissal, nested focus return, browser Back/Forward, and archive viewer navigation. Confirm new images have parish permission before marking them published.
+# Admin maintenance
+
+The existing secure Admin now includes Historical Archive. See [the practical workflow and API documentation](admin/HISTORICAL-ARCHIVE.md). Records retain this source schema; the editor does not invent historical information. Drafts and research notes are excluded from all public archive projections.

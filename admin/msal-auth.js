@@ -14,6 +14,7 @@ import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 import { attachContactsApi } from './contacts-api.mjs';
+import { attachClergyApi } from './clergy-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
 import { attachGoogleSyncApi } from './google-calendar-sync-api.mjs';
@@ -177,6 +178,7 @@ async function checkAdminApiConnection(account, { interactive = false } = {}) {
     if (result.state === 'connected') {
       void checkGithubRepositoryConnection(accessToken);
       window.dispatchEvent(new Event('admin-news-ready'));
+      window.dispatchEvent(new Event('admin-clergy-ready'));
       window.dispatchEvent(new Event('admin-contacts-ready'));
     } else {
       updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
@@ -219,6 +221,7 @@ async function graphProfile(account, response = null) {
   activeAdminApiAccount = account;
   window.dispatchEvent(new CustomEvent('admin-calendar-ready'));
   window.dispatchEvent(new Event('admin-news-ready'));
+      window.dispatchEvent(new Event('admin-clergy-ready'));
   void checkAdminApiConnection(account);
 }
 
@@ -299,6 +302,7 @@ async function start() {
     attachGoogleSyncApi(msal, () => activeAdminApiAccount);
     attachContactsApi(msal, () => activeAdminApiAccount);
     attachNewsApi(msal, () => activeAdminApiAccount);
+    attachClergyApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();
     if (response?.account) {
       await graphProfile(response.account, response);

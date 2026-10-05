@@ -16,7 +16,7 @@
   ];
   const sections = [
     ['dashboard', '⌂', 'Overview'], ['news', '▤', 'News & Magazine'], ['calendar', '▦', 'Calendar'], ['contacts', '♧', 'Parish Contacts'],
-    ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Gallery'], ['media', '▷', 'Media / YouTube'],
+    ['archive', '▧', 'Historical Archive'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Gallery'], ['media', '▷', 'Media / YouTube'],
     ['community', '♧', 'Our Community'], ['pages', '▤', 'Pages'], ['settings', '⚙', 'Website Settings']
   ];
   const workflowView = 'publishing';
@@ -300,7 +300,7 @@
     return `<div class="admin-page-heading"><div><p class="admin-kicker">${safe(kicker)}</p><h1>${safe(title)}</h1><p>${safe(description)}</p></div>${action}</div>`;
   }
   function workflowPanel(compact = false) {
-    return `<section class="admin-publishing-panel ${compact ? 'compact' : ''}"><div><p class="admin-kicker">SHARED WEBSITE · CURRENT PROCESS</p><h2>How publishing works today</h2><p>Calendar, Website News and PDF editions publish shared Dev content through the authenticated Admin API. Other sections remain development previews.</p></div><ol class="admin-publishing-steps"><li><strong>Edit Calendar.</strong> Load shared Dev data, stage changes and choose Publish changes. News & Magazine has separate story and PDF publishing controls. Other sections remain previews.</li><li><strong>Commit the approved content.</strong> An authorised editor records it in <code>_content/calendar.json</code>, <code>_content/news.json</code> or <code>_content/contacts.json</code> on <code>Dev</code>.</li><li><strong>Build and review.</strong> GitHub Actions validates the files and regenerates calendar pages, article pages, the contact directory and search.</li><li><strong>Deploy.</strong> GitHub Pages serves the generated version after the workflow completes.</li></ol><p class="admin-publishing-note">Calendar publishing requires server-side administrator authorization. News and Magazine publishing requires the same server-side administrator authorization. Contacts, Pages and Media publishing are not enabled.</p><details class="admin-technical-details"><summary>Repository editing links for authorised editors</summary><div><a href="${githubEdit}_content/calendar.json" target="_blank" rel="noopener noreferrer">Calendar source on GitHub ↗</a><a href="${githubEdit}_content/news.json" target="_blank" rel="noopener noreferrer">News source on GitHub ↗</a><a href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Parish contacts source on GitHub ↗</a></div></details></section>`;
+    return `<section class="admin-publishing-panel ${compact ? 'compact' : ''}"><div><p class="admin-kicker">SHARED WEBSITE · CURRENT PROCESS</p><h2>How publishing works today</h2><p>Calendar, Contacts, Website News, PDF editions and Historical Archive publish shared Dev content through the authenticated Admin API. Other sections remain development previews.</p></div><ol class="admin-publishing-steps"><li><strong>Edit Calendar.</strong> Load shared Dev data, stage changes and choose Publish changes. News & Magazine has separate story and PDF publishing controls. Other sections remain previews.</li><li><strong>Commit the approved content.</strong> An authorised editor records it in <code>_content/calendar.json</code>, <code>_content/news.json</code> or <code>_content/contacts.json</code> on <code>Dev</code>.</li><li><strong>Build and review.</strong> GitHub Actions validates the files and regenerates calendar pages, article pages, the contact directory and search.</li><li><strong>Deploy.</strong> GitHub Pages serves the generated version after the workflow completes.</li></ol><p class="admin-publishing-note">Calendar publishing requires server-side administrator authorization. News and Magazine publishing requires the same server-side administrator authorization. Historical Archive uses the same protected API for staged drafts, previews and explicit Dev publishing. Pages and Media remain previews.</p><details class="admin-technical-details"><summary>Repository editing links for authorised editors</summary><div><a href="${githubEdit}_content/calendar.json" target="_blank" rel="noopener noreferrer">Calendar source on GitHub ↗</a><a href="${githubEdit}_content/news.json" target="_blank" rel="noopener noreferrer">News source on GitHub ↗</a><a href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Parish contacts source on GitHub ↗</a></div></details></section>`;
   }
   function demoCounts() {
     const events = listRecords('calendar');
@@ -313,6 +313,7 @@
       calendar: ['▦', 'Calendar / Events', `${baseEvents.length} current church events. Edit events and publish changes to shared Dev.`],
       news: ['▤', 'News & Announcements', `${counts.newsCount} current articles. Manage shared stories and PDF editions.`],
       pages: ['▱', 'Pages', `${basePages.length} public pages with links to their current content source.`],
+      archive: ['▧', 'Historical Archive', 'Manage clergy profiles, biographies and historical photographs.'],
       contacts: ['♧', 'Contacts', `${contactRecords().length} parish contacts across ${baseContacts.sections.length} sections.`],
       documents: ['▧', 'Documents', `${documentGroups.reduce((total, group) => total + group.items.length, 0)} migrated pages and files to view or manage.`],
       media: ['▷', 'Media', 'See how current photos and YouTube content are managed today.'],
@@ -513,6 +514,7 @@
     }
     if (view === 'contacts' && !sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.error) { void loadSharedContacts(); return; }
     if (view === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.error) { void loadSharedCalendar(); return; }
+    if (view === 'archive') { window.churchClergyAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
     const markup = view === 'dashboard' ? overview()
       : view === 'calendar' ? calendarView()
         : view === 'news' ? newsView()

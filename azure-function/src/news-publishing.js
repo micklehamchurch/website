@@ -89,4 +89,4 @@ function createNewsPublishingHandler(kind, { env = process.env, readConfiguratio
     } catch (error) { return failure([409, 422].includes(error?.status) ? 409 : 502, [409, 422].includes(error?.status) ? 'news-version-conflict' : 'news-publish-unavailable'); }
   };
 }
-module.exports = { createNewsPublishingHandler, MAX_BODY_BYTES, metadataPaths };
+module.exports = { createNewsPublishingHandler, MAX_BODY_BYTES, metadataPaths, readJson };

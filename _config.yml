@@ -3,3 +3,4 @@ exclude:
   - _sync
   - _archive-sources
   - CLERGY-ARCHIVE.md
+  - admin/HISTORICAL-ARCHIVE.md

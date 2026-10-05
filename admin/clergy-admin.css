@@ -1,0 +1,15 @@
+.archive-admin-list{display:grid;gap:1rem;margin:1.5rem 0;padding:0;list-style:none}
+.archive-admin-row{display:flex;align-items:center;gap:1rem;padding:1rem;background:white;border:1px solid #d7e1dc;border-radius:.75rem}
+.archive-admin-row img{width:64px;height:80px;object-fit:cover;border-radius:.3rem;flex-shrink:0}
+.archive-admin-row>div{flex:1;min-width:0}.archive-admin-row h2{font-size:1.2rem;margin:0}.archive-admin-row p{margin:.3rem 0;overflow-wrap:anywhere}
+.archive-admin-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.archive-admin-status{padding:1rem;background:#edf4ef;border-radius:.5rem;overflow-wrap:anywhere}
+#archive-admin-dialog{width:min(960px,calc(100% - 2rem));max-height:90dvh;overflow:auto;padding:1.5rem}
+#archive-admin-dialog h2{margin-top:0}.archive-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.archive-editor-grid .wide{grid-column:1/-1}
+.archive-editor-grid label,.archive-image-fields label{display:grid;gap:.35rem;font-weight:600;min-width:0}
+#archive-admin-dialog input:not([type=checkbox]),#archive-admin-dialog textarea,#archive-admin-dialog select{width:100%;max-width:100%;box-sizing:border-box;padding:.65rem;border:1px solid #9caea4;border-radius:.3rem;background:white;font:inherit;color:#173d2b}
+#archive-admin-dialog textarea{min-height:8rem;resize:vertical}.archive-period{display:grid;grid-template-columns:1fr 1fr auto;gap:.6rem;align-items:end;margin-bottom:.6rem}
+.archive-image-editor{border:1px solid #d7e1dc;border-radius:.5rem;padding:1rem;margin:1rem 0}.archive-image-editor img{max-width:100%;width:150px;height:180px;object-fit:contain;background:#edf4ef}
+.archive-image-fields{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.archive-image-fields .wide{grid-column:1/-1}.archive-preview .clergy-profile{display:block}.archive-preview .clergy-profile-content{padding:1rem}
+#archive-admin-dialog :focus-visible,.archive-admin-actions :focus-visible,.archive-admin-row :focus-visible{outline:3px solid #ab7828;outline-offset:3px}
+.archive-editor-note{font-size:.95rem;color:#465d50}.archive-editor-error{color:#9b2424}
+@media(max-width:600px){.archive-admin-row{flex-wrap:wrap}.archive-admin-row>div{flex-basis:calc(100% - 85px)}.archive-editor-grid,.archive-image-fields{grid-template-columns:1fr}.archive-period{grid-template-columns:1fr 1fr}.archive-period button{grid-column:1/-1}.archive-admin-actions button{white-space:normal}#archive-admin-dialog{padding:1rem}}

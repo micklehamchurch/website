@@ -22,6 +22,8 @@ on:
       - '_content/clergy.json'
       - 'build-clergy-archive.js'
       - 'clergy-profiles.js'
+      - 'clergy-render.js'
+      - 'admin/clergy-*'
       - 'clergy-archive.css'
       - 'assets/images/clergy/**'
       - '_templates/**'
