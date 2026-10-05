@@ -189,7 +189,7 @@
       "seriesId": null,
       "occurrenceStart": null,
       "google": {
-        "title": "Family Service with Baptism",
+        "title": "Family Service",
         "start": "2026-11-01T10:00",
         "end": "2026-11-01T11:00",
         "allDay": false,
@@ -197,14 +197,14 @@
         "description": ""
       },
       "website": {
-        "title": "Family Service with Baptism",
+        "title": "Family Service",
         "start": "2026-11-01T10:00",
         "end": "2026-11-01T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "f38206c4f125db4ab2a22169cad8a92e6f06b7524a89eedce812e7b3181c717d",
+      "fingerprint": "0d0e08c7c9ff07c595aa3fc74ba47f7f388f296bd23edc777924f6aabf0d0f75",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -3478,16 +3478,16 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-05T10:00:05.519Z",
+  "lastSuccessfulSync": "2026-10-05T11:15:07.240Z",
   "audit": {
-    "at": "2026-10-05T10:00:05.519Z",
+    "at": "2026-10-05T11:15:07.240Z",
     "mode": "automatic",
     "added": 0,
-    "updated": 0,
-    "removed": 1,
-    "unchanged": 118,
+    "updated": 1,
+    "removed": 0,
+    "unchanged": 117,
     "missing": 0,
     "conflicts": 0,
-    "suppressed": 0
+    "suppressed": 1
   }
 }
