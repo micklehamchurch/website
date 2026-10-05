@@ -25,7 +25,7 @@
     const count=working&&shared?state.changeCount(working,shared.archive):0;
     const canSaveDrafts=count&&JSON.stringify(state.draftArchive(working,shared.archive))!==JSON.stringify(shared.archive);
     const publishDisabled=busy||needsReload?'disabled':'';
-    host.innerHTML=`<section><h1>Historical Archive</h1><p>Manage clergy profiles, biographies and historical photographs.</p><p class="archive-editor-note">${accuracyNote}</p>
+    host.innerHTML=`<section><h1>Historical Archive</h1><p>Manage clergy profiles, biographies and historical photographs.</p><p class="archive-accuracy-note"><strong>Historical accuracy</strong> ${accuracyNote}</p>
       <p class="archive-admin-status" role="status" aria-live="polite" aria-atomic="true">${esc(message||(!working?'Sign in to load the archive.':count?'Your changes are not published yet.':'No unpublished changes.'))}</p>
       ${shared?.archive.updatedAt?`<p class="archive-last-saved">Last saved: ${esc(savedTime(shared.archive.updatedAt))}</p>`:''}
       <div class="archive-admin-actions">${working?button('+ Add person','add',disabled):''}${button(needsReload?'Refresh archive':'Refresh','reload',disabled)}</div>
