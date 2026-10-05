@@ -1,0 +1,51 @@
+/* Scoped parish archive styles. The approved homepage hero remains independent. */
+.clergy-introduction { max-width: 760px; font-size: 18px; }
+.clergy-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; padding: 0; margin: 32px 0; list-style: none; }
+.clergy-grid li { min-width: 0; }
+.clergy-card { display: block; height: 100%; border-bottom: 1px solid var(--gold); background: var(--cream); }
+.clergy-card img,.clergy-no-portrait { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center 24%; }
+.clergy-no-portrait { display: grid; place-items: center; padding: 20px; color: var(--green); font-family: var(--serif); border: 1px solid var(--stone); text-align: center; }
+.clergy-card > div:not(.clergy-no-portrait) { padding: 16px; }
+.clergy-card h2 { font-size: 23px; line-height: 1.25; }
+.clergy-card .eyebrow { font-size: 10px; letter-spacing: .06em; }
+.clergy-card .text-link { font-size: 13px; white-space: normal; }
+.clergy-card:hover { box-shadow: 0 5px 16px #18392d22; }
+.clergy-card:focus-visible,.clergy-thumbnails a:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
+.clergy-profile { scroll-margin-top: 90px; padding: 14px 0; border-bottom: 1px solid var(--stone); }
+.clergy-profile summary { cursor: pointer; font-weight: 600; }
+.clergy-profile-content { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 28px; padding-top: 22px; }
+.clergy-profile-content > div { min-width: 0; }
+.clergy-profile-content figure { margin: 0; }
+.clergy-profile-content figure > img { display: block; width: 100%; max-height: 560px; object-fit: contain; }
+.clergy-profile-content figcaption { padding-top: 10px; color: var(--muted); font-size: 12px; }
+.clergy-profile-content h2 { font-size: clamp(28px,4vw,38px); }
+.clergy-profile-content h3 { font-size: 22px; margin: 24px 0 8px; }
+.clergy-thumbnails { display: flex; flex-wrap: wrap; gap: 14px; }
+.clergy-thumbnails a { width: 110px; font-size: 11px; }
+.clergy-thumbnails img { display: block; width: 100%; height: 110px; object-fit: contain; background: var(--cream); margin-bottom: 5px; }
+.clergy-dialog,.clergy-image-dialog { width: min(920px,calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 24px; border: 1px solid var(--gold); border-radius: 6px; background: var(--paper); color: var(--ink); overflow-y: auto; overscroll-behavior: contain; }
+.clergy-dialog::backdrop,.clergy-image-dialog::backdrop { background: #10271fc9; }
+.clergy-close { display: block; margin-left: auto; min-width: 80px; min-height: 44px; border: 1px solid var(--stone); border-radius: 4px; background: var(--cream); color: var(--deep); font: inherit; cursor: pointer; }
+.clergy-close:focus-visible,.clergy-gallery-controls button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.clergy-image-dialog h2 { font-size: 26px; }
+.clergy-image-dialog figure { margin: 16px 0; }
+.clergy-image-dialog figure img { display: block; width: 100%; height: min(65dvh,760px); object-fit: contain; }
+.clergy-image-dialog figcaption { margin-top: 12px; font-size: 14px; }
+.clergy-gallery-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.clergy-gallery-controls p { margin: 0; font-size: 13px; }
+.clergy-gallery-controls button[hidden] { display: none; }
+.clergy-history { padding: 24px; margin: 32px 0; border-left: 3px solid var(--gold); background: var(--cream); }
+.clergy-history h2 { font-size: 30px; }
+.clergy-teaser-inner { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 40px; }
+.clergy-teaser-inner > div { min-width: 0; }
+.clergy-teaser h2 { font-size: clamp(28px,3vw,36px); }
+.clergy-teaser p:not(.eyebrow) { max-width: 560px; color: var(--muted); }
+.clergy-teaser-portraits { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.clergy-teaser figure { margin: 0; }
+.clergy-teaser img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center 24%; border: 5px solid var(--cream); }
+.clergy-teaser figcaption { font: 12px/1.4 var(--serif); padding-top: 6px; }
+.clergy-teaser figcaption span { display: block; color: var(--muted); }
+.clergy-enhanced .clergy-fallback { display: none; }
+@media(max-width:1100px) { .clergy-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media(max-width:760px) { .clergy-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; } .clergy-teaser-inner { grid-template-columns: 1fr; gap: 24px; } .clergy-profile-content { grid-template-columns: 1fr; } .clergy-profile-content figure > img { max-height: 340px; } .clergy-dialog,.clergy-image-dialog { padding: 16px; } .clergy-card h2 { font-size: 20px; } .clergy-card > div:not(.clergy-no-portrait) { padding: 12px; } }
+@media(prefers-reduced-motion:no-preference) { .clergy-card { transition: box-shadow 180ms ease; } }

@@ -1,3 +1,5 @@
 exclude:
   - _content
   - _sync
+  - _archive-sources
+  - CLERGY-ARCHIVE.md

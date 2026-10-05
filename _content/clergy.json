@@ -1,0 +1,692 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "thomas-roger-ffowke",
+      "displayName": "Thomas Roger Ffowke",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1771,
+          "end": 1800
+        }
+      ],
+      "primaryImage": null,
+      "archiveImages": [],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "gerrard-andrewes",
+      "displayName": "Gerrard Andrewes D.D.",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1800,
+          "end": 1813
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/4-960.jpg",
+        "thumbnail": "assets/images/clergy/4-360.jpg",
+        "alt": "Portrait of Gerrard Andrewes D.D. photographed from the church display",
+        "caption": "Gerrard Andrewes D.D. — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "4.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/4-display.jpg",
+          "thumbnail": "assets/images/clergy/4-360.jpg",
+          "alt": "Church display photograph and service label for Gerrard Andrewes D.D.",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "4.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Gerrard Andrewes (1750–1825) was educated at Westminster and Trinity College, Cambridge. He was ordained deacon in 1776 and priest in 1778.",
+        "During his Mickleham incumbency he also became Rector of St James’s Piccadilly in 1802 and Dean of Canterbury in 1809."
+      ],
+      "parishContext": [],
+      "didYouKnow": [
+        "He was offered the Bishopric of Chester in 1812 and declined it."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "alfred-burmester",
+      "displayName": "Alfred Burmester",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1813,
+          "end": 1867
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/2-960.jpg",
+        "thumbnail": "assets/images/clergy/2-360.jpg",
+        "alt": "Portrait of Alfred Burmester photographed from the church display",
+        "caption": "Alfred Burmester — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "2.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/2-display.jpg",
+          "thumbnail": "assets/images/clergy/2-360.jpg",
+          "alt": "Church display photograph and service label for Alfred Burmester",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "2.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Alfred Burmester served as Rector of Mickleham for approximately 54 years. He is buried in a vault beneath the chancel with his wife Jane and two sons who died in infancy."
+      ],
+      "parishContext": [
+        "His ministry coincided with substantial nineteenth-century rebuilding and restoration at St Michael’s."
+      ],
+      "didYouKnow": [
+        "Woodwork he obtained in Belgium around 1840 was later incorporated into the church pulpit."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "william-henry-harke",
+      "displayName": "William Henry Harke",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1867,
+          "end": 1897
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/5-960.jpg",
+        "thumbnail": "assets/images/clergy/5-360.jpg",
+        "alt": "Portrait of William Henry Harke photographed from the church display",
+        "caption": "William Henry Harke — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "5.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/5-display.jpg",
+          "thumbnail": "assets/images/clergy/5-360.jpg",
+          "alt": "Church display photograph and service label for William Henry Harke",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "5.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "An 1891 directory records that William Henry Harke had held the Rectory since 1867 and held an M.A. from Trinity College Dublin."
+      ],
+      "parishContext": [
+        "Directory material from this period records a parish population of 799 in 1881 and a National School for 100 children."
+      ],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "william-richard-lloyd",
+      "displayName": "William Richard Lloyd",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1897,
+          "end": 1920
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/6-960.jpg",
+        "thumbnail": "assets/images/clergy/6-360.jpg",
+        "alt": "Portrait of William Richard Lloyd photographed from the church display",
+        "caption": "William Richard Lloyd — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "6.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/6-display.jpg",
+          "thumbnail": "assets/images/clergy/6-360.jpg",
+          "alt": "Church display photograph and service label for William Richard Lloyd",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "6.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Contemporary directory material confirms that William Richard Lloyd held the Rectory from 1897 and held an M.A. from Trinity College Dublin."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "arthur-bedford",
+      "displayName": "Arthur W. Bedford",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1920,
+          "end": 1936
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/7-960.jpg",
+        "thumbnail": "assets/images/clergy/7-360.jpg",
+        "alt": "Portrait of Arthur W. Bedford photographed from the church display",
+        "caption": "Arthur W. Bedford — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "7.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/7-display.jpg",
+          "thumbnail": "assets/images/clergy/7-360.jpg",
+          "alt": "Church display photograph and service label for Arthur W. Bedford",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "7.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Local historical material records Sunday services at both Mickleham and Westhumble during Arthur Bedford’s ministry. He was assisted by a curate and retired clergy, including his predecessor William Richard Lloyd."
+      ],
+      "parishContext": [
+        "In 1929, 27 candidates were presented for confirmation."
+      ],
+      "didYouKnow": [
+        "A parish account from 1925 describes a water-powered church organ and pressure problems after houses were built in Dell Close."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "langdale-smith",
+      "displayName": "Richard Marmaduke Langdale-Smith",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1936,
+          "end": 1948
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/8-960.jpg",
+        "thumbnail": "assets/images/clergy/8-360.jpg",
+        "alt": "Portrait of Richard Marmaduke Langdale-Smith photographed from the church display",
+        "caption": "Richard Marmaduke Langdale-Smith — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "8.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/8-display.jpg",
+          "thumbnail": "assets/images/clergy/8-360.jpg",
+          "alt": "Church display photograph and service label for Richard Marmaduke Langdale-Smith",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "8.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "aw-douglas",
+      "displayName": "A. W. Douglas",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1948,
+          "end": 1953
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/9-960.jpg",
+        "thumbnail": "assets/images/clergy/9-360.jpg",
+        "alt": "Portrait of A. W. Douglas photographed from the church display",
+        "caption": "A. W. Douglas — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "9.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/9-display.jpg",
+          "thumbnail": "assets/images/clergy/9-360.jpg",
+          "alt": "Church display photograph and service label for A. W. Douglas",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "9.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "john-cornell",
+      "displayName": "J. L. / John Cornell",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1953,
+          "end": 1978
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/10-960.jpg",
+        "thumbnail": "assets/images/clergy/10-360.jpg",
+        "alt": "Portrait of J. L. / John Cornell photographed from the church display",
+        "caption": "J. L. / John Cornell — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "10.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/10-display.jpg",
+          "thumbnail": "assets/images/clergy/10-360.jpg",
+          "alt": "Church display photograph and service label for J. L. / John Cornell",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "10.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "A parish baptism register begun under W. R. Lloyd in 1913 contains its final entry on 22 December 1974, while John Cornell was Rector."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "peter-ince",
+      "displayName": "Peter R. Ince",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1978,
+          "end": 1992
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/11-960.jpg",
+        "thumbnail": "assets/images/clergy/11-360.jpg",
+        "alt": "Portrait of Peter R. Ince photographed from the church display",
+        "caption": "Peter R. Ince — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "11.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/11-display.jpg",
+          "thumbnail": "assets/images/clergy/11-360.jpg",
+          "alt": "Church display photograph and service label for Peter R. Ince",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "11.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Local historical material records Rector Peter Ince and the churchwardens in negotiations concerning the freehold of Village Hall car-park land in February 1988."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "john-harkin",
+      "displayName": "Rev. Canon John Harkin B.A.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 1993,
+          "end": 1998
+        },
+        {
+          "start": 2018,
+          "end": 2020
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/12-960.jpg",
+        "thumbnail": "assets/images/clergy/12-360.jpg",
+        "alt": "Portrait of Rev. Canon John Harkin B.A. photographed from the church display",
+        "caption": "Rev. Canon John Harkin B.A. — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "12.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/12-display.jpg",
+          "thumbnail": "assets/images/clergy/12-360.jpg",
+          "alt": "Church display photograph and service label for Rev. Canon John Harkin B.A.",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "12.jpeg",
+          "derivativeCreated": true
+        },
+        {
+          "src": "assets/images/clergy/16-960.jpg",
+          "thumbnail": "assets/images/clergy/16-360.jpg",
+          "alt": "Portrait of Rev. Canon John Harkin B.A. photographed from the church display",
+          "caption": "The church display records John Harkin’s second period of service, 2018–2020.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "16.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "John Harkin served Mickleham during two separate periods: 1993–1998 and 2018–2020.",
+        "Appointment reporting from 1998 identifies him as Priest-in-Charge of Mickleham and Chaplain of Box Hill School when he left for Jersey. Parish material from 2018 describes his return after twenty years."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "barbara-steadman-allen",
+      "displayName": "Rev. Barbara Steadman-Allen B.Mus.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 1999,
+          "end": 2004
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/13-960.jpg",
+        "thumbnail": "assets/images/clergy/13-360.jpg",
+        "alt": "Portrait of Rev. Barbara Steadman-Allen B.Mus. photographed from the church display",
+        "caption": "Rev. Barbara Steadman-Allen B.Mus. — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "13.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/13-display.jpg",
+          "thumbnail": "assets/images/clergy/13-360.jpg",
+          "alt": "Church display photograph and service label for Rev. Barbara Steadman-Allen B.Mus.",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "13.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Contemporary material identifies Barbara Steadman-Allen as Priest in Charge around 2000.",
+        "When Leatherhead and Mickleham entered a new benefice arrangement in 2002, she continued as the priest responsible for Mickleham while the parishes retained their own PCCs and identities."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "david-ireland",
+      "displayName": "Rev. David Ireland M.A. (Oxon)",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2005,
+          "end": 2012
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/14-960.jpg",
+        "thumbnail": "assets/images/clergy/14-360.jpg",
+        "alt": "Portrait of Rev. David Ireland M.A. (Oxon) photographed from the church display",
+        "caption": "Rev. David Ireland M.A. (Oxon) — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "14.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/14-display.jpg",
+          "thumbnail": "assets/images/clergy/14-360.jpg",
+          "alt": "Church display photograph and service label for Rev. David Ireland M.A. (Oxon)",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "14.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "The church display records David Ireland’s service from 2005 to 2012 and his qualification as M.A. (Oxon)."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "malcolm-raby",
+      "displayName": "Rev. Malcolm Raby B.Ed.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2013,
+          "end": 2017
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/15-960.jpg",
+        "thumbnail": "assets/images/clergy/15-360.jpg",
+        "alt": "Portrait of Rev. Malcolm Raby B.Ed. photographed from the church display",
+        "caption": "Rev. Malcolm Raby B.Ed. — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "15.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/15-display.jpg",
+          "thumbnail": "assets/images/clergy/15-360.jpg",
+          "alt": "Church display photograph and service label for Rev. Malcolm Raby B.Ed.",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "15.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "Malcolm Raby came to Mickleham in June 2013 as a house-for-duty priest after retiring from full-time ministry as Vicar of Over and Longstanton in the Diocese of Ely.",
+        "He lived in the parsonage and undertook parish duties without stipend under the house-for-duty arrangement. Parish material announced his retirement in November 2017."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "sandra-faccini",
+      "displayName": "Rev. Dr Sandra Faccini B.Sc., B.Th.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2021,
+          "end": null
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/17-960.jpg",
+        "thumbnail": "assets/images/clergy/17-360.jpg",
+        "alt": "Portrait of Rev. Dr Sandra Faccini B.Sc., B.Th. photographed from the church display",
+        "caption": "Rev. Dr Sandra Faccini B.Sc., B.Th. — photograph from the clergy display at St Michael’s",
+        "date": null,
+        "source": "Photograph of the church display supplied by the parish",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "17.jpeg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [
+        {
+          "src": "assets/images/clergy/17-display.jpg",
+          "thumbnail": "assets/images/clergy/17-360.jpg",
+          "alt": "Church display photograph and service label for Rev. Dr Sandra Faccini B.Sc., B.Th.",
+          "caption": "Photograph of the church display, including its original label.",
+          "date": null,
+          "source": "Photograph of the church display supplied by the parish",
+          "credit": null,
+          "copyrightPermission": null,
+          "originalFilename": "17.jpeg",
+          "derivativeCreated": true
+        }
+      ],
+      "biography": [
+        "The church display begins Sandra Faccini’s period in 2021. Parish material identifies her as Parish Priest."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    }
+  ],
+  "unassignedSources": [
+    {
+      "originalFilename": "1.jpeg",
+      "reason": "1513 monumental brass: excluded from clergy succession by parish instruction."
+    },
+    {
+      "originalFilename": "3.jpeg",
+      "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
+    }
+  ]
+}

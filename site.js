@@ -101,7 +101,8 @@ dropdownButtons.forEach(button => {
 });
 
 // Only the two read-only public dialogs opt in. Admin/forms are never registered.
-const publicDialogIds = new Set(['event-detail-dialog', 'calendar-subscription-dialog']);
+// The archive's read-only profile and image dialogs also use this shared behaviour.
+const publicDialogIds = new Set(['event-detail-dialog', 'calendar-subscription-dialog', 'clergy-profile-dialog', 'clergy-image-dialog']);
 const publicDialogOpeners = new WeakMap();
 let publicDialogStack = [];
 function openPublicDialog(dialog, opener = document.activeElement) {
