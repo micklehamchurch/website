@@ -2,25 +2,6 @@
   "schemaVersion": 1,
   "records": [
     {
-      "id": "thomas-roger-ffowke",
-      "displayName": "Thomas Roger Ffowke",
-      "role": "Rector",
-      "servicePeriods": [
-        {
-          "start": 1771,
-          "end": 1800
-        }
-      ],
-      "primaryImage": null,
-      "archiveImages": [],
-      "biography": [],
-      "parishContext": [],
-      "didYouKnow": [],
-      "published": true,
-      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
-      "sources": []
-    },
-    {
       "id": "gerrard-andrewes",
       "displayName": "Gerrard Andrewes D.D.",
       "role": "Rector",
@@ -679,25 +660,6 @@
       "sources": []
     },
     {
-      "id": "clergy-f74f06ec-e1a1-46d5-94a8-d295a02bed98",
-      "displayName": "Test",
-      "role": "Rector",
-      "servicePeriods": [
-        {
-          "start": 1991,
-          "end": null
-        }
-      ],
-      "primaryImage": null,
-      "archiveImages": [],
-      "biography": [],
-      "parishContext": [],
-      "didYouKnow": [],
-      "published": false,
-      "internalNotes": "",
-      "sources": []
-    },
-    {
       "id": "clergy-7e0f24d5-f3ae-4383-831f-3962cc832c92",
       "displayName": "W m.Mowsurth",
       "role": "Rector",
@@ -738,5 +700,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T16:12:20.706Z"
+  "updatedAt": "2026-10-05T16:44:50.503Z"
 }
