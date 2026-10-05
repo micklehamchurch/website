@@ -21,7 +21,7 @@ on:
       - '_content/contacts.json'
       - '_content/clergy.json'
       - 'build-clergy-archive.js'
-      - 'clergy-archive.js'
+      - 'clergy-profiles.js'
       - 'clergy-archive.css'
       - 'assets/images/clergy/**'
       - '_templates/**'
