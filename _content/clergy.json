@@ -682,12 +682,51 @@
         "derivativeCreated": true
       },
       "archiveImages": [],
-      "biography": [],
+      "biography": [
+        "William Mowfurth was a late-medieval English priest whose ministry connected Mickleham with several Surrey parishes in the years immediately before the Reformation. Historical records identify him as Rector of Puttenham, Mickleham and Streatham. He died in 1513.\nMowfurth appears to have held more than one parish living, a practice that was possible among clergy of his period. His connection with Streatham can be traced to at least 1492, when he appears in the historical list of Rectors of St Leonard's Church. His period as Rector of Mickleham is traditionally recorded as 1507–1513, although the precise starting date at Mickleham still requires confirmation from the original ecclesiastical records.\nRemarkably, a physical memorial to Mowfurth has survived for more than five centuries. His monumental brass is preserved at St Leonard's Church, Streatham. It depicts him as a priest in Mass vestments, with his hands joined in prayer, standing above a Latin memorial inscription. Historic England records the brass among the significant monuments in the chancel of St Leonard's and dates it to 1513.\nThe survival of the brass is particularly valuable because it gives us something much more personal than a name in a list of Rectors: it allows us to see how William Mowfurth chose to be commemorated at the end of his life. The priestly vestments and prayerful pose place him unmistakably within the religious world of England before the Reformation. He died more than twenty years before Henry VIII's break with Rome and therefore ministered to Mickleham when its worship was still part of the medieval Western Church.\nMowfurth's memorial was important enough to attract the attention of later antiquarians. The British Library preserves a rubbing of the brass in the collection of Alfred Ridley Bax, catalogued as a rubbing of William Mowfurth, Rector of Streatham and Mickelham, at Streatham, 1513. A second British Library catalogue record also identifies a sepulchral brass of William Mowfurth at Streatham dated 1513.\nHis connection with Mickleham is therefore not based solely upon later local tradition. It is independently recorded by the British Library, while the general index to the Surrey Archaeological Collections describes William Mowfurth specifically as Rector of Puttenham, Mickleham and Streatham and directs readers to a discussion of his brass in volume 32, pages 125–127.\nAn old image preserved at Mickleham records him as “Wm. Mowsurth, Rector; d. 1513”, with a later handwritten annotation, “Rector of Mickleham 1507–1513.” The spelling of his surname varies in historical material, but modern archival catalogues generally use Mowfurth.\nWilliam Mowfurth therefore provides a rare tangible link with Mickleham's pre-Reformation history. More than five hundred years after his death, his memorial survives at Streatham, historical rubbings of it survive in the British Library, and an old representation preserved at Mickleham continues to connect his story with the parish he once served."
+      ],
       "parishContext": [],
       "didYouKnow": [],
       "published": true,
       "internalNotes": "",
-      "sources": []
+      "sources": [
+        {
+          "title": "Surrey Archaeological Collections, Vol. 32, pp. 125–127",
+          "url": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-379-1/dissemination/pdf/indexes/surreyac021-038_index.pdf?utm_source=chatgpt.com",
+          "notes": "Surrey Archaeological Collections, Vol. 32, pp. 125–127 — the Society's general index explicitly identifies “Mowfurth, William, Rector of Puttenham, Mickleham and Streatham, his brass” and points to those pages. This is probably our most useful historical secondary source.",
+          "public": true
+        },
+        {
+          "title": "British Library, Add MS 39794 HH, item 8",
+          "url": "https://searcharchives.bl.uk/catalog/040-002059522?utm_source=chatgpt.com",
+          "notes": "British Library, Add MS 39794 HH, item 8 — catalogued as “William Mowfurth, Rector of Streatham and Mickelham: Rubbing of brass of, at Streatham: 1513.” This is excellent independent evidence for his connection with Mickleham.",
+          "public": true
+        },
+        {
+          "title": "British Library, Add MS 32490 Y, item 14",
+          "url": "https://searcharchives.bl.uk/catalog/040-002026493?utm_source=chatgpt.com",
+          "notes": "British Library, Add MS 32490 Y, item 14 — another archival record of the sepulchral brass of William Mowfurth, Rector of Streatham, 1513.",
+          "public": true
+        },
+        {
+          "title": "Historic England, List Entry 1100267",
+          "url": "https://historicengland.org.uk/listing/the-list/list-entry/1100267?utm_source=chatgpt.com",
+          "notes": "Historic England, List Entry 1100267 – Church of St Leonard, Streatham — the official listing records a brass to William Mowfurth, d.1513, in the chancel.",
+          "public": true
+        },
+        {
+          "title": "St Leonard's Church, Streatham – parish history",
+          "url": "https://stleonard-streatham.org.uk/place/history/?utm_source=chatgpt.com",
+          "notes": "St Leonard's Church, Streatham – parish history — its own history identifies William Mowfurth (1492) as one of its Rectors and says that he is commemorated by a brass in the sanctuary.",
+          "public": true
+        },
+        {
+          "title": "The Mickleham historical image in your collection — labelled “Wm. Mowsurth, Rector",
+          "url": "",
+          "notes": "The Mickleham historical image in your collection — labelled “Wm. Mowsurth, Rector; d.1513”, with the handwritten annotation “Rector of Mickleham 1507–1513.” I'd catalogue this as local archival evidence, rather than treating the handwritten 1507 date as independently proven.",
+          "public": true
+        }
+      ]
     }
   ],
   "unassignedSources": [
@@ -700,5 +739,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T16:44:50.503Z"
+  "updatedAt": "2026-10-05T18:50:51.491Z"
 }
