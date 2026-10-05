@@ -47,7 +47,7 @@ Before saving the API reads the current Dev head and source blob at that immutab
 
 ## Build and deployment
 
-`build-clergy-archive.js` reads the same structured source and uses `clergy-render.js` for static cards/profiles. Only `published:true` records are sorted into the chronology and projected to `clergy-data.json`. Internal notes, sources, originals and permission fields never enter public HTML, gallery data or search. The existing search build reads regenerated public HTML. The homepage teaser retains its selected people and skips unpublished/missing portraits safely; portrait replacements update it automatically.
+`build-clergy-archive.js` reads the same structured source and uses `clergy-render.js` for static cards/profiles. Only `published:true` records are sorted into the chronology and projected to `clergy-data.json`. Internal notes, private sources, originals and permission fields never enter public HTML, gallery data or search. Explicitly public structured source titles/notes appear in profile HTML and its search entry. Source URLs appear only as validated profile anchors; gallery JSON remains image-only. The existing search build reads regenerated public HTML. The homepage teaser retains its selected people and skips unpublished/missing portraits safely; portrait replacements update it automatically.
 
 The existing Dev content workflow rebuilds and requests Pages only after confirming its configured source branch is Dev. The existing Azure Function workflow deploys the protected route and image decoder. No main branch, custom domain or authentication architecture is changed.
 
@@ -58,3 +58,21 @@ Run `npm test`, `npm run build`, `npm --prefix azure-function test` and the depl
 Use Edit → More actions → Remove permanently. The named confirmation requires typing REMOVE. Unpublish remains the reversible way to hide a profile while retaining it in Admin. Removal keeps saved records visible as Will be removed and counts each pending person once. Undo restores the saved snapshot. Publish changes persists explicit record removals; Save drafts does not persist removal. Failed/ambiguous requests keep the person visible and require checking the authoritative state. Unsaved local people can be removed without a repository write after the same confirmation.
 
 V1 removes the record and its references only. All image assets, original uploads and shared assets are retained in the current repository and Git history; no asset cleanup or file deletion is performed. Retained orphan web assets may remain directly reachable by URL. This operation is not a photograph-erasure/privacy tool. Recovery of a permanently removed saved record requires repository history, not ordinary Admin Undo.
+
+
+## Simple editor and sources & evidence
+
+The normal editor has Name, optional Role, Years at St Michael’s (multiple From/To periods; unknown/open dates allowed), Their story, optional Did you know?, Sources & evidence and Photographs. Only Name is required historical content. Save changes stages edits and returns to the list; it does not change the record’s staged publication state. New people begin as Drafts. Use Select for publication on the list, then Publish changes. Existing Published profiles stay Published until explicitly unpublished from the list. Save drafts, publication selection, Unpublish, Undo and permanent removal keep their existing semantics.
+
+Advanced / research details is collapsed by default and contains internal research notes and the legacy St Michael’s in their time narrative. That narrative remains stored in parishContext and continues to render as before; it is not concatenated, migrated or rewritten. Each photograph has collapsed Photo details containing all existing editable alt, caption, date, source, credit and copyright/permission fields. Existing values and original-image handling remain intact. Blank manual alt text uses the conservative name/caption fallback; a manual description overrides it.
+
+Schema version 1 accepts `sources` entries in two forms:
+
+- Legacy string: preserved as a private source, never interpreted as a URL or automatically made public.
+- Structured object: `{title, url, notes, public}`. A nonblank title is required for each row; url/notes may be blank, and public is a strict boolean. New rows default to public:false.
+
+There is no bulk data migration. The editor presents a legacy string as title=the string, url/notes blank, public=false. Saving an unchanged legacy row retains its original string. Editing that row or deliberately choosing Show publicly converts it to a structured object. Other records are untouched. The server continues to accept and preserve legacy strings, so older saved archives and existing clients remain compatible. No URLs are inferred and no supplied research examples are inserted automatically.
+
+The server trims structured titles and URLs, checks fixed keys and text/row/total-size limits, and accepts only absolute http:// or https:// URLs without credentials, whitespace or backslashes. Blank URLs are valid. javascript:, data:, file:, protocol-relative and malformed URLs are rejected before repository access. The public renderer independently applies the same URL safety gate and escapes all title/notes text. External anchors have noopener/noreferrer and an accessible source-specific name. Public evidence with no URL renders as plain title/notes without an invented link. An empty public source list has no section.
+
+Private source titles, notes and links remain exclusively in the authorised archive response and repository source, never in generated public HTML, search or gallery JSON. `_content` and `_archive-sources` remain excluded from Pages; the public Git repository itself is not confidential storage. Source links are entered and reviewed manually by administrators; the application does not verify their historical claims or availability.

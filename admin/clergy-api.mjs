@@ -5,6 +5,8 @@ const messages = Object.freeze({
   'administrator-required':'This account does not have permission to manage the archive.',
   'archive-version-conflict':'This archive has been updated since you opened it. Your changes were not published. Refresh the archive before publishing so another administrator’s changes are not overwritten. Copy any changes you want to keep first.',
   'archive-name-required':'Please enter a name before publishing.',
+  'archive-invalid-sources':'Give each source a title. Its link and notes are optional.',
+  'archive-invalid-source-url':'Source links must use a full http:// or https:// address, or be left blank.',
   'archive-invalid-years':'Service years must be whole numbers between 1 and 9999. The end cannot precede the start. Leave unknown years blank.',
   'archive-invalid-image':'A photograph is unsupported or could not be decoded. Use a valid JPEG, PNG or WebP file.',
   'archive-unsafe-image':'A photograph has an invalid or unrecognised path. Refresh and select an existing photograph or upload it again.',

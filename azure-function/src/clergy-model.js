@@ -42,9 +42,22 @@ function validateArchive(value, pending = false) {
     if (record.primaryImage !== null) image(record.primaryImage, pending);
     if (!Array.isArray(record.archiveImages) || record.archiveImages.length > 100) throw new Error('invalid-gallery');
     record.archiveImages.forEach(i => image(i, pending));
-    for (const field of ['biography','parishContext','didYouKnow','sources']) {
+    for (const field of ['biography','parishContext','didYouKnow']) {
       if (!Array.isArray(record[field]) || record[field].length > 100) throw new Error('invalid-paragraphs');
       record[field].forEach(p => text(p));
+    }
+    if (!Array.isArray(record.sources) || record.sources.length > 100) throw new Error('invalid-sources');
+    for (const source of record.sources) {
+      // Legacy strings stay byte-for-byte intact and private; conversion is an editor choice.
+      if (typeof source === 'string') { text(source); continue; }
+      keys(source, ['title','url','notes','public']);
+      text(source.title, 10000); text(source.url, 2000); text(source.notes, 10000);
+      source.title=source.title.trim(); source.url=source.url.trim();
+      if (!source.title || typeof source.public !== 'boolean') throw new Error('invalid-sources');
+      if (source.url) {
+        let parsed; try { parsed=new URL(source.url); } catch { throw new Error('invalid-source-url'); }
+        if (!/^https?:\/\//i.test(source.url) || !['http:','https:'].includes(parsed.protocol) || parsed.username || parsed.password || /[\s\\]/.test(source.url)) throw new Error('invalid-source-url');
+      }
     }
     text(record.internalNotes, 20000);
   }
