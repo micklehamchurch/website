@@ -10,6 +10,6 @@ test('archive build excludes drafts and internal notes, updates searchable publi
   for(const content of [html,index,search,projection])assert.doesNotMatch(content,/DRAFT PRIVATE|DRAFT STORY|PRIVATE RESEARCH|PRIVATE SOURCE/);
   assert.match(search,/Researched Fixture Name/);assert.doesNotMatch(html,/id="alfred-burmester"/);assert.match(index,/assets\/images\/clergy\/2-360.jpg/);
   assert.ok(html.indexOf('href="#thomas-roger-ffowke"')<html.indexOf('href="#gerrard-andrewes"'));
-  assert.deepEqual(JSON.parse(projection).map(r=>r.id).length,14);
+  assert.deepEqual(JSON.parse(projection).map(r=>r.id).sort(),data.records.filter(r=>r.published).map(r=>r.id).sort());
   const hero=s=>s.match(/<section[^>]+class="[^"]*home-hero[\s\S]*?<\/section>/)?.[0];assert.equal(hero(index),hero(fs.readFileSync(path.join(root,'index.html'),'utf8')));
 }finally{fs.rmSync(temporary,{recursive:true,force:true});}});

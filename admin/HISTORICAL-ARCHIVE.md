@@ -6,17 +6,18 @@ Open **Historical Archive** in the existing signed-in Admin dashboard. Authorise
 
 The chronological list shows display name, role, service periods, portrait and Published/Draft status. Display name already includes titles and qualifications; there are no duplicate identity fields.
 
-Row status uses the last authoritative API snapshot, separately from staged edits. A new record marked for publication is **Unpublished — marked for publication** until the API successfully commits it. A saved draft remains **Draft on Dev — publication pending** while staged for publication. An existing public record staged for removal remains **Published on Dev — unpublish pending** until that removal is committed. **Published on Dev** confirms repository persistence, not completion of the asynchronous Pages deployment.
+The **Published** or **Draft** badge uses the last authoritative API snapshot. Pending edits are separate: **Ready to publish**, **Changes not published**, **Draft not saved**, or **Will be unpublished**. A new profile remains Draft until successful persistence. Published confirms the saved visibility, not completion of the asynchronous website update.
 
-1. **Edit** or **Add clergy record**. A new record starts as a draft. A photograph and biography are optional; enter a name, role and at least one known start year.
+1. **Edit** or **+ Add person**. A new record starts as a draft. A photograph and biography are optional; enter a name, role and at least one known start year.
 2. Add any number of service periods up to the practical limit of 20. Leave an unknown/open end year blank. Returning clergy remain one record.
 3. Enter narrative paragraphs separated by a blank line. Research notes and source references are internal. Verify historical facts; do not guess missing details.
-4. **Save changes** stages the record in memory in this tab. **Save draft** stages the record with public visibility turned off. These actions do not write the repository. Reloading/closing the tab can discard staged work; the browser warns about unsaved changes.
+4. **Save changes** returns to the list with pending edits. Leave **Ready to publish** unchecked to keep a draft. This editor action does not write the repository. Reloading/closing the tab can discard pending work; the browser warns about unsaved changes.
 5. **Preview** uses the same public profile renderer as the static build, with pending photographs. Internal research notes, sources and permission metadata are excluded.
-6. **Save drafts to Dev** explicitly stores changes to hidden draft records while retaining the loaded published profiles exactly. Staged edits to published profiles remain in this tab. To unpublish a currently public profile use **Unpublish**, then **Publish changes to Dev**.
-7. **Publish changes to Dev** explicitly commits all staged edits. Drafts remain excluded from the public build and search. Mark a draft for publication, then publish, to make it visible.
+6. **Save drafts** explicitly stores changes to hidden draft records while retaining loaded published profiles exactly. Other pending edits remain in this tab. To unpublish a currently public profile use **Unpublish**, then **Publish changes**. **Keep published** undoes pending removal; **Undo** cancels a pending decision to publish.
+7. **Publish changes** commits all pending edits through the existing API. Drafts remain excluded from the public build and search. Choose **Ready to publish** for a draft, then publish, to make it visible.
+8. The pending summary counts changed people, not individual fields. **Discard changes** restores the loaded saved archive and releases pending uploads after confirmation. **Refresh** loads the latest archive and confirms before discarding pending edits. A conflict or ambiguous save still requires Refresh before another save.
 
-Successful saving reports the commit prefix and that the site is rebuilding. It does not claim the Pages deployment is complete. Check GitHub Actions and the public Dev site after the build. Git history provides recovery and an audit trail. A server-generated `updatedAt` timestamp is returned only in the protected source response; no account identifiers are added.
+Successful publishing confirms saving and says the public website is updating, normally within a few minutes. It does not claim the website has already updated. The saved timestamp displays in Europe/London local time. Technical architecture stays out of the normal Archive interface; administrator access setup remains in a collapsed section. Git history provides recovery and an audit trail. A server-generated `updatedAt` timestamp is returned only in the protected source response; no account identifiers are added.
 
 ## Photographs
 

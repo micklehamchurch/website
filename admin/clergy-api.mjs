@@ -1,14 +1,14 @@
 import { ADMIN_API_HEALTH_URL } from './auth-config.mjs';
 import { acquireAdminApiToken } from './auth-tokens.mjs';
 const messages = Object.freeze({
-  'authentication-required':'Sign in and authorise the Admin API connection, then reload Historical Archive.',
-  'administrator-required':'This account does not have server-side administrator access.',
-  'archive-version-conflict':'Dev changed since you loaded the archive. Your changes were not published. Reload shared content before trying again; copy any research changes you need to retain first.',
+  'authentication-required':'Sign in with an authorised administrator account, then refresh the archive.',
+  'administrator-required':'This account does not have permission to manage the archive.',
+  'archive-version-conflict':'This archive has been updated since you opened it. Your changes were not published. Refresh the archive before publishing so another administrator’s changes are not overwritten. Copy any changes you want to keep first.',
   'invalid-archive-request':'Check names, service years and image details. Upload JPEG, PNG or WebP photographs only. Existing records must be unpublished rather than deleted.',
   'archive-payload-too-large':'Each image must be at most 10 MiB, with at most six images and 20 MiB total per publication. Shorten oversized text.',
-  'archive-repository-unavailable':'The shared archive could not be loaded. Try reloading.',
-  'archive-publish-unavailable':'Saving could not be confirmed. Reload shared content to check its current state before trying again.',
-  'network-failure':'The request could not be confirmed. Reload shared content before retrying.',
+  'archive-repository-unavailable':'The archive could not be loaded. Try refreshing.',
+  'archive-publish-unavailable':'Saving could not be confirmed. Refresh the archive to check its current state before trying again. Copy any changes you want to keep first.',
+  'network-failure':'The request could not be confirmed. Refresh the archive before trying again. Copy any changes you want to keep first.',
   busy:'Another archive request is in progress.'
 });
 export function createClergyApi({getToken,fetchImpl=fetch}) {

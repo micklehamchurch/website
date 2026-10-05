@@ -507,6 +507,9 @@
   }
   function render({ focus = true } = {}) {
     const view = currentView();
+    document.body?.classList?.toggle('archive-admin-active', view === 'archive');
+    const topbarTitle = document.querySelector('.admin-topbar-title');
+    if (topbarTitle) topbarTitle.textContent = view === 'archive' ? 'Church website · Administration' : 'Church website · Admin demo';
     setNavigation(view);
     if (!recordsReady) {
       root.innerHTML = `<p class="admin-loading" role="status">Loading the church calendar and sample articles…</p>`;
