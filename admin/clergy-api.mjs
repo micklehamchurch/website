@@ -4,7 +4,7 @@ const messages = Object.freeze({
   'authentication-required':'Sign in with an authorised administrator account, then refresh the archive.',
   'administrator-required':'This account does not have permission to manage the archive.',
   'archive-version-conflict':'This archive has been updated since you opened it. Your changes were not published. Refresh the archive before publishing so another administrator’s changes are not overwritten. Copy any changes you want to keep first.',
-  'invalid-archive-request':'Check names, service years and image details. Upload JPEG, PNG or WebP photographs only. Existing records must be unpublished rather than deleted.',
+  'invalid-archive-request':'These changes could not be saved. Check the edited profile for missing required details, including alt text for photographs selected for publication.',
   'archive-payload-too-large':'Each image must be at most 10 MiB, with at most six images and 20 MiB total per publication. Shorten oversized text.',
   'archive-repository-unavailable':'The archive could not be loaded. Try refreshing.',
   'archive-publish-unavailable':'Saving could not be confirmed. Refresh the archive to check its current state before trying again. Copy any changes you want to keep first.',

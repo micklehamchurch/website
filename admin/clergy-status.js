@@ -12,6 +12,11 @@
     if(record.published)return committed?.published?'Unpublish':'Undo';
     return committed?.published?'Keep published':'Ready to publish';
   }
+  function undoRecord(record,committed){
+    // Cancel a saved person's pending action by restoring the authoritative snapshot,
+    // including images and any editor normalization. Unsaved people remain drafts.
+    return committed?structuredClone(committed):{...structuredClone(record),published:false};
+  }
   function changeCount(working,committed){
     return working.records.filter(r=>!committed.records.some(old=>old.id===r.id&&JSON.stringify(old)===JSON.stringify(r))).length;
   }
@@ -21,5 +26,5 @@
     for(const old of committed.records.filter(r=>!r.published))if(!next.records.some(r=>r.id===old.id))next.records.push(structuredClone(old));
     return next;
   }
-  return Object.freeze({status,pending,toggleLabel,changeCount,draftArchive});
+  return Object.freeze({status,pending,toggleLabel,undoRecord,changeCount,draftArchive});
 });
