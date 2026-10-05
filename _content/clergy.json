@@ -696,6 +696,36 @@
       "published": false,
       "internalNotes": "",
       "sources": []
+    },
+    {
+      "id": "clergy-7e0f24d5-f3ae-4383-831f-3962cc832c92",
+      "displayName": "W m.Mowsurth",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1507,
+          "end": 1513
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/78c097ea-ec9b-4042-b8f3-6bb69549a197-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/78c097ea-ec9b-4042-b8f3-6bb69549a197-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "download.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": false,
+      "internalNotes": "",
+      "sources": []
     }
   ],
   "unassignedSources": [
@@ -708,5 +738,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T14:38:08.918Z"
+  "updatedAt": "2026-10-05T15:17:29.056Z"
 }
