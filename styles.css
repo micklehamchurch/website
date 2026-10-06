@@ -675,9 +675,9 @@ h3 { font-family: var(--serif); }
 .directory-entry p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .directory-entry .directory-name { color: var(--deep); font: 600 18px/1.35 var(--serif); }
 .directory-entry .directory-secondary-name { margin-top: 9px; }
-.directory-contacts { display: grid; gap: 3px; margin-top: auto; padding-top: 10px; }
+.directory-person .directory-contacts { display: grid; gap: 3px; margin-top: 6px; }
 .directory-entry .directory-method { display: flex; min-width: 0; align-items: flex-start; gap: 8px; overflow-wrap: anywhere; }
-.directory-method a { min-width: 0; color: var(--muted); overflow-wrap: anywhere; }
+.directory-method a { min-width: 0; padding-block: 3px; color: var(--muted); overflow-wrap: anywhere; }
 .directory-method a:hover, .directory-method a:focus-visible { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
 .contact-icon { width: 16px; flex: 0 0 16px; color: var(--gold); font-size: 14px; line-height: 1.5; text-align: center; }
 .pcc-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; color: var(--deep); }
