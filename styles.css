@@ -47,7 +47,7 @@ img { max-width: 100%; }
 .btn-small { min-height: 40px; padding: 8px 15px; }
 .hero { position: relative; min-height: 590px; background: linear-gradient(115deg,#173d2d 0%,#315d49 65%,#758a70 100%); }
 
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, #000000c9, #00000033 70%, transparent); }
+.hero-overlay { position: absolute; inset: 0; display: none; background: none; }
 .hero-content { position: relative; padding-top: clamp(100px, 13vw, 155px); padding-bottom: 120px; color: white; }
 .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .eyebrow.light { color: #e7d8b7; }
@@ -814,7 +814,7 @@ h3 { font-family: var(--serif); }
 .home-feature-grid .feature-card { min-height: 380px; padding: 28px; border: 1px solid var(--stone); border-radius: 9px; background: var(--deep); box-shadow: 0 6px 18px #18392d14; isolation: isolate; transition: box-shadow 180ms ease; }
 .home-card-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% top; z-index: -2; }
 .home-feature-grid .community .home-card-photo { object-position: 60% 45%; }
-.home-feature-grid .feature-card::after { z-index: -1; background: linear-gradient(90deg,#000000cc 0%,#000000b8 48%,#00000033 78%,transparent 100%); }
+.home-feature-grid .feature-card::after { content: none; display: none; background: none; }
 .home-feature-grid .feature-card > div { max-width: 260px; }
 .home-feature-grid .feature-card h3 { font-size: clamp(32px,3.2vw,42px); line-height: 1.15; }
 .home-feature-grid .feature-card h3::after { content: ''; display: block; width: 42px; height: 2px; margin: 14px 0; background: #e2c77d; }
@@ -826,7 +826,7 @@ h3 { font-family: var(--serif); }
 .home-feature-grid .feature-card:hover .home-card-cta,.home-feature-grid .feature-card:focus-visible .home-card-cta { background: #163b29; text-decoration: underline; text-underline-offset: 4px; }
 .home-feature-grid .feature-card:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 @media (max-width: 1000px) {
-  .home-feature-grid .feature-card::after { background: linear-gradient(0deg,#000000d6 0%,#000000bf 50%,#0000008c 78%,transparent 100%); }
+  .home-feature-grid .feature-card::after { content: none; display: none; background: none; }
 }
 @media (max-width: 760px) { .home-feature-grid .feature-card { min-height: 340px; padding: 24px; } }
 @media (prefers-reduced-motion: reduce) { .home-feature-grid .feature-card,.home-card-cta { transition: none; } }
