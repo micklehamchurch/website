@@ -1,8 +1,8 @@
 /* Preserve the full original composition; the photograph determines desktop height. */
 .home-hero { min-height: 0; aspect-ratio: 4786 / 2692; background-color: var(--deep); background-image: url('assets/images/home/ed-popov-e6523-v2-large.jpg'); background-image: image-set(url('assets/images/home/ed-popov-e6523-v2-large.webp') type('image/webp'),url('assets/images/home/ed-popov-e6523-v2-large.jpg') type('image/jpeg')); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; }
-.home-hero .hero-overlay { inset: 0 auto auto calc(max(0px, (100% - 1240px) / 2) - 100px); width: 800px; height: 520px; background: radial-gradient(ellipse closest-side at center, #18392dd9 0%, #18392dbf 45%, #18392d66 70%, transparent 100%); }
+.home-hero .hero-overlay { inset: 0 auto auto calc(max(0px, (100% - 1240px) / 2) - 100px); width: 800px; height: 520px; background: radial-gradient(ellipse 440px 300px at 33% 42%, #000000c9 0%, #000000b8 60%, transparent 100%); }
 .home-hero .hero-content { padding-top: clamp(48px, 6vw, 100px); padding-bottom: 32px; }
-.home-hero h1, .home-hero .hero-copy, .home-hero .eyebrow { text-shadow: 0 2px 5px #10271fc0; }
+.home-hero h1, .home-hero .hero-copy, .home-hero .eyebrow { text-shadow: 0 2px 5px #000000c0; }
 .home-hero .hero-copy { max-width: 470px; }
 @media (max-width: 1200px) { .home-hero { background-image: url('assets/images/home/ed-popov-e6523-v2-tablet.jpg'); background-image: image-set(url('assets/images/home/ed-popov-e6523-v2-tablet.webp') type('image/webp'),url('assets/images/home/ed-popov-e6523-v2-tablet.jpg') type('image/jpeg')); } .home-hero .hero-overlay { width: 720px; max-width: 100%; inset: -30px auto auto -90px; height: 480px; } }
 /* Landscape tablets keep the full scene and a compact text measure clear of the clock. */
