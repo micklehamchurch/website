@@ -2,7 +2,7 @@
   "name": "mickleham-church-website",
   "private": true,
   "scripts": {
-    "build": "node build-admin-auth.js && node import-calendar.js && node build-news-pages.js && node build-publications.js && node build-content-pages.js && node build-contact-directory.js && node build-clergy-archive.js && node build-search-index.js",
+    "build": "node build-admin-auth.js && node import-calendar.js && node build-news-pages.js && node build-publications.js && node build-content-pages.js && node build-contact-directory.js && node build-clergy-archive.js && node build-typography-preview.js && node build-search-index.js",
     "test": "node --test",
     "preview": "node preview.js"
   },

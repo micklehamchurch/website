@@ -40,11 +40,21 @@ const footer = `
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Gallery</a></div></div>
     <div><h2>Get in touch</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a></div>
   </div>
+  <!-- TEMPORARY TYPOGRAPHY PREVIEW: remove after parish typography decision. -->
+  <section class="container typography-preview" aria-label="Preview typography">
+    <p>Preview typography</p><p class="typography-preview-note">Temporary design preview</p>
+    <div class="typography-preview-options" role="group" aria-label="Typography options">
+      <button type="button" data-typography-option="heritage" aria-pressed="true">Heritage</button>
+      <button type="button" data-typography-option="modern-classic" aria-pressed="false">Modern Classic</button>
+      <button type="button" data-typography-option="contemporary" aria-pressed="false">Contemporary</button>
+    </div>
+  </section>
   <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
+document.dispatchEvent(new Event('typography-preview-ready'));
 // The contextual Media link shares the same confirmed channel as the footer.
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 

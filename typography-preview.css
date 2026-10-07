@@ -1,0 +1,19 @@
+/* TEMPORARY TYPOGRAPHY PREVIEW — Heritage has no typography overrides. */
+html[data-typography="modern-classic"] {
+  --serif: 'Lora', Georgia, serif;
+  --sans: 'Inter', Arial, sans-serif;
+}
+html[data-typography="contemporary"] {
+  --serif: 'Manrope', Arial, sans-serif;
+  --sans: 'Manrope', Arial, sans-serif;
+}
+html[data-typography="modern-classic"] :is(h1, h2, h3) { font-family: var(--serif); }
+html[data-typography="contemporary"] :is(h1, h2, h3) { font-family: var(--serif); font-weight: 700; }
+html:is([data-typography="modern-classic"], [data-typography="contemporary"]) :is(button, input, select, textarea) { font-family: var(--sans); }
+.typography-preview { padding: 20px 0; border-top: 1px solid #ffffff30; color: #fff9ed; }
+.typography-preview p { margin: 0 0 8px; }
+.typography-preview .typography-preview-note { font-size: 13px; color: #e4e9e2; }
+.typography-preview-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.typography-preview-options button { min-height: 44px; padding: 8px 14px; border: 1px solid #c9d5c7; border-radius: 4px; background: transparent; color: #fff9ed; font: 600 14px/1.4 var(--sans); cursor: pointer; }
+.typography-preview-options button[aria-pressed="true"] { background: #fff9ed; color: #254d3f; }
+.typography-preview-options button:focus-visible { outline: 3px solid #f1d488; outline-offset: 3px; }
