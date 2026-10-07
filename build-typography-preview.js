@@ -9,7 +9,14 @@ for (const directory of [root, path.join(root, 'news')]) {
     if (!name.endsWith('.html')) continue;
     const filename = path.join(directory, name);
     let html = fs.readFileSync(filename, 'utf8');
-    if (!html.includes('data-site-footer') || html.includes('typography-preview.js')) continue;
+    if (!html.includes('data-site-footer')) continue;
+    // Version the changed shared footer so existing browser caches get the selector.
+    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/, (match, url) =>
+      url.includes('typography=20261007-v1') ? match : `src="${url}${url.includes('?') ? '&' : '?'}typography=20261007-v1"`);
+    if (html.includes('typography-preview.js')) {
+      fs.writeFileSync(filename, html);
+      continue;
+    }
     const siteScript = html.match(/<script\s+src="([^"]*?)site\.js(?:\?[^"]*)?"/);
     if (!siteScript) throw new Error(`Public footer missing shared script: ${name}`);
     const hook = `\n  <script src="${siteScript[1]}typography-preview.js"></script>`;
