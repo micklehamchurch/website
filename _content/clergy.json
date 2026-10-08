@@ -423,10 +423,6 @@
         {
           "start": 1993,
           "end": 1998
-        },
-        {
-          "start": 2018,
-          "end": 2020
         }
       ],
       "primaryImage": {
@@ -739,15 +735,15 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/uploads/c83fea02-789a-456d-9724-f113fe41b5cf-1600.jpg",
-        "thumbnail": "assets/images/clergy/uploads/c83fea02-789a-456d-9724-f113fe41b5cf-360.jpg",
+        "src": "assets/images/clergy/uploads/be320caa-72a8-4b2c-9f57-cd99fffc1b00-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/be320caa-72a8-4b2c-9f57-cd99fffc1b00-360.jpg",
         "alt": "",
         "caption": "",
         "date": null,
         "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "16-960.jpg",
+        "originalFilename": "ChatGPT Image 8 Oct 2026, 20_02_27.png",
         "derivativeCreated": true
       },
       "archiveImages": [],
@@ -778,5 +774,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-08T18:54:51.497Z"
+  "updatedAt": "2026-10-08T19:03:16.826Z"
 }
