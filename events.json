@@ -162,8 +162,8 @@
       "allDay": false,
       "id": "migration-oneoff-12",
       "title": "Christingle service",
-      "start": "2026-12-06T10:00",
-      "end": "2026-12-06T11:00"
+      "start": "2026-12-06T11:00",
+      "end": "2026-12-06T12:00"
     },
     {
       "timeZone": "Europe/London",
@@ -266,6 +266,50 @@
       "start": "2026-11-08T08:00",
       "end": "2026-11-08T09:00",
       "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-f1f9c5f8db7c84e01824daed6858ea55",
+      "title": "Candlelit Carol service",
+      "start": "2026-12-20T18:30",
+      "end": "2026-12-20T19:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-087c97199e5089ffe466c9832bd3e788",
+      "title": "Family Communion service",
+      "start": "2026-12-25T10:00",
+      "end": "2026-12-25T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-eadf869d7bd3e9426ee14bbdb01cd1f9",
+      "title": "Midnight Communion service",
+      "start": "2026-12-24T23:30",
+      "end": "2026-12-25T00:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-30c6e6445d809499f09cac462e490470",
+      "title": "4pm Crib service in Westhumble Fields",
+      "start": "2026-12-24T00:00",
+      "end": "2026-12-25T00:00",
+      "allDay": true,
       "location": "",
       "description": "",
       "timeZone": "Europe/London",
