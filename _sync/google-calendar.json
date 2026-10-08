@@ -3570,6 +3570,60 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"0jm0d930m8afm6h7i2o18ve43n@google.com\",\"\"]",
+      "uid": "0jm0d930m8afm6h7i2o18ve43n@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-563778fb6231569d13888a33419f1c40",
+      "google": {
+        "title": "PCC meets in Ranmore Room",
+        "start": "2027-01-12T19:30",
+        "end": "2027-01-12T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "PCC meets in Ranmore Room",
+        "start": "2027-01-12T19:30",
+        "end": "2027-01-12T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "44f17e4e102b54f681f4a0505e0a8d5ea27ac1c3070644ddcc64c9db359b9795",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"0sk3lt3ja55k26879emo2g96jo@google.com\",\"\"]",
+      "uid": "0sk3lt3ja55k26879emo2g96jo@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-7276a0507c3bc925608e83a367e9cfd4",
+      "google": {
+        "title": "PCC meets in Ranmore Room",
+        "start": "2026-11-10T19:30",
+        "end": "2026-11-10T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "PCC meets in Ranmore Room",
+        "start": "2026-11-10T19:30",
+        "end": "2026-11-10T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "7ae9e87f945d7b0af52bd1691ac0f09a427c24b53b7090ed5a8dc9fabd0987cc",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3586,15 +3640,15 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-08T22:15:05.048Z",
+  "lastSuccessfulSync": "2026-10-08T22:30:05.175Z",
   "audit": {
-    "at": "2026-10-08T22:15:05.048Z",
+    "at": "2026-10-08T22:30:05.175Z",
     "mode": "automatic",
-    "added": 4,
-    "updated": 1,
+    "added": 2,
+    "updated": 0,
     "removed": 0,
-    "unchanged": 117,
-    "missing": 0,
+    "unchanged": 121,
+    "missing": 1,
     "conflicts": 0,
     "suppressed": 1
   }
