@@ -13,6 +13,9 @@ for (const directory of [root, path.join(root, 'news')]) {
     // Version the changed shared footer so existing browser caches get the selector.
     html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/, (match, url) =>
       url.includes('typography=20261007-v1') ? match : `src="${url}${url.includes('?') ? '&' : '?'}typography=20261007-v1"`);
+    // Refresh the shared header without changing hero/content URLs.
+    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/, (match, url) =>
+      url.includes('header=20261008-v1') ? match : `src="${url}${url.includes('?') ? '&' : '?'}header=20261008-v1"`);
     if (html.includes('typography-preview.js')) {
       fs.writeFileSync(filename, html);
       continue;

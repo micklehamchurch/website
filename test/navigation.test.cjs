@@ -11,8 +11,8 @@ const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replac
 test('shared desktop/mobile top-level order retains styled utilities and excludes Media',()=>{
  const nav=html.match(/<nav\b.*?<\/nav>/s)[0].replace(/<div class="dropdown".*?<\/div>/gs,'');
  const names=[...nav.matchAll(/<(a|button)\b[^>]*>(.*?)<\/\1>/gs)].map(m=>labels(m[2]));
- assert.deepEqual(names,['Home','Worship','Visit & Learn','Our Community','About Us','Search','YouTube','Calendar','Give']);
- assert.match(nav,/class="nav-youtube"/);assert.match(nav,/class="nav-link nav-calendar"/);assert.match(nav,/class="btn btn-small btn-green nav-give"/);
+ assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','About Us','','Calendar']);
+ assert.match(nav,/class="nav-link nav-calendar"/);assert.doesNotMatch(nav,/nav-youtube|nav-give|href="give.html"/);
 });
 test('reviewed dropdowns group worship, visiting, community and parish governance without duplicates',()=>{
  assert.deepEqual(menus,{
@@ -35,7 +35,18 @@ test('History and Prayer retain search discoverability and relevant contextual l
  for(const page of ['visit.html','church-building.html','about.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="our-history.html"/);
  for(const page of ['church-life.html','pastoral-care.html','bible-study-fellowship.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="prayer.html"/);
 });
-test('YouTube keeps secure external-link conventions and Search Calendar Give keep their URLs',()=>{
+test('YouTube keeps secure external-link conventions near branding and Giving remains outside header',()=>{
  assert.match(html,/class="nav-youtube"[^>]+target="_blank" rel="noopener noreferrer"/);
- for(const url of ['search.html','calendar.html','give.html'])assert.match(html,new RegExp(`href="${url}"`));
+ assert.equal((html.match(/class="nav-youtube"/g)||[]).length,1);
+ assert.match(html,/<div class="header-branding">[\s\S]*class="brand"[\s\S]*class="nav-youtube"[\s\S]*<\/div>\s*<button class="menu-toggle"/);
+ assert.match(html,/href="calendar.html"/);assert.match(source,/footer-feature-link" href="give.html"/);
+ assert(fs.existsSync(path.join(root,'give.html')));assert(JSON.parse(fs.readFileSync(path.join(root,'search-index.json'),'utf8')).some(p=>p.url==='give.html'));
+});
+test('Real accessible header search submits q to the existing search page',()=>{
+ assert.match(html,/<form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">/);
+ assert.match(html,/<label[^>]+for="header-search-query">Search the website<\/label>/);
+ assert.match(html,/<input id="header-search-query" type="search" name="q"/);
+ assert.match(html,/<button type="submit" aria-label="Submit website search"/);
+ const search=fs.readFileSync(path.join(root,'search.js'),'utf8');assert.match(search,/new URLSearchParams\(location.search\).get\('q'\)/);assert.match(search,/renderSearch\(searchInput.value\)/);
+ const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 1200px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
 });
