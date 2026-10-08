@@ -11,14 +11,17 @@ const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replac
 test('shared desktop/mobile top-level order retains styled utilities and excludes Media',()=>{
  const nav=html.match(/<nav\b.*?<\/nav>/s)[0].replace(/<div class="dropdown".*?<\/div>/gs,'');
  const names=[...nav.matchAll(/<(a|button)\b[^>]*>(.*?)<\/\1>/gs)].map(m=>labels(m[2]));
- assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','About Us','','Calendar']);
+ assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','News','About Us','','Calendar']);
+ assert.equal((nav.match(/href="news.html"/g)||[]).length,1);
+ assert.equal((html.match(/href="news.html"/g)||[]).length,1);
+ assert(!menus.community.includes('news.html'));
  assert.match(nav,/class="nav-link nav-calendar"/);assert.doesNotMatch(nav,/nav-youtube|nav-give|href="give.html"/);
 });
 test('reviewed dropdowns group worship, visiting, community and parish governance without duplicates',()=>{
  assert.deepEqual(menus,{
  worship:['worship.html','sunday-services.html','weekly-worship.html','special-services.html','prayer.html','baptisms.html','weddings.html','funerals.html'],
  visit:['visit.html','what-to-expect.html','finding-us.html','church-building.html','westhumble-chapel.html','churchyard.html','churchyard-regulations.html','war-memorial.html'],
- community:['church-life.html','children-families.html','alpha.html','bible-study-fellowship.html','pastoral-care.html','volunteering.html','supporting-community.html','news.html'],
+ community:['church-life.html','children-families.html','alpha.html','bible-study-fellowship.html','pastoral-care.html','volunteering.html','supporting-community.html'],
  about:['our-team.html','about.html','our-vision.html','our-churches.html','our-history.html','eco-church.html','electoral-roll.html','safeguarding.html','privacy.html']});
  const urls=Object.values(menus).flat();assert.equal(new Set(urls).size,urls.length);
 });
@@ -48,5 +51,5 @@ test('Real accessible header search submits q to the existing search page',()=>{
  assert.match(html,/<input id="header-search-query" type="search" name="q"/);
  assert.match(html,/<button type="submit" aria-label="Submit website search"/);
  const search=fs.readFileSync(path.join(root,'search.js'),'utf8');assert.match(search,/new URLSearchParams\(location.search\).get\('q'\)/);assert.match(search,/renderSearch\(searchInput.value\)/);
- const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 1200px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
+ const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 1280px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
 });

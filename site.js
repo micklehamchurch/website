@@ -18,11 +18,15 @@ const navigation = `
     </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span></button>
     <nav class="nav" id="mainNav" aria-label="Main navigation">
+      <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-worship">Service<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-worship"><a href="worship.html">Worship overview</a><a href="sunday-services.html">Sunday Services</a><a href="weekly-worship.html">Weekly Worship</a><a href="special-services.html">Special Services</a><a href="prayer.html">Prayer</a><a href="baptisms.html">Baptisms</a><a href="weddings.html">Weddings</a><a href="funerals.html">Funerals</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit &amp; Learn<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-visit"><a href="visit.html">Visit the Church</a><a href="what-to-expect.html">What to Expect</a><a href="finding-us.html">Find Us</a><a href="church-building.html">The Church Building</a><a href="westhumble-chapel.html">Westhumble Chapel</a><a href="churchyard.html">Churchyard</a><a href="churchyard-regulations.html">Churchyard Regulations</a><a href="war-memorial.html">War Memorial</a></div></div>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our Community<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church Community</a><a href="children-families.html">Children &amp; Families</a><a href="alpha.html">Alpha</a><a href="bible-study-fellowship.html">Bible Study &amp; Fellowship</a><a href="pastoral-care.html">Pastoral Care</a><a href="volunteering.html">Volunteering</a><a href="supporting-community.html">Supporting the Community</a><a href="news.html">News</a></div></div>
+      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our Community<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church Community</a><a href="children-families.html">Children &amp; Families</a><a href="alpha.html">Alpha</a><a href="bible-study-fellowship.html">Bible Study &amp; Fellowship</a><a href="pastoral-care.html">Pastoral Care</a><a href="volunteering.html">Volunteering</a><a href="supporting-community.html">Supporting the Community</a></div></div>
+      <a class="nav-link" href="news.html">News</a>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-about">About Us<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-about"><a href="our-team.html">Our Team</a><a href="about.html">Our Parish</a><a href="our-vision.html">Our Vision</a><a href="our-churches.html">Our Churches</a><a href="our-history.html">Church History</a><a href="eco-church.html">Eco Church</a><a href="electoral-roll.html">Electoral Roll</a><a href="safeguarding.html">Safeguarding</a><a href="privacy.html">Privacy &amp; GDPR</a></div></div>
+      </div>
+      <div class="nav-utilities">
       <form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">
         <label class="header-search-label" for="header-search-query">Search the website</label>
         <input id="header-search-query" type="search" name="q" placeholder="Search..." autocomplete="off">
@@ -30,6 +34,7 @@ const navigation = `
       </form>
       <div class="nav-actions">
       <a class="nav-link nav-calendar" href="calendar.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
+      </div>
       </div>
     </nav>
   </div>`;
@@ -67,7 +72,7 @@ const siteScript = document.querySelector('script[src*="site.js"]');
 if (siteScript) {
   const headerStyles = document.createElement('link');
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261008-news', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
@@ -181,7 +186,7 @@ if (currentPage === 'search.html') {
   const headerQuery = document.querySelector('#header-search-query');
   if (headerQuery) headerQuery.value = new URLSearchParams(location.search).get('q') || '';
 }
-const directNavigationPage = document.querySelector(`.nav > a[href="${currentPage}"], .nav-actions > a[href="${currentPage}"]`);
+const directNavigationPage = document.querySelector(`.nav-primary > a[href="${currentPage}"], .nav-actions > a[href="${currentPage}"]`);
 document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
   if (link.getAttribute('href') === currentPage) {
     link.setAttribute('aria-current', 'page');

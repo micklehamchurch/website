@@ -12,11 +12,34 @@
 .header-search button:focus-visible { outline: 2px solid var(--green); outline-offset: -3px; }
 .header-search button:hover { background: #efe6d2; }
 .header-search.is-current-section { border-color: var(--green); }
-@media (min-width: 1201px) { .site-header .nav { gap: 10px; } }
-@media (max-width: 1200px) {
+.nav-primary { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.nav-utilities { display: flex; align-items: center; gap: 10px; flex: none; }
+@media (min-width: 1281px) {
+  .site-header .nav-wrap { width: min(1280px, calc(100% - 48px)); gap: 24px; }
+  .site-header .nav { flex: 1; min-width: 0; gap: 32px; }
+  .nav-primary { flex: 1; }
+  .nav-primary > .nav-link, .nav-primary .nav-trigger { white-space: nowrap; }
+}
+@media (max-width: 1280px) {
+  .nav-primary, .nav-utilities { display: contents; }
+  .nav-primary > .nav-link { display: flex; min-height: 44px; padding: 10px 8px; line-height: 24px; }
   .header-search { width: 100%; margin: 10px 0 4px; }
   .header-search input { height: 46px; font-size: 16px; }
   .header-search button { width: 46px; min-height: 46px; }
+}
+/* Keep the compact accordion at intermediate widths instead of squeezing desktop. */
+@media (min-width: 1201px) and (max-width: 1280px) {
+  .nav-wrap { position: relative; min-height: 70px; }
+  .menu-toggle { display: block; }
+  .site-header .nav { position: absolute; top: 100%; left: 0; right: 0; display: none; align-items: stretch; gap: 0; padding: 8px 16px 16px; max-height: calc(100dvh - 70px); overflow-y: auto; background: var(--paper); border-top: 1px solid var(--stone); box-shadow: 0 15px 30px #00000014; }
+  .site-header .nav.is-open { display: flex; flex-direction: column; }
+  .nav-item { width: 100%; flex-shrink: 0; }
+  .nav-trigger { display: flex; width: 100%; justify-content: space-between; min-height: 44px; padding: 10px 8px; font-size: 15px; text-align: left; }
+  .nav-chevron { display: block; flex: none; margin-left: 12px; }
+  .dropdown, .nav-item:last-of-type .dropdown { position: static; min-width: 0; max-height: none; margin: 0 0 6px 16px; padding: 0 0 0 8px; border: 0; border-left: 1px solid var(--gold); border-radius: 0; box-shadow: none; background: transparent; }
+  .dropdown a { display: flex; min-height: 44px; padding: 8px 10px; font-size: 14px; }
+  .nav-actions { display: flex; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--stone); }
+  .nav-actions > a { margin: 0; min-height: 44px; font-size: 14px; }
 }
 @media (max-width: 460px) {
   .header-branding { gap: 8px; min-width: 0; }
