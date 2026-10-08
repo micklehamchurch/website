@@ -727,6 +727,45 @@
           "public": true
         }
       ]
+    },
+    {
+      "id": "clergy-8e17ab0f-3bb5-4476-a85f-3d8fc4628ea5",
+      "displayName": "Canon John Harkin B.A.",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 2018,
+          "end": 2020
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/c83fea02-789a-456d-9724-f113fe41b5cf-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/c83fea02-789a-456d-9724-f113fe41b5cf-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "16-960.jpg",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Canon John Harkin returned to St Michael & All Angels in 2018, around twenty years after his earlier ministry in Mickleham.\nHis return gave the parish an unusual continuity: a priest who already knew the church and its community came back to serve a new generation. He remained at St Michael’s until 2020.\nThis was John Harkin’s second period of ministry at Mickleham. His earlier service, from 1993 to 1998, is recorded separately in this archive."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "",
+      "sources": [
+        {
+          "title": "St Michael & All Angels parish magazine, 2018",
+          "url": "",
+          "notes": "Parish material recording Canon John Harkin's return to Mickleham approximately twenty years after his earlier ministry.",
+          "public": false
+        }
+      ]
     }
   ],
   "unassignedSources": [
@@ -739,5 +778,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-05T18:53:41.004Z"
+  "updatedAt": "2026-10-08T18:54:51.497Z"
 }
