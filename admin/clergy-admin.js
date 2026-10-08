@@ -15,7 +15,7 @@
   const changed=()=>working&&shared&&(removals.size>0||JSON.stringify(working)!==JSON.stringify(shared.archive));
   const state=window.churchClergyStatus;
     const savedTime=value=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(value));
-  const imageURL=image=>image.src.startsWith('upload:')?uploads.get(image.src.slice(7))?.url:'../'+image.src;
+  const imageURL=image=>image.src.startsWith('upload:')?uploads.get(image.src.slice(7))?.url:window.churchClergyImageURL(image.src,shared?.headSha);
   function clearUploads(){for(const u of uploads.values())URL.revokeObjectURL(u.url);uploads.clear();}
   function referencedUploads(archive){return new Set(archive.records.flatMap(r=>[r.primaryImage,...r.archiveImages].filter(Boolean)).filter(i=>i.src.startsWith('upload:')).map(i=>i.src.slice(7)));}
   function pruneUploads(){const referenced=referencedUploads(working);for(const [id,u] of uploads)if(!referenced.has(id)){URL.revokeObjectURL(u.url);uploads.delete(id);}}

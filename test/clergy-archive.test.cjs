@@ -10,9 +10,22 @@ test('working succession excludes disputed brass and George Lock, preserves retu
   for(const id of originalIds)assert.equal(data.records.filter(r=>r.id===id).length,1,`Original historical record ${id} must be preserved exactly once`);
   const originals=data.records.flatMap(r=>[r.primaryImage,...r.archiveImages].filter(Boolean).map(i=>i.originalFilename));
   assert(!originals.includes('1.jpeg')); assert(!originals.includes('3.jpeg'));
-  const harkin=data.records.filter(r=>r.id==='john-harkin');assert.equal(harkin.length,1);assert.deepEqual(harkin[0].servicePeriods,[{start:1993,end:1998},{start:2018,end:2020}]);
+  const harkin=data.records.filter(r=>r.id==='john-harkin');assert.equal(harkin.length,1);assert.deepEqual(harkin[0].servicePeriods,[{start:1993,end:1998}]);
+  const returning=data.records.filter(r=>r.displayName==='Canon John Harkin B.A.'&&r.servicePeriods.some(p=>p.start===2018&&p.end===2020));
+  assert.equal(returning.length,1);assert.notEqual(returning[0].id,harkin[0].id);assert.equal(returning[0].published,true);
   assert.equal(data.records.find(r=>r.id==='sandra-faccini').servicePeriods[0].end,null);
 
+});
+test('every saved archive image exists with exact filename case and the returning Harkin is in public chronological order',()=>{
+  for(const record of data.records)for(const image of [record.primaryImage,...record.archiveImages].filter(Boolean))for(const key of ['src','thumbnail']){
+    const parts=image[key].split('/');let directory=root;
+    for(const part of parts){assert(fs.readdirSync(directory).includes(part),`Missing or wrong-case image ${image[key]}`);directory=path.join(directory,part);}
+  }
+  const html=fs.readFileSync(path.join(root,'those-who-have-served.html'),'utf8');
+  const returning=data.records.find(r=>r.displayName==='Canon John Harkin B.A.'&&r.servicePeriods[0].start===2018);
+  assert(html.includes(`src="${returning.primaryImage.src}"`));
+  const before=html.indexOf('href="#malcolm-raby"'),person=html.indexOf(`href="#${returning.id}"`),after=html.indexOf('href="#sandra-faccini"');
+  assert(before>=0&&before<person&&person<after);
 });
 test('public generated records expose only intended image metadata, with valid local images',()=>{
  const publicData=JSON.parse(fs.readFileSync(path.join(root,'clergy-data.json')));
