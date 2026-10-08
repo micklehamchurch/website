@@ -316,6 +316,28 @@
       "status": "published"
     },
     {
+      "id": "google-563778fb6231569d13888a33419f1c40",
+      "title": "PCC meets in Ranmore Room",
+      "start": "2027-01-12T19:30",
+      "end": "2027-01-12T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-7276a0507c3bc925608e83a367e9cfd4",
+      "title": "PCC meets in Ranmore Room",
+      "start": "2026-11-10T19:30",
+      "end": "2026-11-10T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
       "title": "Compline in Church",
       "start": "2026-10-06T19:00",
       "end": "2026-10-06T20:00",
