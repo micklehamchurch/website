@@ -335,21 +335,21 @@
       "occurrenceStart": null,
       "google": {
         "title": "Christingle service",
-        "start": "2026-12-06T10:00",
-        "end": "2026-12-06T11:00",
+        "start": "2026-12-06T11:00",
+        "end": "2026-12-06T12:00",
         "allDay": false,
         "location": "",
         "description": ""
       },
       "website": {
         "title": "Christingle service",
-        "start": "2026-12-06T10:00",
-        "end": "2026-12-06T11:00",
+        "start": "2026-12-06T11:00",
+        "end": "2026-12-06T12:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "1b2044857a90eaf572ea30534a106c6d867aba5680eb7a6fad8240312a013d34",
+      "fingerprint": "941d3461ad7760184772191900c0da71c2747b2a826b439ec6521dd790fd1807",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -3462,6 +3462,114 @@
       "suppressed": true,
       "missingChecks": 0,
       "removalSource": "confirmed-google-absence"
+    },
+    {
+      "key": "[\"1a0388cs619vff662c9euotibr@google.com\",\"\"]",
+      "uid": "1a0388cs619vff662c9euotibr@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-f1f9c5f8db7c84e01824daed6858ea55",
+      "google": {
+        "title": "Candlelit Carol service",
+        "start": "2026-12-20T18:30",
+        "end": "2026-12-20T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Candlelit Carol service",
+        "start": "2026-12-20T18:30",
+        "end": "2026-12-20T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "8544771762aec861ff808940de6a53d2c4889208ef1363ef2b8753d6ed8367e1",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1ec78j39474ae1eagcbg35qobj@google.com\",\"\"]",
+      "uid": "1ec78j39474ae1eagcbg35qobj@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-087c97199e5089ffe466c9832bd3e788",
+      "google": {
+        "title": "Family Communion service",
+        "start": "2026-12-25T10:00",
+        "end": "2026-12-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Family Communion service",
+        "start": "2026-12-25T10:00",
+        "end": "2026-12-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "b786e1d3b9879f16d16b9607d8adf7e102b9e6e9bdcd1057c9b7b1813bc80090",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6rj7p7dgjsmoge1f3jelb2fcta@google.com\",\"\"]",
+      "uid": "6rj7p7dgjsmoge1f3jelb2fcta@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-eadf869d7bd3e9426ee14bbdb01cd1f9",
+      "google": {
+        "title": "Midnight Communion service",
+        "start": "2026-12-24T23:30",
+        "end": "2026-12-25T00:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Midnight Communion service",
+        "start": "2026-12-24T23:30",
+        "end": "2026-12-25T00:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "313c44d723850a6edb725aa4b40c5dc3ea0bfb95f19a1f1892b366b0708f4445",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"709re6jrqcdln9vsf8sa459kjm@google.com\",\"\"]",
+      "uid": "709re6jrqcdln9vsf8sa459kjm@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-30c6e6445d809499f09cac462e490470",
+      "google": {
+        "title": "4pm Crib service in Westhumble Fields",
+        "start": "2026-12-24T00:00",
+        "end": "2026-12-25T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "4pm Crib service in Westhumble Fields",
+        "start": "2026-12-24T00:00",
+        "end": "2026-12-25T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "7b7d27c571356ace37cee000f4bcd2e4a5a3a5317d0e3409e815c4273452c50f",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3478,11 +3586,11 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-05T11:15:07.240Z",
+  "lastSuccessfulSync": "2026-10-08T22:15:05.048Z",
   "audit": {
-    "at": "2026-10-05T11:15:07.240Z",
+    "at": "2026-10-08T22:15:05.048Z",
     "mode": "automatic",
-    "added": 0,
+    "added": 4,
     "updated": 1,
     "removed": 0,
     "unchanged": 117,
