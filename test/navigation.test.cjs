@@ -19,7 +19,7 @@ test('reviewed dropdowns group worship, visiting, community and parish governanc
  worship:['worship.html','sunday-services.html','weekly-worship.html','special-services.html','prayer.html','baptisms.html','weddings.html','funerals.html'],
  visit:['visit.html','what-to-expect.html','finding-us.html','church-building.html','westhumble-chapel.html','churchyard.html','churchyard-regulations.html','war-memorial.html'],
  community:['church-life.html','children-families.html','alpha.html','bible-study-fellowship.html','pastoral-care.html','volunteering.html','supporting-community.html','news.html'],
- about:['about.html','our-vision.html','our-team.html','our-churches.html','our-history.html','eco-church.html','electoral-roll.html','safeguarding.html','privacy.html']});
+ about:['our-team.html','about.html','our-vision.html','our-churches.html','our-history.html','eco-church.html','electoral-roll.html','safeguarding.html','privacy.html']});
  const urls=Object.values(menus).flat();assert.equal(new Set(urls).size,urls.length);
 });
 test('every submenu resolves to a retained public page with a main heading and unique controlled menu',()=>{
