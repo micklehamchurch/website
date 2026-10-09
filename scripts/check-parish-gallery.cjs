@@ -1,14 +1,14 @@
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),path=require('node:path'),{spawn}=require('node:child_process');
-const root=path.join(__dirname,'..'),port=4197,base=`http://127.0.0.1:${port}/`;
+const root=path.join(__dirname,'..'),port=4197,base=process.env.CHECK_BASE_URL||`http://127.0.0.1:${port}/`;
 const server=spawn(process.execPath,[path.join(root,'preview.js')],{env:{...process.env,MICKLEHAM_PREVIEW_PORT:String(port)},stdio:['ignore','pipe','inherit']});
 (async()=>{
 await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
 const browser=await chromium.launch({channel:'msedge',headless:true});
 try{
 const context=await browser.newContext({hasTouch:true}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-for(const mode of ['heritage','modern-classic','contemporary'])for(const width of [390,768,1024,1440]){
- await page.setViewportSize({width,height:1000});await page.goto(base);await page.locator(`[data-typography-option="${mode}"]`).click();await page.evaluate(()=>document.fonts.ready);
+for(const mode of ['heritage','modern-classic','contemporary'])for(const width of [390,430,600,768,900,1000,1280,1440,1920]){
+ await page.setViewportSize({width,height:1000});await page.goto(base);await page.locator(`[data-typography-option="${mode}"]`).click();await page.evaluate(()=>document.fonts.ready);await page.waitForFunction(()=>document.querySelector('link[href*="header-navigation.css"]')?.sheet);
  await page.locator('.parish-life').scrollIntoViewIfNeeded();
  const spacing=await page.evaluate(()=>({top:parseFloat(getComputedStyle(document.querySelector('.parish-life')).paddingTop),subtitle:parseFloat(getComputedStyle(document.querySelector('.parish-life-heading > p')).fontSize),branding:parseFloat(getComputedStyle(document.querySelector('.header-branding')).gap)}));
 
@@ -17,12 +17,14 @@ for(const mode of ['heritage','modern-classic','contemporary'])for(const width o
  assert.equal(await page.locator('.menu-toggle').isVisible(),width<1000);
  const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,columns:getComputedStyle(document.querySelector('.parish-life-grid')).gridTemplateColumns.split(' ').length,fit:getComputedStyle(document.querySelector('[data-slide]')).objectFit,video:document.querySelector('.parish-life-video').getBoundingClientRect().width/document.querySelector('.parish-life-video').getBoundingClientRect().height}));
  assert(!geometry.overflow,`${mode} ${width} overflow`);assert.equal(geometry.columns,width<=900?1:2);assert.equal(geometry.fit,'contain');assert(Math.abs(geometry.video-16/9)<.02);
+ const placement=await page.evaluate(()=>{const rect=s=>document.querySelector(s).getBoundingClientRect(),frame=rect('.parish-carousel-images'),prev=rect('[data-parish-carousel] [data-previous]'),next=rect('[data-parish-carousel] [data-next]'),dots=rect('.parish-carousel-dots'),photos=rect('.parish-life a[href^="gallery.html"]'),services=rect('.parish-life a[href="sunday-services.html"]'),video=rect('.parish-life-video');return {frame:{width:frame.width,height:frame.height},arrows:[prev,next].map(r=>({inside:r.left>frame.left&&r.right<frame.right&&r.top>frame.top&&r.bottom<frame.bottom,centred:Math.abs((r.top+r.bottom-frame.top-frame.bottom)/2)<1,width:r.width,height:r.height})),dotsBelow:dots.top>=frame.bottom,photosBelow:photos.top>=dots.bottom,linkAbove:services.bottom<=video.top,separator:getComputedStyle(document.querySelector('.parish-carousel-controls')).borderBottomWidth};});
+ assert(Math.abs(placement.frame.width/placement.frame.height-4/3)<.02);for(const arrow of placement.arrows){assert(arrow.inside&&arrow.centred);assert(arrow.width>=44&&arrow.height>=44);}assert(placement.dotsBelow&&placement.photosBelow&&placement.linkAbove);assert.equal(placement.separator,'0px');assert.equal(await page.locator('.parish-life a[href="sunday-services.html"]').count(),1);
  const carousel=page.locator('[data-parish-carousel]');await carousel.locator('[data-next]').click();assert.equal(await carousel.locator('[data-slide]:visible').getAttribute('alt'),'The congregation gathering in the church decorated for Harvest');
  await carousel.locator('[data-next]').press('ArrowLeft');assert.equal(await carousel.locator('[data-position][aria-pressed="true"]').getAttribute('aria-label').then(s=>s.startsWith('Show photograph 1:')),true);
  await carousel.locator('.parish-carousel-images').dispatchEvent('pointerdown',{clientX:240,clientY:120,pointerType:'touch',isPrimary:true});await carousel.locator('.parish-carousel-images').dispatchEvent('pointerup',{clientX:100,clientY:121,pointerType:'touch',isPrimary:true});assert.equal(await carousel.locator('[data-position][aria-pressed="true"]').getAttribute('aria-label').then(s=>s.startsWith('Show photograph 2:')),true);
  await carousel.locator("[data-slide]:visible").evaluate(img=>img.decode());
  await carousel.locator("[data-slide]:visible").evaluate(img=>img.decode());
- await page.screenshot({path:path.join(root,'../homepage-polish-verification',`parish-life-${mode}-${width}.png`)});
+ if ([390,1440].includes(width)&&mode==='heritage') {const output=path.join(root,'../life-controls-verification');require('node:fs').mkdirSync(output,{recursive:true});await page.locator('.parish-life').screenshot({path:path.join(output,`life-${width}.png`),style:'.site-header { visibility: hidden; }'});}
  await page.locator('.parish-life a[href^="gallery.html"]').click();
  const links=page.locator('[data-gallery-photo]');assert.equal(await links.count(),13);await links.first().click();const dialog=page.locator('#parish-gallery-dialog');assert(await dialog.isVisible());await dialog.locator('[data-next]').press('ArrowRight');assert.match(await dialog.locator('[data-gallery-status]').textContent(),/^2 of 13/);await dialog.locator('[data-next]').press('Escape');assert(!(await dialog.isVisible()));assert(await links.first().evaluate(e=>e===document.activeElement));
  await links.nth(12).click();await dialog.locator('[data-next]').click();assert.match(await dialog.locator('[data-gallery-status]').textContent(),/^1 of 13/);await dialog.locator('[data-close]').click();assert(await links.nth(12).evaluate(e=>e===document.activeElement));
@@ -30,6 +32,6 @@ for(const mode of ['heritage','modern-classic','contemporary'])for(const width o
  for(const link of await links.all()){await link.click();await dialog.locator('img').evaluate(img=>img.decode());assert(await dialog.locator('img').evaluate(img=>img.naturalWidth>0));await dialog.locator('[data-close]').click();}
  assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)));console.log(`${mode} ${width}: PASS (carousel, swipe, keyboard, 13 images, close/focus, responsive)`);
 }
-await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base);assert.equal(await page.locator('[data-slide]:visible').count(),1);assert.deepEqual(errors,[]);console.log('12 responsive checks passed; reduced motion supported by manual-only carousel.');
+await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base);assert.equal(await page.locator('[data-slide]:visible').count(),1);assert.deepEqual(errors,[]);console.log('27 responsive checks passed; reduced motion supported by manual-only carousel.');
 }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>server.kill());

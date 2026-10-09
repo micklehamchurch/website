@@ -106,7 +106,7 @@ async function geometry(page) {
       assert(!layout.overflow); assert.equal(layout.columns, width <= 900 ? 1 : 2);
       assert(await life.locator('h2, h3, h4, .text-link').evaluateAll(elements => elements.every(el => el.scrollWidth <= el.clientWidth + 1)));
       assert(Math.abs(layout.frame - 4 / 3) < .02); assert(Math.abs(layout.video - 16 / 9) < .02);
-      if (width > 900) assert(Math.abs(layout.links[0] - layout.links[1]) < 1);
+      assert(await life.locator('a[href="sunday-services.html"]').evaluate(el => el.getBoundingClientRect().bottom <= document.querySelector('.parish-life-video').getBoundingClientRect().top));
       const carousel = page.locator('[data-parish-carousel]');
       await carousel.locator('[data-next]').click(); assert.match(await carousel.locator('[data-status]').innerText(), /Photograph 2 of 7/);
       await carousel.locator('[data-next]').press('ArrowLeft'); assert.match(await carousel.locator('[data-status]').innerText(), /Photograph 1 of 7/);
