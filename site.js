@@ -72,7 +72,7 @@ const siteScript = document.querySelector('script[src*="site.js"]');
 if (siteScript) {
   const headerStyles = document.createElement('link');
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261009-responsive', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261009-refinement', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');

@@ -10,6 +10,10 @@ const context=await browser.newContext({hasTouch:true}),page=await context.newPa
 for(const mode of ['heritage','modern-classic','contemporary'])for(const width of [390,768,1024,1440]){
  await page.setViewportSize({width,height:1000});await page.goto(base);await page.locator(`[data-typography-option="${mode}"]`).click();await page.evaluate(()=>document.fonts.ready);
  await page.locator('.parish-life').scrollIntoViewIfNeeded();
+ const spacing=await page.evaluate(()=>({top:parseFloat(getComputedStyle(document.querySelector('.parish-life')).paddingTop),subtitle:parseFloat(getComputedStyle(document.querySelector('.parish-life-heading > p')).fontSize),branding:parseFloat(getComputedStyle(document.querySelector('.header-branding')).gap)}));
+ const oldPadding=width>=1051?Math.max(42,Math.min(width*.04,56)):Math.max(62,Math.min(width*.08,88));
+ assert(Math.abs(spacing.top-oldPadding*.7)<.1,JSON.stringify({width,spacing,oldPadding}));assert.equal(spacing.subtitle,15);assert.equal(spacing.branding,width<=460?6:10);
+
  assert.equal(await page.locator('.menu-toggle').isVisible(),width<1000);
  const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,columns:getComputedStyle(document.querySelector('.parish-life-grid')).gridTemplateColumns.split(' ').length,fit:getComputedStyle(document.querySelector('[data-slide]')).objectFit,video:document.querySelector('.parish-life-video').getBoundingClientRect().width/document.querySelector('.parish-life-video').getBoundingClientRect().height}));
  assert(!geometry.overflow,`${mode} ${width} overflow`);assert.equal(geometry.columns,width<=700?1:2);assert.equal(geometry.fit,'contain');assert(Math.abs(geometry.video-16/9)<.02);

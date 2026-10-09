@@ -1,5 +1,5 @@
 /* Public shared header only; typography follows the existing preview variables. */
-.header-branding { display: flex; align-items: center; gap: 14px; flex: none; }
+.header-branding { display: flex; align-items: center; gap: 10px; flex: none; }
 .header-branding .nav-youtube { flex: none; padding: 0; justify-content: center; }
 .site-header .nav-wrap { gap: 16px; }
 .header-search { display: flex; align-items: center; width: 178px; min-height: 44px; border: 1px solid #b4955b80; border-radius: 7px; background: var(--cream); }
@@ -53,6 +53,6 @@
   .header-search button { width: 46px; min-height: 46px; }
 }
 @media (max-width: 460px) {
-  .header-branding { gap: 8px; min-width: 0; }
+  .header-branding { gap: 6px; min-width: 0; }
   .site-header .nav-wrap { gap: 8px; }
 }

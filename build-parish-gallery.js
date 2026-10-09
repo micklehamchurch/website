@@ -15,7 +15,8 @@ let home = fs.readFileSync('index.html', 'utf8');
 if (home.includes('<!-- parish-life:start -->')) home = home.replace(/<!-- parish-life:start -->[\s\S]*?<!-- parish-life:end -->/, section);
 else home = home.replace('    <section class="section media-feature"', `${section}\n\n    <section class="section media-feature"`);
 function assets(html) {
-  if (!html.includes('href="parish-gallery.css"')) html = html.replace('</head>', '  <link rel="stylesheet" href="parish-gallery.css">\n  <script src="parish-gallery.js" defer></script>\n</head>');
+  if (!/href="parish-gallery\.css(?:\?[^"]*)?"/.test(html)) html = html.replace('</head>', '  <link rel="stylesheet" href="parish-gallery.css">\n  <script src="parish-gallery.js" defer></script>\n</head>');
+  html = html.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, 'href="parish-gallery.css?v=20261009-refinement"');
   return html;
 }
 fs.writeFileSync('index.html', assets(home));

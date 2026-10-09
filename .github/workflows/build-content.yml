@@ -44,6 +44,8 @@ on:
       - 'build-contact-directory.js'
       - 'build-admin-auth.js'
       - 'build-search-index.js'
+      - 'build-typography-preview.js'
+      - 'public-script-version.js'
       - 'parish-albums.json'
       - 'build-parish-gallery.js'
       - 'news.js'

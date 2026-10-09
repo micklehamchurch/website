@@ -1,6 +1,7 @@
 // TEMPORARY TYPOGRAPHY PREVIEW — public-only head hook; remove after decision.
 const fs = require('node:fs');
 const path = require('node:path');
+const { versionPublicScript } = require('./public-script-version');
 const root = __dirname;
 // Central post-build hook covers handwritten and generated pages, including news.
 for (const directory of [root, path.join(root, 'news')]) {
@@ -10,12 +11,10 @@ for (const directory of [root, path.join(root, 'news')]) {
     const filename = path.join(directory, name);
     let html = fs.readFileSync(filename, 'utf8');
     if (!html.includes('data-site-footer')) continue;
-    // Version the changed shared footer so existing browser caches get the selector.
-    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/, (match, url) =>
-      url.includes('typography=20261007-v1') ? match : `src="${url}${url.includes('?') ? '&' : '?'}typography=20261007-v1"`);
-    // Refresh the shared header without changing hero/content URLs.
-    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/, (match, url) =>
-      url.includes('header=') ? `src="${url.replace(/header=[^&"]+/, 'header=20261009-v1')}"` : `src="${url}${url.includes('?') ? '&' : '?'}header=20261009-v1"`);
+    // One central, idempotent version hook for every public shared script.
+    // Other parameters (including the existing hero version) are preserved.
+    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/g, (match, url) =>
+      `src="${versionPublicScript(url, { typography: '20261007-v1', header: '20261009-v2', gallery: '20261009-v1' })}"`);
     if (html.includes('typography-preview.js')) {
       fs.writeFileSync(filename, html);
       continue;
