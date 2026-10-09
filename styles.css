@@ -823,7 +823,7 @@ h3 { font-family: var(--serif); }
 .home-card-cta { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 9px 16px; border: 1px solid #e2c77d; border-radius: 7px; background: #244b39; color: white; transition: background-color 180ms ease; }
 .community .home-card-cta { background: #655125; }
 .home-feature-grid .feature-card:hover { box-shadow: 0 9px 24px #18392d29; }
-.home-feature-grid .feature-card:hover .home-card-cta,.home-feature-grid .feature-card:focus-visible .home-card-cta { background: #163b29; text-decoration: underline; text-underline-offset: 4px; }
+.home-feature-grid .feature-card:hover .home-card-cta,.home-feature-grid .feature-card:focus-visible .home-card-cta { background: #163b29; text-decoration: none; }
 .home-feature-grid .feature-card:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 @media (max-width: 1000px) {
   .home-feature-grid .feature-card::after { content: none; display: none; background: none; }

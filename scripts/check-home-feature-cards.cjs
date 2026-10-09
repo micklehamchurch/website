@@ -26,19 +26,24 @@ assert.deepEqual(current.map(c=>c.copy.text),['Prayer, services and faith at the
 assert.deepEqual(current.map(c=>c.button.text),['Explore worship →','Find your place →']);
 assert.equal(await grid.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length),width<=760?1:2);
 for(const card of await cards.all()){
+await checkUndecorated(card);await card.locator('.home-card-cta').hover();await checkUndecorated(card);
+await page.waitForFunction(()=>{const el=document.querySelector('.home-feature-grid .feature-card:hover .home-card-cta');return el&&getComputedStyle(el).backgroundColor==='rgb(22, 59, 41)';});
+const target=await card.locator('.home-card-cta').boundingBox();await page.mouse.move(target.x+target.width/2,target.y+target.height/2);await page.mouse.down();assert(await card.evaluate(el=>el.matches(':active')));await checkUndecorated(card);await page.mouse.move(0,0);await page.mouse.up();
 assert(await card.evaluate(el=>{const cs=getComputedStyle(el,'::after'),photo=getComputedStyle(el.querySelector('img'));return cs.display==='none'&&cs.backgroundImage==='none'&&photo.filter==='none'&&photo.mixBlendMode==='normal';}));
 assert(await card.locator('h3,p').evaluateAll(elements=>elements.every(el=>{const s=getComputedStyle(el);return s.color==='rgb(255, 255, 255)'&&s.textShadow!=='none'&&s.backgroundColor==='rgba(0, 0, 0, 0)'&&s.backgroundImage==='none'&&el.scrollWidth<=el.clientWidth+1;})));
 assert(await card.locator(':scope > div').evaluate(el=>{const s=getComputedStyle(el);return s.backgroundColor==='rgba(0, 0, 0, 0)'&&s.backgroundImage==='none'&&s.boxShadow==='none';}));
 assert(await card.evaluate(el=>{const c=el.getBoundingClientRect();return [...el.querySelectorAll('h3,p,.home-card-cta')].every(text=>{const r=text.getBoundingClientRect();return r.left>=c.left&&r.right<=c.right&&r.top>=c.top&&r.bottom<=c.bottom;});}));
 assert(await card.locator('.home-card-cta').evaluate(el=>el.getBoundingClientRect().height>=44));
 }
-await cards.first().focus();await page.keyboard.press('Tab');assert(await cards.nth(1).evaluate(el=>el===document.activeElement&&getComputedStyle(el).outlineStyle!=='none'));
+await cards.first().focus();await page.keyboard.press('Tab');assert(await cards.nth(1).evaluate(el=>el===document.activeElement&&getComputedStyle(el).outlineStyle!=='none'));await checkUndecorated(cards.nth(1));await page.keyboard.press('Shift+Tab');assert(await cards.first().evaluate(el=>el===document.activeElement&&getComputedStyle(el).outlineStyle!=='none'));await checkUndecorated(cards.first());
 if(mode==='heritage'&&[390,768,1000,1440,1600].includes(width))await grid.screenshot({path:path.join(output,`${process.env.FEATURE_BASE_URL?'live':'local'}-${mode}-${width}.png`),style:'.site-header,.skip-link {visibility:hidden!important;}'});
 assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)));
-for(const [index,destination] of ['worship.html','church-life.html'].entries())if(mode==='heritage'&&width===390){await Promise.all([page.waitForURL('**/'+destination),cards.nth(index).tap()]);assert(new URL(page.url()).pathname.endsWith('/'+destination));await page.goBack();}
+for(const [index,destination] of ['worship.html','church-life.html'].entries())if(mode==='heritage'&&width===390){await Promise.all([page.waitForURL('**/'+destination),cards.nth(index).tap()]);assert(new URL(page.url()).pathname.endsWith('/'+destination));await page.goBack();await checkUndecorated(cards.nth(index));}
 console.log(`${mode} ${width}: PASS (natural photographs, white text/shadows, preserved geometry, focus, destinations, no overflow)`);
 }
 await page.emulateMedia({reducedMotion:'reduce'});assert(await cardsTransition(page));assert.deepEqual(errors,[]);console.log('27 photographic feature-card checks passed.');
 }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>server?.kill());
 async function cardsTransition(page){return page.locator('.home-feature-grid .feature-card').evaluateAll(elements=>elements.every(el=>getComputedStyle(el).transitionDuration.split(',').every(v=>parseFloat(v)<=.00001)));}
+
+async function checkUndecorated(card){assert(await card.evaluate(el=>[el,...el.querySelectorAll('.home-card-cta,.home-card-cta span')].every(node=>getComputedStyle(node).textDecorationLine==='none')));assert(await card.locator('.home-card-cta').evaluate(el=>['::before','::after'].every(pseudo=>{const s=getComputedStyle(el,pseudo);return s.content==='none'&&s.backgroundImage==='none';})&&getComputedStyle(el).borderBottom===getComputedStyle(el).borderTop));}
