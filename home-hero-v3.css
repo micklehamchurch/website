@@ -8,12 +8,14 @@
 .home-hero .hero-copy { max-width: 470px; }
 @media (min-width: 601px) {
   .home-hero-photo img { aspect-ratio: 4786 / 2409; min-height: 320px; object-fit: cover; object-position: 50% 62%; }
-  .home-hero .hero-content { position: absolute; top: clamp(20px, 4vw, 76px); right: clamp(16px, 3vw, 64px); width: min(36%, 520px); margin: 0; padding: clamp(12px, 1.5vw, 24px); border-radius: 8px; background: rgba(0, 0, 0, .18); }
+  .home-hero .hero-content { position: absolute; top: clamp(20px, 4vw, 76px); right: clamp(16px, 3vw, 64px); width: min(36%, 520px); margin: 0; padding: clamp(12px, 1.5vw, 24px); border-radius: 0; background: transparent; box-shadow: none; }
   .home-hero .hero-content h1 { max-width: none; font-size: clamp(30px, 4vw, 58px); margin-bottom: 12px; }
   .home-hero .hero-copy { max-width: none; font-size: clamp(15px, 1.4vw, 20px); line-height: 1.5; margin: 12px 0; }
   .home-hero .eyebrow { margin-bottom: 12px; }
   .home-hero .hero-actions { flex-direction: row; gap: 10px; margin-top: 18px; }
-  .home-hero h1, .home-hero .hero-copy, .home-hero .eyebrow { text-shadow: 0 1px 3px #000b; }
+  /* Text-only definition keeps the real photograph natural and unshaded. */
+  .home-hero h1 { text-shadow: 0 2px 4px #000b, 0 0 1px #0009; }
+  .home-hero .hero-copy, .home-hero .eyebrow { text-shadow: 0 1px 2px #000c, 0 2px 5px #0008; }
 }
 @media (min-width: 601px) and (max-width: 900px) {
   .home-hero .hero-content { width: 37%; right: 16px; top: 20px; padding: 12px; }
