@@ -19,7 +19,7 @@ function assets(html, version = '20261009-refinement') {
   html = html.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, `href="parish-gallery.css?v=${version}"`);
   return html;
 }
-fs.writeFileSync('index.html', assets(home, '20261009-bottom-controls-v1'));
+fs.writeFileSync('index.html', assets(home, '20261009-discreet-dots-v1'));
 let gallery = fs.readFileSync('gallery.html', 'utf8');
 const markup = `<!-- parish-albums:start -->${albums.map(album => `<section class="parish-album" id="${album.id}" aria-labelledby="${album.id}-heading"><h2 id="${album.id}-heading">${escape(album.title)}</h2><p>${escape(album.context)}</p><div class="parish-album-grid">${album.photos.map(photo => `<figure><a data-gallery-photo href="${photo.variants[2].src}" aria-haspopup="dialog">${image(photo, 'loading="lazy"')}<span class="parish-sr-only">Open photograph</span></a><figcaption>${escape(photo.alt)}</figcaption></figure>`).join('')}</div></section>`).join('')}
 <dialog class="parish-lightbox" id="parish-gallery-dialog" aria-labelledby="parish-gallery-dialog-heading"><h2 id="parish-gallery-dialog-heading">Parish photographs</h2><img alt=""><p data-gallery-status aria-live="polite" aria-atomic="true"></p><div class="parish-lightbox-controls"><button type="button" data-previous aria-label="Previous photograph">←</button><button type="button" data-close autofocus>Close</button><button type="button" data-next aria-label="Next photograph">→</button></div></dialog><!-- parish-albums:end -->`;
