@@ -816,9 +816,9 @@ h3 { font-family: var(--serif); }
 .home-feature-grid .community .home-card-photo { object-position: 60% 45%; }
 .home-feature-grid .feature-card::after { content: none; display: none; background: none; }
 .home-feature-grid .feature-card > div { max-width: 260px; }
-.home-feature-grid .feature-card h3 { font-size: clamp(32px,3.2vw,42px); line-height: 1.15; }
+.home-feature-grid .feature-card h3 { font-size: clamp(32px,3.2vw,42px); line-height: 1.15; color: white; text-shadow: 0 2px 4px #000b, 0 0 1px #0009; }
 .home-feature-grid .feature-card h3::after { content: ''; display: block; width: 42px; height: 2px; margin: 14px 0; background: #e2c77d; }
-.home-feature-grid .feature-card p { margin: 0 0 20px; color: white; font-size: 16px; line-height: 1.5; }
+.home-feature-grid .feature-card p { margin: 0 0 20px; color: white; font-size: 16px; line-height: 1.5; text-shadow: 0 1px 2px #000c, 0 2px 5px #0008; }
 .home-card-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-bottom: 14px; border: 1px solid #e2c77d; border-radius: 50%; color: #fff8e7; }
 .home-card-cta { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 9px 16px; border: 1px solid #e2c77d; border-radius: 7px; background: #244b39; color: white; transition: background-color 180ms ease; }
 .community .home-card-cta { background: #655125; }
