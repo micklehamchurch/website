@@ -51,5 +51,5 @@ test('Real accessible header search submits q to the existing search page',()=>{
  assert.match(html,/<input id="header-search-query" type="search" name="q"/);
  assert.match(html,/<button type="submit" aria-label="Submit website search"/);
  const search=fs.readFileSync(path.join(root,'search.js'),'utf8');assert.match(search,/new URLSearchParams\(location.search\).get\('q'\)/);assert.match(search,/renderSearch\(searchInput.value\)/);
- const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 1280px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
+ const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 999px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
 });
