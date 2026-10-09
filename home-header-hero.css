@@ -16,7 +16,7 @@
   .home-header-hero .site-header .brand-mark,
   .home-header-hero .site-header .nav-primary > .nav-link,
   .home-header-hero .site-header .nav-trigger {
-    transition: color 250ms ease, border-color 250ms ease;
+    transition: color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   }
   .home-header-hero .site-header.is-over-hero .brand,
   .home-header-hero .site-header.is-over-hero .brand strong,
@@ -37,10 +37,18 @@
   .home-header-hero .site-header.is-over-hero .nav-trigger:hover,
   .home-header-hero .site-header.is-over-hero .nav-trigger:focus-visible,
   .home-header-hero .site-header.is-over-hero .nav-trigger[aria-expanded="true"] {
-    color: var(--deep);
-    background: var(--cream);
-    text-shadow: none;
+    color: #f6e3b9;
+    background: transparent;
+    box-shadow: inset 0 -2px #e7d8b7;
   }
+  /* Override shared cream hover surfaces only while the homepage is over sky. */
+  .home-header-hero .site-header.is-over-hero .nav-youtube {
+    background: transparent;
+    color: #c12832;
+    transition: opacity 200ms ease;
+  }
+  .home-header-hero .site-header.is-over-hero .nav-youtube:hover { opacity: .85; }
+  .home-header-hero .site-header.is-over-hero .nav-youtube:focus-visible { opacity: 1; }
   .home-header-hero .site-header.is-over-hero :is(.brand, .nav-youtube):focus-visible,
   .home-header-hero .site-header.is-over-hero .nav-primary > .nav-link:focus-visible,
   .home-header-hero .site-header.is-over-hero .nav-trigger:focus-visible {
@@ -53,8 +61,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home-header-hero .site-header.is-over-hero .nav-youtube,
   .home-header-hero .site-header,
-  .home-header-hero .site-header :is(.brand, .brand strong, .brand small, .brand-mark, .nav-primary > .nav-link, .nav-trigger) {
+  .home-header-hero .site-header :is(.brand, .brand strong, .brand small, .brand-mark, .nav-primary > .nav-link, .nav-trigger, .nav-youtube) {
     transition: none;
   }
 }
