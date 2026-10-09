@@ -392,7 +392,7 @@
       "seriesId": "migration-hc-third",
       "occurrenceStart": "2026-12-20T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Holy Communion with Carols",
         "start": "2026-12-20T10:00",
         "end": "2026-12-20T11:00",
         "allDay": false,
@@ -400,14 +400,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Holy Communion with Carols",
         "start": "2026-12-20T10:00",
         "end": "2026-12-20T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "503f96b2e9022d33a348870fb4b6e5c894c91a4474daae84b46127d41d037363",
+      "fingerprint": "ea907863f57fb2c2b546946fe324da692db7ef700d7c31dee39ad99382e4ed6a",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -421,7 +421,7 @@
       "seriesId": "migration-hc-fourth",
       "occurrenceStart": "2026-12-27T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Informal Holy Communion (no creche)",
         "start": "2026-12-27T10:00",
         "end": "2026-12-27T11:00",
         "allDay": false,
@@ -429,14 +429,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Informal Holy Communion (no creche)",
         "start": "2026-12-27T10:00",
         "end": "2026-12-27T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "f0a1741be0ef0ad502bf2284d4b4db718ede352181d5a0628f079ed3ec19df96",
+      "fingerprint": "ea6ff8e82b657a69d2aca8388a106457aaaa56f7395433cde47b779f4c0e7860",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -3496,7 +3496,7 @@
       "recurrenceId": "",
       "websiteId": "google-087c97199e5089ffe466c9832bd3e788",
       "google": {
-        "title": "Family Communion service",
+        "title": "Christmas Communion service for All",
         "start": "2026-12-25T10:00",
         "end": "2026-12-25T11:00",
         "allDay": false,
@@ -3504,14 +3504,14 @@
         "description": ""
       },
       "website": {
-        "title": "Family Communion service",
+        "title": "Christmas Communion service for All",
         "start": "2026-12-25T10:00",
         "end": "2026-12-25T11:00",
         "allDay": false,
         "location": "",
         "description": ""
       },
-      "fingerprint": "b786e1d3b9879f16d16b9607d8adf7e102b9e6e9bdcd1057c9b7b1813bc80090",
+      "fingerprint": "c71cbe05faa707d50c32c9131711e68764b5cbe0dee0e5fa382d2a380ea3a169",
       "localOverrides": {},
       "conflicts": [],
       "suppressed": false,
@@ -3624,6 +3624,87 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"0rjaqgce25sq9o9l5b299nb8bb@google.com\",\"\"]",
+      "uid": "0rjaqgce25sq9o9l5b299nb8bb@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-5c9e6cd0112311d55a584524508e1ea0",
+      "google": {
+        "title": "Carol singing in Westhumble Chapel ruins",
+        "start": "2026-12-15T18:00",
+        "end": "2026-12-15T19:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Carol singing in Westhumble Chapel ruins",
+        "start": "2026-12-15T18:00",
+        "end": "2026-12-15T19:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "84cd9ae971edf3aeec947631e27cfef50afc5dd02b06adc4c77c5fe742c08ee3",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6jhlpdqlpr52nd93375lul81sr@google.com\",\"\"]",
+      "uid": "6jhlpdqlpr52nd93375lul81sr@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-a1fab69e31830be2a9377845005b476e",
+      "google": {
+        "title": "Reflective Christmas service",
+        "start": "2026-12-14T19:00",
+        "end": "2026-12-14T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Reflective Christmas service",
+        "start": "2026-12-14T19:00",
+        "end": "2026-12-14T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "a511d56e2038744e6c0043ebc30e0a3197a7cc8e288fec37c5a51fa4a52d7fd2",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"782l1geted3maakdlu2huuj462@google.com\",\"\"]",
+      "uid": "782l1geted3maakdlu2huuj462@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-de089edd3907b3306e61c7f0bd2555d8",
+      "google": {
+        "title": "Carol singing round local pubs",
+        "start": "2026-12-18T19:15",
+        "end": "2026-12-18T20:15",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Carol singing round local pubs",
+        "start": "2026-12-18T19:15",
+        "end": "2026-12-18T20:15",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "f22e093b369100389ae105f037723e060ee6f6b4a885b6a9e2124c3b11aaff5f",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3640,15 +3721,15 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-08T22:30:05.175Z",
+  "lastSuccessfulSync": "2026-10-09T08:45:05.866Z",
   "audit": {
-    "at": "2026-10-08T22:30:05.175Z",
+    "at": "2026-10-09T08:45:05.866Z",
     "mode": "automatic",
-    "added": 2,
-    "updated": 0,
+    "added": 3,
+    "updated": 3,
     "removed": 0,
-    "unchanged": 121,
-    "missing": 1,
+    "unchanged": 119,
+    "missing": 2,
     "conflicts": 0,
     "suppressed": 1
   }

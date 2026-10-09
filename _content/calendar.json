@@ -277,7 +277,7 @@
     },
     {
       "id": "google-087c97199e5089ffe466c9832bd3e788",
-      "title": "Family Communion service",
+      "title": "Christmas Communion service for All",
       "start": "2026-12-25T10:00",
       "end": "2026-12-25T11:00",
       "allDay": false,
@@ -324,6 +324,39 @@
       "title": "PCC meets in Ranmore Room",
       "start": "2026-11-10T19:30",
       "end": "2026-11-10T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-5c9e6cd0112311d55a584524508e1ea0",
+      "title": "Carol singing in Westhumble Chapel ruins",
+      "start": "2026-12-15T18:00",
+      "end": "2026-12-15T19:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-a1fab69e31830be2a9377845005b476e",
+      "title": "Reflective Christmas service",
+      "start": "2026-12-14T19:00",
+      "end": "2026-12-14T20:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-de089edd3907b3306e61c7f0bd2555d8",
+      "title": "Carol singing round local pubs",
+      "start": "2026-12-18T19:15",
+      "end": "2026-12-18T20:15",
       "allDay": false,
       "location": "",
       "description": "",
@@ -541,6 +574,20 @@
       "occurrenceStart": "2026-11-22T10:00",
       "changes": {
         "title": "Holy Communion with Baptism"
+      }
+    },
+    {
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2026-12-20T10:00",
+      "changes": {
+        "title": "Holy Communion with Carols"
+      }
+    },
+    {
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-12-27T10:00",
+      "changes": {
+        "title": "Informal Holy Communion (no creche)"
       }
     }
   ]
