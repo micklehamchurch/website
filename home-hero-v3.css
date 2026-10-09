@@ -1,4 +1,4 @@
-/* The existing photograph sets hero height; no cover crop or image distortion. */
+/* Non-phone framing matches the earlier large-desktop top/bottom trim. */
 .home-hero { position: relative; min-height: 0; aspect-ratio: auto; background: #18392d; }
 .home-hero .hero-overlay { display: none; background: none; }
 .home-hero-photo { display: block; }
@@ -7,6 +7,7 @@
 .home-hero h1, .home-hero .hero-copy, .home-hero .eyebrow { text-shadow: 0 1px 2px #0006; }
 .home-hero .hero-copy { max-width: 470px; }
 @media (min-width: 601px) {
+  .home-hero-photo img { aspect-ratio: 4786 / 2409; min-height: 320px; object-fit: cover; object-position: 50% 62%; }
   .home-hero .hero-content { position: absolute; top: clamp(20px, 4vw, 76px); right: clamp(16px, 3vw, 64px); width: min(36%, 520px); margin: 0; padding: clamp(12px, 1.5vw, 24px); border-radius: 8px; background: rgba(0, 0, 0, .18); }
   .home-hero .hero-content h1 { max-width: none; font-size: clamp(30px, 4vw, 58px); margin-bottom: 12px; }
   .home-hero .hero-copy { max-width: none; font-size: clamp(15px, 1.4vw, 20px); line-height: 1.5; margin: 12px 0; }
