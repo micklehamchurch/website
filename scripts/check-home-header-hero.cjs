@@ -13,6 +13,8 @@ async function scroll(page, y) {
   await page.evaluate(y => window.scrollTo({ top: y, behavior: 'instant' }), y);
 }
 async function state(page, over) {
+  // site.js appends shared header CSS; wait for it before measuring either state.
+  await page.waitForFunction(() => document.querySelector('link[href*="header-navigation.css"]')?.sheet);
   await page.waitForFunction(over => document.querySelector('header').classList.contains('is-over-hero') === over, over);
   await page.waitForFunction(over => {
     const background = getComputedStyle(document.querySelector('header')).backgroundColor;
