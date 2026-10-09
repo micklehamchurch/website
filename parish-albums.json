@@ -1,0 +1,349 @@
+{
+  "albums": [
+    {
+      "id": "harvest-family-service-2026",
+      "title": "Harvest Family Service",
+      "context": "October 2026",
+      "photos": [
+        {
+          "id": "harvest-family-service-01",
+          "source": "Harvest service 041026/WhatsApp Image 2026-10-04 at 12.29.59.jpeg",
+          "alt": "People gathered beside the Harvest refreshments table",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-01-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 45245
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-01-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 144756
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-01-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 308670
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-02",
+          "source": "Harvest service 041026/5WhatsApp Image 2026-10-04 at 16.25.47.jpeg",
+          "alt": "The congregation gathering in the church decorated for Harvest",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-02-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 48047
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-02-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 163396
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-02-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 393659
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-03",
+          "source": "Harvest service 041026/WhatsApp Image 2026-10-04 at 14.31.20.jpeg",
+          "alt": "Children and an adult showing their Harvest crafts",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-03-480.jpg",
+              "width": 480,
+              "height": 640,
+              "bytes": 76550
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-03-960.jpg",
+              "width": 960,
+              "height": 1280,
+              "bytes": 244674
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-03-1600.jpg",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 335520
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-04",
+          "source": "04102026/IMG_6531.JPG",
+          "alt": "Autumn flowers beside the church entrance",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-04-480.jpg",
+              "width": 480,
+              "height": 640,
+              "bytes": 57728
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-04-960.jpg",
+              "width": 960,
+              "height": 1280,
+              "bytes": 211421
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-04-1600.jpg",
+              "width": 1600,
+              "height": 2133,
+              "bytes": 536773
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-05",
+          "source": "Harvest service 041026/7WhatsApp Image 2026-10-04 at 16.25.47.jpeg",
+          "alt": "Families sharing refreshments after the Harvest service",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-05-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 47575
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-05-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 159559
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-05-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 389972
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-06",
+          "source": "Harvest service 041026/WhatsApp Image 2026-10-04 at 14.31.21.jpeg",
+          "alt": "The colourful Praise God for Harvest altar cloth",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-06-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 32939
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-06-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 115643
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-06-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 288934
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-07",
+          "source": "Harvest service 041026/1WhatsApp Image 2026-10-04 at 14.31.21.jpeg",
+          "alt": "People chatting outside the church porch",
+          "featured": true,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-07-480.jpg",
+              "width": 480,
+              "height": 640,
+              "bytes": 91628
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-07-960.jpg",
+              "width": 960,
+              "height": 1280,
+              "bytes": 336080
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-07-1600.jpg",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 474299
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-08",
+          "source": "Harvest service 041026/6WhatsApp Image 2026-10-04 at 16.25.47.jpeg",
+          "alt": "Harvest refreshments laid out on a table",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-08-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 35178
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-08-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 118829
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-08-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 302449
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-09",
+          "source": "Harvest service 041026/22WhatsApp Image 2026-10-04 at 16.25.47.jpeg",
+          "alt": "People choosing refreshments beneath the stained glass windows",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-09-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 47706
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-09-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 149714
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-09-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 335114
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-10",
+          "source": "Harvest service 041026/23WhatsApp Image 2026-10-04 at 16.25.48.jpeg",
+          "alt": "The congregation sharing food and fellowship",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-10-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 43551
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-10-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 131902
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-10-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 288585
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-11",
+          "source": "Harvest service 041026/14WhatsApp Image 2026-10-04 at 16.25.47.jpeg",
+          "alt": "The Harvest altar beneath the church stained glass windows",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-11-480.jpg",
+              "width": 480,
+              "height": 640,
+              "bytes": 71053
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-11-960.jpg",
+              "width": 960,
+              "height": 1280,
+              "bytes": 250093
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-11-1600.jpg",
+              "width": 1600,
+              "height": 2133,
+              "bytes": 643796
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-12",
+          "source": "04102026/IMG_6539.JPG",
+          "alt": "Pumpkins and gourds in sunlight on a stone windowsill",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-12-480.jpg",
+              "width": 480,
+              "height": 360,
+              "bytes": 28081
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-12-960.jpg",
+              "width": 960,
+              "height": 720,
+              "bytes": 98643
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-12-1600.jpg",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 254723
+            }
+          ]
+        },
+        {
+          "id": "harvest-family-service-13",
+          "source": "04102026/IMG_6533.JPG",
+          "alt": "Pumpkins and autumn flowers decorating the church",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-13-480.jpg",
+              "width": 480,
+              "height": 640,
+              "bytes": 54711
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-13-960.jpg",
+              "width": 960,
+              "height": 1280,
+              "bytes": 198000
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/harvest-family-service-13-1600.jpg",
+              "width": 1600,
+              "height": 2133,
+              "bytes": 505035
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
