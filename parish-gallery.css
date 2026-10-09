@@ -26,14 +26,15 @@
 .parish-life-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 .parish-life .parish-carousel-images { aspect-ratio: 4 / 3; border: 1px solid #d8ccb5; border-radius: 4px; }
 .parish-life .parish-life-video { border-radius: 4px; }
-.parish-life .parish-carousel-controls { gap: 10px; margin: 12px 0 4px; }
+.parish-life .parish-carousel-controls { position: absolute; bottom: clamp(8px, 1vw, 12px); left: 50%; transform: translateX(-50%); margin: 0; padding: 0 4px; border-radius: 24px; background: rgba(255, 253, 247, .88); }
 .parish-carousel-stage { position: relative; }
-.parish-life .parish-carousel-stage > button { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; border: 1px solid rgba(140, 129, 106, .45); border-radius: 50%; background: rgba(255, 253, 247, .88); color: var(--deep); cursor: pointer; font: 400 20px/1 var(--sans); transition: background-color 180ms ease, border-color 180ms ease; }
+.parish-life .parish-carousel-stage > button { position: absolute; bottom: clamp(8px, 1vw, 12px); width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; isolation: isolate; color: var(--deep); cursor: pointer; font: 400 18px/1 var(--sans); transition: background-color 180ms ease, border-color 180ms ease; }
 .parish-life .parish-carousel-stage > [data-previous] { left: clamp(10px, 1.2vw, 16px); }
 .parish-life .parish-carousel-stage > [data-next] { right: clamp(10px, 1.2vw, 16px); }
-.parish-life .parish-carousel-stage > button:hover { background: #ede5d4; border-color: var(--green, #315d49); }
+.parish-life .parish-carousel-stage > button::before { content: ''; position: absolute; inset: 4px; z-index: -1; border: 1px solid rgba(140, 129, 106, .45); border-radius: 50%; background: rgba(255, 253, 247, .88); transition: background-color 180ms ease, border-color 180ms ease; }
+.parish-life .parish-carousel-stage > button:hover::before { background: #ede5d4; border-color: var(--green, #315d49); }
 .parish-life .parish-carousel-dots { flex-wrap: nowrap; }
-.parish-life .parish-carousel-dots button { min-width: 32px; padding: 0; min-height: 44px; }
+.parish-life .parish-carousel-dots button { min-width: clamp(24px, 3.2vw, 32px); padding: 0; min-height: 44px; }
 .parish-life .parish-carousel-dots button::before { width: 6px; height: 6px; background: #8c816a; }
 .parish-life .parish-carousel-dots button[aria-pressed="true"]::before { width: 18px; height: 6px; border-radius: 3px; background: var(--green, #315d49); }
 .parish-life-video-copy { margin: 22px 0; max-width: 32ch; color: var(--deep, #18392d); font: 400 clamp(18px, 1.5vw, 21px)/1.6 var(--serif); }
@@ -66,7 +67,5 @@
   .parish-life .parish-carousel-stage > button { min-width: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .parish-life .parish-carousel-stage > button, .parish-life-column > .text-link { transition: none; }
+  .parish-life .parish-carousel-stage > button, .parish-life .parish-carousel-stage > button::before, .parish-life-column > .text-link { transition: none; }
 }
-
-.parish-life-column > .text-link[href="sunday-services.html"] { margin-top: 0; margin-bottom: 18px; }
