@@ -42,7 +42,7 @@ test('YouTube keeps secure external-link conventions near branding and Giving re
  assert.match(html,/class="nav-youtube"[^>]+target="_blank" rel="noopener noreferrer"/);
  assert.equal((html.match(/class="nav-youtube"/g)||[]).length,1);
  assert.match(html,/<div class="header-branding">[\s\S]*class="brand"[\s\S]*class="nav-youtube"[\s\S]*<\/div>\s*<button class="menu-toggle"/);
- assert.match(html,/href="calendar.html"/);assert.match(source,/footer-feature-link" href="give.html"/);
+ assert.match(html,/href="calendar.html"/);assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/href="give.html"/);
  assert(fs.existsSync(path.join(root,'give.html')));assert(JSON.parse(fs.readFileSync(path.join(root,'search-index.json'),'utf8')).some(p=>p.url==='give.html'));
 });
 test('Real accessible header search submits q to the existing search page',()=>{

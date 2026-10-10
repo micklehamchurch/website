@@ -41,10 +41,6 @@ const navigation = `
 
 const socialArea = `<section class="footer-social" aria-labelledby="footer-social-title"><h2 id="footer-social-title">Follow St Michael &amp; All Angels</h2><ul class="social-links">${socialLinks.map(link => `<li><a class="social-link" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${link.label}">${link.icon}<span>${link.name}</span><span class="social-external" aria-hidden="true">↗</span></a></li>`).join('')}</ul></section>`;
 const footer = `
-  <div class="container footer-features">
-    <section class="footer-feature-support" aria-labelledby="footer-support-title"><p class="footer-feature-kicker">Help us continue our work</p><h2 id="footer-support-title">Support our church</h2><p>Help care for our buildings, support ministry and serve our community.</p><a class="footer-feature-link" href="give.html">Ways to give <span aria-hidden="true">→</span></a></section>
-    <section class="footer-feature-diocese" aria-labelledby="footer-diocese-title"><div><p class="footer-feature-kicker">Our wider church</p><h2 id="footer-diocese-title">Part of the Diocese of Guildford</h2><p>Part of the Church of England and the Diocese of Guildford.</p><a class="footer-feature-link" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer">Learn more about the Diocese <span aria-hidden="true">→</span></a></div><a class="footer-diocese-logo" href="https://www.cofeguildford.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Diocese of Guildford website (opens in a new tab)"><span class="diocese-logo-crop"><img src="assets/branding/diocese-of-guildford-colour.png" width="2291" height="1521" alt="Diocese of Guildford logo" loading="lazy" decoding="async"></span></a></section>
-  </div>
   <div class="container footer-grid">
     <div class="footer-identity"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Gallery</a></div></div>
@@ -96,6 +92,10 @@ document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href 
 const siteScript = document.querySelector('script[src*="site.js"]');
 if (siteScript) {
   const headerStyles = document.createElement('link');
+  const footerStyles = document.createElement('link');
+  footerStyles.rel = 'stylesheet';
+  footerStyles.href = new URL('footer-standard.css?v=20261010-v1', siteScript.src).href;
+  document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261009-refinement', siteScript.src).href;
   document.head.append(headerStyles);
@@ -107,6 +107,13 @@ if (siteScript && footerBottom) {
   adminLink.href = adminUrl;
   adminLink.textContent = 'Administration — Development Preview';
   footerBottom.append(adminLink);
+  // The homepage verse script appends its acknowledgement after this hook.
+  if (!document.querySelector('.home-hero')) {
+    const bibleLink = document.createElement('a');
+    bibleLink.href = 'bible-translation.html';
+    bibleLink.textContent = 'Bible translation acknowledgement';
+    footerBottom.append(bibleLink);
+  }
 }
 
 document.querySelectorAll('[data-current-year]').forEach(node => { node.textContent = new Date().getFullYear(); });

@@ -1,0 +1,20 @@
+/* Canonical public footer, shared by the homepage and interior pages. */
+.footer[data-site-footer] > .container { width: min(1440px, 92%); }
+.footer[data-site-footer] { padding: 28px 0 14px; }
+.footer[data-site-footer] .footer-grid { grid-template-columns: 1.25fr 1fr 1fr; gap: 38px; padding-top: 0; padding-bottom: 24px; }
+.footer[data-site-footer] .footer-grid > div + div { border-left: 1px solid #ffffff24; padding-left: 38px; }
+.footer[data-site-footer] .footer-grid > .footer-identity > p { max-width: none; }
+.footer[data-site-footer] .footer-explore-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.footer[data-site-footer] .footer-grid a:not(.brand):not(.social-link) { display: flex; align-items: center; min-height: 44px; }
+.footer[data-site-footer] a.social-link { min-height: 44px; }
+.footer[data-site-footer] .footer-bottom { margin-top: 10px; padding-top: 10px; }
+.footer[data-site-footer] .footer-bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer[data-site-footer] .footer-bottom-links { gap: 4px 20px; }
+.footer[data-site-footer] .footer-credit { text-align: right; }
+@media (max-width: 999px) { .footer[data-site-footer] .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } .footer[data-site-footer] .footer-identity { grid-column: 1 / -1; } .footer[data-site-footer] .footer-grid > div + div { border-left: 0; padding-left: 0; } .footer[data-site-footer] .footer-credit { text-align: left; } }
+@media (max-width: 700px) { .footer[data-site-footer] .footer-grid { grid-template-columns: 1fr; } .footer[data-site-footer] .footer-identity { grid-column: auto; } .footer[data-site-footer] .footer-bottom { grid-template-columns: 1fr; } }
+.footer[data-site-footer] a { min-width: 44px; }
+.footer[data-site-footer] .footer-brand { min-height: 44px; }
+.footer[data-site-footer] .footer-typography-options .typography-preview { width: 100%; }
+.footer[data-site-footer] .footer-typography-options summary { min-height: 44px; padding-block: 10px; cursor: pointer; }
+.footer[data-site-footer] .footer-typography-options summary:focus-visible { outline: 3px solid #e6cf88; outline-offset: 3px; }
