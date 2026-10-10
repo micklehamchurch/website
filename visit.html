@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-  <link rel="stylesheet" href="visit.css?v=20261010-v3">
+  <link rel="stylesheet" href="visit.css?v=20261010-v4">
+  <script src="visit.js?v=20261010-v1" defer></script>
   <script src="site.js?typography=20261007-v1&header=20261009-v2&gallery=20261009-v1" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -23,17 +24,16 @@
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
   <main id="main-content" tabindex="-1">
-    <section class="visit-opening container" aria-labelledby="visit-title">
+    <section class="visit-opening" aria-labelledby="visit-title">
       <div class="visit-opening-copy">
         <p class="eyebrow">Plan a visit</p>
         <h1 id="visit-title">Plan a Visit</h1>
         <p class="visit-intro">Whether you’re joining us for worship, exploring our historic church, walking through the Surrey Hills or simply passing through, you are very welcome.</p>
-        <p class="visit-place">St Michael &amp; All Angels<br>Mickleham &amp; Westhumble</p>
-        <a class="text-link" href="#first-visit">A welcome for everyone <span aria-hidden="true">↓</span></a>
+
       </div>
       <figure class="visit-principal-photo">
         <picture>
-          <source type="image/webp" srcset="assets/images/visit/st-michaels-960.webp?v=20261010-v2 960w, assets/images/visit/st-michaels-1440.webp?v=20261010-v2 1440w" sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1388px) 55vw, 760px">
+          <source type="image/webp" srcset="assets/images/visit/st-michaels-960.webp?v=20261010-v2 960w, assets/images/visit/st-michaels-1440.webp?v=20261010-v2 1440w" sizes="(max-width: 900px) 100vw, 960px">
           <img src="assets/images/visit/st-michaels-1440.jpg?v=20261010-v2" width="1440" height="1080" alt="St Michael &amp; All Angels, with its spire, red entrance door, churchyard path and memorial cross." fetchpriority="high" decoding="async">
         </picture>
         <figcaption>A place of worship, history and welcome.</figcaption>
@@ -43,7 +43,7 @@
     <nav class="visit-planning container" aria-labelledby="planning-heading">
       <div><h2 id="planning-heading">Planning your visit</h2><p>Jump to the information you need.</p></div>
       <ul class="visit-jump-links">
-        <li><a href="#first-visit"><span aria-hidden="true">✦</span> First visit <span aria-hidden="true">↓</span></a></li>
+        <li><a href="#first-visit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V11l9-6 9 6v10H3ZM12 1v4M10 3h4M10 21v-7h4v7"/></svg> First visit <span aria-hidden="true">↓</span></a></li>
         <li><a href="#finding-us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg> Find us <span aria-hidden="true">↓</span></a></li>
         <li><a href="#church-guide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h7l2 2 2-2h7v16h-7l-2 2-2-2H3ZM12 6v16"/></svg> Church guide <span aria-hidden="true">↓</span></a></li>
         <li><a href="#history"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg> History <span aria-hidden="true">↓</span></a></li>
@@ -56,7 +56,7 @@
     <div class="container visit-sections">
       <section class="visit-section visit-editorial" id="first-visit" tabindex="-1" aria-labelledby="first-heading">
         <div><h2 id="first-heading">First visit</h2><p>Whether you’re joining a service for the first time or simply looking around, you are welcome at St Michael’s. Take your time to settle in, sit quietly, and ask someone if you need help.</p><p>You can join in with worship as much or as little as feels comfortable.</p><a class="text-link" href="what-to-expect.html">What to expect <span aria-hidden="true">→</span></a></div>
-        <aside class="visit-practical" aria-label="Before you come"><h3>Before you come</h3><dl><dt>Joining a service</dt><dd>Service formats vary. <a href="calendar.html">Check the Calendar</a> for current details.</dd><dt>Children &amp; families</dt><dd>Bringing children is welcome. <a href="children-families.html">Discover family life</a> in our parish.</dd><dt>Access &amp; practical questions</dt><dd><a href="contact.html">Contact the parish</a> to confirm opening, parking or any access arrangements you need before travelling.</dd></dl></aside>
+        <aside class="visit-practical" aria-label="Before you come"><h3>Before you come</h3><dl><dt><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16M8 14h3m2 0h3"/></svg>Joining a service</dt><dd>Service formats vary. <a href="calendar.html">Check the Calendar</a> for current details.</dd><dt><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2"/><path d="M2 21v-4a6 6 0 0 1 12 0v4M14 14a4 4 0 0 1 7 3v4"/></svg>Children &amp; families</dt><dd>Bringing children is welcome. <a href="children-families.html">Discover family life</a> in our parish.</dd><dt><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg>Access &amp; practical questions</dt><dd><a href="contact.html">Contact the parish</a> to confirm opening, parking or any access arrangements you need before travelling.</dd></dl></aside>
       </section>
 
       <section class="visit-section visit-find-grid" id="finding-us" tabindex="-1" aria-labelledby="find-heading">
@@ -76,19 +76,17 @@
 
       <div class="visit-section visit-subject-row">
       <section class="visit-subject" id="church-guide" tabindex="-1" aria-labelledby="guide-heading">
-        <div><h2 id="guide-heading">Church guide &amp; history</h2><p>Discover the architecture, features and stories of St Michael’s. Our church building pages offer an introduction to a place shaped by many generations of parish life.</p><div class="visit-link-row"><a class="text-link" href="church-building.html">Explore the church <span aria-hidden="true">→</span></a><a class="text-link" href="churchyard.html">Explore the churchyard <span aria-hidden="true">→</span></a></div></div>
-        <div class="visit-history" id="history" tabindex="-1"><h3>Our history</h3><p>The parish history traces the building’s development, its historic features and its continuing life as a place of worship and community.</p><a class="text-link" href="our-history.html">Our history <span aria-hidden="true">→</span></a></div>
+        <div><h2 id="guide-heading">Church guide &amp; history</h2><p>Explore the architecture, features and stories of St Michael’s, shaped by generations of parish life. Discover its development and continuing life as a place of worship and community.</p><div class="visit-link-row" id="history" tabindex="-1"><a class="text-link" href="church-building.html">Church guide <span aria-hidden="true">→</span></a><a class="text-link visit-button-outline" href="our-history.html">Our history <span aria-hidden="true">→</span></a></div></div>
       </section>
 
       <section class="visit-subject" id="walking" tabindex="-1" aria-labelledby="walking-heading">
-        <div><h2 id="walking-heading">Walking &amp; exploring</h2><p>St Michael’s is part of the landscape of Mickleham and Box Hill. If you encounter the church while exploring the Surrey Hills, you are very welcome.</p></div>
-        <div><h3>Along the Box Hill Hike</h3><p>The National Trust’s Box Hill Hike passes through Mickleham churchyard. It is a challenging circular walk with steep climbs and steps; check the official route and conditions before setting out.</p><a class="text-link" href="https://www.nationaltrust.org.uk/visit/surrey/box-hill/the-box-hill-hike" target="_blank" rel="noopener noreferrer">Box Hill Hike – National Trust <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
+        <div><h2 id="walking-heading">Walking &amp; exploring</h2></div>
+        <div><p>The National Trust’s Box Hill Hike passes through Mickleham churchyard. It is a challenging circular walk with steep climbs and steps; check the official route and conditions before setting out.</p><a class="text-link" href="https://www.nationaltrust.org.uk/visit/surrey/box-hill/the-box-hill-hike" target="_blank" rel="noopener noreferrer">Box Hill Hike (National Trust) <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
       </section>
 
       <section class="visit-subject" id="getting-here" tabindex="-1" aria-labelledby="travel-heading">
-        <h2 id="travel-heading">Getting here</h2><p class="visit-section-intro">Check current journey information before travelling. Mickleham church and Westhumble Chapel are separate destinations.</p>
-        <p>Arrive by car, train, the 465 bus or on foot. Box Hill &amp; Westhumble is our local station.</p>
-        <a class="text-link" href="#travel-information">Travel information <span aria-hidden="true">↓</span></a>
+        <h2 id="travel-heading">Getting here</h2><p>Arrive by car, train, the 465 bus or on foot, using Box Hill &amp; Westhumble station where appropriate. Check your onward journey: Mickleham church and Westhumble Chapel are separate destinations.</p>
+        <a class="text-link" href="#travel-information">Transport information <span aria-hidden="true">→</span></a>
       </section>
       </div>
 

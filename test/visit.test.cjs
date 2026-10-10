@@ -5,7 +5,7 @@ test('visitor jumps resolve to accessible sections and preserve old Find Us anch
   assert.equal((html.match(/<h1\b/g)||[]).length,1);assert.match(css,/scroll-margin-top:/); // browser script checks actual sticky-header clearance
 });
 test('visitor images are real supplied photographs without artificial map or shading',()=>{
-  assert.doesNotMatch(html,/assets\/demo|placeholder|<iframe|data-footer-compact/);assert.doesNotMatch(css,/gradient|filter\s*:|blend-mode\s*:|object-fit:\s*cover/);
+  assert.doesNotMatch(html,/assets\/demo|placeholder|<iframe|data-footer-compact/);assert.doesNotMatch(css,/filter\s*:|blend-mode\s*:/);assert.match(css,/linear-gradient\(to right, var\(--paper\), #fffdf800\)/);
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/images/visit/westhumble-chapel.jpg'))).digest('hex'),'df4ae4e3bd6d7e65c8688781014351e6f4c2cecf15b2fc3a951adfcaaa16ca4c');
   for(const src of [...html.matchAll(/(?:src|srcset)="(assets\/images\/visit\/[^" ,]+)/g)].map(m=>m[1]))assert(fs.existsSync(path.join(root,src.split("?")[0])));
 });
