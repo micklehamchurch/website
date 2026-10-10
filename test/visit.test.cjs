@@ -5,7 +5,7 @@ test('visitor jumps resolve to accessible sections and preserve old Find Us anch
   assert.equal((html.match(/<h1\b/g)||[]).length,1);assert.match(css,/scroll-margin-top:/); // browser script checks actual sticky-header clearance
 });
 test('visitor images are real supplied photographs without artificial map or shading',()=>{
-  assert.doesNotMatch(html,/assets\/demo|placeholder|<iframe|data-footer-compact/);assert.doesNotMatch(css,/filter\s*:|blend-mode\s*:/);assert.match(css,/linear-gradient\(to right, var\(--paper\), #fffdf800\)/);
+  assert.doesNotMatch(html,/assets\/demo|placeholder|<iframe|data-footer-compact/);assert.doesNotMatch(css,/filter\s*:|blend-mode\s*:/);assert.doesNotMatch(css,/linear-gradient|radial-gradient/);
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/images/visit/westhumble-chapel.jpg'))).digest('hex'),'df4ae4e3bd6d7e65c8688781014351e6f4c2cecf15b2fc3a951adfcaaa16ca4c');
   for(const src of [...html.matchAll(/(?:src|srcset)="(assets\/images\/visit\/[^" ,]+)/g)].map(m=>m[1]))assert(fs.existsSync(path.join(root,src.split("?")[0])));
 });
@@ -26,4 +26,4 @@ const approvedTravel=[
 ];
 test("compact travel disclosure retains every approved travel paragraph",()=>{assert.match(html,/<details class="visit-travel-details">/);assert.match(html,/<summary id="travel-information">/);for(const paragraph of approvedTravel)assert(html.includes(paragraph));assert.doesNotMatch(html,/<details[^>]*\bopen\b/);});
 
-test('desktop visitor hero uses a full-width natural photograph and left cream fade',()=>{assert.match(css,/aspect-ratio: 16 \/ 9/);assert.match(css,/top: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto/);assert.match(css,/object-position: 50% 37%/);assert.match(css,/rgba\(255, 253, 248, 0\) 45%/);assert.match(html,/sizes="100vw"/);});
+test('desktop visitor hero has a shallow full-width crop and text-only readability',()=>{assert.match(css,/aspect-ratio: 20\.8 \/ 10/);assert.match(css,/top: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto/);assert.match(css,/object-position: 50% 41%/);assert.match(css,/color: #fffdf8/);assert.match(css,/text-shadow: 0 2px 4px #000b, 0 0 1px #0009/);assert.match(css,/::after \{ content: none; display: none;/);assert.doesNotMatch(css,/gradient\(/);assert.match(html,/sizes="100vw"/);});

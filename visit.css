@@ -119,7 +119,7 @@
 .visit-opening .visit-principal-photo { position: absolute; top: -13%; right: 0; height: 122.4%; width: auto; aspect-ratio: 4 / 3; }
 .visit-opening .visit-principal-photo picture { height: 100%; }
 .visit-opening .visit-principal-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.visit-opening .visit-principal-photo::after { content: ''; position: absolute; inset: 0 auto 0 0; width: 32%; background: linear-gradient(to right, var(--paper), #fffdf800); pointer-events: none; }
+.visit-opening .visit-principal-photo::after { content: none; display: none; }
 .visit-opening figcaption { display: none; }
 .visit-planning { padding-block: 24px 16px; border: 0; }
 .visit-planning h2 { font-size: 34px; margin-bottom: 6px; }
@@ -198,10 +198,12 @@
 .visit-practical dt::before { content: none; }
 .visit-practical dt svg { position: absolute; top: 2px; left: -46px; width: 28px; height: 28px; fill: none; stroke: var(--green); stroke-width: 1.3; stroke-linecap: round; }
 @media (min-width: 901px) {
-  .visit-opening { height: auto; aspect-ratio: 16 / 9; }
+  .visit-opening { height: auto; aspect-ratio: 20.8 / 10; }
   .visit-opening .visit-principal-photo { top: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto; }
-  .visit-opening .visit-principal-photo img { object-position: 50% 37%; }
-  .visit-opening .visit-principal-photo::after { width: 100%; background: linear-gradient(to right, rgba(255, 253, 248, .97) 0%, rgba(255, 253, 248, .94) 25%, rgba(255, 253, 248, .80) 35%, rgba(255, 253, 248, 0) 45%); }
+  .visit-opening .visit-principal-photo img { object-position: 50% 41%; }
+  .visit-opening .visit-opening-copy h1 { color: #fffdf8; font-family: 'Playfair Display', Georgia, serif; text-shadow: 0 2px 4px #000b, 0 0 1px #0009; }
+  .visit-opening .visit-intro { color: #fffdf8; text-shadow: 0 1px 2px #000c, 0 2px 5px #0008; }
+  .visit-opening-copy .eyebrow { color: #ecd7a4; text-shadow: 0 1px 2px #000c, 0 2px 5px #0008; }
 }
 .visit-intro { max-width: 450px; }
 .visit-jump-links a { font-size: clamp(14px, 1.1vw, 16px); }
