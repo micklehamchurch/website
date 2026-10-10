@@ -1,0 +1,45 @@
+/* Homepage content below the approved hero only. */
+.home-content { background: var(--paper); }
+.home-content > .container, .home-content .home-quick-grid { width: min(1440px, 92%); }
+.home-quick-links { border-bottom: 1px solid #e5e1d8; padding: 28px 0 20px; }
+.home-quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-quick-item { padding: 0 28px; }
+.home-quick-item + .home-quick-item { border-left: 1px solid #e0ded6; }
+.home-quick-item svg { display: block; width: 46px; height: 46px; margin: 0 0 12px 20px; color: #9b7025; }
+.home-content .home-quick-item h2 { margin: 0 0 4px; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; }
+.home-quick-item p { margin: 0 0 6px; font-size: 16px; line-height: 1.45; }
+.home-content .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--deep); font-weight: 500; }
+.home-parish-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; padding: 28px 20px 24px; background: transparent; }
+.home-parish-column { min-width: 0; }
+.home-parish-column + .home-parish-column { position: relative; }
+.home-parish-column + .home-parish-column::before { content: ''; position: absolute; left: -32px; top: 0; bottom: 0; width: 1px; background: #e0ded6; }
+.home-content .home-parish-column h2 { margin: 0 0 14px; font-size: clamp(28px, 2.2vw, 34px); }
+.home-parish-column h2::after { content: ''; display: block; width: 44px; height: 1px; background: #9b7025; margin-top: 10px; }
+.home-content .parish-life-context { margin: 0 0 10px; min-height: 0; }
+.home-content .parish-life-context h3 { margin: 0 0 2px; font: 600 clamp(22px, 1.8vw, 28px)/1.2 var(--serif); }
+.home-content .parish-life-context p { font-size: 16px; color: var(--ink); }
+.home-content .parish-carousel-images { aspect-ratio: 2 / 1; border: 0; border-radius: 3px; }
+.home-content .parish-carousel-images img { object-fit: cover; object-position: 50% 40%; }
+.home-content .parish-carousel-images img[height="1280"] { object-fit: contain; }
+.home-about > p { margin: 0 0 16px; font-size: 16px; line-height: 1.45; }
+.home-about > img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 3px; }
+.home-gallery-link { margin-top: 2px; }
+.home-discover-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 8px 0 32px; }
+.home-discover-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid #e6e2d8; border-radius: 3px; overflow: hidden; background: #fffdf8; }
+.home-discover-card > img, .home-discover-card > .parish-life-video { display: block; width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; border-radius: 0; }
+.home-discover-card > img { object-position: 50% 30%; }
+.home-discover-copy { display: flex; flex-direction: column; align-items: flex-start; flex: 1; padding: 16px 20px 20px; }
+.home-content .home-discover-copy h2 { margin: 0 0 8px; font-size: clamp(22px, 1.8vw, 28px); }
+.home-discover-copy p { margin: 0 0 16px; font-size: 16px; line-height: 1.5; max-width: 32ch; }
+.home-content-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: auto; padding: 9px 18px; border: 1px solid #244b39; border-radius: 3px; background: #244b39; color: white; font-size: 15px; line-height: 1.4; text-decoration: none; }
+.home-content-button:hover, .home-content-button:focus-visible { background: var(--deep); color: white; text-decoration: none; }
+.home-content a:focus-visible, .home-content button:focus-visible { outline: 3px solid #947224; outline-offset: 3px; }
+@media (max-width: 1100px) { .home-quick-item { padding: 0 18px; } .home-parish-row { gap: 48px; } .home-parish-column + .home-parish-column::before { left: -24px; } .home-content-button { padding-inline: 12px; font-size: 14px; } }
+@media (max-width: 900px) { .home-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 0; } .home-quick-item:nth-child(3) { border-left: 0; } .home-parish-row { padding-inline: 0; gap: 32px; } .home-parish-column + .home-parish-column::before { left: -16px; } .home-discover-cards { gap: 14px; } .home-discover-copy { padding: 14px; } }
+@media (max-width: 700px) { .home-parish-row { grid-template-columns: 1fr; gap: 24px; } .home-parish-column + .home-parish-column::before { content: none; } .home-discover-cards { grid-template-columns: 1fr; gap: 20px; } .home-discover-card > img, .home-discover-card > .parish-life-video { aspect-ratio: 16 / 9; } .home-content .parish-carousel-images, .home-about > img { aspect-ratio: 4 / 3; } .home-discover-copy { padding: 18px; } }
+@media (max-width: 430px) { .home-quick-item { padding: 0 10px; } .home-content .home-quick-item h2 { font-size: 19px; } .home-quick-item p { font-size: 15px; } }
+.home-content .parish-carousel-controls { position: static; transform: none; justify-content: center; height: 44px; margin: 0; padding: 0; }
+.home-content .parish-carousel-stage > button { bottom: 54px; }
+.home-content .parish-carousel-dots { flex: 0 1 auto; }
+.home-content .parish-carousel-dots button { min-width: 44px; min-height: 44px; }
+.home-content .home-about > img { height: auto; }
