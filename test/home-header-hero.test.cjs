@@ -61,3 +61,5 @@ test('only the homepage loads the enhancement; no photo effects or hero edits', 
     assert.doesNotMatch(fs.readFileSync(path.join(root, file), 'utf8'), /home-header-hero\.(?:js|css)/, file);
   }
 });
+
+test('transparent homepage desktop typography is modestly larger and remains scoped',()=>{const css=fs.readFileSync(path.join(root,'home-header-hero.css'),'utf8');assert.match(css,/font-size: clamp\(14\.56px, calc\(13\.2px \+ \.1vw\), 14\.95px\)/);assert.match(css,/font-size: clamp\(10\.4px, calc\(10px \+ \.04vw\), 10\.7px\)/);assert.match(css,/box-shadow: inset 0 -2\.5px #e7d8b7/);assert.doesNotMatch(css,/\.brand strong[^{}]*\{[^}]*font-size:/);assert.match(css,/@media \(min-width: 1000px\)/);});
