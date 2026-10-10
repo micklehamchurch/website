@@ -22,7 +22,7 @@
   .site-header .nav-primary { display: flex; flex: 1; gap: 3px; }
   .site-header .nav-utilities { display: flex; gap: 8px; }
   .site-header .nav-item { width: auto; flex-shrink: 0; }
-  .site-header .nav-primary > .nav-link, .site-header .nav-trigger { display: inline-flex; width: auto; min-height: 44px; padding: 14px 3px; font-size: 13px; line-height: normal; white-space: nowrap; }
+  .site-header .nav-primary > .nav-link, .site-header .nav-trigger { display: inline-flex; width: auto; min-height: 44px; padding: 14px 3px; font-size: clamp(14.56px, calc(13.2px + .1vw), 14.95px); line-height: normal; white-space: nowrap; }
   .site-header .nav-chevron { display: none; }
   .site-header .dropdown { position: absolute; top: calc(100% - 3px); left: -12px; min-width: 230px; max-height: min(72vh, 620px); overflow-y: auto; margin: 0; padding: 8px; border: 1px solid var(--stone); border-radius: 8px; box-shadow: 0 14px 34px #18251d20; background: white; }
   .site-header .nav-item:last-of-type .dropdown { right: -10px; left: auto; }
@@ -55,4 +55,13 @@
 @media (max-width: 460px) {
   .header-branding { gap: 6px; min-width: 0; }
   .site-header .nav-wrap { gap: 8px; }
+}
+
+/* Keep the full desktop navigation clear of utilities at its narrow boundary. */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  body:not(.home-header-hero) .site-header .nav-wrap { gap: 8px; }
+  body:not(.home-header-hero) .site-header .nav { gap: 8px; }
+  body:not(.home-header-hero) .site-header .nav-primary { gap: 1px; }
+  body:not(.home-header-hero) .site-header .nav-primary > .nav-link,
+  body:not(.home-header-hero) .site-header .nav-trigger { padding-inline: 2px; }
 }
