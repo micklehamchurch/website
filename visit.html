@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-  <link rel="stylesheet" href="visit.css?v=20261010-v1">
+  <link rel="stylesheet" href="visit.css?v=20261010-v3">
   <script src="site.js?typography=20261007-v1&header=20261009-v2&gallery=20261009-v1" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -33,7 +33,7 @@
       </div>
       <figure class="visit-principal-photo">
         <picture>
-          <source type="image/webp" srcset="assets/images/visit/st-michaels-960.webp?v=20261010-v2 960w, assets/images/visit/st-michaels-1440.webp?v=20261010-v2 1440w" sizes="(max-width: 767px) calc(100vw - 48px), 480px">
+          <source type="image/webp" srcset="assets/images/visit/st-michaels-960.webp?v=20261010-v2 960w, assets/images/visit/st-michaels-1440.webp?v=20261010-v2 1440w" sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1388px) 55vw, 760px">
           <img src="assets/images/visit/st-michaels-1440.jpg?v=20261010-v2" width="1440" height="1080" alt="St Michael &amp; All Angels, with its spire, red entrance door, churchyard path and memorial cross." fetchpriority="high" decoding="async">
         </picture>
         <figcaption>A place of worship, history and welcome.</figcaption>
@@ -55,42 +55,56 @@
 
     <div class="container visit-sections">
       <section class="visit-section visit-editorial" id="first-visit" tabindex="-1" aria-labelledby="first-heading">
-        <div><p class="eyebrow">Come as you are</p><h2 id="first-heading">First visit</h2><p>Whether you’re joining a service for the first time or simply looking around, you are welcome at St Michael’s. Take your time to settle in, sit quietly, and ask someone if you need help.</p><p>You can join in with worship as much or as little as feels comfortable.</p><a class="text-link" href="what-to-expect.html">What to expect <span aria-hidden="true">→</span></a></div>
+        <div><h2 id="first-heading">First visit</h2><p>Whether you’re joining a service for the first time or simply looking around, you are welcome at St Michael’s. Take your time to settle in, sit quietly, and ask someone if you need help.</p><p>You can join in with worship as much or as little as feels comfortable.</p><a class="text-link" href="what-to-expect.html">What to expect <span aria-hidden="true">→</span></a></div>
         <aside class="visit-practical" aria-label="Before you come"><h3>Before you come</h3><dl><dt>Joining a service</dt><dd>Service formats vary. <a href="calendar.html">Check the Calendar</a> for current details.</dd><dt>Children &amp; families</dt><dd>Bringing children is welcome. <a href="children-families.html">Discover family life</a> in our parish.</dd><dt>Access &amp; practical questions</dt><dd><a href="contact.html">Contact the parish</a> to confirm opening, parking or any access arrangements you need before travelling.</dd></dl></aside>
       </section>
 
-      <section class="visit-section" id="finding-us" tabindex="-1" aria-labelledby="find-heading">
-        <p class="eyebrow">Two places, one parish</p><h2 id="find-heading">Find us</h2><p class="visit-section-intro">Our church is in Mickleham village; our Chapel of Ease is in neighbouring Westhumble. Choose your destination before setting out.</p>
+      <section class="visit-section visit-find-grid" id="finding-us" tabindex="-1" aria-labelledby="find-heading">
+        <div class="visit-find-copy"><h2 id="find-heading">Find us</h2><p class="visit-section-intro">Our church is in Mickleham village; our Chapel of Ease is in neighbouring Westhumble. Choose your destination before setting out.</p>
         <div class="visit-locations">
           <div><p class="visit-location-number" aria-hidden="true">01 / Mickleham</p><h3>St Michael &amp; All Angels Church</h3><address>Old London Road<br>Mickleham, Dorking<br>Surrey RH5 6DU</address><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> — Mickleham church (opens in a new tab)</span></a></div>
           <div><p class="visit-location-number" aria-hidden="true">02 / Westhumble</p><h3>Chapel of Ease</h3><address>Crabtree Lane<br>Westhumble<br>Surrey RH5 6BG</address><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Chapel+of+Ease+Westhumble+RH5+6BG" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> — Westhumble Chapel (opens in a new tab)</span></a></div>
         </div>
-        <div class="visit-location-context"><div><h3>See where we are</h3><p>Open both places together on Google Maps to see how the church and chapel relate to one another, and explore a walking route between them.</p></div><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU&amp;destination=Chapel+of+Ease+Westhumble+RH5+6BG&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">View both locations on Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
+        </div>
+        <aside class="visit-location-context" aria-label="Our two parish locations">
+          <h3>See where we are</h3>
+          <div class="visit-location-pair"><p><strong>St Michael &amp; All Angels</strong><span>Mickleham</span></p><span class="visit-location-connection" aria-hidden="true">↕</span><p><strong>Chapel of Ease</strong><span>Westhumble</span></p></div>
+          <p>Open both places together on Google Maps to see how the church and chapel relate to one another, and explore a walking route between them.</p>
+          <a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;origin=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU&amp;destination=Chapel+of+Ease+Westhumble+RH5+6BG&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">View both locations on Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a>
+        </aside>
       </section>
 
-      <section class="visit-section visit-editorial" id="church-guide" tabindex="-1" aria-labelledby="guide-heading">
-        <div><p class="eyebrow">Look a little closer</p><h2 id="guide-heading">Church guide &amp; history</h2><p>Discover the architecture, features and stories of St Michael’s. Our church building pages offer an introduction to a place shaped by many generations of parish life.</p><div class="visit-link-row"><a class="text-link" href="church-building.html">Explore the church <span aria-hidden="true">→</span></a><a class="text-link" href="churchyard.html">Explore the churchyard <span aria-hidden="true">→</span></a></div></div>
+      <div class="visit-section visit-subject-row">
+      <section class="visit-subject" id="church-guide" tabindex="-1" aria-labelledby="guide-heading">
+        <div><h2 id="guide-heading">Church guide &amp; history</h2><p>Discover the architecture, features and stories of St Michael’s. Our church building pages offer an introduction to a place shaped by many generations of parish life.</p><div class="visit-link-row"><a class="text-link" href="church-building.html">Explore the church <span aria-hidden="true">→</span></a><a class="text-link" href="churchyard.html">Explore the churchyard <span aria-hidden="true">→</span></a></div></div>
         <div class="visit-history" id="history" tabindex="-1"><h3>Our history</h3><p>The parish history traces the building’s development, its historic features and its continuing life as a place of worship and community.</p><a class="text-link" href="our-history.html">Our history <span aria-hidden="true">→</span></a></div>
       </section>
 
-      <section class="visit-section visit-editorial" id="walking" tabindex="-1" aria-labelledby="walking-heading">
-        <div><p class="eyebrow">In the Surrey Hills</p><h2 id="walking-heading">Walking &amp; exploring</h2><p>St Michael’s is part of the landscape of Mickleham and Box Hill. If you encounter the church while exploring the Surrey Hills, you are very welcome.</p></div>
+      <section class="visit-subject" id="walking" tabindex="-1" aria-labelledby="walking-heading">
+        <div><h2 id="walking-heading">Walking &amp; exploring</h2><p>St Michael’s is part of the landscape of Mickleham and Box Hill. If you encounter the church while exploring the Surrey Hills, you are very welcome.</p></div>
         <div><h3>Along the Box Hill Hike</h3><p>The National Trust’s Box Hill Hike passes through Mickleham churchyard. It is a challenging circular walk with steep climbs and steps; check the official route and conditions before setting out.</p><a class="text-link" href="https://www.nationaltrust.org.uk/visit/surrey/box-hill/the-box-hill-hike" target="_blank" rel="noopener noreferrer">Box Hill Hike – National Trust <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
       </section>
 
-      <section class="visit-section" id="getting-here" tabindex="-1" aria-labelledby="travel-heading">
-        <p class="eyebrow">Your journey</p><h2 id="travel-heading">Getting here</h2><p class="visit-section-intro">Check current journey information before travelling. Mickleham church and Westhumble Chapel are separate destinations.</p>
+      <section class="visit-subject" id="getting-here" tabindex="-1" aria-labelledby="travel-heading">
+        <h2 id="travel-heading">Getting here</h2><p class="visit-section-intro">Check current journey information before travelling. Mickleham church and Westhumble Chapel are separate destinations.</p>
+        <p>Arrive by car, train, the 465 bus or on foot. Box Hill &amp; Westhumble is our local station.</p>
+        <a class="text-link" href="#travel-information">Travel information <span aria-hidden="true">↓</span></a>
+      </section>
+      </div>
+
+      <details class="visit-travel-details">
+        <summary id="travel-information"><span>Travel information</span><span class="visit-travel-summary">Car, train, 465 bus &amp; walking — choose your onward journey.</span></summary>
         <div class="visit-travel-grid">
           <div><h3>By car</h3><p>For Mickleham church, use Old London Road, RH5 6DU. For the Chapel of Ease, use the Westhumble location above, RH5 6BG.</p><p>Please contact the parish to confirm parking or access arrangements rather than assuming on-site facilities.</p><a class="text-link" href="#finding-us">Choose your destination <span aria-hidden="true">↑</span></a></div>
           <div><h3>By train</h3><p>Box Hill &amp; Westhumble station is on Westhumble Street in Westhumble. For the chapel, plan your onward journey within Westhumble; for Mickleham church, allow for a separate onward walk or connection.</p><a class="text-link" href="https://www.nationalrail.co.uk/stations/box-hill-westhumble/" target="_blank" rel="noopener noreferrer">National Rail station &amp; journey information <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
           <div><h3>By bus</h3><p>The 465 links Kingston, Surbiton, Leatherhead and Dorking and serves the Mickleham Church stop. It also serves Westhumble Street; for the Chapel of Ease, check your onward route from that stop to the chapel.</p><a class="text-link" href="https://tfl.gov.uk/bus/route/465/" target="_blank" rel="noopener noreferrer">Check the current 465 route &amp; arrivals <span aria-hidden="true">↗</span><span class="visit-sr-only"> (opens in a new tab)</span></a></div>
           <div><h3>On foot</h3><p>Plan a walking route to the church or chapel using the location links above. If you’re combining a visit with Box Hill, follow the National Trust’s route advice and allow for the terrain.</p><a class="text-link" href="#walking">Walking &amp; exploring <span aria-hidden="true">↑</span></a></div>
         </div>
-      </section>
+      </details>
 
       <section class="visit-section visit-chapel" id="westhumble" tabindex="-1" aria-labelledby="chapel-heading">
         <figure><img src="assets/images/visit/westhumble-chapel.jpg" width="300" height="199" alt="The timber and brick Chapel of Ease at Westhumble, beside the lane and surrounded by trees." loading="lazy" decoding="async"><figcaption>The Chapel of Ease, Westhumble.</figcaption></figure>
-        <div><p class="eyebrow">Our parish in Westhumble</p><h2 id="chapel-heading">The Chapel of Ease, Westhumble</h2><p>Our parish also includes the Chapel of Ease in Westhumble, a quieter setting for worship and prayer and an important part of our parish community.</p><p>The parish’s earlier history describes this weatherboarded building as a former barn. Explore the chapel page, check the Calendar for current services, and contact the parish to confirm access before making a special journey.</p><div class="visit-link-row"><a class="text-link" href="westhumble-chapel.html">Plan a visit to the Chapel <span aria-hidden="true">→</span></a><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Chapel+of+Ease+Westhumble+RH5+6BG" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> — Westhumble Chapel (opens in a new tab)</span></a></div></div>
+        <div><h2 id="chapel-heading">The Chapel of Ease, Westhumble</h2><p>Our parish also includes the Chapel of Ease in Westhumble, a quieter setting for worship and prayer and an important part of our parish community.</p><p>The parish’s earlier history describes this weatherboarded building as a former barn. Explore the chapel page, check the Calendar for current services, and contact the parish to confirm access before making a special journey.</p><div class="visit-link-row"><a class="text-link" href="westhumble-chapel.html">Plan a visit to the Chapel <span aria-hidden="true">→</span></a><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Chapel+of+Ease+Westhumble+RH5+6BG" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span><span class="visit-sr-only"> — Westhumble Chapel (opens in a new tab)</span></a></div></div>
       </section>
     </div>
   </main>

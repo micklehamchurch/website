@@ -15,3 +15,13 @@ test('visitor links retain parish destinations and safely open official external
   assert.match(html,/maps\/dir\/\?api=1&amp;origin=.*&amp;destination=.*&amp;travelmode=walking/);assert.match(html,/tfl\.gov\.uk\/bus\/route\/465\//);assert.doesNotMatch(html,/\b425\b/);
   assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/href="visit.html">Plan your visit/);
 });
+
+// Preserve the approved practical travel wording while changing its presentation.
+const approvedTravel=[
+  "For Mickleham church, use Old London Road, RH5 6DU. For the Chapel of Ease, use the Westhumble location above, RH5 6BG.",
+  "Please contact the parish to confirm parking or access arrangements rather than assuming on-site facilities.",
+  "Box Hill &amp; Westhumble station is on Westhumble Street in Westhumble. For the chapel, plan your onward journey within Westhumble; for Mickleham church, allow for a separate onward walk or connection.",
+  "The 465 links Kingston, Surbiton, Leatherhead and Dorking and serves the Mickleham Church stop. It also serves Westhumble Street; for the Chapel of Ease, check your onward route from that stop to the chapel.",
+  "Plan a walking route to the church or chapel using the location links above. If you’re combining a visit with Box Hill, follow the National Trust’s route advice and allow for the terrain."
+];
+test("compact travel disclosure retains every approved travel paragraph",()=>{assert.match(html,/<details class="visit-travel-details">/);assert.match(html,/<summary id="travel-information">/);for(const paragraph of approvedTravel)assert(html.includes(paragraph));assert.doesNotMatch(html,/<details[^>]*\bopen\b/);});
