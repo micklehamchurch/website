@@ -42,3 +42,9 @@
   .home-hero .hero-actions { flex-direction: row; gap: 10px; margin-top: 18px; }
   .home-hero .hero-actions .btn { width: auto; min-height: 44px; padding: 10px 12px; font-size: 14px; }
 }
+
+/* Vision and welcome retain the approved paragraph scale and text-only readability. */
+.home-hero .hero-copy > span { display: block; }
+.home-hero .hero-vision { font-weight: 600; }
+@media (max-width: 600px) { .home-hero .hero-copy { min-height: 54px; } }
+@media (max-width: 430px) { .home-hero .hero-copy { min-height: 81px; } }
