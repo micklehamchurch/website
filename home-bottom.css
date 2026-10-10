@@ -1,0 +1,38 @@
+/* Homepage bottom only; approved sections and interior footers are unchanged. */
+.home-involvement { padding: 26px 0 30px; background: var(--paper); }
+.home-involvement > .container, .footer[data-home-footer] > .container { width: min(1440px, 92%); }
+.home-involvement-heading { margin-bottom: 22px; }
+.home-involvement .eyebrow { color: var(--deep); font-size: 11px; letter-spacing: .12em; margin: 0 0 12px; }
+.home-involvement-heading .eyebrow::after { content: ''; display: block; width: 44px; height: 2px; margin-top: 10px; background: #b99a4a; }
+.home-involvement-heading h2 { font-size: clamp(30px, 2.5vw, 38px); margin: 0; }
+.home-involvement-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.home-involvement-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 20px; align-items: start; padding: 20px; background: #fbf9f3; border: 1px solid #e3ded2; border-radius: 4px; min-width: 0; }
+.home-involvement-card > div { min-width: 0; }
+.home-involvement-card h3 { font: 600 clamp(22px, 1.8vw, 28px)/1.15 var(--serif); margin: 0 0 16px; }
+.home-involvement-card p:not(.eyebrow) { font-size: 15px; line-height: 1.55; color: #647069; margin: 0 0 4px; }
+.home-involvement-card a { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 5px; min-width: 44px; min-height: 44px; color: var(--deep); font-size: 14px; font-weight: 600; line-height: 1.5; }
+.home-involvement-badge { width: 100%; height: auto; margin-top: 10px; }
+.home-involvement-photo { display: block; width: 100%; height: 230px; object-fit: cover; object-position: 57% center; border-radius: 4px; }
+.home-involvement-diocese { align-self: center; }
+.home-involvement-diocese .diocese-logo-crop img { position: absolute; width: 144%; max-width: none; max-height: none; height: auto; left: -22%; top: -44%; }
+.home-involvement a:focus-visible { outline: 3px solid #947224; outline-offset: 3px; }
+.footer[data-home-footer] { padding: 28px 0 14px; }
+.footer[data-home-footer] .footer-grid { grid-template-columns: 1.25fr 1fr 1fr; gap: 38px; padding-top: 0; padding-bottom: 24px; }
+.footer[data-home-footer] .footer-grid > div + div { border-left: 1px solid #ffffff24; padding-left: 38px; }
+.footer[data-home-footer] .footer-grid > .footer-identity > p { max-width: none; }
+.footer[data-home-footer] .footer-explore-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.footer[data-home-footer] .footer-grid a:not(.brand):not(.social-link) { display: flex; align-items: center; min-height: 44px; }
+.footer[data-home-footer] a.social-link { min-height: 44px; }
+.footer[data-home-footer] .footer-bottom { margin-top: 10px; padding-top: 10px; }
+.footer[data-home-footer] .footer-bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer[data-home-footer] .footer-bottom-links { gap: 4px 20px; }
+.footer[data-home-footer] .footer-credit { text-align: right; }
+@media (min-width: 1000px) and (max-width: 1279px) { .home-involvement-card { grid-template-columns: 1fr; gap: 16px; } .home-involvement-badge, .home-involvement-diocese { width: 130px; height: 130px; margin: 0 auto; display: flex; align-items: center; } .home-involvement-photo { height: 130px; object-position: 50% 45%; } }
+@media (min-width: 701px) and (max-width: 999px) { .home-involvement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 999px) { .footer[data-home-footer] .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } .footer[data-home-footer] .footer-identity { grid-column: 1 / -1; } .footer[data-home-footer] .footer-grid > div + div { border-left: 0; padding-left: 0; } .footer[data-home-footer] .footer-credit { text-align: left; } }
+@media (max-width: 700px) { .home-involvement-grid { grid-template-columns: 1fr; } .home-involvement-card { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 18px; } .home-involvement-photo { height: 210px; } .footer[data-home-footer] .footer-grid { grid-template-columns: 1fr; } .footer[data-home-footer] .footer-identity { grid-column: auto; } .footer[data-home-footer] .footer-bottom { grid-template-columns: 1fr; } }
+.footer[data-home-footer] a { min-width: 44px; }
+.footer[data-home-footer] .footer-brand { min-height: 44px; }
+.home-involvement-card a { display: block; padding-block: 10px; }
+.home-involvement-card a span { margin-left: 4px; }
+.home-involvement-card a { padding-block: 0; }
