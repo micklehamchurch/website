@@ -49,6 +49,7 @@
         <button type="button" data-view="dashboard" class="is-active"><span aria-hidden="true">⌂</span> Overview</button>
         <button type="button" data-view="news"><span aria-hidden="true">▤</span> News &amp; Magazine</button>
         <button type="button" data-view="calendar"><span aria-hidden="true">▦</span> Calendar</button>
+        <button type="button" data-view="verses"><span aria-hidden="true">✝</span> Bible Verses</button>
         <button type="button" data-view="contacts"><span aria-hidden="true">♧</span> Parish Contacts</button>
         <button type="button" data-view="documents"><span aria-hidden="true">▧</span> Documents</button>
         <button type="button" data-view="services"><span aria-hidden="true">✝</span> Worship &amp; Services</button>
@@ -92,7 +93,7 @@
   </div>
   <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title"></dialog>
   <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
-  <script src="msal-auth.bundle.js?v=archive-contain-version-1" defer></script>
+  <script src="msal-auth.bundle.js?v=weekly-verses-1" defer></script>
   <script src="../publications-model.js" defer></script>
   <script src="publications-admin.js" defer></script>
   <link rel="stylesheet" href="../clergy-archive.css">
@@ -101,6 +102,9 @@
   <script src="clergy-status.js?v=archive-contain-version-1" defer></script>
   <script src="clergy-image-url.js?v=archive-commit-images-1" defer></script>
   <script src="clergy-admin.js?v=archive-commit-images-1" defer></script>
-  <script src="admin.js?v=archive-contain-version-1" defer></script>
+  <link rel="stylesheet" href="homepage-verses-admin.css?v=weekly-1">
+  <script src="../homepage-verses-model.js?v=weekly-1" defer></script>
+  <script src="homepage-verses-admin.js?v=weekly-1" defer></script>
+  <script src="admin.js?v=weekly-verses-1" defer></script>
 </body>
 </html>

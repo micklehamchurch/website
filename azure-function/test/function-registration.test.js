@@ -46,8 +46,8 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 12);
-  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, ['calendar', 'contacts', 'historical-archive'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.length, 13);
+  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, ['calendar', 'contacts', 'historical-archive', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   const timer=registrations.find(r=>r.timer);
   assert.equal(timer.name,'google-calendar-hourly');
   assert.equal(timer.options.schedule,'0 */15 * * * *');
@@ -60,6 +60,9 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   const contacts = registrations.find(r => r.name === 'contacts');
   assert.equal(contacts.options.route, 'contacts');
   assert.equal((await contacts.options.handler({ method: 'PUT' })).status, 401);
+  const verses = registrations.find(r => r.name === 'homepage-verses');
+  assert.equal(verses.options.route, 'homepage-verses');
+  assert.equal((await verses.options.handler({ method: 'PUT' })).status, 401);
   const archive = registrations.find(r => r.name === 'historical-archive');
   assert.equal(archive.options.route, 'historical-archive');
   assert.equal((await archive.options.handler({ method: 'PUT' })).status, 401);

@@ -16,7 +16,7 @@
   ];
   const sections = [
     ['dashboard', '⌂', 'Overview'], ['news', '▤', 'News & Magazine'], ['calendar', '▦', 'Calendar'], ['contacts', '♧', 'Parish Contacts'],
-    ['archive', '▧', 'Historical Archive'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Gallery'], ['media', '▷', 'Media / YouTube'],
+    ['verses', '✝', 'Bible Verses'], ['archive', '▧', 'Historical Archive'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Gallery'], ['media', '▷', 'Media / YouTube'],
     ['community', '♧', 'Our Community'], ['pages', '▤', 'Pages'], ['settings', '⚙', 'Website Settings']
   ];
   const workflowView = 'publishing';
@@ -509,7 +509,7 @@
     const view = currentView();
     document.body?.classList?.toggle('archive-admin-active', view === 'archive');
     const topbarTitle = document.querySelector('.admin-topbar-title');
-    if (topbarTitle) topbarTitle.textContent = view === 'archive' ? 'Church website · Administration' : 'Church website · Admin demo';
+    if (topbarTitle) topbarTitle.textContent = ['archive', 'verses'].includes(view) ? 'Church website · Administration' : 'Church website · Admin demo';
     setNavigation(view);
     if (!recordsReady) {
       root.innerHTML = `<p class="admin-loading" role="status">Loading the church calendar and sample articles…</p>`;
@@ -517,6 +517,7 @@
     }
     if (view === 'contacts' && !sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.error) { void loadSharedContacts(); return; }
     if (view === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.error) { void loadSharedCalendar(); return; }
+    if (view === 'verses') { window.churchHomepageVersesAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
     if (view === 'archive') { window.churchClergyAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
     const markup = view === 'dashboard' ? overview()
       : view === 'calendar' ? calendarView()

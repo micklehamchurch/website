@@ -14,6 +14,7 @@ import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 import { attachContactsApi } from './contacts-api.mjs';
+import { attachHomepageVersesApi } from './homepage-verses-api.mjs';
 import { attachClergyApi } from './clergy-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
@@ -180,6 +181,7 @@ async function checkAdminApiConnection(account, { interactive = false } = {}) {
       window.dispatchEvent(new Event('admin-news-ready'));
       window.dispatchEvent(new Event('admin-clergy-ready'));
       window.dispatchEvent(new Event('admin-contacts-ready'));
+      window.dispatchEvent(new Event('admin-homepage-verses-ready'));
     } else {
       updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
     }
@@ -301,6 +303,7 @@ async function start() {
     attachCalendarApi(msal, () => activeAdminApiAccount);
     attachGoogleSyncApi(msal, () => activeAdminApiAccount);
     attachContactsApi(msal, () => activeAdminApiAccount);
+    attachHomepageVersesApi(msal, () => activeAdminApiAccount);
     attachNewsApi(msal, () => activeAdminApiAccount);
     attachClergyApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();

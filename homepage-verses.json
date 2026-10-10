@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "verses": [
+    {
+      "id": "verse-week-01",
+      "reference": "1 Peter 5:7",
+      "translation": "NLT",
+      "quotation": "Give all your worries and cares to God, for he cares about you.",
+      "startDate": "2026-10-05",
+      "endDate": "2026-10-11",
+      "published": true,
+      "note": ""
+    }
+  ]
+}
