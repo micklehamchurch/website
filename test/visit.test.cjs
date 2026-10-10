@@ -7,7 +7,7 @@ test('visitor jumps resolve to accessible sections and preserve old Find Us anch
 test('visitor images are real supplied photographs without artificial map or shading',()=>{
   assert.doesNotMatch(html,/assets\/demo|placeholder|<iframe|data-footer-compact/);assert.doesNotMatch(css,/gradient|filter\s*:|blend-mode\s*:|object-fit:\s*cover/);
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/images/visit/westhumble-chapel.jpg'))).digest('hex'),'df4ae4e3bd6d7e65c8688781014351e6f4c2cecf15b2fc3a951adfcaaa16ca4c');
-  for(const src of [...html.matchAll(/(?:src|srcset)="(assets\/images\/visit\/[^" ,]+)/g)].map(m=>m[1]))assert(fs.existsSync(path.join(root,src)));
+  for(const src of [...html.matchAll(/(?:src|srcset)="(assets\/images\/visit\/[^" ,]+)/g)].map(m=>m[1]))assert(fs.existsSync(path.join(root,src.split("?")[0])));
 });
 test('visitor links retain parish destinations and safely open official external sources',()=>{
   for(const link of html.matchAll(/<a\b[^>]*href="(https:[^"]+)"[^>]*>/g)){assert.match(link[0],/target="_blank"/);assert.match(link[0],/rel="noopener noreferrer"/);}

@@ -27,6 +27,6 @@ No working lightweight two-marker implementation exists in this repository: the 
 
 ## Supplied photographs
 
-- Church: `IMG_6544.JPG`, original SHA-256 `EB61FB15738B126CFFD49BA9F2FD59769DAE76B4F4066E71B3EF301DA7E47D8F`. 5712 × 4284 with EXIF orientation 6 (display 4284 × 5712). Web derivatives: `assets/images/visit/st-michaels-960.webp`, `st-michaels-1440.webp`, `st-michaels-1440.jpg`. EXIF orientation correction and proportional web resizing/compression only; no enhancement, relighting, filter, cropping or AI processing. Source files untouched.
+- Church: `IMG_6548.JPG`, original SHA-256 `7AD436F5D36A62BEC74F1B6E47AD1C22D5A43C0612D5399311143A277B858747`. 5712 × 4284 landscape, EXIF orientation 1. Web derivatives: `assets/images/visit/st-michaels-960.webp`, `st-michaels-1440.webp`, `st-michaels-1440.jpg`. Proportional web resizing/compression only; no enhancement, relighting, filter, cropping or AI processing. Source files untouched.
 - Chapel: `c04d78a42928a2f9bc031048366a0387.jpg`, SHA-256 `DF4AE4E3BD6D7E65C8688781014351E6F4C2CECF15B2FC3A951ADFCAAA16CA4C`. `assets/images/visit/westhumble-chapel.jpg` is a byte-identical copy of the supplied 300 × 199 JPEG; displayed at no more than 300 CSS pixels, without upscaling or cropping.
 - Both displayed with natural aspect ratio (`height: auto`), no text over photographs, no overlay, gradient, filter or blend mode.
