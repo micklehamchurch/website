@@ -26,6 +26,15 @@
       "description": "Eighteenth Sunday after Trinity",
       "pdf": "assets/documents/news/pews-news/pews-news-2026-10-04.pdf",
       "published": true
+    },
+    {
+      "id": "pews-news-2026-10-10",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-10-10",
+      "description": "",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-10-10.pdf",
+      "published": true
     }
   ]
 }
