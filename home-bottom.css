@@ -36,3 +36,4 @@
 .home-involvement-card a { display: block; padding-block: 10px; }
 .home-involvement-card a span { margin-left: 4px; }
 .home-involvement-card a { padding-block: 0; }
+.home-involvement-card a .home-involvement-cta-tail { margin-left: 0; white-space: nowrap; }
