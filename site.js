@@ -64,6 +64,31 @@ const footer = `
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
+// Legal information can opt into the same useful footer without promotional features.
+const compactFooter = document.querySelector('[data-site-footer][data-footer-compact]');
+if (compactFooter) {
+  compactFooter.querySelector('.footer-features')?.remove();
+  const identity = compactFooter.querySelector('.footer-identity');
+  const relationship = document.createElement('p');
+  relationship.className = 'footer-diocese-note';
+  relationship.append('Church of England · ');
+  const diocese = document.createElement('a');
+  diocese.href = 'https://www.cofeguildford.org.uk/';
+  diocese.textContent = 'Diocese of Guildford';
+  diocese.target = '_blank';
+  diocese.rel = 'noopener noreferrer';
+  relationship.append(diocese, '.');
+  identity?.append(relationship);
+  const preview = compactFooter.querySelector('.typography-preview');
+  if (preview) {
+    const details = document.createElement('details');
+    details.className = 'container footer-typography-options';
+    const summary = document.createElement('summary');
+    summary.textContent = 'Typography preview (Dev)';
+    preview.before(details);
+    details.append(summary, preview);
+  }
+}
 document.dispatchEvent(new Event('typography-preview-ready'));
 // The contextual Media link shares the same confirmed channel as the footer.
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });

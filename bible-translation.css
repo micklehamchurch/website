@@ -1,0 +1,23 @@
+/* Page-only refinements; normal site footers keep their existing presentation. */
+.bible-acknowledgement { background: var(--cream); }
+.bible-acknowledgement main { padding: clamp(36px, 4vw, 60px) 0 40px; }
+.bible-acknowledgement .acknowledgement-content { max-width: 760px; }
+.bible-acknowledgement h1 { font-family: var(--serif); color: var(--deep); font-size: clamp(32px, 3.2vw, 46px); line-height: 1.2; margin: 0 0 28px; }
+.bible-acknowledgement main h2 { color: var(--green); font-size: 22px; line-height: 1.35; margin: 0 0 12px; }
+.bible-acknowledgement main p { margin: 0 0 16px; }
+.bible-acknowledgement .translation-acknowledgement { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--gold); }
+.bible-acknowledgement main .acknowledgement-return { margin: 26px 0 0; }
+.bible-acknowledgement main .text-link { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; white-space: normal; }
+.bible-acknowledgement .footer .footer-grid { padding-top: 0; }
+.bible-acknowledgement .footer .footer-brand { min-height: 44px; }
+.bible-acknowledgement .footer .footer-grid a:not(.brand) { min-height: 44px; }
+.bible-acknowledgement .footer .footer-diocese-note { margin-top: 8px; }
+.bible-acknowledgement .footer .footer-diocese-note a { display: inline-flex; align-items: center; min-height: 44px; font-size: inherit; color: #f1e5bc; }
+.bible-acknowledgement .footer-typography-options { margin-top: 20px; padding-top: 8px; border-top: 1px solid #ffffff30; }
+.bible-acknowledgement .footer-typography-options summary { display: list-item; width: fit-content; min-height: 44px; padding: 10px 0; color: #d9e2dc; font-size: 13px; cursor: pointer; }
+.bible-acknowledgement .footer-typography-options summary:focus-visible { outline: 3px solid #e6cf88; outline-offset: 4px; }
+.bible-acknowledgement .footer-typography-options .typography-preview { width: 100%; padding: 12px 0; border: 0; }
+.bible-acknowledgement .footer .footer-bottom { margin-top: 12px; }
+@media (max-width: 600px) {
+  .bible-acknowledgement .footer .footer-bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+}
