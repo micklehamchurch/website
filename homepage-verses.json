@@ -10,6 +10,516 @@
       "endDate": "2026-10-11",
       "published": true,
       "note": ""
+    },
+    {
+      "id": "verse-week-02",
+      "reference": "1 John 1:5",
+      "translation": "Website paraphrase",
+      "quotation": "God is light; there is no darkness in him.",
+      "startDate": "2026-10-12",
+      "endDate": "2026-10-18",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-03",
+      "reference": "Jeremiah 29:11",
+      "translation": "Website paraphrase",
+      "quotation": "God knows his plans for us—plans that offer hope and a future.",
+      "startDate": "2026-10-19",
+      "endDate": "2026-10-25",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-04",
+      "reference": "Proverbs 3:5–6",
+      "translation": "Website paraphrase",
+      "quotation": "Trust God wholeheartedly rather than relying only on your own understanding.",
+      "startDate": "2026-10-26",
+      "endDate": "2026-11-01",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-05",
+      "reference": "Psalm 46:10",
+      "translation": "Website paraphrase",
+      "quotation": "Be still and recognise that God is God.",
+      "startDate": "2026-11-02",
+      "endDate": "2026-11-08",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-06",
+      "reference": "Philippians 4:13",
+      "translation": "Website paraphrase",
+      "quotation": "Christ gives us the strength we need.",
+      "startDate": "2026-11-09",
+      "endDate": "2026-11-15",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-07",
+      "reference": "1 Corinthians 16:14",
+      "translation": "Website paraphrase",
+      "quotation": "Everything we do should be done with love.",
+      "startDate": "2026-11-16",
+      "endDate": "2026-11-22",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-08",
+      "reference": "Psalm 119:105",
+      "translation": "Website paraphrase",
+      "quotation": "God's word provides light and guidance for our path.",
+      "startDate": "2026-11-23",
+      "endDate": "2026-11-29",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-09",
+      "reference": "Isaiah 41:10",
+      "translation": "Website paraphrase",
+      "quotation": "Don't be afraid: God is with us and gives us strength.",
+      "startDate": "2026-11-30",
+      "endDate": "2026-12-06",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-10",
+      "reference": "Matthew 11:28",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus invites the weary and burdened to come to him for rest.",
+      "startDate": "2026-12-07",
+      "endDate": "2026-12-13",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-11",
+      "reference": "Psalm 23:1",
+      "translation": "Website paraphrase",
+      "quotation": "The Lord is our shepherd and provides what we need.",
+      "startDate": "2026-12-14",
+      "endDate": "2026-12-20",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-12",
+      "reference": "Micah 6:8",
+      "translation": "Website paraphrase",
+      "quotation": "Do what is right, love mercy and walk humbly with God.",
+      "startDate": "2026-12-21",
+      "endDate": "2026-12-27",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-13",
+      "reference": "John 8:12",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus is the light of the world; following him leads to life.",
+      "startDate": "2026-12-28",
+      "endDate": "2027-01-03",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-14",
+      "reference": "John 3:16",
+      "translation": "Website paraphrase",
+      "quotation": "God loved the world so much that he gave his Son.",
+      "startDate": "2027-01-04",
+      "endDate": "2027-01-10",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-15",
+      "reference": "John 11:25",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus declares himself to be the resurrection and the life.",
+      "startDate": "2027-01-11",
+      "endDate": "2027-01-17",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-16",
+      "reference": "Matthew 28:6",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus is not in the tomb—he has risen.",
+      "startDate": "2027-01-18",
+      "endDate": "2027-01-24",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-17",
+      "reference": "Romans 8:38–39",
+      "translation": "Website paraphrase",
+      "quotation": "Nothing can separate us from God's love.",
+      "startDate": "2027-01-25",
+      "endDate": "2027-01-31",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-18",
+      "reference": "Psalm 118:24",
+      "translation": "Website paraphrase",
+      "quotation": "This day comes from the Lord; rejoice and be glad in it.",
+      "startDate": "2027-02-01",
+      "endDate": "2027-02-07",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-19",
+      "reference": "Matthew 5:14",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus tells his followers that they are the light of the world.",
+      "startDate": "2027-02-08",
+      "endDate": "2027-02-14",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-20",
+      "reference": "John 14:6",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus is the way, the truth and the life.",
+      "startDate": "2027-02-15",
+      "endDate": "2027-02-21",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-21",
+      "reference": "Acts 1:8",
+      "translation": "Website paraphrase",
+      "quotation": "The Holy Spirit gives Jesus' followers power to be his witnesses.",
+      "startDate": "2027-02-22",
+      "endDate": "2027-02-28",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-22",
+      "reference": "Galatians 5:22–23",
+      "translation": "Website paraphrase",
+      "quotation": "The Spirit produces love, joy, peace, patience, kindness and other good fruit.",
+      "startDate": "2027-03-01",
+      "endDate": "2027-03-07",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-23",
+      "reference": "Romans 15:13",
+      "translation": "Website paraphrase",
+      "quotation": "Trusting God fills us with joy, peace and overflowing hope.",
+      "startDate": "2027-03-08",
+      "endDate": "2027-03-14",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-24",
+      "reference": "Psalm 139:14",
+      "translation": "Website paraphrase",
+      "quotation": "We can praise God because we are wonderfully made.",
+      "startDate": "2027-03-15",
+      "endDate": "2027-03-21",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-25",
+      "reference": "Matthew 6:33",
+      "translation": "Website paraphrase",
+      "quotation": "Seek God's kingdom above everything else.",
+      "startDate": "2027-03-22",
+      "endDate": "2027-03-28",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-26",
+      "reference": "Philippians 4:6–7",
+      "translation": "Website paraphrase",
+      "quotation": "Instead of worrying, pray about everything and experience God's peace.",
+      "startDate": "2027-03-29",
+      "endDate": "2027-04-04",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-27",
+      "reference": "Psalm 37:4",
+      "translation": "Website paraphrase",
+      "quotation": "Find joy in the Lord and entrust your desires to him.",
+      "startDate": "2027-04-05",
+      "endDate": "2027-04-11",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-28",
+      "reference": "Matthew 5:16",
+      "translation": "Website paraphrase",
+      "quotation": "Let your light shine so that others see the good you do and glorify God.",
+      "startDate": "2027-04-12",
+      "endDate": "2027-04-18",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-29",
+      "reference": "Joshua 1:9",
+      "translation": "Website paraphrase",
+      "quotation": "Be strong and courageous because God is with you wherever you go.",
+      "startDate": "2027-04-19",
+      "endDate": "2027-04-25",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-30",
+      "reference": "Psalm 121:1–2",
+      "translation": "Website paraphrase",
+      "quotation": "Our help ultimately comes from the Lord, maker of heaven and earth.",
+      "startDate": "2027-04-26",
+      "endDate": "2027-05-02",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-31",
+      "reference": "Colossians 3:14",
+      "translation": "Website paraphrase",
+      "quotation": "Above everything else, put on love, which binds people together.",
+      "startDate": "2027-05-03",
+      "endDate": "2027-05-09",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-32",
+      "reference": "Hebrews 13:8",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus Christ remains the same yesterday, today and forever.",
+      "startDate": "2027-05-10",
+      "endDate": "2027-05-16",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-33",
+      "reference": "Ephesians 2:10",
+      "translation": "Website paraphrase",
+      "quotation": "We are God's workmanship, created in Christ to do good works.",
+      "startDate": "2027-05-17",
+      "endDate": "2027-05-23",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-34",
+      "reference": "Psalm 100:5",
+      "translation": "Website paraphrase",
+      "quotation": "The Lord is good; his love and faithfulness continue through generations.",
+      "startDate": "2027-05-24",
+      "endDate": "2027-05-30",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-35",
+      "reference": "Matthew 18:20",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus promises his presence when people gather in his name.",
+      "startDate": "2027-05-31",
+      "endDate": "2027-06-06",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-36",
+      "reference": "Romans 12:12",
+      "translation": "Website paraphrase",
+      "quotation": "Rejoice in hope, be patient through trouble and continue praying.",
+      "startDate": "2027-06-07",
+      "endDate": "2027-06-13",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-37",
+      "reference": "Psalm 133:1",
+      "translation": "Website paraphrase",
+      "quotation": "It is beautiful when God's people live together in unity.",
+      "startDate": "2027-06-14",
+      "endDate": "2027-06-20",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-38",
+      "reference": "Isaiah 40:31",
+      "translation": "Website paraphrase",
+      "quotation": "Those who trust in the Lord receive renewed strength.",
+      "startDate": "2027-06-21",
+      "endDate": "2027-06-27",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-39",
+      "reference": "Psalm 107:1",
+      "translation": "Website paraphrase",
+      "quotation": "Give thanks to God because he is good and his faithful love continues.",
+      "startDate": "2027-06-28",
+      "endDate": "2027-07-04",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-40",
+      "reference": "James 1:17",
+      "translation": "Website paraphrase",
+      "quotation": "Everything that is good ultimately comes as a gift from God.",
+      "startDate": "2027-07-05",
+      "endDate": "2027-07-11",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-41",
+      "reference": "Colossians 3:15",
+      "translation": "Website paraphrase",
+      "quotation": "Allow Christ's peace to rule in your hearts and live thankfully.",
+      "startDate": "2027-07-12",
+      "endDate": "2027-07-18",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-42",
+      "reference": "Psalm 95:1–2",
+      "translation": "Website paraphrase",
+      "quotation": "Come joyfully before God with worship and thanksgiving.",
+      "startDate": "2027-07-19",
+      "endDate": "2027-07-25",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-43",
+      "reference": "Matthew 22:37–39",
+      "translation": "Website paraphrase",
+      "quotation": "Love God wholeheartedly and love your neighbour as yourself.",
+      "startDate": "2027-07-26",
+      "endDate": "2027-08-01",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-44",
+      "reference": "John 13:34",
+      "translation": "Website paraphrase",
+      "quotation": "Jesus commands his followers to love one another as he has loved them.",
+      "startDate": "2027-08-02",
+      "endDate": "2027-08-08",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-45",
+      "reference": "Psalm 27:1",
+      "translation": "Website paraphrase",
+      "quotation": "The Lord is our light and salvation, so we need not live in fear.",
+      "startDate": "2027-08-09",
+      "endDate": "2027-08-15",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-46",
+      "reference": "Psalm 56:3",
+      "translation": "Website paraphrase",
+      "quotation": "When we are afraid, we can put our trust in God.",
+      "startDate": "2027-08-16",
+      "endDate": "2027-08-22",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-47",
+      "reference": "Psalm 9:1",
+      "translation": "Website paraphrase",
+      "quotation": "Thank God wholeheartedly and tell of the wonderful things he has done.",
+      "startDate": "2027-08-23",
+      "endDate": "2027-08-29",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-48",
+      "reference": "Romans 12:10",
+      "translation": "Website paraphrase",
+      "quotation": "Love one another genuinely and take delight in honouring others.",
+      "startDate": "2027-08-30",
+      "endDate": "2027-09-05",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-49",
+      "reference": "Isaiah 9:6",
+      "translation": "Website paraphrase",
+      "quotation": "A child is given to us—the promised ruler whose names reveal who he is.",
+      "startDate": "2027-09-06",
+      "endDate": "2027-09-12",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-50",
+      "reference": "Luke 1:37",
+      "translation": "Website paraphrase",
+      "quotation": "Nothing is impossible with God.",
+      "startDate": "2027-09-13",
+      "endDate": "2027-09-19",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-51",
+      "reference": "Luke 2:10–11",
+      "translation": "Website paraphrase",
+      "quotation": "The angel announces wonderful news of great joy: the Saviour has been born.",
+      "startDate": "2027-09-20",
+      "endDate": "2027-09-26",
+      "published": true,
+      "note": ""
+    },
+    {
+      "id": "verse-week-52",
+      "reference": "John 1:5",
+      "translation": "Website paraphrase",
+      "quotation": "God's light shines in the darkness, and darkness cannot overcome it.",
+      "startDate": "2027-09-27",
+      "endDate": "2027-10-03",
+      "published": true,
+      "note": ""
     }
   ]
 }
