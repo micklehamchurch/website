@@ -198,7 +198,10 @@
 .visit-practical dt::before { content: none; }
 .visit-practical dt svg { position: absolute; top: 2px; left: -46px; width: 28px; height: 28px; fill: none; stroke: var(--green); stroke-width: 1.3; stroke-linecap: round; }
 @media (min-width: 901px) {
-  .visit-opening .visit-principal-photo { top: -17%; height: 146%; right: min(0px, calc((100vw - 1800px) * .28)); }
+  .visit-opening { height: auto; aspect-ratio: 16 / 9; }
+  .visit-opening .visit-principal-photo { top: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+  .visit-opening .visit-principal-photo img { object-position: 50% 37%; }
+  .visit-opening .visit-principal-photo::after { width: 100%; background: linear-gradient(to right, rgba(255, 253, 248, .97) 0%, rgba(255, 253, 248, .94) 25%, rgba(255, 253, 248, .80) 35%, rgba(255, 253, 248, 0) 45%); }
 }
 .visit-intro { max-width: 450px; }
 .visit-jump-links a { font-size: clamp(14px, 1.1vw, 16px); }

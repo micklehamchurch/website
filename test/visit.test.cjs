@@ -25,3 +25,5 @@ const approvedTravel=[
   "Plan a walking route to the church or chapel using the location links above. If you’re combining a visit with Box Hill, follow the National Trust’s route advice and allow for the terrain."
 ];
 test("compact travel disclosure retains every approved travel paragraph",()=>{assert.match(html,/<details class="visit-travel-details">/);assert.match(html,/<summary id="travel-information">/);for(const paragraph of approvedTravel)assert(html.includes(paragraph));assert.doesNotMatch(html,/<details[^>]*\bopen\b/);});
+
+test('desktop visitor hero uses a full-width natural photograph and left cream fade',()=>{assert.match(css,/aspect-ratio: 16 \/ 9/);assert.match(css,/top: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto/);assert.match(css,/object-position: 50% 37%/);assert.match(css,/rgba\(255, 253, 248, 0\) 45%/);assert.match(html,/sizes="100vw"/);});
