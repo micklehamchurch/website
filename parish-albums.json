@@ -29,7 +29,8 @@
               "height": 1200,
               "bytes": 308670
             }
-          ]
+          ],
+          "caption": "People gathered beside the Harvest refreshments table"
         },
         {
           "id": "harvest-family-service-02",
@@ -55,7 +56,8 @@
               "height": 1200,
               "bytes": 393659
             }
-          ]
+          ],
+          "caption": "The congregation gathering in the church decorated for Harvest"
         },
         {
           "id": "harvest-family-service-03",
@@ -81,7 +83,8 @@
               "height": 1600,
               "bytes": 335520
             }
-          ]
+          ],
+          "caption": "Children and an adult showing their Harvest crafts"
         },
         {
           "id": "harvest-family-service-04",
@@ -107,7 +110,8 @@
               "height": 2133,
               "bytes": 536773
             }
-          ]
+          ],
+          "caption": "Autumn flowers beside the church entrance"
         },
         {
           "id": "harvest-family-service-05",
@@ -133,7 +137,8 @@
               "height": 1200,
               "bytes": 389972
             }
-          ]
+          ],
+          "caption": "Families sharing refreshments after the Harvest service"
         },
         {
           "id": "harvest-family-service-06",
@@ -159,7 +164,8 @@
               "height": 1200,
               "bytes": 288934
             }
-          ]
+          ],
+          "caption": "The colourful Praise God for Harvest altar cloth"
         },
         {
           "id": "harvest-family-service-07",
@@ -185,7 +191,8 @@
               "height": 1600,
               "bytes": 474299
             }
-          ]
+          ],
+          "caption": "People chatting outside the church porch"
         },
         {
           "id": "harvest-family-service-08",
@@ -211,7 +218,8 @@
               "height": 1200,
               "bytes": 302449
             }
-          ]
+          ],
+          "caption": "Harvest refreshments laid out on a table"
         },
         {
           "id": "harvest-family-service-09",
@@ -237,7 +245,8 @@
               "height": 1200,
               "bytes": 335114
             }
-          ]
+          ],
+          "caption": "People choosing refreshments beneath the stained glass windows"
         },
         {
           "id": "harvest-family-service-10",
@@ -263,7 +272,8 @@
               "height": 1200,
               "bytes": 288585
             }
-          ]
+          ],
+          "caption": "The congregation sharing food and fellowship"
         },
         {
           "id": "harvest-family-service-11",
@@ -289,7 +299,8 @@
               "height": 2133,
               "bytes": 643796
             }
-          ]
+          ],
+          "caption": "The Harvest altar beneath the church stained glass windows"
         },
         {
           "id": "harvest-family-service-12",
@@ -315,7 +326,8 @@
               "height": 1200,
               "bytes": 254723
             }
-          ]
+          ],
+          "caption": "Pumpkins and gourds in sunlight on a stone windowsill"
         },
         {
           "id": "harvest-family-service-13",
@@ -341,9 +353,37 @@
               "height": 2133,
               "bytes": 505035
             }
-          ]
+          ],
+          "caption": "Pumpkins and autumn flowers decorating the church"
+        },
+        {
+          "id": "photo-e028f075-b81a-4ac5-a7ea-796e12b224d5",
+          "alt": "Autumn flowers and pumpkins decorating St Michael’s Church.",
+          "variants": [
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/photo-e028f075-b81a-4ac5-a7ea-796e12b224d5-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 13606
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/photo-e028f075-b81a-4ac5-a7ea-796e12b224d5-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 37232
+            },
+            {
+              "src": "assets/images/albums/harvest-family-service-2026/photo-e028f075-b81a-4ac5-a7ea-796e12b224d5-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 76530
+            }
+          ],
+          "caption": ""
         }
-      ]
+      ],
+      "status": "published",
+      "cover": "harvest-family-service-01"
     },
     {
       "id": "eco-group-working-parties",
