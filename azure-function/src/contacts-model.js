@@ -28,8 +28,16 @@ function validateContacts(data) {
       if (record.phone !== undefined) { text(record.phone, 60, true); if (record.phone && (!/^[+0-9().\s-]+$/.test(record.phone) || record.phone.replace(/\D/g, '').length < 7 || record.phone.replace(/\D/g, '').length > 20)) throw new Error('invalid-phone'); }
       if (record.groupId !== undefined && !slug(record.groupId)) throw new Error('invalid-group');
     }
-    // Reserved optional asset reference only; no photo rendering or upload is enabled.
-    if (record.photo !== undefined && (typeof record.photo !== 'string' || (record.photo !== '' && !/^assets\/images\/contacts\/[a-z0-9-]+\.(?:jpg|jpeg|png|webp)$/.test(record.photo)))) throw new Error('invalid-photo');
+    if (record.photo && typeof record.photo === 'object') {
+      keys(record.photo, ['variants', 'position']);
+      if (!['top', 'center', 'bottom'].includes(record.photo.position) || !Array.isArray(record.photo.variants) || !record.photo.variants.length || record.photo.variants.length > 2) throw Error('invalid-photo');
+      let previous = 0;
+      for (const v of record.photo.variants) {
+        keys(v, ['src','width','height','bytes']);
+        if (typeof v.src !== 'string' || !/^assets\/images\/contacts\/profiles\/photo-[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}-(?:400|800)\.webp$/.test(v.src) || !Number.isInteger(v.width) || v.width <= previous || v.width > 800 || !Number.isInteger(v.height) || v.height < 1 || v.height > 800 || !Number.isInteger(v.bytes) || v.bytes < 1 || v.bytes > 10*1024*1024) throw Error('invalid-photo');
+        previous = v.width;
+      }
+    } else if (record.photo !== undefined && (typeof record.photo !== 'string' || (record.photo !== '' && !/^assets\/images\/contacts\/[a-z0-9-]+\.(?:jpg|jpeg|png|webp)$/.test(record.photo)))) throw new Error('invalid-photo');
   }
   if (Buffer.byteLength(JSON.stringify(data)) > MAX_CONTACTS_BYTES) throw new RangeError('contacts-too-large');
   return data;

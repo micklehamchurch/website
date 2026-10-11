@@ -9,7 +9,7 @@ const initial = () => ({ok:true,sha:'a'.repeat(40),contacts:directory()});
 async function harness({ publish = async () => ({ ok: true, sha: 'c'.repeat(40) }) } = {}) {
   const elements = new Map(), listeners = {}, calls = [], storage = [], monitors = [];
   const node = selector => {
-    if (!elements.has(selector)) elements.set(selector, { innerHTML: '', textContent: '', dataset: {}, hidden: false, listeners: {}, classList: { toggle() {}, add() {}, remove() {} }, querySelector: node, querySelectorAll: () => [], setAttribute() {}, focus() {}, showModal() {}, close() {}, reportValidity: () => true,
+    if (!elements.has(selector)) elements.set(selector, { style:{}, value:'top', innerHTML: '', textContent: '', dataset: {}, hidden: false, listeners: {}, classList: { toggle() {}, add() {}, remove() {} }, querySelector: node, querySelectorAll: () => [], setAttribute() {}, focus() {}, showModal() {}, close() {}, reportValidity: () => true,
       addEventListener(name, callback) { this.listeners[name] = callback; } });
     return elements.get(selector);
   };

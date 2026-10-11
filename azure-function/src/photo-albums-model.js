@@ -112,7 +112,7 @@ function formatOf(bytes) {
   }
   throw Error('album-unsupported-format');
 }
-async function processUploads(values, albumId) {
+async function processUploads(values, albumId, profile = false) {
   const photos = new Map(), files = [];
   for (const u of values) {
     const bytes = Buffer.from(u.base64,'base64');
@@ -125,11 +125,11 @@ async function processUploads(values, albumId) {
       const decoder = sharp(bytes,{limitInputPixels:40000000,failOn:'warning'}), m = await decoder.metadata();
       if (m.format !== format || (m.pages || 1) !== 1 || !m.width || !m.height) throw Error('album-invalid-image');
       const id = `photo-${randomUUID()}`, variants = []; let lastWidth = 0;
-      for (const [size,quality] of [[480,78],[960,82],[1600,84]]) {
+      for (const [size,quality] of (profile ? [[400,80],[800,84]] : [[480,78],[960,82],[1600,84]])) {
         const output = await decoder.clone().rotate().resize({width:size,height:size,fit:'inside',withoutEnlargement:true}).webp({quality,effort:4}).toBuffer({resolveWithObject:true});
         if (output.info.width === lastWidth) continue; // Small originals need only one derivative.
         lastWidth = output.info.width;
-        const src = `assets/images/albums/${albumId}/${id}-${size}.webp`;
+        const src = profile ? `assets/images/contacts/profiles/${id}-${size}.webp` : `assets/images/albums/${albumId}/${id}-${size}.webp`;
         variants.push({src,width:output.info.width,height:output.info.height,bytes:output.data.length});
         files.push({path:src,bytes:output.data});
       }

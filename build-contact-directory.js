@@ -39,6 +39,12 @@ for (const contact of contacts) {
 }
 for (const member of pccMembers) if (!member.name?.trim()) throw new Error(`PCC member "${member.id}" needs a name.`);
 
+function portrait(record) {
+  if (!record.photo) return '';
+  if (typeof record.photo === 'string') return `<img class="directory-portrait" src="${esc(record.photo)}" alt="${esc(record.name)}" width="88" height="132" loading="lazy" decoding="async">`;
+  const p=record.photo, v=p.variants[0];
+  return `<img class="directory-portrait profile-derivative" src="${esc(v.src)}" srcset="${p.variants.map(v=>esc(v.src)+' '+v.width+'w').join(', ')}" sizes="88px" style="object-position:center ${esc(p.position)}" alt="${esc(record.name)}" width="88" height="132" loading="lazy" decoding="async">`;
+}
 function contactCard(records) {
   const first = records[0];
   const people = records.map(record => {
@@ -46,7 +52,7 @@ function contactCard(records) {
       record.phone ? `<p class="directory-method"><span class="contact-icon" aria-hidden="true">☎</span><a href="tel:${esc(record.phone.replace(/[^+\d]/g, ''))}">${esc(record.phone)}</a></p>` : '',
       record.email ? `<p class="directory-method"><span class="contact-icon" aria-hidden="true">✉</span><a href="mailto:${esc(record.email)}">${esc(record.email)}</a></p>` : ''
     ].filter(Boolean).join('');
-    return `<div class="directory-person${record.photo ? ' has-portrait' : ''}">${record.photo ? `<img class="directory-portrait" src="${esc(record.photo)}" alt="${esc(record.name)}" width="88" height="132" loading="lazy" decoding="async">` : ''}<div class="directory-person-details"><p class="directory-name">${esc(record.name)}</p>${methods ? `<div class="directory-contacts">${methods}</div>` : ''}</div></div>`;
+    return `<div class="directory-person${record.photo ? ' has-portrait' : ''}">${portrait(record)}<div class="directory-person-details"><p class="directory-name">${esc(record.name)}</p>${methods ? `<div class="directory-contacts">${methods}</div>` : ''}</div></div>`;
   }).join('');
   return `<article class="directory-entry"><h3>${esc(first.role)}</h3>${people}</article>`;
 }
@@ -64,7 +70,7 @@ function sectionMarkup(section) {
 
 const publishedMembers = pccMembers.filter(member => member.status === 'published');
 const pccSection = sections.find(section => section.id === 'pcc-members') || { id: 'pcc-members', title: 'PCC members', eyebrow: 'Parish Council' };
-const renderedDirectory = `<div class="directory-grid">${sections.filter(section => section.id !== 'pcc-members').map(sectionMarkup).join('')}<section class="directory-group directory-group-pcc" aria-labelledby="directory-pcc"><div class="directory-section-heading"><p class="eyebrow">${esc(pccSection.eyebrow)}</p><h2 id="directory-pcc">${esc(pccSection.title)}</h2></div><ul class="pcc-list">${publishedMembers.map(member => `<li>${esc(member.name)}</li>`).join('')}</ul></section></div>`;
+const renderedDirectory = `<div class="directory-grid">${sections.filter(section => section.id !== 'pcc-members').map(sectionMarkup).join('')}<section class="directory-group directory-group-pcc" aria-labelledby="directory-pcc"><div class="directory-section-heading"><p class="eyebrow">${esc(pccSection.eyebrow)}</p><h2 id="directory-pcc">${esc(pccSection.title)}</h2></div><ul class="pcc-list">${publishedMembers.map(member => member.photo ? `<li class="directory-person has-portrait">${portrait(member)}<span>${esc(member.name)}</span></li>` : `<li>${esc(member.name)}</li>`).join('')}</ul></section></div>`;
 
 const template = fs.readFileSync(templatePath, 'utf8');
 if (!template.includes('<!-- GENERATED_CONTACT_DIRECTORY -->')) throw new Error('Directory template is missing its generated content marker.');

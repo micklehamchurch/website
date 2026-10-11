@@ -1,10 +1,11 @@
 const { requireAdministrator } = require('./identity');
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
 const { validateContacts, MAX_CONTACTS_BYTES } = require('./contacts-model');
+const photos = require('./contacts-photos');
 const { isDeepStrictEqual } = require('node:util');
 
 const CONTACTS_PATH = '_content/contacts.json';
-const MAX_BODY_BYTES = MAX_CONTACTS_BYTES + 1024;
+const MAX_BODY_BYTES = photos.MAX_PHOTO_BODY;
 const shaValid = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 const response = (status, body) => ({ status, headers: { 'Cache-Control': 'no-store', Pragma: 'no-cache' }, jsonBody: body });
 const failure = (status, error) => response(status, { ok: false, error });
@@ -30,8 +31,8 @@ async function readBoundedJson(request) {
   return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks)));
 }
 
-async function readFile(client, path, maximum) {
-  const result = await client.rest.repos.getContent({ owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARGET.repository, ref: 'Dev', path });
+async function readFile(client, path, maximum, headSha) {
+  const result = await client.rest.repos.getContent({ owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARGET.repository, ref: headSha || 'Dev', path });
   const file = result.data;
   if (file?.type !== 'file' || file.path !== path || !shaValid(file.sha) || file.encoding !== 'base64' || typeof file.content !== 'string' || file.content.length > maximum * 1.5) throw new Error('invalid-file');
   const content = Buffer.from(file.content, 'base64');
@@ -52,27 +53,38 @@ function createContactsHandler({ env = process.env, readConfiguration = readGith
     if (request.method === 'PUT') {
       try {
         body = await readBoundedJson(request);
-        if (!body || Object.keys(body).length !== 2 || !Object.hasOwn(body, 'sha') || !shaValid(body.sha) || !Object.hasOwn(body, 'contacts')) throw new SyntaxError();
+        if (!body || Object.keys(body).some(k => !['sha','contacts','headSha','uploads'].includes(k)) || !Object.hasOwn(body, 'sha') || !shaValid(body.sha) || !Object.hasOwn(body, 'contacts')) throw new SyntaxError();
         validateContacts(body.contacts);
+        if (body.headSha !== undefined && (!shaValid(body.headSha) || !Array.isArray(body.uploads))) throw new SyntaxError();
+        if (body.uploads !== undefined && body.headSha === undefined) throw new SyntaxError();
       } catch (error) { return failure(error instanceof RangeError ? 413 : 400, error instanceof RangeError ? 'contacts-too-large' : 'invalid-contacts'); }
     }
-    let configuration, current, directory;
+    let configuration, current, directory, headSha;
     try {
       configuration = readConfiguration(env);
       const client = await createClient(configuration, 'read');
-      current = await readFile(client, CONTACTS_PATH, MAX_CONTACTS_BYTES);
+      headSha = (await client.rest.git.getRef({ owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARGET.repository, ref: 'heads/Dev' })).data.object.sha; if (!shaValid(headSha)) throw Error();
+      current = await readFile(client, CONTACTS_PATH, MAX_CONTACTS_BYTES, headSha);
       directory = JSON.parse(current.text);
       validateContacts(directory);
     } catch { return failure(502, 'contacts-repository-unavailable'); }
     if (request.method === 'GET') {
-      return response(200, { ok: true, sha: current.sha, contacts: directory });
+      return response(200, { ok: true, sha: current.sha, headSha, contacts: directory });
     }
-    if (body.sha !== current.sha) return failure(409, 'contacts-version-conflict');
+    if (body.headSha === undefined && directory && [...directory.contacts,...directory.pccMembers].some(r => r.photo && ![...body.contacts.contacts,...body.contacts.pccMembers].some(n => n.id === r.id && isDeepStrictEqual(n.photo,r.photo)))) return failure(400,'invalid-contacts');
+    if (body.sha !== current.sha || (body.headSha !== undefined && body.headSha !== headSha)) return failure(409, 'contacts-version-conflict');
     try { validateContacts(body.contacts); if (!isDeepStrictEqual(body.contacts.sections, directory.sections)) throw new Error('immutable-sections'); }
     catch { return failure(400, 'invalid-contacts'); }
-    if (isDeepStrictEqual(body.contacts, directory)) return response(200, { ok: true, sha: current.sha, unchanged: true });
+    try { photos.unchangedPhotos(body.contacts, directory); } catch { return failure(400, 'invalid-contacts'); }
+    if (isDeepStrictEqual(body.contacts, directory) && !body.uploads?.length) return response(200, { ok: true, sha: current.sha, unchanged: true });
+    if (body.headSha !== undefined) {
+      let mutation;
+      try { mutation = await photos.preparePhotos(body, directory); } catch(e) { return failure(e.message === 'album-too-large' ? 413 : 400, ['album-too-large','album-unsupported-format','album-invalid-image'].includes(e.message) ? e.message : 'invalid-contacts'); }
+      try { return response(200, { ok: true, ...await photos.publishPhotos(await createClient(configuration, 'write'), headSha, mutation) }); }
+      catch(e) { return failure([409,422].includes(e.status) ? 409 : 502, [409,422].includes(e.status) ? 'contacts-version-conflict' : 'contacts-publish-unavailable'); }
+    }
     try {
-      // This is the only Contacts write operation. Inputs cannot choose its
+      // Legacy metadata-only operation. Inputs cannot choose its
       // owner, repository, branch or path. GitHub atomically checks the blob SHA.
       const client = await createClient(configuration, 'write');
       const result = await client.rest.repos.createOrUpdateFileContents({ owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARGET.repository,

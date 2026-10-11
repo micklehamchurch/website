@@ -290,3 +290,9 @@
 .admin-calendar-pending p { margin: 6px 0 0; }
 .admin-calendar-pending .admin-button { flex-shrink: 0; }
 @media (max-width: 760px) { .admin-calendar-pending { flex-direction: column; align-items: stretch; } }
+
+.admin-profile-photo { min-width: 0; border: 1px solid var(--stone, #ded8c8); padding: 16px; }
+.admin-profile-preview { display: block; width: 88px; height: 132px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; }
+.admin-profile-preview[hidden] { display: none; }
+.admin-profile-photo input[type=file] { max-width: 100%; }
+.admin-profile-photo p { font-size: 14px; line-height: 1.5; }

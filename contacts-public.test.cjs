@@ -59,3 +59,7 @@ test('Optional contact portraits retain safe local-asset validation',()=>{
   const data=structuredClone(real);data.contacts[0].photo=photo;assert.throws(()=>validateContacts(data),/invalid-photo/);
  }
 });
+
+test('Optimized portraits render responsive sources and focal position only for published people',()=>{
+ const d=structuredClone(real),c=d.contacts.find(c=>c.id==='parish-priest');c.photo={position:'top',variants:[{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-400.webp',width:267,height:400,bytes:1234},{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-800.webp',width:533,height:800,bytes:2345}]};let out=build(d);assert.match(out.html,/sizes="88px"/);assert.match(out.html,/400\.webp 267w, .*800\.webp 533w/);assert.match(out.html,/object-position:center top/);assert.match(out.html,/alt="Revd. Dr. Sandra Faccini"/);c.status='draft';out=build(d);assert.doesNotMatch(out.html,/profile-derivative|12345678/);
+});

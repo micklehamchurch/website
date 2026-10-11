@@ -900,3 +900,5 @@ h3 { font-family: var(--serif); }
 @media (max-width: 599px) { .footer { padding-top: 24px; } .footer-features { padding-bottom: 24px; } .footer-feature-diocese { grid-template-columns: 1fr; } .footer .footer-grid { gap: 24px 18px; } .footer-explore-links { grid-template-columns: 1fr; } .footer .footer-grid > .footer-identity > p, .footer .footer-social { margin-left: 0; } .footer .footer-photo-credit { line-height: 1.8; } }
 
 .footer-feature-diocese > div { align-self: start; }
+
+.directory-portrait.profile-derivative { object-fit: cover; }

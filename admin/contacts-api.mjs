@@ -13,6 +13,9 @@ export const contactsMessages = Object.freeze({
   'contacts-publish-permission-denied': 'GitHub denied permission to publish the Contacts. No change was confirmed; contact the website administrator.',
   'contacts-publish-result-unavailable': 'The publish result could not be confirmed. Reload Contacts to check the shared version.',
   'network-failure': 'The request could not be completed. Reload Contacts to check the shared version before trying again.',
+  'album-unsupported-format': 'Choose a JPEG, PNG or static WebP photograph. For HEIC/HEIF, export as JPEG first.',
+  'album-invalid-image': 'This photograph cannot be decoded safely. Export a fresh JPEG and try again.',
+  'album-too-large': 'Each photograph must be at most 10 MB; upload at most six and 20 MB in total per publication.',
   busy: 'A Contacts request is already in progress.',
   success: 'Contacts published to Dev. The website is rebuilding.',
   unchanged: 'The shared Contacts is already up to date.'
@@ -25,30 +28,30 @@ export function createContactsApi({ getToken, fetchImpl = fetch }) {
     if (busy) return { ok: false, category: 'busy' };
     busy = true;
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 120000);
     try {
       let token;
       try { token = await getToken(); } catch { return { ok: false, category: 'authentication-required' }; }
       if (!token) return { ok: false, category: 'authentication-required' };
       const result = await fetchImpl(CONTACTS_URL, { method, cache: 'no-store', credentials: 'omit', signal: controller.signal,
         headers: { Authorization: `Bearer ${token}`, ...(method === 'PUT' ? { 'Content-Type': 'application/json' } : {}) },
-        ...(method === 'PUT' ? { body: JSON.stringify({ sha: payload.sha, contacts: payload.contacts }) } : {}) });
+        ...(method === 'PUT' ? { body: JSON.stringify({ sha: payload.sha, contacts: payload.contacts, ...(payload.headSha ? {headSha:payload.headSha,uploads:payload.uploads || []} : {}) }) } : {}) });
       if (!result.ok) {
         let category = ({ 401: 'authentication-required', 403: 'administrator-required', 400: 'invalid-contacts', 409: 'contacts-version-conflict', 413: 'contacts-too-large' })[result.status] || (method === 'GET' ? 'contacts-repository-unavailable' : 'contacts-publish-unavailable');
-        if (result.status === 502 && method === 'PUT') {
-          try { const safe = await result.json(); if (['contacts-publish-permission-denied', 'contacts-publish-result-unavailable'].includes(safe?.error)) category = safe.error; } catch { /* Ignore all upstream body text. */ }
+        if (method === 'PUT') {
+          try { const safe = await result.json(); if (['contacts-publish-permission-denied', 'contacts-publish-result-unavailable','album-unsupported-format','album-invalid-image','album-too-large'].includes(safe?.error)) category = safe.error; } catch { /* Ignore all upstream body text. */ }
         }
         return { ok: false, category };
       }
       const data = await result.json();
       const sha = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
-      if (data.ok !== true || !sha(data.sha)) throw new Error('invalid-response');
+      if (data.ok !== true || !sha(data.sha) || (data.headSha !== undefined && !sha(data.headSha))) throw new Error('invalid-response');
       if (method === 'GET') {
         if (!data.contacts || !['sections', 'contacts', 'pccMembers'].every(key => Array.isArray(data.contacts[key]))) throw new Error('invalid-response');
-        return { ok: true, sha: data.sha, contacts: data.contacts };
+        return { ok: true, sha: data.sha, ...(data.headSha ? {headSha:data.headSha}:{}), contacts: data.contacts };
       }
       if (data.unchanged !== true && !sha(data.commitSha)) return { ok: false, category: 'contacts-publish-result-unavailable' };
-      return { ok: true, sha: data.sha, commitSha: data.commitSha, unchanged: data.unchanged === true };
+      return { ok: true, sha: data.sha, ...(data.headSha ? {headSha:data.headSha}:{}), ...(data.contacts ? {contacts:data.contacts}:{}), commitSha: data.commitSha, unchanged: data.unchanged === true };
     } catch { return { ok: false, category: 'network-failure' }; }
     finally { clearTimeout(timeout); busy = false; }
   }

@@ -165,6 +165,7 @@
     if (result.ok) { sharedNews.message = article.status === 'draft' ? 'Draft saved to shared Dev content. It is not public.' : 'Website News published successfully. The Dev website is rebuilding.'; document.querySelector('#admin-dialog').close(); await loadSharedNews(); showToast(sharedNews.message); }
     else { sharedNews.loaded = false; error.textContent = window.churchNewsApi.message(result.category); sharedNews.message = error.textContent; }
   }
+  const contactUploads = new Map();
   const sharedContacts = { loaded: false, busy: false, dirty: false, conflict: false, error: '', message: '', sha: null };
   const contactsCanEdit = () => sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.conflict;
   async function loadSharedContacts() {
@@ -174,7 +175,7 @@
     const api = window.churchContactsApi;
     const result = api ? await api.load() : { ok: false, category: 'authentication-required' };
     sharedContacts.busy = false;
-    if (result.ok) { baseContacts = result.contacts; demoState.contacts.working = JSON.parse(JSON.stringify(result.contacts)); Object.assign(sharedContacts, { loaded: true, dirty: false, conflict: false, sha: result.sha, message: 'Shared Dev Contacts loaded. Changes remain staged until you publish.' }); }
+    if (result.ok) { contactUploads.clear(); baseContacts = result.contacts; demoState.contacts.working = JSON.parse(JSON.stringify(result.contacts)); Object.assign(sharedContacts, { loaded: true, dirty: false, conflict: false, sha: result.sha, headSha: result.headSha, message: 'Shared Dev Contacts loaded. Changes remain staged until you publish.' }); }
     else { sharedContacts.loaded = false; sharedContacts.error = result.category; sharedContacts.message = api?.message(result.category) || 'Sign in and authorise the Admin API connection, then reload Contacts.'; }
     render({ focus: false });
   }
@@ -183,9 +184,9 @@
     if (!window.confirm('Publish these Contacts changes to the shared Dev website? Staged deletions will remove records from shared data.')) return;
     const snapshot = contactData(); sharedContacts.busy = true; sharedContacts.message = 'Publishing Contacts…'; render({ focus: false });
     const api = window.churchContactsApi;
-    const result = api ? await api.publish({ sha: sharedContacts.sha, contacts: snapshot }) : { ok: false, category: 'authentication-required' };
+    const result = api ? await api.publish({ sha: sharedContacts.sha, headSha: sharedContacts.headSha, contacts: snapshot, uploads: [...contactUploads.values()].filter(u => [...snapshot.contacts,...snapshot.pccMembers].some(r => r.id === u.contactId)) }) : { ok: false, category: 'authentication-required' };
     sharedContacts.busy = false;
-    if (result.ok) { sharedContacts.sha = result.sha; sharedContacts.dirty = false; baseContacts = snapshot; sharedContacts.message = api.message(result.unchanged ? 'unchanged' : 'success'); }
+    if (result.ok) { sharedContacts.sha = result.sha; sharedContacts.dirty = false; contactUploads.clear(); sharedContacts.headSha = result.headSha || sharedContacts.headSha; baseContacts = result.contacts || snapshot; demoState.contacts.working = JSON.parse(JSON.stringify(baseContacts)); sharedContacts.message = api.message(result.unchanged ? 'unchanged' : 'success'); }
     else { sharedContacts.error = result.category; sharedContacts.conflict = true; sharedContacts.message = api?.message(result.category) || 'Reload Contacts before trying again.'; }
     render({ focus: false }); showToast(sharedContacts.message, !result.ok);
   }
@@ -542,6 +543,35 @@
         : `<input id="${id}" name="${name}" type="${type}" value="${escAttr(value)}" ${required ? 'required' : ''} placeholder="${escAttr(placeholder)}">`;
     return `<div class="admin-field ${full ? 'full' : ''}"><label for="${id}">${safe(label)}${required ? ' <span aria-hidden="true">*</span>' : ''}</label>${control}${hint ? `<span class="admin-field-hint">${safe(hint)}</span>` : ''}</div>`;
   }
+  function profileControls(item) {
+    const pending = item && contactUploads.get(item.id), photo = item?.photo;
+    const src = pending ? 'data:'+pending.mimeType+';base64,'+pending.base64 : typeof photo === 'string' ? '../'+photo : photo?.variants?.length ? (/^[a-f0-9]{40}$/.test(sharedContacts.headSha || '') ? 'https://raw.githubusercontent.com/micklehamchurch/website/'+sharedContacts.headSha+'/'+photo.variants[0].src : '../'+photo.variants[0].src) : '';
+    return '<fieldset class="admin-field full admin-profile-photo"><legend>Profile photograph</legend><img id="contact-photo-preview" class="admin-profile-preview" alt="'+escAttr(item?.name || '')+'" '+(src?'src="'+escAttr(src)+'"':'hidden')+'><label for="contact-photo-upload">Upload / Replace photo</label><input id="contact-photo-upload" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="contact-photo-help"><p id="contact-photo-help">Optional. JPEG, PNG or static WebP, up to 10 MB. For HEIC/HEIF, export as JPEG first. Keep the original separately. The church should have permission to publish this person’s photograph.</p>'+field('Portrait position','photoPosition',pending?.position || photo?.position || 'top',{choices:[['top','Top (faces near the top)'],['center','Centre'],['bottom','Bottom']]})+'<button type="button" class="admin-button secondary" id="contact-photo-remove">Remove photo</button><p id="contact-photo-status" role="status"></p></fieldset>';
+  }
+  function bindProfileControls(form,item) {
+    form.profileUpload = item ? contactUploads.get(item.id) : null;
+    const input=form.querySelector('#contact-photo-upload'), preview=form.querySelector('#contact-photo-preview'), status=form.querySelector('#contact-photo-status');
+    if(!input)return;
+    const position=form.querySelector('[name="photoPosition"]');
+    const frame=()=>{preview.style.objectPosition='center '+position.value;}; frame(); position.addEventListener('change',frame);
+    input.addEventListener('change',async()=>{
+      const file=input.files[0];if(!file)return;
+      if(!/\.(jpe?g|png|webp)$/i.test(file.name)||!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024||!file.size) {status.textContent='Choose JPEG, PNG or static WebP up to 10 MB. For HEIC/HEIF, export as JPEG first.';input.value='';return;}
+      form.profileReading=true;input.disabled=true;status.textContent='Reading photograph…';
+      try { const result=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);});
+        form.profileUpload={fileName:file.name,mimeType:file.type,base64:result.split(',')[1]};form.profileRemoved=false;preview.src=result;preview.hidden=false;status.textContent='Photograph selected. Stage changes, then Publish changes.';
+      } catch {status.textContent='Could not read this photograph. Select it again.';} finally {form.profileReading=false;input.disabled=false;}
+    });
+    form.querySelector('#contact-photo-remove').addEventListener('click',()=>{if(form.profileReading)return;form.profileUpload=null;form.profileRemoved=true;input.value='';preview.removeAttribute('src');preview.hidden=true;status.textContent='Photo removal selected. Stage changes, then Publish changes.';input.focus();});
+  }
+  function stageProfile(form,record) {
+    if(form.profileReading){const error=document.querySelector('#admin-form-error');error.hidden=false;error.textContent='Wait for the photograph to finish loading.';return false;}
+    const position=form.querySelector('[name="photoPosition"]')?.value || 'top';
+    if(form.profileRemoved){delete record.photo;contactUploads.delete(record.id);}
+    else if(form.profileUpload){contactUploads.set(record.id,{...form.profileUpload,contactId:record.id,position});}
+    else if(record.photo && typeof record.photo==='object'){record.photo.position=position;}
+    return true;
+  }
   function openContactEditor(id = '', sectionId = '') {
     if (!contactsCanEdit()) return;
     const data = contactData();
@@ -549,10 +579,11 @@
     if (id && !item) return showToast('That contact is no longer available in this preview.', true);
     const sectionChoices = data.sections.filter(section => section.id !== 'pcc-members').map(section => [section.id, section.title]);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Stage changes, then choose Publish changes to update shared Dev.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Stage changes, then choose Publish changes to update shared Dev.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-contact-form');
     form.addEventListener('submit', event => { event.preventDefault(); saveContactForm(form); });
+    bindProfileControls(form, item);
     form.querySelector('[name="role"]')?.focus();
   }
   function openPccEditor(id = '') {
@@ -561,10 +592,11 @@
     const item = id ? data.pccMembers.find(member => member.id === id) : null;
     if (id && !item) return showToast('That PCC member is no longer available in this preview.', true);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>This list stores names only.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>Stage changes, then choose Publish changes.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-pcc-form');
     form.addEventListener('submit', event => { event.preventDefault(); savePccForm(form); });
+    bindProfileControls(form, item);
     form.querySelector('[name="name"]')?.focus();
   }
   function saveContactData(data, message) {
@@ -601,6 +633,7 @@
     const old = index >= 0 ? data.contacts[index] : null;
     const entry = { ...old, id: old?.id || contactIdFor(data, values.role.trim(), values.name.trim()), role: values.role.trim(), name: values.name.trim(), phone: values.phone.trim(), email: values.email.trim(), section: values.section, status: values.status };
     if (old?.groupId && (old.role !== entry.role || old.section !== entry.section)) delete entry.groupId;
+    if (!stageProfile(form,entry)) return;
     if (index >= 0) data.contacts[index] = entry; else data.contacts.push(entry);
     saveContactData(data, old ? 'Contact updated' : 'Contact added');
   }
@@ -617,6 +650,7 @@
     let memberId = index >= 0 ? data.pccMembers[index].id : `pcc-${slugify(values.name)}`;
     if (index < 0) { let suffix = 2; const stem = memberId; while ([...data.contacts, ...data.pccMembers].some(existing => existing.id === memberId)) memberId = `${stem}-${suffix++}`; }
     const member = { ...(index >= 0 ? data.pccMembers[index] : {}), id: memberId, name: values.name.trim(), status: values.status };
+    if (!stageProfile(form,member)) return;
     if (index >= 0) data.pccMembers[index] = member; else data.pccMembers.push(member);
     saveContactData(data, index >= 0 ? 'PCC member updated' : 'PCC member added');
   }

@@ -42,3 +42,9 @@ test('MSAL bridge acquires the Admin API scope and exposes operations without ex
   } finally { globalThis.window = previous; }
 });
 
+
+test('profile publication sends only fixed contacts, concurrency and uploads fields and returns server-resolved variants',async()=>{
+ const calls=[],uploads=[{contactId:'fixture',fileName:'camera.jpg',mimeType:'image/jpeg',base64:'AA==',position:'top'}],headSha='b'.repeat(40);
+ const api=createContactsApi({getToken:async()=> 'synthetic',fetchImpl:async(url,options)=>{calls.push(options);return Response.json({ok:true,sha,headSha,commitSha,contacts});}});
+ assert.deepEqual(await api.publish({sha,headSha,contacts,uploads,branch:'main',path:'bad'}),{ok:true,sha,headSha,commitSha,contacts,unchanged:false});assert.deepEqual(JSON.parse(calls[0].body),{sha,headSha,contacts,uploads});
+});
