@@ -183,6 +183,7 @@ async function checkAdminApiConnection(account, { interactive = false } = {}) {
       window.dispatchEvent(new Event('admin-clergy-ready'));
       window.dispatchEvent(new Event('admin-contacts-ready'));
       window.dispatchEvent(new Event('admin-homepage-verses-ready'));
+      window.dispatchEvent(new Event('admin-photo-albums-ready'));
     } else {
       updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
     }
