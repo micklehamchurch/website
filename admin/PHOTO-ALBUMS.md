@@ -8,6 +8,8 @@ Create an album, enter its title and short description, select photographs, choo
 
 Save persists metadata and uploaded derivatives together; the Dev content workflow rebuilds Parish Photographs and Pages follows. It is not an immediate public-page update. The editor displays the confirmed Dev save and explains the rebuild. On an ambiguous network/save failure or a concurrency conflict, reload shared albums before trying again; staged edits are not silently replayed. Reload asks before discarding unsaved work.
 
+As in the existing Historical Archive editor, newly uploaded thumbnails use immutable public GitHub commit URLs in Admin, so saved photographs are visible before Pages finishes rebuilding. Only generated gallery derivative paths qualify. Public gallery URLs continue to use the existing site asset paths.
+
 ## Formats, limits and image policy
 
 - JPEG/JPG (`image/jpeg`), PNG (`image/png`) and non-animated WebP (`image/webp`). HEIC/HEIF, GIF, SVG, TIFF and other formats are unsupported; export a JPEG first.

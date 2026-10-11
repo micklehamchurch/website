@@ -12,6 +12,7 @@
 .photo-admin-form .parish-sr-only,.photo-admin-list .parish-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .photo-admin-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem;list-style:none;padding:0}
 .photo-admin-item[draggable=true]{cursor:grab}.photo-admin-item.is-dragging{opacity:.5}.photo-admin-item.is-drop-target{outline:3px solid #956b2a}
+.photo-admin-drag-handle{cursor:grab;user-select:none;padding:.5rem;border-bottom:1px solid #dedbd4;color:#46594f}
 .photo-admin-item img{width:100%;height:180px;object-fit:contain;background:#f5f3ee}.photo-admin-item label{font-size:.9rem}.photo-admin-controls .admin-button{padding:.5rem .65rem;font-size:.85rem}
 .photo-admin-consent{display:flex!important;gap:.7rem;align-items:flex-start;background:#f4efe4;padding:1rem;border-radius:8px}.photo-admin-consent input{margin-top:.3rem;flex-shrink:0}
 .photo-admin-message{padding:.75rem 0;overflow-wrap:anywhere}.photo-admin-form :focus-visible,.photo-admin-list :focus-visible{outline:3px solid #956b2a;outline-offset:3px}
