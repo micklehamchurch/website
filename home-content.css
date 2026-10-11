@@ -33,12 +33,12 @@
 .home-content .parish-carousel-images img { object-fit: cover; object-position: 50% 40%; }
 .home-content .parish-carousel-images img[height="1280"] { object-fit: contain; }
 .home-about > p { margin: 0 0 16px; font-size: 16px; line-height: 1.45; }
-.home-about > img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 3px; }
+.home-about > .home-image-link img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 3px; }
 .home-gallery-link { margin-top: 2px; }
 .home-discover-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 8px 0 32px; }
 .home-discover-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid #e6e2d8; border-radius: 3px; overflow: hidden; background: #fffdf8; }
-.home-discover-card > img, .home-discover-card > .parish-life-video { display: block; width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; border-radius: 0; }
-.home-discover-card > img { object-position: 50% 30%; }
+.home-discover-card > .home-image-link img, .home-discover-card > .parish-life-video { display: block; width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; border-radius: 0; }
+.home-discover-card > .home-image-link img { object-position: 50% 30%; }
 .home-discover-copy { display: flex; flex-direction: column; align-items: flex-start; flex: 1; padding: 16px 20px 20px; }
 .home-content .home-discover-copy h2 { margin: 0 0 8px; font-size: clamp(22px, 1.8vw, 28px); }
 .home-discover-copy p { margin: 0 0 16px; font-size: 16px; line-height: 1.5; max-width: 32ch; }
@@ -47,10 +47,16 @@
 .home-content a:focus-visible, .home-content button:focus-visible { outline: 3px solid #947224; outline-offset: 3px; }
 @media (max-width: 1100px) { .home-quick-item { padding: 12px 18px; } .home-parish-row { gap: 48px; } .home-parish-column + .home-parish-column::before { left: -24px; } .home-content-button { padding-inline: 12px; font-size: 14px; } }
 @media (max-width: 900px) { .home-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 0; } .home-quick-item:nth-child(3) { border-left: 0; } .home-parish-row { padding-inline: 0; gap: 32px; } .home-parish-column + .home-parish-column::before { left: -16px; } .home-discover-cards { gap: 14px; } .home-discover-copy { padding: 14px; } }
-@media (max-width: 700px) { .home-parish-row { grid-template-columns: 1fr; gap: 24px; } .home-parish-column + .home-parish-column::before { content: none; } .home-discover-cards { grid-template-columns: 1fr; gap: 20px; } .home-discover-card > img, .home-discover-card > .parish-life-video { aspect-ratio: 16 / 9; } .home-content .parish-carousel-images, .home-about > img { aspect-ratio: 4 / 3; } .home-discover-copy { padding: 18px; } }
+@media (max-width: 700px) { .home-parish-row { grid-template-columns: 1fr; gap: 24px; } .home-parish-column + .home-parish-column::before { content: none; } .home-discover-cards { grid-template-columns: 1fr; gap: 20px; } .home-discover-card > .home-image-link img, .home-discover-card > .parish-life-video { aspect-ratio: 16 / 9; } .home-content .parish-carousel-images, .home-about > .home-image-link img { aspect-ratio: 4 / 3; } .home-discover-copy { padding: 18px; } }
 @media (max-width: 430px) { .home-quick-item { padding: 12px 10px; } .home-content .home-quick-item h2 { font-size: 19px; } }
 .home-content .parish-carousel-controls { position: static; transform: none; justify-content: center; height: 44px; margin: 0; padding: 0; }
 .home-content .parish-carousel-stage > button { bottom: 54px; }
 .home-content .parish-carousel-dots { flex: 0 1 auto; }
 .home-content .parish-carousel-dots button { min-width: 44px; min-height: 44px; }
-.home-content .home-about > img { height: auto; }
+.home-content .home-about > .home-image-link img { height: auto; }
+
+/* Semantic image links keep the existing photographs and crops. */
+.home-image-link { display: block; cursor: pointer; }
+.home-heading-link { color: inherit; text-decoration: none; }
+.home-heading-link:hover { text-decoration: underline; text-underline-offset: .15em; }
+.home-content .home-image-link:focus-visible { outline-offset: -3px; }

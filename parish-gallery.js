@@ -18,10 +18,17 @@
       }
     });
     let start;
-    carousel.querySelector('.parish-carousel-images').addEventListener('pointerdown', event => { start = { x: event.clientX, y: event.clientY }; });
+    let swiped = false;
+    carousel.querySelector('.parish-carousel-images').addEventListener('pointerdown', event => { swiped = false; start = { x: event.clientX, y: event.clientY }; });
     carousel.querySelector('.parish-carousel-images').addEventListener('pointerup', event => {
-      if (start && Math.abs(event.clientX - start.x) > 50 && Math.abs(event.clientX - start.x) > Math.abs(event.clientY - start.y)) show(current + (event.clientX < start.x ? 1 : -1));
+      if (start && Math.abs(event.clientX - start.x) > 50 && Math.abs(event.clientX - start.x) > Math.abs(event.clientY - start.y)) {
+        swiped = true; show(current + (event.clientX < start.x ? 1 : -1));
+      }
       start = null;
+    });
+    carousel.querySelector('.parish-carousel-images').addEventListener('click', event => {
+      if (swiped && event.detail !== 0) event.preventDefault();
+      swiped = false;
     });
     carousel.querySelector('.parish-carousel-images').addEventListener('pointercancel', () => { start = null; });
   });
