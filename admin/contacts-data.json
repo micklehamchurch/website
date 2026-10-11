@@ -148,7 +148,24 @@
       "name": "David Fishwick",
       "phone": "0208 8773 2420",
       "email": "organist@micklehamchurch.org.uk",
-      "status": "published"
+      "status": "published",
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-da8c007c-7487-4569-b772-f39519ef97fe-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 16404
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-da8c007c-7487-4569-b772-f39519ef97fe-800.webp",
+            "width": 600,
+            "height": 800,
+            "bytes": 61020
+          }
+        ],
+        "position": "top"
+      }
     },
     {
       "id": "safeguarding-validator",
