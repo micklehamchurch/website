@@ -14,7 +14,7 @@ const server=live?null:spawn(process.execPath,[path.join(root,'preview.js')],{en
   await page.goto(base+'gallery.html');await page.locator(`[data-typography-option="${mode}"]`).click();await page.waitForFunction(m=>document.documentElement.dataset.typography===m,mode);await page.evaluate(()=>document.fonts.ready);
   await page.locator('.parish-album-cards').scrollIntoViewIfNeeded();
   await page.locator('.parish-album-card img').evaluateAll(async imgs=>{for(const img of imgs){img.loading='eager';await img.decode()}});
-  assert.equal(await page.locator('.parish-album-card').count(),5);assert.equal(await page.locator('[data-gallery-photo]').count(),0);
+  assert.equal(await page.locator('.parish-album-card').count(),albums.length);assert.equal(await page.locator('[data-gallery-photo]').count(),0);
   const coverSources=albums.flatMap(a=>(a.photos.find(p=>p.id===a.cover)||a.photos[0]).variants.slice(0,2).map(v=>v.src));
   assert(requests.every(u=>coverSources.some(src=>u.endsWith(src))),'Only covers requested on landing');
   const allCovers=[...new Set(requests)];const coverBytes=await page.locator('.parish-album-card img').evaluateAll(imgs=>imgs.map(i=>i.currentSrc));
@@ -35,12 +35,12 @@ const server=live?null:spawn(process.execPath,[path.join(root,'preview.js')],{en
    await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});assert(await links.first().evaluate(e=>e===document.activeElement));
    await links.last().click();await dialog.locator('[data-next]').click();assert.match(await dialog.locator('[data-gallery-status]').textContent(),/^1 of /);await page.mouse.click(1,1);await dialog.waitFor({state:'hidden'});assert(await links.last().evaluate(e=>e===document.activeElement));
    for(const link of await links.all()){await link.click();await dialog.locator('img').evaluate(img=>img.decode());assert(await dialog.locator('img').evaluate(img=>img.naturalWidth>0));await dialog.locator('[data-close]').click();}
-   if(album.id==='eco-group-working-parties')await page.screenshot({path:path.join(out,`${live?'live':'local'}-${mode}-${width}-eco.png`),fullPage:true});
+   if(album.id==='st-michaels-church-churchyard')await page.screenshot({path:path.join(out,`${live?'live':'local'}-${mode}-${width}-church.png`),fullPage:true});
    await page.locator('.parish-albums-back').first().click();await page.locator('[data-album-landing]').waitFor({state:'visible'});assert(await card.evaluate(e=>e===document.activeElement));assert.equal(await links.count(),0);
   }
   await page.goto(base+'gallery.html#remembrance-sunday');assert.equal(await page.locator('[data-gallery-photo]').count(),2);await page.locator('.parish-albums-back').first().click();await page.goBack();await page.locator('[data-album-view]').waitFor({state:'visible'});assert.equal(await page.locator('[data-gallery-photo]').count(),2);
   await page.goto(base+'gallery.html#unknown-album');assert(await page.locator('[data-album-landing]').isVisible());
-  assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);results.push({mode,width,dpr:1,coverBytes:bytes,coverRequests:allCovers});console.log(`${mode} ${width}: PASS, five albums / 22 photos, keyboard, focus, close, routes, lazy images; covers ${bytes} bytes`);await context.close();
+  assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);results.push({mode,width,dpr:1,coverBytes:bytes,coverRequests:allCovers});console.log(`${mode} ${width}: PASS, ${albums.length} albums / ${albums.reduce((n,a)=>n+a.photos.length,0)} photos, keyboard, focus, close, routes, lazy images; covers ${bytes} bytes`);await context.close();
  }
  for(const width of [390,768,1440]){
   const context=await browser.newContext({viewport:{width,height:1000},deviceScaleFactor:2});const page=await context.newPage();const requests=[];page.on('request',r=>{if(r.url().includes('/assets/images/albums/'))requests.push(r.url())});await page.goto(base+'gallery.html');await page.locator('.parish-album-card img').evaluateAll(async imgs=>{for(const img of imgs){img.loading='eager';await img.decode()}});const sources=await page.locator('.parish-album-card img').evaluateAll(imgs=>imgs.map(i=>i.currentSrc));const covers=albums.flatMap(a=>(a.photos.find(p=>p.id===a.cover)||a.photos[0]).variants.slice(0,2));assert(requests.every(u=>covers.some(v=>u.endsWith(v.src))));const bytes=sources.reduce((n,u)=>n+covers.find(v=>u.endsWith(v.src)).bytes,0);results.push({mode:'heritage',width,dpr:2,coverBytes:bytes,coverRequests:requests});console.log(`DPR 2 / ${width}: covers ${bytes} bytes, no album grid requests`);await context.close();
@@ -50,6 +50,6 @@ const server=live?null:spawn(process.execPath,[path.join(root,'preview.js')],{en
   const response=await page.request.get(base+variant.src);assert.equal(response.status(),200,variant.src);assert.equal((await response.body()).length,variant.bytes,variant.src);
  }
  await page.goto(base+'gallery.html#harvest-family-service-2026');await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('[data-gallery-photo]').count(),13);
- fs.writeFileSync(path.join(out,`${live?'live':'local'}-results.json`),JSON.stringify(results,null,2));console.log('PASS: all 66 derivatives respond with exact expected sizes; deep-link Harvest retained.');
+ fs.writeFileSync(path.join(out,`${live?'live':'local'}-results.json`),JSON.stringify(results,null,2));console.log(`PASS: all ${albums.flatMap(a=>a.photos).flatMap(p=>p.variants).length} derivatives respond with exact expected sizes; deep-link Harvest retained.`);
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>server?.kill());

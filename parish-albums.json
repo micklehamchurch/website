@@ -610,6 +610,378 @@
           ]
         }
       ]
+    },
+    {
+      "id": "st-michaels-church-churchyard",
+      "title": "St Michael’s Church & Churchyard",
+      "context": "Discover our church, its craftsmanship and the peaceful grounds around it.",
+      "cover": "st-michaels-church-churchyard-01",
+      "photos": [
+        {
+          "id": "st-michaels-church-churchyard-01",
+          "source": "IMG_6543.JPG",
+          "alt": "St Michael’s Church and churchyard beneath a blue sky",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-01-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 32270
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-01-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 128606
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-01-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 366008
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-02",
+          "source": "IMG_1831.JPG",
+          "alt": "The church porch and red entrance door",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-02-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 45612
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-02-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 149502
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-02-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 341142
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-03",
+          "source": "IMG_6529.JPG",
+          "alt": "Headstones and trees in the churchyard",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-480.webp",
+              "width": 480,
+              "height": 360,
+              "bytes": 52856
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-960.webp",
+              "width": 960,
+              "height": 720,
+              "bytes": 213244
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-1600.webp",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 609420
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-04",
+          "source": "IMG_1833.JPG",
+          "alt": "A path beside the church and churchyard headstones",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-04-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 36114
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-04-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 114976
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-04-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 254326
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-05",
+          "source": "IMG_1845.JPG",
+          "alt": "A carved wooden figure on a porch post",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-05-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 19798
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-05-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 60788
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-05-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 139320
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-06",
+          "source": "IMG_1846.JPG",
+          "alt": "Wooden porch carving and surrounding timberwork",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-06-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 21678
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-06-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 63900
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-06-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 140818
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-07",
+          "source": "IMG_1848.JPG",
+          "alt": "An inscription on a wooden churchyard memorial",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-07-480.webp",
+              "width": 480,
+              "height": 320,
+              "bytes": 25454
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-07-960.webp",
+              "width": 960,
+              "height": 640,
+              "bytes": 80260
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-07-1600.webp",
+              "width": 1600,
+              "height": 1067,
+              "bytes": 191200
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-08",
+          "source": "IMG_6554.JPG",
+          "alt": "A wooden memorial in the sunlit churchyard",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-08-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 42896
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-08-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 171474
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-08-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 480224
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-09",
+          "source": "IMG_6564.JPG",
+          "alt": "The war memorial beside the church tower",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-09-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 42730
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-09-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 172312
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-09-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 489956
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-10",
+          "source": "IMG_6558.JPG",
+          "alt": "The memorial cross in the churchyard",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-10-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 43524
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-10-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 177192
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-10-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 507866
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-11",
+          "source": "IMG_1850.JPG",
+          "alt": "Painted poppy stones at the base of the war memorial",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-11-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 33216
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-11-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 113578
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-11-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 268798
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-12",
+          "source": "IMG_6563.JPG",
+          "alt": "Inscriptions on the war memorial",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-12-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 53170
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-12-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 222478
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-12-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 622778
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-13",
+          "source": "IMG_1853.JPG",
+          "alt": "Stained glass depicting Jesus and children",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-13-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 54368
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-13-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 175132
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-13-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 415544
+            }
+          ]
+        },
+        {
+          "id": "st-michaels-church-churchyard-14",
+          "source": "IMG_1859.JPG",
+          "alt": "Carved wooden figures beside an interior handrail",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-14-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 17940
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-14-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 85644
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-14-1600.webp",
+              "width": 1067,
+              "height": 1600,
+              "bytes": 248608
+            }
+          ]
+        }
+      ]
     }
   ]
 }
