@@ -982,6 +982,53 @@
           ]
         }
       ]
+    },
+    {
+      "id": "album-f4c3a144-b3b5-4511-8f19-05d2dbec9004",
+      "title": "DEV upload verification — temporary",
+      "context": "Synthetic images for secure upload verification. No parish photographs or personal data.",
+      "status": "draft",
+      "cover": "photo-1c7c4c35-86b2-4665-a2dc-86810ff1b91c",
+      "photos": [
+        {
+          "id": "photo-1c7c4c35-86b2-4665-a2dc-86810ff1b91c",
+          "alt": "Synthetic small gold image",
+          "variants": [
+            {
+              "src": "assets/images/albums/album-f4c3a144-b3b5-4511-8f19-05d2dbec9004/photo-1c7c4c35-86b2-4665-a2dc-86810ff1b91c-480.webp",
+              "width": 240,
+              "height": 160,
+              "bytes": 142
+            }
+          ],
+          "caption": ""
+        },
+        {
+          "id": "photo-fe3b4080-0d6a-4829-a7ab-ef025f1d33a3",
+          "alt": "Synthetic blue orientation test",
+          "variants": [
+            {
+              "src": "assets/images/albums/album-f4c3a144-b3b5-4511-8f19-05d2dbec9004/photo-fe3b4080-0d6a-4829-a7ab-ef025f1d33a3-480.webp",
+              "width": 320,
+              "height": 480,
+              "bytes": 350
+            },
+            {
+              "src": "assets/images/albums/album-f4c3a144-b3b5-4511-8f19-05d2dbec9004/photo-fe3b4080-0d6a-4829-a7ab-ef025f1d33a3-960.webp",
+              "width": 640,
+              "height": 960,
+              "bytes": 1168
+            },
+            {
+              "src": "assets/images/albums/album-f4c3a144-b3b5-4511-8f19-05d2dbec9004/photo-fe3b4080-0d6a-4829-a7ab-ef025f1d33a3-1600.webp",
+              "width": 800,
+              "height": 1200,
+              "bytes": 1852
+            }
+          ],
+          "caption": "Server orientation verification"
+        }
+      ]
     }
   ]
 }
