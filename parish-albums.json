@@ -344,6 +344,272 @@
           ]
         }
       ]
+    },
+    {
+      "id": "eco-group-working-parties",
+      "title": "Eco Group Working Parties",
+      "context": "Caring for our church, chapel and their surroundings together.",
+      "cover": "eco-group-working-parties-01",
+      "photos": [
+        {
+          "id": "eco-group-working-parties-01",
+          "source": "Ecogroup working parties at the chapel and church 1.jpeg",
+          "alt": "Volunteers caring for the grounds beside Westhumble Chapel",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-01-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 67070
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-01-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 242744
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-01-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 554122
+            }
+          ]
+        },
+        {
+          "id": "eco-group-working-parties-02",
+          "source": "Ecogroup working parties at the chapel and church 2.jpeg",
+          "alt": "Volunteers working together on the parish grounds",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-02-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 69592
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-02-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 246786
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-02-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 547958
+            }
+          ]
+        },
+        {
+          "id": "eco-group-working-parties-03",
+          "source": "Ecogroup working parties at the chapel and church 3.jpeg",
+          "alt": "Volunteers gardening in the parish grounds",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-03-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 63514
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-03-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 244364
+            },
+            {
+              "src": "assets/images/albums/eco-group-working-parties/eco-group-working-parties-03-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 570918
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monthly-coffee-morning",
+      "title": "Monthly Coffee Morning",
+      "context": "Friendship, conversation and a warm welcome at Westhumble Chapel.",
+      "cover": "monthly-coffee-morning-02",
+      "photos": [
+        {
+          "id": "monthly-coffee-morning-01",
+          "source": "Monthly coffee morning at Westhumble chapel 1.jpeg",
+          "alt": "Cakes and refreshments at the chapel coffee morning",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-01-480.webp",
+              "width": 480,
+              "height": 360,
+              "bytes": 42052
+            },
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-01-960.webp",
+              "width": 960,
+              "height": 720,
+              "bytes": 137956
+            },
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-01-1600.webp",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 290118
+            }
+          ]
+        },
+        {
+          "id": "monthly-coffee-morning-02",
+          "source": "Monthly coffee morning at Westhumble chapel 2.jpeg",
+          "alt": "People gathering outside Westhumble Chapel for coffee",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-02-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 55918
+            },
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-02-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 192646
+            },
+            {
+              "src": "assets/images/albums/monthly-coffee-morning/monthly-coffee-morning-02-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 409132
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "remembrance-sunday",
+      "title": "Remembrance Sunday",
+      "context": "Our parish community gathering in remembrance and thanksgiving.",
+      "cover": "remembrance-sunday-02",
+      "photos": [
+        {
+          "id": "remembrance-sunday-01",
+          "source": "Remembrance Sunday service 1.jpeg",
+          "alt": "Laying a wreath at the war memorial on Remembrance Sunday",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-01-480.webp",
+              "width": 405,
+              "height": 480,
+              "bytes": 59066
+            },
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-01-960.webp",
+              "width": 809,
+              "height": 960,
+              "bytes": 186346
+            },
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-01-1600.webp",
+              "width": 1348,
+              "height": 1600,
+              "bytes": 360214
+            }
+          ]
+        },
+        {
+          "id": "remembrance-sunday-02",
+          "source": "Remembrance Sunday service 2.jpeg",
+          "alt": "The congregation gathered outdoors on Remembrance Sunday",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-02-480.webp",
+              "width": 480,
+              "height": 360,
+              "bytes": 51562
+            },
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-02-960.webp",
+              "width": 960,
+              "height": 720,
+              "bytes": 194258
+            },
+            {
+              "src": "assets/images/albums/remembrance-sunday/remembrance-sunday-02-1600.webp",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 435746
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "summer-teas",
+      "title": "Summer Teas",
+      "context": "Tea, cake and good company at St Michael's.",
+      "cover": "summer-teas-02",
+      "photos": [
+        {
+          "id": "summer-teas-01",
+          "source": "Summer Teas at the church 1.jpeg",
+          "alt": "Serving tea inside St Michael’s Church",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-01-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 39510
+            },
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-01-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 114426
+            },
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-01-1600.webp",
+              "width": 1200,
+              "height": 1600,
+              "bytes": 229418
+            }
+          ]
+        },
+        {
+          "id": "summer-teas-02",
+          "source": "Summer Teas at the church 2.jpeg",
+          "alt": "People enjoying summer tea outside St Michael’s Church",
+          "featured": false,
+          "variants": [
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-02-480.webp",
+              "width": 480,
+              "height": 360,
+              "bytes": 58140
+            },
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-02-960.webp",
+              "width": 960,
+              "height": 720,
+              "bytes": 207574
+            },
+            {
+              "src": "assets/images/albums/summer-teas/summer-teas-02-1600.webp",
+              "width": 1600,
+              "height": 1200,
+              "bytes": 466170
+            }
+          ]
+        }
+      ]
     }
   ]
 }

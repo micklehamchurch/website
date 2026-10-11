@@ -1,42 +1,30 @@
+// Gallery-only generation: the approved homepage is maintained independently.
 const fs = require('node:fs');
 const { albums } = JSON.parse(fs.readFileSync('parish-albums.json', 'utf8'));
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-function image(photo, extra = '') {
-  const medium = photo.variants[1];
-  return `<img src="${medium.src}" srcset="${photo.variants.map(v => `${v.src} ${v.width}w`).join(', ')}" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1200px) 45vw, 560px" width="${medium.width}" height="${medium.height}" alt="${escape(photo.alt)}" decoding="async" ${extra}>`;
+const gridSizes = '(max-width: 430px) calc(100vw - 40px), (max-width: 700px) calc((100vw - 54px) / 2), (max-width: 1200px) calc((100vw - 80px) / 3), 360px';
+const coverSizes = '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc((100vw - 60px) / 2), (max-width: 1200px) calc((100vw - 96px) / 3), 360px';
+function image(photo, cover = false) {
+ const variants = cover ? photo.variants.slice(0, 2) : photo.variants;
+ const small = variants[0];
+ return `<img src="${small.src}" srcset="${variants.map(v => `${v.src} ${v.width}w`).join(', ')}" sizes="${cover ? coverSizes : gridSizes}" width="${small.width}" height="${small.height}" alt="${escape(photo.alt)}" decoding="async" loading="lazy">`;
 }
-const album = albums[0];
-const featured = album.photos.filter(photo => photo.featured);
-const carousel = `<div data-parish-carousel role="region" aria-roledescription="carousel" aria-label="${escape(album.title)} photographs"><div class="parish-carousel-stage"><div class="parish-carousel-images">${featured.map((photo, i) => image(photo, `data-slide loading="${i ? 'lazy' : 'eager'}"${i ? ' hidden' : ''}`)).join('')}</div><button type="button" data-previous aria-label="Previous photograph">←</button><button type="button" data-next aria-label="Next photograph">→</button><div class="parish-carousel-controls"><div class="parish-carousel-dots">${featured.map((photo, i) => `<button type="button" data-position aria-label="Show photograph ${i + 1}: ${escape(photo.alt)}" aria-pressed="${!i}"></button>`).join('')}</div></div></div><p class="parish-sr-only" data-status aria-live="polite" aria-atomic="true">Photograph 1 of ${featured.length}</p></div>`;
-const section = `<!-- parish-life:start -->
-<section class="home-content" aria-label="Discover our parish">
-<div class="home-quick-links"><div class="container home-quick-grid"><div class="home-quick-item"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22 24 8l16 14v22H8Z M20 44V29h8v15 M24 8V2 M20 5h8"/></svg><h2>Join us for a service</h2><p>A warm welcome to all.</p><a class="text-link" href="worship.html">View services <span aria-hidden="true">→</span></a></div><div class="home-quick-item"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12c-6-5-13-6-20-4v31c7-2 14-1 20 4 6-5 13-6 20-4V8c-7-2-14-1-20 4Z M24 12v31 M8 5v31 M40 5v31"/></svg><h2>Explore and learn</h2><p>Discover our church,<br>history and faith.</p><a class="text-link" href="visit.html">Visit &amp; learn <span aria-hidden="true">→</span></a></div><div class="home-quick-item"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="11" r="5"/><circle cx="10" cy="17" r="4"/><circle cx="38" cy="17" r="4"/><path d="M15 44V32a9 9 0 0 1 18 0v12Z M13 27a8 8 0 0 0-11 7v7h8 M35 27a8 8 0 0 1 11 7v7h-8"/></svg><h2>Our community</h2><p>People, groups and<br>what we do together.</p><a class="text-link" href="church-life.html">Find out more <span aria-hidden="true">→</span></a></div><div class="home-quick-item"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="35" rx="3"/><path d="M5 19h38 M14 3v10 M34 3v10"/></svg><h2>What’s on</h2><p>Services, events<br>and activities.</p><a class="text-link" href="calendar.html">View calendar <span aria-hidden="true">→</span></a></div></div></div>
-<div class="container">
-<div class="parish-life home-parish-row">
-<div class="home-parish-column"><h2>From our parish</h2><div class="parish-life-context"><h3>${escape(album.title)}</h3><p>${escape(album.context)}</p></div>${carousel}<a class="text-link home-gallery-link" href="gallery.html#${album.id}">View all photos <span aria-hidden="true">→</span></a></div>
-<div class="home-parish-column home-about"><h2>About our parish</h2><p>We are a friendly and inclusive church at the heart of Mickleham, with the Chapel of Ease in nearby Westhumble. Our parish is a place of worship, welcome and community, set within the beauty of the Surrey Hills.</p><img src="assets/eco-church/garden-of-remembrance-lavender.jpg" width="1600" height="1200" alt="Lavender, garden paths and benches in the parish Garden of Remembrance" loading="lazy" decoding="async"></div>
-</div>
-<div class="home-discover-cards">
-<article class="home-discover-card"><img src="assets/eco-church/churchyard-view.jpg" alt="St Michael’s Church seen from its churchyard" loading="lazy" decoding="async"><div class="home-discover-copy"><h2>Worship</h2><p>Prayer, services and faith at the heart of our parish.</p><a class="home-content-button" href="worship.html">Explore worship <span aria-hidden="true">→</span></a></div></article>
-<article class="home-discover-card"><img src="assets/images/stories/harvest-2026/congregation-1280.webp" alt="Inside St Michael’s Church during the Harvest service" loading="lazy" decoding="async"><div class="home-discover-copy"><h2>Explore &amp; learn</h2><p>Our church, history and faith.</p><a class="home-content-button" href="visit.html">Visit &amp; learn <span aria-hidden="true">→</span></a></div></article>
-<article class="home-discover-card"><div class="parish-life-video"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb&amp;index=0" title="St Michael and All Angels Sunday Services playlist" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="home-discover-copy"><h2>Sunday Services</h2><p>Services, reflections and moments from parish life.</p><a class="home-content-button" href="sunday-services.html">Visit the Sunday Services page <span aria-hidden="true">→</span></a></div></article>
-</div></div></section>
-<!-- parish-life:end -->`;
-let home = fs.readFileSync('index.html', 'utf8');
-if (home.includes('<!-- parish-life:start -->')) home = home.replace(/<!-- parish-life:start -->[\s\S]*?<!-- parish-life:end -->/, section);
-else home = home.replace('    <section class="section media-feature"', `${section}\n\n    <section class="section media-feature"`);
-function assets(html, version = '20261009-refinement') {
-  if (!/href="parish-gallery\.css(?:\?[^"]*)?"/.test(html)) html = html.replace('</head>', '  <link rel="stylesheet" href="parish-gallery.css">\n  <script src="parish-gallery.js" defer></script>\n</head>');
-  html = html.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, `href="parish-gallery.css?v=${version}"`);
-  return html;
-}
-fs.writeFileSync('index.html', assets(home, '20261009-discreet-dots-v1'));
-let gallery = fs.readFileSync('gallery.html', 'utf8');
-const markup = `<!-- parish-albums:start -->${albums.map(album => `<section class="parish-album" id="${album.id}" aria-labelledby="${album.id}-heading"><h2 id="${album.id}-heading">${escape(album.title)}</h2><p>${escape(album.context)}</p><div class="parish-album-grid">${album.photos.map(photo => `<figure><a data-gallery-photo href="${photo.variants[2].src}" aria-haspopup="dialog">${image(photo, 'loading="lazy"')}<span class="parish-sr-only">Open photograph</span></a><figcaption>${escape(photo.alt)}</figcaption></figure>`).join('')}</div></section>`).join('')}
+const cards = albums.map(album => {
+ const cover = album.photos.find(photo => photo.id === album.cover) || album.photos[0];
+ return `<a class="parish-album-card" href="#${album.id}" data-album-card="${album.id}">${image(cover, true)}<div class="parish-album-card-copy"><h2>${escape(album.title)}</h2><p>${escape(album.context)}</p><span class="parish-album-count">${album.photos.length} photographs <span aria-hidden="true">→</span></span></div></a>`;
+}).join('\n');
+// Inert templates prevent unopened albums from requesting any grid images.
+const templates = albums.map(album => `<template data-album-template="${album.id}"><section class="parish-album" id="${album.id}" aria-labelledby="${album.id}-heading"><a class="text-link parish-albums-back" href="#albums">← Back to albums</a><h2 id="${album.id}-heading" tabindex="-1">${escape(album.title)}</h2><p>${escape(album.context)} <span class="parish-album-count">${album.photos.length} photographs</span></p><div class="parish-album-grid">${album.photos.map(photo => `<figure><a data-gallery-photo href="${photo.variants.at(-1).src}" aria-haspopup="dialog">${image(photo)}<span class="parish-sr-only">Open photograph</span></a><figcaption>${escape(photo.alt)}</figcaption></figure>`).join('')}</div><a class="text-link parish-albums-back" href="#albums">← Back to albums</a></section></template>`).join('\n');
+const markup = `<!-- parish-albums:start -->
+<div id="albums" data-album-landing><div class="parish-album-cards">${cards}</div></div>
+<div data-album-view hidden></div>
+${templates}
+<noscript><p>Enable JavaScript to browse the albums and open the photograph viewer.</p></noscript>
 <dialog class="parish-lightbox" id="parish-gallery-dialog" aria-labelledby="parish-gallery-dialog-heading"><h2 id="parish-gallery-dialog-heading">Parish photographs</h2><img alt=""><p data-gallery-status aria-live="polite" aria-atomic="true"></p><div class="parish-lightbox-controls"><button type="button" data-previous aria-label="Previous photograph">←</button><button type="button" data-close autofocus>Close</button><button type="button" data-next aria-label="Next photograph">→</button></div></dialog><!-- parish-albums:end -->`;
-if (gallery.includes('<!-- parish-albums:start -->')) gallery = gallery.replace(/<!-- parish-albums:start -->[\s\S]*?<!-- parish-albums:end -->/, markup);
-else gallery = gallery.replace('      <figure class="gallery-single">', `${markup}\n      <figure class="gallery-single">`);
-// Retain the existing church links and illustrative image while making the introduction accurate.
-gallery = gallery.replace('Photographs from St Michael and All Angels and Westhumble Chapel will be shared here.', 'Worship, friendship and community in photographs from our parish.').replace('Photographs approved by the parish will appear here. The image above is illustrative; in the meantime, read about our churches and their history.', 'Explore more about our churches and their history. The separate image above is illustrative.');
-fs.writeFileSync('gallery.html', assets(gallery));
-console.log(`Built parish gallery: ${albums.length} album, ${album.photos.length} photographs, ${featured.length} featured.`);
+let gallery = fs.readFileSync('gallery.html', 'utf8');
+gallery = gallery.replace(/<!-- parish-albums:start -->[\s\S]*?<!-- parish-albums:end -->/, markup);
+gallery = gallery.replace(/\s*<figure class="gallery-single">[\s\S]*?<\/figure>/, '');
+gallery = gallery.replace('Explore more about our churches and their history. The separate image above is illustrative.', 'Explore more about our churches and their history.');
+gallery = gallery.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, 'href="parish-gallery.css?v=20261011-albums"').replace(/src="parish-gallery\.js(?:\?[^"]*)?"/, 'src="parish-gallery.js?v=20261011-albums"');
+fs.writeFileSync('gallery.html', gallery);
+console.log(`Built parish gallery: ${albums.length} albums, ${albums.reduce((n, album) => n + album.photos.length, 0)} photographs.`);

@@ -69,3 +69,21 @@
 @media (prefers-reduced-motion: reduce) {
   .parish-life .parish-carousel-stage > button, .parish-life .parish-carousel-stage > button::before, .parish-life-column > .text-link { transition: none; }
 }
+
+/* One cover per collection; photo grids mount on demand. */
+[data-album-landing][hidden], [data-album-view][hidden] { display: none; }
+.parish-album-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-bottom: 48px; }
+.parish-album-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid #d8ccb5; border-radius: 8px; background: var(--cream, #f7f3e9); color: var(--deep, #18392d); text-decoration: none; }
+.parish-album-card > img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.parish-album-card[data-album-card="eco-group-working-parties"] > img { object-position: center top; }
+.parish-album-card-copy { display: flex; flex: 1; flex-direction: column; padding: 22px; }
+.parish-album-card h2 { margin: 0 0 12px; font-size: clamp(23px, 2.2vw, 29px); line-height: 1.25; }
+.parish-album-card p { margin: 0 0 20px; line-height: 1.6; }
+.parish-album-count { display: block; margin-top: auto; color: var(--green, #315d49); font: 600 14px/1.6 var(--sans); }
+.parish-album-card .parish-album-count { display: flex; justify-content: space-between; gap: 12px; }
+.parish-album-card:hover { border-color: var(--green, #315d49); }
+.parish-album-card:focus-visible, .parish-albums-back:focus-visible { outline: 3px solid #947224; outline-offset: 4px; }
+.parish-albums-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 20px; }
+.parish-album h2 { scroll-margin-top: 120px; }
+@media (max-width: 900px) { .parish-album-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } }
+@media (max-width: 600px) { .parish-album-cards { grid-template-columns: 1fr; } }
