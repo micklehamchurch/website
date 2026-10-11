@@ -1,13 +1,24 @@
 /* Homepage content below the approved hero only. */
 .home-content { background: var(--paper); }
 .home-content > .container, .home-content .home-quick-grid { width: min(1440px, 92%); }
-.home-quick-links { border-bottom: 1px solid #e5e1d8; padding: 28px 0 20px; }
+.home-quick-links { border-bottom: 1px solid #e5e1d8; padding: 14px 0; }
 .home-quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.home-quick-item { padding: 0 28px; }
+.home-quick-item { display: block; min-width: 0; min-height: 44px; padding: 12px 28px; color: var(--ink); text-decoration: none; transition: background-color 180ms ease, box-shadow 180ms ease; }
 .home-quick-item + .home-quick-item { border-left: 1px solid #e0ded6; }
-.home-quick-item svg { display: block; width: 46px; height: 46px; margin: 0 0 12px 20px; color: #9b7025; }
-.home-content .home-quick-item h2 { margin: 0 0 4px; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; }
-.home-quick-item p { margin: 0 0 6px; font-size: 16px; line-height: 1.45; }
+.home-quick-item svg { display: block; width: 46px; height: 46px; margin: 0 0 12px 20px; color: #9b7025; transition: transform 180ms ease; }
+.home-content .home-quick-item h2 { margin: 0; transition: color 180ms ease; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; }
+.home-quick-item:focus-visible { background: #f7f2e6; box-shadow: 0 3px 8px rgba(36, 75, 57, .06); text-decoration: none; }
+.home-quick-item:focus-visible svg { transform: translateY(-3px); }
+.home-content .home-quick-item:focus-visible h2 { color: var(--deep); }
+@media (hover: hover) and (pointer: fine) {
+  .home-quick-item:hover { background: #f7f2e6; box-shadow: 0 3px 8px rgba(36, 75, 57, .06); text-decoration: none; }
+  .home-quick-item:hover svg { transform: translateY(-3px); }
+  .home-content .home-quick-item:hover h2 { color: var(--deep); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-quick-item, .home-quick-item svg, .home-content .home-quick-item h2 { transition: none; }
+  .home-quick-item:hover svg, .home-quick-item:focus-visible svg { transform: none; }
+}
 .home-content .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--deep); font-weight: 500; }
 .home-parish-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; padding: 28px 20px 24px; background: transparent; }
 .home-parish-column { min-width: 0; }
@@ -34,10 +45,10 @@
 .home-content-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: auto; padding: 9px 18px; border: 1px solid #244b39; border-radius: 3px; background: #244b39; color: white; font-size: 15px; line-height: 1.4; text-decoration: none; }
 .home-content-button:hover, .home-content-button:focus-visible { background: var(--deep); color: white; text-decoration: none; }
 .home-content a:focus-visible, .home-content button:focus-visible { outline: 3px solid #947224; outline-offset: 3px; }
-@media (max-width: 1100px) { .home-quick-item { padding: 0 18px; } .home-parish-row { gap: 48px; } .home-parish-column + .home-parish-column::before { left: -24px; } .home-content-button { padding-inline: 12px; font-size: 14px; } }
-@media (max-width: 900px) { .home-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 0; } .home-quick-item:nth-child(3) { border-left: 0; } .home-parish-row { padding-inline: 0; gap: 32px; } .home-parish-column + .home-parish-column::before { left: -16px; } .home-discover-cards { gap: 14px; } .home-discover-copy { padding: 14px; } }
+@media (max-width: 1100px) { .home-quick-item { padding: 12px 18px; } .home-parish-row { gap: 48px; } .home-parish-column + .home-parish-column::before { left: -24px; } .home-content-button { padding-inline: 12px; font-size: 14px; } }
+@media (max-width: 900px) { .home-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 0; } .home-quick-item:nth-child(3) { border-left: 0; } .home-parish-row { padding-inline: 0; gap: 32px; } .home-parish-column + .home-parish-column::before { left: -16px; } .home-discover-cards { gap: 14px; } .home-discover-copy { padding: 14px; } }
 @media (max-width: 700px) { .home-parish-row { grid-template-columns: 1fr; gap: 24px; } .home-parish-column + .home-parish-column::before { content: none; } .home-discover-cards { grid-template-columns: 1fr; gap: 20px; } .home-discover-card > img, .home-discover-card > .parish-life-video { aspect-ratio: 16 / 9; } .home-content .parish-carousel-images, .home-about > img { aspect-ratio: 4 / 3; } .home-discover-copy { padding: 18px; } }
-@media (max-width: 430px) { .home-quick-item { padding: 0 10px; } .home-content .home-quick-item h2 { font-size: 19px; } .home-quick-item p { font-size: 15px; } }
+@media (max-width: 430px) { .home-quick-item { padding: 12px 10px; } .home-content .home-quick-item h2 { font-size: 19px; } }
 .home-content .parish-carousel-controls { position: static; transform: none; justify-content: center; height: 44px; margin: 0; padding: 0; }
 .home-content .parish-carousel-stage > button { bottom: 54px; }
 .home-content .parish-carousel-dots { flex: 0 1 auto; }
