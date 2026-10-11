@@ -51,6 +51,7 @@ on:
       - 'build-typography-preview.js'
       - 'public-script-version.js'
       - 'parish-albums.json'
+      - 'admin/photo-albums-*'
       - 'build-parish-gallery.js'
       - 'news.js'
       - 'admin/msal-auth.js'

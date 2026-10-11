@@ -15,6 +15,7 @@ import { checkGithubRepositoryStatus } from './api-github-status.mjs';
 import { acquireAdminApiToken, acquireGraphUserToken } from './auth-tokens.mjs';
 import { attachContactsApi } from './contacts-api.mjs';
 import { attachHomepageVersesApi } from './homepage-verses-api.mjs';
+import { attachPhotoAlbumsApi } from './photo-albums-api.mjs';
 import { attachClergyApi } from './clergy-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
@@ -304,6 +305,7 @@ async function start() {
     attachGoogleSyncApi(msal, () => activeAdminApiAccount);
     attachContactsApi(msal, () => activeAdminApiAccount);
     attachHomepageVersesApi(msal, () => activeAdminApiAccount);
+    attachPhotoAlbumsApi(msal, () => activeAdminApiAccount);
     attachNewsApi(msal, () => activeAdminApiAccount);
     attachClergyApi(msal, () => activeAdminApiAccount);
     const response = await msal.handleRedirectPromise();

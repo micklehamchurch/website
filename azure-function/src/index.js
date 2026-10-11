@@ -12,3 +12,4 @@ require('./functions/google-calendar-sync');
 require('./functions/google-calendar-timer');
 
 require('./functions/homepage-verses');
+require('./functions/photo-albums');
