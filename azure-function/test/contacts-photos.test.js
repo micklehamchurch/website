@@ -7,6 +7,26 @@ function directory(){return {sections:structuredClone(real.sections),contacts:[{
 const body=(contacts=directory(),uploads=[])=>({sha:SHA,headSha:HEAD,contacts,uploads});
 async function image(format='jpeg',width=1200,height=1800,metadata){let s=sharp({create:{width,height,channels:3,background:'#365642'}});if(metadata)s=s.withMetadata(metadata);return s[format]().toBuffer();}
 const upload=(bytes,format='jpeg',extra={})=>({contactId:'fixture',fileName:'camera.'+(format==='jpeg'?'jpg':format),mimeType:'image/'+format,base64:bytes.toString('base64'),position:'top',...extra});
+
+test('Framing-only API updates retain every source file, survive reload and reject stale writes',async()=>{
+ const current=structuredClone(real),next=structuredClone(current);
+ const david=next.contacts.find(r=>r.id==='organist-david-fishwick');
+ david.photoFraming={zoom:1.45,x:38,y:62};
+ next.pccMembers[0].photoFraming={zoom:2,x:0,y:100};
+ const mutation=await preparePhotos(body(next),current);
+ assert.deepEqual(mutation.files,[]);assert.deepEqual(mutation.deleted,[]);
+ assert.deepEqual(mutation.next.contacts.find(r=>r.id===david.id).photo,current.contacts.find(r=>r.id===david.id).photo);
+ const f=fixture({current}),response=await f.handler(request(body(next)));
+ assert.equal(response.status,200);assert.deepEqual(response.jsonBody.contacts,next);
+ assert.deepEqual(f.ops.find(o=>o.name==='tree').params.tree.map(p=>p.path),['_content/contacts.json']);
+ const reload=fixture({current:response.jsonBody.contacts});
+ const get=request();get.method='GET';
+ assert.deepEqual((await reload.handler(get)).jsonBody.contacts.contacts.find(r=>r.id===david.id).photoFraming,david.photoFraming);
+ const stale=fixture({current});assert.equal((await stale.handler(request({...body(next),headSha:'e'.repeat(40)}))).status,409);
+ assert.equal(stale.ops.some(o=>o.name==='blob'),false);
+ delete next.contacts.find(r=>r.id===david.id).photoFraming;
+ assert.equal((await fixture({current:response.jsonBody.contacts}).handler(request(body(next)))).status,200);
+});
 function request(b,identity=principal){const headers=new Headers({'content-type':'application/json'});if(identity)headers.set('x-ms-client-principal',Buffer.from(JSON.stringify(identity)).toString('base64'));return {method:'PUT',headers,query:new URLSearchParams(),body:new Blob([JSON.stringify(b)]).stream()};}
 function fixture({current=directory(),fail,race}={}){const ops=[];const call=(name,fn)=>async params=>{ops.push({name,params});if(fail===name)throw Error('private');return fn(params);};const client={rest:{repos:{getContent:call('read',p=>({data:{type:'file',path:p.path,sha:SHA,encoding:'base64',content:Buffer.from(JSON.stringify(current)).toString('base64')}}))},git:{getRef:call('ref',()=>({data:{object:{sha:HEAD}}})),getCommit:call('parent',()=>({data:{tree:{sha:SHA}}})),createBlob:call('blob',()=>({data:{sha:NEXT}})),createTree:call('tree',()=>({data:{sha:NEXT}})),createCommit:call('commit',()=>({data:{sha:COMMIT}})),updateRef:call('advance',()=>{if(race)throw {status:422};return {data:{}};})}}};return {ops,handler:createContactsHandler({readConfiguration:()=>({}),createClient:async()=>client})};}
 test('JPEG PNG and static WebP produce only full-aspect 400/800 long-edge WebP derivatives',async()=>{for(const format of ['jpeg','png','webp']){const b=body(directory(),[upload(await image(format),format)]),m=await preparePhotos(b,directory());assert.equal(m.files.length,2);assert.deepEqual(m.next.contacts[0].photo.variants.map(v=>[v.width,v.height]),[[267,400],[533,800]]);for(const f of m.files){assert.match(f.path,/^assets\/images\/contacts\/profiles\/photo-[a-f0-9-]+-(400|800)\.webp$/);const info=await sharp(f.bytes).metadata();assert.equal(info.format,'webp');assert.equal(info.exif,undefined);assert.equal(info.xmp,undefined);assert.equal(info.icc,undefined);}}});

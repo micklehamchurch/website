@@ -902,3 +902,5 @@ h3 { font-family: var(--serif); }
 .footer-feature-diocese > div { align-self: start; }
 
 .directory-portrait.profile-derivative { object-fit: cover; }
+.directory-portrait-frame { display: block; position: relative; flex: none; box-sizing: border-box; width: 88px; height: 132px; overflow: hidden; border: 1px solid var(--stone); border-radius: 6px; background: var(--cream); }
+.directory-portrait-frame img { display: block; position: absolute; max-width: none; }

@@ -546,30 +546,46 @@
   function profileControls(item) {
     const pending = item && contactUploads.get(item.id), photo = item?.photo;
     const src = pending ? 'data:'+pending.mimeType+';base64,'+pending.base64 : typeof photo === 'string' ? '../'+photo : photo?.variants?.length ? (/^[a-f0-9]{40}$/.test(sharedContacts.headSha || '') ? 'https://raw.githubusercontent.com/micklehamchurch/website/'+sharedContacts.headSha+'/'+photo.variants[0].src : '../'+photo.variants[0].src) : '';
-    return '<fieldset class="admin-field full admin-profile-photo"><legend>Profile photograph</legend><img id="contact-photo-preview" class="admin-profile-preview" alt="'+escAttr(item?.name || '')+'" '+(src?'src="'+escAttr(src)+'"':'hidden')+'><label for="contact-photo-upload">Upload / Replace photo</label><input id="contact-photo-upload" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="contact-photo-help"><p id="contact-photo-help">Optional. JPEG, PNG or static WebP, up to 10 MB. For HEIC/HEIF, export as JPEG first. Keep the original separately. The church should have permission to publish this person’s photograph.</p>'+field('Portrait position','photoPosition',pending?.position || photo?.position || 'top',{choices:[['top','Top (faces near the top)'],['center','Centre'],['bottom','Bottom']]})+'<button type="button" class="admin-button secondary" id="contact-photo-remove">Remove photo</button><p id="contact-photo-status" role="status"></p></fieldset>';
+    const framing = item?.photoFraming || {zoom:1,x:50,y:({top:0,center:50,bottom:100})[pending?.position || photo?.position] ?? 50};
+    const sliders = [['zoom','Zoom',1,3,0.01],['x','Horizontal position',0,100,1],['y','Vertical position',0,100,1]].map(([key,label,min,max,step]) => '<div class="admin-field"><label for="contact-photo-'+key+'">'+label+' <output id="contact-photo-'+key+'-value" for="contact-photo-'+key+'"></output></label><input id="contact-photo-'+key+'" name="photo'+key+'" type="range" min="'+min+'" max="'+max+'" step="'+step+'" value="'+framing[key]+'" aria-describedby="contact-framing-help"></div>').join('');
+    return '<fieldset class="admin-field full admin-profile-photo"><legend>Profile photograph</legend><div id="contact-photo-frame" class="admin-profile-frame" '+(src?'':'hidden')+'><img id="contact-photo-preview" class="admin-profile-preview" alt="'+escAttr(item?.name || '')+'" '+(src?'src="'+escAttr(src)+'"':'hidden')+'></div><div id="contact-framing-controls" '+(src?'':'hidden')+'>'+sliders+'<button type="button" class="admin-button secondary" id="contact-photo-reset">Reset framing</button><p id="contact-framing-help">Use the arrow keys to fine-tune. Horizontal: left to right; vertical: top to bottom. The preview matches the public portrait. Stage changes, then Publish changes to save. Your photograph stays intact.</p></div><label for="contact-photo-upload">Upload / Replace photo</label><input id="contact-photo-upload" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="contact-photo-help"><p id="contact-photo-help">Optional. JPEG, PNG or static WebP, up to 10 MB. For HEIC/HEIF, export as JPEG first. Keep the original separately. The church should have permission to publish this person’s photograph.</p><button type="button" class="admin-button secondary" id="contact-photo-remove">Remove photo</button><p id="contact-photo-status" role="status"></p></fieldset>';
   }
   function bindProfileControls(form,item) {
     form.profileUpload = item ? contactUploads.get(item.id) : null;
     const input=form.querySelector('#contact-photo-upload'), preview=form.querySelector('#contact-photo-preview'), status=form.querySelector('#contact-photo-status');
     if(!input)return;
-    const position=form.querySelector('[name="photoPosition"]');
-    const frame=()=>{preview.style.objectPosition='center '+position.value;}; frame(); position.addEventListener('change',frame);
+    const container=form.querySelector('#contact-photo-frame'), controls=form.querySelector('#contact-framing-controls');
+    const sliders=Object.fromEntries(['zoom','x','y'].map(key=>[key,form.querySelector('#contact-photo-'+key)]));
+    form.profileFraming=item?.photoFraming ? {...item.photoFraming} : null;
+    const defaults=()=>({zoom:1,x:50,y:form.profileUpload ? 0 : ({top:0,center:50,bottom:100})[item?.photo?.position] ?? 50});
+    const frame=()=>{
+      const f=form.profileFraming || defaults();
+      const cover=!!form.profileUpload || typeof item?.photo==='object';
+      preview.style.objectFit=cover?'cover':'contain';
+      preview.style.objectPosition=f.x+'% '+f.y+'%';
+      preview.style.width=(100*f.zoom)+'%';preview.style.height=(100*f.zoom)+'%';
+      preview.style.left=((1-f.zoom)*f.x)+'%';preview.style.top=((1-f.zoom)*f.y)+'%';
+      for(const key of ['zoom','x','y']){sliders[key].value=f[key];form.querySelector('#contact-photo-'+key+'-value').textContent=key==='zoom'?Math.round(f[key]*100)+'%':f[key]+'%';}
+    };
+    frame();
+    for(const key of ['zoom','x','y']) sliders[key].addEventListener('input',()=>{form.profileFraming=Object.fromEntries(['zoom','x','y'].map(k=>[k,Number(sliders[k].value)]));frame();});
+    form.querySelector('#contact-photo-reset').addEventListener('click',()=>{form.profileFraming=null;frame();status.textContent='Default framing restored. Stage changes, then Publish changes.';});
     input.addEventListener('change',async()=>{
       const file=input.files[0];if(!file)return;
       if(!/\.(jpe?g|png|webp)$/i.test(file.name)||!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024||!file.size) {status.textContent='Choose JPEG, PNG or static WebP up to 10 MB. For HEIC/HEIF, export as JPEG first.';input.value='';return;}
       form.profileReading=true;input.disabled=true;status.textContent='Reading photograph…';
       try { const result=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);});
-        form.profileUpload={fileName:file.name,mimeType:file.type,base64:result.split(',')[1]};form.profileRemoved=false;preview.src=result;preview.hidden=false;status.textContent='Photograph selected. Stage changes, then Publish changes.';
+        form.profileUpload={fileName:file.name,mimeType:file.type,base64:result.split(',')[1]};form.profileFraming=null;form.profileRemoved=false;preview.src=result;preview.hidden=false;container.hidden=false;controls.hidden=false;frame();status.textContent='Photograph selected. Stage changes, then Publish changes.';
       } catch {status.textContent='Could not read this photograph. Select it again.';} finally {form.profileReading=false;input.disabled=false;}
     });
-    form.querySelector('#contact-photo-remove').addEventListener('click',()=>{if(form.profileReading)return;form.profileUpload=null;form.profileRemoved=true;input.value='';preview.removeAttribute('src');preview.hidden=true;status.textContent='Photo removal selected. Stage changes, then Publish changes.';input.focus();});
+    form.querySelector('#contact-photo-remove').addEventListener('click',()=>{if(form.profileReading)return;form.profileUpload=null;form.profileFraming=null;form.profileRemoved=true;input.value='';preview.removeAttribute('src');preview.hidden=true;container.hidden=true;controls.hidden=true;status.textContent='Photo removal selected. Stage changes, then Publish changes.';input.focus();});
   }
   function stageProfile(form,record) {
     if(form.profileReading){const error=document.querySelector('#admin-form-error');error.hidden=false;error.textContent='Wait for the photograph to finish loading.';return false;}
-    const position=form.querySelector('[name="photoPosition"]')?.value || 'top';
+    const position=form.profileUpload?.position || 'top';
+    if(form.profileFraming && !form.profileRemoved && (record.photo || form.profileUpload))record.photoFraming={...form.profileFraming};else delete record.photoFraming;
     if(form.profileRemoved){delete record.photo;contactUploads.delete(record.id);}
     else if(form.profileUpload){contactUploads.set(record.id,{...form.profileUpload,contactId:record.id,position});}
-    else if(record.photo && typeof record.photo==='object'){record.photo.position=position;}
     return true;
   }
   function openContactEditor(id = '', sectionId = '') {

@@ -48,7 +48,7 @@ test('Optional contact portraits use authoritative references, reserve proportio
  assert.match(out.html,/<img class="directory-portrait" src="assets\/images\/contacts\/sandra-faccini.jpg" alt="Revd. Dr. Sandra Faccini" width="88" height="132" loading="lazy" decoding="async">/);
  assert.equal((out.html.match(/class="directory-portrait"/g)||[]).length,1);
  assert.equal(JSON.parse(out.admin).contacts.find(c=>c.id===sandra.id).photo,sandra.photo);
- const without=structuredClone(real);delete without.contacts.find(c=>c.id===sandra.id).photo;
+ const without=structuredClone(real);for(const r of [...without.contacts,...without.pccMembers])delete r.photo;
  assert.doesNotMatch(build(without).html,/directory-portrait/);
  assert.match(out.html,/mailto:parishpriest@micklehamchurch.org.uk/);
  assert.match(out.html,/tel:01372417664/);
@@ -61,5 +61,24 @@ test('Optional contact portraits retain safe local-asset validation',()=>{
 });
 
 test('Optimized portraits render responsive sources and focal position only for published people',()=>{
- const d=structuredClone(real),c=d.contacts.find(c=>c.id==='parish-priest');c.photo={position:'top',variants:[{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-400.webp',width:267,height:400,bytes:1234},{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-800.webp',width:533,height:800,bytes:2345}]};let out=build(d);assert.match(out.html,/sizes="88px"/);assert.match(out.html,/400\.webp 267w, .*800\.webp 533w/);assert.match(out.html,/object-position:center top/);assert.match(out.html,/alt="Revd. Dr. Sandra Faccini"/);c.status='draft';out=build(d);assert.doesNotMatch(out.html,/profile-derivative|12345678/);
+ const d=structuredClone(real),c=d.contacts.find(c=>c.id==='parish-priest');c.photo={position:'top',variants:[{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-400.webp',width:267,height:400,bytes:1234},{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-800.webp',width:533,height:800,bytes:2345}]};let out=build(d);assert.match(out.html,/sizes="88px"/);assert.match(out.html,/400\.webp 267w, .*800\.webp 533w/);assert.match(out.html,/object-position:center top/);assert.match(out.html,/alt="Revd. Dr. Sandra Faccini"/);c.status='draft';out=build(d);assert.doesNotMatch(out.html,/12345678/);
+});
+
+test('Saved framing renders on contacts and PCC while preserving source variants',()=>{
+ const d=structuredClone(real),david=d.contacts.find(c=>c.id==='organist-david-fishwick'),original=structuredClone(david.photo);
+ david.photoFraming={zoom:1.75,x:32,y:68};
+ d.pccMembers[0].photo='assets/images/contacts/fixture-person.jpg';d.pccMembers[0].photoFraming={zoom:2,x:0,y:100};
+ const out=build(d);assert.match(out.html,/object-fit:cover;object-position:32% 68%;width:175%;height:175%;left:-24%;top:-51%/);
+ assert.match(out.html,/object-fit:contain;object-position:0% 100%/);
+ assert.deepEqual(JSON.parse(out.admin).contacts.find(c=>c.id===david.id).photoFraming,david.photoFraming);
+ assert.deepEqual(david.photo,original);
+ delete david.photoFraming;assert.match(build(d).html,/object-position:center top/);
+});
+
+test('Framing validation rejects unsafe types, extra keys and out-of-range values',()=>{
+ const {validateContacts}=require('./azure-function/src/contacts-model');
+ for(const f of [{zoom:0.99,x:50,y:50},{zoom:3.01,x:50,y:50},{zoom:1,x:-1,y:50},{zoom:1,x:50,y:101},{zoom:'2',x:50,y:50},{zoom:NaN,x:50,y:50},{zoom:Infinity,x:50,y:50},{zoom:1,x:50},{zoom:1,x:50,y:50,url:'evil'}]){
+ const d=structuredClone(real);d.contacts[0].photoFraming=f;assert.throws(()=>validateContacts(d));
+ }
+ for(const zoom of [1,3]){const d=structuredClone(real);d.contacts[0].photoFraming={zoom,x:0,y:100};assert.equal(validateContacts(d),d);}
 });

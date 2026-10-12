@@ -18,7 +18,12 @@ function validateContacts(data) {
   }
   const ids = new Set();
   for (const [records, pcc] of [[data.contacts, false], [data.pccMembers, true]]) for (const record of records) {
-    keys(record, pcc ? ['id', 'name', 'status'] : ['id', 'section', 'role', 'name', 'status'], pcc ? ['photo'] : ['phone', 'email', 'groupId', 'photo']);
+    keys(record, pcc ? ['id', 'name', 'status'] : ['id', 'section', 'role', 'name', 'status'], pcc ? ['photo', 'photoFraming'] : ['phone', 'email', 'groupId', 'photo', 'photoFraming']);
+    if (record.photoFraming !== undefined) {
+      keys(record.photoFraming, ['zoom', 'x', 'y']);
+      const { zoom, x, y } = record.photoFraming;
+      if (![zoom, x, y].every(Number.isFinite) || zoom < 1 || zoom > 3 || x < 0 || x > 100 || y < 0 || y > 100) throw Error('invalid-photo-framing');
+    }
     if (!slug(record.id) || ids.has(record.id) || !['published', 'draft'].includes(record.status)) throw new Error('invalid-identity');
     ids.add(record.id); text(record.name, 180);
     if (!pcc) {
