@@ -45,6 +45,8 @@ on:
       - 'admin/news-api.mjs'
       - 'build-news-pages.js'
       - 'build-content-pages.js'
+      - 'find-us-render.js'
+      - 'find-us.css'
       - 'build-contact-directory.js'
       - 'build-general-contacts.js'
       - 'contact-portrait.js'

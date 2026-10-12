@@ -163,7 +163,7 @@ for (const page of pages) {
   const image = page.image ? `<figure class="topic-image${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
   const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? renderPastoralContent(page) : isWorshipLife ? renderWorshipLifeContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
   const lifeStylesheet = isWorshipLife ? '  <link rel="stylesheet" href="worship-life.css">\n' : '';
-  const pageStructure = isWorshipLife
+  const pageStructure = page.layout === 'find-us' ? require('./find-us-render')(page) : isWorshipLife
     ? `<div class="life-hero life-hero-${esc(page.lifeEvent?.kind || 'page')}"><p class="eyebrow">${esc(page.lifeEvent?.heroLabel || page.category)}</p><h1>${esc(page.lifeEvent?.heroTitle || page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="life-hero-actions"><a class="btn btn-green" href="${esc(page.lifeEvent?.primary?.href || page.href || 'contact.html')}">${esc(page.lifeEvent?.primary?.label || page.action || 'Find out more')} <span aria-hidden="true">→</span></a>${page.lifeEvent?.secondary ? `<a class="btn btn-outline-green" href="${esc(page.lifeEvent.secondary.href)}">${esc(page.lifeEvent.secondary.label)}</a>` : ''}</div></div>${pageContent}<div class="topic-actions"><a class="btn btn-outline-green" href="${esc(page.back)}">Back to ${esc(backLabel)}</a></div>`
     : isPrayer || isPastoralCare
     ? `<div class="care-hero ${isPrayer ? 'prayer-hero' : 'pastoral-hero'}"><p class="eyebrow">${esc(page.heroLabel)}</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="care-hero-actions"><a class="btn btn-green" href="${esc(page.heroAction.href)}">${esc(page.heroAction.label)} <span aria-hidden="true">→</span></a><a class="care-hero-secondary" href="${esc(page.heroSecondary.href)}">${esc(page.heroSecondary.label)}</a></div></div>${pageContent}`
@@ -205,7 +205,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
+${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n' : ''}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
