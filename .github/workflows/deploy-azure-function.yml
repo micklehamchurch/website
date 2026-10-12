@@ -62,6 +62,7 @@ jobs:
         run: npm test
 
   deploy:
+    environment: azure-dev
     needs: validate-and-test
     if: needs.validate-and-test.outputs.deploy-ready == 'true' && github.ref == 'refs/heads/Dev'
     runs-on: ubuntu-latest
