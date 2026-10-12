@@ -1,35 +1,62 @@
-.find-us { color: var(--ink, #203c2f); }
-.find-us h1, .find-us h2, .find-us h3 { color: #203c2f; }
-.find-us p { line-height: 1.7; }
-.find-us a:not(.btn) { text-underline-offset: .2em; }
-.find-us a:focus-visible { outline: 3px solid #967536; outline-offset: 5px; }
-.find-hero { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(24px, 4vw, 64px); align-items: center; padding: 24px 0 56px; }
-.find-hero h1 { font-size: clamp(42px, 5vw, 68px); margin: 0 0 20px; }
-.find-hero img { width: 100%; height: auto; border-radius: 3px; }
-.find-jumps, .find-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
-.find-us .btn { min-height: 48px; white-space: normal; text-align: center; }
-.find-intro { max-width: 720px; margin: 12px 0 36px; }
-.find-location { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(24px, 4vw, 60px); align-items: center; border-top: 1px solid #d8ccb5; padding: 40px 0; scroll-margin-top: 120px; }
-.find-location figure { margin: 0; }
-.find-location img { display: block; width: 100%; height: auto; max-height: 430px; object-fit: contain; background: #f7f3e9; }
-.find-location figcaption { font-size: .8rem; margin-top: 10px; color: #59645c; }
-.find-location h2 { font-size: clamp(27px, 3vw, 36px); margin: 8px 0 20px; }
-.find-location address { font-style: normal; font-size: 1.1rem; line-height: 1.65; }
-.find-location-copy > p { max-width: 58ch; }
-.find-travel { border-top: 1px solid #d8ccb5; padding: 48px 0 24px; }
-.find-transport-summary { max-width: 78ch; }
-.find-travel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
-.find-travel-grid article { padding: 24px; border: 1px solid #d8ccb5; background: #f7f3e9; border-radius: 3px; }
-.find-travel-grid h3 { margin: 0 0 12px; font-size: 23px; }
-.find-travel-grid a, .find-map nav a { display: inline-flex; align-items: center; min-height: 44px; }
-.find-note { font-size: .9rem; color: #59645c; }
-.find-map, .find-help { display: grid; grid-template-columns: 1.5fr 1fr; align-items: center; gap: 32px; padding: 32px; margin-top: 28px; border: 1px solid #d8ccb5; background: #f7f3e9; }
-.find-map nav { display: flex; flex-direction: column; align-items: flex-start; }
-.find-help { border-top: 3px solid #b4955b; margin-bottom: 16px; }
-.find-help .btn { justify-self: start; }
-.find-us h2 { line-height: 1.2; }
-.find-us > *, .find-hero > *, .find-location > *, .find-map > *, .find-help > * { min-width: 0; }
+/* Scoped to Find Us: the shared header, footer and typography remain unchanged. */
+.find-page.section { padding: 0; }
+.find-page > .find-shell { width: 100%; max-width: none; }
+.find-us { background: var(--paper); color: var(--ink); }
+.find-us .container { width: min(1120px, calc(100% - 128px)); }
+.find-us h1, .find-us h2, .find-us h3 { font-family: var(--serif); }
+.find-us h2, .find-us h3 { color: var(--deep); }
+.find-us h2 { margin: 0 0 14px; font-size: clamp(24px, 2.45vw, 32px); font-weight: 600; line-height: 1.2; letter-spacing: -.025em; }
+.find-us a:focus-visible, .find-us button:focus-visible { outline: 3px solid #967536; outline-offset: 4px; }
+.find-us .find-hero a:focus-visible { outline-color: #f1d488; }
+.find-us .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; white-space: normal; font-size: 14px; }
+.find-icon { flex: 0 0 25px; width: 25px; height: 25px; color: var(--deep); }
+.find-us .btn .find-icon { color: inherit; width: 18px; height: 18px; flex-basis: 18px; }
+.find-us .text-link .find-icon, .find-us .btn-outline-green .find-icon { width: 14px; height: 14px; flex-basis: 14px; }
+.find-hero { position: relative; isolation: isolate; min-height: 224px; overflow: hidden; color: var(--paper); }
+.find-hero-photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+/* Readability treatment is confined to the hero's text side. Location photographs are untreated. */
+.find-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #18392df5 0%, #18392de0 28%, #18392d65 49%, transparent 73%); }
+.find-hero-inner { padding: 26px 0; }
+.find-back { display: inline-block; min-height: 28px; color: var(--paper); font-size: 13px; font-weight: 600; text-decoration: none; }
+.find-hero .eyebrow { color: #f1d488; margin: 5px 0 8px; font-size: 10px; }
+.find-hero h1 { margin: 0 0 10px; font: 600 clamp(36px, 4vw, 48px)/1.08 var(--serif); letter-spacing: -.025em; color: var(--paper); }
+.find-hero p:last-child { margin: 0; max-width: 480px; font: 400 19px/1.5 var(--serif); }
+.find-location { padding: 24px 0; border-bottom: 1px solid var(--stone); scroll-margin-top: 100px; }
+.find-location-main { display: grid; grid-template-columns: 1.04fr 1fr; gap: 32px; align-items: center; }
+.find-location figure { margin: 0; min-width: 0; }
+.find-location figure img { display: block; width: 100%; aspect-ratio: 1.95; height: auto; object-fit: cover; object-position: 50% 35%; border-radius: 3px; }
+.find-location-copy > p { font: 400 17px/1.5 var(--serif); max-width: 53ch; margin: 16px 0; }
+.find-address { display: flex; gap: 12px; align-items: flex-start; }
+.find-address .find-icon { color: #824f3f; margin-top: 2px; width: 22px; flex-basis: 22px; }
+.find-address address { font: 400 17px/1.45 var(--serif); }
+.find-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.find-card-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 20px; }
+.find-card { display: flex; align-items: flex-start; gap: 12px; padding: 18px 16px; background: #faf8f1; border: 1px solid var(--stone); border-radius: 4px; }
+.find-card h3 { margin: 0 0 6px; font-size: 17px; font-weight: 600; line-height: 1.25; }
+.find-card p { margin: 0; font-size: 13px; line-height: 1.55; color: #3e4a43; }
+.find-bottom { display: grid; grid-template-columns: 1.12fr 1fr; gap: 20px; padding: 26px 0 30px; align-items: stretch; }
+.find-map-panel, .find-transport-panel, .find-help-panel { padding: 20px; border: 1px solid var(--stone); border-radius: 4px; background: #faf8f1; }
+.find-map-panel h2 { font-size: 25px; margin-bottom: 8px; }
+.find-map-panel > p { margin: 0 0 12px; font-size: 14px; line-height: 1.5; }
+.find-map-frame { min-height: 238px; border: 1px solid #d8dfd3; border-radius: 3px; background: #eaf0e5; overflow: hidden; }
+.find-map-choice { padding: 20px; }
+.find-map-destinations { display: grid; grid-template-columns: 25px 1fr; gap: 12px; align-items: center; font-size: 14px; margin-bottom: 18px; color: var(--deep); }
+.find-map-choice > p { margin: 8px 0 0; font-size: 12px; color: #3e4a43; }
+.find-map-frame iframe { display: block; border: 0; width: 100%; height: 260px; }
+.find-map-links { display: flex; flex-wrap: wrap; gap: 0 16px; margin-top: 6px; }
+.find-us .text-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 12px; text-underline-offset: .2em; }
+.find-side-panels { display: flex; flex-direction: column; gap: 12px; }
+.find-transport-panel { flex: 1; }
+.find-transport-panel h2, .find-help-panel h2 { font-size: 21px; margin-bottom: 10px; }
+.find-transport-item { display: flex; align-items: flex-start; gap: 14px; margin-top: 12px; }
+.find-transport-item p, .find-help-panel p { font-size: 13px; line-height: 1.55; margin: 0; }
+.find-transport-item .text-link { min-height: 44px; }
+.find-help-panel { display: flex; gap: 14px; }
+.find-help-panel .btn { margin-top: 12px; }
+.find-bottom > *, .find-location-main > *, .find-card > div { min-width: 0; }
 .find-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-@media (max-width: 1000px) { .find-travel-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 760px) { .find-hero, .find-location, .find-map, .find-help { grid-template-columns: 1fr; } .find-hero { padding-bottom: 28px; } .find-location { padding: 28px 0; } .find-location img { max-height: 360px; } .find-map, .find-help { padding: 24px; gap: 16px; } }
-@media (max-width: 480px) { .find-travel-grid { grid-template-columns: 1fr; } .find-jumps .btn, .find-actions .btn { width: 100%; } }
+@media (min-width: 1500px) { .find-hero-inner { padding: 38px 0; } }
+@media (max-width: 1000px) { .find-us .container { width: calc(100% - 64px); } .find-card-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .find-location-main { gap: 24px; } .find-us .btn { font-size: 13px; padding-inline: 12px; } }
+@media (max-width: 700px) { .find-us .container { width: calc(100% - 32px); } .find-hero { min-height: 245px; } .find-hero::before { background: linear-gradient(90deg,#18392df5, #18392de0 85%, #18392d50); } .find-hero-photo { object-position: 62% 50%; } .find-hero p:last-child { font-size: 17px; max-width: 290px; } .find-hero h1 { font-size: 38px; } .find-location-main, .find-bottom { grid-template-columns: 1fr; } .find-location-main { gap: 20px; } .find-location { padding: 26px 0; } .find-location figure img { aspect-ratio: 1.65; } .find-location-copy > p { font-size: 16px; } .find-us h2 { font-size: 26px; } .find-transport-panel h2, .find-help-panel h2 { font-size: 21px; } .find-bottom { gap: 12px; padding-block: 22px; } }
+@media (max-width: 420px) { .find-card { gap: 9px; padding: 14px 12px; } .find-card-grid { gap: 10px; } .find-card h3 { font-size: 15px; } .find-card .find-icon { width: 21px; height: 21px; flex-basis: 21px; } .find-card p { font-size: 12px; } .find-actions { gap: 8px; } .find-actions .btn { flex: 1 1 auto; } .find-desktop-break { display: none; } }
+@media (max-width: 350px) { .find-card-grid { grid-template-columns: 1fr; } }

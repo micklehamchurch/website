@@ -205,7 +205,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n' : ''}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
+${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <script src="find-us-map.js" defer></script>\n' : ''}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -215,9 +215,9 @@ ${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n' :
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : isPrayer ? ' prayer-page' : isPastoralCare ? ' pastoral-care-page' : ''}" tabindex="-1">
-    <div class="container topic-container${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
-      <a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>
+  <main id="main-content" class="section topic-page${page.layout === 'find-us' ? ' find-page' : ''}${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : isPrayer ? ' prayer-page' : isPastoralCare ? ' pastoral-care-page' : ''}" tabindex="-1">
+    <div class="container topic-container${page.layout === 'find-us' ? ' find-shell' : ''}${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
+      ${page.layout === 'find-us' ? '' : `<a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>`}
       ${pageStructure}
     </div>
   </main>

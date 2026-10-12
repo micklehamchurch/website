@@ -1304,14 +1304,13 @@
       "section": "visit",
       "category": "Visit & Learn",
       "title": "Find Us",
-      "summary": "Find St Michael and All Angels in Mickleham and the Chapel of Ease in Westhumble. Two places of welcome in the Surrey Hills.",
+      "summary": "Two church buildings in a beautiful setting in the heart of the Surrey Hills.",
       "back": "visit.html",
       "sections": [],
       "layout": "find-us",
       "locations": [
         {
           "id": "mickleham",
-          "village": "Mickleham",
           "title": "St Michael and All Angels, Mickleham",
           "shortName": "Mickleham church",
           "address": [
@@ -1319,18 +1318,39 @@
             "Mickleham, Dorking",
             "Surrey RH5 6DU"
           ],
-          "image": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-01-960.webp",
-          "alt": "St Michael and All Angels, its stone clock tower, red church door and surrounding churchyard.",
-          "caption": "St Michael and All Angels, Mickleham.",
-          "arrival": "Use Old London Road and postcode RH5 6DU when planning your arrival. The 465 serves the Mickleham Church stop; check the current route and arrivals below.",
-          "more": "church-building.html",
-          "moreLabel": "Explore the church",
+          "image": "assets/images/visit/st-michaels-1440.webp",
+          "alt": "St Michael and All Angels, its stone clock tower and spire above the churchyard.",
           "directions": "https://www.google.com/maps/dir/?api=1&destination=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU",
-          "map": "https://www.google.com/maps/search/?api=1&query=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU"
+          "map": "https://www.google.com/maps/search/?api=1&query=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU",
+          "srcset": "assets/images/visit/st-michaels-960.webp 960w, assets/images/visit/st-michaels-1440.webp 1440w",
+          "width": 1440,
+          "height": 1080,
+          "description": "Our historic parish church in the village of Mickleham welcomes you for worship and prayer. See the church calendar for current services and events.",
+          "cards": [
+            {
+              "icon": "car",
+              "title": "By car",
+              "text": "Use Old London Road, Mickleham, RH5 6DU for your journey."
+            },
+            {
+              "icon": "parking",
+              "title": "Parking",
+              "text": "Please contact the parish to confirm parking before your visit."
+            },
+            {
+              "icon": "bus",
+              "title": "By bus",
+              "text": "The 465 serves the Mickleham Church stop. Check current arrivals below."
+            },
+            {
+              "icon": "access",
+              "title": "Accessibility",
+              "text": "Please contact the parish to confirm arrangements for your access needs."
+            }
+          ]
         },
         {
           "id": "westhumble",
-          "village": "Westhumble",
           "title": "Chapel of Ease, Westhumble",
           "shortName": "Westhumble Chapel",
           "address": [
@@ -1340,49 +1360,38 @@
           ],
           "image": "assets/images/visit/westhumble-chapel.jpg",
           "alt": "The timber and brick Chapel of Ease at Westhumble, beside the lane and surrounded by trees.",
-          "caption": "The Chapel of Ease, Westhumble.",
-          "arrival": "Use Crabtree Lane and postcode RH5 6BG. Check the calendar for chapel services and contact the parish to confirm access before making a special journey.",
-          "more": "westhumble-chapel.html",
-          "moreLabel": "Explore the chapel",
           "directions": "https://www.google.com/maps/dir/?api=1&destination=Chapel+of+Ease+Crabtree+Lane+Westhumble+RH5+6BG",
-          "map": "https://www.google.com/maps/search/?api=1&query=Chapel+of+Ease+Crabtree+Lane+Westhumble+RH5+6BG"
+          "map": "https://www.google.com/maps/search/?api=1&query=Chapel+of+Ease+Crabtree+Lane+Westhumble+RH5+6BG",
+          "width": 300,
+          "height": 199,
+          "description": "The Chapel of Ease is part of our parish community in Westhumble, a quieter setting for worship and prayer. Please confirm services and access before visiting.",
+          "cards": [
+            {
+              "icon": "car",
+              "title": "By car",
+              "text": "Use Crabtree Lane, Westhumble, RH5 6BG for your journey."
+            },
+            {
+              "icon": "parking",
+              "title": "Parking",
+              "text": "Please contact the parish to confirm parking near the chapel."
+            },
+            {
+              "icon": "train",
+              "title": "By train",
+              "text": "Box Hill & Westhumble is the local station. Plan your onward journey."
+            },
+            {
+              "icon": "walk",
+              "title": "On foot from the station",
+              "text": "Plan your route from Box Hill & Westhumble station before travelling."
+            }
+          ]
         }
       ],
-      "travel": [
-        {
-          "title": "By car",
-          "text": "For Mickleham church, use Old London Road, RH5 6DU. For Westhumble Chapel, use Crabtree Lane, RH5 6BG. Choose the directions button for your destination.",
-          "href": "https://www.google.com/maps/dir/?api=1&destination=St+Michael+and+All+Angels+Church+Old+London+Road+Mickleham+RH5+6DU",
-          "label": "Driving directions to Mickleham"
-        },
-        {
-          "title": "Parking",
-          "text": "Please contact the parish to confirm parking arrangements at your destination before your visit, including any disabled parking requirements."
-        },
-        {
-          "title": "By bus",
-          "text": "The 465 links Kingston, Surbiton, Leatherhead and Dorking, serving Mickleham Church and Westhumble Street. For the chapel, check your onward route from Westhumble Street.",
-          "href": "https://tfl.gov.uk/bus/route/465/",
-          "label": "465 route & arrivals — TfL"
-        },
-        {
-          "title": "By train",
-          "text": "Box Hill & Westhumble station is on Westhumble Street, Westhumble, RH5 6BT. Plan a separate onward journey to the church or chapel.",
-          "href": "https://www.nationalrail.co.uk/stations/box-hill-westhumble/",
-          "label": "Station & journeys — National Rail"
-        },
-        {
-          "title": "On foot",
-          "text": "Plan your route from the station to your chosen destination. Check the route suits your needs; contact the parish if you need local arrival advice.",
-          "href": "https://www.google.com/maps/dir/?api=1&origin=Box+Hill+and+Westhumble+Station+RH5+6BT&destination=Chapel+of+Ease+Crabtree+Lane+Westhumble+RH5+6BG&travelmode=walking",
-          "label": "Plan a walk to Westhumble Chapel"
-        },
-        {
-          "title": "Accessibility",
-          "text": "For step-free access, entrances or facilities at either building, please contact the parish to confirm arrangements that meet your needs."
-        }
-      ],
-      "stationMap": "https://www.google.com/maps/search/?api=1&query=Box+Hill+and+Westhumble+Station+RH5+6BT"
+      "stationMap": "https://www.google.com/maps/search/?api=1&query=Box+Hill+and+Westhumble+Station+RH5+6BT",
+      "busUrl": "https://tfl.gov.uk/bus/route/465/",
+      "railUrl": "https://www.nationalrail.co.uk/stations/box-hill-westhumble/"
     },
     {
       "slug": "what-to-expect",

@@ -47,6 +47,7 @@ on:
       - 'build-content-pages.js'
       - 'find-us-render.js'
       - 'find-us.css'
+      - 'find-us-map.js'
       - 'build-contact-directory.js'
       - 'build-general-contacts.js'
       - 'contact-portrait.js'

@@ -31,8 +31,29 @@ test('External links identify new tabs and verified transport providers; local l
   assert.doesNotMatch(html, /<iframe|api_key|maps.googleapis/i);
 });
 test('Parking and access copy asks for confirmation without promising facilities', () => {
-  for (const title of ['Parking','Accessibility']) assert.match(page.travel.find(c=>c.title===title).text, /contact the parish to confirm/i);
+  for (const title of ['Parking','Accessibility']) assert.match(page.locations[0].cards.find(c=>c.title===title).text, /contact the parish to confirm/i);
+  assert.match(page.locations[1].cards.find(c=>c.title==='Parking').text, /contact the parish to confirm/i);
   const css = fs.readFileSync(path.join(root,'find-us.css'),'utf8');
-  assert.doesNotMatch(css, /filter\s*:|gradient\(|blend-mode/);
+  assert.doesNotMatch(css, /filter\s*:|blend-mode/);
+  for (const rule of css.matchAll(/([^{}]+)\{([^{}]+)\}/g)) if (/gradient\(/.test(rule[2])) assert(rule[1].includes('.find-hero::before'));
   assert.match(css, /:focus-visible/);
+});
+
+test('reference composition has eight location cards and the consolidated bottom panels', () => {
+  assert.equal((html.match(/class="find-card"/g)||[]).length, 8);
+  assert.equal(page.locations[0].cards.length,4); assert.equal(page.locations[1].cards.length,4);
+  assert.match(html,/class="find-bottom"/); assert.match(html,/Map and nearby locations/);
+  assert.match(html,/Travelling by public transport/); assert.match(html,/Need help finding us/);
+  assert.doesNotMatch(html,/Choose where|Getting here|destination at a glance|find-travel-grid|find-jumps/i);
+  for (const svg of html.matchAll(/<svg\b[^>]*>/g)) { assert.match(svg[0],/aria-hidden="true"/); assert.match(svg[0],/focusable="false"/); }
+});
+test('map is an explicit opt-in, with no external iframe in initial HTML', () => {
+  assert.doesNotMatch(html, /<iframe/); assert.match(html, /data-load-find-map/);
+  const script=fs.readFileSync(path.join(root,'find-us-map.js'),'utf8');
+  const listeners={}; const panel={replaceChildren(frame){this.frame=frame;}};
+  const document={querySelector(selector){return selector==='[data-load-find-map]'?{addEventListener(type,fn){listeners[type]=fn;}}:panel;},createElement(){return {setAttribute(){},focus(){this.focused=true;}};}};
+  require('node:vm').runInNewContext(script,{document});
+  assert.equal(panel.frame,undefined);listeners.click();
+  assert.match(panel.frame.src,/^https:\/\/www.openstreetmap.org\/export\/embed.html/);
+  assert.equal(panel.frame.referrerPolicy,'no-referrer');assert(panel.frame.focused);
 });
