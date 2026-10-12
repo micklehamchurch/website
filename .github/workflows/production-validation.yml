@@ -1,0 +1,37 @@
+name: Production validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  production-validation:
+    name: Production validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the proposed merge
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install site dependencies
+        run: npm ci
+      - name: Install Admin API test dependencies
+        run: npm ci --prefix azure-function
+      - name: Build the production site
+        run: npm run build
+      - name: Validate the site and Admin client
+        run: node validate-production.cjs
+      - name: Validate the Admin API with isolated fixtures
+        run: npm test --prefix azure-function
