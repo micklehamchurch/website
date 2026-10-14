@@ -5,6 +5,7 @@ const path = require('node:path');
 const root = __dirname;
 const port = Number(process.env.MICKLEHAM_PREVIEW_PORT) || 4173;
 const mimeTypes = {
+  '.svg': 'image/svg+xml',
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
