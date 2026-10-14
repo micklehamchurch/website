@@ -1,4 +1,4 @@
-/* Concert-only composition. The photo slot remains empty until an approved real image is supplied. */
+/* Concert-only composition with the user-supplied genuine choir photograph. */
 .home-concert[hidden] { display:none; }
 .home-concert { padding:28px 0 32px; background:var(--paper); }
 .home-concert-card { position:relative; isolation:isolate; width:min(1440px,92%); margin:0 auto; overflow:hidden; border:2px solid #fffdf7; border-radius:16px; background:#f5efe4; box-shadow:0 8px 28px #57442212; }
@@ -17,11 +17,9 @@
 .home-concert-link:hover { background:#974d17; color:#fff; text-decoration:underline; text-underline-offset:4px; }
 .home-concert-link:focus-visible { outline:3px solid #73501b; outline-offset:4px; }
 .home-concert-copy .home-concert-organiser { margin:0; max-width:29ch; font-size:12px; color:#33413f; line-height:1.5; }
-.home-concert-photo { position:absolute; z-index:0; inset:0 0 0 auto; width:47%; min-height:100%; display:flex; align-items:flex-end; justify-content:flex-end; padding:28px; background:linear-gradient(120deg,#e6dfd1,#c8beaa); mask-image:linear-gradient(to right,transparent,#000 23%); }
-/* An approved img can fill this slot without changing the composition. */
-.home-concert-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:65% center; }
-.home-concert-photo > span { color:#40443b; text-align:right; font:italic 24px/1.3 var(--serif); }
-.home-concert-photo small { display:block; margin-top:5px; font:12px/1.5 sans-serif; letter-spacing:.03em; }
+.home-concert-photo { position:absolute; z-index:0; inset:0 0 0 auto; width:47%; height:100%; overflow:hidden; }
+.home-concert-photo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right,#f5efe4,transparent 16%); }
+.home-concert-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% top; }
 .home-concert-art { position:absolute; z-index:1; top:12px; left:43%; width:27%; height:250px; pointer-events:none; background:url('home-concert-art.svg') center / contain no-repeat; }
 @media (max-width:1200px) and (min-width:1001px) {
 .home-concert-copy { width:67%; padding-left:26px; }
@@ -37,8 +35,9 @@
 .home-concert-copy h2 { font-size:clamp(36px,5.5vw,52px); max-width:85%; }
 .home-concert-copy .home-concert-performers { font-size:clamp(21px,3vw,28px); }
 .home-concert-copy > p:not(.eyebrow):not(.home-concert-performers) { max-width:54ch; }
-.home-concert-photo { position:relative; inset:auto; width:100%; min-height:240px; mask-image:linear-gradient(to bottom,transparent,#000 25%); }
-.home-concert-art { top:auto; bottom:125px; left:5%; width:300px; height:240px; }
+.home-concert-photo { position:relative; inset:auto; order:2; width:100%; height:auto; aspect-ratio:680 / 304; }
+.home-concert-photo::after { background:linear-gradient(to bottom,#f5efe4,transparent 12%); }
+.home-concert-art { position:relative; order:1; top:auto; bottom:auto; left:auto; align-self:center; width:280px; height:160px; margin-top:-12px; }
 .home-concert-details { grid-template-columns:auto auto minmax(0,1fr); }
 }
 @media (max-width:600px) {
@@ -51,10 +50,10 @@
 .home-concert-actions { flex-direction:column; align-items:stretch; gap:14px; }
 .home-concert-link { width:100%; padding-inline:12px; }
 .home-concert-copy .home-concert-organiser { max-width:none; }
-.home-concert-photo { min-height:220px; padding:22px; }
-.home-concert-art { width:220px; height:200px; left:0; bottom:50px; }
+
+.home-concert-art { width:240px; height:150px; }
 }
 @media (forced-colors:active) {
 .home-concert-card,.home-concert-link { border:1px solid CanvasText; }
-.home-concert-photo { mask-image:none; }
+.home-concert-photo::after { display:none; }
 }

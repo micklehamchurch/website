@@ -8,8 +8,6 @@ After the event, optional source cleanup is to remove the `home-concert:start` /
 
 The Arts Alive link is the supplied event listing; no ticket prices or admission claims are included.
 
-## Genuine photograph required
+## Genuine photograph
 
-The repository image inventory and content/permission records contain no identifiable, approved Flos Vocalis photograph. The generated reference photograph must not be published. The right 47% is therefore an empty, labelled photo slot, softly blended into the cream background. No unrelated people or generated singers are used.
-
-Once an authorised image is supplied, replace the placeholder span in .home-concert-photo with an image using a descriptive alt, remove data-concert-photo-pending and the placeholder role/aria-label. Existing CSS fills and crops the photo and retains the desktop left-edge blend and mobile top-edge blend. Check the crop at desktop and mobile widths before deployment.
+The user supplied and authorised the genuine Flos Vocalis group photograph on 14 October 2026. It is delivered as assets/images/home/flos-vocalis-choir.webp (680 × 304), optimised at quality 90 without upscaling or scene alterations. The image fills the right-hand area using object-fit: cover and centred, top-aligned positioning. A cream overlay fades from the left edge on desktop. On mobile the full source aspect ratio preserves the group beneath the event information, with a short cream fade at the top. The original flags/music artwork is retained above the mobile photo so it does not cover faces.
