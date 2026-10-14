@@ -15,6 +15,8 @@ test('promotion preserves existing homepage and is excluded from static search',
   const stripped = html.replace(/    <!-- home-concert:start -->[\s\S]*?    <!-- home-concert:end -->\r?\n\r?\n/, '')
     .replace(/^  .*home-concert\.(?:css|js).*\r?\n/gm, '');
   assert.equal(clean(stripped), clean(baseline));
+  assert(html.indexOf('home-concert:start') < html.indexOf('data-home-verse'), 'concert bridges the hero before Scripture and parish content');
+  assert(html.indexOf('home-concert:start') > html.indexOf('hero-actions'));
   assert.match(html, /datetime="2026-10-17T19:00:00\+01:00"/);
   assert.match(html, /Find out more &amp; tickets/);
   assert.match(html, /Organised by Dorking &amp; District Town Twinning Association/);

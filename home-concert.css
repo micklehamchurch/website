@@ -1,7 +1,7 @@
 /* Concert-only composition with the user-supplied genuine choir photograph. */
 .home-concert[hidden] { display:none; }
-.home-concert { padding:28px 0 32px; background:var(--paper); }
-.home-concert-card { position:relative; isolation:isolate; width:min(1440px,92%); margin:0 auto; overflow:hidden; border:2px solid #fffdf7; border-radius:16px; background:#f5efe4; box-shadow:0 8px 28px #57442212; }
+.home-concert { position:relative; z-index:2; margin-top:-64px; padding:0 0 18px; background:transparent; }
+.home-concert-card { position:relative; isolation:isolate; width:min(1440px,92%); margin:0 auto; overflow:hidden; border:2px solid #fffdf7; border-radius:16px; background:#f5efe4; box-shadow:0 12px 30px #392b1924,0 2px 6px #392b190d; }
 .home-concert-copy { position:relative; z-index:2; width:62%; min-width:0; padding:24px 0 24px 38px; }
 .home-concert-copy .eyebrow { margin:0 0 8px; color:#253b3c; font-size:12px; font-weight:600; letter-spacing:.3em; }
 .home-concert-copy h2 { margin:0 0 2px; color:#153344; font:600 clamp(38px,3.65vw,54px)/1.08 var(--serif); letter-spacing:-.025em; }
@@ -17,11 +17,12 @@
 .home-concert-link:hover { background:#974d17; color:#fff; text-decoration:underline; text-underline-offset:4px; }
 .home-concert-link:focus-visible { outline:3px solid #73501b; outline-offset:4px; }
 .home-concert-copy .home-concert-organiser { margin:0; max-width:29ch; font-size:12px; color:#33413f; line-height:1.5; }
-.home-concert-photo { position:absolute; z-index:0; inset:0 0 0 auto; width:47%; height:100%; overflow:hidden; }
-.home-concert-photo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right,#f5efe4,transparent 16%); }
-.home-concert-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% top; }
+.home-concert-photo { position:absolute; z-index:0; inset:0 0 0 auto; width:52%; height:100%; overflow:hidden; }
+.home-concert-photo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right,#f5efe4 0%,rgba(245,239,228,.92) 8%,rgba(245,239,228,.4) 20%,transparent 34%); }
+.home-concert-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:20% top; }
 .home-concert-art { position:absolute; z-index:1; top:12px; left:39%; width:22%; height:220px; pointer-events:none; background:url('home-concert-art.svg') center / contain no-repeat; }
 @media (max-width:1200px) and (min-width:1001px) {
+.home-concert-photo img { object-position:65% top; }
 .home-concert-copy { width:67%; padding-left:26px; }
 .home-concert-copy h2 { font-size:42px; }
 .home-concert-art { left:39%; width:20%; height:200px; top:24px; }
@@ -30,6 +31,7 @@
 .home-concert-details { gap:12px; font-size:13px; }
 }
 @media (max-width:1000px) {
+.home-concert { margin-top:0; padding:20px 0 18px; }
 .home-concert-card { display:flex; flex-direction:column; }
 .home-concert-copy { width:100%; padding:28px; }
 .home-concert-copy h2 { font-size:clamp(36px,5.5vw,52px); max-width:85%; }
