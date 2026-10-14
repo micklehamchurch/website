@@ -16,6 +16,8 @@ function decodeEntities(value) {
 
 function visibleText(html) {
   return decodeEntities(html
+    // Time-limited homepage promotions must not persist in the static search index.
+    .replace(/<!-- home-concert:start -->[\s\S]*?<!-- home-concert:end -->/g, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|template|iframe|svg|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ')
     .replace(/<[^>]+\bhidden(?:\s|=|\/|>)[^>]*>[\s\S]*?<\/[^>]+>/gi, ' ')

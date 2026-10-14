@@ -1,0 +1,29 @@
+/* Temporary concert promotion, using the parish's existing type and palette. */
+.home-concert[hidden] { display: none; }
+.home-concert { padding: 28px 0; background: var(--paper); }
+.home-concert-card { width: min(1440px, 92%); margin: 0 auto; display: grid; grid-template-columns: 180px minmax(0, 1fr) auto; align-items: center; gap: 32px; padding: 32px; border: 1px solid var(--stone); border-top: 3px solid #9b7025; border-radius: 3px; background: var(--cream); }
+.home-concert-date { display: flex; flex-direction: column; text-align: center; color: var(--deep); border-right: 1px solid #d6cfbf; padding-right: 32px; line-height: 1.5; }
+.home-concert-date strong { font: 600 64px/1.1 var(--serif); }
+.home-concert-date span:last-child { margin-top: 8px; font-weight: 700; }
+.home-concert-copy { min-width: 0; }
+.home-concert-copy .eyebrow { color: #73501b; margin: 0 0 8px; }
+.home-concert-copy h2 { margin: 0 0 10px; color: var(--deep); font: 600 clamp(28px, 3vw, 42px)/1.15 var(--serif); }
+.home-concert-copy p { margin: 0 0 10px; max-width: 65ch; line-height: 1.55; }
+.home-concert-performers { font-weight: 700; }
+.home-concert-copy .home-concert-organiser { margin-bottom: 0; font-size: 14px; }
+.home-concert-link { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 48px; padding: 12px 20px; border-radius: 3px; background: var(--deep); color: white; font-weight: 600; text-decoration: none; text-align: center; }
+.home-concert-link:hover { background: var(--green); color: white; text-decoration: underline; text-underline-offset: 4px; }
+.home-concert-link:focus-visible { outline: 3px solid #73501b; outline-offset: 4px; }
+@media (max-width: 1100px) {
+  .home-concert-card { grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 24px; }
+  .home-concert-date { grid-row: span 2; padding-right: 24px; }
+  .home-concert-link { justify-self: start; }
+}
+@media (max-width: 600px) {
+  .home-concert { padding: 20px 0; }
+  .home-concert-card { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 22px; }
+  .home-concert-date { grid-row: auto; display: block; text-align: left; border-right: 0; border-bottom: 1px solid #d6cfbf; padding: 0 0 16px; }
+  .home-concert-date strong { font: inherit; font-weight: 700; }
+  .home-concert-date span:last-child { display: block; margin-top: 4px; }
+  .home-concert-link { justify-self: stretch; }
+}
