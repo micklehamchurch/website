@@ -88,6 +88,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/Dev'
     runs-on: ubuntu-latest
     steps:
       - name: Check out Dev
