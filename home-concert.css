@@ -20,11 +20,11 @@
 .home-concert-photo { position:absolute; z-index:0; inset:0 0 0 auto; width:47%; height:100%; overflow:hidden; }
 .home-concert-photo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right,#f5efe4,transparent 16%); }
 .home-concert-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% top; }
-.home-concert-art { position:absolute; z-index:1; top:12px; left:43%; width:27%; height:250px; pointer-events:none; background:url('home-concert-art.svg') center / contain no-repeat; }
+.home-concert-art { position:absolute; z-index:1; top:12px; left:39%; width:22%; height:220px; pointer-events:none; background:url('home-concert-art.svg') center / contain no-repeat; }
 @media (max-width:1200px) and (min-width:1001px) {
 .home-concert-copy { width:67%; padding-left:26px; }
 .home-concert-copy h2 { font-size:42px; }
-.home-concert-art { left:47%; width:24%; top:24px; }
+.home-concert-art { left:39%; width:20%; height:200px; top:24px; }
 .home-concert-actions { gap:18px; }
 .home-concert-link { padding-inline:20px; }
 .home-concert-details { gap:12px; font-size:13px; }
