@@ -36,18 +36,19 @@ jobs:
         run: |
           if [ -z "$AZURE_CLIENT_ID" ] || [ -z "$AZURE_TENANT_ID" ] || [ -z "$AZURE_SUBSCRIPTION_ID" ]; then
             echo "deploy-ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::Tests will run, but Azure deployment is skipped. Configure AZURE_CLIENT_ID, AZURE_TENANT_ID, and AZURE_SUBSCRIPTION_ID repository variables plus the Dev-branch federated identity in Azure."
+            echo "::warning::Tests will run, but Azure deployment is skipped. Configure AZURE_CLIENT_ID, AZURE_TENANT_ID, and AZURE_SUBSCRIPTION_ID repository variables plus the azure-dev environment federated identity in Azure."
           else
             echo "deploy-ready=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Check out Dev
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.sha }}
+          persist-credentials: false
 
       - name: Set up Node.js 24
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
@@ -71,14 +72,17 @@ jobs:
       id-token: write
     steps:
       - name: Check out Dev
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.sha }}
+          persist-credentials: false
 
       - name: Set up Node.js 24 for the deployment package
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
+
+          package-manager-cache: false
 
       - name: Install production API dependencies
         working-directory: azure-function
@@ -106,7 +110,7 @@ jobs:
           node azure-function/verify-package.js verified-admin-api "$DEPLOY_REVISION"
 
       - name: Retain the verified source package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: admin-api-${{ github.sha }}
           path: admin-api.zip
