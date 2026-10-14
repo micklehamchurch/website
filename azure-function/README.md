@@ -51,7 +51,7 @@ Use Node.js 24 and Azure Functions Core Tools v4. Install dependencies with `npm
 
 The dedicated workflow `.github/workflows/deploy-azure-function.yml` runs only for the `Dev` branch and packages only this directory. It uses GitHub Actions OIDC and skips deployment with a warning until these repository variables are configured:
 
-- `AZURE_CLIENT_ID`: client ID of a user-assigned managed identity with a federated credential for `repo:micklehamchurch/website:ref:refs/heads/Dev` and the `api://AzureADTokenExchange` audience.
+- `AZURE_CLIENT_ID`: client ID of a user-assigned managed identity with an environment-based federated credential for `repo:micklehamchurch@334568003/website@1390313333:environment:azure-dev` and the `api://AzureADTokenExchange` audience. The deployment job uses the GitHub environment `azure-dev`, which permits only `Dev`. The old branch-based `github-dev-deployment` credential is not required by the current workflow.
 - `AZURE_TENANT_ID`: Entra tenant ID for that identity.
 - `AZURE_SUBSCRIPTION_ID`: subscription containing the Function App.
 
