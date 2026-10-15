@@ -1423,19 +1423,58 @@
       "section": "visit",
       "category": "Local History",
       "title": "Mickleham War Memorial",
-      "summary": "The war memorial stands in the churchyard at St Michael’s and commemorates local people who died in the two world wars.",
-      "back": "our-history.html",
+      "summary": "The war memorial stands in the churchyard at St Michael & All Angels and commemorates local people who died in the two world wars.",
+      "back": "visit.html",
       "sections": [
         {
-          "title": "Remembering local history",
+          "title": "A lasting tribute",
           "paragraphs": [
-            "The old parish website says the Mickleham War Memorial is in the churchyard of St Michael’s and bears the names of 11 men who died in the First World War and 11 who died in the Second World War. The Mickleham & Westhumble Local History Group produced an illustrated booklet with information about those commemorated.",
-            "The booklet and memorial details are linked from the earlier parish website. Contact the parish or local history group to confirm current access to the booklet."
+            "The inscription records that this cross was erected in 1920 by the parish of Mickleham, “to the glory of God and in memory of” those commemorated here.",
+            "Its stepped stone base bears names alongside the words “Who fell in the Great War 1914–1919”. These inscriptions connect the memorial with the people remembered after the First World War.",
+            "The memorial also commemorates the Second World War. Another face reads “This cross is also in memory of”, above further names, with the dates 1939–1945 engraved on the base.",
+            "Standing beside St Michael & All Angels, it is a place to pause and remember. The parish calendar includes an Act of Remembrance at the War Memorial, keeping remembrance part of parish life today."
           ]
         }
       ],
-      "action": "Find the church",
-      "href": "finding-us.html"
+      "action": "Read more about local history",
+      "href": "our-history.html",
+      "layout": "war-memorial",
+      "secondary": {
+        "label": "Our Churchyard",
+        "href": "churchyard.html"
+      },
+      "heroImage": {
+        "src": "assets/images/war-memorial/memorial.webp",
+        "width": 1200,
+        "height": 1600,
+        "alt": "Mickleham War Memorial stone cross and stepped base, with St Michael & All Angels Church behind it."
+      },
+      "gallery": [
+        {
+          "src": "assets/images/war-memorial/inscription.webp",
+          "width": 900,
+          "height": 1200,
+          "alt": "The inscription “This cross is also in memory of” above engraved names on the memorial.",
+          "caption": "The memorial also bears the words “This cross is also in memory of”, above further names.",
+          "position": "50% 25%"
+        },
+        {
+          "src": "assets/images/war-memorial/first-world-war.webp",
+          "width": 900,
+          "height": 1200,
+          "alt": "First World War names engraved on the memorial base beside painted poppy stones.",
+          "caption": "Names commemorated for the First World War (1914–1919), with painted remembrance stones.",
+          "position": "50% 54%"
+        },
+        {
+          "src": "assets/images/war-memorial/dated-marker.webp",
+          "width": 900,
+          "height": 1200,
+          "alt": "A small stone marker with two flower holders beside the memorial base, bearing the dates 1915–1965.",
+          "caption": "A small dated stone marker beside the memorial base (1915–1965).",
+          "position": "50% 55%"
+        }
+      ]
     },
     {
       "slug": "parish-magazine",
