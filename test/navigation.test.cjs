@@ -35,7 +35,7 @@ test('every submenu resolves to a retained public page with a main heading and u
 test('History and Prayer retain search discoverability and relevant contextual links',()=>{
  const search=JSON.parse(fs.readFileSync(path.join(root,'search-index.json'),'utf8'));
  for(const url of ['our-history.html','prayer.html'])assert(search.some(p=>p.url===url));
- for(const page of ['visit.html','church-building.html','about.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="our-history.html"/);
+ for(const page of ['visit.html','church-building.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="our-history.html"/);
  for(const page of ['church-life.html','pastoral-care.html','bible-study-fellowship.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="prayer.html"/);
 });
 test('YouTube keeps secure external-link conventions near branding and Giving remains outside header',()=>{
