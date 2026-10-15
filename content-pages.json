@@ -1247,16 +1247,19 @@
         {
           "title": "A place of remembrance",
           "paragraphs": [
-            "The old parish website describes the churchyard as a place of beauty and historical value and points to a guide to its oldest part. It also publishes detailed churchyard regulations covering burials, memorials, flowers and the Book of Remembrance.",
-            "Those regulations were stated as approved by the PCC on 7 November 2023. Because local rules and availability can change, contact the parish for the current regulations, forms and advice before arranging a memorial, planting or burial."
+            "For generations, the churchyard at St Michael & All Angels has been a place of remembrance, reflection and quiet beauty.",
+            "Surrounding the church are memorials to people whose lives form part of the story of Mickleham. Some stones have stood here for centuries, while others remember more recent generations. Together they give the churchyard a special connection between the parish today and those who came before us.",
+            "Set among mature trees and with the Surrey countryside all around, it is also a peaceful place simply to walk, pause and reflect. Visitors are very welcome to explore the churchyard and discover this beautiful part of our parish.",
+            "For information about memorials, burials or the churchyard regulations, please contact the parish or read the current regulations."
           ]
         }
       ],
       "action": "Read the regulations",
       "href": "churchyard-regulations.html",
-      "image": "assets/demo/churchyard-demo.jpg",
-      "alt": "Illustrative generated image of a churchyard path and headstones; not a photograph of the parish churchyard.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "image": "assets/images/visit/churchyard-1600.webp",
+      "alt": "The churchyard at St Michael & All Angels, Mickleham",
+      "imageCaption": "The churchyard at St Michael & All Angels, Mickleham",
+      "imageClass": "churchyard-photo"
     },
     {
       "slug": "churchyard-regulations",
