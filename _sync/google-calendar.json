@@ -3705,6 +3705,33 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"46g7fdqjg4u14ju555av5h2mvj@google.com\",\"\"]",
+      "uid": "46g7fdqjg4u14ju555av5h2mvj@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-5773b58d3e9125c6796dca7f449fc215",
+      "google": {
+        "title": "Clergy meeting in church",
+        "start": "2026-11-10T12:15",
+        "end": "2026-11-10T14:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Clergy meeting in church",
+        "start": "2026-11-10T12:15",
+        "end": "2026-11-10T14:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "baa9a888b800025141731640bf4d8223e49c846690e816ee6cd0205780aed126",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3721,14 +3748,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-09T08:45:05.866Z",
+  "lastSuccessfulSync": "2026-10-15T13:15:05.536Z",
   "audit": {
-    "at": "2026-10-09T08:45:05.866Z",
+    "at": "2026-10-15T13:15:05.536Z",
     "mode": "automatic",
-    "added": 3,
-    "updated": 3,
+    "added": 1,
+    "updated": 0,
     "removed": 0,
-    "unchanged": 119,
+    "unchanged": 125,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1

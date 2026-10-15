@@ -362,6 +362,17 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-5773b58d3e9125c6796dca7f449fc215",
+      "title": "Clergy meeting in church",
+      "start": "2026-11-10T12:15",
+      "end": "2026-11-10T14:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
