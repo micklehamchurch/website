@@ -14,12 +14,13 @@
     {
       "id": "verse-week-02",
       "reference": "1 John 1:5",
-      "translation": "Website paraphrase",
+      "translation": "",
       "quotation": "God is light; there is no darkness in him.",
       "startDate": "2026-10-12",
       "endDate": "2026-10-18",
       "published": true,
-      "note": "Approved website paraphrase, not verbatim NLT. Set translation to NLT only after replacing this with approved verbatim NLT wording."
+      "note": "Approved website paraphrase, not verbatim NLT. Set translation to NLT only after replacing this with approved verbatim NLT wording.",
+      "updatedAt": "2026-10-16T06:03:01.158Z"
     },
     {
       "id": "verse-week-03",
