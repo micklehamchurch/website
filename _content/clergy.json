@@ -572,7 +572,7 @@
     {
       "id": "clergy-408b2bad-a31c-40ab-bd6a-734062c9e20b",
       "displayName": "George Lock",
-      "role": "Rector",
+      "role": "Curate",
       "servicePeriods": [
         {
           "start": 1796,
@@ -592,12 +592,36 @@
         "derivativeCreated": true
       },
       "archiveImages": [],
-      "biography": [],
+      "biography": [
+        "George Lock (1771–1864) belonged to the Lock family of Norbury Park, Mickleham. He was the son of William Lock and Frederica Augusta Schaub, and studied at Christ Church, Oxford, gaining his BA in 1794 and MA in 1796.",
+        "A published account of Fanny Burney’s connections with Mickleham identifies George as a curate at St Michael’s, where his family worshipped. His exact dates of service remain to be confirmed.",
+        "He later became rector of St Margaret’s, Lee, Kent, serving from 1803 until his death on 17 November 1864. His long ministry encompassed the rebuilding of the parish church twice, culminating in the present building, consecrated in 1841.",
+        "In 1814, George and 39 inhabitants of Lee signed a petition urging Parliament to act against the continuation of the African slave trade. Portraits of him survive in the National Portrait Gallery, and a memorial cross commemorates him at St Margaret’s."
+      ],
       "parishContext": [],
       "didYouKnow": [],
       "published": false,
       "internalNotes": "",
-      "sources": []
+      "sources": [
+        {
+          "title": "Miriam Al Jamil, “Fanny Burney and Mickleham,” Burney Letter, Vol. 20, No. 2, autumn 2014.",
+          "url": "https://www.mcgill.ca/burneycentre/files/burneycentre/burney_letter_vol._20_no._2_fall_2014.pdf",
+          "notes": "Identifies George, William Lock’s younger son, as a curate at St Michael’s, where the Lock family worshipped. ",
+          "public": true
+        },
+        {
+          "title": "Joseph Foster, Alumni Oxonienses, entry for George Lock.",
+          "url": "https://en.wikisource.org/wiki/Alumni_Oxonienses:_the_Members_of_the_University_of_Oxford,_1715-1886/Lock,_George",
+          "notes": "Records entry to Christ Church, Oxford, on 21 October 1789, aged 18; BA in 1794; MA in 1796; rector of Lee from 1803; and death on 17 November 1864.",
+          "public": true
+        },
+        {
+          "title": "St Margaret’s Church, Lee — Parish History.",
+          "url": "https://www.stmargaretslee.org.uk/page/?pid=32&title=Parish+History",
+          "notes": "Describes George Lock’s 61-year rectorship, beginning in 1803, and the rebuilding of the church during his ministry.",
+          "public": true
+        }
+      ]
     }
   ],
   "unassignedSources": [
@@ -610,5 +634,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-16T20:20:11.092Z"
+  "updatedAt": "2026-10-16T20:28:42.594Z"
 }
