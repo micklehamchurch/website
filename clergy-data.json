@@ -53,13 +53,7 @@
   },
   {
     "id": "malcolm-raby",
-    "archiveImages": [
-      {
-        "src": "assets/images/clergy/15-display.jpg",
-        "alt": "Church display photograph and service label for Rev. Malcolm Raby B.Ed.",
-        "caption": "Photograph of the church display, including its original label."
-      }
-    ]
+    "archiveImages": []
   },
   {
     "id": "clergy-8e17ab0f-3bb5-4476-a85f-3d8fc4628ea5",
@@ -67,12 +61,6 @@
   },
   {
     "id": "sandra-faccini",
-    "archiveImages": [
-      {
-        "src": "assets/images/clergy/17-display.jpg",
-        "alt": "Church display photograph and service label for Rev. Dr Sandra Faccini B.Sc., B.Th.",
-        "caption": "Photograph of the church display, including its original label."
-      }
-    ]
+    "archiveImages": []
   }
 ]
