@@ -568,6 +568,36 @@
           "public": false
         }
       ]
+    },
+    {
+      "id": "clergy-408b2bad-a31c-40ab-bd6a-734062c9e20b",
+      "displayName": "George Lock",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1796,
+          "end": 1800
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/aac074d8-b7b9-462a-aabc-c945252ef328-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/aac074d8-b7b9-462a-aabc-c945252ef328-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "George-Lock.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": false,
+      "internalNotes": "",
+      "sources": []
     }
   ],
   "unassignedSources": [
@@ -580,5 +610,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-16T20:16:36.691Z"
+  "updatedAt": "2026-10-16T20:20:11.092Z"
 }
