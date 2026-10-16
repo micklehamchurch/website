@@ -21,3 +21,11 @@ No suitable verified period-specific images of Saxon work, the Domesday entry, N
 ## Build compatibility
 
 build-clergy-archive.js retains the editorial history-feature panel instead of replacing it with the older generated plain aside. It removes the History-only stylesheet when deriving the existing clergy archive page, preserving that page's output. Existing homepage teaser generation is unchanged. test/our-history.test.cjs verifies the rebuild preserves the landing page and all period pages are searchable, meaningful image alt text and routes exist, and header/footer remain separate.
+
+## Story dialog interaction — 16 October 2026
+
+Timeline links retain the existing direct page URLs and no longer show Read more. our-history.js progressively enhances ordinary activation to open a native modal dialog without changing the URL. It fetches only the existing detail article paragraphs and renders them as text, preserving the wording and avoiding a second historical content source. Missing JavaScript/dialog support retains direct links; a loading failure offers the direct detail page inside the dialog.
+
+The modal has a labelled title, visible close control, native background inertness/Escape behaviour, Tab/Shift+Tab containment and explicit focus return. The body is held at its previous scroll position while open, including narrow screens; the internal story scrolls independently and the close control stays visible. Outside clicks close it; inside clicks do not. The archive builder strips this landing-page interaction script when generating the clergy page. Header, footer, hero, images, related cards and all seven detail page sources remain unchanged.
+
+Browser checks cover all seven stories at 1440, 768, 390 and 320 pixels: exact paragraph equality with direct pages; date/summary/row-whitespace/keyboard activation; unchanged URL; outside, close-control and Escape closing; inside clicks; background focus prevention; tab containment; focus return; background scroll lock; mobile internal scrolling and visible close control; no overflow; direct URLs; no-JavaScript fallback and search indexing.
