@@ -407,31 +407,18 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/15-960.jpg",
-        "thumbnail": "assets/images/clergy/15-360.jpg",
-        "alt": "Portrait of Rev. Malcolm Raby B.Ed. photographed from the church display",
-        "caption": "Rev. Malcolm Raby B.Ed. — photograph from the clergy display at St Michael’s",
+        "src": "assets/images/clergy/uploads/7e6805e9-87ed-4e82-994b-c4753b56774f-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/7e6805e9-87ed-4e82-994b-c4753b56774f-360.jpg",
+        "alt": "",
+        "caption": "",
         "date": null,
-        "source": "Photograph of the church display supplied by the parish",
+        "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "15.jpeg",
+        "originalFilename": "Malcolm-Raby-portrait.png",
         "derivativeCreated": true
       },
-      "archiveImages": [
-        {
-          "src": "assets/images/clergy/15-display.jpg",
-          "thumbnail": "assets/images/clergy/15-360.jpg",
-          "alt": "Church display photograph and service label for Rev. Malcolm Raby B.Ed.",
-          "caption": "Photograph of the church display, including its original label.",
-          "date": null,
-          "source": "Photograph of the church display supplied by the parish",
-          "credit": null,
-          "copyrightPermission": null,
-          "originalFilename": "15.jpeg",
-          "derivativeCreated": true
-        }
-      ],
+      "archiveImages": [],
       "biography": [
         "Malcolm Raby came to Mickleham in June 2013 as a house-for-duty priest after retiring from full-time ministry as Vicar of Over and Longstanton in the Diocese of Ely.",
         "He lived in the parsonage and undertook parish duties without stipend under the house-for-duty arrangement. Parish material announced his retirement in November 2017."
@@ -453,31 +440,18 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/17-960.jpg",
-        "thumbnail": "assets/images/clergy/17-360.jpg",
-        "alt": "Portrait of Rev. Dr Sandra Faccini B.Sc., B.Th. photographed from the church display",
-        "caption": "Rev. Dr Sandra Faccini B.Sc., B.Th. — photograph from the clergy display at St Michael’s",
+        "src": "assets/images/clergy/uploads/e08abd65-3f4f-48cd-9010-34054233c509-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/e08abd65-3f4f-48cd-9010-34054233c509-360.jpg",
+        "alt": "",
+        "caption": "",
         "date": null,
-        "source": "Photograph of the church display supplied by the parish",
+        "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "17.jpeg",
+        "originalFilename": "Sandra-Faccini-portrait.png",
         "derivativeCreated": true
       },
-      "archiveImages": [
-        {
-          "src": "assets/images/clergy/17-display.jpg",
-          "thumbnail": "assets/images/clergy/17-360.jpg",
-          "alt": "Church display photograph and service label for Rev. Dr Sandra Faccini B.Sc., B.Th.",
-          "caption": "Photograph of the church display, including its original label.",
-          "date": null,
-          "source": "Photograph of the church display supplied by the parish",
-          "credit": null,
-          "copyrightPermission": null,
-          "originalFilename": "17.jpeg",
-          "derivativeCreated": true
-        }
-      ],
+      "archiveImages": [],
       "biography": [
         "The church display begins Sandra Faccini’s period in 2021. Parish material identifies her as Parish Priest."
       ],
@@ -567,15 +541,15 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/uploads/be320caa-72a8-4b2c-9f57-cd99fffc1b00-1600.jpg",
-        "thumbnail": "assets/images/clergy/uploads/be320caa-72a8-4b2c-9f57-cd99fffc1b00-360.jpg",
+        "src": "assets/images/clergy/uploads/04f09a7c-d257-49f8-9c5f-9a3ef82d2e73-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/04f09a7c-d257-49f8-9c5f-9a3ef82d2e73-360.jpg",
         "alt": "",
         "caption": "",
         "date": null,
         "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "ChatGPT Image 8 Oct 2026, 20_02_27.png",
+        "originalFilename": "John-Harkin-portrait.png",
         "derivativeCreated": true
       },
       "archiveImages": [],
@@ -606,5 +580,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-16T20:14:56.786Z"
+  "updatedAt": "2026-10-16T20:16:36.691Z"
 }
