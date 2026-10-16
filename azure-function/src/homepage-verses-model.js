@@ -12,6 +12,9 @@
     d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
     return d.toISOString().slice(0, 10);
   }
+  function citation(verse) {
+    return [verse.reference.trim(), verse.translation.trim()].filter(Boolean).join(" · ");
+  }
   function warning(verse) {
     return typeof verse?.quotation === "string" && verse.quotation.length > 160 ? "This quotation is quite long for the hero. Preview it at phone and desktop widths before publishing." : "";
   }
@@ -31,7 +34,7 @@
         if (!dateValid(v.startDate) || !dateValid(v.endDate) || (new Date(v.startDate + "T12:00:00Z")).getUTCDay() !== 1 || Date.parse(v.endDate) - Date.parse(v.startDate) !== 6 * 864e5) throw new Error("Choose a Monday start and the following Sunday end.");
       }
       if (v.published) {
-        if (!v.reference.trim() || !v.translation.trim() || !v.quotation.trim() || !v.startDate) throw new Error("Published verses need a reference, translation, quotation and scheduled week.");
+        if (!v.reference.trim() || !v.quotation.trim() || !v.startDate) throw new Error("Published verses need a reference, quotation and scheduled week.");
         published.push(v);
       }
     }
@@ -48,5 +51,5 @@
       return null;
     }
   }
-  return { MAX_HOMEPAGE_VERSES_BYTES, MAX_QUOTATION_LENGTH, dateValid, londonDate, monday, warning, validateHomepageVerses, selectVerse };
+  return { MAX_HOMEPAGE_VERSES_BYTES, MAX_QUOTATION_LENGTH, dateValid, londonDate, monday, citation, warning, validateHomepageVerses, selectVerse };
 });

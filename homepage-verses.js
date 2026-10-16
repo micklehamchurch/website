@@ -19,7 +19,7 @@
     element.hidden = !verse;
     if (!verse) return;
     element.querySelector('p').textContent = `“${verse.quotation.trim()}”`;
-    element.querySelector('cite').textContent = `${verse.reference.trim()} · ${verse.translation.trim()}`;
+    element.querySelector('cite').textContent = model.citation(verse);
     // Long quotations use the same safe reading flow as narrow screens.
     if (matchMedia('(min-width: 1000px)').matches && verse.quotation.length <= 160) hero.append(element);
     else anchor.after(element);
