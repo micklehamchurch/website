@@ -12,31 +12,18 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/4-960.jpg",
-        "thumbnail": "assets/images/clergy/4-360.jpg",
-        "alt": "Portrait of Gerrard Andrewes D.D. photographed from the church display",
-        "caption": "Gerrard Andrewes D.D. — photograph from the clergy display at St Michael’s",
+        "src": "assets/images/clergy/uploads/af3ce0e4-c370-4628-8ef5-94605a38919e-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/af3ce0e4-c370-4628-8ef5-94605a38919e-360.jpg",
+        "alt": "",
+        "caption": "",
         "date": null,
-        "source": "Photograph of the church display supplied by the parish",
+        "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "4.jpeg",
+        "originalFilename": "Gerrard Andrews_ Archival Clerical Portrait.png",
         "derivativeCreated": true
       },
-      "archiveImages": [
-        {
-          "src": "assets/images/clergy/4-display.jpg",
-          "thumbnail": "assets/images/clergy/4-360.jpg",
-          "alt": "Church display photograph and service label for Gerrard Andrewes D.D.",
-          "caption": "Photograph of the church display, including its original label.",
-          "date": null,
-          "source": "Photograph of the church display supplied by the parish",
-          "credit": null,
-          "copyrightPermission": null,
-          "originalFilename": "4.jpeg",
-          "derivativeCreated": true
-        }
-      ],
+      "archiveImages": [],
       "biography": [
         "Gerrard Andrewes (1750–1825) was educated at Westminster and Trinity College, Cambridge. He was ordained deacon in 1776 and priest in 1778.",
         "During his Mickleham incumbency he also became Rector of St James’s Piccadilly in 1802 and Dean of Canterbury in 1809."
@@ -60,31 +47,18 @@
         }
       ],
       "primaryImage": {
-        "src": "assets/images/clergy/2-960.jpg",
-        "thumbnail": "assets/images/clergy/2-360.jpg",
-        "alt": "Portrait of Alfred Burmester photographed from the church display",
-        "caption": "Alfred Burmester — photograph from the clergy display at St Michael’s",
+        "src": "assets/images/clergy/uploads/4a26eb53-47ab-4e6e-9528-37d691ac49ca-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/4a26eb53-47ab-4e6e-9528-37d691ac49ca-360.jpg",
+        "alt": "",
+        "caption": "",
         "date": null,
-        "source": "Photograph of the church display supplied by the parish",
+        "source": "",
         "credit": null,
         "copyrightPermission": null,
-        "originalFilename": "2.jpeg",
+        "originalFilename": "Restored Victorian Portrait of Alfred Burmester.png",
         "derivativeCreated": true
       },
-      "archiveImages": [
-        {
-          "src": "assets/images/clergy/2-display.jpg",
-          "thumbnail": "assets/images/clergy/2-360.jpg",
-          "alt": "Church display photograph and service label for Alfred Burmester",
-          "caption": "Photograph of the church display, including its original label.",
-          "date": null,
-          "source": "Photograph of the church display supplied by the parish",
-          "credit": null,
-          "copyrightPermission": null,
-          "originalFilename": "2.jpeg",
-          "derivativeCreated": true
-        }
-      ],
+      "archiveImages": [],
       "biography": [
         "Alfred Burmester served as Rector of Mickleham for approximately 54 years. He is buried in a vault beneath the chancel with his wife Jane and two sons who died in infancy."
       ],
@@ -774,5 +748,5 @@
       "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
     }
   ],
-  "updatedAt": "2026-10-08T19:03:16.826Z"
+  "updatedAt": "2026-10-16T19:40:46.601Z"
 }
