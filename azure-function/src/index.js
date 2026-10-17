@@ -13,3 +13,5 @@ require('./functions/google-calendar-timer');
 
 require('./functions/homepage-verses');
 require('./functions/photo-albums');
+
+require('./functions/bible');
