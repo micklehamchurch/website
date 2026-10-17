@@ -69,7 +69,7 @@
     reading.hidden = false; status.textContent = 'Your chapter is ready.';
     // Report every displayed chapter, including responses served by the proxy cache.
     window.fums('trackView', response.meta.fumsToken);
-    if (focus) $('reference').focus({ preventScroll: true });
+    if (focus) $('reference').focus();
   }
   async function loadChapters(preferred = '') {
     chapters = [];
@@ -101,7 +101,7 @@
     if (!target || !/^[A-Z0-9]{3}\.[1-9][0-9]{0,2}$/.test(target)) return;
     run(async () => {
       const targetBook = target.split('.')[0];
-      if (book.value !== targetBook) { book.value = targetBook; await loadChapters(target); }
+      if (book.value !== targetBook) { book.value = targetBook; await loadChapters(target); $('reference').focus(); }
       else { chapter.value = target; await loadChapter(target, true); }
     });
   });

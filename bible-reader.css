@@ -5,3 +5,4 @@
 @media(max-width:760px){.bible-controls{grid-template-columns:1fr 1fr;padding:22px;gap:14px}.bible-version{grid-column:1/-1}.bible-controls .btn{grid-column:1/-1}.bible-page main{padding-top:34px}.bible-intro{margin-bottom:26px}.bible-status-row{padding:12px 22px}.bible-reading{padding:12px 24px 26px}.bible-content{font-size:19px;line-height:1.9}}
 @media(max-width:380px){.bible-shell{width:calc(100% - 24px)}.bible-controls{padding:18px}.bible-reading{padding-inline:18px}.bible-paging{gap:10px}.bible-paging button{font-size:13px}}
 .bible-content sup{font:600 11px var(--sans);color:var(--green);margin-right:5px;vertical-align:super}
+#bible-reference{scroll-margin-top:110px}
