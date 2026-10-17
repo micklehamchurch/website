@@ -112,3 +112,29 @@ or non-landscape breakpoint logic changes.
 The dedicated checks now verify Home/close target separation, full 44px sizes,
 restoration of Home on close, and actual Home navigation, in addition to the
 existing submenu/gesture/keyboard/safe-area coverage.
+
+## Horizontal width refinement
+
+Starting Dev: 44801b873554a4c6fabb59ee7385b08cd2616d67. The new physical iPhone
+photograph is the visual reference. Separate 78%, 80% and 82% candidate screenshots
+at 874×402 were captured and visually reviewed before selection. Their widths
+were 681.72px, 699.19px and 716.67px. The 78% candidate most clearly revealed the
+real page at both sides while leaving ample space for text and utilities.
+
+The panel uses min(720px, 78% of usable viewport width). Usable width subtracts
+the actual left and right safe insets independently; matching inline insets and
+auto margins centre the panel inside that area. With zero safe insets at 874×402,
+width changes from 786.59px to 681.72px; side gaps grow from 43.70px to 96.14px.
+Collapsed height remains exactly 320px. With 64px left and 12px right insets,
+usable width is 798px, card width 622.44px, and usable gaps are 87.78px each.
+Physical-screen gaps intentionally differ by the safe-inset difference; the
+card is centred in the usable browser area rather than the whole physical screen.
+At 932px without insets the 720px cap leaves 106px gaps.
+
+Search flexes with its unchanged 160px basis; Calendar retains its natural width
+and touch target. Both fit one row at every requested viewport, including 568px.
+The existing flex-wrap fallback remains for genuinely narrower usable areas.
+Longest submenu labels, including Supporting the Community and Bible Study &
+Fellowship, retain their original type size, wrap naturally when necessary, and
+are checked for horizontal overflow. All rows/controls retain 44px targets.
+No vertical CSS, interaction code, colours, fonts, labels or page content changes.

@@ -144,12 +144,12 @@
   .memorial .memorial-photo img { object-fit:contain; }
   .memorial .memorial-photo::after { display:none; }
 
-  /* Top-layer floating presentation keeps equal gaps even with an asymmetric
-     notch: use the larger safe inset symmetrically rather than pinning an edge. */
+  /* Top-layer card is centred in the usable viewport, with equal breathing room
+     inside the independently reported safe left/right edges. */
   html.landscape-navigation-open, html.landscape-navigation-open body { overflow:hidden; }
   html.landscape-navigation-open body { position:fixed; top:var(--landscape-navigation-scroll-top); width:100%; }
   /* Intrinsic height: only the scrolling body shrinks at the safe viewport cap. */
-  .landscape-navigation-dialog { --panel-gap:max(5vw,16px,env(safe-area-inset-left),env(safe-area-inset-right)); width:min(820px,calc(100vw - 2 * var(--panel-gap))); max-width:none; height:fit-content; min-height:0; max-height:calc(100dvh - max(10px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom))); inset-block:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-bottom)); padding:0; margin:auto; overflow:hidden; border:1px solid var(--stone); border-radius:10px; background:var(--paper); color:var(--deep); box-shadow:0 10px 32px #122a2226; }
+  .landscape-navigation-dialog { --panel-usable-width:calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)); width:min(720px,calc(var(--panel-usable-width) * .78)); inset-inline:env(safe-area-inset-left) env(safe-area-inset-right); max-width:none; height:fit-content; min-height:0; max-height:calc(100dvh - max(10px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom))); inset-block:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-bottom)); padding:0; margin:auto; overflow:hidden; border:1px solid var(--stone); border-radius:10px; background:var(--paper); color:var(--deep); box-shadow:0 10px 32px #122a2226; }
   .landscape-navigation-dialog[open] { display:flex; flex-direction:column; }
   .landscape-navigation-dialog::backdrop { background:#102b234d; backdrop-filter:blur(1px); }
   .landscape-navigation-heading { display:flex; align-items:center; justify-content:space-between; position:relative; flex:none; min-height:44px; padding:0 16px; }
