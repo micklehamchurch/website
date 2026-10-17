@@ -6,12 +6,12 @@ const target = Object.freeze({ owner: EXPECTED_TARGET.owner, repo: EXPECTED_TARG
 const metadataPaths = Object.freeze({ publications: '_content/publications.json', news: '_content/news.json' });
 const response = (status, jsonBody) => ({ status, headers: { 'Cache-Control': 'no-store', Pragma: 'no-cache' }, jsonBody });
 const failure = (status, error) => response(status, { ok: false, error });
-async function readJson(request, maximum) {
-  if (Number(request.headers?.get('content-length')) > maximum) throw new RangeError();
+async function readJson(request, maximum, SizeError = RangeError) {
+  if (Number(request.headers?.get('content-length')) > maximum) throw new SizeError();
   if (!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(request.headers?.get('content-type') || '')) throw new SyntaxError();
   const reader = request.body?.getReader(); if (!reader) throw new SyntaxError();
   let size = 0; const chunks = [];
-  try { for (;;) { const next = await reader.read(); if (next.done) break; size += next.value.byteLength; if (size > maximum) { await reader.cancel(); throw new RangeError(); } chunks.push(Buffer.from(next.value)); } }
+  try { for (;;) { const next = await reader.read(); if (next.done) break; size += next.value.byteLength; if (size > maximum) { await reader.cancel(); throw new SizeError(); } chunks.push(Buffer.from(next.value)); } }
   finally { reader.releaseLock(); }
   return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks)));
 }

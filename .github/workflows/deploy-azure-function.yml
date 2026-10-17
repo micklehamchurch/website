@@ -128,6 +128,8 @@ jobs:
           resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
           test -n "$resource_group"
           az functionapp show --name stmichael-church-admin-api --resource-group "$resource_group" --query functionAppConfig.runtime --only-show-errors
+          echo "Configured HTTP body limit (empty means the Azure Functions default of 104857600 bytes):"
+          az functionapp config appsettings list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[?name=='FUNCTIONS_REQUEST_BODY_SIZE_LIMIT'].{name:name,value:value}" -o json --only-show-errors
           if ! az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[].name" --only-show-errors 2>/dev/null; then
             echo "Existing host function inventory unavailable."
           fi

@@ -3,7 +3,9 @@ const { randomUUID } = require('node:crypto');
 const MAX_IMAGE = 10 * 1024 * 1024;
 const MAX_TOTAL = 20 * 1024 * 1024;
 const MAX_METADATA = 1024 * 1024;
-const MAX_BODY = Math.ceil(MAX_TOTAL / 3) * 4 + MAX_METADATA;
+// Six separately padded Base64 strings plus JSON framing (legacy clients only).
+const MAX_BODY = Math.ceil(MAX_TOTAL / 3) * 4 + MAX_METADATA + 65536;
+class ArchiveSizeError extends RangeError {}
 const shaValid = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 function keys(value, allowed, required = allowed) {
   if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(k => !allowed.includes(k)) || required.some(k => !Object.hasOwn(value, k))) throw new Error('invalid-fields');
@@ -61,20 +63,33 @@ function validateArchive(value, pending = false) {
     }
     text(record.internalNotes, 20000);
   }
-  if (Buffer.byteLength(JSON.stringify(value)) > MAX_METADATA) throw new RangeError();
+  if (Buffer.byteLength(JSON.stringify(value)) > MAX_METADATA) throw new ArchiveSizeError();
   return value;
 }
-async function uploads(values) {
+async function uploads(values, preparedUpload) {
   if (!Array.isArray(values) || values.length > 6) throw new Error('invalid-uploads');
   let total = 0; const result = new Map();
   for (const value of values) {
+    if (preparedUpload && value && Object.hasOwn(value, 'receipt')) {
+      keys(value, ['id','receipt']);
+      const prepared = preparedUpload(value);
+      if (result.has(value.id)) throw new Error('invalid-upload-id');
+      total += prepared.originalBytes;
+      if (total > MAX_TOTAL) throw new ArchiveSizeError('archive-image-total-too-large');
+      result.set(value.id, prepared);
+      continue;
+    }
     keys(value, ['id','fileName','mimeType','base64']);
     if (typeof value.id !== 'string' || !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(value.id) || result.has(value.id)) throw new Error('invalid-upload-id');
     if (typeof value.fileName !== 'string' || value.fileName.length > 200 || !/^[^/\\<>\x00-\x1f]+\.(?:jpe?g|png|webp)$/i.test(value.fileName)) throw new Error('invalid-filename');
-    if (typeof value.base64 !== 'string' || value.base64.length > Math.ceil(MAX_IMAGE / 3) * 4) throw new RangeError();
-    if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value.base64)) throw new Error('invalid-base64');
-    const original = Buffer.from(value.base64, 'base64'); total += original.length;
-    if (!original.length || original.length > MAX_IMAGE || total > MAX_TOTAL) throw new RangeError();
+    if (typeof value.base64 !== 'string' || value.base64.length > Math.ceil(MAX_IMAGE / 3) * 4) throw new ArchiveSizeError();
+    // Flat character scan + canonical round trip: the old repeated-quartet regex
+    // exhausts V8's regexp stack on valid multi-megabyte files, raising RangeError.
+    if (value.base64.length % 4 || /[^A-Za-z0-9+/=]/.test(value.base64)) throw new Error('invalid-base64');
+    const original = Buffer.from(value.base64, 'base64');
+    if (original.toString('base64') !== value.base64) throw new Error('invalid-base64');
+    total += original.length;
+    if (!original.length || original.length > MAX_IMAGE || total > MAX_TOTAL) throw new ArchiveSizeError();
     const jpeg = original[0] === 255 && original[1] === 216 && original[2] === 255;
     const png = original.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]));
     const webp = original.toString('ascii',0,4) === 'RIFF' && original.toString('ascii',8,12) === 'WEBP';
@@ -112,4 +127,4 @@ function resolveImages(next, current, uploaded, removedRecordIds=[]) {
   validateArchive(next);
   return [...uploaded.values()].flatMap(u => u.files);
 }
-module.exports = { validateArchive, uploads, resolveImages, keys, shaValid, MAX_BODY, MAX_METADATA, MAX_IMAGE, MAX_TOTAL };
+module.exports = { ArchiveSizeError, validateArchive, uploads, resolveImages, keys, shaValid, MAX_BODY, MAX_METADATA, MAX_IMAGE, MAX_TOTAL };

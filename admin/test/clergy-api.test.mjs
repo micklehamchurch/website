@@ -7,3 +7,14 @@ test('missing token prevents access; auth validation conflict size network messa
 test('duplicate archive requests are blocked until response settles',async()=>{let resolve;const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:()=>new Promise(r=>resolve=r)});const pending=api.load();await new Promise(r=>setImmediate(r));assert.equal((await api.load()).category,'busy');resolve({ok:true,json:async()=>({ok:true,sha,headSha:sha,archive})});assert.equal((await pending).ok,true);});
 
 test('removal bridge forwards explicit record IDs but never arbitrary file or branch deletion targets',async()=>{let sent;const api=createClergyApi({getToken:async()=>'fixture-token',fetchImpl:async(url,options)=>{sent=JSON.parse(options.body);return {ok:true,json:async()=>({ok:true,sha,headSha:sha,commitSha:sha,archive})};}});assert.equal((await api.publish({sha,headSha:sha,archive,uploads:[],removedRecordIds:['fixture-record'],branch:'main',deletePaths:['index.html']})).ok,true);assert.deepEqual(sent,{sha,headSha:sha,archive,uploads:[],removedRecordIds:['fixture-record']});});
+
+test('binary image preparation sends original File bytes, then publication sends only a receipt',async()=>{
+ const calls=[],file=new File([new Uint8Array([137,80,78,71])],'archive.png',{type:'image/png'}),id='11111111-1111-4111-8111-111111111111';
+ const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:async(url,options)=>{calls.push({url,options});return {ok:true,json:async()=>options.method==='POST'?{ok:true,id,receipt:'signed-fixture'}:{ok:true,sha,headSha:sha,commitSha:sha,archive,imageUploadProtocol:'git-blob-v1'}};}});
+ const upload=await api.upload({id,file});assert.equal(upload.ok,true);assert.equal(calls[0].options.body,file);assert.equal(calls[0].options.headers['Content-Type'],'image/png');
+ await api.publish({sha,headSha:sha,archive,uploads:[{id,receipt:upload.receipt}]});const sent=JSON.parse(calls[1].options.body);assert.deepEqual(sent.uploads,[{id,receipt:'signed-fixture'}]);assert(!calls[1].options.body.includes('base64'));
+});
+test('HTTP 413, including platform HTML responses, keeps a useful safe error and status',async()=>{
+ const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:async()=>({ok:false,status:413,json:async()=>{throw Error('HTML platform response');}})});
+ const result=await api.publish({uploads:[],archive});assert.equal(result.status,413);assert.equal(result.category,'archive-payload-too-large');assert.match(api.message(result.category),/HTTP 413/);assert.match(api.message(result.category),/Do not refresh/);
+});

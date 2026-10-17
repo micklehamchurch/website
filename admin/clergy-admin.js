@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const renderer=window.churchClergyRender,esc=renderer.esc,copy=value=>structuredClone(value);
-  let host,shared=null,working=null,busy=false,message='',editor=null,opener=null,editorDirty=false,needsReload=false;
+  let host,shared=null,working=null,busy=false,message='',editor=null,opener=null,editorDirty=false,needsReload=false,publicationError=false;
   const uploads=new Map();
   const removals=new Set();
   const dialog=document.createElement('dialog');dialog.id='archive-admin-dialog';dialog.className='admin-dialog';dialog.setAttribute('aria-labelledby','archive-editor-title');document.body.append(dialog);
@@ -26,7 +26,7 @@
     const canSaveDrafts=count&&JSON.stringify(state.draftArchive(working,shared.archive))!==JSON.stringify(shared.archive);
     const publishDisabled=busy||needsReload?'disabled':'';
     host.innerHTML=`<section><h1>Historical Archive</h1><p>Manage clergy profiles, biographies and historical photographs.</p>
-      <p class="archive-admin-status" role="status" aria-live="polite" aria-atomic="true">${esc(message||(!working?'Sign in to load the archive.':count?'Your changes are not published yet.':'No unpublished changes.'))}</p>
+      <p class="archive-admin-status" tabindex="-1" role="${publicationError?'alert':'status'}" aria-live="polite" aria-atomic="true">${esc(message||(!working?'Sign in to load the archive.':count?'Your changes are not published yet.':'No unpublished changes.'))}</p>
       ${shared?.archive.updatedAt?`<p class="archive-last-saved">Last saved: ${esc(savedTime(shared.archive.updatedAt))}</p>`:''}
       <div class="archive-admin-actions">${working?button('+ Add person','add',disabled):''}${needsReload?button('Check saved version','check-version',disabled):''}${button(needsReload?'Refresh archive':'Refresh','reload',disabled)}</div>
       ${count?`<div class="archive-pending-summary"><p><strong>You have ${count} unpublished ${count===1?'change':'changes'}.</strong></p><div class="archive-admin-actions">${button('Discard changes','discard',disabled)}${canSaveDrafts?button('Save drafts','save-drafts',publishDisabled):''}<button type="button" class="admin-button" data-archive-action="publish" ${publishDisabled}>Publish changes</button></div><p class="archive-editor-note">Published changes normally appear on the website within a few minutes.</p>${canSaveDrafts?'<p class="archive-editor-note">Save drafts keeps draft profiles private. Published profiles and other pending changes are left as they are.</p>':''}</div>`:''}
@@ -38,9 +38,9 @@
   async function load(force=false){
     if(busy)return;if(force&&changed()&&!window.confirm('Refreshing will discard pending edits and uploaded photographs. Choose Cancel to keep them, or OK to load the saved archive.'))return;
     if(!window.churchClergyApi){message='Sign in with an authorised administrator account to load the archive.';render();return;}
-    busy=true;message='Loading archive…';render();
+    busy=true;publicationError=false;message='Loading archive…';render();
     const result=await window.churchClergyApi.load();busy=false;
-    if(result.ok){shared=result;working=copy(result.archive);clearUploads();removals.clear();needsReload=false;message='';}else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
+    if(result.ok){shared=result;working=copy(result.archive);clearUploads();removals.clear();needsReload=false;message='';}else {publicationError=true;message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
     render();
   }
   async function checkSavedVersion(){
@@ -110,18 +110,24 @@
       if(JSON.stringify(next)===JSON.stringify(shared.archive)){message='No draft changes to save. Choose Publish changes to update published profiles.';render();return;}
     }
     if(!window.confirm(draftsOnly?'Save drafts? Draft profiles will stay private and published profiles will remain unchanged.':'Publish these changes? Draft profiles will stay private. Profiles you chose to unpublish will be hidden. Profiles marked Will be removed will be permanently removed from Admin and the public archive.'))return;
-    busy=true;message=draftsOnly?'Saving drafts…':'Publishing changes…';render();
+    busy=true;publicationError=false;message=draftsOnly?'Saving drafts…':'Publishing changes…';render();
     const before=copy(working);
     try{
-      if(!await checkSavedVersion())return;
+      if(!await checkSavedVersion()){publicationError=true;return;}
       const ids=referencedUploads(next),pending=[];
-      for(const id of ids){const value=uploads.get(id);pending.push({id,fileName:value.file.name,mimeType:value.file.type,base64:await base64(value.file)});}
+      for(const id of ids){const value=uploads.get(id);
+        if(shared.imageUploadProtocol==='git-blob-v1'){
+          const prepared=await window.churchClergyApi.upload({id,file:value.file});
+          if(!prepared.ok){publicationError=true;message=window.churchClergyApi.message(prepared.category);return;}
+          pending.push({id,receipt:prepared.receipt});
+        }else pending.push({id,fileName:value.file.name,mimeType:value.file.type,base64:await base64(value.file)});
+      }
       const result=await window.churchClergyApi.publish({sha:shared.sha,headSha:shared.headSha,archive:next,uploads:pending,...(!draftsOnly&&removals.size?{removedRecordIds:[...removals]}:{})});
       if(result.ok){shared=result;working=copy(result.archive);if(!draftsOnly)removals.clear();
         if(draftsOnly){for(const r of before.records){const old=next.records.find(n=>n.id===r.id);if(!old||JSON.stringify(old)!==JSON.stringify(r)){const index=working.records.findIndex(n=>n.id===r.id);if(index<0)working.records.push(r);else working.records[index]=r;}}}
         pruneUploads();message=`${draftsOnly?'Drafts saved. Draft profiles remain private.':'Changes published successfully. Your changes have been saved. The public website is updating and normally appears within a few minutes.'}${changed()?' Other unpublished changes remain.':''}`;
-      }else {message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
-    }catch{needsReload=true;message='Saving could not be confirmed. Refresh the archive to check its current state before trying again. Pending edits and uploaded photographs are kept in this browser. Do not refresh or close it until you have decided how to resolve the saved version.';}finally{busy=false;render();}
+      }else {publicationError=true;message=window.churchClergyApi.message(result.category);needsReload=['archive-version-conflict','network-failure','archive-publish-unavailable'].includes(result.category);}
+    }catch{publicationError=true;needsReload=true;message='Saving could not be confirmed. Refresh the archive to check its current state before trying again. Pending edits and uploaded photographs are kept in this browser. Do not refresh or close it until you have decided how to resolve the saved version.';}finally{busy=false;render();if(publicationError)host.querySelector('.archive-admin-status')?.focus();}
   }
   function listAction(event){const target=event.target.closest('[data-archive-action]');if(!target||target.disabled)return;const action=target.dataset.archiveAction,id=target.dataset.id;
     if(action==='check-version')void recheck();
