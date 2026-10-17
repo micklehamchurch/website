@@ -34,6 +34,7 @@ const navigation = `
       </form>
       <div class="nav-actions">
       <a class="nav-link nav-calendar" href="calendar.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
+      <a class="nav-link nav-bible" id="header-bible-open" href="bible.html" aria-label="Open the Bible" title="Open the Bible"><img src="assets/images/bible-closed.svg" width="32" height="40" alt=""></a>
       </div>
       </div>
     </nav>
@@ -97,7 +98,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261017-narrow-panel', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261017-bible-header', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
@@ -244,4 +245,15 @@ if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
   landscapeScript.src = new URL('landscape-navigation.js?v=20261017-panel-1', siteScript.src).href;
   document.head.append(landscapeScript);
+}
+
+// The shared Bible entry reuses the existing book reader and modal presentation.
+if (siteScript && document.getElementById('header-bible-open') && window.parent === window) {
+  const bibleStyles = document.createElement('link');
+  bibleStyles.rel = 'stylesheet';
+  bibleStyles.href = new URL('home-bible.css?v=20261017-header', siteScript.src).href;
+  document.head.append(bibleStyles);
+  const bibleScript = document.createElement('script');
+  bibleScript.src = new URL('home-bible.js?v=20261017-header', siteScript.src).href;
+  document.head.append(bibleScript);
 }

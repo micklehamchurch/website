@@ -11,7 +11,7 @@ const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replac
 test('shared desktop/mobile top-level order retains styled utilities and excludes Media',()=>{
  const nav=html.match(/<nav\b.*?<\/nav>/s)[0].replace(/<div class="dropdown".*?<\/div>/gs,'');
  const names=[...nav.matchAll(/<(a|button)\b[^>]*>(.*?)<\/\1>/gs)].map(m=>labels(m[2]));
- assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','News','About Us','','Calendar']);
+ assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','News','About Us','','Calendar','']);
  assert.equal((nav.match(/href="news.html"/g)||[]).length,1);
  assert.equal((html.match(/href="news.html"/g)||[]).length,1);
  assert(!menus.community.includes('news.html'));
@@ -52,4 +52,17 @@ test('Real accessible header search submits q to the existing search page',()=>{
  assert.match(html,/<button type="submit" aria-label="Submit website search"/);
  const search=fs.readFileSync(path.join(root,'search.js'),'utf8');assert.match(search,/new URLSearchParams\(location.search\).get\('q'\)/);assert.match(search,/renderSearch\(searchInput.value\)/);
  const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 999px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
+});
+
+test('Bible utility follows Calendar, is icon-only with an accessible name, and is absent from the hero',()=>{
+ const actions=html.match(/<div class="nav-actions">([\s\S]*?)<\/div>/)[1];
+ assert(actions.indexOf('nav-calendar')<actions.indexOf('nav-bible'));
+ const control=actions.match(/<a class="nav-link nav-bible"[^>]*>[\s\S]*?<\/a>/)[0];
+ assert.match(control,/aria-label="Open the Bible"/);
+ assert.match(control,/href="bible.html"/);
+ assert.match(control,/<img[^>]+src="assets\/images\/bible-closed.svg"[^>]+alt=""/);
+ assert.equal(labels(control),'');
+ const hero=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<div class="hero-actions">(.*?)<\/div>/s)[1];
+ assert.equal((hero.match(/<a /g)||[]).length,2);assert.doesNotMatch(hero,/bible/i);
+ assert(fs.existsSync(path.join(root,'assets/images/bible-closed.svg')));
 });

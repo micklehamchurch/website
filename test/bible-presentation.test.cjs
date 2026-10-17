@@ -42,7 +42,7 @@ test('resizing an open drawer restores the same controls to the desktop page', (
   assert.equal(p.get('drawer-content').children.length, 0);
 });
 
-test('homepage overlay unloads on close and accepts close messages only from its reader', () => {
+test('shared header overlay unloads on close and accepts close messages only from its reader', () => {
   const events = {}, nodes = [];
   let focused;
   class Element {
@@ -53,6 +53,8 @@ test('homepage overlay unloads on close and accepts close messages only from its
     set src(v) { this.attrs.src = v; }
     append(...children) { this.children = children; }
     addEventListener(k, fn) { this.events[k] = fn; }
+    closest() { return null; }
+    getClientRects() { return [1]; }
     showModal() { this.open = true; }
     close() { this.open = false; this.events.close(); }
     focus() { focused = this; }
