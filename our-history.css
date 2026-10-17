@@ -103,3 +103,50 @@ html.history-modal-open, html.history-modal-open body { overflow:hidden; }
 }
 .history-period:hover h3 { text-decoration:underline; text-underline-offset:4px; }
 html.history-modal-open body { position:fixed; top:var(--history-scroll-top); width:100%; }
+
+/* Clergy feature only: genuine archival prints over a softly blended parish scene. */
+.history-feature { min-height:280px; background:#f7f4e9; }
+.history-feature::before { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,#f7f4e9 0%,#f7f4e9 39%,#f7f4e9e8 47%,#f7f4e955 62%,transparent 80%); }
+.history-feature::after { content:""; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.2; background-image:radial-gradient(#8d79552b .6px,transparent .8px); background-size:5px 6px; }
+.history-feature-copy { width:58%; padding:32px 34px; }
+.history-feature-copy h2 { font-size:clamp(27px,2.5vw,36px); margin-bottom:14px; }
+.history-feature-copy p:not(.eyebrow) { max-width:570px; margin-bottom:20px; line-height:1.6; }
+.history-feature-copy .eyebrow { margin-bottom:14px; }
+.history-feature-church { position:absolute; z-index:0; left:41%; top:0; width:59%; height:100%; background:url("assets/images/about/church-hero.webp") 40% 65% / cover no-repeat; opacity:.29; filter:grayscale(.9) sepia(.18); }
+.history-feature .history-portraits { display:block; top:auto; bottom:0; right:1%; width:44%; height:100%; z-index:2; }
+.history-feature .history-portraits::after { display:none; }
+.history-feature .history-portraits img { position:absolute; height:auto; max-height:none; object-fit:contain; border:5px solid #fffdf4; border-radius:2px; box-shadow:0 2px 8px #41392524; transform-origin:50% 70%; }
+.history-feature .history-portraits img:nth-child(1) { width:32%; left:3%; bottom:-5px; transform:rotate(-6deg); z-index:1; }
+.history-feature .history-portraits img:nth-child(2) { width:35%; left:31%; bottom:16px; transform:rotate(-4deg); z-index:2; }
+.history-feature .history-portraits img:nth-child(3) { width:32%; left:63%; bottom:7px; transform:rotate(6deg); z-index:3; }
+@media (min-width:761px) and (max-width:1100px) {
+ .history-feature { min-height:280px; }
+ .history-feature-copy { width:53%; padding:28px 24px; }
+ .history-feature-copy h2 { font-size:28px; }
+ .history-feature-copy p:not(.eyebrow) { font-size:15px; }
+ .history-feature .history-portraits { width:46%; right:1%; }
+ .history-feature .history-portraits img:nth-child(1) { width:36%; left:0; bottom:10px; }
+ .history-feature .history-portraits img:nth-child(2) { width:40%; left:28%; bottom:40px; }
+ .history-feature .history-portraits img:nth-child(3) { width:36%; left:62%; bottom:10px; }
+}
+@media (max-width:900px) {
+ .history-feature-copy { width:100%; padding:28px 28px 10px; }
+ .history-feature-copy h2 { font-size:30px; }
+ .history-feature-copy p:not(.eyebrow) { max-width:600px; }
+ .history-feature .history-portraits { position:relative; right:auto; width:min(540px,100%); height:300px; margin:0 0 0 auto; }
+ .history-feature-church { left:16%; top:auto; bottom:0; width:84%; height:330px; }
+ .history-feature::before { background:linear-gradient(180deg,#f7f4e9 0%,#f7f4e9 25%,#f7f4e9c9 42%,#f7f4e933 72%,transparent); }
+ .history-feature .history-portraits img:nth-child(1) { width:31%; left:4%; bottom:0; }
+ .history-feature .history-portraits img:nth-child(2) { width:34%; left:32%; bottom:18px; }
+ .history-feature .history-portraits img:nth-child(3) { width:31%; left:64%; bottom:8px; }
+}
+@media (max-width:600px) {
+ .history-feature-copy { padding:26px 22px 14px; }
+ .history-feature-copy h2 { font-size:29px; }
+ .history-feature-copy p:not(.eyebrow) { font-size:16px; }
+ .history-feature .history-portraits { height:clamp(180px,58vw,270px); }
+ .history-feature-church { left:0; width:100%; height:270px; }
+ .history-feature .history-portraits img { border-width:3px; }
+ .history-feature .history-portraits img:nth-child(2) { bottom:10px; }
+}
+.history-feature-church { mask-image:radial-gradient(ellipse at 65% 65%,#000 20%,transparent 78%); }
