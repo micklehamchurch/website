@@ -23,7 +23,7 @@ The panel width is `min(820px, viewport width minus two equal gutters)`. Each gu
 
 The panel is vertically centred, with maximum height based on 100dvh minus the larger of 10px and the top/bottom safe inset. Rounded ivory surfaces, thin separators, dark-green labels and a restrained shadow sit above the real current page. The native backdrop provides a translucent dark-green dim and 1px softening. No background image is substituted.
 
-The close/title bar does not scroll. Only the panel's content wrapper scrolls, with overscroll containment and native touch scrolling. Submenus remain directly below their parent. Rows stay at least 44px high. Search flexes with a 380px basis; Calendar shares its utility row when both fit and wraps underneath on narrower panels. No device-specific secondary breakpoint is used.
+The close/title bar does not scroll. Only the panel's content wrapper scrolls, with overscroll containment and native touch scrolling. Submenus remain directly below their parent. Rows stay at least 44px high. Search flexes with a compact 160px basis; Calendar shares its utility row when both fit and wraps underneath on narrower panels. No device-specific secondary breakpoint is used.
 
 ## Closing and motion
 
@@ -43,3 +43,48 @@ The shared scripts/check-phone-landscape.cjs is updated for the new presentation
 A direct before/after stylesheet-swap comparison passes 85 closed-page/header/hero samples across Home, Community, Visit, About and History at portrait, landscape, reduced-height, tablet and desktop sizes. Portrait/tablet/desktop open-menu geometry also matches. Public HTML, original responsive/hero declarations and all images are unchanged.
 
 Browser verification is Edge/Chromium emulation with actual touch-event injection, not a second physical-iPhone/Safari test. Physical Safari may reserve or expose browser gesture/chrome areas differently; the physical-device photograph was used as the design constraint, and device retesting remains the final verification limitation.
+
+## Compact content-driven refinement (physical iPhone feedback)
+
+Starting Dev: ccfb87871b748477beab9ea0deb5a079fd000ddb. Main unchanged at
+804a189ae8b09e8a88f4bb98947af0e9fcb34c30. The two new physical-device photographs
+are the visual reference; no new physical-device test was performed.
+
+The baseline has no explicit fixed/minimum panel height. In Chromium at 874×402
+its natural content needed 391px, but the safe viewport cap clipped it to 382px.
+A 51px title bar, 16px navigation padding and 12px utility top spacing contributed
+to its size. The previous 380px Search flex basis also wrapped the utilities
+unnecessarily on narrower landscape phones. The photographs' apparent extra
+Safari space cannot be measured precisely from an oblique camera image.
+
+The dialog now explicitly uses height:fit-content and min-height:0. Its content
+body can shrink and scroll at the existing dynamic safe viewport cap; navigation
+rows never stretch to fill it. Symmetric horizontal width/gutters are unchanged.
+Block insets and auto margins centre it in the safe usable viewport. Title/close
+bar is 45px including its separator; row targets remain 44px. Navigation has
+4px bottom padding and utilities have 4px top spacing. Search and Calendar share
+one compact row at every requested landscape width, wrapping only when genuinely
+insufficient width remains. New natural collapsed height is 365px.
+
+Measured panel heights (CSS pixels):
+
+| Viewport | Collapsed panel |
+| --- | ---: |
+| 568×320 | 300 |
+| 667×375 | 355 |
+| 740×360 | 340 |
+| 812×375 | 355 |
+| 844×390 | 365 |
+| 852×393 | 365 |
+| 874×402 | 365 (previously 382) |
+| 932×430 | 365 |
+| 844×300 | 280 |
+| 874×280 | 260 |
+
+On screens shorter than the 365px content plus safe gaps, internal scrolling is
+intentional. Expansion grows the card to the viewport cap; collapsing returns to
+intrinsic height. Six 44px rows, a 44px close control and the utilities impose a
+real minimum content height; they are not reduced to make the card artificially
+small. Captured collapsed screenshots verify 4px after the footer, not a blank
+cream block. Native modal, swipe thresholds, focus/keyboard and animation code are
+unchanged. Only the shared stylesheet cache key changes in site.js.

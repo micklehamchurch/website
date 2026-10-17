@@ -148,23 +148,24 @@
      notch: use the larger safe inset symmetrically rather than pinning an edge. */
   html.landscape-navigation-open, html.landscape-navigation-open body { overflow:hidden; }
   html.landscape-navigation-open body { position:fixed; top:var(--landscape-navigation-scroll-top); width:100%; }
-  .landscape-navigation-dialog { --panel-gap:max(5vw,16px,env(safe-area-inset-left),env(safe-area-inset-right)); width:min(820px,calc(100vw - 2 * var(--panel-gap))); max-width:none; max-height:calc(100dvh - max(10px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom))); padding:0; margin:auto; overflow:hidden; border:1px solid var(--stone); border-radius:10px; background:var(--paper); color:var(--deep); box-shadow:0 10px 32px #122a2226; }
+  /* Intrinsic height: only the scrolling body shrinks at the safe viewport cap. */
+  .landscape-navigation-dialog { --panel-gap:max(5vw,16px,env(safe-area-inset-left),env(safe-area-inset-right)); width:min(820px,calc(100vw - 2 * var(--panel-gap))); max-width:none; height:fit-content; min-height:0; max-height:calc(100dvh - max(10px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom))); inset-block:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-bottom)); padding:0; margin:auto; overflow:hidden; border:1px solid var(--stone); border-radius:10px; background:var(--paper); color:var(--deep); box-shadow:0 10px 32px #122a2226; }
   .landscape-navigation-dialog[open] { display:flex; flex-direction:column; }
   .landscape-navigation-dialog::backdrop { background:#102b234d; backdrop-filter:blur(1px); }
-  .landscape-navigation-heading { display:flex; align-items:center; justify-content:space-between; flex:none; min-height:50px; padding:3px 10px 3px 24px; border-bottom:1px solid var(--stone); }
+  .landscape-navigation-heading { display:flex; align-items:center; justify-content:space-between; flex:none; min-height:44px; padding:0 10px 0 24px; border-bottom:1px solid var(--stone); }
   .landscape-navigation-heading p { margin:0; font:600 12px/1.3 var(--sans); letter-spacing:.13em; text-transform:uppercase; }
   .landscape-navigation-close { width:44px; height:44px; padding:0; border:0; border-radius:6px; background:transparent; color:var(--deep); font:30px/1 var(--sans); cursor:pointer; }
   .landscape-navigation-close:hover { background:var(--cream); }
   .landscape-navigation-dialog :focus-visible { outline:2px solid var(--gold); outline-offset:-2px; }
-  .landscape-navigation-scroll { min-height:0; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
-  .landscape-navigation-dialog .nav { position:static; display:flex; flex-direction:column; align-items:stretch; gap:0; width:100%; padding:4px 16px 12px; max-height:none; overflow:visible; border:0; background:transparent; box-shadow:none; }
-  .landscape-navigation-dialog .nav-primary { display:flex; flex-direction:column; align-items:stretch; gap:0; }
+  .landscape-navigation-scroll { flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+  .landscape-navigation-dialog .nav { position:static; display:flex; flex-direction:column; align-items:stretch; gap:0; width:100%; height:auto; min-height:0; flex:0 0 auto; padding:0 16px 4px; max-height:none; overflow:visible; border:0; background:transparent; box-shadow:none; }
+  .landscape-navigation-dialog .nav-primary { flex:none; display:flex; flex-direction:column; align-items:stretch; gap:0; }
   .landscape-navigation-dialog .nav-primary > .nav-link, .landscape-navigation-dialog .nav-trigger { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:44px; padding:6px 10px; border-bottom:1px solid var(--stone); color:var(--deep); font-size:15px; line-height:1.3; }
   .landscape-navigation-dialog .dropdown { position:static; min-width:0; max-height:none; overflow:visible; margin:4px 0 8px 14px; padding:0 0 0 8px; border:0; border-left:1px solid var(--gold); border-radius:0; background:transparent; box-shadow:none; }
   .landscape-navigation-dialog .dropdown a { display:flex; align-items:center; min-height:44px; padding:8px 12px; font-size:14px; line-height:1.45; }
   .landscape-navigation-dialog .nav-chevron { display:block; flex:none; }
-  .landscape-navigation-dialog .nav-utilities { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding-top:12px; }
-  .landscape-navigation-dialog .header-search { flex:1 1 380px; width:auto; min-width:0; margin:0; min-height:44px; }
+  .landscape-navigation-dialog .nav-utilities { display:flex; flex:none; flex-wrap:wrap; align-items:center; gap:8px; padding-top:4px; }
+  .landscape-navigation-dialog .header-search { flex:1 1 160px; width:auto; min-width:0; margin:0; min-height:44px; }
   .landscape-navigation-dialog .header-search input { height:44px; font-size:16px; }
   .landscape-navigation-dialog .header-search button { min-height:44px; }
   .landscape-navigation-dialog .nav-actions { display:flex; flex:none; margin:0; padding:0; border:0; }
