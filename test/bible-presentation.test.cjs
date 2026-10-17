@@ -1,0 +1,75 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+
+function presentation(mobileInitially = false) {
+  let document;
+  class Element {
+    constructor(id) { this.id = id; this.events = {}; this.children = []; this.open = false; }
+    append(child) { if (child.parent) child.parent.children = child.parent.children.filter(c => c !== child); this.children.push(child); child.parent = this; }
+    contains(child) { return this.children.includes(child); }
+    addEventListener(name, fn) { this.events[name] = fn; }
+    focus() { document.activeElement = this; }
+    showModal() { this.open = true; }
+    close() { this.open = false; this.events.close?.(); }
+  }
+  const elements = new Map();
+  const get = id => { if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
+  document = { getElementById: get, activeElement: null, body: { classList: { add() {} } }, addEventListener() {} };
+  const mobile = { matches: mobileInitially, addEventListener(name, fn) { this.change = fn; } };
+  const window = { matchMedia: () => mobile }; window.parent = window;
+  get('bible-controls-home').append(get('bible-controls'));
+  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-presentation.js'), 'utf8'), { document, window });
+  return { get: name => get('bible-' + name), mobile, document };
+}
+
+test('mobile drawer reuses the live controls, closes on reading, and returns focus', () => {
+  const p = presentation(true);
+  assert(p.get('drawer-content').contains(p.get('controls')));
+  assert.equal(p.get('controls-home').children.length, 0);
+  p.get('browse').events.click(); assert(p.get('drawer').open);
+  p.get('controls').events.submit(); assert.equal(p.get('drawer').open, false);
+  assert.equal(p.document.activeElement, p.get('browse'));
+});
+
+test('resizing an open drawer restores the same controls to the desktop page', () => {
+  const p = presentation(true);
+  p.get('browse').events.click();
+  p.mobile.matches = false; p.mobile.change();
+  assert.equal(p.get('drawer').open, false);
+  assert(p.get('controls-home').contains(p.get('controls')));
+  assert.equal(p.get('drawer-content').children.length, 0);
+});
+
+test('homepage overlay unloads on close and accepts close messages only from its reader', () => {
+  const events = {}, nodes = [];
+  let focused;
+  class Element {
+    constructor(tag) { this.tag = tag; this.events = {}; this.attrs = {}; this.contentWindow = {}; }
+    setAttribute(k, v) { this.attrs[k] = v; }
+    getAttribute(k) { return this.attrs[k] || null; }
+    removeAttribute(k) { delete this.attrs[k]; }
+    set src(v) { this.attrs.src = v; }
+    append(...children) { this.children = children; }
+    addEventListener(k, fn) { this.events[k] = fn; }
+    showModal() { this.open = true; }
+    close() { this.open = false; this.events.close(); }
+    focus() { focused = this; }
+  }
+  const trigger = new Element('a'), classes = new Set();
+  const document = { getElementById: () => trigger, createElement: tag => { const e = new Element(tag); nodes.push(e); return e; }, body: { append() {} }, documentElement: { classList: { add: c => classes.add(c), remove: c => classes.delete(c) } } };
+  const window = { addEventListener: (k, fn) => { events[k] = fn; } };
+  vm.runInNewContext(fs.readFileSync(require.resolve('../home-bible.js'), 'utf8'), { document, window, HTMLDialogElement: class {}, location: { origin: 'https://example.test' } });
+  const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe');
+  trigger.events.click({ preventDefault() {} });
+  assert(dialog.open); assert(frame.getAttribute('src')); assert(classes.has('bible-modal-open'));
+  events.message({ origin: 'https://other.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
+  assert(dialog.open);
+  events.message({ origin: 'https://example.test', source: {}, data: 'mickleham-close-bible' });
+  assert(dialog.open);
+  events.message({ origin: 'https://example.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
+  assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);
+  assert.equal(classes.size, 0); assert.equal(focused, trigger);
+  trigger.events.click({ preventDefault() {} }); assert(frame.getAttribute('src'));
+});
