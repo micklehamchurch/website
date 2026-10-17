@@ -12,6 +12,7 @@ function setup({ response, status = 200, state = emptyState(), storageError = fa
   } }, fetchImpl: async (url, options) => {
     calls++; assert.equal(options.headers['api-key'], env.API_BIBLE_KEY);
     assert.equal(new URL(url).origin, 'https://rest.api.bible');
+    if (/\/(chapters|passages)\//.test(new URL(url).pathname)) assert.equal(new URL(url).searchParams.get('fums-version'), '3');
     assert.equal(options.redirect, 'error');
     return new Response(JSON.stringify(response || { data: { content: 'Synthetic content', copyright: 'Synthetic notice' }, meta: { fumsId: 'synthetic-view-id' } }), { status });
   } });

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Read the Bible with St Michael and All Angels, Mickleham. NIV and NIrV Anglicised editions.">
+  <title>Read the Bible | St Michael &amp; All Angels</title>
+  <script src="typography-preview.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="v1-accessibility.css">
+  <link rel="stylesheet" href="bible-reader.css">
+  <script src="site.js?typography=20261007-v1&header=20261010-v3&gallery=20261009-v1&footer=20261010-v2" defer></script>
+  <script src="bible-reader.js" defer></script>
+  <link rel="icon" href="favicon.ico" sizes="any">
+</head>
+<body class="bible-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header" data-site-header></header>
+  <main id="main-content" tabindex="-1">
+    <div class="container bible-shell">
+      <div class="bible-intro"><p class="eyebrow">A moment with Scripture</p><h1>Read the Bible</h1><p>Make space to read, reflect and discover.</p></div>
+      <section class="bible-reader" aria-label="Bible reader">
+        <form id="bible-controls" class="bible-controls">
+          <div class="bible-field bible-version"><label for="bible-translation">Translation</label><select id="bible-translation" disabled><option value="niv">NIV · Anglicised</option></select></div>
+          <div class="bible-field"><label for="bible-book">Book</label><select id="bible-book" disabled><option>Loading books…</option></select></div>
+          <div class="bible-field bible-chapter"><label for="bible-chapter">Chapter</label><select id="bible-chapter" disabled><option>—</option></select></div>
+          <button class="btn btn-green" id="bible-read" type="submit" disabled>Read chapter <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="bible-status-row"><p id="bible-status" role="status" aria-live="polite">Opening the Bible…</p><button id="bible-retry" type="button" hidden>Try again</button></div>
+        <article id="bible-reading" class="bible-reading" aria-busy="true" hidden>
+          <div class="bible-reading-heading"><p id="bible-edition" class="eyebrow"></p><h2 id="bible-reference" tabindex="-1"></h2></div>
+          <div id="bible-content" class="bible-content"></div>
+          <nav class="bible-paging" aria-label="Chapter navigation"><button id="bible-previous" type="button" disabled>← Previous chapter</button><button id="bible-next" type="button" disabled>Next chapter →</button></nav>
+          <div class="bible-notices"><p id="bible-copyright"></p><p>Scripture provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>.</p></div>
+        </article>
+        <noscript><p class="bible-noscript">Please enable JavaScript to use the Bible reader.</p></noscript>
+      </section>
+      <div class="bible-afterword"><a href="bible-study-fellowship.html">Explore the Bible together →</a><p>This reader reports anonymous Scripture views to API.Bible for publisher usage reporting. <a href="https://docs.api.bible/guides/fair-use/" target="_blank" rel="noopener noreferrer">About this reporting</a></p></div>
+    </div>
+  </main>
+  <footer class="footer" data-site-footer data-footer-compact></footer>
+</body>
+</html>

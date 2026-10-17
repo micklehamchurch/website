@@ -19,7 +19,7 @@ test('shared desktop/mobile top-level order retains styled utilities and exclude
 });
 test('reviewed dropdowns group worship, visiting, community and parish governance without duplicates',()=>{
  assert.deepEqual(menus,{
- worship:['worship.html','sunday-services.html','weekly-worship.html','special-services.html','prayer.html','baptisms.html','weddings.html','funerals.html'],
+ worship:['worship.html','sunday-services.html','weekly-worship.html','special-services.html','prayer.html','bible.html','baptisms.html','weddings.html','funerals.html'],
  visit:['visit.html','what-to-expect.html','finding-us.html','church-building.html','westhumble-chapel.html','churchyard.html','churchyard-regulations.html','war-memorial.html'],
  community:['church-life.html','gallery.html','children-families.html','alpha.html','bible-study-fellowship.html','pastoral-care.html','volunteering.html','supporting-community.html'],
  about:['our-team.html','about.html','our-vision.html','our-churches.html','our-history.html','eco-church.html','electoral-roll.html','safeguarding.html','privacy.html']});

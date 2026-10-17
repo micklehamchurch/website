@@ -48,7 +48,7 @@ function createBibleHandler({ env = process.env, fetchImpl = fetch, store, now =
         const id = ids[target.translation];
         if (target.translation && (!id || !/^[a-f0-9]{16}-[0-9]{2}$/.test(id))) return fail(503, 'bible-translation-not-configured');
         let path = target.path || `/bibles/${id}${target.resource === 'metadata' ? '' : '/' + target.resource}`;
-        if (target.content) path += '?content-type=text&include-notes=false&include-titles=true&include-verse-numbers=true';
+        if (target.content) path += '?content-type=text&include-notes=false&include-titles=true&include-verse-numbers=true&fums-version=3';
         const cached = state.cache[path];
         if (cached) return { status: 200, jsonBody: cached.body, headers: { 'Cache-Control': 'no-store' } };
         // Durable rolling 31-day budget survives restarts and scale-out. Reserve
