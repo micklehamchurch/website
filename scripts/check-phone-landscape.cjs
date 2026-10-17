@@ -3,7 +3,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process');
 const root=path.join(__dirname,'..'),base=process.env.LANDSCAPE_BASE_URL||'http://127.0.0.1:4221/';
 const reps=['index.html','worship.html','visit.html','church-life.html','news.html','about.html','our-history.html','churchyard.html','war-memorial.html','norman-architecture.html','our-churches.html','our-vision.html','our-team.html'];
-const sizes=[[320,800],[390,844],[430,932],[667,375],[740,360],[812,375],[844,390],[852,393],[874,402],[932,430],[768,1024],[1024,768],[1280,900],[1440,1000]];
+const sizes=[[320,800],[390,844],[430,932],[568,320],[667,375],[740,360],[812,375],[844,390],[852,393],[874,402],[932,430],[844,300],[874,280],[768,1024],[1024,768],[1280,900],[1440,1000]];
 const artifacts=path.resolve(root,'../phone-landscape-verification');fs.mkdirSync(artifacts,{recursive:true});
 const overflow=page=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth);
 async function reachable(locator,height){await locator.scrollIntoViewIfNeeded();const b=await locator.boundingBox();assert(b&&b.y>=-1&&b.y+b.height<=height+1,`Unreachable navigation item: ${await locator.textContent()}`);}
@@ -14,16 +14,26 @@ async function reachable(locator,height){await locator.scrollIntoViewIfNeeded();
  await Promise.all(Array.from({length:3},async()=>{while(jobs.length){const {file,size:[width,height]}=jobs.shift();const page=await browser.newPage({viewport:{width,height}});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.install({time:new Date('2026-10-17T12:00Z')});await page.goto(base+file);await page.locator('.site-header .brand').waitFor();await page.evaluate(()=>document.fonts.ready);assert(await overflow(page),`${file} closed ${width}x${height}`);
  const short=width>height&&height<=460&&width<=999;
  if(short){const header=await page.locator('.site-header').boundingBox();assert(header.height<=60);assert(await page.locator('h1').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)<=38));}
- if(file==='church-life.html'&&width===874)await page.screenshot({path:path.join(artifacts,'community-closed.png')});
+ if(file==='church-life.html'&&width===874&&height===402)await page.screenshot({path:path.join(artifacts,'community-closed.png')});
  const toggle=page.locator('.menu-toggle');if(await toggle.isVisible()){
  await toggle.focus();await page.keyboard.press('Enter');assert.equal(await toggle.getAttribute('aria-expanded'),'true');const nav=page.locator('#mainNav');assert(await nav.isVisible());assert(await overflow(page),`${file} open ${width}`);
- if(short){const b=await nav.boundingBox();assert(Math.abs(b.x)<1&&Math.abs(b.width-width)<1);assert(b.y+b.height<=height);const touch=await page.locator('.nav-primary > .nav-link,.nav-trigger,.menu-toggle,.nav-youtube').evaluateAll(es=>es.filter(e=>e.getClientRects().length).map(e=>e.getBoundingClientRect().height));assert(touch.every(h=>h>=44));}
- if(file==='church-life.html'&&width===874)await page.screenshot({path:path.join(artifacts,'community-menu.png')});
+ if(short){const b=await nav.boundingBox();assert(Math.abs(b.x)<1&&Math.abs(b.width-width)<1);assert(b.y+b.height<=height);const touch=await page.locator('.nav-primary > .nav-link,.nav-trigger,.menu-toggle,.nav-youtube').evaluateAll(es=>es.filter(e=>e.getClientRects().length).map(e=>e.getBoundingClientRect().height));assert(touch.every(h=>h>=44));
+ const rows=await page.locator('.nav-primary > .nav-link,.nav-primary > .nav-item > .nav-trigger').evaluateAll(es=>es.map(e=>({text:e.textContent.trim(),x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y,bottom:e.getBoundingClientRect().bottom})));
+ assert.deepEqual(rows.map(r=>r.text),['Home','Service','Visit & Learn','Our Community','News','About Us']);
+ for(let i=1;i<rows.length;i++){assert(Math.abs(rows[i].x-rows[0].x)<1);assert(rows[i].y>=rows[i-1].bottom-1);}
+ const search=await page.locator('.header-search').boundingBox(),calendar=await page.locator('.nav-calendar').boundingBox();assert(search.y>=rows.at(-1).bottom);assert(calendar.y>=search.y+search.height);assert(search.width>width*.8);
+ }
+
+ if(file==='church-life.html'&&width===874&&height===402)await page.screenshot({path:path.join(artifacts,'community-menu.png')});
  for(const trigger of await page.locator('.nav-trigger').all()){
  await trigger.click();assert.equal(await trigger.getAttribute('aria-expanded'),'true');const id=await trigger.getAttribute('aria-controls');const links=page.locator('#'+id+' a');assert(await links.count());for(const link of await links.all()){await reachable(link,height);const b=await link.boundingBox();assert(b.height>=43.9);}
- if(file==='church-life.html'&&width===874&&id==='menu-community')await page.screenshot({path:path.join(artifacts,'community-expanded.png')});
+ if(file==='church-life.html'&&width===874&&height===402&&id==='menu-community')await page.screenshot({path:path.join(artifacts,'community-expanded.png')});
  await trigger.click();assert.equal(await trigger.getAttribute('aria-expanded'),'false');}
- await reachable(page.locator('.nav-calendar'),height);await page.keyboard.press('Escape');assert.equal(await toggle.getAttribute('aria-expanded'),'false');assert(await toggle.evaluate(e=>e===document.activeElement));assert.equal(await toggle.evaluate(e=>getComputedStyle(e).outlineStyle),'solid');
+ await reachable(page.locator('.nav-calendar'),height);if(short)assert(await nav.evaluate(e=>e.scrollHeight>e.clientHeight&&e.scrollTop>0));await page.keyboard.press('Escape');assert.equal(await toggle.getAttribute('aria-expanded'),'false');assert(await toggle.evaluate(e=>e===document.activeElement));assert.equal(await toggle.evaluate(e=>getComputedStyle(e).outlineStyle),'solid');
+ }
+ if(file==='church-life.html'&&width===874&&height===402){
+ await toggle.click();const input=page.locator('#header-search-query');await input.scrollIntoViewIfNeeded();await input.fill('history');await Promise.all([page.waitForURL('**/search.html?q=history'),input.press('Enter')]);
+ await page.goto(base+file);await page.locator('.menu-toggle').click();const calendar=page.locator('.nav-calendar');await calendar.scrollIntoViewIfNeeded();await Promise.all([page.waitForURL('**/calendar.html'),calendar.click()]);
  }
  assert.equal(errors.length,0,errors.join('\n'));assert(await overflow(page));await page.close();count++;if(count%26===0)console.log(`${count}/${reps.length*sizes.length} representative viewport checks passed`);}}));
  // Inspect every other indexed public template at a representative short height.
