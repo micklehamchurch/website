@@ -97,7 +97,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261017-landscape-single-column', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261017-floating-panel', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
@@ -127,6 +127,7 @@ navigationBackdrop.setAttribute('aria-hidden', 'true');
 navigationBackdrop.hidden = true;
 document.body.append(navigationBackdrop);
 function syncNavigationBackdrop() {
+  if (globalThis.churchLandscapeNavigation?.isOpen()) { navigationBackdrop.hidden = true; return; }
   navigationBackdrop.hidden = !nav?.classList.contains('is-open') && !dropdownButtons.some(button => button.getAttribute('aria-expanded') === 'true');
 }
 
@@ -185,6 +186,7 @@ document.addEventListener('pointerdown', event => {
   outsidePress = event.isPrimary && event.button === 0 && dialog && outsidePanel(event, dialog) ? dialog : null;
 }, true);
 function closeNavigation(returnFocus = false) {
+  if (globalThis.churchLandscapeNavigation?.close(returnFocus)) return;
   const opener = nav?.classList.contains('is-open') ? menuButton : dropdownButtons.find(button => button.getAttribute('aria-expanded') === 'true');
   closeDropdowns();
   nav?.classList.remove('is-open');
@@ -194,6 +196,7 @@ function closeNavigation(returnFocus = false) {
   if (returnFocus) opener?.focus({ preventScroll: true });
 }
 document.addEventListener('click', event => {
+  if (globalThis.churchLandscapeNavigation?.isOpen()) return;
   const dialog = activePublicDialog();
   if (dialog) {
     const dismiss = outsidePress === dialog && outsidePanel(event, dialog);
@@ -235,3 +238,10 @@ document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
 document.querySelectorAll('a[href="index.html"]').forEach(link => {
   link.setAttribute('href', 'index.html?hero=20261005-v4');
 });
+
+// Optional short-landscape presentation; the original menu remains its fallback.
+if (siteScript && nav && menuButton) {
+  const landscapeScript = document.createElement('script');
+  landscapeScript.src = new URL('landscape-navigation.js?v=20261017-panel-1', siteScript.src).href;
+  document.head.append(landscapeScript);
+}
