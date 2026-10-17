@@ -88,3 +88,27 @@ real minimum content height; they are not reduced to make the card artificially
 small. Captured collapsed screenshots verify 4px after the footer, not a blank
 cream block. Native modal, swipe thresholds, focus/keyboard and animation code are
 unchanged. Only the shared stylesheet cache key changes in site.js.
+
+## Visual density refinement
+
+Starting Dev 7d35295cd89a330f7fad29b8e6896fd6a3b83dbf. Previous collapsed
+height 365px; new natural collapsed height 320px at 874×402 (45px / 12.3% less).
+Rather than overlapping or shrinking six 44px targets, the existing Home link
+shares the 44px title/close row. Home stays left-aligned with the remaining links;
+the small Navigation label and the independent 44×44 close button sit to its
+right. There is no separate decorative title row. The original Home node and its
+listeners are reused and restored to its original navigation slot on close or
+orientation recovery; no duplicate link is created. Focus order remains close,
+Home, Service, Visit & Learn, Our Community, News, About Us, utilities.
+
+All five remaining navigation rows are still 44px. The utility row remains one
+compact row with 4px spacing and 4px bottom padding. At 667×375, 740×360, 812×375,
+844×390, 852×393, 874×402 and 932×430, the collapsed panel is 320px. At 568×320 it
+is capped at 300px and intentionally scrolls. Reduced-height caps remain 280px
+at 844×300 and 260px at 874×280. Expanded groups grow and scroll using the same
+safe viewport max-height. No swipe, dismissal, backdrop, animation, header/hero
+or non-landscape breakpoint logic changes.
+
+The dedicated checks now verify Home/close target separation, full 44px sizes,
+restoration of Home on close, and actual Home navigation, in addition to the
+existing submenu/gesture/keyboard/safe-area coverage.

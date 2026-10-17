@@ -17,6 +17,10 @@
   dialog.innerHTML = '<div class="landscape-navigation-heading"><p id="landscape-navigation-title">Navigation</p><button type="button" class="landscape-navigation-close" aria-label="Close navigation" autofocus>×</button></div><div class="landscape-navigation-scroll"></div>';
   document.body.append(dialog);
   const closeButton = dialog.querySelector('button');
+  const homeLink = nav.querySelector('.nav-primary > .nav-link');
+  const homeSlot = document.createComment('Home link position');
+  homeLink.before(homeSlot);
+  const heading = dialog.querySelector('.landscape-navigation-heading');
   const scroll = dialog.querySelector('.landscape-navigation-scroll');
   let pageScroll = 0, closing = false, preserveMenu = false, animation;
   let outsidePress = false, swipe = null;
@@ -49,6 +53,7 @@
     document.documentElement.style.setProperty('--landscape-navigation-scroll-top', `-${pageScroll}px`);
     document.documentElement.classList.add('landscape-navigation-open');
     scroll.append(nav);
+    heading.append(homeLink);
     nav.classList.add('is-open');
     opener.setAttribute('aria-expanded', 'true');
     opener.setAttribute('aria-label', 'Close navigation');
@@ -62,6 +67,7 @@
   }
   dialog.addEventListener('close', () => {
     animation?.cancel();
+    homeSlot.after(homeLink);
     home.after(nav);
     document.documentElement.classList.remove('landscape-navigation-open');
     document.documentElement.style.removeProperty('--landscape-navigation-scroll-top');
