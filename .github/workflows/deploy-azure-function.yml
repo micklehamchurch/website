@@ -180,7 +180,7 @@ jobs:
           app_id=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].id | [0]" -o tsv)
           resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
           az functionapp function show --name stmichael-church-admin-api --resource-group "$resource_group" --function-name feedback-admin --query config.bindings -o json > feedback-bindings.json
-          az rest --method get --url "https://management.azure.com${app_id}/hostruntime/admin/functions/feedback-admin/status?api-version=2024-11-01" --query errors -o json > feedback-runtime-errors.json
+          az rest --method get --url "https://management.azure.com${app_id}/hostruntime/admin/functions/feedback-admin/status?api-version=2024-11-01" --query "{errors:errors}" -o json > feedback-runtime-errors.json
           az rest --method get --url "https://management.azure.com${app_id}/config/authsettingsV2/list?api-version=2024-11-01" --query properties.globalValidation -o json > feedback-auth-boundary.json
           python - <<'PY'
           import json, urllib.request, urllib.error
@@ -189,7 +189,7 @@ jobs:
           assert trigger['route'] == 'feedback-admin'
           assert trigger['authLevel'].lower() == 'anonymous'
           assert set(m.upper() for m in trigger['methods']) == {'GET', 'POST'}
-          assert not json.load(open('feedback-runtime-errors.json')), 'Feedback runtime registration errors remain'
+          assert not json.load(open('feedback-runtime-errors.json')).get('errors'), 'Feedback runtime registration errors remain'
           auth = json.load(open('feedback-auth-boundary.json'))
           assert auth['requireAuthentication'] is True
           assert sorted(auth['excludedPaths']) == ['/api/bible/*', '/api/website-feedback']
