@@ -99,3 +99,5 @@ html:has(#bible-drawer[open]){overflow:hidden}
 .bible-paginated .bible-status-row:has(+.bible-reading:not([hidden])){position:absolute;width:1px;height:1px;min-height:0;padding:0;overflow:hidden;clip-path:inset(50%)}
 @media(max-width:480px){.bible-toolbar #bible-browse{flex-basis:100%;margin-right:0;text-align:left}.bible-toolbar #bible-close{margin-left:auto}.bible-overlay.bible-paginated main{padding-top:8px}.bible-toolbar button{font-size:13px}.bible-page-ribbon{right:10px;width:14px;height:48px}}
 @media(forced-colors:active){.bible-page-ribbon{background:Highlight}.bible-toolbar .bible-ribbon[aria-pressed="true"]{border:3px solid Highlight}}
+/* Full-page reader also fits a 320px window with a reserved scrollbar. */
+@media(max-width:360px){.bible-page .site-header .nav-wrap{gap:0}.bible-page .site-header .brand{gap:4px}.bible-page .site-header .menu-toggle{min-width:44px}}
