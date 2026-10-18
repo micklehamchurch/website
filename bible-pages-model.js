@@ -31,6 +31,14 @@
     if (!bookmark || !location || bookmark.translation !== location.translation || bookmark.chapter !== location.chapter) return -1;
     return pageForOffset(pages, bookmark.offset);
   }
+  function adjacentChapter(chapter, direction, availableBooks = Object.keys(chapterCounts)) {
+    if (typeof chapter !== 'string' || !/^[A-Z0-9]{3}\.[1-9][0-9]{0,2}$/.test(chapter) || ![-1, 1].includes(direction)) return null;
+    const [book, number] = chapter.split('.'), n = Number(number), order = Object.keys(chapterCounts);
+    if (!Number.isInteger(n) || n < 1 || n > chapterCounts[book] || !order.includes(book) || !availableBooks.includes(book)) return null;
+    if (n + direction >= 1 && n + direction <= chapterCounts[book]) return `${book}.${n + direction}`;
+    const nextBook = order[order.indexOf(book) + direction];
+    return nextBook && availableBooks.includes(nextBook) ? `${nextBook}.${direction > 0 ? 1 : chapterCounts[nextBook]}` : null;
+  }
   function paginate(units, fits) {
     const pages = [];
     for (let start = 0; start < units.length;) {
@@ -63,5 +71,5 @@
     const dx = end.x - start.x, dy = end.y - start.y;
     return Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8 ? (dx < 0 ? 1 : -1) : 0;
   }
-  return { keys, valid, read, save, remove, bookmarkPage, paginate, pageForOffset, turn, keyDirection, swipeDirection };
+  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection };
 });

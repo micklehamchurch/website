@@ -7,6 +7,7 @@
   let storage; try { storage = window.localStorage; } catch { storage = null; }
   let last = M.read(storage, 'last'), bookmark = M.read(storage, 'bookmark');
   let location = null, units = [], pages = [], index = 0, columns = 1, pending = null, loaded = false, timer, touch, resumeOffset = null;
+  let hasPreviousChapter = false, hasNextChapter = false;
   document.body.classList.add('bible-paginated');
   document.body.classList.add('bible-awaiting-reading');
   function savedControls() {
@@ -59,8 +60,7 @@
   function render(direction = 0, remember = true) {
     spread.replaceChildren(...Array.from({ length: columns }, (_, n) => leaf(index + n)));
     for (const text of spread.querySelectorAll('.bible-page-text')) if (text.scrollHeight > text.clientHeight + 1) { text.tabIndex = 0; text.setAttribute('role', 'region'); text.setAttribute('aria-label', 'Scroll within this reading page'); }
-    $('page-previous').disabled = index === 0;
-    $('page-next').disabled = index + columns >= pages.length;
+    pageControls();
     $('page-status').textContent = columns > 1 && index + 1 < pages.length ? `Pages ${index + 1}–${Math.min(index + columns, pages.length)} of ${pages.length}` : `Page ${index + 1} of ${pages.length}`;
     const marked = M.bookmarkPage(bookmark, location, pages);
     const visibleBookmark = marked >= index && marked < index + columns;
@@ -71,6 +71,10 @@
       spread.classList.add(direction > 0 ? 'turn-forward' : 'turn-back');
     }
     if (remember) saveLast();
+  }
+  function pageControls(busy = false) {
+    $('page-previous').disabled = busy || (index === 0 && !hasPreviousChapter);
+    $('page-next').disabled = busy || (index + columns >= pages.length && !hasNextChapter);
   }
   function layout(offset = resumeOffset ?? (pages[index]?.start || 0), remember = false) {
     if (!location || reading.hidden) return;
@@ -101,14 +105,19 @@
   function fallback() {
     spread.setAttribute('aria-busy', 'false');
     content.hidden = false; content.removeAttribute('aria-hidden');
-    spread.hidden = true; $('page-controls').hidden = true;
+    spread.hidden = true; $('page-controls').hidden = false;
+    index = 0; columns = 1; pages = [{ start: 0, end: units.length }];
+    $('page-status').textContent = 'Full chapter'; pageControls(); saveLast();
     document.body.classList.add('bible-pages-fallback');
     $('status').textContent = 'Showing the full chapter. Reading pages are unavailable in this layout.';
   }
   function move(direction) {
     if (!location || reading.hidden || reading.getAttribute('aria-busy') === 'true') return false;
     const next = M.turn(index, direction, columns, pages.length);
-    if (next === index) return false;
+    if (next === index) {
+      if (direction < 0 ? !hasPreviousChapter : !hasNextChapter) return false;
+      document.dispatchEvent(new CustomEvent('bible-request-page-chapter', { detail: direction })); return true;
+    }
     resumeOffset = null; index = next; render(direction); return true;
   }
   function restore(p) {
@@ -127,18 +136,20 @@
   document.addEventListener('bible-busy', event => {
     for (const id of ['continue', 'go-bookmark']) $(id).disabled = event.detail;
     $('bookmark').disabled = event.detail || reading.hidden || !location;
-    $('page-previous').disabled = event.detail || index === 0;
-    $('page-next').disabled = event.detail || index + columns >= pages.length;
+    pageControls(event.detail);
   });
   document.addEventListener('bible-chapter-ready', event => {
     document.body.classList.remove('bible-awaiting-reading');
-    location = event.detail; units = tokens(); index = 0;
+    const detail = event.detail;
+    location = { translation: detail.translation, book: detail.book, chapter: detail.chapter, reference: detail.reference };
+    hasPreviousChapter = detail.hasPreviousChapter; hasNextChapter = detail.hasNextChapter;
+    units = tokens(); index = 0;
     content.hidden = true; content.setAttribute('aria-hidden', 'true');
     const restoring = pending && pending.translation === location.translation && pending.chapter === location.chapter;
-    const offset = restoring ? pending.offset : 0;
+    const offset = restoring ? pending.offset : detail.boundaryDirection < 0 ? Math.max(0, units.length - 1) : 0;
     resumeOffset = restoring ? offset : null;
     while (resumeOffset !== null && units[resumeOffset]?.paragraph) resumeOffset++;
-    try { layout(offset, loaded || !last || restoring); } catch { fallback(); }
+    try { layout(offset, loaded || !last || restoring); if (detail.boundaryDirection) render(detail.boundaryDirection); } catch { fallback(); }
     if (restoring) $('save-status').textContent = 'Returned near your saved reading position.';
     loaded = true; pending = null;
     $('bookmark').disabled = false;

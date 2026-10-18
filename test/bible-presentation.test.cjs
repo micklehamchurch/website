@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function presentation(mobileInitially = false, paginated = false) {
-  let document;
+function presentation(mobileInitially = false, paginated = false, overlay = false) {
+  let document; const rootEvents={},messages=[];
   class Element {
     constructor(id) { this.id = id; this.events = {}; this.children = []; this.open = false; }
     append(child) { if (child.parent) child.parent.children = child.parent.children.filter(c => c !== child); this.children.push(child); child.parent = this; }
@@ -16,12 +16,12 @@ function presentation(mobileInitially = false, paginated = false) {
   }
   const elements = new Map();
   const get = id => { if (id === 'bible-page-spread' && !paginated) return null; if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
-  document = { getElementById: get, activeElement: null, body: { classList: { add() {}, contains: () => paginated } }, addEventListener() {} };
+  document = { getElementById: get, activeElement: null, body: { classList: { add() {}, contains: () => paginated } }, addEventListener(k,fn) {rootEvents[k]=fn}, querySelector:s=>s==='.bible-toolbar'?get('bible-toolbar'):[...elements.values()].find(e=>e.open)||null };
   const mobile = { matches: mobileInitially, addEventListener(name, fn) { this.change = fn; } };
-  const window = { matchMedia: () => mobile }; window.parent = window;
+  const window = { matchMedia: () => mobile }; window.parent = overlay ? {postMessage:(...m)=>messages.push(m)} : window;
   get('bible-controls-home').append(get('bible-controls'));
-  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-presentation.js'), 'utf8'), { document, window });
-  return { get: name => get('bible-' + name), mobile, document };
+  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-presentation.js'), 'utf8'), { document, window, URLSearchParams, location:{search:'?book=overlay',origin:'https://example.test'} });
+  return {rootEvents,messages, get: name => get('bible-' + name), mobile, document };
 }
 
 test('mobile drawer reuses the live controls, closes on reading, and returns focus', () => {
@@ -55,6 +55,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
     addEventListener(k, fn) { this.events[k] = fn; }
     closest() { return null; }
     getClientRects() { return [1]; }
+    getBoundingClientRect() { return {left:20,top:20,right:400,bottom:400}; }
     showModal() { this.open = true; }
     close() { this.open = false; this.events.close(); }
     focus() { focused = this; }
@@ -65,7 +66,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
   vm.runInNewContext(fs.readFileSync(require.resolve('../home-bible.js'), 'utf8'), { document, window, HTMLDialogElement: class {}, location: { origin: 'https://example.test' } });
   const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
-  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261018-polish5/); assert(classes.has('bible-modal-open'));
+  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261018-phase-a/); assert(classes.has('bible-modal-open'));
   assert.equal(close.hidden,false);
   events.message({origin:'https://other.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,false);
   events.message({origin:'https://example.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,true);
@@ -73,6 +74,12 @@ test('shared header overlay unloads on close and accepts close messages only fro
   assert(dialog.open);
   events.message({ origin: 'https://example.test', source: {}, data: 'mickleham-close-bible' });
   assert(dialog.open);
+  const pointer=(target,x,y)=>({target,clientX:x,clientY:y,button:0,isPrimary:true});
+  dialog.events.pointerdown(pointer(frame,100,100));dialog.events.click(pointer(frame,100,100));assert(dialog.open);
+  dialog.events.pointerdown(pointer(dialog,100,100));dialog.events.click(pointer(dialog,100,100));assert(dialog.open);
+  dialog.events.pointerdown(pointer(frame,100,100));dialog.events.click(pointer(dialog,5,5));assert(dialog.open);
+  dialog.events.pointerdown(pointer(dialog,5,5));dialog.events.click(pointer(dialog,5,5));assert.equal(dialog.open,false);assert.equal(focused,trigger);
+  trigger.events.click({preventDefault(){}});
   events.message({ origin: 'https://example.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
   assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);assert.equal(close.hidden,false);
   assert.equal(classes.size, 0); assert.equal(focused, trigger);
@@ -97,4 +104,10 @@ test('hover sequence holds a readable closed cover before opening and disables m
  assert.match(pages,/@media\(max-width:480px\)\{\.bible-toolbar #bible-browse\{flex-basis:100%/);
  assert.match(pages,/#bible-save-status\{position:absolute;width:1px;height:1px/);
  assert.match(pages,/\.bible-page-ribbon\{position:absolute/);
+});
+
+test('Escape dismisses only the active inner dialog before closing the reader and restores information focus',()=>{
+ const p=presentation(false,true,true);p.get('browse').events.click();p.rootEvents.keydown({key:'Escape'});assert.equal(p.messages.filter(m=>m[0]==='mickleham-close-bible').length,0);
+ p.get('drawer').close();p.get('about').events.click();assert(p.get('information').open);p.rootEvents.keydown({key:'Escape'});assert.equal(p.messages.filter(m=>m[0]==='mickleham-close-bible').length,0);
+ p.get('information-close').events.click();assert.equal(p.document.activeElement,p.get('about'));p.rootEvents.keydown({key:'Escape'});assert.equal(p.messages.at(-1)[0],'mickleham-close-bible');
 });

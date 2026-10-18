@@ -18,6 +18,10 @@
   form.addEventListener('submit', () => { if (drawer.open) drawer.close(); });
   mobile.addEventListener('change', placeControls);
   placeControls();
+  const about = get('about'), information = get('information');
+  about.addEventListener('click', () => information.showModal());
+  get('information-close').addEventListener('click', () => information.close());
+  information.addEventListener('close', () => about.focus());
 })();
 (() => {
   if (window.parent !== window && new URLSearchParams(location.search).get('book') === 'overlay') {
@@ -28,7 +32,7 @@
     close.addEventListener('click', () => window.parent.postMessage('mickleham-close-bible', location.origin));
     window.parent.postMessage('mickleham-bible-toolbar-ready', location.origin);
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && !document.getElementById('bible-drawer').open) {
+      if (event.key === 'Escape' && !document.querySelector('dialog[open]')) {
         window.parent.postMessage('mickleham-close-bible', location.origin);
       }
     });

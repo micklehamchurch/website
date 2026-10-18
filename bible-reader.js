@@ -32,8 +32,6 @@
     translation.disabled = value || !translations.length;
     book.disabled = value || !books.length; chapter.disabled = value || !chapters.length;
     $('read').disabled = value || !chapters.length;
-    $('previous').disabled = value || !current?.previous;
-    $('next').disabled = value || !current?.next;
     document.dispatchEvent(new CustomEvent('bible-busy', { detail: value }));
   }
   async function run(action) {
@@ -51,7 +49,8 @@
     // Copyright may contain publisher markup. Parse inertly, display text only.
     return new DOMParser().parseFromString(String(value || ''), 'text/html').body.textContent;
   }
-  async function loadChapter(id, focus = false) {
+  function adjacent(direction) { return window.BiblePagesModel.adjacentChapter(chapter.value, direction, books.map(b => b.id)); }
+  async function loadChapter(id, focus = false, boundaryDirection = 0) {
     if (!/^[A-Z0-9]{3}\.[1-9][0-9]{0,2}$/.test(id)) throw new Error('invalid-chapter');
     const response = await get(`${translation.value}/chapters/${id}`), data = response.data;
     if (!data?.content || !data.copyright || typeof response.meta?.fumsToken !== 'string' || !response.meta.fumsToken) throw new Error('missing-content-metadata');
@@ -72,19 +71,20 @@
     reading.hidden = false; status.textContent = 'Your chapter is ready.';
     // Report every displayed chapter, including responses served by the proxy cache.
     window.fums('trackView', response.meta.fumsToken);
-    document.dispatchEvent(new CustomEvent('bible-chapter-ready', { detail: { translation: translation.value, book: book.value, chapter: chapter.value, reference: $('reference').textContent } }));
+    document.dispatchEvent(new CustomEvent('bible-chapter-ready', { detail: { translation: translation.value, book: book.value, chapter: chapter.value, reference: $('reference').textContent, hasPreviousChapter: !!adjacent(-1), hasNextChapter: !!adjacent(1), boundaryDirection } }));
     if (focus) $('reference').focus();
   }
-  async function loadChapters(preferred = '') {
+  async function loadChapters(preferred = '', boundaryDirection = 0) {
     chapters = [];
     const response = await get(`${translation.value}/books/${book.value}/chapters`);
     chapters = response.data.filter(c => /^[A-Z0-9]{3}\.[1-9][0-9]{0,2}$/.test(c.id));
     if (!chapters.length) throw new Error('empty-chapters');
+    if (boundaryDirection && !chapters.some(c => c.id === preferred)) throw new Error('unavailable-chapter');
     options(chapter, chapters, c => c.number, preferred);
     if (deferInitialChapter) {
       deferInitialChapter = false; status.textContent = 'Choose a book and chapter in Books & saved places to begin reading.'; return;
     }
-    await loadChapter(chapter.value);
+    await loadChapter(chapter.value, !!boundaryDirection, boundaryDirection);
   }
   async function loadBooks(preferredBook = 'JHN', preferredChapter = 'JHN.1') {
     books = []; chapters = [];
@@ -113,13 +113,14 @@
   book.addEventListener('change', () => run(() => loadChapters()));
   chapter.addEventListener('change', () => run(() => loadChapter(chapter.value)));
   retry.addEventListener('click', () => run(retryAction || initialise));
-  for (const direction of ['previous', 'next']) $(''+direction).addEventListener('click', () => {
-    const target = current?.[direction]?.id;
-    if (!target || !/^[A-Z0-9]{3}\.[1-9][0-9]{0,2}$/.test(target)) return;
+  document.addEventListener('bible-request-page-chapter', event => {
+    if (busy || !current || ![-1, 1].includes(event.detail)) return;
+    const direction = event.detail, target = adjacent(direction);
+    if (!target) return;
     run(async () => {
       const targetBook = target.split('.')[0];
-      if (book.value !== targetBook) { book.value = targetBook; await loadChapters(target); $('reference').focus(); }
-      else { chapter.value = target; await loadChapter(target, true); }
+      if (book.value !== targetBook) { book.value = targetBook; await loadChapters(target, direction); }
+      else { chapter.value = target; await loadChapter(target, true, direction); }
     });
   });
   document.addEventListener('bible-request-location', event => {

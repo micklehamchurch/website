@@ -13,7 +13,7 @@
   dialog.append(close, frame); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261018-polish5';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261018-phase-a';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {
@@ -24,9 +24,23 @@
     else openBook();
   });
   close.addEventListener('click', () => dialog.close());
+  let backdropPointer = false;
+  function onBackdrop(event) {
+    if (event.target !== dialog) return false;
+    const bounds = dialog.getBoundingClientRect();
+    return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+  }
+  // Both ends must be outside: selecting/dragging from inside cannot dismiss it.
+  dialog.addEventListener('pointerdown', event => { backdropPointer = event.button === 0 && event.isPrimary !== false && onBackdrop(event); });
+  dialog.addEventListener('pointercancel', () => { backdropPointer = false; });
+  dialog.addEventListener('click', event => {
+    const dismiss = backdropPointer && onBackdrop(event); backdropPointer = false;
+    if (dismiss) dialog.close();
+  });
   dialog.addEventListener('close', () => {
     // Unload the reader so every fresh opening fetches and reports its displayed chapter.
     frame.removeAttribute('src');
+    backdropPointer = false;
     close.hidden = false;
     document.documentElement.classList.remove('bible-modal-open');
     const returnTo = trigger.getClientRects().length ? trigger : document.querySelector('.menu-toggle');

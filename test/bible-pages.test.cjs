@@ -83,3 +83,10 @@ test('removing an explicit bookmark leaves last reading intact, including after 
  assert(M.remove(storage,'bookmark'));assert.equal(M.read(storage,'bookmark'),null);
  assert.deepEqual(M.read(storage,'last'),location);assert.equal(M.remove(null,'bookmark'),false);
 });
+
+test('canonical adjacency rejects malformed locations and stops only at absolute or unavailable-book boundaries',()=>{
+ assert.equal(M.adjacentChapter('GEN.1',-1),null);assert.equal(M.adjacentChapter('REV.22',1),null);
+ assert.equal(M.adjacentChapter('GEN.50',1),'EXO.1');assert.equal(M.adjacentChapter('EXO.1',-1),'GEN.50');
+ assert.equal(M.adjacentChapter('JHN.21',1,['JHN']),null);
+ for(const id of ['JHN.1.extra','JHN.0','JHN.22','XXX.1'])assert.equal(M.adjacentChapter(id,1),null);
+});

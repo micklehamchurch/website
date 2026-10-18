@@ -11,12 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-  <link rel="stylesheet" href="bible-reader.css?v=20261018-polish5">
-  <script src="site.js?typography=20261007-v1&header=20261018-polish5&gallery=20261009-v1&footer=20261010-v2" defer></script>
-  <script src="bible-pages-model.js?v=20261018-polish5" defer></script>
-  <script src="bible-pages.js?v=20261018-polish5" defer></script>
-  <script src="bible-reader.js?v=20261018-polish5" defer></script>
-  <script src="bible-presentation.js?v=20261018-polish5" defer></script>
+  <link rel="stylesheet" href="bible-reader.css?v=20261018-phase-a">
+  <script src="site.js?typography=20261007-v1&header=20261018-phase-a&gallery=20261009-v1&footer=20261010-v2" defer></script>
+  <script src="bible-pages-model.js?v=20261018-phase-a" defer></script>
+  <script src="bible-pages.js?v=20261018-phase-a" defer></script>
+  <script src="bible-reader.js?v=20261018-phase-a" defer></script>
+  <script src="bible-presentation.js?v=20261018-phase-a" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
 </head>
 <body class="bible-page">
@@ -41,14 +41,14 @@
           <div id="bible-content" class="bible-content"></div>
           <div id="bible-page-spread" aria-label="Scripture reading pages" hidden></div>
           <nav id="bible-page-controls" aria-label="Reading page navigation" hidden><button id="bible-page-previous" type="button">← Previous page</button><p id="bible-page-status" role="status" aria-live="polite"></p><button id="bible-page-next" type="button">Next page →</button></nav>
-          <nav class="bible-paging" aria-label="Chapter navigation"><button id="bible-previous" type="button" disabled>← Previous chapter</button><button id="bible-next" type="button" disabled>Next chapter →</button></nav>
-          <div class="bible-notices"><p id="bible-copyright"></p><p>Scripture provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>.</p></div>
+          <div class="bible-notices"><p><span id="bible-copyright"></span> Scripture provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>.</p></div>
         </article>
         </div>
         <noscript><p class="bible-noscript">Please enable JavaScript to use the Bible reader.</p></noscript>
       </section>
       <dialog id="bible-drawer" aria-labelledby="bible-drawer-title"><div class="bible-drawer-heading"><h2 id="bible-drawer-title">Choose a reading</h2><button id="bible-drawer-close" type="button" aria-label="Close books and chapters">Close ×</button></div><div id="bible-drawer-content"></div></dialog>
-      <div class="bible-afterword"><a href="bible-study-fellowship.html">Explore the Bible together →</a><p>This reader reports anonymous Scripture views to API.Bible for publisher usage reporting. <a href="https://docs.api.bible/guides/fair-use/" target="_blank" rel="noopener noreferrer">About this reporting</a></p></div>
+      <button id="bible-about" class="bible-about-link" type="button" aria-haspopup="dialog" aria-controls="bible-information">About this Bible</button>
+      <dialog id="bible-information" aria-labelledby="bible-information-title"><div class="bible-drawer-heading"><h2 id="bible-information-title">About this Bible</h2><button id="bible-information-close" type="button">Close ×</button></div><p>Scripture is provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>. The publisher’s copyright notice for the current translation remains alongside the reading.</p><p>This reader reports anonymous Scripture views to API.Bible for publisher usage reporting. <a href="https://docs.api.bible/guides/fair-use/" target="_blank" rel="noopener noreferrer">About this reporting</a></p><p>Your last reading position and explicit bookmark are stored separately on this browser as location metadata, without Scripture text.</p></dialog>
     </div>
   </main>
   <footer class="footer" data-site-footer data-footer-compact></footer>
