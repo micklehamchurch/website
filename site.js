@@ -259,4 +259,4 @@ if (siteScript && document.getElementById('header-bible-open') && window.parent 
 }
 
 // Additive feedback loads independently; unavailable/Off mode leaves the page intact.
-if(siteScript){const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('feedback.css?v=20261018',siteScript.src).href;document.head.append(css);const feedback=document.createElement('script');feedback.type='module';feedback.src=new URL('feedback.js?v=20261018',siteScript.src).href;css.addEventListener('load',()=>document.body.append(feedback),{once:true});}
+if(siteScript){const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('feedback.css?v=20261018-simple-1',siteScript.src).href;document.head.append(css);const feedback=document.createElement('script');feedback.type='module';feedback.src=new URL('feedback.js?v=20261018-simple-1',siteScript.src).href;css.addEventListener('load',()=>document.body.append(feedback),{once:true});}

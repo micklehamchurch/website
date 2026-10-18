@@ -225,3 +225,14 @@ code protection is Off. Feedback mode Off still blocks all reviewer operations.
 To restore code protection, select On and Save PCC access. If no code exists,
 set one before enabling code-required PCC Review. Admin authentication and its
 server-side allowlist remain mandatory regardless of this reviewer setting.
+
+## Simple reviewer popup
+
+The floating PCC Feedback button opens a short Website Feedback form, never the
+advanced board. New reviewers enter name, feedback, and a code only when the
+existing setting requires it. Remembered reviewers only enter feedback. Sending
+uses the existing access/create API actions and preserves the originating page.
+A Thank you confirmation follows; View PCC discussions explicitly opens the
+unchanged board with replies, status, filters, search and refresh. Reopening the
+floating button starts with the simple form again. Admin screens and all backend
+policies are unchanged by this presentation-only refinement.

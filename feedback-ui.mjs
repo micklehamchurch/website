@@ -86,3 +86,5 @@ export async function mountFeedback(root,{api=createFeedbackClient(),context=cur
  };
  try{await refresh();}catch(e){error=e.message;render();fail(e);}
 }
+
+export {session as readReviewerSession, sessionKey as reviewerSessionKey};
