@@ -10,7 +10,7 @@ if(board){
  try{
   const config=await api.call('config');
   if(config.mode==='pcc'||config.mode==='public'){
-   const launch=document.createElement('button');launch.className='feedback-launcher';launch.type='button';launch.textContent=config.mode==='pcc'?'💬 PCC Feedback':'💬 Website Feedback';launch.setAttribute('aria-haspopup','dialog');
+   const launch=document.createElement('button');launch.className='feedback-launcher';launch.type='button';launch.textContent=config.mode==='pcc'?'💬 Feedback':'💬 Website Feedback';launch.setAttribute('aria-haspopup','dialog');
    const dialog=document.createElement('dialog');dialog.className='feedback-dialog';dialog.setAttribute('aria-labelledby','feedback-dialog-title');
    dialog.innerHTML='<header class="fb-dialog-heading"><h2 id="feedback-dialog-title">Website Feedback</h2><button type="button" aria-label="Close feedback">×</button></header><div class="fb-dialog-scroll"><div class="feedback-content"></div></div>';
    const close=dialog.querySelector('button');close.onclick=()=>dialog.close();
