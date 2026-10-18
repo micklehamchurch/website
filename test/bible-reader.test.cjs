@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 // Small DOM adapter exercises asynchronous reader behavior with synthetic Scripture.
-function reader({ missingToken = false, failChapter = false, remembered = false } = {}) {
+function reader({ missingToken = false, failChapter = false, remembered = false, initialRead = true, rawSaved } = {}) {
   class Element {
     constructor() { this.children = []; this.events = {}; this.value = ''; this.textContent = ''; this.hidden = true; }
     replaceChildren(...children) { this.children = children; }
@@ -17,11 +17,11 @@ function reader({ missingToken = false, failChapter = false, remembered = false 
   const elements = new Map();
   const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
   const requests = [], views = [];
-  const documentEvents = {};
-  const document = { addEventListener: (name, fn) => { documentEvents[name] = fn; }, dispatchEvent: event => { documentEvents[event.type]?.(event); }, getElementById: get, createElement: () => new Element(), createTextNode: text => ({ textContent: text }), head: new Element() };
+  const documentEvents = {}, emitted = [];
+  const document = { addEventListener: (name, fn) => { documentEvents[name] = fn; }, dispatchEvent: event => { emitted.push(event); documentEvents[event.type]?.(event); }, getElementById: get, createElement: () => new Element(), createTextNode: text => ({ textContent: text }), head: new Element() };
   let rejectChapter = failChapter;
   const window = { fums: (...args) => views.push(args) };
-  if (remembered) { window.localStorage = {}; window.BiblePagesModel = { read: () => ({ translation: 'niv', book: 'JHN', chapter: 'JHN.2' }) }; }
+  window.localStorage = { getItem: () => rawSaved ?? (remembered ? JSON.stringify({v:1,translation:'niv',book:'JHN',chapter:'JHN.2',reference:'John 2',page:2,offset:70}) : null) }; window.BiblePagesModel = require('../bible-pages-model');
   const fetch = async (url, options) => {
     requests.push({ url, options });
     const path = url.split('/api/bible/')[1];
@@ -36,8 +36,8 @@ function reader({ missingToken = false, failChapter = false, remembered = false 
     return { ok: true, json: async () => ({ data, meta: missingToken ? {} : { fumsToken: 'synthetic-token' } }) };
   };
   vm.runInNewContext(fs.readFileSync(require.resolve('../bible-reader.js'), 'utf8'), { document, window, fetch, AbortSignal, CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } }, DOMParser: class { parseFromString(text) { return { body: { textContent: text } }; } } });
-  const settle = async () => { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); };
-  return { documentEvents, get: name => get('bible-' + name), requests, views, settle, recover: () => { rejectChapter = false; } };
+  let chosen = false; const settle = async () => { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); if (initialRead && !remembered && !chosen) { chosen = true; get('bible-controls').events.submit({preventDefault(){}}); for (let i=0;i<12;i++) await new Promise(resolve=>setImmediate(resolve)); } };
+  return { documentEvents, emitted, get: name => get('bible-' + name), requests, views, settle, recover: () => { rejectChapter = false; } };
 }
 
 test('reader displays text safely, excludes introduction IDs, and reports each displayed cache hit', async () => {
@@ -87,12 +87,23 @@ test('saved location restores through the same reader and rejects unsupported se
  await r.settle();assert.equal(r.requests.length,count);
 });
 
-test('a remembered location waits for the visitor choice instead of fetching a disposable default chapter',async()=>{
+test('valid last reading automatically fetches only its saved chapter',async()=>{
  const r=reader({remembered:true});await r.settle();
- assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);
- assert.equal(r.requests.filter(q=>q.url.includes('/chapters/')).length,0);
- assert.equal(r.get('read').disabled,false);
- r.documentEvents['bible-request-location']({detail:{translation:'niv',book:'JHN',chapter:'JHN.2'}});await r.settle();
- assert.equal(r.get('reference').textContent,'John 2');assert.equal(r.views.length,1);
+ assert.equal(r.get('reading').hidden,false);assert.equal(r.views.length,1);
+ assert.equal(r.get('reference').textContent,'John 2');
+ assert.equal(r.emitted.find(e=>e.type==='bible-restoring-location').detail.offset,70);
  assert.equal(r.requests.filter(q=>q.url.includes('/chapters/')).length,1);
+});
+test('missing and corrupt saved positions show the normal choose-a-book state',async()=>{
+ for(const rawSaved of [undefined,'{broken',JSON.stringify({v:99})]){
+ const r=reader({initialRead:false,rawSaved});await r.settle();
+ assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);
+ assert.equal(r.get('read').disabled,false);assert.match(r.get('status').textContent,/Choose a book/);
+ }
+});
+
+test('a valid-format saved chapter absent from the live catalogue falls back to choosing a reading',async()=>{
+ const rawSaved=JSON.stringify({v:1,translation:'niv',book:'PSA',chapter:'PSA.117',reference:'Psalm 117',page:0,offset:0});
+ const r=reader({initialRead:false,rawSaved});await r.settle();
+ assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);assert.equal(r.get('read').disabled,false);
 });

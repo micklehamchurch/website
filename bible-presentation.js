@@ -22,6 +22,11 @@
 (() => {
   if (window.parent !== window && new URLSearchParams(location.search).get('book') === 'overlay') {
     document.body.classList.add('bible-overlay');
+    const close = document.getElementById('bible-close');
+    close.hidden = false;
+    document.querySelector('.bible-toolbar').append(close);
+    close.addEventListener('click', () => window.parent.postMessage('mickleham-close-bible', location.origin));
+    window.parent.postMessage('mickleham-bible-toolbar-ready', location.origin);
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && !document.getElementById('bible-drawer').open) {
         window.parent.postMessage('mickleham-close-bible', location.origin);

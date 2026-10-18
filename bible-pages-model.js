@@ -24,6 +24,13 @@
     if (!location) return false;
     try { storage.setItem(keys[kind], JSON.stringify(location)); return true; } catch { return false; }
   }
+  function remove(storage, kind) {
+    try { storage.removeItem(keys[kind]); return true; } catch { return false; }
+  }
+  function bookmarkPage(bookmark, location, pages) {
+    if (!bookmark || !location || bookmark.translation !== location.translation || bookmark.chapter !== location.chapter) return -1;
+    return pageForOffset(pages, bookmark.offset);
+  }
   function paginate(units, fits) {
     const pages = [];
     for (let start = 0; start < units.length;) {
@@ -56,5 +63,5 @@
     const dx = end.x - start.x, dy = end.y - start.y;
     return Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8 ? (dx < 0 ? 1 : -1) : 0;
   }
-  return { keys, valid, read, save, paginate, pageForOffset, turn, keyDirection, swipeDirection };
+  return { keys, valid, read, save, remove, bookmarkPage, paginate, pageForOffset, turn, keyDirection, swipeDirection };
 });

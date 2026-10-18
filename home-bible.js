@@ -12,6 +12,7 @@
   frame.title = 'Mickleham Church Bible reader';
   dialog.append(close, frame); document.body.append(dialog);
   function openBook() {
+    close.hidden = false;
     if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
@@ -26,11 +27,14 @@
   dialog.addEventListener('close', () => {
     // Unload the reader so every fresh opening fetches and reports its displayed chapter.
     frame.removeAttribute('src');
+    close.hidden = false;
     document.documentElement.classList.remove('bible-modal-open');
     const returnTo = trigger.getClientRects().length ? trigger : document.querySelector('.menu-toggle');
     returnTo?.focus({ preventScroll: true });
   });
   window.addEventListener('message', event => {
-    if (event.origin === location.origin && event.source === frame.contentWindow && event.data === 'mickleham-close-bible') dialog.close();
+    if (event.origin !== location.origin || event.source !== frame.contentWindow) return;
+    if (event.data === 'mickleham-close-bible') dialog.close();
+    if (event.data === 'mickleham-bible-toolbar-ready' && dialog.open) close.hidden = true;
   });
 })();

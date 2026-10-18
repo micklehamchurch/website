@@ -225,4 +225,15 @@
 }
 @media(forced-colors:active){.nav-link.nav-bible:focus-visible{outline-color:Highlight}}
 .nav-bible .bible-icon-open{max-width:none}
-@media(hover:hover) and (pointer:fine) and (min-width:1000px){.nav-bible:hover .bible-icon-cover,.nav-bible:hover .bible-icon-open{transition-delay:.15s}}
+
+/* Lift for .4s, hold the closed cover for .6s, then open over .8s.
+   On exit close first (.45s), then return to the header (.4s). */
+.bible-icon-object{transition:transform .4s cubic-bezier(.22,.61,.36,1) .45s}
+.nav-bible .bible-icon-cover{transition:transform .45s ease,opacity .35s ease}
+.nav-bible .bible-icon-open{transition:transform .45s ease,opacity .35s ease,visibility .45s}
+@media(hover:hover) and (pointer:fine) and (min-width:1000px){
+ .nav-bible:hover .bible-icon-object{transition-delay:0s}
+ .nav-bible:hover .bible-icon-cover{transition:transform .8s ease 1s,opacity .8s ease 1s}
+ .nav-bible:hover .bible-icon-open{transition:transform .8s ease 1s,opacity .8s ease 1s,visibility 0s 1s}
+}
+@media(prefers-reduced-motion:reduce){.bible-icon-object,.nav-bible .bible-icon-cover,.nav-bible .bible-icon-open{transition:none!important}}

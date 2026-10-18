@@ -63,15 +63,18 @@ test('shared header overlay unloads on close and accepts close messages only fro
   const document = { getElementById: () => trigger, createElement: tag => { const e = new Element(tag); nodes.push(e); return e; }, body: { append() {} }, documentElement: { classList: { add: c => classes.add(c), remove: c => classes.delete(c) } } };
   const window = { addEventListener: (k, fn) => { events[k] = fn; } };
   vm.runInNewContext(fs.readFileSync(require.resolve('../home-bible.js'), 'utf8'), { document, window, HTMLDialogElement: class {}, location: { origin: 'https://example.test' } });
-  const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe');
+  const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
   assert(dialog.open); assert(frame.getAttribute('src')); assert(classes.has('bible-modal-open'));
+  assert.equal(close.hidden,false);
+  events.message({origin:'https://other.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,false);
+  events.message({origin:'https://example.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,true);
   events.message({ origin: 'https://other.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
   assert(dialog.open);
   events.message({ origin: 'https://example.test', source: {}, data: 'mickleham-close-bible' });
   assert(dialog.open);
   events.message({ origin: 'https://example.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
-  assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);
+  assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);assert.equal(close.hidden,false);
   assert.equal(classes.size, 0); assert.equal(focused, trigger);
   trigger.events.click({ preventDefault() {} }); assert(frame.getAttribute('src'));
 });
@@ -82,4 +85,16 @@ test('paginated reader keeps the same book controls in a drawer at every width',
  p.mobile.matches=true;p.mobile.change();p.mobile.matches=false;p.mobile.change();
  assert(p.get('drawer-content').contains(p.get('controls')));
  assert.equal(p.get('controls-home').children.length,0);
+});
+
+test('hover sequence holds a readable closed cover before opening and disables motion when requested',()=>{
+ const css=fs.readFileSync('header-navigation.css','utf8');
+ assert.match(css,/transform \.4s cubic-bezier\([^;]+\) \.45s/);
+ assert.match(css,/\.nav-bible:hover \.bible-icon-cover\{transition:transform \.8s ease 1s,opacity \.8s ease 1s\}/);
+ assert.match(css,/@media\(hover:hover\) and \(pointer:fine\) and \(min-width:1000px\)/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)\{[^}]+transition:none!important/);
+ const pages=fs.readFileSync('bible-reader.css','utf8');
+ assert.match(pages,/@media\(max-width:480px\)\{\.bible-toolbar #bible-browse\{flex-basis:100%/);
+ assert.match(pages,/#bible-save-status\{position:absolute;width:1px;height:1px/);
+ assert.match(pages,/\.bible-page-ribbon\{position:absolute/);
 });

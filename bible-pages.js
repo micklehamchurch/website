@@ -8,7 +8,7 @@
   let last = M.read(storage, 'last'), bookmark = M.read(storage, 'bookmark');
   let location = null, units = [], pages = [], index = 0, columns = 1, pending = null, loaded = false, timer, touch, resumeOffset = null;
   document.body.classList.add('bible-paginated');
-  if (last) document.body.classList.add('bible-awaiting-reading');
+  document.body.classList.add('bible-awaiting-reading');
   function savedControls() {
     $('continue').hidden = !last; $('go-bookmark').hidden = !bookmark;
     if (last) $('continue').textContent = `Continue reading — ${last.reference}`;
@@ -48,6 +48,10 @@
     const text = document.createElement('div'); text.className = 'bible-content bible-page-text';
     if (pageIndex < pages.length) {
       section.setAttribute('aria-label', `${location.reference}, page ${pageIndex + 1} of ${pages.length}`);
+      if (M.bookmarkPage(bookmark, location, pages) === pageIndex) {
+        section.setAttribute('aria-label', `${location.reference}, page ${pageIndex + 1} of ${pages.length}, bookmarked`);
+        const ribbon = document.createElement('span'); ribbon.className = 'bible-page-ribbon'; ribbon.setAttribute('aria-hidden', 'true'); section.append(ribbon);
+      }
       text.append(fragment(pages[pageIndex].start, pages[pageIndex].end));
     } else { section.setAttribute('aria-hidden', 'true'); section.classList.add('bible-blank-page'); }
     section.append(text); return section;
@@ -58,6 +62,10 @@
     $('page-previous').disabled = index === 0;
     $('page-next').disabled = index + columns >= pages.length;
     $('page-status').textContent = columns > 1 && index + 1 < pages.length ? `Pages ${index + 1}–${Math.min(index + columns, pages.length)} of ${pages.length}` : `Page ${index + 1} of ${pages.length}`;
+    const marked = M.bookmarkPage(bookmark, location, pages);
+    const visibleBookmark = marked >= index && marked < index + columns;
+    $('bookmark').setAttribute('aria-pressed', String(visibleBookmark));
+    $('bookmark').setAttribute('aria-label', visibleBookmark ? 'Remove bookmark from this page' : 'Bookmark this page');
     if (direction && !reduced.matches) {
       spread.classList.remove('turn-forward', 'turn-back'); void spread.offsetWidth;
       spread.classList.add(direction > 0 ? 'turn-forward' : 'turn-back');
@@ -135,6 +143,7 @@
     loaded = true; pending = null;
     $('bookmark').disabled = false;
   });
+  document.addEventListener('bible-restoring-location', event => { pending = event.detail; resumeOffset = pending.offset; });
   $('page-previous').addEventListener('click', () => move(-1));
   $('page-next').addEventListener('click', () => move(1));
   $('continue').addEventListener('click', () => restore(last));
@@ -142,7 +151,12 @@
   $('bookmark').addEventListener('click', () => {
     if (reading.hidden || $('read').disabled) return;
     const p = position();
-    if (M.save(storage, 'bookmark', p)) { bookmark = p; savedControls(); $('save-status').textContent = `Bookmarked ${p.reference}, page ${index + 1}.`; }
+    const marked = M.bookmarkPage(bookmark, location, pages);
+    if (marked >= index && marked < index + columns) {
+      if (M.remove(storage, 'bookmark')) { bookmark = null; savedControls(); render(0, false); $('save-status').textContent = 'Bookmark removed.'; }
+      else $('save-status').textContent = 'This browser could not remove the saved bookmark.';
+    }
+    else if (M.save(storage, 'bookmark', p)) { bookmark = p; savedControls(); render(0, false); $('save-status').textContent = `Bookmarked ${p.reference}, page ${index + 1}.`; }
     else $('save-status').textContent = 'This browser could not save a bookmark. You can keep reading normally.';
   });
   document.addEventListener('keydown', event => {
@@ -178,5 +192,7 @@
   }
   window.addEventListener('pagehide', () => { if (loaded && !reading.hidden) saveLast(); });
   $('drawer-content').append($('go-bookmark'));
+  $('drawer-content').append($('continue'));
+  document.querySelector('.bible-toolbar').append($('bookmark'));
   savedControls();
 })();

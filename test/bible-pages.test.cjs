@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const M = require('../bible-pages-model');
 const location = { v:1, translation:'niv', book:'JHN', chapter:'JHN.3', reference:'John 3', page:2, offset:70 };
-const memory = () => { const data=new Map(); return { getItem:k=>data.get(k)||null, setItem:(k,v)=>data.set(k,v) }; };
+const memory = () => { const data=new Map(); return { getItem:k=>data.get(k)||null, setItem:(k,v)=>data.set(k,v), removeItem:k=>data.delete(k) }; };
 test('measured pages cover every unit exactly once, even across paragraphs',()=>{
  const units=Array.from({length:101},(_,i)=>i%12===0?{paragraph:true}:{text:'sample'});
  const pages=M.paginate(units,(a,b)=>b-a<=11);
@@ -68,4 +68,18 @@ test('long chapters are measured with page-sized probes rather than full-chapter
  const units=Array.from({length:10000},()=>({text:'sample'}));let maxProbe=0;
  const pages=M.paginate(units,(a,b)=>{maxProbe=Math.max(maxProbe,b-a);return b-a<=18;});
  assert.equal(pages.at(-1).end,units.length);assert(maxProbe<=32);
+});
+
+test('bookmark follows its content offset across layouts, only in the matching chapter and translation',()=>{
+ const pages=[{start:0,end:50},{start:50,end:100},{start:100,end:150}];
+ assert.equal(M.bookmarkPage(location,location,pages),1);
+ assert.equal(M.bookmarkPage(location,{...location,translation:'nirv'},pages),-1);
+ assert.equal(M.bookmarkPage(location,{...location,chapter:'JHN.1'},pages),-1);
+ assert.equal(M.bookmarkPage(null,location,pages),-1);
+ const resized=[{start:0,end:80},{start:80,end:150}];assert.equal(M.bookmarkPage(location,location,resized),0);
+});
+test('removing an explicit bookmark leaves last reading intact, including after reload',()=>{
+ const storage=memory();M.save(storage,'last',location);M.save(storage,'bookmark',location);
+ assert(M.remove(storage,'bookmark'));assert.equal(M.read(storage,'bookmark'),null);
+ assert.deepEqual(M.read(storage,'last'),location);assert.equal(M.remove(null,'bookmark'),false);
 });

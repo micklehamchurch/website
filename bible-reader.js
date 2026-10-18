@@ -82,7 +82,7 @@
     if (!chapters.length) throw new Error('empty-chapters');
     options(chapter, chapters, c => c.number, preferred);
     if (deferInitialChapter) {
-      deferInitialChapter = false; status.textContent = 'Continue your saved reading, or choose a book and chapter to begin somewhere new.'; return;
+      deferInitialChapter = false; status.textContent = 'Choose a book and chapter in Books & saved places to begin reading.'; return;
     }
     await loadChapter(chapter.value);
   }
@@ -96,8 +96,17 @@
     const response = await get('translations');
     translations = [{ id: 'niv', name: 'New International Version (Anglicised)' }, { id: 'nirv', name: 'New International Reader’s Version (Anglicised)' }].filter(t => response.data.some(b => b.id === (t.id === 'niv' ? '3e2eb613d45e131e-01' : 'de547c01da41e37c-01')));
     if (!translations.some(t => t.id === 'niv')) throw new Error('niv-unavailable');
-    try { deferInitialChapter = !!window.BiblePagesModel?.read(window.localStorage, 'last'); } catch { deferInitialChapter = false; }
-    options(translation, translations, t => t.name, 'niv'); await loadBooks();
+    let saved;
+    try { saved = window.BiblePagesModel?.read(window.localStorage, 'last'); } catch { saved = null; }
+    if (!translations.some(t => t.id === saved?.translation)) saved = null;
+    deferInitialChapter = true;
+    options(translation, translations, t => t.name, saved?.translation || 'niv');
+    if (translationLabel) translationLabel.textContent = translation.selectedOptions[0].textContent;
+    await loadBooks(saved?.book, saved?.chapter);
+    if (saved && book.value === saved.book && chapter.value === saved.chapter) {
+      document.dispatchEvent(new CustomEvent('bible-restoring-location', { detail: saved }));
+      await loadChapter(saved.chapter);
+    }
   }
   controls.addEventListener('submit', event => { event.preventDefault(); run(() => loadChapter(chapter.value, true)); });
   translation.addEventListener('change', () => { $('translation-name').textContent = translation.selectedOptions[0].textContent; const b = book.value, c = chapter.value; run(() => loadBooks(b, c)); });
