@@ -46,8 +46,8 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
     delete require.cache[githubStatusModule];
   }
 
-  assert.equal(registrations.length, 15);
-  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.length, 17);
+  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'admin-feedback'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   const timer=registrations.find(r=>r.timer);
   assert.equal(timer.name,'google-calendar-hourly');
   assert.equal(timer.options.schedule,'0 */15 * * * *');

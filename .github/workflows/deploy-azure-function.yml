@@ -150,7 +150,7 @@ jobs:
               if python - <<'PY'
           import json
           names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
-          expected = {'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly'}
+          expected = {'website-feedback', 'admin-feedback', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly'}
           print('Indexed HTTP functions:', ', '.join(sorted(names)))
           assert expected <= names, 'Required HTTP functions are not indexed'
           PY
@@ -172,5 +172,5 @@ jobs:
             fi
             sleep 10
           done
-          echo "::error::Deployed API host did not index all eleven HTTP functions and the calendar timer."
+          echo "::error::Deployed API host did not index every required HTTP function and the calendar timer."
           exit 1

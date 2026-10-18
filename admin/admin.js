@@ -16,7 +16,7 @@
   ];
   const sections = [
     ['dashboard', '⌂', 'Overview'], ['news', '▤', 'News & Magazine'], ['calendar', '▦', 'Calendar'], ['contacts', '♧', 'Parish Contacts'],
-    ['verses', '✝', 'Bible Verses'], ['archive', '▧', 'Historical Archive'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Photo Albums'], ['media', '▷', 'Media / YouTube'],
+    ['verses', '✝', 'Bible Verses'], ['archive', '▧', 'Historical Archive'], ['feedback', '💬', 'Feedback'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Photo Albums'], ['media', '▷', 'Media / YouTube'],
     ['community', '♧', 'Our Community'], ['pages', '▤', 'Pages'], ['settings', '⚙', 'Website Settings']
   ];
   const workflowView = 'publishing';
@@ -314,6 +314,7 @@
       calendar: ['▦', 'Calendar / Events', `${baseEvents.length} current church events. Edit events and publish changes to shared Dev.`],
       news: ['▤', 'News & Announcements', `${counts.newsCount} current articles. Manage shared stories and PDF editions.`],
       pages: ['▱', 'Pages', `${basePages.length} public pages with links to their current content source.`],
+      feedback: ['💬','Feedback','Website discussions, replies and review access.'],
       archive: ['▧', 'Historical Archive', 'Manage clergy profiles, biographies and historical photographs.'],
       contacts: ['♧', 'Contacts', `${contactRecords().length} parish contacts across ${baseContacts.sections.length} sections.`],
       documents: ['▧', 'Documents', `${documentGroups.reduce((total, group) => total + group.items.length, 0)} migrated pages and files to view or manage.`],
@@ -510,7 +511,7 @@
     const view = currentView();
     document.body?.classList?.toggle('archive-admin-active', view === 'archive');
     const topbarTitle = document.querySelector('.admin-topbar-title');
-    if (topbarTitle) topbarTitle.textContent = ['archive', 'verses', 'gallery'].includes(view) ? 'Church website · Administration' : 'Church website · Admin demo';
+    if (topbarTitle) topbarTitle.textContent = ['archive', 'verses', 'gallery', 'feedback'].includes(view) ? 'Church website · Administration' : 'Church website · Admin demo';
     setNavigation(view);
     if (!recordsReady) {
       root.innerHTML = `<p class="admin-loading" role="status">Loading the church calendar and sample articles…</p>`;
@@ -520,6 +521,7 @@
     if (view === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.error) { void loadSharedCalendar(); return; }
     if (view === 'verses') { window.churchHomepageVersesAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
     if (view === 'gallery') { window.churchPhotoAlbumsAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
+    if (view === 'feedback') {if(window.churchFeedbackAdmin)void window.churchFeedbackAdmin.mount(root);else root.innerHTML='<p>Sign in to manage website feedback.</p>';return;}
     if (view === 'archive') { window.churchClergyAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
     const markup = view === 'dashboard' ? overview()
       : view === 'calendar' ? calendarView()
@@ -984,6 +986,7 @@
     menuButton.setAttribute('aria-label', 'Open administration menu');
   });
   window.addEventListener('hashchange', () => render());
+  window.addEventListener('admin-feedback-ready',()=>{if(currentView()==='feedback')render();});
   menuButton.addEventListener('click', () => {
     const opened = sidebar.classList.toggle('is-open');
     menuButton.setAttribute('aria-expanded', String(opened));
