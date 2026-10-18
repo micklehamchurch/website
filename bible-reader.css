@@ -94,7 +94,7 @@ html:has(#bible-drawer[open]){overflow:hidden}
 #bible-continue{display:block;width:100%;margin:12px 0;padding:12px;min-height:44px;border:1px solid #b9b19b;border-radius:6px;background:#fffaf0;color:var(--green);font:600 14px/1.5 var(--sans);text-align:left;cursor:pointer}
 #bible-continue[hidden]{display:none}
 .bible-paper-page{position:relative}
-.bible-page-ribbon{position:absolute;z-index:1;top:0;right:18px;width:16px;height:58px;pointer-events:none;background:linear-gradient(90deg,#511c2c,#84364a 45%,#5e2032);clip-path:polygon(0 0,100% 0,100% 100%,50% 85%,0 100%);filter:drop-shadow(2px 2px 2px #30201840)}
+.bible-page-ribbon{position:absolute;z-index:1;top:0;right:6px;width:14px;height:58px;pointer-events:none;background:linear-gradient(90deg,#511c2c,#84364a 45%,#5e2032);clip-path:polygon(0 0,100% 0,100% 100%,50% 85%,0 100%);filter:drop-shadow(2px 2px 2px #30201840)}
 .bible-paginated .bible-reading-heading{padding:10px 24px 12px}
 .bible-paginated .bible-status-row:has(+.bible-reading:not([hidden])){position:absolute;width:1px;height:1px;min-height:0;padding:0;overflow:hidden;clip-path:inset(50%)}
 @media(max-width:480px){.bible-toolbar #bible-browse{flex-basis:100%;margin-right:0;text-align:left}.bible-toolbar #bible-close{margin-left:auto}.bible-overlay.bible-paginated main{padding-top:8px}.bible-toolbar button{font-size:13px}.bible-page-ribbon{right:4px;width:14px;height:48px}}

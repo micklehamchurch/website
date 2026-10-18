@@ -98,7 +98,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261018-polish4', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261018-polish5', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
@@ -251,9 +251,9 @@ if (siteScript && nav && menuButton) {
 if (siteScript && document.getElementById('header-bible-open') && window.parent === window) {
   const bibleStyles = document.createElement('link');
   bibleStyles.rel = 'stylesheet';
-  bibleStyles.href = new URL('home-bible.css?v=20261018-polish4', siteScript.src).href;
+  bibleStyles.href = new URL('home-bible.css?v=20261018-polish5', siteScript.src).href;
   document.head.append(bibleStyles);
   const bibleScript = document.createElement('script');
-  bibleScript.src = new URL('home-bible.js?v=20261018-polish4', siteScript.src).href;
+  bibleScript.src = new URL('home-bible.js?v=20261018-polish5', siteScript.src).href;
   document.head.append(bibleScript);
 }
