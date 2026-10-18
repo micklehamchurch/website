@@ -20,4 +20,43 @@ for(const key of ['author','role','status','id','createdAt','reviewed'])assert.e
 test('Public mode is submission-only; PCC topics and all reply operations stay private',async()=>{const f=fixture();await enable(f);const token=await join(f),id=await topic(f,token);await f.call('settings',{admin:true,body:{mode:'public'}});assert.equal((await f.call('topics',{token})).status,403);assert.equal((await f.call('topic',{query:{id}})).status,403);const sent=await f.call('create',{body:{body:'The site is helpful.',page:context,name:''}});assert.equal(sent.status,201);assert.equal(f.read().topics[1].author.name,'Visitor');assert.equal(f.read().topics[1].audience,'public');assert.equal((await f.call('reply',{query:{id},body:{body:'Public reply'}})).status,403);await f.call('settings',{admin:true,body:{mode:'pcc'}});const restored=await join(f);const list=(await f.call('topics',{token:restored})).jsonBody.topics;assert.equal(list.length,1);assert.equal(list[0].audience,'pcc');assert.equal((await f.call('topics',{admin:true})).jsonBody.topics.length,2);});
 test('moderation is reversible and never deletes feedback on mode changes',async()=>{const f=fixture();await enable(f);const token=await join(f),id=await topic(f,token);await f.call('moderate',{admin:true,query:{id},body:{removed:true}});assert.equal((await f.call('topic',{token,query:{id}})).status,404);assert.equal((await f.call('topics',{token})).jsonBody.topics.length,0);await f.call('moderate',{admin:true,query:{id},body:{removed:false}});assert.equal((await f.call('topic',{token,query:{id}})).status,200);});
 test('plain text, origin, path, exact fields, length, payload and spam limits are enforced',async()=>{const f=fixture();await enable(f,'public');for(const body of [{body:'x'.repeat(5001),page:context},{body:'Test',page:{...context,path:'https://evil.example'}},{body:'Test',page:context,website:'spam'},{body:'Test',page:context,email:'not-collected'}])assert.equal((await f.call('create',{body})).status,400);assert.equal((await f.call('create',{origin:'https://evil.example',body:{body:'Test',page:context}})).status,403);const text='<script>alert("test")</script>';await f.call('create',{body:{body:text,page:context}});assert.equal(f.read().topics[0].body,text);assert(!JSON.stringify(f.read()).includes('email'));for(let n=0;n<9;n++)await f.call('create',{body:{body:'Test',page:context}});assert.equal((await f.call('create',{body:{body:'Test',page:context}})).status,429);const req=f.request('create',{body:{body:'x'.repeat(40000),page:context}});assert.equal((await f.handlers.publicHandler(req)).status,413);});
-test('search, page/status filters and review count are server-side',async()=>{const f=fixture();await enable(f);const token=await join(f),id=await topic(f,token);await f.call('moderate',{admin:true,query:{id},body:{status:'Planned'}});assert.equal((await f.call('topics',{token,query:{status:'Done'}})).jsonBody.topics.length,0);assert.equal((await f.call('topics',{token,query:{q:'organ',page:context.path}})).jsonBody.topics.length,1);assert.equal((await f.call('config',{admin:true})).jsonBody.newCount,1);assert.deepEqual(Object.keys((await f.call('config')).jsonBody).sort(),['mode','ok']);});
+test('search, page/status filters and review count are server-side',async()=>{const f=fixture();await enable(f);const token=await join(f),id=await topic(f,token);await f.call('moderate',{admin:true,query:{id},body:{status:'Planned'}});assert.equal((await f.call('topics',{token,query:{status:'Done'}})).jsonBody.topics.length,0);assert.equal((await f.call('topics',{token,query:{q:'organ',page:context.path}})).jsonBody.topics.length,1);assert.equal((await f.call('config',{admin:true})).jsonBody.newCount,1);assert.deepEqual(Object.keys((await f.call('config')).jsonBody).sort(),['mode','ok','requireCode']);});
+
+test('legacy records keep code required; correct, wrong and omitted code are enforced',async()=>{
+ const f=fixture();await enable(f);assert.equal(f.read().requireCode,undefined);assert.equal((await f.call('config')).jsonBody.requireCode,true);
+ for(const body of [{name:'Tim',code:'incorrect-code'},{name:'Tim'},{name:'Tim',code:''}])assert.equal((await f.call('access',{body})).status,401);
+ await join(f);
+});
+test('name-only PCC access retains discussions, expiry, role checks, and the stored verifier',async()=>{
+ const f=fixture();await enable(f);const originalCode=f.read().code;
+ assert.equal((await f.call('settings',{admin:true,body:{requireCode:false}})).status,200);
+ assert.deepEqual(f.read().code,originalCode);assert.equal((await f.call('config')).jsonBody.requireCode,false);
+ for(const body of [{},{name:''},{name:'   '}])assert.equal((await f.call('access',{body})).status,400);
+ const access=await f.call('access',{body:{name:'Sandra'}});assert.equal(access.status,200);assert.equal(access.jsonBody.name,'Sandra');const token=access.jsonBody.token;
+ const id=await topic(f,token);assert.equal((await f.call('reply',{token,query:{id},body:{body:'Thank you'}})).status,201);
+ assert((await f.call('settings',{token,body:{requireCode:true}})).status>=400);
+ assert.equal((await f.call('settings',{admin:true,identity:null,body:{requireCode:false}})).status,401);
+ assert.equal((await f.call('settings',{admin:true,body:{requireCode:'false'}})).status,400);
+ f.advance(SESSION_MS+1);assert.equal((await f.call('topics',{token})).status,401);
+});
+test('turning protection back on revokes existing access immediately without deleting code or discussions',async()=>{
+ const f=fixture();await enable(f);const code=f.read().code;await f.call('settings',{admin:true,body:{requireCode:false}});
+ const token=(await f.call('access',{body:{name:'Sandra'}})).jsonBody.token;const id=await topic(f,token);
+ await f.call('settings',{admin:true,body:{requireCode:true}});
+ assert.equal((await f.call('topics',{token})).status,401);assert.equal((await f.call('reply',{token,query:{id},body:{body:'Test'}})).status,401);
+ assert.equal((await f.call('access',{body:{name:'Sandra'}})).status,401);await join(f);assert.deepEqual(f.read().code,code);assert.equal(f.read().topics.length,1);
+ await f.call('settings',{admin:true,body:{requireCode:false}});assert.equal((await f.call('access',{body:{name:'Tim'}})).status,200);
+});
+test('name-only review needs no configured code; Off overrides access and keeps its requirement',async()=>{
+ const f=fixture();await f.call('settings',{admin:true,body:{requireCode:false}});assert.equal((await f.call('access',{body:{name:'Tim'}})).status,403);
+ assert.equal((await f.call('settings',{admin:true,body:{mode:'pcc'}})).status,200);
+ const token=(await f.call('access',{body:{name:'Tim'}})).jsonBody.token;assert.equal((await f.call('topics',{token})).status,200);
+ assert.equal((await f.call('settings',{admin:true,body:{requireCode:true}})).status,400);
+ assert.equal((await f.call('config')).jsonBody.requireCode,false);
+ await f.call('settings',{admin:true,body:{mode:'off'}});assert.equal((await f.call('topics',{token})).status,403);assert.equal((await f.call('access',{body:{name:'Tim'}})).status,403);assert.equal(f.read().requireCode,false);
+});
+test('name-only access preserves the durable access throttle',async()=>{
+ const f=fixture();await f.call('settings',{admin:true,body:{mode:'pcc',requireCode:false}});
+ for(let n=0;n<10;n++)assert.equal((await f.call('access',{body:{name:'Reviewer'}})).status,200);
+ assert.equal((await f.call('access',{body:{name:'Reviewer'}})).status,429);
+});

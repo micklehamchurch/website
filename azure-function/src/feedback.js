@@ -32,17 +32,20 @@ function createFeedbackHandlers({store=createFeedbackStore(),now=Date.now}={}){
    const act=async(state,save)=>{
     if(save)for(const [key,value] of Object.entries(state.limits))if(value.expires<=at)delete state.limits[key];
     // No raw request, name, message, code or bearer value is logged.
-    if(request.method==='GET'&&action==='config')return result(200,{ok:true,mode:state.mode,...(admin?{codeConfigured:!!state.code,newCount:state.topics.filter(t=>!t.reviewed&&!t.removed).length}: {})});
+    if(request.method==='GET'&&action==='config')return result(200,{ok:true,mode:state.mode,requireCode:state.requireCode!==false,...(admin?{codeConfigured:!!state.code,newCount:state.topics.filter(t=>!t.reviewed&&!t.removed).length}: {})});
     let actor=admin?{name:'Website Admin',role:'admin',key:'admin'}:null;
     if(!admin&&state.mode==='off')reject(403,'feedback-off');
     if(request.method==='POST'&&action==='access'&&!admin){
-     fields(body,['name','code']);if(state.mode!=='pcc')reject(403,'review-access-required');
-     const name=text(body.name,80),code=text(body.code,128);
+     fields(body,['name','code'],['name']);if(state.mode!=='pcc')reject(403,'review-access-required');
+     const name=text(body.name,80);const requireCode=state.requireCode!==false;
      if(!rate(state,'access',10,5*60000,at)){await save(state);reject(429,'feedback-rate-limited');}
+     if(requireCode){
+     const code=text(body.code,128,true);
      const salt=state.code?.salt||'unconfigured-review-access';const calculated=await scrypt(code,salt,64);
      const expected=state.code?Buffer.from(state.code.hash,'hex'):Buffer.alloc(64);
      const valid=timingSafeEqual(calculated,expected)&&!!state.code;
      if(!valid){await save(state);reject(401,'review-access-required');}
+     }else if(body.code!==undefined)text(body.code,128,true);
      state.sessions=state.sessions.filter(s=>s.expires>at&&s.epoch===state.epoch);
      if(state.sessions.length>=200)reject(429,'feedback-rate-limited');
      const token=randomBytes(32).toString('base64url'),expires=at+SESSION_MS;
@@ -61,7 +64,13 @@ function createFeedbackHandlers({store=createFeedbackStore(),now=Date.now}={}){
      return result(200,{ok:true,topics:topics.slice(cursor,cursor+30).map(summary),next:cursor+30<topics.length?cursor+30:null,newCount:admin?state.topics.filter(t=>!t.removed&&!t.reviewed).length:undefined});
     }
     if(admin&&action==='settings'){
-     fields(body,['mode']);if(!MODES.includes(body.mode)||body.mode==='pcc'&&!state.code)reject(400,'review-code-required');state.mode=body.mode;await save(state);return result(200,{ok:true,mode:state.mode});
+     fields(body,['mode','requireCode'],[]);if(!Object.keys(body).length||body.mode!==undefined&&!MODES.includes(body.mode)||body.requireCode!==undefined&&typeof body.requireCode!=='boolean')reject(400,'invalid-feedback');
+     const mode=body.mode??state.mode,requireCode=body.requireCode??(state.requireCode!==false);
+     if(mode==='pcc'&&requireCode&&!state.code)reject(400,'review-code-required');
+     // Re-enabling protection immediately ends all previous reviewer access.
+     // Missing requireCode in legacy records means On; the verifier is never removed.
+     if(state.requireCode===false&&requireCode){state.epoch++;state.sessions=[];}
+     if(body.requireCode!==undefined)state.requireCode=body.requireCode;state.mode=mode;await save(state);return result(200,{ok:true,mode:state.mode,requireCode});
     }
     if(admin&&action==='rotate-code'){
      fields(body,['code']);const code=text(body.code,128);if(code.length<12)reject(400,'review-code-too-short');const salt=randomBytes(32).toString('hex');state.code={salt,hash:(await scrypt(code,salt,64)).toString('hex')};state.epoch++;state.sessions=[];await save(state);return result(200,{ok:true});

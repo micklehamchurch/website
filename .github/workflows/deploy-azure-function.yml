@@ -201,6 +201,8 @@ jobs:
               except urllib.error.HTTPError as error:
                   assert error.code == 401, (route, error.code)
           with urllib.request.urlopen(base + 'website-feedback?action=config') as response:
-              assert json.load(response) == {'ok': True, 'mode': 'off'}
+              config = json.load(response)
+              assert config['ok'] is True and config['mode'] == 'off'
+              assert isinstance(config['requireCode'], bool)
           print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary preserved; mode remains Off.')
           PY

@@ -29,7 +29,7 @@ service. Capacity errors preserve existing data instead of silently truncating i
 
 State contains:
 
-- mode (`off`, `pcc`, `public`), code epoch and salted scrypt code verifier;
+- mode (`off`, `pcc`, `public`), optional `requireCode` flag, code epoch and salted scrypt code verifier;
 - reviewer sessions: token digest, chosen name, expiry and code epoch;
 - topics: server UUID, author name/role, server creation/activity timestamps,
   page title/path/canonical path, plain-text body, audience, status, reviewed and
@@ -42,7 +42,7 @@ only their digests are stored there. The reviewer bearer token is returned once
 and remembered on that browser in localStorage for up to 14 days; it is removed locally by Leave review. The raw code is used only for the
 HTTPS validation request and cleared from the form after success. Code rotation
 invalidates all previous reviewer sessions immediately. Individual names are
-self-declared; approval is possession of the privately distributed shared code.
+self-declared. With code protection On, entry requires the privately distributed shared code. With it Off, anyone visiting the site can join by giving a name.
 This is not a verified individual-account system. Admin badges/status rights
 derive only from the protected Admin route, never a submitted name or role.
 
@@ -87,7 +87,7 @@ identity headers and never grants Admin rights:
 | Method/action | Access and result |
 | --- | --- |
 | GET config | Public mode only, no counts/secrets/topics |
-| POST access | PCC name/code validation; returns opaque session token/expiry |
+| POST access | PCC name plus code when required; returns opaque token/expiry |
 | GET topics | PCC bearer session; page/status/search filters, 30-item pagination |
 | GET topic&id=UUID | PCC session, PCC audience only |
 | POST create | PCC session or public submission, depending on mode |
@@ -98,7 +98,7 @@ behind Azure Easy Auth:
 
 - GET config, topics, topic — including Off/public/removed records and counts;
 - POST reply; POST moderate (status/reviewed/removed);
-- POST settings (`mode`); POST rotate-code (`code`).
+- POST settings (`mode` and/or boolean `requireCode`); POST rotate-code (`code`).
 
 POST JSON is bounded to 32 KiB, topics to 5,000 UTF-16 code units, replies to 3,000,
 names to 80, page titles to 200 and each path to 300. Names/page/body are plain
@@ -206,3 +206,22 @@ package verification and tests. Deployment also reads the live function status
 and verifies an empty runtime error list, the GET/POST binding, the unchanged
 Easy Auth exclusions and unsigned rejection of protected endpoints. Registration
 metadata alone is not sufficient evidence that a route can execute.
+
+## Optional PCC code
+
+Feedback mode and **Require PCC access code** are separate Admin settings.
+Existing records without a requireCode field behave as On. Deployment does not
+write settings, rotate the verifier or enable review. The saved verifier is
+retained when protection is Off. Changing Off to On advances the access epoch
+and ends all existing reviewer access immediately; reviewers must join again
+using the saved code. Code changes also continue to end existing access.
+
+To open a name-only review: sign in to Admin → Feedback → Feedback settings and
+PCC access; select Require PCC access code **Off**, then **Save PCC access**.
+Separately choose Feedback mode **PCC Review**, then **Save mode**. Reviewers
+enter a required name only; the browser remembers them for up to 14 days.
+They never need Microsoft sign-in. Anyone with the website URL can join when
+code protection is Off. Feedback mode Off still blocks all reviewer operations.
+To restore code protection, select On and Save PCC access. If no code exists,
+set one before enabling code-required PCC Review. Admin authentication and its
+server-side allowlist remain mandatory regardless of this reviewer setting.
