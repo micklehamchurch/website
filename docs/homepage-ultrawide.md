@@ -1,3 +1,5 @@
+> Historical Task 19 approach, superseded by [the contained homepage shell](homepage-shell.md).
+
 # Homepage large-display framing (Task 19)
 
 Starting Dev: e3832f13af51711793eb910eb63309a03ed38545.

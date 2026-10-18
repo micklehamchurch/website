@@ -1,0 +1,27 @@
+/* Homepage-only outer shell. No transformed ancestor: the header stays viewport-fixed. */
+html:has(> body.home-header-hero) { background: #eeebe5; }
+body.home-header-hero {
+  --home-shell-max: 1600px;
+  --home-shell-width: min(100vw, var(--home-shell-max));
+  width: min(100%, var(--home-shell-max));
+  margin-inline: auto;
+  background: var(--paper);
+}
+.home-header-hero .site-header {
+  width: min(100%, var(--home-shell-max));
+  margin-inline: auto;
+}
+/* Freeze foreground spacing at the shell width once the page stops growing. */
+@media (min-width: 1601px) {
+  .home-header-hero .home-hero > .hero-content {
+    right: clamp(16px, calc(var(--home-shell-width) * .03), 64px);
+    top: calc(clamp(20px, calc(var(--home-shell-width) * .04), 76px) + clamp(0px, calc((var(--home-shell-width) - 900px) * .06), 36px));
+  }
+  .home-header-hero .home-hero > .home-verse {
+    left: 4%;
+    top: clamp(110px, calc(var(--home-shell-width) * .09), 172px);
+  }
+  .home-header-hero .feedback-launcher {
+    right: calc((100vw - var(--home-shell-max)) / 2 + 16px);
+  }
+}

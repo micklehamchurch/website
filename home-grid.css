@@ -1,4 +1,4 @@
-/* Homepage structural grid; header and hero retain their intentional own frames. */
+/* Homepage reading grid inside the shared outer shell. */
 .home-header-hero {
   --home-content-max: 1440px;
   --home-content-gutter: clamp(16px, 4vw, 64px);
