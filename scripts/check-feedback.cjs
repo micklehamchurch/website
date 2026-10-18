@@ -19,7 +19,7 @@ let browser,server;
     const headers=new Headers(req.headers);headers.set('origin','https://micklehamchurch.github.io');
     if(headers.get('authorization')==='Bearer admin-test-only')headers.set('x-ms-client-principal',Buffer.from(JSON.stringify(principal)).toString('base64'));
     const request={method:req.method,headers,query:url.searchParams,body:req.method==='POST'?new Blob(buffers).stream():null};
-    const result=await api[url.pathname==='/api/admin-feedback'?'adminHandler':'publicHandler'](request);
+    const result=await api[url.pathname==='/api/feedback-admin'?'adminHandler':'publicHandler'](request);
     res.writeHead(result.status,{'Content-Type':'application/json',...result.headers});res.end(JSON.stringify(result.jsonBody));return;
    }
    const relative=url.pathname.replace(/^\/website\//,'').replace(/^\//,'')||'index.html',file=path.resolve(root,relative);
@@ -28,7 +28,7 @@ let browser,server;
    res.writeHead(200,{'Content-Type':type});res.end(fs.readFileSync(file));
   }catch{res.writeHead(404);res.end();}
  });await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
- const admin=async(action,body,id)=>{const url=new URL('/api/admin-feedback',base);url.searchParams.set('action',action);if(id)url.searchParams.set('id',id);const response=await fetch(url,{method:body?'POST':'GET',headers:{Authorization:'Bearer admin-test-only','Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});assert(response.ok);return response.json();};
+ const admin=async(action,body,id)=>{const url=new URL('/api/feedback-admin',base);url.searchParams.set('action',action);if(id)url.searchParams.set('id',id);const response=await fetch(url,{method:body?'POST':'GET',headers:{Authorization:'Bearer admin-test-only','Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});assert(response.ok);return response.json();};
  await admin('rotate-code',{code:'isolated-browser-test-review-code'});await admin('settings',{mode:'pcc'});
  browser=await chromium.launch({channel:'msedge',headless:true});
  for(const [width,height]of [[1440,1000],[768,1024],[390,844],[320,800],[874,402]]){

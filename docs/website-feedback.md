@@ -93,7 +93,7 @@ identity headers and never grants Admin rights:
 | POST create | PCC session or public submission, depending on mode |
 | POST reply&id=UUID | PCC session, PCC topic only |
 
-`/api/admin-feedback` — ALL actions require the existing immutable Admin allowlist
+`/api/feedback-admin` — ALL actions require the existing immutable Admin allowlist
 behind Azure Easy Auth:
 
 - GET config, topics, topic — including Off/public/removed records and counts;
@@ -153,14 +153,14 @@ Remove-Item -LiteralPath $feedbackAuthFile
 ```
 
 Keep Microsoft authentication required and existing audiences/providers unchanged.
-Never exempt `/api/*`, `/api/admin-feedback`, Calendar, archive, or publishing paths.
+Never exempt `/api/*`, `/api/feedback-admin`, Calendar, archive, or publishing paths.
 Keep existing public Bible paths exactly as they were. Do not print/modify any
 App Setting secret. This action needs an owner with permission to edit the
 Function App's authentication settings, not new reviewer permissions.
 
 Afterward, an unsigned GET of
 `https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/website-feedback?action=config`
-must return `200` and `mode: off`. Unsigned GETs of `/api/admin-feedback`,
+must return `200` and `mode: off`. Unsigned GETs of `/api/feedback-admin`,
 `/api/calendar`, `/api/historical-archive` and `/api/auth/status` must still return
 `401`. Check the existing Bible route remains unchanged. If any Admin endpoint
 becomes public, restore the previous auth settings and stop.
@@ -196,3 +196,13 @@ not substitute for live Azure permissions/Easy Auth validation or physical Safar
 
 No feedback is embedded in static HTML or search. Static search contains only the
 board's informational shell. No public assets contain a review credential.
+
+## Reserved-route regression protection
+
+The protected endpoint is `feedback-admin`. Azure Functions validates the raw
+route before adding `/api`; routes starting with `admin` or `runtime` are
+reserved. `validate-http-routes.js` checks every registered HTTP route during
+package verification and tests. Deployment also reads the live function status
+and verifies an empty runtime error list, the GET/POST binding, the unchanged
+Easy Auth exclusions and unsigned rejection of protected endpoints. Registration
+metadata alone is not sufficient evidence that a route can execute.

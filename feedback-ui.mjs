@@ -17,7 +17,7 @@ const messages={
 };
 export function createFeedbackClient({admin=false,getToken=()=>session()?.token,fetchImpl=fetch}={}){
  return {admin,async call(action,{method='GET',body,id,page,status,q,cursor}={}){
-  const url=new URL(admin?'admin-feedback':'website-feedback',API);url.searchParams.set('action',action);
+  const url=new URL(admin?'feedback-admin':'website-feedback',API);url.searchParams.set('action',action);
   for(const [key,value] of Object.entries({id,page,status,q,cursor}))if(value!==undefined&&value!==null&&value!=='')url.searchParams.set(key,value);
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
   try{const token=await getToken();const response=await fetchImpl(url.href,{method,credentials:'omit',cache:'no-store',signal:controller.signal,headers:{...(token?{Authorization:'Bearer '+token}:{}),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});

@@ -150,7 +150,7 @@ jobs:
               if python - <<'PY'
           import json
           names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
-          expected = {'website-feedback', 'admin-feedback', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly'}
+          expected = {'website-feedback', 'feedback-admin', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly'}
           print('Indexed HTTP functions:', ', '.join(sorted(names)))
           assert expected <= names, 'Required HTTP functions are not indexed'
           PY
@@ -174,3 +174,33 @@ jobs:
           done
           echo "::error::Deployed API host did not index every required HTTP function and the calendar timer."
           exit 1
+
+      - name: Verify protected Feedback runtime route and authentication boundary
+        run: |
+          app_id=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].id | [0]" -o tsv)
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          az functionapp function show --name stmichael-church-admin-api --resource-group "$resource_group" --function-name feedback-admin --query config.bindings -o json > feedback-bindings.json
+          az rest --method get --url "https://management.azure.com${app_id}/hostruntime/admin/functions/feedback-admin/status?api-version=2024-11-01" --query errors -o json > feedback-runtime-errors.json
+          az rest --method get --url "https://management.azure.com${app_id}/config/authsettingsV2/list?api-version=2024-11-01" --query properties.globalValidation -o json > feedback-auth-boundary.json
+          python - <<'PY'
+          import json, urllib.request, urllib.error
+          bindings = json.load(open('feedback-bindings.json'))
+          trigger = next(b for b in bindings if b.get('type', '').lower() == 'httptrigger')
+          assert trigger['route'] == 'feedback-admin'
+          assert trigger['authLevel'].lower() == 'anonymous'
+          assert set(m.upper() for m in trigger['methods']) == {'GET', 'POST'}
+          assert not json.load(open('feedback-runtime-errors.json')), 'Feedback runtime registration errors remain'
+          auth = json.load(open('feedback-auth-boundary.json'))
+          assert auth['requireAuthentication'] is True
+          assert sorted(auth['excludedPaths']) == ['/api/bible/*', '/api/website-feedback']
+          base = 'https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/'
+          for route in ['feedback-admin', 'calendar', 'news', 'historical-archive', 'auth/status']:
+              try:
+                  urllib.request.urlopen(base + route)
+                  raise AssertionError('Private route accepted an unsigned request: ' + route)
+              except urllib.error.HTTPError as error:
+                  assert error.code == 401, (route, error.code)
+          with urllib.request.urlopen(base + 'website-feedback?action=config') as response:
+              assert json.load(response) == {'ok': True, 'mode': 'off'}
+          print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary preserved; mode remains Off.')
+          PY
