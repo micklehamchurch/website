@@ -204,3 +204,25 @@
   .site-header .header-branding { gap:6px; }
   .site-header .brand { gap:8px; }
 }
+/* Transparent physical book: the 56 × 46 target never changes layout. */
+.nav-link.nav-bible,.nav-link.nav-bible:hover,.nav-link.nav-bible:focus-visible,.nav-link.nav-bible:active,.nav-link.nav-bible[aria-current="page"]{position:relative;overflow:visible;border-color:transparent;background:transparent;box-shadow:none}
+.bible-icon-object{display:block;position:relative;width:32px;height:40px;transform-origin:right top;transition:transform 1s cubic-bezier(.22,.61,.36,1);transform-style:preserve-3d}
+.nav-bible .bible-icon-cover{position:absolute;inset:0;transform-origin:12% center;backface-visibility:hidden;transition:transform 1s cubic-bezier(.22,.61,.36,1),opacity .8s ease}
+.nav-bible .bible-icon-open{position:absolute;right:0;top:0;width:64px;height:40px;opacity:0;visibility:hidden;pointer-events:auto;transform:scaleX(.25);transform-origin:right center;transition:transform 1s cubic-bezier(.22,.61,.36,1),opacity .8s ease,visibility 1s}
+.nav-link.nav-bible:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.nav-link.nav-bible:active .bible-icon-object{filter:brightness(1.12)}
+@media(hover:hover) and (pointer:fine) and (min-width:1000px){
+ .nav-link.nav-bible:hover{z-index:30}
+ .nav-bible:hover .bible-icon-object{transform:translate(-4px,-3px) scale(2.7)}
+ .nav-bible:hover .bible-icon-cover{transform:perspective(300px) rotateY(-140deg);opacity:.12}
+ .nav-bible:hover .bible-icon-open{visibility:visible;opacity:1;pointer-events:auto;transform:scaleX(1)}
+}
+@media(prefers-reduced-motion:reduce){
+ .bible-icon-object,.nav-bible .bible-icon-cover,.nav-bible .bible-icon-open{transition:none}
+ .nav-bible:hover .bible-icon-object{transform:none;filter:drop-shadow(0 2px 2px #48321d55)}
+ .nav-bible:hover .bible-icon-cover{transform:none;opacity:1}
+ .nav-bible:hover .bible-icon-open{display:none}
+}
+@media(forced-colors:active){.nav-link.nav-bible:focus-visible{outline-color:Highlight}}
+.nav-bible .bible-icon-open{max-width:none}
+@media(hover:hover) and (pointer:fine) and (min-width:1000px){.nav-bible:hover .bible-icon-cover,.nav-bible:hover .bible-icon-open{transition-delay:.15s}}

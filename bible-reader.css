@@ -21,3 +21,63 @@
 /* The homepage supplies its own site header and close control around the reader. */
 .bible-overlay .site-header,.bible-overlay .footer,.bible-overlay .bible-toolbar>a{display:none}.bible-overlay main{padding-top:10px}.bible-overlay .bible-toolbar{justify-content:flex-end}.bible-overlay .bible-intro{margin-bottom:14px}
 html:has(#bible-drawer[open]){overflow:hidden}
+/* #17D.1: the existing live chapter is presented as measured reading pages. */
+.bible-paginated .bible-left-page{display:none}
+.bible-paginated .bible-reader{display:block}
+.bible-paginated .bible-right-page{padding:0;min-height:0;background:none}
+.bible-paginated .bible-toolbar button{display:block}
+.bible-paginated .bible-intro{margin-bottom:12px}
+.bible-paginated .bible-intro h1{font-size:32px;margin-bottom:6px}
+.bible-paginated .bible-intro>p:last-child{font-size:14px}
+.bible-paginated .bible-reading{padding:0 0 18px;animation:none}
+.bible-paginated .bible-reading-heading{margin:0;padding:16px 24px 18px}
+.bible-paginated .bible-reading-heading .eyebrow{font-size:12px;line-height:1.6;letter-spacing:.04em;margin-bottom:6px}
+.bible-paginated .bible-reading h2{font-size:32px}
+.bible-paginated .bible-status-row{padding:12px 24px 0;min-height:32px}
+.bible-paginated #bible-content[hidden]{display:none}
+#bible-page-spread{display:grid;grid-template-columns:repeat(var(--bible-columns,1),minmax(0,1fr));gap:0;position:relative;isolation:isolate;overflow:hidden;perspective:1800px}
+#bible-page-spread[hidden],#bible-page-controls[hidden]{display:none}
+.bible-paper-page{min-width:0;padding:24px clamp(20px,3.4vw,46px);height:calc(var(--bible-page-height) + 48px);background:linear-gradient(90deg,#eee5d0,#fffaf0 20px,#fcf7e9 94%,#e8ddc3)}
+.bible-paper-page:nth-child(2){background:linear-gradient(90deg,#d4c5a5,#f0e7d3 14px,#fffaf0 36px,#fcf7e9)}
+.bible-page-text{display:flow-root;height:var(--bible-page-height);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;line-height:1.8;font-size:20px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bible-page-text p,.bible-page-measure p{margin:0 0 1.1em}
+.bible-page-measure{position:fixed;left:-100000px;top:0;visibility:hidden;pointer-events:none;display:flow-root;height:auto;font-size:20px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.bible-font-probe{position:fixed;left:-100000px;top:0;width:1em;height:1em;visibility:hidden;pointer-events:none;font-size:20px}
+#bible-page-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 24px;border-top:1px solid #d6ccb5}
+#bible-page-controls button,.bible-saved-tools button{font:600 14px/1.4 var(--sans);min-height:44px;padding:10px 12px;cursor:pointer;color:var(--green);border:1px solid #b9b19b;border-radius:6px;background:#fffaf0;white-space:normal}
+#bible-page-status{font:500 13px/1.4 var(--sans);color:#605b50;margin:0;text-align:center}
+.bible-paginated .bible-paging{margin:0 24px;padding:4px 0;border-top:0}
+.bible-paginated .bible-notices{margin:14px 24px 0;font-size:12px}
+.bible-saved-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
+.bible-saved-tools [hidden]{display:none}
+.bible-saved-tools .bible-ribbon{margin-left:auto;border-color:#8e4034;color:#78392f;background:#fff8e9}
+.bible-ribbon span{font-size:20px;margin-right:5px}
+#bible-save-status{flex-basis:100%;margin:0;font-size:13px;color:var(--green)}
+#bible-save-status:empty{display:none}
+.bible-translation-name{font:500 16px/1.5 var(--sans);margin:0 0 10px;color:var(--deep);overflow-wrap:anywhere}
+#bible-drawer .bible-controls .bible-field select{font-size:16px;max-width:100%;min-width:0}
+#bible-page-spread::after{content:"";position:absolute;z-index:2;pointer-events:none;inset:0 0 0 auto;width:calc(100% / var(--bible-columns));background:linear-gradient(90deg,#d3c5a9,#fff9e9 18%,#f6eedb);transform-origin:left center;opacity:0;box-shadow:-8px 2px 20px #35271628}
+#bible-page-spread.turn-forward::after{animation:bible-leaf-forward .36s ease-in-out}
+#bible-page-spread.turn-back::after{right:auto;left:0;transform-origin:right center;animation:bible-leaf-back .36s ease-in-out}
+@keyframes bible-leaf-forward{0%{opacity:.95;transform:rotateY(0)}75%{opacity:.8}100%{opacity:0;transform:rotateY(-155deg)}}
+@keyframes bible-leaf-back{0%{opacity:.95;transform:rotateY(0)}75%{opacity:.8}100%{opacity:0;transform:rotateY(155deg)}}
+@media(max-width:760px){.bible-paper-page{padding-inline:22px}.bible-page-text,.bible-page-measure,.bible-font-probe{font-size:19px}.bible-saved-tools .bible-ribbon{margin-left:0}.bible-paginated .bible-shell{width:calc(100% - 20px)}#bible-page-controls{padding:8px 12px;gap:6px}#bible-page-controls button{padding:10px 8px;font-size:13px}#bible-page-status{flex-basis:100%;order:3}.bible-paginated .bible-reading-heading .eyebrow{text-transform:none}.bible-paginated .bible-intro>p:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){#bible-page-spread.turn-forward::after,#bible-page-spread.turn-back::after{animation:none;display:none}}
+@media(forced-colors:active){.bible-paper-page{background:Canvas}.bible-ribbon{border:1px solid ButtonText}#bible-page-spread::after{display:none}}
+/* Keep reading space primary, with the saved bookmark in the navigation panel. */
+.bible-saved-tools{display:grid;grid-template-columns:minmax(0,1fr) auto}
+.bible-saved-tools #bible-continue{justify-self:start;text-align:left;min-width:0}
+.bible-saved-tools .bible-ribbon{margin:0;grid-column:2}
+.bible-saved-choice{display:block;margin:18px 0 8px;width:100%;min-height:44px;padding:12px;font:600 14px/1.5 var(--sans);color:var(--green);background:#fffaf0;border:1px solid #b9b19b;border-radius:6px;cursor:pointer}
+.bible-saved-choice[hidden]{display:none}
+.bible-overlay.bible-paginated .bible-intro{display:none}
+@media(max-width:760px){.bible-paginated main{padding-top:18px}.bible-paginated .bible-intro .eyebrow{display:none}.bible-paginated .bible-intro h1{font-size:26px}.bible-saved-tools button{font-size:13px;padding:8px}.bible-paginated .bible-toolbar{margin-bottom:10px}.bible-saved-tools{margin-bottom:10px}.bible-saved-tools .bible-ribbon{margin:0}}
+#bible-save-status{grid-column:1/-1}
+.bible-pages-fallback #bible-content{padding:24px}
+.bible-resume-anchor{color:inherit;background:#ead99566;text-decoration:underline dotted;text-underline-offset:.18em}
+.bible-ribbon svg{vertical-align:middle;margin-right:4px}
+@media(forced-colors:active){.bible-resume-anchor{background:Highlight;color:HighlightText}}
+.bible-awaiting-reading .bible-right-page{min-height:180px;background:linear-gradient(90deg,#f8f0de,#fffaf0 48%,#d9cbb0 50%,#fffaf0 52%,#f8f0de)}
+.bible-awaiting-reading .bible-status-row{padding:36px 24px;max-width:580px;margin:auto}
+.bible-awaiting-reading .bible-status-row p{font-size:16px;line-height:1.7}
+@media(orientation:landscape) and (max-height:460px){.bible-paper-page{padding-block:12px;height:calc(var(--bible-page-height) + 24px)}}

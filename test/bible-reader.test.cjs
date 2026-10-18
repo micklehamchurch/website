@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 // Small DOM adapter exercises asynchronous reader behavior with synthetic Scripture.
-function reader({ missingToken = false, failChapter = false } = {}) {
+function reader({ missingToken = false, failChapter = false, remembered = false } = {}) {
   class Element {
     constructor() { this.children = []; this.events = {}; this.value = ''; this.textContent = ''; this.hidden = true; }
     replaceChildren(...children) { this.children = children; }
@@ -17,9 +17,11 @@ function reader({ missingToken = false, failChapter = false } = {}) {
   const elements = new Map();
   const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
   const requests = [], views = [];
-  const document = { getElementById: get, createElement: () => new Element(), createTextNode: text => ({ textContent: text }), head: new Element() };
+  const documentEvents = {};
+  const document = { addEventListener: (name, fn) => { documentEvents[name] = fn; }, dispatchEvent: event => { documentEvents[event.type]?.(event); }, getElementById: get, createElement: () => new Element(), createTextNode: text => ({ textContent: text }), head: new Element() };
   let rejectChapter = failChapter;
   const window = { fums: (...args) => views.push(args) };
+  if (remembered) { window.localStorage = {}; window.BiblePagesModel = { read: () => ({ translation: 'niv', book: 'JHN', chapter: 'JHN.2' }) }; }
   const fetch = async (url, options) => {
     requests.push({ url, options });
     const path = url.split('/api/bible/')[1];
@@ -33,9 +35,9 @@ function reader({ missingToken = false, failChapter = false } = {}) {
     }
     return { ok: true, json: async () => ({ data, meta: missingToken ? {} : { fumsToken: 'synthetic-token' } }) };
   };
-  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-reader.js'), 'utf8'), { document, window, fetch, AbortSignal, DOMParser: class { parseFromString(text) { return { body: { textContent: text } }; } } });
+  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-reader.js'), 'utf8'), { document, window, fetch, AbortSignal, CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } }, DOMParser: class { parseFromString(text) { return { body: { textContent: text } }; } } });
   const settle = async () => { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); };
-  return { get: name => get('bible-' + name), requests, views, settle, recover: () => { rejectChapter = false; } };
+  return { documentEvents, get: name => get('bible-' + name), requests, views, settle, recover: () => { rejectChapter = false; } };
 }
 
 test('reader displays text safely, excludes introduction IDs, and reports each displayed cache hit', async () => {
@@ -65,4 +67,32 @@ test('reader can recover from a failed chapter request and navigate to the next 
   assert.equal(r.get('reference').textContent, 'John 2');
   assert.equal(r.get('chapter').value, 'JHN.2');
   assert.equal(r.views.length, 2);
+});
+
+test('full translation names are displayed without changing licensed IDs',async()=>{
+ const r=reader();await r.settle();
+ assert.equal(r.get('translation').children[0].textContent,'New International Version (Anglicised)');
+ assert.equal(r.get('translation').children[1].textContent,'New International Reader’s Version (Anglicised)');
+ r.get('translation').value='nirv';r.get('translation').events.change();await r.settle();
+ assert.equal(r.get('edition').textContent,'New International Reader’s Version (Anglicised)');
+ assert.equal(r.get('translation-name').textContent,'New International Reader’s Version (Anglicised)');
+ assert(r.requests.some(q=>q.url.endsWith('/nirv/chapters/JHN.1')));
+});
+test('saved location restores through the same reader and rejects unsupported selections',async()=>{
+ const r=reader();await r.settle();
+ r.documentEvents['bible-request-location']({detail:{translation:'niv',book:'JHN',chapter:'JHN.2'}});await r.settle();
+ assert.equal(r.get('chapter').value,'JHN.2');assert.equal(r.get('reference').textContent,'John 2');
+ const count=r.requests.length;
+ for(const detail of [{translation:'other',book:'JHN',chapter:'JHN.1'},{translation:'niv',book:'XXX',chapter:'XXX.1'},{translation:'niv',book:'JHN',chapter:'JHN.999'}])r.documentEvents['bible-request-location']({detail});
+ await r.settle();assert.equal(r.requests.length,count);
+});
+
+test('a remembered location waits for the visitor choice instead of fetching a disposable default chapter',async()=>{
+ const r=reader({remembered:true});await r.settle();
+ assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);
+ assert.equal(r.requests.filter(q=>q.url.includes('/chapters/')).length,0);
+ assert.equal(r.get('read').disabled,false);
+ r.documentEvents['bible-request-location']({detail:{translation:'niv',book:'JHN',chapter:'JHN.2'}});await r.settle();
+ assert.equal(r.get('reference').textContent,'John 2');assert.equal(r.views.length,1);
+ assert.equal(r.requests.filter(q=>q.url.includes('/chapters/')).length,1);
 });

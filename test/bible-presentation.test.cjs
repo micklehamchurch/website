@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function presentation(mobileInitially = false) {
+function presentation(mobileInitially = false, paginated = false) {
   let document;
   class Element {
     constructor(id) { this.id = id; this.events = {}; this.children = []; this.open = false; }
@@ -15,8 +15,8 @@ function presentation(mobileInitially = false) {
     close() { this.open = false; this.events.close?.(); }
   }
   const elements = new Map();
-  const get = id => { if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
-  document = { getElementById: get, activeElement: null, body: { classList: { add() {} } }, addEventListener() {} };
+  const get = id => { if (id === 'bible-page-spread' && !paginated) return null; if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
+  document = { getElementById: get, activeElement: null, body: { classList: { add() {}, contains: () => paginated } }, addEventListener() {} };
   const mobile = { matches: mobileInitially, addEventListener(name, fn) { this.change = fn; } };
   const window = { matchMedia: () => mobile }; window.parent = window;
   get('bible-controls-home').append(get('bible-controls'));
@@ -74,4 +74,12 @@ test('shared header overlay unloads on close and accepts close messages only fro
   assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);
   assert.equal(classes.size, 0); assert.equal(focused, trigger);
   trigger.events.click({ preventDefault() {} }); assert(frame.getAttribute('src'));
+});
+
+test('paginated reader keeps the same book controls in a drawer at every width',()=>{
+ const p=presentation(false,true);
+ assert(p.get('drawer-content').contains(p.get('controls')));
+ p.mobile.matches=true;p.mobile.change();p.mobile.matches=false;p.mobile.change();
+ assert(p.get('drawer-content').contains(p.get('controls')));
+ assert.equal(p.get('controls-home').children.length,0);
 });
