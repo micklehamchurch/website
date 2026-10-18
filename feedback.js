@@ -1,5 +1,5 @@
-import {createFeedbackClient,currentFeedbackPage,mountFeedback} from './feedback-ui.mjs';
-import {mountQuickFeedback} from './feedback-quick.mjs';
+import {createFeedbackClient,currentFeedbackPage,mountFeedback} from './feedback-ui.mjs?v=simple-1';
+import {mountQuickFeedback} from './feedback-quick.mjs?v=simple-1';
 const api=createFeedbackClient(),context=currentFeedbackPage();
 const board=document.querySelector('#website-feedback-board');
 if(board){

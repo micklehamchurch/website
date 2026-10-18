@@ -1,4 +1,4 @@
-import {createFeedbackClient,mountFeedback,readReviewerSession,reviewerSessionKey} from './feedback-ui.mjs';
+import {createFeedbackClient,mountFeedback,readReviewerSession,reviewerSessionKey} from './feedback-ui.mjs?v=simple-1';
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export async function mountQuickFeedback(root,{api=createFeedbackClient(),context}={}){
  let config,draft='',nameDraft='',error='',busy=false;
