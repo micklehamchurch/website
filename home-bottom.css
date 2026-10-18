@@ -1,6 +1,5 @@
 /* Homepage bottom only; approved sections and interior footers are unchanged. */
 .home-involvement { padding: 26px 0 30px; background: var(--paper); }
-.home-involvement > .container { width: min(1440px, 92%); }
 .home-involvement-heading { margin-bottom: 22px; }
 .home-involvement .eyebrow { color: var(--deep); font-size: 11px; letter-spacing: .12em; margin: 0 0 12px; }
 .home-involvement-heading .eyebrow::after { content: ''; display: block; width: 44px; height: 2px; margin-top: 10px; background: #b99a4a; }

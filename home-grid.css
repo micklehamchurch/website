@@ -1,0 +1,18 @@
+/* Homepage structural grid; header and hero retain their intentional own frames. */
+.home-header-hero {
+  --home-content-max: 1440px;
+  --home-content-gutter: clamp(16px, 4vw, 64px);
+}
+.home-header-hero :is(
+  .home-content > .container,
+  .home-content .home-quick-grid,
+  .home-editorial > .container,
+  .home-involvement > .container,
+  .footer[data-home-footer] > .container
+) {
+  width: min(var(--home-content-max), calc(100% - 2 * var(--home-content-gutter)));
+  margin-inline: auto;
+}
+/* Align the parish headings/images with the other structural sections. Card
+   padding, column gaps and intentional text reading widths remain unchanged. */
+.home-header-hero .home-parish-row { padding-inline: 0; }
