@@ -13,7 +13,7 @@
   dialog.append(close, frame); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261018-polish2';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {
