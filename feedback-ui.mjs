@@ -42,7 +42,7 @@ export async function mountFeedback(root,{api=createFeedbackClient(),context=cur
   for(const form of root.querySelectorAll('[data-fb-form=create],[data-fb-form=reply]'))drafts.set(form.dataset.fbForm+':'+(form.dataset.fbForm==='reply'?(form.dataset.fbTopic||''):''),Object.fromEntries(new FormData(form)));
   const pcc=config?.mode==='pcc',publicMode=config?.mode==='public';
   let content='';
-  if(!config)content='<p>Loading feedback…</p>';
+  if(!config)content=error?'':'<p>Loading feedback…</p>';
   else if(!admin&&config.mode==='off')content='<p>Website feedback is currently closed. Existing discussions are kept for the Website Admin.</p>';
   else if(!admin&&pcc&&!session())content=`<form data-fb-form="access"><h3 tabindex="-1">Welcome to the PCC website review</h3><p>Enter your name and the shared review code. Your name will appear beside your discussions and replies. This browser remembers access for up to 14 days, unless the code changes.</p><label>Your name<input name="name" maxlength="80" autocomplete="name" required></label><label>PCC review code<input name="code" type="password" minlength="12" maxlength="128" autocomplete="off" required></label><button>Join the review</button></form>`;
   else if(topic){
@@ -83,5 +83,5 @@ export async function mountFeedback(root,{api=createFeedbackClient(),context=cur
    await refresh();
   }catch(e){fail(e);}finally{busy=false;form.querySelectorAll('button').forEach(b=>b.disabled=false);const fieldset=root.querySelector('fieldset');if(fieldset)fieldset.disabled=false;}
  };
- try{await refresh();}catch(e){render();fail(e);}
+ try{await refresh();}catch(e){error=e.message;render();fail(e);}
 }

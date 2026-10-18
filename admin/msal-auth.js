@@ -185,6 +185,7 @@ async function checkAdminApiConnection(account, { interactive = false } = {}) {
       window.dispatchEvent(new Event('admin-contacts-ready'));
       window.dispatchEvent(new Event('admin-homepage-verses-ready'));
       window.dispatchEvent(new Event('admin-photo-albums-ready'));
+      window.dispatchEvent(new Event('admin-feedback-ready'));
     } else {
       updateGithubRepositoryStatus('connection-failed', 'admin-api-unavailable');
     }
@@ -224,6 +225,7 @@ async function graphProfile(account, response = null) {
   }
   showDashboard(profile, email);
   activeAdminApiAccount = account;
+  window.dispatchEvent(new Event('admin-feedback-ready'));
   window.dispatchEvent(new CustomEvent('admin-calendar-ready'));
   window.dispatchEvent(new Event('admin-news-ready'));
       window.dispatchEvent(new Event('admin-clergy-ready'));
