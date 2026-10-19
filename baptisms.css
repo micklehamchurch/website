@@ -1,0 +1,71 @@
+/* Baptisms only: water, light and belonging. Shared pages remain untouched. */
+.baptism-page.section{padding:0;background:#faf8f0;color:var(--deep)}
+.baptism-page .baptism-shell{width:100%;max-width:none;margin:0}
+.baptism-page :is(h1,h2,h3,p){margin-top:0}
+.baptism-page :is(h1,h2,h3){font-family:var(--serif);font-weight:500;letter-spacing:-.025em}
+.baptism-page h2{font-size:clamp(34px,3.5vw,54px);line-height:1.12;margin-bottom:24px}
+.baptism-page h3{font-size:28px;line-height:1.2;margin-bottom:16px}
+.baptism-page p{line-height:1.75}
+.baptism-page [id]{scroll-margin-top:120px}
+.baptism-page :focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.baptism-page .btn{min-height:48px;padding:12px 24px;border-radius:4px}
+.baptism-page .baptism-kicker{display:flex;align-items:center;gap:16px;margin-bottom:24px;color:#86621c;font:600 12px/1.5 var(--sans);letter-spacing:.11em;text-transform:uppercase}
+.baptism-kicker::before{content:"";width:36px;height:1px;background:currentColor;flex:none}
+.baptism-text-link{display:inline-flex;align-items:center;min-height:44px;padding-block:8px;text-decoration:underline;text-underline-offset:5px;overflow-wrap:anywhere;max-width:100%}
+.baptism-reading{width:min(1250px,calc(100% - 128px));margin-inline:auto}
+.baptism-hero{position:relative;isolation:isolate;min-height:clamp(610px,48vw,760px);display:flex;align-items:center;overflow:hidden;background:#f5f1e6}
+.baptism-hero-photo{position:absolute;inset:0;z-index:-2}
+.baptism-page picture{display:block;width:100%;height:100%}
+.baptism-page img{display:block;width:100%;height:100%;object-fit:cover}
+.baptism-hero-photo img{object-position:65% 50%}
+.baptism-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#faf8f0f5,#faf8f0e8 25%,#faf8f09c 40%,transparent 61%)}
+.baptism-hero-copy{width:53%;padding:60px 0 90px 6%}
+.baptism-page h1{font-size:clamp(48px,5vw,76px);line-height:1.04;margin-bottom:24px}
+.baptism-hero h1 span{display:block}
+.baptism-lead{max-width:34ch;font-size:20px;margin-bottom:28px}
+.baptism-hero .baptism-text-link{display:flex;width:fit-content;margin-top:12px;font-size:14px}
+.baptism-ripples{position:absolute;bottom:-1px;left:0;width:100%;height:70px;pointer-events:none}
+.baptism-values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding:32px 6% 44px;text-align:center}
+.baptism-values article{padding:0 18px;border-right:1px solid #dce2d7}
+.baptism-values article:last-child{border:0}
+.baptism-icon{width:42px;height:42px;color:#a67d27;display:block;margin:0 auto 16px}
+.baptism-values article:nth-child(3n+1) .baptism-icon{color:#275b4c}
+.baptism-page .baptism-values h2{font:600 18px/1.4 var(--sans);letter-spacing:0;margin-bottom:8px}
+.baptism-values p{font-size:15px;margin:0}
+.baptism-beginning{display:grid;grid-template-columns:1fr 1fr;gap:80px;padding-block:70px;border-top:1px solid #dce2d7}
+.baptism-beginning>div:last-child{font-size:18px}
+.baptism-journey{padding-block:24px 76px}
+.baptism-journey ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;padding:0;margin:40px 0 0;gap:32px}
+.baptism-journey li{position:relative;padding-top:14px;border-top:1px solid #b7d4d8}
+.baptism-number{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#d5e9ec;color:#254d49;margin-bottom:20px;font:24px var(--serif)}
+.baptism-page .baptism-journey h3{font:600 18px/1.4 var(--sans);letter-spacing:0}
+.baptism-journey p{font-size:15px;margin-bottom:0}
+.baptism-water{position:relative;isolation:isolate;overflow:hidden;min-height:450px;display:flex;align-items:center;background:#e7f1f1}
+.baptism-water-photo{position:absolute;inset:0 0 0 30%;z-index:-2}
+.baptism-water::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#e7f1f1 20%,#e7f1f1eb 37%,#e7f1f17a 54%,transparent 72%)}
+.baptism-water-copy{width:52%;padding:60px 0 85px 6%}
+.baptism-water-copy p{max-width:40ch;font-size:18px}
+.baptism-practical{padding-block:76px}
+.baptism-intro{max-width:65ch;font-size:18px;margin-bottom:36px}
+.baptism-guidance-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.baptism-guidance-grid article{padding:32px;background:#fffdf7;border:1px solid #dfdfd1;border-radius:8px}
+.baptism-guidance-grid article:nth-child(4n+2){background:#eef4f1}
+.baptism-guidance-grid p{margin-bottom:0;font-size:16px}
+.baptism-documents{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:36px;padding:32px;border-top:1px solid #bcac83;border-bottom:1px solid #bcac83}
+.baptism-documents p{margin-bottom:8px}
+.baptism-invitation{display:grid;grid-template-columns:1fr 1fr;background:#eff3ec}
+.baptism-parish-photo{min-height:560px;overflow:hidden}
+.baptism-invitation-copy{padding:65px 10%}
+.baptism-contact{margin:24px 0 0;font-size:14px}
+.baptism-contact a{font-size:16px}
+.baptism-related{display:flex;gap:24px;flex-wrap:wrap;padding-block:26px}
+.baptism-image-note{font-size:12px;color:#59685e;padding-bottom:24px;margin-bottom:0}
+@media(max-width:1100px) and (min-width:701px){
+ .baptism-reading{width:calc(100% - 64px)}.baptism-hero-copy{width:58%;padding-left:4%}.baptism-page h1{font-size:54px}.baptism-values{padding-inline:3%;gap:12px}.baptism-values article{padding-inline:10px}.baptism-beginning{gap:40px}.baptism-journey ol{gap:20px}.baptism-water-copy{width:60%;padding-left:4%}.baptism-invitation-copy{padding:40px 30px}.baptism-page .baptism-invitation h2{font-size:37px}
+}
+@media(max-width:700px){
+ .baptism-reading{width:calc(100% - 48px)}.baptism-page [id]{scroll-margin-top:140px}.baptism-hero{display:flex;flex-direction:column;min-height:0}.baptism-hero-photo{position:relative;inset:auto;width:100%;aspect-ratio:1.55;z-index:auto}.baptism-hero-photo img{object-position:80% 55%}.baptism-hero::after{display:none}.baptism-hero-copy{width:100%;padding:28px 24px 64px}.baptism-page h1{font-size:clamp(38px,10vw,54px)}.baptism-page .baptism-kicker{font-size:10px;gap:12px;margin-bottom:20px}.baptism-lead{font-size:17px}.baptism-ripples{height:35px}.baptism-values{grid-template-columns:1fr 1fr;padding:24px;gap:30px 20px}.baptism-values article{border:0;padding:0}.baptism-page .baptism-values h2{font-size:17px}.baptism-values p{font-size:14px}.baptism-beginning{grid-template-columns:1fr;gap:4px;padding-block:44px}.baptism-page h2{font-size:36px}.baptism-beginning>div:last-child{font-size:17px}.baptism-journey{padding-block:10px 44px}.baptism-journey ol{grid-template-columns:1fr;gap:24px;margin-top:28px}.baptism-journey li{padding:0 0 0 58px;border:0}.baptism-number{position:absolute;left:0;top:0}.baptism-page .baptism-journey h3{margin-bottom:8px}.baptism-water{flex-direction:column;min-height:0}.baptism-water-photo{position:relative;inset:auto;width:100%;aspect-ratio:1.5;z-index:auto}.baptism-water::after{display:none}.baptism-water-copy{width:100%;padding:34px 24px 54px}.baptism-water-copy p{font-size:17px}.baptism-practical{padding-block:44px}.baptism-guidance-grid{grid-template-columns:1fr;gap:20px}.baptism-guidance-grid article{padding:24px}.baptism-page h3{font-size:27px}.baptism-documents{grid-template-columns:1fr;gap:26px;padding:26px 0}.baptism-invitation{grid-template-columns:1fr}.baptism-parish-photo{min-height:0;aspect-ratio:1.4}.baptism-invitation-copy{padding:38px 24px}.baptism-related{gap:4px 24px}.baptism-text-link{font-size:15px}
+}
+@media(orientation:landscape) and (max-height:460px) and (max-width:999px){
+ .site-header:has(+ .baptism-page) .nav-utilities{flex-direction:row}.baptism-page [id]{scroll-margin-top:80px}.baptism-hero{display:grid;grid-template-columns:1fr 1fr;min-height:0}.baptism-hero-photo{position:relative;inset:auto;z-index:auto;height:100%;min-height:330px;aspect-ratio:auto}.baptism-hero::after{display:none}.baptism-hero-copy{width:100%;padding:28px 24px 48px}.baptism-page h1{font-size:36px}.baptism-lead{font-size:15px}.baptism-hero .baptism-kicker{margin-bottom:14px}.baptism-hero .baptism-text-link{font-size:13px}.baptism-values{padding-block:28px}.baptism-ripples{height:30px}
+}
