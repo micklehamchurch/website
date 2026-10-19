@@ -290,7 +290,7 @@
   const probe = document.createElement('span'); probe.className = 'bible-font-probe bible-content'; probe.textContent = 'M'; document.body.append(probe);
   if (typeof ResizeObserver !== 'undefined') {
     const observer = new ResizeObserver(resize);
-    for (const element of [probe, document.querySelector('.site-header'), document.querySelector('.bible-intro'), document.querySelector('.bible-toolbar'), document.querySelector('.bible-saved-tools'), document.querySelector('.bible-reading-heading')]) if (element) observer.observe(element);
+    for (const element of [probe, document.querySelector('.site-header'), document.querySelector('.bible-intro'), document.querySelector('.bible-toolbar'), document.querySelector('.bible-saved-tools'), document.querySelector('.bible-reading-heading'), document.querySelector('.bible-notices')]) if (element) observer.observe(element);
   }
   window.addEventListener('pagehide', () => { if (loaded && !reading.hidden) saveLast(); });
   $('drawer-content').append($('continue'),$('places-section'));

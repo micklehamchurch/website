@@ -6,7 +6,7 @@ const vm = require('node:vm');
 function presentation(mobileInitially = false, paginated = false, overlay = false) {
   let document; const rootEvents={},messages=[];
   class Element {
-    constructor(id) { this.id = id; this.events = {}; this.children = []; this.open = false; }
+    constructor(id) { this.textContent = ""; this.id = id; this.events = {}; this.children = []; this.open = false; }
     append(child) { if (child.parent) child.parent.children = child.parent.children.filter(c => c !== child); this.children.push(child); child.parent = this; }
     contains(child) { return this.children.includes(child); }
     addEventListener(name, fn) { this.events[name] = fn; }
@@ -31,6 +31,26 @@ test('mobile drawer reuses the live controls, closes on reading, and returns foc
   p.get('browse').events.click(); assert(p.get('drawer').open);
   p.get('controls').events.submit(); assert.equal(p.get('drawer').open, false);
   assert.equal(p.document.activeElement, p.get('browse'));
+});
+
+test('compact copyright retains metadata years and publisher; full notice stays in About; unknown notices stay visible', () => {
+  const p = presentation(true, true);
+  for (const [abbr, years, permission] of [['NIV','1979, 1984, 2011',' of Biblica, Inc.®'],['NIrV','1995, 1996, 1998, 2014','']]) {
+    const title = abbr === 'NIV' ? 'The Holy Bible, New International Version® (Anglicised), NIV®' : 'Holy Bible, New International Reader’s Version®, NIrV® (Anglicised)';
+    const full = `${title} Copyright © ${years} by Biblica, Inc.® Used by permission${permission}${permission ? '' : '.'} All rights reserved worldwide.`;
+    p.get('copyright').textContent = full;
+    p.rootEvents['bible-chapter-ready']();
+    assert.equal(p.get('copyright-citation').textContent, `${abbr}® © ${years} Biblica, Inc.® All rights reserved.`);
+    assert.equal(p.get('information-copyright').textContent, full);
+    assert.equal(p.get('copyright').hidden, true);
+  }
+  p.get('copyright').textContent = 'A changed publisher notice with additional conditions';
+  p.rootEvents['bible-chapter-ready']();
+  assert.equal(p.get('copyright').hidden, false);
+  assert.equal(p.get('copyright-citation').textContent, '');
+  p.get('reading').hidden = true;
+  p.get('about').events.click();
+  assert.equal(p.get('information-copyright').textContent, 'Choose a reading to see its full publisher notice.');
 });
 
 test('resizing an open drawer restores the same controls to the desktop page', () => {
@@ -67,7 +87,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
   const panel = nodes.find(e => e.tag === 'div');
   const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
-  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-saved-places-2/); assert(classes.has('bible-modal-open'));
+  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-copyright-1/); assert(classes.has('bible-modal-open'));
   assert.equal(close.hidden,false);
   events.message({origin:'https://other.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,false);
   events.message({origin:'https://example.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,true);

@@ -19,10 +19,26 @@
   mobile.addEventListener('change', placeControls);
   placeControls();
   const about = get('about'), information = get('information');
+  function presentCopyright() {
+    const full = get('copyright'), citation = get('copyright-citation');
+    if (!citation) return;
+    const notice = full.textContent;
+    // API.Bible terms Appendix A permits this space-constrained format. Only
+    // recognise the current Biblica notices; unfamiliar metadata stays complete.
+    const knownTitle = /^(?:The Holy Bible, New International Version® \(Anglicised\), NIV®|Holy Bible, New International Reader’s Version®, NIrV® \(Anglicised\)) Copyright © /.test(notice);
+    const abbreviation = knownTitle && notice.match(/,\s*(NIV|NIrV)®/);
+    const rights = notice.match(/Copyright © (\d{4}(?:, \d{4})*) by (Biblica, Inc\.®) Used by permission(?: of Biblica, Inc\.®)?\.? All rights reserved worldwide\.$/);
+    citation.textContent = abbreviation && rights ? `${abbreviation[1]}® © ${rights[1]} ${rights[2]} All rights reserved.` : notice;
+    full.hidden = !!(abbreviation && rights);
+    if (!full.hidden) citation.textContent = '';
+    if (notice) get('information-copyright').textContent = notice;
+  }
+  document.addEventListener('bible-chapter-ready', presentCopyright);
+  presentCopyright();
   about.addEventListener('click', () => {
     get('information-translation').textContent = get('translation-name').textContent;
-    const notice = get('copyright').textContent;
-    if (notice) get('information-copyright').textContent = notice;
+    const notice = get('reading').hidden ? '' : get('copyright').textContent;
+    get('information-copyright').textContent = notice || 'Choose a reading to see its full publisher notice.';
     information.showModal();
   });
   get('information-close').addEventListener('click', () => information.close());

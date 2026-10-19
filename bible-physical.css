@@ -83,6 +83,12 @@ html:has(body.bible-overlay){background:transparent}
 @media(min-width:960px){.bible-reader:has([data-page-mode="single"]) .bible-paper-page{padding-inline:clamp(36px,10vw,180px)}}
 .bible-reader:has([data-page-mode="facing"]) .bible-right-page{background:linear-gradient(90deg,#eadbb8,#fff9e9 5%,#fcf5e4 46%,#d2bd91 49.7%,#bda67c 50%,#f2e6cb 51.5%,#fff9e9 55%,#fcf4df 96%,#e2cfaa)}
 .bible-paginated .bible-notices{font-size:11px}
+/* Keep the copyright citation (or full fallback) readable small print. Set the paragraph
+   itself so inherited type and mobile text autosizing cannot inflate the footer.
+   This does not constrain wrapping, browser zoom or user text resizing. */
+.bible-paginated .bible-notices{margin:4px 26px 0;color:#605b50}
+.bible-paginated .bible-notices p{font:400 .75rem/1.5 var(--sans);margin:4px 0 0;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:anywhere}
+@media(max-width:959px){.bible-paginated .bible-notices{margin-inline:18px}}
 .bible-reading-hint{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:959px){.bible-overlay.bible-paginated .bible-toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#1b3028f2;border-radius:8px}}
 /* Include the visible leather/page stack in the book's native hit shape. */

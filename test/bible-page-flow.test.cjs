@@ -44,9 +44,9 @@ test('absolute Bible limits disable only unavailable directions and reduced moti
  const p=pagesReader({reduced:true});p.ready('GEN.1');assert.equal(p.get('page-previous').disabled,true);p.get('page-previous').events.click();assert.equal(p.emitted.filter(e=>e.type==='bible-request-page-chapter').length,0);
  p.ready('REV.22',-1);assert.equal(p.get('page-next').disabled,true);assert.equal(p.get('page-spread').classList.contains('turn-back'),false);
 });
-test('Phase A removes chapter buttons and permanent afterword while retaining visible full copyright and accessible reporting',()=>{
+test('Phase A removes chapter buttons and permanent afterword while retaining copyright metadata, visible citation and accessible reporting',()=>{
  const html=fs.readFileSync('bible.html','utf8');assert.doesNotMatch(html,/id="bible-(previous|next)"|class="bible-paging"|class="bible-afterword"|Explore the Bible together/);
- assert.match(html,/<span id="bible-copyright"><\/span> Scripture provided by/);assert.match(html,/<dialog id="bible-information"[^>]+>[\s\S]*anonymous Scripture views[\s\S]*About this reporting[\s\S]*<\/dialog>/);
+ assert.match(html,/<span id="bible-copyright"><\/span><span id="bible-copyright-citation"><\/span> Scripture provided by/);assert.match(html,/<dialog id="bible-information"[^>]+>[\s\S]*anonymous Scripture views[\s\S]*About this reporting[\s\S]*<\/dialog>/);
  assert.match(html,/id="bible-page-previous"/);assert.match(html,/id="bible-page-next"/);
 });
 
