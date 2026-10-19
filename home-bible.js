@@ -15,7 +15,7 @@
   panel.append(close, frame); dialog.append(panel); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-mobile-target-1';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-mobile-target-2';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {

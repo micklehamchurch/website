@@ -139,6 +139,7 @@ html:has(body.bible-overlay){background:transparent}
 @media(max-width:959px){
  .bible-paginated .bible-reader .bible-toolbar{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:2px;padding:3px 4px 0}
  .bible-paginated .bible-reader .bible-toolbar #bible-browse{margin:0}
+ .bible-paginated:not(.bible-overlay) .bible-toolbar>a{grid-column:1/-1;justify-self:start;min-height:44px}
  .bible-toolbar #bible-edition{min-width:0;margin:0;padding:0 3px;font:500 .75rem/1.35 var(--sans);letter-spacing:0;text-transform:none;text-align:center;color:#304934;overflow-wrap:anywhere;-webkit-text-size-adjust:100%;text-size-adjust:100%}
  .bible-paginated .bible-reading-heading{padding:4px 14px 8px}
  .bible-paginated .bible-reading-heading::after{display:none}
