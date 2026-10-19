@@ -5,12 +5,14 @@
   const dialog = document.createElement('dialog');
   dialog.className = 'home-bible-dialog';
   dialog.setAttribute('aria-label', 'Read the Bible');
+  const panel = document.createElement('div');
+  panel.className = 'home-bible-panel';
   const close = document.createElement('button');
   close.type = 'button'; close.className = 'home-bible-close';
   close.textContent = 'Close Bible ×';
   const frame = document.createElement('iframe');
   frame.title = 'Mickleham Church Bible reader';
-  dialog.append(close, frame); document.body.append(dialog);
+  panel.append(close, frame); dialog.append(panel); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
     if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261018-phase-a';
@@ -26,9 +28,9 @@
   close.addEventListener('click', () => dialog.close());
   let backdropPointer = false;
   function onBackdrop(event) {
-    if (event.target !== dialog) return false;
-    const bounds = dialog.getBoundingClientRect();
-    return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+    // The transparent dialog is the hit area around the separate cream panel.
+    // Let browser hit testing handle rounded corners, zoom and responsive sizing.
+    return event.target === dialog;
   }
   // Both ends must be outside: selecting/dragging from inside cannot dismiss it.
   dialog.addEventListener('pointerdown', event => { backdropPointer = event.button === 0 && event.isPrimary !== false && onBackdrop(event); });

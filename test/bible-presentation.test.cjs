@@ -64,6 +64,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
   const document = { getElementById: () => trigger, createElement: tag => { const e = new Element(tag); nodes.push(e); return e; }, body: { append() {} }, documentElement: { classList: { add: c => classes.add(c), remove: c => classes.delete(c) } } };
   const window = { addEventListener: (k, fn) => { events[k] = fn; } };
   vm.runInNewContext(fs.readFileSync(require.resolve('../home-bible.js'), 'utf8'), { document, window, HTMLDialogElement: class {}, location: { origin: 'https://example.test' } });
+  const panel = nodes.find(e => e.tag === 'div');
   const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
   assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261018-phase-a/); assert(classes.has('bible-modal-open'));
@@ -76,9 +77,12 @@ test('shared header overlay unloads on close and accepts close messages only fro
   assert(dialog.open);
   const pointer=(target,x,y)=>({target,clientX:x,clientY:y,button:0,isPrimary:true});
   dialog.events.pointerdown(pointer(frame,100,100));dialog.events.click(pointer(frame,100,100));assert(dialog.open);
-  dialog.events.pointerdown(pointer(dialog,100,100));dialog.events.click(pointer(dialog,100,100));assert(dialog.open);
+  dialog.events.pointerdown(pointer(panel,100,100));dialog.events.click(pointer(panel,100,100));assert(dialog.open);
   dialog.events.pointerdown(pointer(frame,100,100));dialog.events.click(pointer(dialog,5,5));assert(dialog.open);
-  dialog.events.pointerdown(pointer(dialog,5,5));dialog.events.click(pointer(dialog,5,5));assert.equal(dialog.open,false);assert.equal(focused,trigger);
+  dialog.events.pointerdown({...pointer(dialog,5,5),button:2});dialog.events.click(pointer(dialog,5,5));assert(dialog.open);
+  dialog.events.pointerdown(pointer(dialog,5,5));dialog.events.pointercancel();dialog.events.click(pointer(dialog,5,5));assert(dialog.open);
+  // Rounded-corner backdrop is within the old rectangular bounds.
+  dialog.events.pointerdown(pointer(dialog,21,21));dialog.events.click(pointer(dialog,21,21));assert.equal(dialog.open,false);assert.equal(focused,trigger);
   trigger.events.click({preventDefault(){}});
   events.message({ origin: 'https://example.test', source: frame.contentWindow, data: 'mickleham-close-bible' });
   assert.equal(dialog.open, false); assert.equal(frame.getAttribute('src'), null);assert.equal(close.hidden,false);
