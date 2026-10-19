@@ -20,7 +20,7 @@ export async function checkNaturalPageTaps(tab, {controls=true}={}) {
   // In live QA, go to the current bookmark first so toggling it off/on preserves it.
   for(const id of ['bible-bookmark','bible-bookmark']){await f.locator('#'+id).click();await tab.getAXState({emit:false});if((await read()).status!==before.status)throw Error('Bookmark turned the page')}
   await f.locator('#bible-browse').click();await tab.getAXState({emit:false});
-  for(const id of ['bible-translation','bible-book','bible-chapter']){await f.locator('#'+id).click();await tab.pressKey(null,'Escape');await tab.getAXState({emit:false});if((await read()).status!==before.status)throw Error('Selector turned page')}
+  for(const id of ['bible-translation','bible-book','bible-chapter']){await f.locator('#'+id).click();await tab.pressKey(null,'Escape');await tab.getAXState({emit:false});const selected=await read();if(selected.offset!==before.offset||selected.reference!==before.reference)throw Error('Selector changed reading position')}
   if(await f.locator('#bible-continue').isVisible())await f.locator('#bible-continue').click();else await f.locator('#bible-drawer-close').click();await tab.getAXState({emit:false});if((await read()).status!==before.status)throw Error('Continue Reading added an unintended page turn');
   await f.locator('#bible-about').click();await tab.getAXState({emit:false});await f.locator('#bible-information-close').click();await tab.getAXState({emit:false});if((await read()).status!==before.status)throw Error('Dialog control turned page');
   const saved=await read();await f.locator('#bible-close').click();await tab.getAXState({emit:false});if(await tab.playwright.locator('.home-bible-dialog').evaluate(el=>el.open))throw Error('Close failed');
