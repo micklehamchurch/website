@@ -5,7 +5,34 @@
   else root.BiblePagesModel = model;
 })(typeof window === 'object' ? window : globalThis, () => {
   'use strict';
-  const keys = { last: 'mickleham:bible:last:v1', bookmark: 'mickleham:bible:bookmark:v1' };
+  const keys = { last: 'mickleham:bible:last:v1', bookmark: 'mickleham:bible:bookmark:v1', places: 'mickleham:bible:saved-places:v2' };
+  const placesLimit = 100;
+  function placeId(p) { return `${p.translation}:${p.chapter}:${p.offset}`; }
+  function validPlace(p) {
+    const location = valid(p && {...p,v:1,page:0});
+    if (!location) return null;
+    return {translation:location.translation,book:location.book,chapter:location.chapter,offset:location.offset,reference:location.reference,
+      id:placeId(location),name:typeof p.name==='string'?p.name.trim().slice(0,80):'',createdAt:Number.isSafeInteger(p.createdAt)&&p.createdAt>=0?p.createdAt:0};
+  }
+  function cleanPlaces(items) {
+    const found=new Map();
+    for(const item of Array.isArray(items)?items.slice(0,1000):[]){const p=validPlace(item);if(p&&!found.has(p.id))found.set(p.id,p);}
+    return [...found.values()].sort((a,b)=>b.createdAt-a.createdAt).slice(0,placesLimit);
+  }
+  function writePlaces(storage,items) {
+    if(!Array.isArray(items)||items.length>placesLimit)return false;
+    try{storage.setItem(keys.places,JSON.stringify({v:2,items:cleanPlaces(items)}));return true;}catch{return false;}
+  }
+  function readPlaces(storage) {
+    try{
+      const raw=storage.getItem(keys.places);
+      if(raw!==null){if(raw.length>250000)return [];try{const data=JSON.parse(raw);return cleanPlaces(Array.isArray(data)?data:data?.items);}catch{return [];}}
+      const legacy=read(storage,'bookmark'),items=legacy?[validPlace({...legacy,createdAt:0})]:[];
+      // Write first. Never remove the recoverable legacy value on failed storage.
+      if(writePlaces(storage,items)&&legacy)remove(storage,'bookmark');
+      return items;
+    }catch{return [];}
+  }
   const chapterCounts = Object.fromEntries('GEN:50 EXO:40 LEV:27 NUM:36 DEU:34 JOS:24 JDG:21 RUT:4 1SA:31 2SA:24 1KI:22 2KI:25 1CH:29 2CH:36 EZR:10 NEH:13 EST:10 JOB:42 PSA:150 PRO:31 ECC:12 SNG:8 ISA:66 JER:52 LAM:5 EZK:48 DAN:12 HOS:14 JOL:3 AMO:9 OBA:1 JON:4 MIC:7 NAM:3 HAB:3 ZEP:3 HAG:2 ZEC:14 MAL:4 MAT:28 MRK:16 LUK:24 JHN:21 ACT:28 ROM:16 1CO:16 2CO:13 GAL:6 EPH:6 PHP:4 COL:4 1TH:5 2TH:3 1TI:6 2TI:4 TIT:3 PHM:1 HEB:13 JAS:5 1PE:5 2PE:3 1JN:5 2JN:1 3JN:1 JUD:1 REV:22'.split(' ').map(pair => { const [id, count] = pair.split(':'); return [id, Number(count)]; }));
   const books = new Set(Object.keys(chapterCounts));
   function valid(value) {
@@ -86,5 +113,5 @@
     if (blocked) return 0;
     return (swipeAllowed ? swipeDirection(start, end) : 0) || tapDirection(start, end, bounds);
   }
-  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection, layoutColumns, tapDirection, gestureDirection };
+  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection, layoutColumns, tapDirection, gestureDirection,placeId,validPlace,readPlaces,writePlaces,placesLimit };
 });

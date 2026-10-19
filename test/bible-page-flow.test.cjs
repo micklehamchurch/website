@@ -3,7 +3,7 @@ function pagesReader({reduced=false,columns=1,failLayout=false,pointer=true}={})
  const ids=new Map(),events={},data=new Map(),emitted=[];let document,selection="";
  const storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};
  class E{
-  constructor(tag='div'){this.nodeName=tag.toUpperCase();this.children=[];this.attrs={};this.events={};this.hidden=false;this.disabled=false;this.textContent='';this.value='niv';this.props={};this.style={setProperty:(k,v)=>this.props[k]=v};const classes=new Set();this.classList={add:(...c)=>c.forEach(x=>classes.add(x)),remove:(...c)=>c.forEach(x=>classes.delete(x)),contains:c=>classes.has(c)};}
+  constructor(tag='div'){this.dataset={};this.nodeName=tag.toUpperCase();this.children=[];this.attrs={};this.events={};this.hidden=false;this.disabled=false;this.textContent='';this.value='niv';this.props={};this.style={setProperty:(k,v)=>this.props[k]=v};const classes=new Set();this.classList={add:(...c)=>c.forEach(x=>classes.add(x)),remove:(...c)=>c.forEach(x=>classes.delete(x)),contains:c=>classes.has(c)};}
   get childNodes(){return this.children} get clientWidth(){if(failLayout&&this.className==='bible-content bible-page-text')throw Error('measurement');return this===get('bible-page-spread')?(columns===2?1180:390):300} get clientHeight(){return this.className==='bible-content bible-page-text'?258:0}
   get scrollHeight(){const count=n=>n.nodeName==='#TEXT'||n.nodeName==='SUP'?1:n.children.reduce((a,c)=>a+count(c),0);return count(this)*10}
   append(...nodes){for(const n of nodes){if(n.nodeName==='#FRAGMENT'){this.append(...n.children);continue}if(n.parentElement)n.parentElement.children=n.parentElement.children.filter(x=>x!==n);this.children.push(n);n.parentElement=this}}
@@ -37,8 +37,8 @@ test('visual page flow crosses forward at the end, lands backward on the last sp
 });
 test('ribbon stays with the explicit chapter while continuous progress changes and returns, including removal',()=>{
  const p=pagesReader();p.ready('JHN.1');p.get('bookmark').events.click();assert.equal(p.ribbons(),1);
- const bookmark=M.read(p.storage,'bookmark');p.ready('JHN.2',1);assert.equal(p.ribbons(),0);assert.deepEqual(M.read(p.storage,'bookmark'),bookmark);assert.equal(M.read(p.storage,'last').chapter,'JHN.2');
- p.ready('JHN.1',1);assert.equal(p.ribbons(),1);p.get('bookmark').events.click();assert.equal(p.ribbons(),0);assert.equal(M.read(p.storage,'bookmark'),null);
+ const bookmark=M.readPlaces(p.storage)[0];p.ready('JHN.2',1);assert.equal(p.ribbons(),0);assert.deepEqual(M.readPlaces(p.storage)[0],bookmark);assert.equal(M.read(p.storage,'last').chapter,'JHN.2');
+ p.ready('JHN.1',1);assert.equal(p.ribbons(),1);p.get('bookmark').events.click();assert.equal(p.ribbons(),0);assert.equal(M.readPlaces(p.storage).length,0);
 });
 test('absolute Bible limits disable only unavailable directions and reduced motion suppresses boundary turns',()=>{
  const p=pagesReader({reduced:true});p.ready('GEN.1');assert.equal(p.get('page-previous').disabled,true);p.get('page-previous').events.click();assert.equal(p.emitted.filter(e=>e.type==='bible-request-page-chapter').length,0);

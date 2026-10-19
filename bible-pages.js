@@ -6,15 +6,52 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const pointerGestures = typeof window.PointerEvent === 'function';
   let storage; try { storage = window.localStorage; } catch { storage = null; }
-  let last = M.read(storage, 'last'), bookmark = M.read(storage, 'bookmark');
+  let last = M.read(storage, 'last'), places = M.readPlaces(storage), deletedPlace = null, busy = false;
   let location = null, units = [], pages = [], index = 0, columns = 1, pending = null, loaded = false, timer, touch, resumeOffset = null;
   let hasPreviousChapter = false, hasNextChapter = false, tap = null;
   document.body.classList.add('bible-paginated');
   document.body.classList.add('bible-awaiting-reading');
   function savedControls() {
-    $('continue').hidden = !last; $('go-bookmark').hidden = !bookmark;
+    $('continue').hidden = !last;
     if (last) $('continue').textContent = `Continue reading — ${last.reference}`;
-    if (bookmark) $('go-bookmark').textContent = `Go to bookmark — ${bookmark.reference} (page ${bookmark.page + 1})`;
+  }
+  function announce(message) { $('save-status').textContent=message; $('places-status').textContent=message; }
+  function commitPlaces(next,message) {
+    if(!M.writePlaces(storage,next)){announce('This browser could not save changes. Your saved places have not been changed.');return false;}
+    places=next;drawPlaces();render(0,false);announce(message);return true;
+  }
+  function placePosition() {
+    const p=position();if(!p)return null;
+    // Offset identifies the current content, independent of visual page numbers.
+    let verse;for(let n=0;n<=p.offset&&n<units.length;n++)if(units[n].verse)verse=units[n].text;
+    return M.validPlace({...p,reference:verse&&/^\d+$/.test(verse)?`${location.reference}:${verse}`:location.reference,createdAt:Date.now()});
+  }
+  function visiblePlaces() { return places.filter(p=>{const n=M.bookmarkPage(p,location,pages);return n>=index&&n<index+columns;}); }
+  function currentPlace() { const visible=visiblePlaces();return visible.find(p=>p.offset===position()?.offset)||visible[0]; }
+  function drawPlaces(focusId,action='open') {
+    const list=$('places-list');list.replaceChildren();$('places-empty').hidden=places.length>0;$('places-undo').hidden=!deletedPlace;
+    for(const p of places){
+      const row=document.createElement('li');row.className='bible-place';
+      const open=document.createElement('button');open.type='button';open.className='bible-place-open';open.disabled=busy;open.dataset.place=p.id;open.dataset.action='open';
+      const label=document.createElement('span');label.textContent=p.name||p.reference;open.append(label);
+      const detail=document.createElement('small');detail.textContent=`${p.name?p.reference+' · ':''}${p.translation==='niv'?'NIV':'NIrV'} · Anglicised`;open.append(detail);
+      open.setAttribute('aria-label',`Open saved place ${p.name?p.name+', ':''}${p.reference}, ${p.translation==='niv'?'NIV':'NIrV'}`);
+      open.addEventListener('click',()=>restore({...p,v:1,page:0}));row.append(open);
+      const actions=document.createElement('div');actions.className='bible-place-actions';
+      function button(text,fn){const b=document.createElement('button');b.type='button';b.textContent=text;b.setAttribute('aria-label',`${text} saved place ${p.name||p.reference}`);b.dataset.place=p.id;b.dataset.action=text.toLowerCase();b.addEventListener('click',fn);actions.append(b);return b;}
+      button('Rename',()=>{
+        const form=document.createElement('form');form.className='bible-place-edit';
+        const name=document.createElement('input');name.type='text';name.maxLength=80;name.value=p.name;name.setAttribute('aria-label',`Custom name for ${p.reference}`);name.autocomplete='off';
+        const save=document.createElement('button');save.type='submit';save.textContent='Save';
+        const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Cancel';cancel.addEventListener('click',()=>drawPlaces(p.id,'rename'));
+        form.append(name,save,cancel);actions.replaceChildren(form);name.focus();form.scrollIntoView?.({block:'nearest'});
+        form.addEventListener('submit',e=>{e.preventDefault();const next=places.map(x=>x.id===p.id?{...x,name:name.value.trim().slice(0,80)}:x);if(commitPlaces(next,'Saved place renamed.'))drawPlaces(p.id,'rename');});
+        name.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();drawPlaces(p.id,'rename');}});
+      });
+      button('Delete',()=>{const previous=deletedPlace;deletedPlace=p;if(commitPlaces(places.filter(x=>x.id!==p.id),'Saved place deleted. Undo is available.'))$('places-undo').focus();else deletedPlace=previous;});
+      row.append(actions);list.append(row);
+    }
+    if(focusId)for(const b of list.querySelectorAll('button'))if(b.dataset.place===focusId&&b.dataset.action===action)b.focus();
   }
   function position() { return location && { v: 1, ...location, page: index, offset: resumeOffset ?? (pages[index]?.start || 0) }; }
   function saveLast() {
@@ -50,7 +87,7 @@
     const text = document.createElement('div'); text.className = 'bible-content bible-page-text';
     if (pageIndex < pages.length) {
       section.setAttribute('aria-label', `${location.reference}, page ${pageIndex + 1} of ${pages.length}`);
-      if (M.bookmarkPage(bookmark, location, pages) === pageIndex) {
+      if (places.some(p=>M.bookmarkPage(p, location, pages) === pageIndex)) {
         section.setAttribute('aria-label', `${location.reference}, page ${pageIndex + 1} of ${pages.length}, bookmarked`);
         const ribbon = document.createElement('span'); ribbon.className = 'bible-page-ribbon'; ribbon.setAttribute('aria-hidden', 'true'); section.append(ribbon);
       }
@@ -62,12 +99,11 @@
     spread.replaceChildren(...Array.from({ length: columns }, (_, n) => leaf(index + n)));
     for (const text of spread.querySelectorAll('.bible-page-text')) if (text.scrollHeight > text.clientHeight + 1) { text.tabIndex = 0; text.setAttribute('role', 'region'); text.setAttribute('aria-label', 'Scroll within this reading page'); }
     spread.setAttribute('data-reading-offset', String(position()?.offset ?? 0));
-    pageControls();
+    pageControls(busy);
     $('page-status').textContent = columns > 1 && index + 1 < pages.length ? `Pages ${index + 1}–${Math.min(index + columns, pages.length)} of ${pages.length}` : `Page ${index + 1} of ${pages.length}`;
-    const marked = M.bookmarkPage(bookmark, location, pages);
-    const visibleBookmark = marked >= index && marked < index + columns;
+    const visibleBookmark = visiblePlaces().length>0;
     $('bookmark').setAttribute('aria-pressed', String(visibleBookmark));
-    $('bookmark').setAttribute('aria-label', visibleBookmark ? 'Remove bookmark from this page' : 'Bookmark this page');
+    $('bookmark').setAttribute('aria-label', visibleBookmark ? `Remove saved place ${currentPlace().reference} from this page` : 'Bookmark this page');
     if (direction && !reduced.matches) {
       spread.classList.remove('turn-forward', 'turn-back'); void spread.offsetWidth;
       spread.classList.add(direction > 0 ? 'turn-forward' : 'turn-back');
@@ -131,20 +167,22 @@
     resumeOffset = null; index = next; render(direction); return true;
   }
   function restore(p) {
-    if (!p || $('read').disabled) return;
+    if (!p) return;
+    if ($('read').disabled) { announce('The Bible is not ready to open this place. Close this menu and use Try again. Your saved place is kept.'); return; }
+    if (!Array.from($('translation').options).some(option => option.value === p.translation)) { announce('The saved translation is unavailable. Your saved place is kept. Choose a book and chapter to keep reading.'); return; }
     const drawer = $('drawer');
     if (drawer.open) {
       drawer.addEventListener('close', () => restore(p), { once: true });
       drawer.close(); return;
     }
-    if (!Array.from($('translation').options).some(option => option.value === p.translation)) { $('save-status').textContent = 'The saved translation is unavailable. Choose a book and chapter to keep reading.'; return; }
     pending = p; resumeOffset = p.offset;
     if (location && p.translation === location.translation && p.chapter === location.chapter) {
       layout(p.offset, true); pending = null; $('save-status').textContent = 'Returned near your saved reading position.'; $('reference').focus();
     } else document.dispatchEvent(new CustomEvent('bible-request-location', { detail: p }));
   }
   document.addEventListener('bible-busy', event => {
-    for (const id of ['continue', 'go-bookmark']) $(id).disabled = event.detail;
+    busy=event.detail;$('continue').disabled=busy;
+    for(const b of $('places-list').querySelectorAll('button'))if(b.dataset.action==='open')b.disabled=busy;
     $('bookmark').disabled = event.detail || reading.hidden || !location;
     pageControls(event.detail);
   });
@@ -168,17 +206,18 @@
   $('page-previous').addEventListener('click', () => move(-1));
   $('page-next').addEventListener('click', () => move(1));
   $('continue').addEventListener('click', () => restore(last));
-  $('go-bookmark').addEventListener('click', () => restore(bookmark));
+  $('places-undo').addEventListener('click',()=>{
+    if(!deletedPlace)return;
+    if(places.length>=M.placesLimit){announce('You have 100 saved places. Delete one before undoing this deletion.');return;}
+    const p=deletedPlace;deletedPlace=null;
+    if(commitPlaces([...places.filter(x=>x.id!==p.id),p].sort((a,b)=>b.createdAt-a.createdAt),'Saved place restored.'))drawPlaces(p.id);else deletedPlace=p;
+  });
   $('bookmark').addEventListener('click', () => {
     if (reading.hidden || $('read').disabled) return;
-    const p = position();
-    const marked = M.bookmarkPage(bookmark, location, pages);
-    if (marked >= index && marked < index + columns) {
-      if (M.remove(storage, 'bookmark')) { bookmark = null; savedControls(); render(0, false); $('save-status').textContent = 'Bookmark removed.'; }
-      else $('save-status').textContent = 'This browser could not remove the saved bookmark.';
-    }
-    else if (M.save(storage, 'bookmark', p)) { bookmark = p; savedControls(); render(0, false); $('save-status').textContent = `Bookmarked ${p.reference}, page ${index + 1}.`; }
-    else $('save-status').textContent = 'This browser could not save a bookmark. You can keep reading normally.';
+    const p = placePosition(),current=currentPlace();
+    if(current){commitPlaces(places.filter(x=>x.id!==current.id),`Removed saved place ${current.reference}.`);return;}
+    if(places.length>=M.placesLimit){announce('You have 100 saved places. Delete one in Books and saved places before adding another.');return;}
+    if(p)commitPlaces([p,...places.filter(x=>x.id!==p.id)],`Saved ${p.reference}.`);
   });
   document.addEventListener('keydown', event => {
     const target = event.target;
@@ -253,8 +292,7 @@
     for (const element of [probe, document.querySelector('.site-header'), document.querySelector('.bible-intro'), document.querySelector('.bible-toolbar'), document.querySelector('.bible-saved-tools'), document.querySelector('.bible-reading-heading')]) if (element) observer.observe(element);
   }
   window.addEventListener('pagehide', () => { if (loaded && !reading.hidden) saveLast(); });
-  $('drawer-content').append($('go-bookmark'));
-  $('drawer-content').append($('continue'));
-  document.querySelector('.bible-toolbar').append($('bookmark'));
-  savedControls();
+  $('drawer-content').append($('continue'),$('places-section'));
+  document.querySelector('.bible-toolbar').append($('bookmark'),$('close'));
+  savedControls();drawPlaces();
 })();

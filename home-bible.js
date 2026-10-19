@@ -15,7 +15,7 @@
   panel.append(close, frame); dialog.append(panel); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-book-polish-1';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-saved-places-1';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {
