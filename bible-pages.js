@@ -16,8 +16,9 @@
     if (last) $('continue').textContent = `Continue reading — ${last.reference}`;
   }
   function announce(message) { $('save-status').textContent=message; $('places-status').textContent=message; }
+  function placesError(message) { announce(message);if(!$('drawer').open)$('drawer').showModal();$('places-status').focus(); }
   function commitPlaces(next,message) {
-    if(!M.writePlaces(storage,next)){announce('This browser could not save changes. Your saved places have not been changed.');return false;}
+    if(!M.writePlaces(storage,next)){placesError('This browser could not save changes. Your saved places have not been changed.');return false;}
     places=next;drawPlaces();render(0,false);announce(message);return true;
   }
   function placePosition() {
@@ -168,8 +169,8 @@
   }
   function restore(p) {
     if (!p) return;
-    if ($('read').disabled) { announce('The Bible is not ready to open this place. Close this menu and use Try again. Your saved place is kept.'); return; }
-    if (!Array.from($('translation').options).some(option => option.value === p.translation)) { announce('The saved translation is unavailable. Your saved place is kept. Choose a book and chapter to keep reading.'); return; }
+    if ($('read').disabled) { placesError('The Bible is not ready to open this place. Close this menu and use Try again. Your saved place is kept.'); return; }
+    if (!Array.from($('translation').options).some(option => option.value === p.translation)) { placesError('The saved translation is unavailable. Your saved place is kept. Choose a book and chapter to keep reading.'); return; }
     const drawer = $('drawer');
     if (drawer.open) {
       drawer.addEventListener('close', () => restore(p), { once: true });
@@ -208,7 +209,7 @@
   $('continue').addEventListener('click', () => restore(last));
   $('places-undo').addEventListener('click',()=>{
     if(!deletedPlace)return;
-    if(places.length>=M.placesLimit){announce('You have 100 saved places. Delete one before undoing this deletion.');return;}
+    if(places.length>=M.placesLimit){placesError('You have 100 saved places. Delete one before undoing this deletion.');return;}
     const p=deletedPlace;deletedPlace=null;
     if(commitPlaces([...places.filter(x=>x.id!==p.id),p].sort((a,b)=>b.createdAt-a.createdAt),'Saved place restored.'))drawPlaces(p.id);else deletedPlace=p;
   });
@@ -216,7 +217,7 @@
     if (reading.hidden || $('read').disabled) return;
     const p = placePosition(),current=currentPlace();
     if(current){commitPlaces(places.filter(x=>x.id!==current.id),`Removed saved place ${current.reference}.`);return;}
-    if(places.length>=M.placesLimit){announce('You have 100 saved places. Delete one in Books and saved places before adding another.');return;}
+    if(places.length>=M.placesLimit){placesError('You have 100 saved places. Delete one in Books and saved places before adding another.');return;}
     if(p)commitPlaces([p,...places.filter(x=>x.id!==p.id)],`Saved ${p.reference}.`);
   });
   document.addEventListener('keydown', event => {
