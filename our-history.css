@@ -102,7 +102,7 @@ html.history-modal-open, html.history-modal-open body { overflow:hidden; }
  .history-story-body p { font-size:17px; line-height:1.65; }
 }
 .history-period:hover h3 { text-decoration:underline; text-underline-offset:4px; }
-html.history-modal-open body { position:fixed; top:var(--history-scroll-top); width:100%; }
+html.history-modal-open body { position:fixed; top:var(--history-scroll-top); inset-inline:0; width:min(100%,var(--site-shell-max,1600px)); }
 
 /* Clergy feature only: genuine archival prints over a softly blended parish scene. */
 .history-feature { min-height:280px; background:#f7f4e9; }

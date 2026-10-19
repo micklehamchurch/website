@@ -1,3 +1,5 @@
+> The outer shell is now shared site-wide; see [shared shell architecture](site-shell.md). The approved homepage geometry is retained.
+
 # Contained homepage (Task 20 revision)
 
 Replaces the virtual full-bleed hero frame from Task 19. The homepage body is the actual centred shell: maximum 1600px, available width below that. The fixed header, entire hero image, lower section backgrounds and footer share this boundary. The viewport surround is warm neutral #eeebe5. No transform or containment changes fixed positioning.

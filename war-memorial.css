@@ -3,7 +3,7 @@
 .memorial-page .memorial-shell { width:100%; max-width:none; }
 .memorial { --memorial-paper:var(--paper,#fffdf7); }
 .memorial-hero { position:relative; isolation:isolate; min-height:clamp(720px,56vw,850px); }
-.memorial-copy { position:relative; z-index:1; width:52%; padding:28px 18px 32px max(4.9vw,calc((100vw - 1440px)/2)); }
+.memorial-copy { position:relative; z-index:1; width:52%; padding:28px 18px 32px max(calc(var(--site-shell-width, 100vw) * .049),calc((var(--site-shell-width, 100vw) - 1440px)/2)); }
 .memorial-copy .topic-back { margin-bottom:20px; }
 .memorial-copy .eyebrow { margin:0 0 8px; font-size:12px; letter-spacing:.18em; }
 .memorial-copy h1 { margin:0 0 14px; font:600 clamp(36px,3.2vw,50px)/1.12 var(--serif); letter-spacing:-.025em; }
