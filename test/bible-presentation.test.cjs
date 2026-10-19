@@ -67,7 +67,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
   const panel = nodes.find(e => e.tag === 'div');
   const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
-  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-physical-c2/); assert(classes.has('bible-modal-open'));
+  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-physical-c3/); assert(classes.has('bible-modal-open'));
   assert.equal(close.hidden,false);
   events.message({origin:'https://other.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,false);
   events.message({origin:'https://example.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,true);

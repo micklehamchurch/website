@@ -84,3 +84,6 @@ html:has(body.bible-overlay){background:transparent}
 .bible-paginated .bible-notices{font-size:11px}
 .bible-reading-hint{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:959px){.bible-overlay.bible-paginated .bible-toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#1b3028f2;border-radius:8px}}
+/* Include the visible leather/page stack in the book's native hit shape. */
+.bible-paginated .bible-reader{border:solid transparent;border-width:0 12px 16px;background-clip:padding-box}
+@media(max-width:600px),(max-height:500px) and (max-width:959px){.bible-paginated .bible-reader{border-width:0 7px 10px}}

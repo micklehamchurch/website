@@ -27,3 +27,14 @@ export async function checkEdgeTaps(tab) {
  for(const [open,close] of [['bible-browse','bible-drawer-close'],['bible-about','bible-information-close']]){await frame.locator('#'+open).click();await tab.getAXState({emit:false});await frame.locator('#'+close).click();await tab.getAXState({emit:false});if(await status()!==before)throw Error(open+' turned page')}
  return {before,next,leftReturned:true,textSafe:true,controlsSafe:true};
 }
+export async function checkCoverAndBackdrop(tab) {
+ const frame=tab.playwright.frameLocator('iframe[title="Mickleham Church Bible reader"]');
+ const parent=await tab.playwright.locator('.home-bible-dialog iframe').evaluate(el=>el.getBoundingClientRect().toJSON());
+ const book=await frame.locator('.bible-reader').evaluate(el=>el.getBoundingClientRect().toJSON());
+ const y=parent.top+book.top+Math.min(200,book.height/2),inside=[parent.left+book.left+2,y],outside=[parent.left+book.left-6,y];
+ await tab.getScreenshot({emit:false});await tab.click(inside);await tab.getAXState({emit:false});
+ if(!await tab.playwright.locator('.home-bible-dialog').evaluate(el=>el.open))throw Error('Visible cover edge closed the Bible');
+ await tab.getScreenshot({emit:false});await tab.click(outside);await tab.getAXState({emit:false});
+ if(await tab.playwright.locator('.home-bible-dialog').evaluate(el=>el.open))throw Error('Visible background outside cover did not close');
+ return {inside,outside,coverProtected:true,backdropClosed:true};
+}
