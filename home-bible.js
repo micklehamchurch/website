@@ -15,7 +15,7 @@
   panel.append(close, frame); dialog.append(panel); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-physical-c';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-physical-c2';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {

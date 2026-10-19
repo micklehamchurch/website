@@ -83,3 +83,4 @@ html:has(body.bible-overlay){background:transparent}
 .bible-reader:has([data-page-mode="facing"]) .bible-right-page{background:linear-gradient(90deg,#eadbb8,#fff9e9 5%,#fcf5e4 46%,#d2bd91 49.7%,#bda67c 50%,#f2e6cb 51.5%,#fff9e9 55%,#fcf4df 96%,#e2cfaa)}
 .bible-paginated .bible-notices{font-size:11px}
 .bible-reading-hint{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:959px){.bible-overlay.bible-paginated .bible-toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#1b3028f2;border-radius:8px}}

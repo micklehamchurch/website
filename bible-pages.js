@@ -92,7 +92,7 @@
 
     // Match the real leaf's typography and usable width before measuring fits.
     pages = [{ start: 0, end: 0 }]; spread.hidden = false; render(0, false);
-    const top = spread.getBoundingClientRect().top;
+    const top = spread.getBoundingClientRect().top + (window.scrollY || 0);
     const notices = document.querySelector('.bible-notices');
     const reserve = ($('page-controls').offsetHeight || 64) + (notices?.offsetHeight || 44) + 164;
     const height = Math.max(120, Math.min(900, window.innerHeight - top - reserve));
