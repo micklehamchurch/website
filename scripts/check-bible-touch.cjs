@@ -46,7 +46,10 @@ const sizes=[[390,844],[844,390],[820,1180],[1180,820]].filter(([width])=>!proce
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(150);
     assert.equal(index(await state()),index(before)+(mode==='facing'?2:1),'one swipe turn '+JSON.stringify(await f.locator('body').evaluate(()=>({events:window.__gestureEvents.slice(-10),selected:!!window.getSelection().toString()}))));
     await page.waitForTimeout(150);assert.equal(index(await state()),index(before)+(mode==='facing'?2:1),'no release/ghost turn');
-    await tap(-1);assert.equal((await state()).offset,before.offset,'fresh post-swipe tap');
+    const reverse=await point(-1);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[reverse]});
+    for(let n=1;n<=5;n++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:reverse.x+20*n,y:reverse.y}]});await page.waitForTimeout(25);}
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(150);assert.equal((await state()).offset,before.offset,'right swipe goes back exactly once');
+    await tap(1);await tap(-1);assert.equal((await state()).offset,before.offset,'fresh post-swipe taps');result.swipeBothDirections=true;
     const hold=await point(1);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[hold]});await page.waitForTimeout(500);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});assert.equal((await state()).offset,before.offset,'long press');
     // Clear only the test selection, never production state.
     await f.locator('body').evaluate(()=>window.getSelection().removeAllRanges());

@@ -132,7 +132,9 @@
     pages = [{ start: 0, end: 0 }]; spread.hidden = false; render(0, false);
     const top = spread.getBoundingClientRect().top + (window.scrollY || 0);
     const notices = document.querySelector('.bible-notices');
-    const reserve = ($('page-controls').offsetHeight || 64) + (notices?.offsetHeight || 44) + 164;
+    const compactReserve = parseFloat(getComputedStyle(spread).getPropertyValue?.('--bible-reading-reserve'));
+    const extra = Number.isFinite(compactReserve) ? compactReserve + (parseFloat(getComputedStyle(document.querySelector('main')).paddingBottom) || 0) : 164;
+    const reserve = ($('page-controls').offsetHeight || 64) + (notices?.offsetHeight || 44) + extra;
     const height = Math.max(120, Math.min(900, window.innerHeight - top - reserve));
     spread.style.setProperty('--bible-page-height', `${height}px`);
     const realText = spread.querySelector('.bible-page-text');

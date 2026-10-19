@@ -18,10 +18,11 @@ function presentation(mobileInitially = false, paginated = false, overlay = fals
   const get = id => { if (id === 'bible-page-spread' && !paginated) return null; if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
   document = { getElementById: get, activeElement: null, body: { classList: { add() {}, contains: () => paginated } }, addEventListener(k,fn) {rootEvents[k]=fn}, querySelector:s=>s==='.bible-toolbar'?get('bible-toolbar'):[...elements.values()].find(e=>e.open)||null };
   const mobile = { matches: mobileInitially, addEventListener(name, fn) { this.change = fn; } };
-  const window = { matchMedia: () => mobile }; window.parent = overlay ? {postMessage:(...m)=>messages.push(m)} : window;
+  const compact = { matches: mobileInitially, addEventListener(name, fn) { this.change = fn; } };
+  const window = { matchMedia: q => q.includes('959') ? compact : mobile }; window.parent = overlay ? {postMessage:(...m)=>messages.push(m)} : window;
   get('bible-controls-home').append(get('bible-controls'));
   vm.runInNewContext(fs.readFileSync(require.resolve('../bible-presentation.js'), 'utf8'), { document, window, URLSearchParams, location:{search:'?book=overlay',origin:'https://example.test'} });
-  return {rootEvents,messages, get: name => get('bible-' + name), mobile, document };
+  return {compact,rootEvents,messages, get: name => get('bible-' + name), mobile, document };
 }
 
 test('mobile drawer reuses the live controls, closes on reading, and returns focus', () => {
@@ -87,7 +88,7 @@ test('shared header overlay unloads on close and accepts close messages only fro
   const panel = nodes.find(e => e.tag === 'div');
   const dialog = nodes.find(e => e.tag === 'dialog'), frame = nodes.find(e => e.tag === 'iframe'), close = nodes.find(e => e.tag === 'button');
   trigger.events.click({ preventDefault() {} });
-  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-copyright-1/); assert(classes.has('bible-modal-open'));
+  assert(dialog.open); assert.match(frame.getAttribute('src'), /v=20261019-mobile-target-1/); assert(classes.has('bible-modal-open'));
   assert.equal(close.hidden,false);
   events.message({origin:'https://other.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,false);
   events.message({origin:'https://example.test',source:frame.contentWindow,data:'mickleham-bible-toolbar-ready'});assert.equal(close.hidden,true);
@@ -135,3 +136,5 @@ test('Escape dismisses only the active inner dialog before closing the reader an
  p.get('drawer').close();p.get('about').events.click();assert(p.get('information').open);p.rootEvents.keydown({key:'Escape'});assert.equal(p.messages.filter(m=>m[0]==='mickleham-close-bible').length,0);
  p.get('information-close').events.click();assert.equal(p.document.activeElement,p.get('about'));p.rootEvents.keydown({key:'Escape'});assert.equal(p.messages.at(-1)[0],'mickleham-close-bible');
 });
+
+test('mobile edition moves once into icon toolbar and returns to desktop chapter heading',()=>{const p=presentation(true,true);assert(p.get('toolbar').contains(p.get('edition')));assert(!p.get('heading').contains(p.get('edition')));p.compact.matches=false;p.compact.change();assert(p.get('heading').contains(p.get('edition')));assert(!p.get('toolbar').contains(p.get('edition')));});

@@ -7,3 +7,6 @@
 .home-bible-close{color:#fff7df}
 .home-bible-close:focus-visible{outline-color:#fff0b8}
 @media(max-width:959px){.home-bible-dialog{padding:0}}
+
+/* Bible is a focused reading experience; restore the unchanged launcher on close. */
+html.bible-modal-open .feedback-launcher{display:none!important}

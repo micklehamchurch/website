@@ -18,6 +18,21 @@
   form.addEventListener('submit', () => { if (drawer.open) drawer.close(); });
   mobile.addEventListener('change', placeControls);
   placeControls();
+  // Move the same live edition node: one accessible label, no duplicate heading.
+  const compact = window.matchMedia('(max-width: 959px)');
+  function placeEdition() {
+    const edition = get('edition');
+    if (compact.matches) {
+      get('toolbar').append(edition);
+      get('toolbar').append(get('bookmark'));
+      get('toolbar').append(get('close'));
+    } else {
+      get('heading').append(edition);
+      get('heading').append(get('reference'));
+    }
+  }
+  compact.addEventListener('change', placeEdition);
+  placeEdition();
   const about = get('about'), information = get('information');
   function presentCopyright() {
     const full = get('copyright'), citation = get('copyright-citation');

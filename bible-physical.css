@@ -134,3 +134,26 @@ html:has(body.bible-overlay){background:transparent}
 .bible-reader:has([data-page-mode="single"]) .bible-paper-surface{background:linear-gradient(90deg,#dfcda7,#fff9e9 18px,#fcf5e4 92%,#e6d4ab)}
 @media(max-width:959px){.bible-paginated .bible-reader .bible-toolbar{padding-inline:6px}.bible-paginated .bible-reader{border-radius:16px 18px 16px 16px}}
 @media(forced-colors:active){.bible-paginated .bible-reader{background:Canvas}.bible-paginated .bible-reader .bible-toolbar button{color:ButtonText}.bible-paginated .bible-reader .bible-toolbar button:focus-visible{outline-color:Highlight}}
+/* Approved mobile hierarchy: controls and live edition share one paper row. */
+.bible-page .feedback-launcher{display:none!important}
+@media(max-width:959px){
+ .bible-paginated .bible-reader .bible-toolbar{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:2px;padding:3px 4px 0}
+ .bible-paginated .bible-reader .bible-toolbar #bible-browse{margin:0}
+ .bible-toolbar #bible-edition{min-width:0;margin:0;padding:0 3px;font:500 .75rem/1.35 var(--sans);letter-spacing:0;text-transform:none;text-align:center;color:#304934;overflow-wrap:anywhere;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ .bible-paginated .bible-reading-heading{padding:4px 14px 8px}
+ .bible-paginated .bible-reading-heading::after{display:none}
+ .bible-paginated .bible-reading h2{font-size:28px;line-height:1.2}
+ .bible-paginated .bible-notices{text-align:center}
+ .bible-overlay .bible-about-link{margin-top:8px;margin-bottom:0}
+}
+@media(pointer:coarse) and (max-width:600px),(pointer:coarse) and (max-width:959px) and (max-height:500px){
+ .bible-paginated #bible-page-spread{--bible-reading-reserve:124px}
+ .bible-paginated #bible-page-controls button{display:none}
+ .bible-paginated #bible-page-controls{justify-content:center;min-height:0;padding:6px 18px 2px;margin:0;border:0}
+ .bible-paginated #bible-page-status{flex:1;font-size:14px;line-height:1.5}
+ .bible-paginated .bible-notices{margin-top:2px}
+ .bible-paginated .bible-reading{padding-bottom:8px}
+}
+
+/* The reader has no floating launcher, so it needs no launcher clearance. */
+html.feedback-enabled body.bible-page::after{display:none}
