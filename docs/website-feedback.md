@@ -232,7 +232,7 @@ The floating PCC Feedback button opens a short Website Feedback form, never the
 advanced board. New reviewers enter name, feedback, and a code only when the
 existing setting requires it. Remembered reviewers only enter feedback. Sending
 uses the existing access/create API actions and preserves the originating page.
-A Thank you confirmation follows; View PCC discussions explicitly opens the
+A Thank you confirmation follows; View discussions explicitly opens the
 unchanged board with replies, status, filters, search and refresh. Reopening the
 floating button starts with the simple form again. Admin screens and all backend
 policies are unchanged by this presentation-only refinement.
