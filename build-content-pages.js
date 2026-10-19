@@ -128,6 +128,7 @@ for (const page of pages) {
   const isPrayer = page.layout === 'prayer';
   const isPastoralCare = page.layout === 'pastoral-care';
   const isWorshipLife = page.layout === 'worship-life';
+  const isWedding = isWorshipLife && page.lifeEvent?.kind === 'wedding';
   const backLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : page.section === 'about' ? 'About our parish' : 'Visit & Learn');
   const breadcrumbLabel = page.parentLabel || (page.section === 'worship' ? 'Worship' : page.section === 'community' ? 'Our Community' : 'Visit & Learn');
   const related = isPrivacy
@@ -162,8 +163,8 @@ for (const page of pages) {
   const policyApproval = isSafeguarding ? `          <section class="safeguarding-approval" aria-labelledby="safeguarding-approval-heading"><h2 id="safeguarding-approval-heading">Policy approval and review</h2><p><strong>Signed:</strong> ${esc(page.policyApproval.signed)}</p><p><strong>Name:</strong> ${esc(page.policyApproval.name)}</p><p><strong>Date:</strong> ${esc(page.policyApproval.review)}</p><address>${page.policyApproval.address.map(esc).join('<br>')}</address></section>\n` : '';
   const image = page.image ? `<figure class="topic-image${page.imageClass ? ` ${esc(page.imageClass)}` : ''}${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
   const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? renderPastoralContent(page) : isWorshipLife ? renderWorshipLifeContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
-  const lifeStylesheet = isWorshipLife ? '  <link rel="stylesheet" href="worship-life.css">\n' : '';
-  const pageStructure = page.layout === 'war-memorial' ? require('./war-memorial-render')(page) : page.layout === 'find-us' ? require('./find-us-render')(page) : isWorshipLife
+  const lifeStylesheet = isWedding ? '  <link rel="stylesheet" href="weddings.css?v=20261019-story-1">\n' : isWorshipLife ? '  <link rel="stylesheet" href="worship-life.css">\n' : '';
+  const pageStructure = isWedding ? require('./weddings-render')(page) : page.layout === 'war-memorial' ? require('./war-memorial-render')(page) : page.layout === 'find-us' ? require('./find-us-render')(page) : isWorshipLife
     ? `<div class="life-hero life-hero-${esc(page.lifeEvent?.kind || 'page')}"><p class="eyebrow">${esc(page.lifeEvent?.heroLabel || page.category)}</p><h1>${esc(page.lifeEvent?.heroTitle || page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="life-hero-actions"><a class="btn btn-green" href="${esc(page.lifeEvent?.primary?.href || page.href || 'contact.html')}">${esc(page.lifeEvent?.primary?.label || page.action || 'Find out more')} <span aria-hidden="true">→</span></a>${page.lifeEvent?.secondary ? `<a class="btn btn-outline-green" href="${esc(page.lifeEvent.secondary.href)}">${esc(page.lifeEvent.secondary.label)}</a>` : ''}</div></div>${pageContent}<div class="topic-actions"><a class="btn btn-outline-green" href="${esc(page.back)}">Back to ${esc(backLabel)}</a></div>`
     : isPrayer || isPastoralCare
     ? `<div class="care-hero ${isPrayer ? 'prayer-hero' : 'pastoral-hero'}"><p class="eyebrow">${esc(page.heroLabel)}</p><h1>${esc(page.heroTitle)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="care-hero-actions"><a class="btn btn-green" href="${esc(page.heroAction.href)}">${esc(page.heroAction.label)} <span aria-hidden="true">→</span></a><a class="care-hero-secondary" href="${esc(page.heroSecondary.href)}">${esc(page.heroSecondary.label)}</a></div></div>${pageContent}`
@@ -215,9 +216,9 @@ ${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section topic-page${page.layout === 'war-memorial' ? ' memorial-page' : ''}${page.layout === 'find-us' ? ' find-page' : ''}${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : isPrayer ? ' prayer-page' : isPastoralCare ? ' pastoral-care-page' : ''}" tabindex="-1">
-    <div class="container topic-container${page.layout === 'war-memorial' ? ' memorial-shell' : ''}${page.layout === 'find-us' ? ' find-shell' : ''}${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
-      ${['find-us','war-memorial'].includes(page.layout) ? '' : `<a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>`}
+  <main id="main-content" class="section topic-page${isWedding ? ' wedding-page' : ''}${page.layout === 'war-memorial' ? ' memorial-page' : ''}${page.layout === 'find-us' ? ' find-page' : ''}${isPrivacy ? ' privacy-page' : isSafeguarding ? ' safeguarding-page' : isElectoralRoll ? ' electoral-roll-page' : isEcoChurch ? ' eco-church-page' : isFellowship ? ' fellowship-page' : isChildrenFamilies ? ' children-families-page' : isPrayer ? ' prayer-page' : isPastoralCare ? ' pastoral-care-page' : ''}" tabindex="-1">
+    <div class="container topic-container${isWedding ? ' wedding-shell' : ''}${page.layout === 'war-memorial' ? ' memorial-shell' : ''}${page.layout === 'find-us' ? ' find-shell' : ''}${isPrivacy ? ' privacy-container' : isSafeguarding ? ' safeguarding-container' : isElectoralRoll ? ' electoral-roll-container' : ''}">
+      ${(isWedding || ['find-us','war-memorial'].includes(page.layout)) ? '' : `<a class="topic-back" href="${esc(page.back)}">← ${esc(breadcrumbLabel)}</a>`}
       ${pageStructure}
     </div>
   </main>
