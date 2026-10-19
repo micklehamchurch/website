@@ -2,6 +2,8 @@
 export async function inspectPhysicalBible(tab) {
  const frame=tab.playwright.frameLocator('iframe[title="Mickleham Church Bible reader"]');
  await tab.getAXState({emit:false});
+ // Wait until the reader handshake hides the fallback close row before measuring.
+ await tab.playwright.locator('.home-bible-close[hidden]').waitFor({state:'attached'});
  const viewport=await tab.playwright.locator('.home-bible-dialog iframe').evaluate(el=>({w:el.clientWidth,h:el.clientHeight}));
  await frame.locator('#bible-page-spread[data-layout-viewport="'+viewport.w+'"][data-layout-height="'+viewport.h+'"][aria-busy="false"]').waitFor({state:'attached'});
  await tab.getScreenshot({emit:false});
