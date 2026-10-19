@@ -228,7 +228,7 @@ server-side allowlist remain mandatory regardless of this reviewer setting.
 
 ## Simple reviewer popup
 
-The floating PCC Feedback button opens a short Website Feedback form, never the
+The floating Feedback button opens a short Website Feedback form, never the
 advanced board. New reviewers enter name, feedback, and a code only when the
 existing setting requires it. Remembered reviewers only enter feedback. Sending
 uses the existing access/create API actions and preserves the originating page.
@@ -236,3 +236,9 @@ A Thank you confirmation follows; View discussions explicitly opens the
 unchanged board with replies, status, filters, search and refresh. Reopening the
 floating button starts with the simple form again. Admin screens and all backend
 policies are unchanged by this presentation-only refinement.
+
+### Neutral public review wording and cache versions
+
+Public Feedback uses “View discussions”, “Your feedback will be shared with the website team.”, “Access code”, “Reviewer” and “other reviewers”. The public board introduction and access-setup error also use neutral website-review wording. Admin-only PCC configuration, reviewer badges, moderation text and all internal PCC values/session keys remain unchanged.
+
+Public pages version the shared site.js entry with feedback=20261019-public-wording-1; site.js versions feedback.js, which versions both Feedback modules. The quick form imports the same version of feedback-ui.mjs to retain a single shared module/session implementation. This prevents an older cached entry/module from retaining previous labels after a successful Pages deployment. A queued Pages run is not a deployed commit: during the GitHub Actions/Pages incident the live files still predated the wording commit.

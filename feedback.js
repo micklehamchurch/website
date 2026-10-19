@@ -1,5 +1,5 @@
-import {createFeedbackClient,currentFeedbackPage,mountFeedback} from './feedback-ui.mjs?v=simple-1';
-import {mountQuickFeedback} from './feedback-quick.mjs?v=simple-1';
+import {createFeedbackClient,currentFeedbackPage,mountFeedback} from './feedback-ui.mjs?v=20261019-public-wording-1';
+import {mountQuickFeedback} from './feedback-quick.mjs?v=20261019-public-wording-1';
 const api=createFeedbackClient(),context=currentFeedbackPage();
 const board=document.querySelector('#website-feedback-board');
 if(board){
