@@ -3,7 +3,7 @@
 const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
 const base=process.env.BIBLE_TEST_URL||'http://127.0.0.1:4191/';
-const sizes=[[390,844],[844,390],[820,1180],[1180,820]];
+const sizes=[[390,844],[844,390],[820,1180],[1180,820]].filter(([width])=>!process.env.BIBLE_TEST_WIDTH||width===Number(process.env.BIBLE_TEST_WIDTH));
 (async()=>{
  for(const [engine,type] of Object.entries({chromium,webkit})){
   const browser=await type.launch({headless:true});
@@ -14,6 +14,9 @@ const sizes=[[390,844],[844,390],[820,1180],[1180,820]];
    if(process.env.BIBLE_GESTURE_SOURCE)await page.route('**/bible-pages.js?*',route=>route.fulfill({contentType:'text/javascript',body:require('node:fs').readFileSync(process.env.BIBLE_GESTURE_SOURCE,'utf8')}));
    await page.goto(base);await page.locator('#header-bible-open').click();
    const f=page.frameLocator('iframe[title="Mickleham Church Bible reader"]');
+   await f.locator('#bible-book:not([disabled])').waitFor({state:'attached'});
+   await f.locator('body').evaluate(async()=>{await document.fonts.ready;});
+   await page.waitForTimeout(200);
    await f.locator('#bible-browse').click();await f.locator('#bible-book').selectOption('JHN');
    await f.locator('#bible-chapter').selectOption('JHN.3');await f.locator('#bible-read').click();
    await f.getByRole('heading',{name:'John 3',exact:true}).waitFor();
@@ -24,7 +27,7 @@ const sizes=[[390,844],[844,390],[820,1180],[1180,820]];
    const index=s=>Number(s.status.match(/\d+/)[0]);
    const mode=await f.locator('#bible-page-spread').getAttribute('data-page-mode');
    assert.equal(mode,width===1180?'facing':'single');
-   async function point(side){const leaves=f.locator('.bible-paper-page');const p=leaves.nth(mode==='facing'&&side>0?1:0);const box=await p.boundingBox();const t=await p.locator('.bible-page-text').boundingBox();return {x:box.x+box.width*(mode==='facing'?.5:side>0?.8:.2),y:t.y+35};}
+   async function point(side){await f.locator('#bible-reference').scrollIntoViewIfNeeded();const leaves=f.locator('.bible-paper-page');const p=leaves.nth(mode==='facing'&&side>0?1:0);const box=await p.boundingBox();const t=await p.locator('.bible-page-text').boundingBox();return {x:box.x+box.width*(mode==='facing'?.5:side>0?.8:.2),y:t.y+35};}
    const tap=async(side)=>{const p=await point(side);await page.touchscreen.tap(p.x,p.y);await page.waitForTimeout(100);return p;};
    const before=await state(),right=await tap(1),next=await state();assert.equal(index(next),index(before)+(mode==='facing'?2:1));
    const left=await tap(-1),back=await state();assert.equal(back.offset,before.offset);
@@ -49,12 +52,16 @@ const sizes=[[390,844],[844,390],[820,1180],[1180,820]];
     await f.locator('body').evaluate(()=>window.getSelection().removeAllRanges());
     result.touchSwipeOnce=true;result.longPressSafe=true;
    }
-   const text=await f.locator('.bible-page-text').first().locator('p').first().boundingBox();
+   await point(1);const text=await f.locator('.bible-page-text').first().locator('p').first().boundingBox();
    await page.mouse.move(text.x+12,text.y+10);await page.mouse.down();await page.mouse.move(text.x+Math.min(160,text.width-12),text.y+10,{steps:8});await page.mouse.up();
    assert.equal((await state()).offset,before.offset,'text drag does not navigate');
    assert(await f.locator('body').evaluate(()=>!!window.getSelection().toString()),'Scripture remains selectable');
    await f.locator('body').evaluate(()=>window.getSelection().removeAllRanges());result.textSelectionSafe=true;
    if(mode==='facing'){
+    // Recreate the reported John 1 middle-spread state, not only a first spread.
+    await f.locator('#bible-browse').tap();await f.locator('#bible-chapter').selectOption('JHN.1');await f.locator('#bible-read').tap();await f.getByRole('heading',{name:'John 1',exact:true}).waitFor();await settled();await page.waitForTimeout(200);
+    for(let n=0;n<3;n++){await f.locator('#bible-page-next').tap();await page.waitForTimeout(50);}
+    assert.equal(index(await state()),7);await tap(-1);assert.equal(index(await state()),5);await tap(1);assert.equal(index(await state()),7);result.john1MiddleSpread=true;
     async function choose(book,chapter){await f.locator('#bible-browse').tap();await f.locator('#bible-book').selectOption(book);await f.locator('#bible-chapter').selectOption(chapter);await f.locator('#bible-read').tap();await f.locator('#bible-reference').filter({hasText:chapter==='GEN.50'?'Genesis 50':'Genesis 1'}).waitFor();await settled();await page.waitForTimeout(200);}
     await choose('GEN','GEN.50');let total=Number((await state()).status.match(/\d+/g).at(-1));
     while(index(await state())+1<total){await f.locator('#bible-page-next').tap();await page.waitForTimeout(50);}
