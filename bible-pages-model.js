@@ -77,9 +77,14 @@
   function tapDirection(start, end, bounds, blocked = false) {
     if (!start || !end || !bounds || blocked || end.at - start.at > 350 || end.at < start.at) return 0;
     if (Math.abs(end.x - start.x) > 10 || Math.abs(end.y - start.y) > 10) return 0;
-    const edge = Math.min(30, bounds.width * .08);
+    // Generous outer quarters; the central half remains safe for reading/selection.
+    const edge = bounds.width * .25;
     const zone = p => p.y < bounds.top || p.y > bounds.bottom || p.x < bounds.left || p.x > bounds.right ? 0 : p.x <= bounds.left + edge ? -1 : p.x >= bounds.right - edge ? 1 : 0;
     return zone(start) === zone(end) ? zone(end) : 0;
   }
-  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection, layoutColumns, tapDirection };
+  function gestureDirection(start, end, bounds, blocked = false, swipeAllowed = true) {
+    if (blocked) return 0;
+    return (swipeAllowed ? swipeDirection(start, end) : 0) || tapDirection(start, end, bounds);
+  }
+  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection, layoutColumns, tapDirection, gestureDirection };
 });

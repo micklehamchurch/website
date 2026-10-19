@@ -21,9 +21,9 @@ export async function checkEdgeTaps(tab) {
  async function status(){return frame.locator('#bible-page-status').innerText()}
  const parent=await tab.playwright.locator('.home-bible-dialog iframe').evaluate(el=>el.getBoundingClientRect().toJSON());
  const paper=await frame.locator('.bible-paper-page').first().evaluate(el=>el.getBoundingClientRect().toJSON());
- const point=(side)=>[parent.left+(side<0?paper.left+8:paper.right-8),parent.top+paper.top+Math.min(120,paper.height/2)];
- const before=await status();await tab.getScreenshot({emit:false});await tab.click(point(1));await tab.getAXState({emit:false});const next=await status();if(before===next)throw Error('Right margin did not turn');
- await tab.getScreenshot({emit:false});await tab.click(point(-1));await tab.getAXState({emit:false});if(await status()!==before)throw Error('Left margin did not return');
+ const point=(side)=>[parent.left+(paper.left+paper.width*(side < 0 ? .2 : .8)),parent.top+paper.top+Math.min(120,paper.height/2)];
+ const before=await status();await tab.getScreenshot({emit:false});await tab.click(point(1));await tab.getAXState({emit:false});const next=await status();if(before===next)throw Error('Natural right-side tap did not turn');
+ await tab.getScreenshot({emit:false});await tab.click(point(-1));await tab.getAXState({emit:false});if(await status()!==before)throw Error('Natural left-side tap did not return');
  await frame.locator('.bible-page-text').first().click();await tab.getAXState({emit:false});if(await status()!==before)throw Error('Scripture click turned page');
  for(const id of ['bible-bookmark','bible-bookmark']){await frame.locator('#'+id).click();await tab.getAXState({emit:false});if(await status()!==before)throw Error(id+' turned page')}
  for(const [open,close] of [['bible-browse','bible-drawer-close'],['bible-about','bible-information-close']]){await frame.locator('#'+open).click();await tab.getAXState({emit:false});await frame.locator('#'+close).click();await tab.getAXState({emit:false});if(await status()!==before)throw Error(open+' turned page')}

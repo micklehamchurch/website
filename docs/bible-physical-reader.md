@@ -8,7 +8,7 @@ The iframe and native outer modal are transparent around the book. The existing 
 
 Pagination measures the real text width and font against a viewport budget that reserves space for navigation, the full visible copyright/attribution, and About. Resize/orientation changes retain the semantic token offset. The existing last-reading position and single explicit bookmark are unchanged and contain metadata only.
 
-Short margin taps navigate only in one-page mode, through the same `move` function as buttons. The Scripture text block is excluded. Movement over 10px, presses over 350ms, selected text, secondary pointers, links/forms/buttons and open dialogs are excluded. Swipes retain the existing touch handlers. There is no large invisible overlay over Scripture. Buttons and arrow keys remain the accessible alternatives. Reduced motion disables the opening/page leaf effects.
+Short taps in the outer 25% on either side of the single reading page navigate through the existing move function. The middle 50% is safe for reading. Text selection, long presses, vertical movement, controls and open dialogs are excluded. A single gesture decision chooses swipe or tap, once; pointer-capable browsers ignore compatibility touchend. Legacy touch-only browsers use the same classifier as a fallback. No invisible overlay or extra screen-reader elements are created.
 
 The existing copyright remains visible with the reading. About additionally repeats the current translation/copyright as text, retaining the existing API.Bible link and anonymous usage reporting explanation. The provider tracker, chapter requests, caching/quota and backend authentication are unchanged.
 

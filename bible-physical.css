@@ -87,3 +87,5 @@ html:has(body.bible-overlay){background:transparent}
 /* Include the visible leather/page stack in the book's native hit shape. */
 .bible-paginated .bible-reader{border:solid transparent;border-width:0 12px 16px;background-clip:padding-box}
 @media(max-width:600px),(max-height:500px) and (max-width:959px){.bible-paginated .bible-reader{border-width:0 7px 10px}}
+/* Let vertical scrolling/zoom remain native; horizontal gestures belong to the reader. */
+#bible-page-spread{touch-action:pan-y pinch-zoom}

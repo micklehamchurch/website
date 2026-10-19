@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),M=require('../bible-pages-model');
-function pagesReader({reduced=false,columns=1,failLayout=false}={}){
- const ids=new Map(),events={},data=new Map(),emitted=[];let document;
+function pagesReader({reduced=false,columns=1,failLayout=false,pointer=true}={}){
+ const ids=new Map(),events={},data=new Map(),emitted=[];let document,selection="";
  const storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};
  class E{
   constructor(tag='div'){this.nodeName=tag.toUpperCase();this.children=[];this.attrs={};this.events={};this.hidden=false;this.disabled=false;this.textContent='';this.value='niv';this.props={};this.style={setProperty:(k,v)=>this.props[k]=v};const classes=new Set();this.classList={add:(...c)=>c.forEach(x=>classes.add(x)),remove:(...c)=>c.forEach(x=>classes.delete(x)),contains:c=>classes.has(c)};}
@@ -11,19 +11,19 @@ function pagesReader({reduced=false,columns=1,failLayout=false}={}){
   remove(){if(this.parentElement)this.parentElement.children=this.parentElement.children.filter(x=>x!==this)}
   setAttribute(k,v){this.attrs[k]=v}getAttribute(k){return this.attrs[k]??null}removeAttribute(k){delete this.attrs[k]}
   addEventListener(k,v){this.events[k]=v}focus(){document.activeElement=this}getBoundingClientRect(){return {top:100,bottom:400,left:0,right:390,width:390}}
-  closest(selector){if(this.blocked)return this;if(selector===".bible-paper-page")return this.className==="bible-paper-page"?this:this.parentElement?.closest(selector);return null}
+  closest(selector){if(this.blocked)return this;if(selector===".bible-page-text")return this.className==="bible-content bible-page-text"?this:this.parentElement?.closest(selector);if(selector===".bible-paper-page")return this.className==="bible-paper-page"?this:this.parentElement?.closest(selector);return null}
   querySelectorAll(selector){const found=[];const walk=n=>{if(selector==='.bible-page-text'&&n.className==='bible-content bible-page-text')found.push(n);for(const c of n.children)walk(c)};walk(this);return found}
   querySelector(s){return this.querySelectorAll(s)[0]||null}
  }
  const get=n=>{if(!ids.has(n))ids.set(n,new E());return ids.get(n)};
  const toolbar=new E();document={getElementById:id=>get(id),body:new E(),querySelector:s=>s==='.bible-toolbar'?toolbar:null,createElement:t=>new E(t),createTextNode:t=>{const n=new E('#text');n.textContent=t;return n},createDocumentFragment:()=>new E('#fragment'),addEventListener:(k,v)=>events[k]=v,dispatchEvent:e=>{emitted.push(e);events[e.type]?.(e)}};
- const window={BiblePagesModel:M,localStorage:storage,innerHeight:columns===2?800:500,innerWidth:columns===2?1440:390,addEventListener:(k,v)=>events[k]=v,getSelection:()=>null};
+ const window={BiblePagesModel:M,localStorage:storage,innerHeight:columns===2?800:500,innerWidth:columns===2?1440:390,addEventListener:(k,v)=>events[k]=v,getSelection:()=>({toString:()=>selection}),PointerEvent:pointer?class{}:undefined};
  get('bible-translation').options=[{value:'niv'}];
  vm.runInNewContext(fs.readFileSync(require.resolve('../bible-pages.js'),'utf8'),{document,window,matchMedia:q=>({matches:q.includes('reduced')?reduced:columns===2}),getComputedStyle:()=>({lineHeight:'20'}),setTimeout,clearTimeout,CustomEvent:class{constructor(type,options){this.type=type;this.detail=options.detail}}});
  function ready(chapter,boundaryDirection=0){const p=new E('p'),n=new E('#text');n.textContent=Array.from({length:120},(_,i)=>'word'+i+' ').join('');p.append(n);get('bible-content').replaceChildren(p);get('bible-reading').hidden=false;document.dispatchEvent({type:'bible-chapter-ready',detail:{translation:'niv',book:chapter.split('.')[0],chapter,reference:chapter,boundaryDirection,hasPreviousChapter:chapter!=='GEN.1',hasNextChapter:chapter!=='REV.22'}})}
  const ribbons=()=>{let n=0;const visit=e=>{if(e.className==='bible-page-ribbon')n++;e.children.forEach(visit)};visit(get('bible-page-spread'));return n};
- const tap=(direction,blocked=false)=>{const page=get('bible-page-spread').children[0];page.blocked=blocked;const e={target:page,button:0,isPrimary:true,pointerId:1,clientX:direction<0?5:385,clientY:150};get('bible-page-spread').events.pointerdown(e);get('bible-page-spread').events.pointerup(e);page.blocked=false};
- return {get:n=>get('bible-'+n),ready,storage,emitted,ribbons,events,tap};
+ const tap=(direction,blocked=false)=>{const page=get('bible-page-spread').children[0],target=page.querySelector('.bible-page-text');target.blocked=blocked;const e={target,button:0,isPrimary:true,pointerId:1,clientX:direction<0?78:312,clientY:150};get('bible-page-spread').events.pointerdown(e);get('bible-page-spread').events.pointerup(e);target.blocked=false};
+ return {get:n=>get('bible-'+n),ready,storage,emitted,ribbons,events,tap,setSelection:s=>selection=s};
 }
 test('visual page flow crosses forward at the end, lands backward on the last spread, and saves the correct content offset',()=>{
  for(const columns of [1,2]){
@@ -72,9 +72,35 @@ test('interactive targets and facing-page layouts cannot turn through edge taps'
  const wide=pagesReader({columns:2});wide.ready('JHN.1');const wideBefore=M.read(wide.storage,'last');wide.tap(1);assert.deepEqual(M.read(wide.storage,'last'),wideBefore);
 });
 
-test('existing swipe still moves while vertical gestures and selection-like drags are ignored',()=>{
- const p=pagesReader();p.ready('JHN.1');const page=p.get('page-spread').children[0];
+test('legacy touch fallback still moves while vertical gestures and selection-like drags are ignored',()=>{
+ const p=pagesReader({pointer:false});p.ready('JHN.1');const page=p.get('page-spread').children[0];
  p.get('page-spread').events.touchstart({target:page,touches:[{clientX:300,clientY:150}]});
- p.get('page-spread').events.touchend({changedTouches:[{clientX:100,clientY:150}]});assert(M.read(p.storage,'last').offset>0);
- const before=M.read(p.storage,'last');p.get('page-spread').events.touchstart({target:page,touches:[{clientX:100,clientY:150}]});p.get('page-spread').events.touchend({changedTouches:[{clientX:110,clientY:300}]});assert.deepEqual(M.read(p.storage,'last'),before);
+ p.get('page-spread').events.touchend({target:page,changedTouches:[{clientX:100,clientY:150}]});assert(M.read(p.storage,'last').offset>0);
+ const before=M.read(p.storage,'last');p.get('page-spread').events.touchstart({target:page,touches:[{clientX:100,clientY:150}]});p.get('page-spread').events.touchend({target:page,changedTouches:[{clientX:110,clientY:300}]});assert.deepEqual(M.read(p.storage,'last'),before);
+});
+
+test('natural side taps target Scripture, safe centre/selection remain unchanged, and pointer swipe consumes compatibility touchend',()=>{
+ const p=pagesReader();p.ready('JHN.1');const spread=p.get('page-spread');
+ function event(x,target=spread.children[0].querySelector('.bible-page-text'),pointerType='touch'){return {target,pointerType,button:0,isPrimary:true,pointerId:7,clientX:x,clientY:150,preventDefault(){}}}
+ function tapAt(x){const e=event(x);spread.events.pointerdown(e);spread.events.pointerup(e)}
+ tapAt(312);assert.equal(M.read(p.storage,'last').page,1);
+ tapAt(78);assert.equal(M.read(p.storage,'last').page,0);
+ tapAt(195);assert.equal(M.read(p.storage,'last').page,0);
+ const e=event(312);spread.events.pointerdown(e);p.setSelection('selected Scripture');spread.events.pointerup(e);assert.equal(M.read(p.storage,'last').page,0);p.setSelection('');
+ const start=event(320);spread.events.pointerdown(start);spread.events.touchstart({target:start.target,touches:[{clientX:320,clientY:150}]});spread.events.pointerup({...start,clientX:80});
+ spread.events.touchend({target:start.target,changedTouches:[{clientX:80,clientY:150}]});spread.events.pointerup({...start,clientX:80});
+ assert.equal(M.read(p.storage,'last').page,1);assert.equal(spread.events.click,undefined);
+ const mouse=event(320,spread.children[0].querySelector('.bible-page-text'),'mouse');spread.events.pointerdown(mouse);spread.events.pointerup({...mouse,clientX:80});assert.equal(M.read(p.storage,'last').page,1);
+ tapAt(312);assert.equal(M.read(p.storage,'last').page,2); // A fresh intentional tap still works.
+});
+
+test('facing-page touch swipes remain available and still consume exactly one spread action',()=>{
+ for(const pointer of [true,false]){
+  const p=pagesReader({columns:2,pointer});p.ready('JHN.1');const s=p.get('page-spread'),target=s.children[0].querySelector('.bible-page-text'),start={target,pointerType:'touch',button:0,isPrimary:true,pointerId:8,clientX:320,clientY:150};
+  if(pointer)s.events.pointerdown(start);
+  s.events.touchstart({target,touches:[{clientX:320,clientY:150}]});
+  if(pointer)s.events.pointerup({...start,clientX:80});
+  s.events.touchend({target,changedTouches:[{clientX:80,clientY:150}]});
+  assert.equal(M.read(p.storage,'last').page,2);assert.equal(p.emitted.filter(e=>e.type==='bible-request-page-chapter').length,0);
+ }
 });

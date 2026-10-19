@@ -4,6 +4,7 @@
   const M = window.BiblePagesModel, $ = name => document.getElementById(`bible-${name}`);
   const spread = $('page-spread'), content = $('content'), reading = $('reading');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const pointerGestures = typeof window.PointerEvent === 'function';
   let storage; try { storage = window.localStorage; } catch { storage = null; }
   let last = M.read(storage, 'last'), bookmark = M.read(storage, 'bookmark');
   let location = null, units = [], pages = [], index = 0, columns = 1, pending = null, loaded = false, timer, touch, resumeOffset = null;
@@ -187,33 +188,44 @@
   });
   spread.addEventListener('animationend', () => spread.classList.remove('turn-forward', 'turn-back'));
   function interactionBlocked(target) {
-    return !!(document.querySelector('dialog[open]') || target.closest('a, button, input, select, textarea, [contenteditable], [role="button"], [data-bible-no-turn]'));
+    return !!(document.querySelector('dialog[open]') || target.closest('a, button, input, select, textarea, [contenteditable], [role="button"], audio, video, [data-bible-no-turn]'));
   }
   spread.addEventListener('pointerdown', event => {
     tap = null;
-    if (columns !== 1 || event.button !== 0 || event.isPrimary === false || interactionBlocked(event.target) || event.target.closest('.bible-page-text') || window.getSelection()?.toString()) return;
+    if (event.button !== 0 || event.isPrimary === false || interactionBlocked(event.target) || window.getSelection()?.toString()) return;
     const page = event.target.closest('.bible-paper-page');
-    if (page) tap = { x: event.clientX, y: event.clientY, at: Date.now(), id: event.pointerId, bounds: page.getBoundingClientRect() };
+    if (!page) return;
+    const inText = !!event.target.closest('.bible-page-text');
+    // Mouse text drags remain selection. A mouse drag starting in paper padding
+    // may turn a page, without starting an unwanted selection across the text.
+    if (event.pointerType === 'mouse' && !inText) event.preventDefault();
+    tap = { x: event.clientX, y: event.clientY, at: Date.now(), id: event.pointerId, bounds: page.getBoundingClientRect(), swipeAllowed: event.pointerType !== 'mouse' || !inText };
   });
   spread.addEventListener('pointerup', event => {
     const start = tap; tap = null;
-    if (!start || start.id !== event.pointerId || columns !== 1) return;
-    const direction = M.tapDirection(start, {x:event.clientX,y:event.clientY,at:Date.now()}, start.bounds, interactionBlocked(event.target) || !!event.target.closest('.bible-page-text') || !!window.getSelection()?.toString());
+    if (!start || start.id !== event.pointerId) return;
+    const direction = M.gestureDirection(start, {x:event.clientX,y:event.clientY,at:Date.now()}, columns === 1 ? start.bounds : null, interactionBlocked(event.target) || !!window.getSelection()?.toString(), start.swipeAllowed);
     if (direction) move(direction);
   });
   spread.addEventListener('pointercancel', () => { tap = null; });
   spread.addEventListener('touchstart', event => {
-    touch = !interactionBlocked(event.target) && event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now() } : null;
+    // Pointer-capable browsers have exactly one owner. Their compatibility
+    // touchend must not add another action after pointerup already navigated.
+    touch = null;
+    if (pointerGestures || interactionBlocked(event.target) || window.getSelection()?.toString() || event.touches.length !== 1) return;
+    const page = event.target.closest('.bible-paper-page');
+    if (page) touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now(), bounds: page.getBoundingClientRect() };
   }, { passive: true });
   spread.addEventListener('touchend', event => {
-    if (!touch || event.changedTouches.length !== 1 || window.getSelection()?.toString()) return;
+    const start = touch; touch = null;
+    if (pointerGestures || !start || event.changedTouches.length !== 1) return;
     const end = event.changedTouches[0];
-    const direction = M.swipeDirection(touch, { x: end.clientX, y: end.clientY, at: Date.now() });
+    const direction = M.gestureDirection(start, { x: end.clientX, y: end.clientY, at: Date.now() }, start.bounds, interactionBlocked(event.target) || !!window.getSelection()?.toString());
     if (direction) move(direction);
-    touch = null;
   }, { passive: true });
   spread.addEventListener('touchcancel', () => { touch = null; }, { passive: true });
   function resize() {
+    tap = null; touch = null;
     if (!location || reading.hidden) return;
     resumeOffset = resumeOffset ?? (pages[index]?.start || 0);
     spread.setAttribute('aria-busy', 'true'); clearTimeout(timer);

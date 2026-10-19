@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
   <link rel="stylesheet" href="bible-reader.css?v=20261018-phase-a">
-  <link rel="stylesheet" href="bible-physical.css?v=20261019-physical-c3">
-  <script src="site.js?typography=20261007-v1&header=20261019-physical-c3&gallery=20261009-v1&footer=20261010-v2" defer></script>
-  <script src="bible-pages-model.js?v=20261019-physical-c3" defer></script>
-  <script src="bible-pages.js?v=20261019-physical-c3" defer></script>
+  <link rel="stylesheet" href="bible-physical.css?v=20261019-tap-turn">
+  <script src="site.js?typography=20261007-v1&header=20261019-tap-turn&gallery=20261009-v1&footer=20261010-v2" defer></script>
+  <script src="bible-pages-model.js?v=20261019-tap-turn" defer></script>
+  <script src="bible-pages.js?v=20261019-tap-turn" defer></script>
   <script src="bible-reader.js?v=20261018-phase-a" defer></script>
-  <script src="bible-presentation.js?v=20261019-physical-c3" defer></script>
+  <script src="bible-presentation.js?v=20261019-tap-turn" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
 </head>
 <body class="bible-page">
@@ -40,7 +40,7 @@
         <article id="bible-reading" class="bible-reading" aria-busy="true" hidden>
           <div class="bible-reading-heading"><p id="bible-edition" class="eyebrow"></p><h2 id="bible-reference" tabindex="-1"></h2></div>
           <div id="bible-content" class="bible-content"></div>
-          <p id="bible-reading-hint" class="bible-reading-hint">Use the page buttons or arrow keys to turn pages. On a single page, swipe or tap the paper margins. Scripture text can be selected.</p><div id="bible-page-spread" role="group" aria-label="Scripture reading pages" aria-describedby="bible-reading-hint" hidden></div>
+          <p id="bible-reading-hint" class="bible-reading-hint">Use the page buttons or arrow keys to turn pages. On a single page, swipe or tap the left or right quarter of the page. The centre is safe for reading. Scripture text can be selected.</p><div id="bible-page-spread" role="group" aria-label="Scripture reading pages" aria-describedby="bible-reading-hint" hidden></div>
           <nav id="bible-page-controls" aria-label="Reading page navigation" hidden><button id="bible-page-previous" type="button" aria-label="Previous page"><span class="bible-nav-label">← Previous page</span><span class="bible-nav-arrow" aria-hidden="true">←</span></button><p id="bible-page-status" role="status" aria-live="polite"></p><button id="bible-page-next" type="button" aria-label="Next page"><span class="bible-nav-label">Next page →</span><span class="bible-nav-arrow" aria-hidden="true">→</span></button></nav>
           <div class="bible-notices"><p><span id="bible-copyright"></span> Scripture provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>.</p></div>
         </article>
