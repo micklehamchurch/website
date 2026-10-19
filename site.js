@@ -16,7 +16,7 @@ const navigation = `
     </a>
       <a class="nav-youtube" href="${officialYouTubeChannel}" target="_blank" rel="noopener noreferrer" aria-label="${socialLinks[0].label}" title="YouTube">${socialLinks[0].icon}</a>
     </div>
-    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span></button>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
     <nav class="nav" id="mainNav" aria-label="Main navigation">
       <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
@@ -33,7 +33,7 @@ const navigation = `
         <button type="submit" aria-label="Submit website search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
       </form>
       <div class="nav-actions">
-      <a class="nav-link nav-calendar" href="calendar.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
+      <a class="nav-link nav-calendar" href="calendar.html" aria-label="Calendar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
       <a class="nav-link nav-bible" id="header-bible-open" href="bible.html" aria-label="Open the Bible" title="Open the Bible"><span class="bible-icon-object" aria-hidden="true"><img class="bible-icon-open" src="assets/images/bible-open.svg" width="64" height="40" alt=""><img class="bible-icon-cover" src="assets/images/bible-closed.svg" width="32" height="40" alt=""></span></a>
       </div>
       </div>
@@ -98,7 +98,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261018-phase-a', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261019-responsive-1', siteScript.src).href;
   document.head.append(headerStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
@@ -128,7 +128,7 @@ navigationBackdrop.setAttribute('aria-hidden', 'true');
 navigationBackdrop.hidden = true;
 document.body.append(navigationBackdrop);
 function syncNavigationBackdrop() {
-  if (globalThis.churchLandscapeNavigation?.isOpen()) { navigationBackdrop.hidden = true; return; }
+  if (globalThis.churchResponsiveNavigation?.isOpen()) { navigationBackdrop.hidden = true; return; }
   navigationBackdrop.hidden = !nav?.classList.contains('is-open') && !dropdownButtons.some(button => button.getAttribute('aria-expanded') === 'true');
 }
 
@@ -187,7 +187,7 @@ document.addEventListener('pointerdown', event => {
   outsidePress = event.isPrimary && event.button === 0 && dialog && outsidePanel(event, dialog) ? dialog : null;
 }, true);
 function closeNavigation(returnFocus = false) {
-  if (globalThis.churchLandscapeNavigation?.close(returnFocus)) return;
+  if (globalThis.churchResponsiveNavigation?.close(returnFocus)) return;
   const opener = nav?.classList.contains('is-open') ? menuButton : dropdownButtons.find(button => button.getAttribute('aria-expanded') === 'true');
   closeDropdowns();
   nav?.classList.remove('is-open');
@@ -197,7 +197,7 @@ function closeNavigation(returnFocus = false) {
   if (returnFocus) opener?.focus({ preventScroll: true });
 }
 document.addEventListener('click', event => {
-  if (globalThis.churchLandscapeNavigation?.isOpen()) return;
+  if (globalThis.churchResponsiveNavigation?.isOpen()) return;
   const dialog = activePublicDialog();
   if (dialog) {
     const dismiss = outsidePress === dialog && outsidePanel(event, dialog);
@@ -240,10 +240,10 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
   link.setAttribute('href', 'index.html?hero=20261005-v4');
 });
 
-// Optional short-landscape presentation; the original menu remains its fallback.
+// Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('landscape-navigation.js?v=20261017-panel-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261019-responsive-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 

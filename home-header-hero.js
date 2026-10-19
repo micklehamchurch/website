@@ -3,7 +3,7 @@
   const header = document.querySelector('[data-site-header]');
   const hero = document.querySelector('.home-hero');
   if (!document.body.classList.contains('home-header-hero') || !header || !hero) return;
-  const desktop = window.matchMedia('(min-width: 1000px)');
+  const desktop = window.matchMedia('(min-width: 1360px)');
   let observer;
   let frame;
   let observedHeight = -1;

@@ -102,7 +102,7 @@ test('hover sequence holds a readable closed cover before opening and disables m
  const css=fs.readFileSync('header-navigation.css','utf8');
  assert.match(css,/transform \.4s cubic-bezier\([^;]+\) \.45s/);
  assert.match(css,/\.nav-bible:hover \.bible-icon-cover\{transition:transform \.8s ease 1s,opacity \.8s ease 1s\}/);
- assert.match(css,/@media\(hover:hover\) and \(pointer:fine\) and \(min-width:1000px\)/);
+ assert.match(css,/@media\(hover:hover\) and \(pointer:fine\) and \(min-width:1360px\)/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)\{[^}]+transition:none!important/);
  const pages=fs.readFileSync('bible-reader.css','utf8');
  assert.match(pages,/@media\(max-width:480px\)\{\.bible-toolbar #bible-browse\{flex-basis:100%/);

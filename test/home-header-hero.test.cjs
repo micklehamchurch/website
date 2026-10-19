@@ -51,9 +51,9 @@ test('passive scroll fallback works without IntersectionObserver', () => {
 test('only the homepage loads the enhancement; no photo effects or hero edits', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   assert.match(home, /<body class="home-header-hero">/);
-  assert.match(home, /home-header-hero\.js\?v=20261009-v1/);
+  assert.match(home, /home-header-hero\.js\?v=20261019-responsive-1/);
   const css = fs.readFileSync(path.join(root, 'home-header-hero.css'), 'utf8');
-  assert.match(css, /@media \(min-width: 1000px\)/);
+  assert.match(css, /@media \(min-width: 1360px\)/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   for (const effect of css.matchAll(/(?:backdrop-)?filter\s*:\s*([^;]+)/g)) assert.equal(effect[1].trim(), 'none');
   assert.doesNotMatch(css, /gradient|blend-mode|\.home-hero|\.hero-content|object-fit|object-position/);
@@ -62,4 +62,4 @@ test('only the homepage loads the enhancement; no photo effects or hero edits', 
   }
 });
 
-test('transparent homepage desktop typography is modestly larger and remains scoped',()=>{const css=fs.readFileSync(path.join(root,'home-header-hero.css'),'utf8');assert.match(css,/font-size: clamp\(14\.56px, calc\(13\.2px \+ \.1vw\), 14\.95px\)/);assert.match(css,/font-size: clamp\(10\.4px, calc\(10px \+ \.04vw\), 10\.7px\)/);assert.match(css,/box-shadow: inset 0 -2\.5px #e7d8b7/);assert.doesNotMatch(css,/\.brand strong[^{}]*\{[^}]*font-size:/);assert.match(css,/@media \(min-width: 1000px\)/);});
+test('transparent homepage desktop typography is modestly larger and remains scoped',()=>{const css=fs.readFileSync(path.join(root,'home-header-hero.css'),'utf8');assert.match(css,/font-size: clamp\(14\.56px, calc\(13\.2px \+ \.1vw\), 14\.95px\)/);assert.match(css,/font-size: clamp\(10\.4px, calc\(10px \+ \.04vw\), 10\.7px\)/);assert.match(css,/box-shadow: inset 0 -2\.5px #e7d8b7/);assert.doesNotMatch(css,/\.brand strong[^{}]*\{[^}]*font-size:/);assert.match(css,/@media \(min-width: 1360px\)/);});
