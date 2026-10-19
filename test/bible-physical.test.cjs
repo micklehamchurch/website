@@ -25,3 +25,12 @@ test('natural text-side taps and gestures classify once without turning for a ce
  assert.equal(M.gestureDirection(at(80),at(85,350,200),b),0);
  assert.equal(M.gestureDirection(at(320),at(80,200,200),b,false,false),0);
 });
+
+test('facing leaf bounds allow middle Scripture taps but not the spine, long press or out-and-back drag',()=>{
+ const b={left:0,right:388,width:400,top:0,bottom:600,direction:-1},p={x:200,y:200,at:0};
+ assert.equal(M.tapDirection(p,{...p,at:100},b),-1);
+ assert.equal(M.tapDirection({...p,x:395},{...p,x:395,at:100},b),0);
+ assert.equal(M.tapDirection(p,{...p,at:500},b),0);
+ assert.equal(M.tapDirection({...p,moved:true},{...p,at:100},b),0);
+ assert.equal(M.tapDirection(p,{...p,at:100},b,true),0);
+});

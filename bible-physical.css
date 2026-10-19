@@ -88,4 +88,6 @@ html:has(body.bible-overlay){background:transparent}
 .bible-paginated .bible-reader{border:solid transparent;border-width:0 12px 16px;background-clip:padding-box}
 @media(max-width:600px),(max-height:500px) and (max-width:959px){.bible-paginated .bible-reader{border-width:0 7px 10px}}
 /* Let vertical scrolling/zoom remain native; horizontal gestures belong to the reader. */
-#bible-page-spread{touch-action:pan-y pinch-zoom}
+/* Text has its own overflow container: apply the policy there too, so native
+   touch panning does not cancel horizontal swipes before the spread sees up. */
+#bible-page-spread,.bible-paper-page,.bible-page-text{touch-action:pan-y pinch-zoom}

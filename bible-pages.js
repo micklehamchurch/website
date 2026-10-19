@@ -190,6 +190,17 @@
   function interactionBlocked(target) {
     return !!(document.querySelector('dialog[open]') || target.closest('a, button, input, select, textarea, [contenteditable], [role="button"], audio, video, [data-bible-no-turn]'));
   }
+  function tapBounds(page, touchInput) {
+    const r = page.getBoundingClientRect();
+    if (columns === 1) return r;
+    // Facing pages respond to touch/pen, not ordinary desktop text clicks.
+    if (!touchInput) return null;
+    const direction = page === spread.children[0] ? -1 : 1;
+    return { top:r.top, bottom:r.bottom, left:r.left + (direction === 1 ? 12 : 0), right:r.right - (direction === -1 ? 12 : 0), width:r.width, direction };
+  }
+  function trackMovement(start, point) {
+    if (start && (Math.abs(point.clientX-start.x)>10 || Math.abs(point.clientY-start.y)>10)) start.moved = true;
+  }
   spread.addEventListener('pointerdown', event => {
     tap = null;
     if (event.button !== 0 || event.isPrimary === false || interactionBlocked(event.target) || window.getSelection()?.toString()) return;
@@ -199,31 +210,33 @@
     // Mouse text drags remain selection. A mouse drag starting in paper padding
     // may turn a page, without starting an unwanted selection across the text.
     if (event.pointerType === 'mouse' && !inText) event.preventDefault();
-    tap = { x: event.clientX, y: event.clientY, at: Date.now(), id: event.pointerId, bounds: page.getBoundingClientRect(), swipeAllowed: event.pointerType !== 'mouse' || !inText };
+    tap = { x: event.clientX, y: event.clientY, at: Date.now(), id: event.pointerId, bounds: tapBounds(page, event.pointerType === 'touch' || event.pointerType === 'pen'), swipeAllowed: event.pointerType !== 'mouse' || !inText };
   });
   spread.addEventListener('pointerup', event => {
     const start = tap; tap = null;
     if (!start || start.id !== event.pointerId) return;
-    const direction = M.gestureDirection(start, {x:event.clientX,y:event.clientY,at:Date.now()}, columns === 1 ? start.bounds : null, interactionBlocked(event.target) || !!window.getSelection()?.toString(), start.swipeAllowed);
+    const direction = M.gestureDirection(start, {x:event.clientX,y:event.clientY,at:Date.now()}, start.bounds, interactionBlocked(event.target) || !!window.getSelection()?.toString(), start.swipeAllowed);
     if (direction) move(direction);
   });
   spread.addEventListener('pointercancel', () => { tap = null; });
+  spread.addEventListener('pointermove', event => { if (tap?.id === event.pointerId) trackMovement(tap,event); });
   spread.addEventListener('touchstart', event => {
     // Pointer-capable browsers have exactly one owner. Their compatibility
     // touchend must not add another action after pointerup already navigated.
     touch = null;
     if (pointerGestures || interactionBlocked(event.target) || window.getSelection()?.toString() || event.touches.length !== 1) return;
     const page = event.target.closest('.bible-paper-page');
-    if (page) touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now(), bounds: page.getBoundingClientRect() };
+    if (page) touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now(), bounds: tapBounds(page, true) };
   }, { passive: true });
   spread.addEventListener('touchend', event => {
     const start = touch; touch = null;
     if (pointerGestures || !start || event.changedTouches.length !== 1) return;
     const end = event.changedTouches[0];
-    const direction = M.gestureDirection(start, { x: end.clientX, y: end.clientY, at: Date.now() }, columns === 1 ? start.bounds : null, interactionBlocked(event.target) || !!window.getSelection()?.toString());
+    const direction = M.gestureDirection(start, { x: end.clientX, y: end.clientY, at: Date.now() }, start.bounds, interactionBlocked(event.target) || !!window.getSelection()?.toString());
     if (direction) move(direction);
   }, { passive: true });
   spread.addEventListener('touchcancel', () => { touch = null; }, { passive: true });
+  spread.addEventListener('touchmove', event => { if (event.touches.length !== 1) touch = null; else trackMovement(touch,event.touches[0]); }, {passive:true});
   function resize() {
     tap = null; touch = null;
     if (!location || reading.hidden) return;
