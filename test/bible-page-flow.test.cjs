@@ -102,5 +102,7 @@ test('facing-page touch swipes remain available and still consume exactly one sp
   if(pointer)s.events.pointerup({...start,clientX:80});
   s.events.touchend({target,changedTouches:[{clientX:80,clientY:150}]});
   assert.equal(M.read(p.storage,'last').page,2);assert.equal(p.emitted.filter(e=>e.type==='bible-request-page-chapter').length,0);
+  s.events.touchstart({target,touches:[{clientX:320,clientY:150}]});s.events.touchend({target,changedTouches:[{clientX:320,clientY:150}]});
+  assert.equal(p.emitted.filter(e=>e.type==='bible-request-page-chapter').length,0,'facing-page fallback tap must not turn');
  }
 });

@@ -220,7 +220,7 @@
     const start = touch; touch = null;
     if (pointerGestures || !start || event.changedTouches.length !== 1) return;
     const end = event.changedTouches[0];
-    const direction = M.gestureDirection(start, { x: end.clientX, y: end.clientY, at: Date.now() }, start.bounds, interactionBlocked(event.target) || !!window.getSelection()?.toString());
+    const direction = M.gestureDirection(start, { x: end.clientX, y: end.clientY, at: Date.now() }, columns === 1 ? start.bounds : null, interactionBlocked(event.target) || !!window.getSelection()?.toString());
     if (direction) move(direction);
   }, { passive: true });
   spread.addEventListener('touchcancel', () => { touch = null; }, { passive: true });
