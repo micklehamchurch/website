@@ -1,0 +1,85 @@
+/* Physical Bible presentation. Decoration never owns pointer input. */
+.bible-overlay,.bible-overlay main{background:transparent!important}
+.bible-overlay main{min-height:100dvh;padding:18px 24px 22px}
+.bible-overlay .bible-shell{width:100%;max-width:1400px;margin:auto}
+.bible-overlay.bible-paginated .bible-toolbar{margin:0 8px 20px;gap:12px;color:#fff7df}
+.bible-overlay .bible-toolbar #bible-close{color:#fff7df}
+.bible-overlay .bible-about-link{color:#fff7df;margin-top:20px;font-weight:500}
+.bible-overlay :is(.bible-toolbar #bible-close,.bible-about-link):focus-visible{outline-color:#fff0b8}
+.bible-paginated .bible-reader{isolation:isolate;border:0;border-radius:24px 30px 20px 22px;background:#f9f1db;box-shadow:0 16px 28px #090d0b66,0 30px 60px #090d0b40;animation:bible-open .45s ease-out both}
+.bible-paginated .bible-reader::before{content:"";position:absolute;z-index:-2;inset:5px -12px -16px;pointer-events:none;border:2px solid #936d39;border-radius:28px 32px 24px 25px;background:linear-gradient(100deg,#24180f,#523524 12%,#2b1c14 49%,#5b3825 52%,#382218 94%,#21170f);box-shadow:inset 0 0 0 3px #301e13,inset 0 0 0 4px #ad855149,0 6px 6px #0004}
+.bible-paginated .bible-reader::after{content:"";position:absolute;z-index:-1;inset:8px -6px -10px;pointer-events:none;border-radius:22px 26px 18px 20px;background:repeating-linear-gradient(0deg,#a88a50 0px,#d8bd7d 1px,#f1dfb0 2px,#bda16b 3px);box-shadow:inset 3px 0 5px #694b2677,inset -3px 0 5px #694b2677}
+.bible-paginated .bible-right-page{border-radius:inherit;background:linear-gradient(90deg,#eadbb8,#fff9e9 5%,#fcf5e4 46%,#d2bd91 49.7%,#bda67c 50%,#f2e6cb 51.5%,#fff9e9 55%,#fcf4df 96%,#e2cfaa);overflow:hidden}
+.bible-paginated .bible-reading{padding:0 0 12px}
+.bible-paginated .bible-reading-heading{padding:18px 32px 14px;border-bottom:1px solid #b89b624a;position:relative}
+.bible-paginated .bible-reading-heading::after{content:"";display:block;width:92px;margin:12px auto 0;height:3px;border-block:1px solid #ad8b4e66;pointer-events:none}
+.bible-paginated .bible-reading-heading .eyebrow{font-size:10px;letter-spacing:.12em;color:#526248;margin-bottom:5px}
+.bible-paginated .bible-reading h2{font-size:clamp(26px,2.5vw,36px);color:#283f2e}
+.bible-paper-page{padding:24px clamp(24px,3.4vw,52px);border-radius:10px 8% 5% 12px;background:linear-gradient(90deg,#e9d8af66,#fff9e977 6%,#fff9e922 83%,#c6b08555 97%,#a58d624d);box-shadow:inset 4px 0 7px #9b7c3920}
+.bible-paper-page:nth-child(2){border-radius:8% 10px 12px 5%;background:linear-gradient(90deg,#a58d6255,#ddcba17a 3%,#fff9e922 12%,#fff9e977 94%,#e5d3a96b);box-shadow:inset -4px 0 7px #9b7c3920}
+.bible-page-text,.bible-page-measure{font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.75;color:#302c22}
+.bible-font-probe{font-size:20px}
+.bible-page-text sup{font-size:11px;color:#405b3d}
+.bible-page-text{scrollbar-gutter:stable}
+.bible-paginated #bible-page-controls{padding:10px 26px;border-color:#b89b624a;flex-wrap:nowrap}
+.bible-paginated #bible-page-controls button{border-color:#b79b66;border-radius:16px;background:#fff9e680;min-width:44px}
+.bible-paginated #bible-page-status{flex-basis:auto;order:0;color:#60543c}
+.bible-paginated .bible-notices{color:#665e4a;font-size:11px;margin:5px 26px 0;line-height:1.5}
+.bible-page-ribbon{top:-2px;right:10px;width:18px;height:76px;background:repeating-linear-gradient(90deg,#511d2a 0,#7c3545 1px,#662839 2px,#8d4350 3px);filter:drop-shadow(2px 3px 2px #26151766)}
+.bible-paper-page:first-child .bible-page-ribbon{right:8px}
+#bible-drawer,#bible-information{background:linear-gradient(120deg,#fffbed,#f5eedb);border-color:#c5b186;border-radius:18px;box-shadow:0 22px 80px #0006;padding:24px;scroll-padding:20px}
+#bible-drawer .bible-controls{gap:18px;padding-top:22px}
+#bible-drawer :is(#bible-continue,#bible-go-bookmark){padding:14px 16px;border-color:#cbb98d;background:#fffdf266;border-radius:10px;font-weight:500}
+#bible-drawer .bible-field select{background:#fffdf4;border-color:#bdad84}
+#bible-information dl{font-size:15px;line-height:1.6;margin-bottom:20px}
+#bible-information dt{font-weight:700;margin-top:18px;color:#304934}
+#bible-information dd{margin:5px 0}
+.bible-compact-label,.bible-nav-arrow{display:none}
+@media(max-width:959px){
+ .bible-overlay main{padding:12px 16px 16px}
+ .bible-overlay.bible-paginated .bible-toolbar{margin:0 0 12px;flex-wrap:nowrap;gap:8px}
+ .bible-toolbar #bible-browse{flex-basis:auto;margin-right:auto;text-align:left}
+ .bible-full-label{display:none}.bible-compact-label{display:inline}.bible-nav-arrow{display:inline}.bible-nav-label{display:none}
+ .bible-toolbar button{min-width:44px;min-height:44px;padding:10px 12px;font-size:14px}
+ .bible-toolbar .bible-ribbon svg{margin:0}.bible-toolbar .bible-ribbon{font-size:0}
+ .bible-toolbar #bible-close{margin:0}.bible-toolbar #bible-close .bible-compact-label{font-size:24px;line-height:20px}
+ .bible-paginated .bible-reader{border-radius:16px 20px 16px 16px}
+ .bible-paginated .bible-right-page{background:linear-gradient(90deg,#dfcda7,#fff9e9 18px,#fcf5e4 92%,#e6d4ab)}
+ .bible-paper-page{border-radius:10px;background:linear-gradient(90deg,#e6d4ab66,#fff9e933 10%,#fff9e933 90%,#d6bf9380);padding-inline:26px}
+ .bible-paginated .bible-reading-heading{padding:12px 20px 10px}
+ .bible-paginated .bible-reading-heading::after{margin-top:8px}
+ .bible-paginated .bible-reading-heading .eyebrow{font-size:9px;letter-spacing:.06em}
+ .bible-paginated .bible-reading h2{font-size:26px}
+ .bible-paginated #bible-page-controls{padding:8px 18px;gap:6px}
+ #bible-page-controls button{width:46px;height:46px;padding:8px;border-radius:50%!important;font-size:24px!important;line-height:1}
+ .bible-paginated .bible-notices{margin-inline:18px;font-size:10px}
+ .bible-overlay .bible-about-link{margin-top:18px;margin-bottom:0}
+ .bible-page-ribbon{right:4px;width:14px;height:58px}
+}
+@media(max-width:600px),(max-height:500px) and (max-width:959px){
+ .bible-overlay main{padding:max(8px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+ .bible-overlay .bible-shell{width:100%}
+ .bible-overlay.bible-paginated .bible-toolbar{gap:6px;margin-bottom:10px}
+ .bible-paginated .bible-reader::before{inset:3px -7px -10px;border-radius:20px}
+ .bible-paginated .bible-reader::after{inset:6px -3px -6px}
+ .bible-paper-page{padding:18px 22px;height:calc(var(--bible-page-height) + 36px)}
+ .bible-page-text,.bible-page-measure,.bible-font-probe{font-size:19px}
+ .bible-page-text,.bible-page-measure{line-height:1.7}
+ .bible-paginated .bible-reading-heading{padding:9px 14px 8px}
+ .bible-paginated .bible-reading-heading::after{display:none}
+ .bible-paginated .bible-reading h2{font-size:24px}
+ .bible-paginated .bible-reading-heading .eyebrow{font-size:8px;line-height:1.5}
+ .bible-overlay .bible-about-link{margin-top:14px;min-height:44px;padding:10px}
+ #bible-drawer,#bible-information{width:calc(100% - 20px);max-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:18px;border-radius:16px}
+ #bible-drawer .bible-controls{gap:14px;padding-top:18px}
+ .bible-translation-name{font-size:14px;margin-bottom:8px}
+}
+@media(prefers-reduced-motion:reduce){.bible-paginated .bible-reader{animation:none}}
+@media(forced-colors:active){.bible-paginated .bible-reader::before,.bible-paginated .bible-reader::after{display:none}.bible-paginated .bible-reader{border:2px solid CanvasText}.bible-overlay :is(.bible-toolbar #bible-close,.bible-about-link){color:CanvasText}.bible-overlay main{background:Canvas!important}}
+html:has(body.bible-overlay){background:transparent}
+.bible-reader:has([data-page-mode="single"]) .bible-right-page{background:linear-gradient(90deg,#dfcda7,#fff9e9 18px,#fcf5e4 92%,#e6d4ab)}
+.bible-reader:has([data-page-mode="single"]) .bible-paper-page{border-radius:10px;background:linear-gradient(90deg,#e6d4ab66,#fff9e933 10%,#fff9e933 90%,#d6bf9380)}
+@media(min-width:960px){.bible-reader:has([data-page-mode="single"]) .bible-paper-page{padding-inline:clamp(36px,10vw,180px)}}
+.bible-reader:has([data-page-mode="facing"]) .bible-right-page{background:linear-gradient(90deg,#eadbb8,#fff9e9 5%,#fcf5e4 46%,#d2bd91 49.7%,#bda67c 50%,#f2e6cb 51.5%,#fff9e9 55%,#fcf4df 96%,#e2cfaa)}
+.bible-paginated .bible-notices{font-size:11px}
+.bible-reading-hint{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

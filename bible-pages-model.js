@@ -71,5 +71,15 @@
     const dx = end.x - start.x, dy = end.y - start.y;
     return Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.8 ? (dx < 0 ? 1 : -1) : 0;
   }
-  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection };
+  function layoutColumns(width, height, fontSize = 20) {
+    return width >= 900 && height >= 560 && width / 2 - 96 >= fontSize * 17 ? 2 : 1;
+  }
+  function tapDirection(start, end, bounds, blocked = false) {
+    if (!start || !end || !bounds || blocked || end.at - start.at > 350 || end.at < start.at) return 0;
+    if (Math.abs(end.x - start.x) > 10 || Math.abs(end.y - start.y) > 10) return 0;
+    const edge = Math.min(30, bounds.width * .08);
+    const zone = p => p.y < bounds.top || p.y > bounds.bottom || p.x < bounds.left || p.x > bounds.right ? 0 : p.x <= bounds.left + edge ? -1 : p.x >= bounds.right - edge ? 1 : 0;
+    return zone(start) === zone(end) ? zone(end) : 0;
+  }
+  return { keys, valid, read, save, remove, bookmarkPage, adjacentChapter, paginate, pageForOffset, turn, keyDirection, swipeDirection, layoutColumns, tapDirection };
 });

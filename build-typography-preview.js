@@ -14,7 +14,7 @@ for (const directory of [root, path.join(root, 'news')]) {
     // One central, idempotent version hook for every public shared script.
     // Other parameters (including the existing hero version) are preserved.
     html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/g, (match, url) =>
-      `src="${versionPublicScript(url, { typography: '20261007-v1', header: '20261019-responsive-1', gallery: '20261009-v1', footer: '20261010-v2' })}"`);
+      `src="${versionPublicScript(url, { typography: '20261007-v1', header: '20261019-physical-c', gallery: '20261009-v1', footer: '20261010-v2' })}"`);
     if (html.includes('typography-preview.js')) {
       fs.writeFileSync(filename, html);
       continue;

@@ -7,7 +7,7 @@
   let storage; try { storage = window.localStorage; } catch { storage = null; }
   let last = M.read(storage, 'last'), bookmark = M.read(storage, 'bookmark');
   let location = null, units = [], pages = [], index = 0, columns = 1, pending = null, loaded = false, timer, touch, resumeOffset = null;
-  let hasPreviousChapter = false, hasNextChapter = false;
+  let hasPreviousChapter = false, hasNextChapter = false, tap = null;
   document.body.classList.add('bible-paginated');
   document.body.classList.add('bible-awaiting-reading');
   function savedControls() {
@@ -60,6 +60,7 @@
   function render(direction = 0, remember = true) {
     spread.replaceChildren(...Array.from({ length: columns }, (_, n) => leaf(index + n)));
     for (const text of spread.querySelectorAll('.bible-page-text')) if (text.scrollHeight > text.clientHeight + 1) { text.tabIndex = 0; text.setAttribute('role', 'region'); text.setAttribute('aria-label', 'Scroll within this reading page'); }
+    spread.setAttribute('data-reading-offset', String(position()?.offset ?? 0));
     pageControls();
     $('page-status').textContent = columns > 1 && index + 1 < pages.length ? `Pages ${index + 1}–${Math.min(index + columns, pages.length)} of ${pages.length}` : `Page ${index + 1} of ${pages.length}`;
     const marked = M.bookmarkPage(bookmark, location, pages);
@@ -81,18 +82,25 @@
     spread.setAttribute('aria-busy', 'true');
     content.hidden = true; content.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('bible-pages-fallback');
-    columns = matchMedia('(min-width: 1100px) and (min-height: 560px)').matches ? 2 : 1;
+    spread.hidden = false;
+    columns = M.layoutColumns(spread.clientWidth, window.innerHeight, 20);
+    // Use the Scripture probe, rather than the chapter heading, for enlarged text.
+    const probeSize = document.querySelector('.bible-font-probe');
+    if (probeSize) columns = M.layoutColumns(spread.clientWidth, window.innerHeight, parseFloat(getComputedStyle(probeSize).fontSize) || 20);
     spread.style.setProperty('--bible-columns', columns);
+    spread.setAttribute('data-page-mode', columns === 2 ? 'facing' : 'single');
 
     // Match the real leaf's typography and usable width before measuring fits.
     pages = [{ start: 0, end: 0 }]; spread.hidden = false; render(0, false);
     const top = spread.getBoundingClientRect().top;
-    const height = Math.max(140, Math.min(620, window.innerHeight - Math.max(80, top) - 142));
+    const notices = document.querySelector('.bible-notices');
+    const reserve = ($('page-controls').offsetHeight || 64) + (notices?.offsetHeight || 44) + 164;
+    const height = Math.max(120, Math.min(900, window.innerHeight - top - reserve));
     spread.style.setProperty('--bible-page-height', `${height}px`);
     const realText = spread.querySelector('.bible-page-text');
     const measure = document.createElement('div'); measure.className = 'bible-content bible-page-measure';
     measure.style.width = `${realText.clientWidth}px`; document.body.append(measure);
-    const measuredHeight = Math.max(height, parseFloat(getComputedStyle(realText).lineHeight) * 4);
+    const measuredHeight = Math.max(height, parseFloat(getComputedStyle(realText).lineHeight) || 0);
     pages = M.paginate(units, (start, end) => {
       measure.replaceChildren(fragment(start, end)); return measure.scrollHeight <= measuredHeight + 1;
     });
@@ -100,6 +108,7 @@
     index = Math.floor(M.pageForOffset(pages, offset) / columns) * columns;
     $('page-controls').hidden = false; render(0, remember);
     spread.setAttribute('data-layout-viewport', String(window.innerWidth));
+    spread.setAttribute('data-layout-height', String(window.innerHeight));
     spread.setAttribute('aria-busy', 'false');
   }
   function fallback() {
@@ -177,8 +186,24 @@
     if (direction && move(direction)) event.preventDefault();
   });
   spread.addEventListener('animationend', () => spread.classList.remove('turn-forward', 'turn-back'));
+  function interactionBlocked(target) {
+    return !!(document.querySelector('dialog[open]') || target.closest('a, button, input, select, textarea, [contenteditable], [role="button"], [data-bible-no-turn]'));
+  }
+  spread.addEventListener('pointerdown', event => {
+    tap = null;
+    if (columns !== 1 || event.button !== 0 || event.isPrimary === false || interactionBlocked(event.target) || event.target.closest('.bible-page-text') || window.getSelection()?.toString()) return;
+    const page = event.target.closest('.bible-paper-page');
+    if (page) tap = { x: event.clientX, y: event.clientY, at: Date.now(), id: event.pointerId, bounds: page.getBoundingClientRect() };
+  });
+  spread.addEventListener('pointerup', event => {
+    const start = tap; tap = null;
+    if (!start || start.id !== event.pointerId || columns !== 1) return;
+    const direction = M.tapDirection(start, {x:event.clientX,y:event.clientY,at:Date.now()}, start.bounds, interactionBlocked(event.target) || !!event.target.closest('.bible-page-text') || !!window.getSelection()?.toString());
+    if (direction) move(direction);
+  });
+  spread.addEventListener('pointercancel', () => { tap = null; });
   spread.addEventListener('touchstart', event => {
-    touch = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now() } : null;
+    touch = !interactionBlocked(event.target) && event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, at: Date.now() } : null;
   }, { passive: true });
   spread.addEventListener('touchend', event => {
     if (!touch || event.changedTouches.length !== 1 || window.getSelection()?.toString()) return;
@@ -190,6 +215,7 @@
   spread.addEventListener('touchcancel', () => { touch = null; }, { passive: true });
   function resize() {
     if (!location || reading.hidden) return;
+    resumeOffset = resumeOffset ?? (pages[index]?.start || 0);
     spread.setAttribute('aria-busy', 'true'); clearTimeout(timer);
     timer = setTimeout(() => { try { layout(); } catch { fallback(); } }, 120);
   }
