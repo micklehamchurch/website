@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
   <link rel="stylesheet" href="bible-reader.css?v=20261018-phase-a">
-  <link rel="stylesheet" href="bible-physical.css?v=20261019-tablet-tap-1">
-  <script src="site.js?typography=20261007-v1&header=20261019-tablet-tap-1&gallery=20261009-v1&footer=20261010-v2" defer></script>
-  <script src="bible-pages-model.js?v=20261019-tablet-tap-1" defer></script>
-  <script src="bible-pages.js?v=20261019-tablet-tap-1" defer></script>
+  <link rel="stylesheet" href="bible-physical.css?v=20261019-book-polish-1">
+  <script src="site.js?typography=20261007-v1&header=20261019-book-polish-1&gallery=20261009-v1&footer=20261010-v2" defer></script>
+  <script src="bible-pages-model.js?v=20261019-book-polish-1" defer></script>
+  <script src="bible-pages.js?v=20261019-book-polish-1" defer></script>
   <script src="bible-reader.js?v=20261018-phase-a" defer></script>
-  <script src="bible-presentation.js?v=20261019-tablet-tap-1" defer></script>
+  <script src="bible-presentation.js?v=20261019-book-polish-1" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
 </head>
 <body class="bible-page">
@@ -26,9 +26,10 @@
   <main id="main-content" tabindex="-1">
     <div class="container bible-shell">
       <div class="bible-intro"><p class="eyebrow">A moment with Scripture</p><h1>Read the Bible</h1><p>Make space to read, reflect and discover.</p></div>
-      <div class="bible-toolbar"><a href="index.html" aria-label="Close Bible and return home">← Back to home</a><button id="bible-browse" type="button" aria-haspopup="dialog" aria-controls="bible-drawer" aria-label="Books, chapters and saved places"><span class="bible-full-label">Books &amp; saved places</span><span class="bible-compact-label" aria-hidden="true">Browse</span></button><button id="bible-close" type="button" aria-label="Close Bible" hidden><span class="bible-full-label">Close Bible ×</span><span class="bible-compact-label" aria-hidden="true">×</span></button></div>
-      <div class="bible-saved-tools" aria-label="Saved reading locations"><button id="bible-continue" type="button" hidden></button><button id="bible-go-bookmark" class="bible-saved-choice" type="button" hidden></button><button id="bible-bookmark" class="bible-ribbon" type="button" aria-label="Bookmark this page" disabled><svg width="12" height="18" viewBox="0 0 12 18" aria-hidden="true" focusable="false"><path d="M1 1h10v16l-5-4-5 4Z" fill="currentColor"/></svg> Bookmark</button><p id="bible-save-status" role="status" aria-live="polite"></p></div>
-      <section class="bible-reader" aria-label="Bible reader">
+
+      <div class="bible-saved-tools" aria-label="Saved reading locations"><button id="bible-continue" type="button" hidden></button><button id="bible-go-bookmark" class="bible-saved-choice" type="button" hidden></button><button id="bible-bookmark" class="bible-ribbon" type="button" aria-label="Bookmark this page" title="Toggle bookmark" disabled><svg width="12" height="18" viewBox="0 0 12 18" aria-hidden="true" focusable="false"><path d="M1 1h10v16l-5-4-5 4Z" fill="currentColor"/></svg></button><p id="bible-save-status" role="status" aria-live="polite"></p></div>
+      <section class="bible-reader" aria-label="Bible reader"><div class="bible-paper-surface">
+      <div class="bible-toolbar"><a href="index.html" aria-label="Close Bible and return home">← Back to home</a><button id="bible-browse" type="button" aria-haspopup="dialog" aria-controls="bible-drawer" aria-label="Books, chapters and saved places" title="Books and saved places"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button><button id="bible-close" type="button" aria-label="Close Bible" title="Close Bible" hidden><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button></div>
         <aside class="bible-left-page" aria-label="Choose a reading"><div class="bible-navigation-title"><p class="eyebrow">The Holy Bible</p><h2>Find your passage</h2><p>Choose a book and chapter.<br>Take a moment to be still.</p></div><div id="bible-controls-home"><form id="bible-controls" class="bible-controls">
           <div class="bible-field bible-version"><label for="bible-translation">Translation</label><p id="bible-translation-name" class="bible-translation-name">New International Version (Anglicised)</p><select aria-describedby="bible-translation-name" id="bible-translation" disabled><option value="niv">New International Version (Anglicised)</option></select></div>
           <div class="bible-field"><label for="bible-book">Book</label><select id="bible-book" disabled><option>Loading books…</option></select></div>
@@ -46,7 +47,7 @@
         </article>
         </div>
         <noscript><p class="bible-noscript">Please enable JavaScript to use the Bible reader.</p></noscript>
-      </section>
+      </div></section>
       <dialog id="bible-drawer" aria-labelledby="bible-drawer-title"><div class="bible-drawer-heading"><h2 id="bible-drawer-title">Choose a reading</h2><button id="bible-drawer-close" type="button" aria-label="Close books and chapters">Close ×</button></div><div id="bible-drawer-content"></div></dialog>
       <button id="bible-about" class="bible-about-link" type="button" aria-haspopup="dialog" aria-controls="bible-information">About this Bible</button>
       <dialog id="bible-information" aria-labelledby="bible-information-title"><div class="bible-drawer-heading"><h2 id="bible-information-title">About this Bible</h2><button id="bible-information-close" type="button">Close ×</button></div><dl><dt>Translation</dt><dd id="bible-information-translation">Choose a translation</dd><dt>Publisher</dt><dd>Biblica</dd><dt>Copyright</dt><dd id="bible-information-copyright">The current translation’s full copyright notice is shown with the reading.</dd></dl><p>Scripture is provided by <a href="https://api.bible" target="_blank" rel="noopener noreferrer">API.Bible</a>. The publisher’s copyright notice for the current translation remains alongside the reading.</p><p>This reader reports anonymous Scripture views to API.Bible for publisher usage reporting. <a href="https://docs.api.bible/guides/fair-use/" target="_blank" rel="noopener noreferrer">About this reporting</a></p><p>Your last reading position and explicit bookmark are stored separately on this browser as location metadata, without Scripture text.</p></dialog>

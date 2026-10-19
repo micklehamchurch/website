@@ -251,10 +251,10 @@ if (siteScript && nav && menuButton) {
 if (siteScript && document.getElementById('header-bible-open') && window.parent === window) {
   const bibleStyles = document.createElement('link');
   bibleStyles.rel = 'stylesheet';
-  bibleStyles.href = new URL('home-bible.css?v=20261019-tablet-tap-1', siteScript.src).href;
+  bibleStyles.href = new URL('home-bible.css?v=20261019-book-polish-1', siteScript.src).href;
   document.head.append(bibleStyles);
   const bibleScript = document.createElement('script');
-  bibleScript.src = new URL('home-bible.js?v=20261019-tablet-tap-1', siteScript.src).href;
+  bibleScript.src = new URL('home-bible.js?v=20261019-book-polish-1', siteScript.src).href;
   document.head.append(bibleScript);
 }
 

@@ -91,3 +91,24 @@ html:has(body.bible-overlay){background:transparent}
 /* Text has its own overflow container: apply the policy there too, so native
    touch panning does not cancel horizontal swipes before the spread sees up. */
 #bible-page-spread,.bible-paper-page,.bible-page-text{touch-action:pan-y pinch-zoom}
+
+/* One continuous paper surface, with controls in its shallow upper margin. */
+.bible-paginated .bible-reader{border-radius:20px 22px 20px 22px;background:none}
+.bible-paper-surface{position:relative;border-radius:inherit;overflow:hidden;background:linear-gradient(90deg,#eadbb8,#fff9e9 5%,#fcf5e4 46%,#d9c69e 49.7%,#c9b58e 50%,#f2e6cb 51.5%,#fff9e9 55%,#fcf4df 96%,#e2cfaa)}
+.bible-paginated .bible-reader::before{top:14px;border-radius:19px 21px 24px 25px}
+.bible-paginated .bible-reader::after{top:18px;border-radius:16px 18px 18px 20px}
+.bible-paginated .bible-reader .bible-right-page{border-radius:0 0 16px 16px;background:transparent}
+.bible-paginated .bible-reader .bible-toolbar{position:relative;top:auto;z-index:2;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;margin:0;padding:4px 12px 0;min-height:48px;border-radius:0;background:none;color:#304934}
+.bible-paginated .bible-reader .bible-toolbar button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:10px;border:0;border-radius:50%;background:transparent;color:#304934;font-size:0;line-height:1}
+.bible-paginated .bible-reader .bible-toolbar #bible-browse{margin-right:auto;flex-basis:44px}
+.bible-paginated .bible-reader .bible-toolbar .bible-ribbon{color:#783749}
+.bible-paginated .bible-reader .bible-toolbar #bible-close{color:#304934}
+.bible-paginated .bible-reader .bible-toolbar .bible-ribbon svg{width:16px;height:22px;margin:0}
+.bible-paginated .bible-reader .bible-toolbar button:hover{background:#49604212}
+.bible-paginated .bible-reader .bible-toolbar button:active{background:#49604224}
+.bible-paginated .bible-reader .bible-toolbar .bible-ribbon[aria-pressed="true"]{background:#7c354519;color:#652437}
+.bible-paginated .bible-reader .bible-toolbar button:focus-visible{outline:3px solid #25533e;outline-offset:1px;background:#49604212}
+.bible-paginated .bible-reading-heading{padding-top:0;border-bottom:0;box-shadow:0 1px 0 #b89b6217}
+.bible-reader:has([data-page-mode="single"]) .bible-paper-surface{background:linear-gradient(90deg,#dfcda7,#fff9e9 18px,#fcf5e4 92%,#e6d4ab)}
+@media(max-width:959px){.bible-paginated .bible-reader .bible-toolbar{padding-inline:6px}.bible-paginated .bible-reader{border-radius:16px 18px 16px 16px}}
+@media(forced-colors:active){.bible-paginated .bible-reader{background:Canvas}.bible-paginated .bible-reader .bible-toolbar button{color:ButtonText}.bible-paginated .bible-reader .bible-toolbar button:focus-visible{outline-color:Highlight}}
