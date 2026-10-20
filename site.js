@@ -98,8 +98,12 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261019-responsive-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261020-phone-reading-1', siteScript.src).href;
   document.head.append(headerStyles);
+  const landscapeStyles = document.createElement('link');
+  landscapeStyles.rel = 'stylesheet';
+  landscapeStyles.href = new URL('phone-landscape.css?v=20261020-reading-1', siteScript.src).href;
+  document.head.append(landscapeStyles);
 }
 const footerBottom = document.querySelector('.footer-bottom-links');
 if (siteScript && footerBottom) {

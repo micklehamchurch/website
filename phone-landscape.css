@@ -1,0 +1,69 @@
+/* Phone landscape is a reading layout, not a scaled desktop. No rules outside
+   this width + height + orientation boundary. Calendar day grids and decorative
+   portrait compositions deliberately retain their semantic/visual structure. */
+@media (orientation:landscape) and (max-width:999px) and (max-height:460px) {
+  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  html body .site-header .nav-wrap { min-height:56px; height:auto; padding-block:4px; flex-wrap:nowrap; }
+  html body .site-header .nav-utilities { flex-direction:row; align-items:center; flex:none; gap:6px; padding:0; }
+  html body .site-header .header-branding { flex:none; min-width:0; margin-right:auto; }
+  html body .site-header .brand { min-height:44px; }
+  html body .site-header :is(.compact-search,.nav-calendar,.menu-toggle,.nav-bible) { min-width:44px; min-height:44px; }
+  html body .site-header .nav-actions { display:contents; }
+  html body main { font-size:16px; }
+  html body main :is(p,li):not(.eyebrow):not([class*="-kicker"]) { font-size:max(16px,1em); line-height:1.6; }
+  html body main :is(.eyebrow,.wedding-kicker,.baptism-kicker,.funeral-kicker) { font-size:12px; line-height:1.5; }
+  html body main :is(h2,h3) { overflow-wrap:break-word; }
+  html body main :is(.btn,.text-link,.history-card a,.home-content-button) { min-height:44px; white-space:normal; font-size:16px; }
+  html body :is(.container,.history-content) { max-width:100%; }
+  html body .history-content { width:calc(100% - max(24px,env(safe-area-inset-left)) - max(24px,env(safe-area-inset-right))); }
+  html body :is(.clergy-grid,.family-service-details,.family-quick-links,.pastoral-practice-list,.prayer-related>div,.fellowship-related-grid,.parish-album-grid,.history-cards,.parish-about-cards,.memorial-gallery,.service-grid,.feature-grid,.news-grid,.news-article-grid,.content-grid,.topic-link-grid,.calendar-preview,.home-quick-grid,.home-discover-cards,.home-editorial-grid,.home-involvement-grid,.parish-album-cards,.eco-initiative-grid,.eco-wildlife-grid,.eco-photo-gallery,.wedding-values,.baptism-values,.funeral-values,.wedding-steps,.baptism-journey ol,.funeral-questions) {
+    grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px;
+  }
+  html body :is(.home-parish-row,.home-feature-grid,.topic-grid,.worship-intro-grid,.community-feature-grid,.visit-feature-grid,.two-col,.about-intro-grid,.about-place-grid,.chapel-page-grid,.media-feature-grid,.eco-hero-grid,.eco-flowers-grid,.eco-trail-feature,.eco-energy-section,.parish-about-intro-inner) { grid-template-columns:1fr; gap:24px; }
+  html body :is(.family-welcome,.family-seasons,.prayer-request,.fellowship-welcome,.fellowship-contact,.home-involvement-card,.home-eco-panel) { grid-template-columns:1fr; }
+  html body .home-parish-column + .home-parish-column::before { display:none; }
+  html body :is(.history-card,.content-card,.news-card,.home-editorial-card,.home-discover-card,.parish-about-card) { min-width:0; }
+  html body :is(.history-card p,.history-period-copy>span,.history-feature-copy p:not(.eyebrow),.history-intro>p:last-child,.memorial-story p,.memorial-gallery figcaption) { font-size:16px; line-height:1.6; }
+  html body .history-card h3 { font-size:24px; }
+  html body .history-card>img { height:170px; }
+  html body .history-card>div { padding:20px; }
+  html body .history-period { grid-template-columns:80px minmax(0,1fr); gap:24px; padding-block:18px; }
+  html body .history-period>img { display:none; }
+  html body .history-period::before { left:88px; top:28px; bottom:-28px; }
+  html body .history-period::after { left:80px; top:24px; }
+  html body .history-date { font-size:14px; }
+  html body .history-period-copy { padding-left:6px; }
+  html body .history-timeline { margin-inline:0; }
+  html body .history-feature-copy { width:100%; }
+  html body .history-portraits { position:relative; width:100%; height:250px; }
+  html body .history-feature-copy h2 { max-width:none; }
+  html body .history-feature-copy::after { display:none; }
+  html body .memorial-photo { max-height:440px; }
+  html body .memorial-gallery figure { min-width:0; }
+  html body .memorial-gallery img { height:220px; }
+  html body .calendar-preview .event-card { grid-template-columns:1fr; min-height:0; }
+  html body .event-card { grid-template-columns:100px minmax(0,1fr); }
+  html body .event-card .event-actions { grid-column:1/-1; }
+  html body :is(.wedding-split,.baptism-invitation,.funeral-split) { display:grid; grid-template-columns:1fr; min-height:0; }
+  html body :is(.wedding-feature-photo,.baptism-parish-photo,.funeral-feature-photo) { height:auto; min-height:0; max-height:360px; aspect-ratio:2/1; }
+  html body :is(.wedding-feature-copy,.baptism-invitation-copy,.funeral-feature-copy) { padding:32px max(24px,env(safe-area-inset-left)); }
+  html body :is(.wedding-planning,.baptism-practical,.funeral-planning,.funeral-information) { padding-block:36px; }
+  html body :is(.wedding-reading,.baptism-reading,.funeral-reading) { width:calc(100% - 48px); }
+  html body :is(.wedding-flower-details,.baptism-beginning,.baptism-guidance-grid,.funeral-information-grid) { grid-template-columns:1fr; gap:24px; }
+  html body :is(.wedding-flower-values,.baptism-documents) { grid-template-columns:1fr; }
+  html body :is(.wedding-hero,.baptism-hero,.funeral-hero) { min-height:0; }
+  html body :is(.wedding-lead,.baptism-lead,.funeral-lead) { font-size:17px; line-height:1.6; }
+  html body .footer .footer-grid { grid-template-columns:1fr 1fr; }
+  html body .footer .footer-identity { grid-column:1/-1; }
+  /* The full accessible button name stays in the DOM. A 44px speech-bubble
+     control occupies less of the short viewport than the wide text pill. */
+  html body .feedback-launcher { width:44px; height:44px; min-height:44px; padding:0; font-size:0; right:max(8px,env(safe-area-inset-right)); bottom:max(8px,env(safe-area-inset-bottom)); }
+  html body .feedback-launcher::before { content:"💬" / ""; font-size:19px; }
+}
+@media (orientation:landscape) and (max-width:699px) and (max-height:460px) {
+  html body :is(.clergy-grid,.family-service-details,.family-quick-links,.pastoral-practice-list,.prayer-related>div,.fellowship-related-grid,.parish-album-grid,.history-cards,.parish-about-cards,.memorial-gallery,.service-grid,.feature-grid,.news-grid,.news-article-grid,.content-grid,.topic-link-grid,.calendar-preview,.home-discover-cards,.home-editorial-grid,.home-involvement-grid,.parish-album-cards,.eco-initiative-grid,.eco-wildlife-grid,.eco-photo-gallery,.wedding-steps,.baptism-journey ol,.funeral-questions) { grid-template-columns:1fr; }
+  html body :is(.wedding-values,.baptism-values,.funeral-values) { padding-inline:24px; }
+  html body .site-header .brand { gap:6px; }
+  html body .site-header .brand strong { font-size:11px; letter-spacing:0; }
+  html body .site-header .brand small { font-size:8px; letter-spacing:.08em; }
+}
