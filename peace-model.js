@@ -6,6 +6,7 @@
     for(const m of data.moments){
       if(!/^[a-z-]+$/.test(m.id)||ids.has(m.id)||!m.title||!m.reflection||m.reflection.length>500||!/^([A-Z0-9]{3})\.[1-9]\d{0,2}\.[1-9]\d{0,2}$/.test(m.passage))throw Error('Invalid moment');ids.add(m.id);
       if(!m.photo?.alt||!Array.isArray(m.photo.sources)||!m.photo.sources.length||m.photo.sources.some(s=>!/^assets\/[a-zA-Z0-9/_-]+\.(webp|jpg)$/.test(s.src)||!Number.isInteger(s.width)||s.width<1))throw Error('Invalid photo');
+      if(!Number.isFinite(m.photo.aspectRatio)||m.photo.aspectRatio<0.3||m.photo.aspectRatio>3)throw Error('Invalid photo ratio');
       if(m.excerpt&&!['first-clause','first-sentence'].includes(m.excerpt))throw Error('Invalid excerpt');
     }
     // Audio is intentionally absent until an approved parish recording is supplied.
