@@ -22,7 +22,8 @@
             "src": "assets/images/about/church-hero.webp",
             "width": 1600
           }
-        ]
+        ],
+        "mobilePosition": "35% 50%"
       }
     },
     {

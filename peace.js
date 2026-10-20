@@ -11,7 +11,7 @@
   const find=s=>dialog.querySelector(s),image=find('.peace-photograph'),reading=find('.peace-reading'),verse=find('.peace-verse'),status=find('.peace-status'),retry=find('.peace-retry'),information=find('.peace-information');
   let data,index=0,sequence=0,opener,scroll=0,pointerOutside=false,controller,touch;
   const cache=new Map();let dataPromise;
-  async function loadData(){if(data)return data;if(!dataPromise)dataPromise=fetch(url('peace-moments.json'),{signal:AbortSignal.timeout(15000)}).then(r=>{if(!r.ok)throw Error('moments');return r.json();}).then(window.PeaceModel.validate).catch(e=>{dataPromise=null;throw e;});data=await dataPromise;return data;}
+  async function loadData(){if(data)return data;if(!dataPromise)dataPromise=fetch(url('peace-moments.json?v=20261020-2'),{cache:'no-store',signal:AbortSignal.timeout(15000)}).then(r=>{if(!r.ok)throw Error('moments');return r.json();}).then(window.PeaceModel.validate).catch(e=>{dataPromise=null;throw e;});data=await dataPromise;return data;}
   function tracker(){
     window.fumsData=window.fumsData||[];window.fums=window.fums||function(){window.fumsData.push(arguments);};
     if(!document.querySelector('script[src*="pkg.api.bible/fumsV3"]')){const s=document.createElement('script');s.src='https://pkg.api.bible/fumsV3.min.js';s.async=true;document.head.append(s);}
@@ -23,7 +23,7 @@
     find('.peace-moment-title').textContent=m.title;find('.peace-reference').textContent=m.reference+' · NIV'+(m.excerpt?' · excerpt':'');find('.peace-reflection').textContent=m.reflection;find('.peace-count').textContent=`${index+1} / ${data.moments.length}`;
     for(const [i,dot]of [...find('.peace-dots').children].entries())dot.setAttribute('aria-current',String(i===index));
     image.classList.remove('peace-photo-ready');find('.peace-photo-status').textContent='Opening photograph…';find('.peace-photo-caption').textContent=m.photo.alt+' Genuine parish photograph.';
-    image.alt=m.photo.alt;image.sizes='(min-width:1632px) 1600px, calc(100vw - 32px)';image.srcset=m.photo.sources.map(s=>`${url(s.src)} ${s.width}w`).join(', ');image.src=url(m.photo.sources.at(-1).src);image.style.objectPosition=m.photo.position||'50% 50%';
+    image.alt=m.photo.alt;image.sizes='(min-width:1632px) 1600px, calc(100vw - 32px)';image.srcset=m.photo.sources.map(s=>`${url(s.src)} ${s.width}w`).join(', ');image.src=url(m.photo.sources.at(-1).src);image.style.setProperty('--peace-photo-position',m.photo.position||'50% 50%');image.style.setProperty('--peace-photo-mobile-position',m.photo.mobilePosition||m.photo.position||'50% 50%');
     image.decode().then(()=>{if(ticket===sequence&&dialog.open){image.classList.add('peace-photo-ready');find('.peace-photo-status').textContent='';}}).catch(()=>{if(ticket===sequence)find('.peace-photo-status').textContent='The photograph could not load. You can still pause with this reading.';});
     try{
       let response;const saved=cache.get(m.passage);if(saved&&saved.until>Date.now())response=saved.value;

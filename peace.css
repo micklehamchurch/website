@@ -12,7 +12,7 @@ html.peace-open body { position:fixed; top:var(--peace-scroll-top); inset-inline
 .peace-dialog::backdrop { background:#11261dd1; backdrop-filter:blur(4px); }
 .peace-scene { position:relative; isolation:isolate; display:flex; flex-direction:column; width:100%; height:100%; background:#193b31; }
 .peace-photograph,.peace-shade { position:absolute; inset:0; width:100%; height:100%; z-index:-2; }
-.peace-photograph { object-fit:cover; opacity:0; transition:opacity 380ms ease; }
+.peace-photograph { object-fit:cover; object-position:var(--peace-photo-position,50% 50%); opacity:0; transition:opacity 380ms ease; }
 .peace-photograph.peace-photo-ready { opacity:1; }
 .peace-shade { z-index:-1; background:linear-gradient(90deg,#10271ee0 0%,#10271eba 28%,#10271e55 58%,#10271e12 100%),linear-gradient(0deg,#061c16d9 0%,transparent 30%,transparent 80%,#061c1660); }
 .peace-heading { display:flex; align-items:flex-start; justify-content:space-between; flex:none; gap:18px; padding:32px 34px 12px 46px; }
@@ -72,3 +72,5 @@ html.peace-open body { position:fixed; top:var(--peace-scroll-top); inset-inline
  .peace-heading { padding:8px 14px 0 22px; }.peace-identity svg { width:26px; height:34px; }.peace-identity { gap:12px; }.peace-identity h2 { font-size:24px; margin:0 0 3px; }.peace-identity p { font-size:9px; }.peace-reading { padding:12px 42px; }.peace-reading article { width:70%; }.peace-dialog .peace-verse { font-size:30px; margin-bottom:12px; }.peace-reflection { font-size:18px; line-height:1.5; }.peace-rule { margin-block:14px; }.peace-moment-title { display:none; }.peace-footer { display:grid; grid-template-columns:1fr auto; padding:2px 18px 6px; gap:2px 12px; }.peace-controls { display:flex; gap:4px; }.peace-dots { display:flex; }.peace-audio { display:none; }.peace-copyright { font-size:12px; }.peace-information>div { max-height:55dvh; }.peace-heading .peace-close { min-height:44px; }
 }
 @media(prefers-reduced-motion:reduce) { .peace-photograph { transition:none; } }
+
+@media(orientation:portrait) and (max-width:1000px) { .peace-photograph { object-position:var(--peace-photo-mobile-position,var(--peace-photo-position,50% 50%)); } }
