@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "translation": "niv",
+  "audio": null,
+  "moments": [
+    {
+      "id": "be-still",
+      "title": "Be still",
+      "passage": "PSA.46.10",
+      "reference": "Psalm 46:10",
+      "excerpt": "first-clause",
+      "reflection": "Let the noise of the day settle. You do not need to have everything resolved before you pause in God’s presence.",
+      "photo": {
+        "alt": "St Michael and All Angels in Mickleham, with its spire, blue clock and red door.",
+        "position": "54% 50%",
+        "sources": [
+          {
+            "src": "assets/images/peace/church-640.webp",
+            "width": 640
+          },
+          {
+            "src": "assets/images/about/church-hero.webp",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "come-and-rest",
+      "title": "Come and rest",
+      "passage": "MAT.11.28",
+      "reference": "Matthew 11:28",
+      "reflection": "Bring the weariness you are carrying, without needing to explain it away. Let this be a moment to rest in Christ’s welcome.",
+      "photo": {
+        "alt": "Sunlight and trees among the headstones beside St Michael’s Church.",
+        "position": "55% 50%",
+        "sources": [
+          {
+            "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-480.webp",
+            "width": 480
+          },
+          {
+            "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-960.webp",
+            "width": 960
+          },
+          {
+            "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-1600.webp",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "quiet-trust",
+      "title": "Quiet trust",
+      "passage": "PSA.23.1",
+      "reference": "Psalm 23:1",
+      "reflection": "Take a slow breath and make room for a little quiet. You may offer God one simple prayer for what you need today.",
+      "photo": {
+        "alt": "Lavender beside a bench in the parish garden of remembrance.",
+        "position": "35% 50%",
+        "sources": [
+          {
+            "src": "assets/images/peace/garden-640.webp",
+            "width": 640
+          },
+          {
+            "src": "assets/images/peace/garden-1600.webp",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "lift-your-eyes",
+      "title": "Lift your eyes",
+      "passage": "PSA.121.2",
+      "reference": "Psalm 121:2",
+      "reflection": "Notice the light and the beauty around you. Allow a small word of gratitude, or a question, to become your prayer.",
+      "photo": {
+        "alt": "Harvest flowers beneath a stained-glass window inside the church.",
+        "position": "65% 45%",
+        "sources": [
+          {
+            "src": "assets/images/stories/harvest-2026/window-flowers-640.webp",
+            "width": 640
+          },
+          {
+            "src": "assets/images/stories/harvest-2026/window-flowers-1280.webp",
+            "width": 1280
+          }
+        ]
+      }
+    },
+    {
+      "id": "peace-for-today",
+      "title": "Peace for today",
+      "passage": "JHN.14.27",
+      "reference": "John 14:27",
+      "excerpt": "first-sentence",
+      "reflection": "Whatever waits beyond this moment, pause before you return to it. Ask Christ for peace to carry into the next small step.",
+      "photo": {
+        "alt": "Open red doors and Harvest flowers in the church entrance porch.",
+        "position": "50% 50%",
+        "sources": [
+          {
+            "src": "assets/images/stories/harvest-2026/welcome-doors-640.webp",
+            "width": 640
+          },
+          {
+            "src": "assets/images/stories/harvest-2026/welcome-doors-1280.webp",
+            "width": 1280
+          }
+        ]
+      }
+    }
+  ]
+}
