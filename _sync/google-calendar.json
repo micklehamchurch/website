@@ -3759,6 +3759,60 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"1unri1dhebshbo9o46jrkd6h9e@google.com\",\"\"]",
+      "uid": "1unri1dhebshbo9o46jrkd6h9e@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-b64711ad35efded5f99ff71ec25efcca",
+      "google": {
+        "title": "am RGS School Carol service in church",
+        "start": "2026-12-11T00:00",
+        "end": "2026-12-12T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "am RGS School Carol service in church",
+        "start": "2026-12-11T00:00",
+        "end": "2026-12-12T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "62a0cc2b96a9e0b74a01131caf45e189c29f169da056dff55fd5ca60399c042f",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"426a4af4rjkk28q221n9811fv5@google.com\",\"\"]",
+      "uid": "426a4af4rjkk28q221n9811fv5@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-05855e8735d513cc3e167dd03e514006",
+      "google": {
+        "title": "RGS School Carol service in church",
+        "start": "2026-12-07T18:00",
+        "end": "2026-12-07T19:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "RGS School Carol service in church",
+        "start": "2026-12-07T18:00",
+        "end": "2026-12-07T19:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "26f5bae35df93fcf3adcf2e3a4457cc9c2e8abbac8e45efee900f3524f2122d8",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3775,14 +3829,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-20T09:30:06.478Z",
+  "lastSuccessfulSync": "2026-10-20T10:45:05.142Z",
   "audit": {
-    "at": "2026-10-20T09:30:06.478Z",
+    "at": "2026-10-20T10:45:05.142Z",
     "mode": "automatic",
-    "added": 1,
+    "added": 2,
     "updated": 0,
     "removed": 0,
-    "unchanged": 126,
+    "unchanged": 127,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1

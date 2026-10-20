@@ -384,6 +384,28 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-b64711ad35efded5f99ff71ec25efcca",
+      "title": "am RGS School Carol service in church",
+      "start": "2026-12-11T00:00",
+      "end": "2026-12-12T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-05855e8735d513cc3e167dd03e514006",
+      "title": "RGS School Carol service in church",
+      "start": "2026-12-07T18:00",
+      "end": "2026-12-07T19:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
