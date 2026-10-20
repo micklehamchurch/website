@@ -50,6 +50,8 @@ if(out)fs.mkdirSync(out,{recursive:true});
    await page.reload();await page.locator('#header-bible-open').click();await settle();assert.equal((await storage()).length,1);assert.equal((await storage())[0].offset,a.offset);assert.equal(await f.locator('body').evaluate(()=>localStorage.getItem('mickleham:bible:bookmark:v1')),null);
    await page.reload();await page.locator('#header-bible-open').click();await settle();assert.equal((await storage()).length,1);
    await menu();await f.locator('#bible-book').selectOption('GEN');await f.locator('#bible-chapter').selectOption('GEN.1');await f.locator('#bible-read').click();await f.getByRole('heading',{name:'Genesis 1',exact:true}).waitFor();await settle();
+   // Exercise a real cache miss; a warm chapter intentionally bypasses the network.
+   await page.evaluate(()=>window.__micklehamBibleSessionV1?.clear());
    await page.route('**/chapters/JHN.3',route=>route.fulfill({status:503,contentType:'application/json',body:'{"error":"Synthetic test failure"}'}));await menu();await rows().first().getByRole('button',{name:/Open saved place/}).click();await f.locator('#bible-retry').waitFor({state:'visible'});assert.equal((await storage()).length,1);
    await page.unroute('**/chapters/JHN.3');await f.locator('#bible-retry').click();await f.getByRole('heading',{name:'John 3',exact:true}).waitFor();await settle();assert.equal(await offset(),String(a.offset));
    await f.locator('body').evaluate((el,p)=>localStorage.setItem('mickleham:bible:saved-places:v2',JSON.stringify({v:2,items:[{...p,translation:'nirv'}]})),a);

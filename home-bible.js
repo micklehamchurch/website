@@ -15,7 +15,7 @@
   panel.append(close, frame); dialog.append(panel); document.body.append(dialog);
   function openBook() {
     close.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261019-mobile-target-2';
+    if (!frame.getAttribute('src')) frame.src = 'bible.html?book=overlay&v=20261020-performance-1';
     dialog.showModal(); document.documentElement.classList.add('bible-modal-open');
   }
   trigger.addEventListener('click', event => {
@@ -40,7 +40,8 @@
     if (dismiss) dialog.close();
   });
   dialog.addEventListener('close', () => {
-    // Unload the reader so every fresh opening fetches and reports its displayed chapter.
+    // Unload the reader; a short parent-owned memory cache can reuse responses.
+    // The fresh reader still reports every displayed chapter, including cache hits.
     frame.removeAttribute('src');
     backdropPointer = false;
     close.hidden = false;

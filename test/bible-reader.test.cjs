@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 // Small DOM adapter exercises asynchronous reader behavior with synthetic Scripture.
-function reader({ missingToken = false, failChapter = false, remembered = false, initialRead = true, rawSaved, extended = false } = {}) {
+function reader({ missingToken = false, failChapter = false, remembered = false, initialRead = true, rawSaved, extended = false, cache } = {}) {
   class Element {
     constructor() { this.children = []; this.events = {}; this.value = ''; this.textContent = ''; this.hidden = true; }
     replaceChildren(...children) { this.children = children; }
@@ -21,6 +21,7 @@ function reader({ missingToken = false, failChapter = false, remembered = false,
   const document = { addEventListener: (name, fn) => { documentEvents[name] = fn; }, dispatchEvent: event => { emitted.push(event); documentEvents[event.type]?.(event); }, getElementById: get, createElement: () => new Element(), createTextNode: text => ({ textContent: text }), head: new Element() };
   let rejectChapter = failChapter;
   const window = { fums: (...args) => views.push(args) };
+  if (cache) window.BibleSessionCache = cache;
   window.localStorage = { getItem: () => rawSaved ?? (remembered ? JSON.stringify({v:1,translation:'niv',book:'JHN',chapter:'JHN.2',reference:'John 2',page:2,offset:70}) : null) }; window.BiblePagesModel = require('../bible-pages-model');
   const fetch = async (url, options) => {
     requests.push({ url, options });
@@ -51,6 +52,16 @@ test('reader displays text safely, excludes introduction IDs, and reports each d
   assert.equal(r.views.length, 2);
   assert(r.requests.every(r => r.options.credentials === 'omit' && r.options.cache === 'no-store'));
   assert.equal(r.get('copyright').textContent, 'Synthetic notice');
+});
+
+test('session reuse across fresh readers eliminates metadata and passage calls but reports each display',async()=>{
+ const cache=require('../bible-session-cache')(Date.now,()=>null);
+ const first=reader({cache});await first.settle();assert.equal(first.requests.length,4);assert.equal(first.views.length,1);
+ const again=reader({cache,remembered:true});await again.settle();
+ assert.deepEqual(again.requests.map(x=>x.url.split('/api/bible/')[1]),['niv/chapters/JHN.2']);assert.equal(again.views.length,1);
+ again.documentEvents['bible-request-location']({detail:{translation:'niv',book:'JHN',chapter:'JHN.1'}});await again.settle();
+ assert.equal(again.requests.length,1);assert.equal(again.views.length,2);
+ const reopen=reader({cache});await reopen.settle();assert.equal(reopen.requests.length,0);assert.equal(reopen.views.length,1);
 });
 test('reader refuses to display Scripture without its provider tracking token', async () => {
   const r = reader({ missingToken: true }); await r.settle();

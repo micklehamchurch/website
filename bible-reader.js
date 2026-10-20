@@ -14,6 +14,10 @@
   document.head.append(tracker);
 
   async function get(path) {
+    if (window.BibleSessionCache) return window.BibleSessionCache.get(path, () => fetchResponse(path));
+    return fetchResponse(path);
+  }
+  async function fetchResponse(path) {
     const response = await fetch(API + path, { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(20000) });
     if (!response.ok) {
       const error = new Error('unavailable'); error.status = response.status; throw error;
