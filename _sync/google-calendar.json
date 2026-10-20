@@ -3732,6 +3732,33 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"27t64cp4t29n1k4sk969bc36dj@google.com\",\"\"]",
+      "uid": "27t64cp4t29n1k4sk969bc36dj@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-ade9da1e4aedf8e31ff99e3fc7d50c10",
+      "google": {
+        "title": "Children's Concert in church and lighting of Xmas trees",
+        "start": "2026-11-22T16:00",
+        "end": "2026-11-22T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Children's Concert in church and lighting of Xmas trees",
+        "start": "2026-11-22T16:00",
+        "end": "2026-11-22T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "ac7efa6644bf0b606d2d1f8a9b2de40c3aa319dba97a92f981b124cfbb549053",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3748,14 +3775,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-15T13:15:05.536Z",
+  "lastSuccessfulSync": "2026-10-20T09:30:06.478Z",
   "audit": {
-    "at": "2026-10-15T13:15:05.536Z",
+    "at": "2026-10-20T09:30:06.478Z",
     "mode": "automatic",
     "added": 1,
     "updated": 0,
     "removed": 0,
-    "unchanged": 125,
+    "unchanged": 126,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1

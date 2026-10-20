@@ -373,6 +373,17 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-ade9da1e4aedf8e31ff99e3fc7d50c10",
+      "title": "Children's Concert in church and lighting of Xmas trees",
+      "start": "2026-11-22T16:00",
+      "end": "2026-11-22T17:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
