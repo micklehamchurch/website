@@ -218,6 +218,37 @@
       "email": "",
       "status": "published",
       "groupId": "magazine-editors"
+    },
+    {
+      "id": "parish-safeguarding-officer-vickie-leney",
+      "role": "Parish Safeguarding Officer",
+      "name": "Vickie Leney",
+      "phone": "01372 884054",
+      "email": "safeguarding@micklehamchurch.org.uk",
+      "section": "parish-leadership",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.16,
+        "x": 50,
+        "y": 19
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-8a2b31af-eff9-422d-b59b-963403a1e9e0-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-8a2b31af-eff9-422d-b59b-963403a1e9e0-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
     }
   ],
   "pccMembers": [
