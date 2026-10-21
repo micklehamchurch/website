@@ -112,7 +112,29 @@
       "name": "Vickie Leney",
       "phone": "01372 884054",
       "email": "baptisms@micklehamchurch.org.uk",
-      "status": "published"
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.08,
+        "x": 50,
+        "y": 24
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-2af7030d-ce55-41fd-a234-c59dbb301f6e-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-2af7030d-ce55-41fd-a234-c59dbb301f6e-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
     },
     {
       "id": "wedding-coordinator",
@@ -179,7 +201,29 @@
       "name": "Vickie Leney",
       "phone": "01306 884054",
       "email": "safeguarding@micklehamchurch.org.uk",
-      "status": "published"
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.04,
+        "x": 50,
+        "y": 17
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-b26591e3-9fb0-4c10-a0e6-39a56cbcd26f-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-b26591e3-9fb0-4c10-a0e6-39a56cbcd26f-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
     },
     {
       "id": "parish-visitor",
