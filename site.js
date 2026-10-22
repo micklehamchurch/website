@@ -99,7 +99,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261022-green-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261022-green-2', siteScript.src).href;
   document.head.append(headerStyles);
   const stateScript=document.createElement('script');
   stateScript.src=new URL('public-header.js?v=20261022-green-1',siteScript.src).href;

@@ -10,6 +10,6 @@ test('phone reading styles have no declarations outside short-landscape media qu
 });
 test('shared site loads a versioned reading stylesheet without changing navigation or feedback logic',()=>{
  assert(site.includes("new URL('phone-landscape.css?v=20261020-reading-1', siteScript.src)"));
- assert(site.includes('header-navigation.css?navigation=20261022-green-1'));
+ assert(site.includes('header-navigation.css?navigation=20261022-green-2'));
  assert(css.includes('safe-area-inset-right'));assert(css.includes('.feedback-launcher::before'));
 });

@@ -182,3 +182,5 @@ html.responsive-navigation-open body { position:fixed; inset-inline:0; top:var(-
 
 /* The existing embedded book reader intentionally hides its public header. */
 .bible-overlay .public-header-space { display:none; }
+/* Keep native skip-link targets clear of the fixed public header. */
+body:has(> [data-site-header]) > main[id] { scroll-margin-top:var(--header-reserve); }

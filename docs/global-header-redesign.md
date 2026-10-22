@@ -27,3 +27,5 @@ The central `build-typography-preview.js` hook updates shared-script cache versi
 - Shared asset footprint is about 1.4KiB smaller compressed, including the new small state script. No runtime libraries, raster assets or fonts added. QA dependencies are outside the repository.
 
 Run `scripts/check-global-header.cjs` with Playwright available via `PLAYWRIGHT_MODULE`; optional `HEADER_BASE_URL` selects a deployed site. Axe defaults to the isolated local QA installation, or can be supplied by `AXE_CORE_PATH`. Screenshots and diagnostics are saved outside the repository in `../green-header-verification`.
+
+Live keyboard verification identified that a native skip jump could put the non-photo heading partly under the condensed header. A shared main-target scroll margin fixes this; the skip link still focuses the original main element and remains the first keyboard destination.
