@@ -3,7 +3,7 @@
   'use strict';
   const nav=document.querySelector('#mainNav'),opener=document.querySelector('.menu-toggle');
   if(!nav||!opener||typeof HTMLDialogElement==='undefined')return;
-  const compact=matchMedia('(max-width:1359px)'),slot=document.createComment('Shared navigation position');nav.before(slot);
+  const compact=matchMedia('(max-width:1535px)'),slot=document.createComment('Shared navigation position');nav.before(slot);
   const contacts=document.createElement('div');contacts.className='drawer-only drawer-contact';
   const script=document.querySelector('script[src*="site.js"]');const url=file=>new URL(file,script.src).href;
   contacts.innerHTML=`<a href="${url('contact.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Contact</a><a href="${url('finding-us.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Find Us</a>`;nav.querySelector('.header-visit').before(contacts);

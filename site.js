@@ -99,10 +99,10 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261022-green-2', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261022-inline-1', siteScript.src).href;
   document.head.append(headerStyles);
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261022-green-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261022-inline-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';
@@ -253,7 +253,7 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
 // Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('responsive-navigation.js?v=20261022-green-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261022-inline-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 
