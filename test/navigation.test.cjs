@@ -11,7 +11,7 @@ const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replac
 test('shared desktop/mobile top-level order retains styled utilities and excludes Media',()=>{
  const nav=html.match(/<nav\b.*?<\/nav>/s)[0].replace(/<div class="dropdown".*?<\/div>/gs,'');
  const names=[...nav.matchAll(/<(a|button)\b[^>]*>(.*?)<\/\1>/gs)].map(m=>labels(m[2]));
- assert.deepEqual(names,['Home','Service','Visit & Learn','Our Community','News','About Us','','Calendar','']);
+ assert.deepEqual(names,['Home','Services','Visit & Learn','Our Community','News','About Us','Search','','Calendar','Bible','Plan your visit →']);
  assert.equal((nav.match(/href="news.html"/g)||[]).length,1);
  assert.equal((html.match(/href="news.html"/g)||[]).length,1);
  assert(!menus.community.includes('news.html'));
@@ -38,30 +38,25 @@ test('History and Prayer retain search discoverability and relevant contextual l
  for(const page of ['visit.html','church-building.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="our-history.html"/);
  for(const page of ['church-life.html','pastoral-care.html','bible-study-fellowship.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="prayer.html"/);
 });
-test('YouTube keeps secure external-link conventions near branding and Giving remains outside header',()=>{
- assert.match(html,/class="nav-youtube"[^>]+target="_blank" rel="noopener noreferrer"/);
- assert.equal((html.match(/class="nav-youtube"/g)||[]).length,1);
- assert.match(html,/<div class="header-branding">[\s\S]*class="brand"[\s\S]*class="nav-youtube"[\s\S]*<\/div>\s*<button class="menu-toggle"/);
- assert.match(html,/href="calendar.html"/);assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/href="give.html"/);
- assert(fs.existsSync(path.join(root,'give.html')));assert(JSON.parse(fs.readFileSync(path.join(root,'search-index.json'),'utf8')).some(p=>p.url==='give.html'));
-});
+test('header omits YouTube while the existing shared footer retains it',()=>{assert.doesNotMatch(html,/class="nav-youtube"/);assert.match(source,/const socialArea/);assert.match(source,/footer-social/);assert.match(source,/www.youtube.com/);});
+
 test('Real accessible header search submits q to the existing search page',()=>{
  assert.match(html,/<form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">/);
  assert.match(html,/<label[^>]+for="header-search-query">Search the website<\/label>/);
  assert.match(html,/<input id="header-search-query" type="search" name="q"/);
  assert.match(html,/<button type="submit" aria-label="Submit website search"/);
  const search=fs.readFileSync(path.join(root,'search.js'),'utf8');assert.match(search,/new URLSearchParams\(location.search\).get\('q'\)/);assert.match(search,/renderSearch\(searchInput.value\)/);
- const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/max-width: 999px/);assert.match(styles,/min-height: 46px/);assert.match(styles,/:focus-visible/);
+ const styles=fs.readFileSync(path.join(root,'header-navigation.css'),'utf8');assert.match(styles,/var\(--sans\)/);assert.match(styles,/min-height:44px/);assert.match(styles,/:focus-visible/);
 });
 
-test('Bible utility follows Calendar, is icon-only with an accessible name, and is absent from the hero',()=>{
+test('Bible utility follows Calendar, has an accessible name and desktop label, and is absent from the hero',()=>{
  const actions=html.match(/<div class="nav-actions">([\s\S]*?)<\/div>/)[1];
  assert(actions.indexOf('nav-calendar')<actions.indexOf('nav-bible'));
  const control=actions.match(/<a class="nav-link nav-bible"[^>]*>[\s\S]*?<\/a>/)[0];
- assert.match(control,/aria-label="Open the Bible"/);
+ assert.match(control,/aria-label="Bible"/);
  assert.match(control,/href="bible.html"/);
- assert.match(control,/<img[^>]+src="assets\/images\/bible-closed.svg"[^>]+alt=""/);
- assert.equal(labels(control),'');
+ assert.match(control,/class="header-book"/);
+ assert.equal(labels(control),'Bible');
  const hero=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<div class="hero-actions">(.*?)<\/div>/s)[1];
  assert.equal((hero.match(/<a /g)||[]).length,2);assert.doesNotMatch(hero,/bible/i);
  assert(fs.existsSync(path.join(root,'assets/images/bible-closed.svg')));

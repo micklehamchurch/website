@@ -10,23 +10,23 @@ const socialLinks = [{
 const navigation = `
   <div class="container nav-wrap">
     <div class="header-branding">
-    <a class="brand" href="index.html" aria-label="St Michael and All Angels home">
+    <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true">✝</span>
-      <span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span>
+      <span><strong>St Michael &amp; All Angels</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span>
     </a>
-      <a class="nav-youtube" href="${officialYouTubeChannel}" target="_blank" rel="noopener noreferrer" aria-label="${socialLinks[0].label}" title="YouTube">${socialLinks[0].icon}</a>
     </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
-    <nav class="nav" id="mainNav" aria-label="Main navigation">
+    <nav class="nav" id="mainNav" aria-label="Main">
       <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-worship">Service<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-worship"><a href="worship.html">Worship overview</a><a href="sunday-services.html">Sunday Services</a><a href="weekly-worship.html">Weekly Worship</a><a href="special-services.html">Special Services</a><a href="prayer.html">Prayer</a><a href="bible.html">Read the Bible</a><a href="baptisms.html">Baptisms</a><a href="weddings.html">Weddings</a><a href="funerals.html">Funerals</a></div></div>
+      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-worship">Services<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-worship"><a href="worship.html">Worship overview</a><a href="sunday-services.html">Sunday Services</a><a href="weekly-worship.html">Weekly Worship</a><a href="special-services.html">Special Services</a><a href="prayer.html">Prayer</a><a href="bible.html">Read the Bible</a><a href="baptisms.html">Baptisms</a><a href="weddings.html">Weddings</a><a href="funerals.html">Funerals</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit &amp; Learn<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-visit"><a href="visit.html">Visit the Church</a><a href="what-to-expect.html">What to Expect</a><a href="finding-us.html">Find Us</a><a href="church-building.html">The Church Building</a><a href="westhumble-chapel.html">Westhumble Chapel</a><a href="churchyard.html">Churchyard</a><a href="churchyard-regulations.html">Churchyard Regulations</a><a href="war-memorial.html">War Memorial</a></div></div>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our Community<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church Community</a><a href="gallery.html">Parish Photographs</a><a href="children-families.html">Children &amp; Families</a><a href="alpha.html">Alpha</a><a href="bible-study-fellowship.html">Bible Study &amp; Fellowship</a><a href="pastoral-care.html">Pastoral Care</a><a href="volunteering.html">Volunteering</a><a href="supporting-community.html">Supporting the Community</a></div></div>
       <a class="nav-link" href="news.html">News</a>
       <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-about">About Us<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-about"><a href="our-team.html">Our Team</a><a href="about.html">Our Parish</a><a href="our-vision.html">Our Vision</a><a href="our-churches.html">Our Churches</a><a href="our-history.html">Church History</a><a href="eco-church.html">Eco Church</a><a href="electoral-roll.html">Electoral Roll</a><a href="safeguarding.html">Safeguarding</a><a href="privacy.html">Privacy &amp; GDPR</a></div></div>
       </div>
       <div class="nav-utilities">
+      <a class="compact-search" href="search.html" aria-label="Search the website"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search</span></a>
       <form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">
         <label class="header-search-label" for="header-search-query">Search the website</label>
         <input id="header-search-query" type="search" name="q" placeholder="Search..." autocomplete="off">
@@ -34,8 +34,9 @@ const navigation = `
       </form>
       <div class="nav-actions">
       <a class="nav-link nav-calendar" href="calendar.html" aria-label="Calendar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18M7 15h2M13 15h2M7 18h2"/></svg><span>Calendar</span></a>
-      <a class="nav-link nav-bible" id="header-bible-open" href="bible.html" aria-label="Open the Bible" title="Open the Bible"><span class="bible-icon-object" aria-hidden="true"><img class="bible-icon-open" src="assets/images/bible-open.svg" width="64" height="40" alt=""><img class="bible-icon-cover" src="assets/images/bible-closed.svg" width="32" height="40" alt=""></span></a>
+      <a class="nav-link nav-bible" id="header-bible-open" href="bible.html" aria-label="Bible" title="Open the Bible"><svg class="header-book" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 5Q7 2 2 4v16q5-2 10 1 5-3 10-1V4q-5-2-10 1Zm0 0v16"/></svg><span class="header-bible-label">Bible</span></a>
       </div>
+      <a class="header-visit" href="visit.html">Plan your visit <span aria-hidden="true">→</span></a>
       </div>
     </nav>
   </div>`;
@@ -98,8 +99,11 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261020-phone-reading-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261022-green-1', siteScript.src).href;
   document.head.append(headerStyles);
+  const stateScript=document.createElement('script');
+  stateScript.src=new URL('public-header.js?v=20261022-green-1',siteScript.src).href;
+  document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';
   landscapeStyles.href = new URL('phone-landscape.css?v=20261020-reading-1', siteScript.src).href;
@@ -139,6 +143,7 @@ function syncNavigationBackdrop() {
 function closeDropdowns(except = null) {
   dropdownButtons.forEach(button => {
     if (button !== except) {
+      delete button.dataset.openedByHover;
       button.setAttribute('aria-expanded', 'false');
       button.closest('.nav-item')?.classList.remove('is-open');
     }
@@ -154,7 +159,8 @@ menuButton?.addEventListener('click', () => {
 });
 
 dropdownButtons.forEach(button => {
-  button.addEventListener('click', () => {
+  button.addEventListener('click', event => {
+    if(event.detail>0 && button.dataset.openedByHover){delete button.dataset.openedByHover;return;}
     const isOpen = button.getAttribute('aria-expanded') === 'true';
     closeDropdowns(button);
     button.setAttribute('aria-expanded', String(!isOpen));
@@ -247,7 +253,7 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
 // Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('responsive-navigation.js?v=20261019-responsive-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261022-green-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 
