@@ -27,3 +27,5 @@ Header and expanded Search axe WCAG A/AA checks have zero violations. Lighthouse
 Initial shared JS/CSS increases by about 982 bytes gzip, without extra homepage requests. First Search adds two small JS requests (about 3.8KB gzip combined) and the existing index (about 38.8KB gzip); repeat opening reuses the same data on that page. Full Search adds the shared-model request, with the old ranking implementation removed from search.js. No fonts, raster assets, runtime libraries, external services, Admin/API/authentication or workflow changes.
 
 Run `scripts/check-inline-search.cjs` and `scripts/check-global-header.cjs` with Playwright available through PLAYWRIGHT_MODULE, optional AXE_CORE_PATH, and HEADER_BASE_URL for live Dev. Diagnostics/screenshots are stored outside the repository.
+
+Final live keyboard checks also cover Escape after focus has moved out of Search to another header action. The handler restores Search-button focus without taking Escape from an active native modal.

@@ -102,7 +102,7 @@ if (siteScript) {
   headerStyles.href = new URL('header-navigation.css?navigation=20261022-inline-1', siteScript.src).href;
   document.head.append(headerStyles);
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261022-inline-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261022-inline-2',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';

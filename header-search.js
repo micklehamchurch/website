@@ -40,6 +40,7 @@ function create(){
  panel.querySelector('.header-search-close').addEventListener('click',()=>close());
  input.addEventListener('input',()=>{all.href=searchUrl(input.value);clearTimeout(timer);timer=setTimeout(render,120);});
  panel.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close();}else if(event.key==='ArrowDown'&&event.target===input&&list.firstElementChild){event.preventDefault();list.querySelector('a').focus();}});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!event.defaultPrevented&&!panel.hidden&&!document.querySelector('dialog[open]')){event.preventDefault();close();}});
  document.addEventListener('pointerdown',event=>{if(!panel.hidden&&!panel.contains(event.target)&&!trigger.contains(event.target))close(false);},true);
  // A modal opened from elsewhere should never leave a hidden search focused.
  addEventListener('resize',schedule);addEventListener('scroll',schedule,{passive:true});globalThis.visualViewport?.addEventListener('resize',schedule);globalThis.visualViewport?.addEventListener('scroll',schedule);

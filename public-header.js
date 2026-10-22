@@ -26,7 +26,7 @@
     const drawer=search.closest('dialog');
     const closed=drawer?.open?new Promise(resolve=>{drawer.addEventListener('close',resolve,{once:true});globalThis.churchResponsiveNavigation.close();}):Promise.resolve();
     globalThis.closeDropdowns?.();globalThis.syncNavigationBackdrop?.();
-    try{searchModule ||= import(new URL('header-search.js?v=20261022-inline-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
+    try{searchModule ||= import(new URL('header-search.js?v=20261022-inline-2',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
   },true);
   }
   const items=[...header.querySelectorAll('.nav-item')];
