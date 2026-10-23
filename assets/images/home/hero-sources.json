@@ -1,0 +1,23 @@
+[
+  {
+    "id": "exterior",
+    "source": "IMG_E6550.JPG",
+    "width": 5712,
+    "height": 3213,
+    "sha256": "ab2addb82fed91f3295f97f898ab3e10ddbc928fd10d32636db823f776fc0537"
+  },
+  {
+    "id": "memorial",
+    "source": "IMG_E6555.JPG",
+    "width": 5712,
+    "height": 3213,
+    "sha256": "c4d09d4536c94e192198e3212c0e521ad74a41a36cb14a173a7dce2c462d1326"
+  },
+  {
+    "id": "churchyard",
+    "source": "IMG_E6530.JPG",
+    "width": 8064,
+    "height": 4536,
+    "sha256": "30981f9df803392448f4ab4707a18e153aa4dba4f713c0aa29fc92e419f813cd"
+  }
+]

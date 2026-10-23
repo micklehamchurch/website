@@ -1,0 +1,25 @@
+/* The first photograph retains the existing intrinsic hero geometry. Other layers never affect flow. */
+.home-hero-media { position:relative; min-width:0; overflow:hidden; }
+.home-hero-media .home-hero-photo { opacity:0; transition:opacity 1400ms ease; pointer-events:none; }
+.home-hero-media .home-hero-photo.is-current { opacity:1; }
+.home-hero-media .home-hero-photo img { object-position:var(--photo-wide,50% 20%); }
+.home-hero-media .hero-photo-layer { position:absolute; inset:0; }
+.home-hero-media .hero-photo-layer img { width:100%; height:100%; min-height:0; aspect-ratio:auto; object-fit:cover; }
+.hero-photo-controls { position:absolute; z-index:2; bottom:48px; left:50%; transform:translateX(-50%); display:flex; align-items:center; padding:0 4px; border:1px solid #e7d8b780; border-radius:24px; background:#18392dde; color:#fff9ed; }
+.hero-photo-controls button { display:grid; place-items:center; flex:none; width:44px; height:44px; padding:0; border:0; border-radius:50%; background:transparent; color:inherit; font:26px/1 sans-serif; cursor:pointer; }
+.hero-photo-controls button:last-child { font-size:15px; }
+.hero-photo-controls .hero-photo-dot::before { content:''; width:6px; height:6px; border:1px solid #e7d8b7; border-radius:50%; }
+.hero-photo-controls .hero-photo-dot[aria-current]::before { background:#e7d8b7; }
+.hero-photo-controls button:hover { background:#ffffff17; }
+.hero-photo-controls button:focus-visible { outline:3px solid #e7d8b7; outline-offset:-3px; }
+@media (max-width:600px) { .home-hero-media .home-hero-photo img { object-fit:var(--photo-phone-fit,cover); object-position:var(--photo-phone,50% 50%); } .hero-photo-controls { bottom:0; } }
+@media (orientation:landscape) and (max-width:999px) and (max-height:460px) {
+ .home-hero-media { align-self:stretch; }
+ .home-hero-media > .home-hero-photo:first-child { height:100%; }
+ .home-hero .home-hero-media .home-hero-photo img { object-fit:var(--photo-short-fit,cover); object-position:var(--photo-short,50% 50%); }
+ .hero-photo-controls { bottom:8px; }
+}
+@media (prefers-reduced-motion:reduce) { .home-hero-media .home-hero-photo { transition:none; } }
+
+@media (min-width:1000px) { .home-hero-media::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,#102e221c,transparent 32%,transparent 55%,#102e2266); } }
+.hero-photo-controls button[hidden] { display:none; }
