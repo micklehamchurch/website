@@ -57,7 +57,7 @@ test('Bible utility follows Calendar, has an accessible name and desktop label, 
  assert.match(control,/href="bible.html"/);
  assert.match(control,/class="header-book"/);
  assert.equal(labels(control),'Bible');
- const hero=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<div class="hero-actions">(.*?)<\/div>/s)[1];
- assert.equal((hero.match(/<a /g)||[]).length,2);assert.doesNotMatch(hero,/bible/i);
+ const hero=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<a class="home-next-service"[^>]*>(.*?)<\/a>/s)[1];
+ assert.equal((hero.match(/<a /g)||[]).length,0);assert.doesNotMatch(hero,/bible/i);
  assert(fs.existsSync(path.join(root,'assets/images/bible-closed.svg')));
 });

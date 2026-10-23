@@ -13,7 +13,7 @@ test('visitor links retain parish destinations and safely open official external
   for(const link of html.matchAll(/<a\b[^>]*href="(https:[^"]+)"[^>]*>/g)){assert.match(link[0],/target="_blank"/);assert.match(link[0],/rel="noopener noreferrer"/);}
   for(const href of ['what-to-expect.html','church-building.html','our-history.html','westhumble-chapel.html','calendar.html','contact.html'])assert.match(html,new RegExp('href="'+href+'"'));
   assert.match(html,/maps\/dir\/\?api=1&amp;origin=.*&amp;destination=.*&amp;travelmode=walking/);assert.match(html,/tfl\.gov\.uk\/bus\/route\/465\//);assert.doesNotMatch(html,/\b425\b/);
-  assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/href="visit.html">Plan your visit/);
+  assert.match(fs.readFileSync(path.join(root,'site.js'),'utf8'),/class="header-visit" href="visit.html">Plan your visit/);
 });
 
 // Preserve the approved practical travel wording while changing its presentation.
