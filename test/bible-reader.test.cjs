@@ -22,13 +22,13 @@ function reader({ missingToken = false, failChapter = false, remembered = false,
   let rejectChapter = failChapter;
   const window = { fums: (...args) => views.push(args) };
   if (cache) window.BibleSessionCache = cache;
-  window.localStorage = { getItem: () => rawSaved ?? (remembered ? JSON.stringify({v:1,translation:'niv',book:'JHN',chapter:'JHN.2',reference:'John 2',page:2,offset:70}) : null) }; window.BiblePagesModel = require('../bible-pages-model');
+  window.localStorage = { getItem: () => rawSaved ?? (initialRead && !remembered ? JSON.stringify({v:1,translation:'niv',book:'JHN',chapter:'JHN.1',reference:'John 1',page:0,offset:0}) : remembered ? JSON.stringify({v:1,translation:'niv',book:'JHN',chapter:'JHN.2',reference:'John 2',page:2,offset:70}) : null) }; window.BiblePagesModel = require('../bible-pages-model');
   const fetch = async (url, options) => {
     requests.push({ url, options });
     const path = url.split('/api/bible/')[1];
     let data;
     if (path === 'translations') data = [{ id: '3e2eb613d45e131e-01' }, { id: 'de547c01da41e37c-01' }];
-    else if (path.endsWith('/books')) data = extended ? ['GEN','EXO','MAT','MRK','LUK','JHN','ACT','REV'].map(id=>({id,name:id==='JHN'?'John':id})) : [{ id: 'JHN', name: 'John' }];
+    else if (path.endsWith('/books')) data = extended ? ['GEN','EXO','MAT','MRK','LUK','JHN','ACT','REV'].map(id=>({id,name:id==='JHN'?'John':id})) : [{ id: 'GEN', name: 'Genesis' }, { id: 'JHN', name: 'John' }];
     else if (path.includes('/books/')) { const id=path.split('/books/')[1].split('/')[0], count=({GEN:50,EXO:40,MAT:28,MRK:16,LUK:24,JHN:21,ACT:28,REV:22})[id];data=[{id:id+'.intro',number:'intro'},...Array.from({length:count},(_,i)=>({id:id+'.'+(i+1),number:String(i+1)}))]; }
     else {
       if (rejectChapter) return { ok: false, status: 503 };
@@ -37,7 +37,7 @@ function reader({ missingToken = false, failChapter = false, remembered = false,
     return { ok: true, json: async () => ({ data, meta: missingToken ? {} : { fumsToken: 'synthetic-token' } }) };
   };
   vm.runInNewContext(fs.readFileSync(require.resolve('../bible-reader.js'), 'utf8'), { document, window, fetch, AbortSignal, CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } }, DOMParser: class { parseFromString(text) { return { body: { textContent: text } }; } } });
-  let chosen = false; const settle = async () => { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); if (initialRead && !remembered && !chosen) { chosen = true; get('bible-controls').events.submit({preventDefault(){}}); for (let i=0;i<12;i++) await new Promise(resolve=>setImmediate(resolve)); } };
+  const settle = async () => { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); };
   return { documentEvents, emitted, get: name => get('bible-' + name), requests, views, settle, recover: () => { rejectChapter = false; } };
 }
 
@@ -105,18 +105,18 @@ test('valid last reading automatically fetches only its saved chapter',async()=>
  assert.equal(r.emitted.find(e=>e.type==='bible-restoring-location').detail.offset,70);
  assert.equal(r.requests.filter(q=>q.url.includes('/chapters/')).length,1);
 });
-test('missing and corrupt saved positions show the normal choose-a-book state',async()=>{
+test('missing and corrupt saved positions load Genesis 1 automatically',async()=>{
  for(const rawSaved of [undefined,'{broken',JSON.stringify({v:99})]){
  const r=reader({initialRead:false,rawSaved});await r.settle();
- assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);
- assert.equal(r.get('read').disabled,false);assert.match(r.get('status').textContent,/Choose a book/);
+ assert.equal(r.get('reading').hidden,false);assert.equal(r.views.length,1);
+ assert.equal(r.get('chapter').value,'GEN.1');assert.equal(r.get('translation').value,'niv');assert.equal(r.emitted.some(e=>e.type==='bible-restoring-location'),false);
  }
 });
 
-test('a valid-format saved chapter absent from the live catalogue falls back to choosing a reading',async()=>{
+test('a valid-format saved chapter absent from the live catalogue falls back to Genesis 1',async()=>{
  const rawSaved=JSON.stringify({v:1,translation:'niv',book:'PSA',chapter:'PSA.117',reference:'Psalm 117',page:0,offset:0});
  const r=reader({initialRead:false,rawSaved});await r.settle();
- assert.equal(r.get('reading').hidden,true);assert.equal(r.views.length,0);assert.equal(r.get('read').disabled,false);
+ assert.equal(r.get('reading').hidden,false);assert.equal(r.views.length,1);assert.equal(r.get('chapter').value,'GEN.1');
 });
 
  test('continuous page boundary requests preserve translation, avoid duplicate calls and signal the landing edge',async()=>{

@@ -86,7 +86,7 @@
     if (boundaryDirection && !chapters.some(c => c.id === preferred)) throw new Error('unavailable-chapter');
     options(chapter, chapters, c => c.number, preferred);
     if (deferInitialChapter) {
-      deferInitialChapter = false; status.textContent = 'Choose a book and chapter in Books & saved places to begin reading.'; return;
+      deferInitialChapter = false; return;
     }
     await loadChapter(chapter.value, !!boundaryDirection, boundaryDirection);
   }
@@ -106,10 +106,18 @@
     deferInitialChapter = true;
     options(translation, translations, t => t.name, saved?.translation || 'niv');
     if (translationLabel) translationLabel.textContent = translation.selectedOptions[0].textContent;
-    await loadBooks(saved?.book, saved?.chapter);
+    await loadBooks(saved?.book || 'GEN', saved?.chapter || 'GEN.1');
     if (saved && book.value === saved.book && chapter.value === saved.chapter) {
       document.dispatchEvent(new CustomEvent('bible-restoring-location', { detail: saved }));
       await loadChapter(saved.chapter);
+    } else {
+      // Missing, invalid or unavailable history starts at Genesis; saved places are independent.
+      if (translation.value !== 'niv') { translation.value = 'niv'; await loadBooks('GEN', 'GEN.1'); }
+      else if (book.value === 'GEN' && chapter.value === 'GEN.1') await loadChapter('GEN.1');
+      else {
+        if (!books.some(b => b.id === 'GEN')) throw new Error('genesis-unavailable');
+        book.value = 'GEN'; await loadChapters('GEN.1');
+      }
     }
   }
   controls.addEventListener('submit', event => { event.preventDefault(); run(() => loadChapter(chapter.value, true)); });
