@@ -23,3 +23,8 @@
 
 @media (min-width:1000px) { .home-hero-media::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,#102e221c,transparent 32%,transparent 55%,#102e2266); } }
 .hero-photo-controls button[hidden] { display:none; }
+/* Four dots still keep full hit targets in the narrow landscape photo column. */
+@media (orientation:landscape) and (max-width:650px) and (max-height:460px) {
+ .hero-photo-controls { width:274px; max-width:calc(100% - 8px); flex-wrap:wrap; justify-content:center; }
+ .hero-photo-controls button:last-child:not([hidden]) { position:absolute; right:0; bottom:calc(100% + 8px); border:1px solid #e7d8b780; background:#18392dde; }
+}

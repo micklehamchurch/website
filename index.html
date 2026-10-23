@@ -9,12 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" type="image/webp" href="assets/images/home/hero-exterior-1600.webp" imagesrcset="assets/images/home/hero-exterior-640.webp 640w, assets/images/home/hero-exterior-960.webp 960w, assets/images/home/hero-exterior-1600.webp 1600w, assets/images/home/hero-exterior-2560.webp 2560w" imagesizes="(max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw" media="(min-width: 651px), (min-width: 601px) and (min-height: 461px), (min-width: 601px) and (orientation: portrait)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/webp" href="assets/images/home/hero-exterior-phone.webp" media="(max-width: 600px) and (orientation: portrait), (max-width: 600px) and (min-height: 461px)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/webp" href="assets/images/home/hero-exterior-short.webp" media="(orientation: landscape) and (max-width: 650px) and (max-height: 460px)" fetchpriority="high">
-  <link rel="stylesheet" href="home-hero-carousel.css?v=20261023-1">
-  <script src="home-hero-photos.js?v=20261023-1" defer></script>
-  <script src="home-hero-carousel.js?v=20261023-1" defer></script>
+  <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v2-large.webp" imagesrcset="assets/images/home/ed-popov-e6523-v2-tablet.webp 1920w, assets/images/home/ed-popov-e6523-v2-large.webp 3200w" imagesizes="(max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw" media="(min-width: 651px), (min-width: 601px) and (min-height: 461px), (min-width: 601px) and (orientation: portrait)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v3-mobile.webp" media="(max-width: 600px) and (orientation: portrait), (max-width: 600px) and (min-height: 461px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/images/home/ed-popov-e6523-v3-mobile.webp" media="(orientation: landscape) and (max-width: 650px) and (max-height: 460px)" fetchpriority="high">
+  <link rel="stylesheet" href="home-hero-carousel.css?v=20261023-2">
+  <script src="home-hero-photos.js?v=20261023-2" defer></script>
+  <script src="home-hero-carousel.js?v=20261023-2" defer></script>
   <link rel="stylesheet" href="styles.css?v=natural-photos-card-cta-v4">
   <link rel="stylesheet" href="news-stories.css">
   <link rel="stylesheet" href="v1-accessibility.css">
@@ -48,11 +48,11 @@
   <main id="main-content" tabindex="-1">
     <section class="hero home-hero">
       <div class="home-hero-media">
-        <picture class="home-hero-photo is-current" aria-hidden="true">
-          <source media="(orientation: landscape) and (max-width: 650px) and (max-height: 460px)" type="image/webp" srcset="assets/images/home/hero-exterior-short.webp">
-          <source media="(max-width: 600px)" type="image/webp" srcset="assets/images/home/hero-exterior-phone.webp">
-          <source type="image/webp" srcset="assets/images/home/hero-exterior-640.webp 640w, assets/images/home/hero-exterior-960.webp 960w, assets/images/home/hero-exterior-1600.webp 1600w, assets/images/home/hero-exterior-2560.webp 2560w" sizes="(max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw">
-          <img src="assets/images/home/hero-exterior.jpg" width="1600" height="900" alt="" loading="eager" fetchpriority="high" decoding="async">
+        <picture class="home-hero-photo is-current" aria-hidden="true" style="--photo-wide:50% 62%;--photo-phone:50% 50%;--photo-short:40% 50%">
+          <source media="(orientation: landscape) and (max-width: 650px) and (max-height: 460px)" type="image/webp" srcset="assets/images/home/ed-popov-e6523-v3-mobile.webp">
+          <source media="(max-width: 600px)" type="image/webp" srcset="assets/images/home/ed-popov-e6523-v3-mobile.webp">
+          <source type="image/webp" srcset="assets/images/home/ed-popov-e6523-v2-tablet.webp 1920w, assets/images/home/ed-popov-e6523-v2-large.webp 3200w" sizes="(max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw">
+          <img src="assets/images/home/ed-popov-e6523-v2-large.jpg" width="3200" height="1800" alt="" loading="eager" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-overlay"></div>
