@@ -36,3 +36,16 @@ Header heights remain89px desktop,81px condensed,79px compact/tablet,113px phone
 scripts/check-seamless-heroes.cjs records before/after/live geometry and screenshots (baseline must be captured from prior Dev). scripts/check-seamless-quality.cjs checks image reuse, header contrast/axe, failure fallback and responsive recovery. Real browser request counts show exactly one request for each selected hero URL, and no generic garden header request in seamless layouts. Existing responsive sources are not rewritten. Header contrast passes4.5:1, including all tested crops; fallback uses unchanged Phase1 contrast. Existing semantic image descriptions are retained. Home's HTML/assets/styles remain unchanged; internal public HTML changes only the shared script cache parameter headerPhoto=20261024-2. Existing original page CSS, photography and textual content remain unchanged.
 
 Lowest measured gold header contrast in the quality matrix: 5.10:1.
+
+## Final visual polish (Dev, 24 October 2026)
+Baseline: 316c0007defc6de4ebe1f281b6c7832abf7e8233. No photograph or geometry changes.
+
+The pale Baptisms/Weddings/Funerals editorial washes made the navigation overlay's 25px post-header tail look like a fuzzy horizontal strip. Toggling only that overlay removed the strip; there was no filter, mask, duplicate image or mismatched crop. Longer fade experiments made the haze more conspicuous and were rejected. Above 900px, these three pages now retain the dark navigation plateau but finish its tail 10px below the header (86% at header minus 1px, 40% at plus 4px, transparent at plus 10px). Narrow layouts retain their existing treatment.
+
+Weddings above 900px uses 64% 20% object-position instead of the original desktop 64% 0. At 1600px this raises the image about 47px, placing the spire tip within the navigation photograph rather than at its lower edge. The architecture and couple remain visible. Narrow focal points are untouched.
+
+Visit retains its original left overlay through 45% of the image, including the entire copy area. Only the right-hand fade finishes earlier: 68% rather than 75%. This removes at most about 9.3 percentage points of green overlay opacity in that region; there is no image brightness/filter change. An earlier trial reducing the middle stop was rejected because it reduced copy contrast. The overlay stops covering the copy area are unchanged. The dark navigation gradient is retained.
+
+Pastoral Care, About, History and Find Us have no CSS changes and are pixel-identical in browser comparisons. Home, ordinary Phase1 header styling, original assets, page CSS, structure, copy and controls are unchanged. The shared script and stylesheet cache parameters are bumped so existing visitors receive the new CSS. Internal HTML changes are cache parameters only.
+
+Validation: 44 polish page/viewport comparisons (320,375,390,430,874x402,768x1024,1024x768,1280,1536,1600,1920), plus the existing 64-layout geometry checks. Header/hero/copy/following-content bounds remain identical; no overflow. Existing quality checks verify one hero URL request, header contrast and axe, image failure fallback and narrow fallback recovery. Before/after screenshots and diagnostic experiments are retained outside the repository in seamless-polish/. Focused tests:17 pass; full suite:523 pass,14 unchanged pre-existing failures out of537.

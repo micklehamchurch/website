@@ -21,6 +21,17 @@
  .history-hero.seamless-hero { --seamless-focal:50% 30%; }
  .visit-opening.seamless-hero { --seamless-focal:50% 41%; }
  .visit-opening.seamless-hero .seamless-page-shade { background-image:linear-gradient(90deg,#18392dc7,#18392d66 45%,transparent 75%); }
+ /* Desktop-only polish: pale editorial overlays need a shorter navigation tail.
+    Keep narrow photo-first layouts and the four approved compositions untouched. */
+ @media(min-width:901px) {
+  .baptism-hero.seamless-hero .seamless-nav-shade,
+  .wedding-hero.seamless-hero .seamless-nav-shade,
+  .funeral-hero.seamless-hero .seamless-nav-shade {
+   background:linear-gradient(to bottom,#18392de6 0,#18392de6 calc(var(--seamless-header) - 10px),#18392ddb calc(var(--seamless-header) - 1px),#18392d66 calc(var(--seamless-header) + 4px),#18392d00 calc(var(--seamless-header) + 10px));
+  }
+  .wedding-hero.seamless-hero { --seamless-focal:64% 20%; }
+  .visit-opening.seamless-hero .seamless-page-shade { background-image:linear-gradient(90deg,#18392dc7,#18392d66 45%,transparent 68%); }
+ }
  @media(max-width:700px) {
   .parish-about-hero.seamless-hero { --seamless-focal:45% 35%; }
   .history-hero.seamless-hero { --seamless-focal:45% 35%; }

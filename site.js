@@ -121,7 +121,7 @@ if (siteScript) {
     const seamlessHero=seamlessHeroes[publicPath];
     if(seamlessHero&&document.querySelector(seamlessHero+' img')){
       publicHeader.dataset.seamlessHero=seamlessHero;
-      photoStyles.href=new URL('seamless-heroes.css?v=20261024-1',siteScript.src).href;
+      photoStyles.href=new URL('seamless-heroes.css?v=20261024-polish-1',siteScript.src).href;
       const seamlessScript=document.createElement('script');
       seamlessScript.src=new URL('seamless-heroes.js?v=20261024-1',siteScript.src).href;
       photoStyles.addEventListener('load',()=>document.body.append(seamlessScript),{once:true});
