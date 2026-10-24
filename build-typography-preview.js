@@ -4,7 +4,7 @@ const path = require('node:path');
 const { versionPublicScript } = require('./public-script-version');
 const root = __dirname;
 // Central post-build hook covers handwritten and generated pages, including news.
-for (const directory of [root, path.join(root, 'news')]) {
+for (const directory of [root, path.join(root, 'news'), path.join(root, 'pews-news')]) {
   if (!fs.existsSync(directory)) continue;
   for (const name of fs.readdirSync(directory)) {
     if (!name.endsWith('.html')) continue;

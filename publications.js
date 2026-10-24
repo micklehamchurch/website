@@ -1,10 +1,15 @@
 (() => {
   const model = window.churchPublications;
+  let onlineEditions = [];
   const create = (tag, text, className) => { const node = document.createElement(tag); if (text) node.textContent = text; if (className) node.className = className; return node; };
   function actions(record) {
     const group = create('div', '', 'publication-actions');
     const view = create('a', `Read ${model.label(record.type)}`, 'btn btn-green');
     view.href = record.pdf; view.target = '_blank'; view.rel = 'noopener'; view.setAttribute('aria-label', `Read ${record.title}, ${model.dateLabel(record)} (PDF, opens in a new tab)`);
+    if (record.type === 'pews-news' && onlineEditions.includes(record.date)) {
+      view.href = `pews-news/${record.date}.html`; view.removeAttribute('target'); view.removeAttribute('rel');
+      view.setAttribute('aria-label', `Read ${record.title}, ${model.dateLabel(record)} online`);
+    }
     const download = create('a', 'Download PDF', 'btn btn-outline-green');
     download.href = record.pdf; download.download = record.pdf.split('/').at(-1); download.setAttribute('aria-label', `Download ${record.title}, ${model.dateLabel(record)} PDF`);
     group.append(view, download); return group;
@@ -32,7 +37,11 @@
     if (!years.length) list.append(create('p', 'Previous editions will appear here as our collection grows.', 'publication-empty'));
     document.querySelector('#publication-status').textContent = `${visible.length} previous ${visible.length === 1 ? 'edition' : 'editions'}.`;
   }
-  fetch('publications-data.json').then(response => { if (!response.ok) throw new Error('Unavailable'); return response.json(); }).then(data => {
+  Promise.all([
+    fetch('publications-data.json').then(response => { if (!response.ok) throw new Error('Unavailable'); return response.json(); }),
+    fetch('pews-news-data.json').then(response => response.ok ? response.json() : { editions: [] }).catch(() => ({ editions: [] }))
+  ]).then(([data, online]) => {
+    onlineEditions = Array.isArray(online.editions) ? online.editions : [];
     const records = model.parse(data);
     ['pews-news', 'parish-magazine'].forEach(type => renderLatest(records, type)); renderArchive(records);
     document.querySelector('#publication-type').addEventListener('change', () => renderArchive(records));

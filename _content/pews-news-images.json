@@ -1,0 +1,89 @@
+{
+  "2026-10-25": {
+    "zoom": {
+      "src": "assets/images/pews-news/2026-10-25/zoom.webp",
+      "width": 263,
+      "height": 198
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-10-25/bible-study.webp",
+      "width": 170,
+      "height": 224
+    },
+    "alpha": {
+      "src": "assets/images/pews-news/2026-10-25/alpha.webp",
+      "width": 311,
+      "height": 200
+    },
+    "bible": {
+      "src": "assets/images/pews-news/2026-10-25/bible.webp",
+      "width": 342,
+      "height": 188
+    },
+    "fall-back": {
+      "src": "assets/images/pews-news/2026-10-25/fall-back.webp",
+      "width": 612,
+      "height": 612
+    },
+    "macmillan": {
+      "src": "assets/images/pews-news/2026-10-25/macmillan.webp",
+      "width": 318,
+      "height": 159
+    },
+    "remembrance": {
+      "src": "assets/images/pews-news/2026-10-25/remembrance.webp",
+      "width": 475,
+      "height": 476
+    },
+    "poppy-qr": {
+      "src": "assets/images/pews-news/2026-10-25/poppy-qr.png",
+      "width": 226,
+      "height": 215
+    },
+    "link-to-hope": {
+      "src": "assets/images/pews-news/2026-10-25/link-to-hope.webp",
+      "width": 335,
+      "height": 351
+    },
+    "coffee-cake": {
+      "src": "assets/images/pews-news/2026-10-25/coffee-cake.webp",
+      "width": 199,
+      "height": 202
+    },
+    "pumpkins": {
+      "src": "assets/images/pews-news/2026-10-25/pumpkins.webp",
+      "width": 360,
+      "height": 333
+    },
+    "lights": {
+      "src": "assets/images/pews-news/2026-10-25/lights.webp",
+      "width": 235,
+      "height": 240
+    },
+    "foodbank-bag": {
+      "src": "assets/images/pews-news/2026-10-25/foodbank-bag.webp",
+      "width": 269,
+      "height": 309
+    },
+    "pcc": {
+      "src": "assets/images/pews-news/2026-10-25/pcc.webp",
+      "width": 486,
+      "height": 264
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-10-25/snowman.webp",
+      "width": 285,
+      "height": 427
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-10-25/soup.webp",
+      "width": 484,
+      "height": 339
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-10-25/foodbank.webp",
+      "width": 612,
+      "height": 501
+    }
+  }
+}
