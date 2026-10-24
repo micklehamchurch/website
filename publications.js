@@ -41,7 +41,8 @@
     }
   }
   function renderArchive(records) {
-    const list = document.querySelector('#publication-archive'), visible = model.archive(records, document.querySelector('#publication-type').value);
+    const list = document.querySelector('#publication-archive'), visible = model.archive(records, document.querySelector('#publication-type').value)
+      .filter(record => record.type !== 'pews-news' || !onlineEditions.includes(record.date));
     list.replaceChildren();
     const years = [...new Set(visible.map(record => record.date.slice(0, 4)))];
     for (const year of years) {
@@ -57,8 +58,8 @@
     document.querySelector('#publication-status').textContent = `${visible.length} previous ${visible.length === 1 ? 'edition' : 'editions'}.`;
   }
   Promise.all([
-    fetch('publications-data.json').then(response => { if (!response.ok) throw new Error('Unavailable'); return response.json(); }),
-    fetch('pews-news-data.json').then(response => response.ok ? response.json() : { editions: [] }).catch(() => ({ editions: [] }))
+    fetch('publications-data.json', { cache: 'no-cache' }).then(response => { if (!response.ok) throw new Error('Unavailable'); return response.json(); }),
+    fetch('pews-news-data.json', { cache: 'no-cache' }).then(response => response.ok ? response.json() : { editions: [] }).catch(() => ({ editions: [] }))
   ]).then(([data, online]) => {
     onlineEditions = Array.isArray(online.editions) ? online.editions : [];
     const records = model.parse(data);

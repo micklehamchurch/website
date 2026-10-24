@@ -85,5 +85,85 @@
       "width": 612,
       "height": 501
     }
+  },
+  "2026-10-18": {
+    "zoom": {
+      "src": "assets/images/pews-news/2026-10-18/zoom.webp",
+      "width": 263,
+      "height": 198,
+      "alt": "People joining a service online"
+    },
+    "alpha": {
+      "src": "assets/images/pews-news/2026-10-18/alpha.webp",
+      "width": 311,
+      "height": 200,
+      "alt": "The Alpha Course: explore the meaning of life"
+    },
+    "link-to-hope": {
+      "src": "assets/images/pews-news/2026-10-18/link-to-hope.webp",
+      "width": 335,
+      "height": 597,
+      "alt": "Link to Hope: it begins with an ordinary shoebox"
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-10-18/bible-study.webp",
+      "width": 170,
+      "height": 224,
+      "alt": "Reading the Bible"
+    },
+    "macmillan": {
+      "src": "assets/images/pews-news/2026-10-18/macmillan.webp",
+      "width": 441,
+      "height": 347,
+      "alt": "Macmillan Cancer Support: World’s Biggest Coffee Morning"
+    },
+    "mens-breakfast": {
+      "src": "assets/images/pews-news/2026-10-18/mens-breakfast.webp",
+      "width": 458,
+      "height": 237,
+      "alt": "Join us for breakfast"
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-10-18/soup.webp",
+      "width": 245,
+      "height": 180,
+      "alt": "A bowl of homemade soup"
+    },
+    "bible": {
+      "src": "assets/images/pews-news/2026-10-18/bible.webp",
+      "width": 248,
+      "height": 136,
+      "alt": "An open Bible"
+    },
+    "lights": {
+      "src": "assets/images/pews-news/2026-10-18/lights.webp",
+      "width": 235,
+      "height": 240,
+      "alt": "Hands holding a lighted candle"
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-10-18/foodbank.webp",
+      "width": 269,
+      "height": 309,
+      "alt": "A bag of Food Bank donations"
+    },
+    "remembrance": {
+      "src": "assets/images/pews-news/2026-10-18/remembrance.webp",
+      "width": 681,
+      "height": 682,
+      "alt": "A soldier among remembrance poppies"
+    },
+    "poppy-qr": {
+      "src": "assets/images/pews-news/2026-10-18/poppy-qr.png",
+      "width": 226,
+      "height": 215,
+      "alt": "Scan to donate to the local Royal British Legion collection"
+    },
+    "coffee-cake": {
+      "src": "assets/images/pews-news/2026-10-18/coffee-cake.webp",
+      "width": 199,
+      "height": 202,
+      "alt": "A cup of coffee and a slice of cake"
+    }
   }
 }

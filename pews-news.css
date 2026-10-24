@@ -29,6 +29,7 @@
 .pews-archive-body { padding:22px 14px 12px; }
 .pews-archive-body h2 { font-size:28px; margin-bottom:10px; }
 .pews-archive-body > p { font-size:14px; line-height:1.6; margin-bottom:18px; }
+.pews-archive-section > h3 { margin:18px 0 8px; font:600 12px/1.5 var(--sans); letter-spacing:.04em; color:var(--green); }
 .pews-year { border-bottom:1px solid var(--stone); }
 .pews-year > summary { padding-inline:10px; color:var(--deep); border-radius:4px; background:#eceee5; font-size:14px; }
 .pews-year summary span { margin-left:auto; color:var(--muted); font-size:11px; font-weight:400; }
@@ -50,6 +51,7 @@
 .pews-clock figcaption { font-size:11px; color:#675c3c; line-height:1.4; max-width:180px; }
 .pews-sunday > h2::after { content:''; display:block; width:34px; height:3px; margin-top:10px; background:var(--green); }
 .pews-services { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pews-services:has(> :only-child) { grid-template-columns:1fr; }
 .pews-services > div { display:flex; gap:13px; align-items:start; background:#faf8f2; padding:16px; border:1px solid #eee8db; border-radius:6px; }
 .pews-service-symbol { color:var(--green); font:36px/1 sans-serif; }
 .pews-services .pews-service-time { font:600 27px/1.1 var(--serif); margin:0 0 6px; color:var(--deep); }
@@ -91,6 +93,7 @@
 .pews-feature-panel { background:#faf8f2; border:1px solid #eee7d9; border-radius:6px; overflow:hidden; }
 .pews-feature-picture { padding:12px; background:#f4f0e5; }
 .pews-feature-picture img { display:block; width:100%; height:144px; object-fit:contain; }
+.pews-feature-panel-lead .pews-feature-picture img { height:230px; }
 .pews-feature-copy { padding:16px; }
 .pews-feature-copy > .eyebrow { font-size:10px; margin-top:0; }
 .pews-feature-copy p.pews-when { background:#e8eee2; padding:9px 11px; margin:14px 0; }

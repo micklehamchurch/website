@@ -33,4 +33,14 @@ Web transcription is currently a repository content step; the PDF uploader does 
 
 The original PDF was already present on Dev and matches the supplied `Pews News Online 25th October 26 v2.pdf` byte for byte. The original PDF is retained unchanged. Images were extracted using pypdf, capped at 900 pixels without upscaling, and encoded as WebP quality 82; the donation QR image is lossless PNG. The source’s meaningful artwork is reused, including the Food Bank painting. The complete extracted asset set is approximately 410 KB. The edition artwork loads eagerly with intrinsic dimensions so native printing also includes illustrations beyond the current viewport.
 
+## Online and PDF-only archives
+
+The edition sidebar groups published records with a matching web source under **Online Editions**, newest first, and the remaining published Pews records under **Past PDF Editions**. Year counts apply to each group separately. HTML edition links use ordinary same-tab navigation, permanent URLs and a single `aria-current="page"` highlight. The News hub recognises both types; its secondary PDF archive excludes records that now have web editions. All original PDFs remain available from each web edition’s download action. These rules apply to future editions without special page-to-page routing.
+
+## Source and images for 18 October 2026
+
+The supplied four-page `Pews News Online 18th October 26 v2.pdf` also matches the existing repository PDF byte for byte (SHA-256 `c999695e51666802c0180494d4f53705b28cc8961dce7915a67c5c19e6a5df1f`). Its original PDF is unchanged. Thirteen meaningful embedded images were extracted from this source, capped at 900 pixels without enlargement and encoded as WebP quality 82, with the donation QR preserved as lossless PNG; the complete set is about 270 KB.
+
+The source’s printed “Sunday 17th November” for Ascending Deeper is retained in the displayed wording, despite the weekday/date inconsistency. That notice omits an automatically calculated weekday badge. No Snowman/Christingle/Harvest/clock notice from 25 October is copied into this edition. The Food Bank’s separate “As always” milk/juice statement uses an optional `foodbank.note` field. The prominent shoebox notice uses the existing sidebar/featured metadata; a modifier enlarges only that selected sidebar illustration. A single-service Sunday uses the same service panel at full width.
+
 References to the covering email and Parish Magazine remain faithful to the PDF. No email attachment or donation destination was invented.
