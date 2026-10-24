@@ -48,6 +48,8 @@ on:
       - 'admin/news-api.mjs'
       - 'build-news-pages.js'
       - 'build-content-pages.js'
+      - 'seamless-heroes.js'
+      - 'seamless-heroes.css'
       - 'pastoral-care-render.js'
       - 'pastoral-care.css'
       - 'pastoral-care.js'

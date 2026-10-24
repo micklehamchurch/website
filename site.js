@@ -111,7 +111,21 @@ if (siteScript) {
   if(publicHeader&&!isHome&&!isSpecial){
     publicHeader.classList.add('header-internal-photo');
     const photoStyles=document.createElement('link');photoStyles.rel='stylesheet';
-    photoStyles.href=new URL('internal-header-photo.css?v=20261024-1',siteScript.src).href;
+    // Explicit approved hero routes; ordinary internal pages retain Phase 1.
+    const seamlessHeroes={
+      'baptisms.html':'.baptism-hero','weddings.html':'.wedding-hero',
+      'funerals.html':'.funeral-hero','about.html':'.parish-about-hero',
+      'our-history.html':'.history-hero','pastoral-care.html':'.pastoral-banner',
+      'visit.html':'.visit-opening','finding-us.html':'.find-hero'
+    };
+    const seamlessHero=seamlessHeroes[publicPath];
+    if(seamlessHero&&document.querySelector(seamlessHero+' img')){
+      publicHeader.dataset.seamlessHero=seamlessHero;
+      photoStyles.href=new URL('seamless-heroes.css?v=20261024-1',siteScript.src).href;
+      const seamlessScript=document.createElement('script');
+      seamlessScript.src=new URL('seamless-heroes.js?v=20261024-1',siteScript.src).href;
+      photoStyles.addEventListener('load',()=>document.body.append(seamlessScript),{once:true});
+    }else photoStyles.href=new URL('internal-header-photo.css?v=20261024-1',siteScript.src).href;
     document.head.append(photoStyles);
   }
 

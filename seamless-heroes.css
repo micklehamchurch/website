@@ -1,0 +1,31 @@
+/* A single visible image spans the existing header + hero boxes; no geometry changes. */
+@media screen {
+ .seamless-hero { isolation:isolate; overflow:visible; clip-path:inset(calc(-1 * var(--seamless-top)) 0 0); }
+ .seamless-hero::after,.seamless-before-shade::before { opacity:0; }
+ .seamless-source { opacity:0; }
+ .seamless-layer { position:absolute; top:calc(-1 * var(--seamless-top)); bottom:var(--seamless-bottom,0px); left:0; right:0; z-index:-2; overflow:hidden; pointer-events:none; background:var(--deep); }
+ .seamless-layer>img { display:block; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:var(--seamless-focal,var(--seamless-original-focal,50% 50%)); }
+ .seamless-page-shade,.seamless-nav-shade { position:absolute; inset:0; }
+ .seamless-page-shade { background-image:var(--seamless-shade); }
+ .seamless-nav-shade { background:linear-gradient(to bottom,#18392de6 0,#18392de6 calc(var(--seamless-header) - 15px),#18392ddb var(--seamless-header),#18392d26 calc(var(--seamless-header) + 15px),#18392d00 calc(var(--seamless-header) + 25px)); }
+ body .site-header.seamless-header,
+ body.header-photo-page .site-header.seamless-header:not(.is-condensed) { background:var(--deep); }
+ body .site-header.seamless-header.seamless-active,
+ body.header-photo-page .site-header.seamless-header.seamless-active:not(.is-condensed) { background:transparent; border-bottom-color:transparent; }
+ .seamless-photo-split .seamless-layer { background:#faf8f1; }
+ .seamless-photo-sided .seamless-layer>img { left:var(--seamless-photo-left); width:var(--seamless-photo-width); }
+ .seamless-photo-split .seamless-page-shade { background-image:none; }
+ /* Crops belong to the individual approved photographs. */
+ .pastoral-banner.seamless-hero { --seamless-focal:50% 55%; }
+ .parish-about-hero.seamless-hero { --seamless-focal:50% 42%; }
+ .history-hero.seamless-hero { --seamless-focal:50% 30%; }
+ .visit-opening.seamless-hero { --seamless-focal:50% 41%; }
+ .visit-opening.seamless-hero .seamless-page-shade { background-image:linear-gradient(90deg,#18392dc7,#18392d66 45%,transparent 75%); }
+ @media(max-width:700px) {
+  .parish-about-hero.seamless-hero { --seamless-focal:45% 35%; }
+  .history-hero.seamless-hero { --seamless-focal:45% 35%; }
+  .history-hero.seamless-hero .seamless-page-shade,.parish-about-hero.seamless-hero .seamless-page-shade { background-image:linear-gradient(to bottom,#18392dd9 0,#18392da6 var(--seamless-copy-end),#18392d33 100%); }
+ }
+}
+
+@media print { .seamless-layer { display:none; } }
