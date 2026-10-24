@@ -119,14 +119,19 @@ if (siteScript) {
       'visit.html':'.visit-opening','finding-us.html':'.find-hero'
     };
     const seamlessHero=seamlessHeroes[publicPath];
-    if(seamlessHero&&document.querySelector(seamlessHero+' img')){
+    if(document.querySelector('.editorial-hero')){
+      publicHeader.classList.add('editorial-header');
+      const editorialScript=document.createElement('script');
+      editorialScript.src=new URL('editorial-heroes.js?v=20261024-1',siteScript.src).href;
+      document.body.append(editorialScript);
+    }else if(seamlessHero&&document.querySelector(seamlessHero+' img')){
       publicHeader.dataset.seamlessHero=seamlessHero;
       photoStyles.href=new URL('seamless-heroes.css?v=20261024-polish-1',siteScript.src).href;
       const seamlessScript=document.createElement('script');
       seamlessScript.src=new URL('seamless-heroes.js?v=20261024-1',siteScript.src).href;
       photoStyles.addEventListener('load',()=>document.body.append(seamlessScript),{once:true});
     }else photoStyles.href=new URL('internal-header-photo.css?v=20261024-1',siteScript.src).href;
-    document.head.append(photoStyles);
+    if(photoStyles.hasAttribute('href'))document.head.append(photoStyles);
   }
 
   const stateScript=document.createElement('script');
