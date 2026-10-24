@@ -1,0 +1,21 @@
+/* Background only: geometry and state surfaces remain in header-navigation.css. */
+@media screen {
+ .site-header.header-internal-photo,
+ body.header-photo-page .site-header.header-internal-photo:not(.is-condensed) {
+  --internal-header-overlay:.82;
+  background-color:var(--deep);
+  background-image:linear-gradient(rgb(24 57 45 / var(--internal-header-overlay)),rgb(24 57 45 / var(--internal-header-overlay))),url('assets/images/header/internal-garden-1600.webp');
+  background-size:cover;
+  background-position:50% 47%;
+  background-repeat:no-repeat;
+ }
+ @media(max-width:700px) {
+  .site-header.header-internal-photo,
+  body.header-photo-page .site-header.header-internal-photo:not(.is-condensed) {
+   --internal-header-overlay:.86;
+   background-image:linear-gradient(rgb(24 57 45 / var(--internal-header-overlay)),rgb(24 57 45 / var(--internal-header-overlay))),url('assets/images/header/internal-garden-800.webp');
+   background-position:58% 50%;
+  }
+ }
+}
+

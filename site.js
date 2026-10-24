@@ -101,6 +101,20 @@ if (siteScript) {
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261022-inline-1', siteScript.src).href;
   document.head.append(headerStyles);
+  // One signature background for normal public internal headers only.
+  // Keep Home, Admin and the embedded Bible reader on their existing treatment.
+  const publicHeader=document.querySelector('header.site-header[data-site-header]');
+  const publicBase=new URL('.',siteScript.src);
+  const publicPath=location.pathname.startsWith(publicBase.pathname)?location.pathname.slice(publicBase.pathname.length):null;
+  const isHome=publicPath===''||publicPath==='index.html';
+  const isSpecial=publicPath===null||/^(admin|auth|login)(?:[/.]|$)/i.test(publicPath)||(window.parent!==window&&new URLSearchParams(location.search).get('book')==='overlay');
+  if(publicHeader&&!isHome&&!isSpecial){
+    publicHeader.classList.add('header-internal-photo');
+    const photoStyles=document.createElement('link');photoStyles.rel='stylesheet';
+    photoStyles.href=new URL('internal-header-photo.css?v=20261024-1',siteScript.src).href;
+    document.head.append(photoStyles);
+  }
+
   const stateScript=document.createElement('script');
   stateScript.src=new URL('public-header.js?v=20261022-inline-2',siteScript.src).href;
   document.head.append(stateScript);
