@@ -118,7 +118,7 @@ if (siteScript) {
       'our-history.html':'.history-hero','pastoral-care.html':'.pastoral-banner',
       'visit.html':'.visit-opening','finding-us.html':'.find-hero'
     };
-    const seamlessHero=seamlessHeroes[publicPath];
+    const seamlessHero=seamlessHeroes[publicPath]||(/^pews-news(?:\.html|\/\d{4}-\d{2}-\d{2}\.html)$/.test(publicPath)?'.pews-hero':null);
     if(document.querySelector('.editorial-hero')){
       publicHeader.classList.add('editorial-header');
       const editorialScript=document.createElement('script');

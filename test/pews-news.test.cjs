@@ -112,11 +112,23 @@ test('online archive has two real HTML editions and disjoint PDF-only archive on
   assert.match(landing,/href="pews-news\/2026-10-18.html"><time datetime="2026-10-18"/);
   assert.deepEqual(require('../pews-news-data.json').editions,['2026-10-25','2026-10-18']);
 });
-test('25 October edition content and design remain unchanged outside the requested archive', () => {
+test('25 October edition body remains unchanged outside the archive and masthead', () => {
   const cp = require('node:child_process');
   const previous = file => cp.execFileSync('git',['show',`2a57cb7:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'');
   assert.deepEqual(require('../_content/pews-news/2026-10-25.json'),JSON.parse(previous('_content/pews-news/2026-10-25.json')));
   assert.deepEqual(require('../_content/pews-news-images.json')['2026-10-25'],JSON.parse(previous('_content/pews-news-images.json'))['2026-10-25']);
-  const stripArchive = value => value.replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=editorial-20261024-\d/g,'pews-news.css?version');
+  const stripArchive = value => value.replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version').replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version');
   assert.equal(stripArchive(fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8').replace(/\r/g,'')),stripArchive(previous('pews-news/2026-10-25.html')));
+});
+
+test('publication masthead is shared, responsive and date-independent without changing edition bodies',()=>{
+ const cp=require('node:child_process');let masthead;
+ for(const file of ['pews-news.html','pews-news/2026-10-18.html','pews-news/2026-10-25.html']){
+  const html=fs.readFileSync(path.join(source,file),'utf8').replace(/\r/g,''),previous=cp.execFileSync('git',['show',`379c2a4:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'');
+  const hero=html.match(/<section class="pews-hero"[\s\S]*?<\/section>/)[0];
+  assert(!hero.includes('2026-10'));assert(hero.includes('Weekly news, services and events'));assert(hero.includes('church-card.webp 720w'));assert(hero.includes('church-hero.webp 1600w'));assert(hero.includes('alt=""'));assert.equal((hero.match(/<h1\b/g)||[]).length,1);
+  if(masthead)assert.equal(hero,masthead);masthead=hero;
+  const strip=s=>s.replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version');
+  assert.equal(strip(html),strip(previous),file+' outside masthead changed');
+ }
 });

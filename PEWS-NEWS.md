@@ -44,3 +44,21 @@ The supplied four-page `Pews News Online 18th October 26 v2.pdf` also matches th
 The source’s printed “Sunday 17th November” for Ascending Deeper is retained in the displayed wording, despite the weekday/date inconsistency. That notice omits an automatically calculated weekday badge. No Snowman/Christingle/Harvest/clock notice from 25 October is copied into this edition. The Food Bank’s separate “As always” milk/juice statement uses an optional `foodbank.note` field. The prominent shoebox notice uses the existing sidebar/featured metadata; a modifier enlarges only that selected sidebar illustration. A single-service Sunday uses the same service panel at full width.
 
 References to the covering email and Parish Magazine remain faithful to the PDF. No email attachment or donation destination was invented.
+
+## Seamless publication masthead (24 October 2026)
+
+The date-free `NEWS / Pews News / Weekly news, services and events` masthead is emitted by the same renderer for every edition and the latest-edition alias. No date-specific hero implementation exists. Dates remain in the breadcrumbs and edition content. The edition body, archive, images, PDFs, notices, contact/Zoom information, links and native printing are unchanged.
+
+The existing genuine `assets/images/about/church-hero.webp` (1600x899,311782 bytes) remains the source. Its existing `church-card.webp` derivative (720x405,66282 bytes) supplies smaller viewports through srcset; no photograph or new derivative was created. Custom heroImage overrides still work without assuming unrelated derivatives exist.
+
+Only Pews News routes opt into the approved shared seamless-hero module: `pews-news.html` and generated `pews-news/YYYY-MM-DD.html`. Its module and shared CSS are unchanged. Pews-specific screen CSS removes the white title panel and green label pill, uses an ivory serif heading and gold eyebrow, and coordinates the source/copy crop with the one decoded decorative image spanning header and masthead. Original decorative alt remains empty; the cloned decorative layer is aria-hidden.
+
+Desktop/tablet crop: the photo shifts24% right, with object-position50%28%. This places the tower/clock around the right-hand two-thirds without replacing/distorting the photograph. An opaque green lead-in hides the photo edge and fades through85% at42%,25% at58%,transparent at72%. It is a continuous background, not a title card. The header has the existing90% green readability plate and a short10px exit; no blur/filter or duplicate crop. The hidden original image stays inside the layout so it cannot create horizontal overflow.
+
+At<=700px, the photo shifts14% right and uses0%28% positioning, keeping the clock clear of the copy. Copy gets stronger green protection (opaque through18%,92% at55%,78% at72%,12% at100%). Short landscape restores the24%/50%28% crop and a185px masthead to avoid excessive vertical height. The masthead uses the normal1240px editorial grid, with28px total phone side gutters.
+
+Measured hero heights (header excluded): desktop1600/1920,197.98->240px;1366,197.98->240;1024,186.97->240;768,185->220;390,190->220;320,212.59->220;874x402,185->185. Header heights remain89/81/79/113/57px. Edition content moves only by the intended masthead-height difference.
+
+Performance: exactly one selected church image request, shared between the existing source and decorative decoded layer; no generic garden header image. At desktop the old311782-byte church image remains, while the64196-byte generic header photograph is removed. DPR1 small screens select66282 bytes instead of the previous311782-byte hero plus25482-byte garden header. High-density screens may select1600 normally. Existing first-image priority, browser caching, source selection and graceful green fallback are preserved. No global preload or unrelated-page cache change.
+
+Versioning uses the existing build hook, targeted only to the three generated Pews News pages: headerPhoto20261024-pews-1 and Pews CSS masthead-20261024-1. Home and other pages remain unchanged. Focused tests verify identical masthead markup across both available editions/latest alias and exact body/archive preservation outside masthead/cache changes. The existing older archive snapshot now excludes the intentionally refined masthead. No underlying publication data/schema changes.
