@@ -10,6 +10,21 @@ The shared `_content/publications.json` catalogue remains authoritative for publ
 4. The `pumpkins`/`pumpkinImage` community notice and `foodbank` section are optional; omit them when absent from the source. The `clock` panel is optional and should only appear when relevant; do not copy its message into subsequent weeks. General future notices belong in the `sections` array. No layout markup needs copying.
 5. Run `npm run build` and the Pews News/publication tests. Inspect desktop and mobile. Commit to Dev only. The existing build workflow regenerates and deploys Dev.
 
+## Editorial presentation
+
+The same edition schema supports the desktop archive / main edition / feature layout and the tablet/mobile arrangements. The following optional fields control presentation without changing source text or copying page markup:
+
+- Section `layout`: `timeline` for compact dated rows, or `grid` for calendar cards with native expandable full details. Existing sections without this field retain timeline rendering.
+- Notice `dates`: an array of real ISO dates used for calendar badges (including notices with two dates).
+- Notice `placement: "sidebar"`: moves the whole notice into the selected feature column. Use sparingly; every notice is rendered once.
+- Notice `featured: true`: gives a calendar card larger original imagery.
+- Notice `poppyFeature: true`: presents the first paragraph as service information in the calendar and the remaining paragraphs plus donation QR in the side feature. This is optional and only appropriate for an edition with that source material.
+- Edition `heroImage`: an existing genuine site photograph. The edition’s extracted artwork remains unchanged and is used within the newsletter. No stock replacement of source imagery is introduced.
+
+The November-style grid is not tied to a particular month: section headings, dates, notices and feature choices come from each edition. The closing Harvest and Food Bank notices remain optional. Native details controls work without JavaScript. Printing automatically expands the full notices, removes navigation/feedback controls, and uses a dedicated compact layout; it does not replace the unchanged original PDF download.
+
+The build also refreshes a published-only static Pews News hub inside the marked region of `news.html`. It includes the latest real edition, up to four recent real editions, and a full archive action. The existing publication script refreshes the same information in the browser. The large Harvest story and separate Parish Magazine area are retained. This hub remains readable with JavaScript disabled.
+
 `build-pews-news.js` generates permanent `pews-news/YYYY-MM-DD.html` pages, the `pews-news.html` latest-online route, and the small `pews-news-data.json` index used by News links. It reads only published catalogue records, groups real editions by year, leaves PDF-only editions available, and removes withdrawn generated pages. Empty online archives show a neutral link to the PDF catalogue. The central public script/typography hook also processes the new edition folder. Search indexes the permanent editions, excluding the duplicate latest-online page.
 
 Web transcription is currently a repository content step; the PDF uploader does not automatically extract text or create an online edition. There are no fake dates or placeholder published editions.

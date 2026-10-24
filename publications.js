@@ -19,7 +19,26 @@
     target.replaceChildren(create('p', 'Latest edition', 'eyebrow'), create('h2', model.label(type)), create('p', type === 'pews-news' ? 'Our regular weekly church news sheet.' : 'News and features from parish life.'));
     if (!record) { target.append(create('p', type === 'pews-news' ? 'The next Pews News edition will be available here when it is supplied by the parish.' : 'Our Parish Magazine will be available here when the parish supplies an edition.', 'publication-empty')); return; }
     const date = create('time', model.dateLabel(record), 'publication-date'); date.dateTime = record.date;
-    target.append(create('h3', record.title), date, create('p', record.description), actions(record));
+    target.append(create('h3', type === 'pews-news' ? model.dateLabel(record) : record.title));
+    if (type !== 'pews-news') target.append(date);
+    target.append(create('p', record.description), actions(record));
+    if (type === 'pews-news') {
+      const recent = model.ordered(records).filter(item => item.type === type && item.id !== record.id).slice(0, 4);
+      if (recent.length) {
+        target.append(create('h3', 'Recent editions', 'pews-recent-heading'));
+        const list = create('ul', '', 'pews-recent-editions');
+        for (const item of recent) {
+          const row = create('li'), link = create('a'), time = create('time', model.dateLabel(item).replace(/^[^,]+, /, ''));
+          time.dateTime = item.date;
+          link.href = onlineEditions.includes(item.date) ? `pews-news/${item.date}.html` : item.pdf;
+          link.append(time, create('span', onlineEditions.includes(item.date) ? 'Online →' : 'PDF ↗'));
+          row.append(link); list.append(row);
+        }
+        target.append(list);
+      }
+      const all = create('a', 'View all Pews News →', 'pews-view-all');
+      all.href = 'pews-news.html#edition-archive'; target.append(all);
+    }
   }
   function renderArchive(records) {
     const list = document.querySelector('#publication-archive'), visible = model.archive(records, document.querySelector('#publication-type').value);

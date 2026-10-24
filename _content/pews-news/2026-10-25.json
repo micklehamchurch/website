@@ -38,6 +38,9 @@
           "image": "bible",
           "paragraphs": [
             "The Monday evening Bible study group meets at Westhumble Chapel. Please contact Amanda on aewadsworth@hotmail.com if you would like more information about joining this group."
+          ],
+          "dates": [
+            "2026-10-26"
           ]
         },
         {
@@ -46,6 +49,9 @@
           "image": "alpha",
           "paragraphs": [
             "The Alpha course meets in The Ranmore Room (the vestry)."
+          ],
+          "dates": [
+            "2026-10-26"
           ]
         },
         {
@@ -54,6 +60,9 @@
           "image": "bible-study",
           "paragraphs": [
             "The Thursday morning Bible Study group meets at Westhumble Chapel. If you would like to join this group, please email admin@micklehamchurch.org.uk or call Alison Wood on 01372 376443 or 07905 985928."
+          ],
+          "dates": [
+            "2026-10-29"
           ]
         },
         {
@@ -61,6 +70,9 @@
           "when": "Friday 30 October · 11.30am",
           "paragraphs": [
             "Memorial Service in church for the late Kirsten von Wedel."
+          ],
+          "dates": [
+            "2026-10-30"
           ]
         },
         {
@@ -70,9 +82,14 @@
           "paragraphs": [
             "At Chapel Farm, Chapel Lane, Westhumble, RH5 6AY. This is a lovely occasion hosted annually by Liz and John Absalom and everyone is welcome.",
             "If you are unable to come along on the day but wish to support the event, there is a QR code link to the JustGiving page for the coffee morning on page 21 of the October Parish Magazine."
-          ]
+          ],
+          "dates": [
+            "2026-10-30"
+          ],
+          "placement": "sidebar"
         }
-      ]
+      ],
+      "layout": "timeline"
     },
     {
       "id": "november",
@@ -84,6 +101,9 @@
           "image": "link-to-hope",
           "paragraphs": [
             "Worship for All in church and Shoe Box Sunday. We will be collecting Shoe boxes for Link to Hope again this year so look out for the leaflets giving more information which are at the back of church."
+          ],
+          "dates": [
+            "2026-11-01"
           ]
         },
         {
@@ -96,13 +116,20 @@
             "url": "https://us02web.zoom.us/j/89396099494?pwd=ebKf2TtqQrwiY5VKcqegDaItEhgx3q.1",
             "meeting": "893 9609 9494",
             "passcode": "967011"
-          }
+          },
+          "dates": [
+            "2026-11-02"
+          ]
         },
         {
           "title": "Compline",
           "when": "Tuesdays 3 and 24 November · 7pm",
           "paragraphs": [
             "Please note the 24th is a later date. Compline in church. All are welcome to come along for a short service and period of reflection, prayer and fellowship."
+          ],
+          "dates": [
+            "2026-11-03",
+            "2026-11-24"
           ]
         },
         {
@@ -111,6 +138,9 @@
           "image": "coffee-cake",
           "paragraphs": [
             "Coffee and cake at the Chapel in Westhumble. Only £2 and free drinks for children. Do come along and bring a friend or neighbour. Offers of homemade cakes or help on the morning appreciated. Contact Jonathan Blake: 07787 126966."
+          ],
+          "dates": [
+            "2026-11-07"
           ]
         },
         {
@@ -121,7 +151,12 @@
             "Service in church for Remembrance Sunday, with Act of Remembrance around the war memorial at 11am. Afterwards we have kindly been invited to have refreshments at RGS-Surrey Hills. There will not be an 8am Communion service at the Chapel on this Sunday.",
             "Poppies will be available to buy in church from Sunday 25 October onwards. Payment can be made by cash or there is a QR code which connects directly to the collection being made in Mickleham and Westhumble for the Royal British Legion."
           ],
-          "extraImage": "poppy-qr"
+          "extraImage": "poppy-qr",
+          "dates": [
+            "2026-11-08"
+          ],
+          "poppyFeature": true,
+          "featured": true
         },
         {
           "title": "A Concert for Remembrance Sunday",
@@ -129,7 +164,10 @@
           "paragraphs": [
             "A Concert for Remembrance Sunday by Mickleham Choral Society in church. Tickets £15, children 12 years and under £7.50. Book tickets via Events page on www.micklehamchoral.org.uk. More information on page 6 of the October Parish Magazine."
           ],
-          "emphasis": "Please note that the venue is incorrect in the magazine: the concert will be in St Michael’s Church, not the Village Hall."
+          "emphasis": "Please note that the venue is incorrect in the magazine: the concert will be in St Michael’s Church, not the Village Hall.",
+          "dates": [
+            "2026-11-08"
+          ]
         },
         {
           "title": "PCC meeting",
@@ -137,6 +175,9 @@
           "image": "pcc",
           "paragraphs": [
             "The PCC meets in the Ranmore Room."
+          ],
+          "dates": [
+            "2026-11-10"
           ]
         },
         {
@@ -145,6 +186,9 @@
           "image": "lights",
           "paragraphs": [
             "Lights to Remember service in church, when we will remember our loved ones whom we have lost. See invitation attached to covering email."
+          ],
+          "dates": [
+            "2026-11-15"
           ]
         },
         {
@@ -152,6 +196,9 @@
           "when": "Tuesday 17 November · 7.30pm",
           "paragraphs": [
             "Ascending Deeper evening on the topic of What does the Bible say about Migration? Please let Sandra know if you wish to come or want any information."
+          ],
+          "dates": [
+            "2026-11-17"
           ]
         },
         {
@@ -161,7 +208,11 @@
           "paragraphs": [
             "There is a Children’s Christmas Concert ‘The Snowman’ in church followed by the lighting of the Christmas Trees outside the church and refreshments provided by the Church Community Group. There will be more information in the November Parish Magazine."
           ],
-          "emphasis": "Please note that the Christingle Craft Workshop and Family Service will be on Sunday, 6 December."
+          "emphasis": "Please note that the Christingle Craft Workshop and Family Service will be on Sunday, 6 December.",
+          "dates": [
+            "2026-11-22"
+          ],
+          "featured": true
         },
         {
           "title": "Autumn Soup Lunch",
@@ -170,9 +221,14 @@
           "paragraphs": [
             "Autumn Soup Lunch in Mickleham Village Hall. Please make a note in your diaries of this remaining date of these popular lunches. Delicious homemade soups, bread and cheese and good company. No charge but donations gratefully received, with all proceeds going to local charities (including the Foodbank).",
             "To help with numbers, please book your place with Andy Diamond by calling 07789 775354 or email him at adiamond714@gmail.com or sign the list at the back of the church."
-          ]
+          ],
+          "dates": [
+            "2026-11-26"
+          ],
+          "featured": true
         }
-      ]
+      ],
+      "layout": "grid"
     }
   ],
   "pumpkins": "All of the wonderful PUMPKINS which have added colour to the church for Harvest will need to be removed by this Sunday, 25 October. Please would you help by taking away one or more pumpkins to beautify your home or for carving or cooking. We would be very grateful.",
@@ -195,5 +251,6 @@
     "title": "Clocks go back",
     "text": "Set your clocks back an hour this Sunday."
   },
-  "pumpkinImage": "pumpkins"
+  "pumpkinImage": "pumpkins",
+  "heroImage": "assets/images/about/church-hero.webp"
 }

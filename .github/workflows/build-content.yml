@@ -16,6 +16,7 @@ on:
       - 'build-pews-news.js'
       - 'pews-news.css'
       - 'pews-news.js'
+      - 'news-pews-hub.css'
       - 'assets/images/pews-news/**'
       - 'assets/documents/news/**'
       - 'publications-model.js'

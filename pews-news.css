@@ -1,103 +1,294 @@
-.pews-page { background: var(--paper); }
-.pews-hero { padding-block: 42px 46px; background: var(--cream); border-bottom: 1px solid var(--stone); }
-.pews-hero h1 { margin: 12px 0; font: 600 clamp(42px,5vw,66px)/1.1 var(--serif); color: var(--deep); }
-.pews-hero .eyebrow { margin-top: 26px; color: var(--green); }
-.pews-hero .lead { margin: 0; color: var(--muted); }
-.pews-back { display: inline-flex; align-items: center; min-height: 44px; color: var(--green); }
-.pews-layout { width: min(1440px,calc(100% - 64px)); display: grid; grid-template-columns: 200px minmax(0,1fr) 260px; gap: 36px; align-items: start; padding-block: 44px 70px; }
-.pews-layout > * { min-width: 0; }
-.pews-layout h2 { font: 600 29px/1.3 var(--serif); color: var(--deep); }
-.pews-layout h3 { font: 600 21px/1.4 var(--serif); color: var(--deep); }
-.pews-layout p { margin: 12px 0; }
-.pews-layout a:not(.btn) { color: var(--green); }
-.pews-edition p a, .pews-online li a { text-decoration: underline; text-underline-offset: 3px; }
-.pews-edition p a { overflow-wrap: anywhere; }
-.pews-layout a:focus-visible,.pews-layout summary:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
-.pews-layout summary { cursor: pointer; min-height: 48px; padding: 12px 0; font-weight: 700; }
-.pews-archive-body h2 { font-size: 23px; margin-top: 0; }
-.pews-archive-body > p { color: var(--muted); font-size: 14px; }
-.pews-year { border-block: 1px solid var(--stone); }
-.pews-year summary { display: list-item; }
-.pews-year summary span { float: right; font-size: 12px; font-weight: 400; padding-top: 4px; }
-.pews-year ul { margin: 0 0 12px; padding: 0; list-style: none; }
-.pews-year li a { display: block; padding: 11px 12px; min-height: 48px; border-radius: 5px; font-size: 14px; }
-.pews-year a:hover { background: var(--cream); }
-.pews-year a[aria-current] { background: var(--green); color: white; font-weight: 700; }
-.pews-all-news { display: block; padding-block: 18px; font-size: 14px; }
-.pews-edition-heading { padding-bottom: 30px; border-bottom: 1px solid var(--stone); }
-.pews-edition-heading h2 { font-size: clamp(29px,3vw,37px); margin: 10px 0; }
-.pews-subtitle { color: var(--muted); font-size: 19px; }
-.pews-edition-heading .btn { margin-top: 10px; }
-.pews-sunday { padding-block: 12px 30px; }
-.pews-services { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.pews-services > div { padding: 20px; background: var(--cream); border: 1px solid var(--stone); border-radius: 9px; }
-.pews-services .pews-service-time { color: var(--green); font: 600 29px/1.2 var(--serif); margin: 0 0 14px; }
-.pews-services h3 { margin: 0; font-size: 20px; }
-.pews-services p:last-child { font-size: 14px; }
-.pews-collect { padding: 16px 22px; background: #edf1e9; border-left: 3px solid var(--green); margin-top: 24px; }
-.pews-collect h3 { margin-top: 0; }
-.pews-notices > h2 { border-bottom: 1px solid var(--stone); padding-bottom: 16px; margin: 22px 0 0; }
-.pews-notice { display: flex; align-items: start; gap: 22px; padding-block: 26px; border-bottom: 1px solid var(--stone); }
-.pews-notice > div { flex: 1; min-width: 0; }
-.pews-notice h3 { margin: 6px 0 12px; }
-.pews-notice .pews-when { margin: 0; font-size: 13px; line-height: 1.6; font-weight: 700; color: var(--green); }
-.pews-notice-image { width: 110px; max-height: 160px; height: auto; object-fit: contain; flex-shrink: 0; }
-.pews-notice .pews-important { padding: 14px 16px; background: var(--cream); border-left: 3px solid var(--gold); }
-.pews-qr { display: flex; align-items: center; gap: 16px; text-decoration: underline; margin-top: 20px; font-size: 14px; }
-.pews-qr img { width: 120px; height: auto; }
-.pews-support { display: grid; gap: 24px; }
-.pews-mobile-support { display: none; }
-.pews-support section,.pews-mobile-support section,.pews-on-page { padding: 24px; border: 1px solid var(--stone); border-radius: 9px; }
-.pews-support h2 { font-size: 24px; margin: 8px 0 16px; }
-.pews-online { background: #edf1e9; }
-.pews-online p { font-size: 15px; }
-.pews-online .btn { width: 100%; padding-inline: 10px; font-size: 14px; }
-.pews-codes { overflow-wrap: anywhere; }
-.pews-online details { border-top: 1px solid #ccd7c7; margin-top: 20px; }
-.pews-online li a { display: inline-flex; align-items: center; min-height: 44px; }
-.pews-online ul { padding-left: 18px; }
-.pews-clock { text-align: center; }
-.pews-clock img { width: 190px; height: auto; }
-.pews-clock p { font-size: 14px; }
-.pews-on-page a { display: flex; align-items: center; min-height: 44px; border-bottom: 1px solid var(--stone); font-size: 14px; }
-.pews-community { padding: 28px; background: var(--cream); border-radius: 9px; margin-top: 36px; display: flow-root; }
-.pews-community h2 { margin-top: 0; }
-.pews-pumpkin { float: right; width: 110px; height: auto; margin: 0 0 12px 20px; }
-.pews-foodbank { padding-block: 30px; }
-.pews-foodbank figure { margin: 22px 0; }
-.pews-foodbank figure img { width: 100%; height: auto; border-radius: 8px; }
-.pews-foodbank figcaption { font-size: 12px; color: var(--muted); }
-.pews-foodbank ul { columns: 2; padding-left: 22px; }
-.pews-foodbank li { padding: 5px 0; break-inside: avoid; }
-.pews-edition-footer { padding: 26px; border-block: 1px solid var(--stone); background: var(--cream); }
-.pews-edition-footer h2 { font-size: 25px; margin-top: 0; }
-.pews-edition section[id] { scroll-margin-top: 150px; }
-@media (min-width:1201px) { .pews-archive-toggle > summary { display: none; } }
-@media (max-width:1200px) {
-  .pews-layout { grid-template-columns: minmax(0,1fr) 250px; gap: 28px; }
-  .pews-archive { grid-column: 1/-1; background: var(--cream); padding: 0 20px; border: 1px solid var(--stone); border-radius: 8px; }
-  .pews-archive-body { padding-block: 12px 20px; }
-  .pews-archive-body h2 { display: none; }
+/* Pews News: an editorial edition, with a persistent archive and useful side features. */
+.pews-page { background:#f5f3ee; color:var(--ink); }
+.pews-hero { position:relative; isolation:isolate; min-height:185px; display:flex; align-items:center; overflow:hidden; background:var(--deep); }
+.pews-hero-photo { position:absolute; inset:0; z-index:-1; width:100%; height:100%; object-fit:cover; object-position:66% 38%; }
+.pews-hero-inner { width:min(1440px,calc(100% - 80px)); margin:18px auto; }
+.pews-hero-title { width:fit-content; max-width:560px; padding:16px 26px 18px; border-radius:5px; background:#fffdf5f2; box-shadow:0 5px 30px #18392d14; }
+.pews-label { display:inline-block; padding:3px 10px; margin:0 0 9px; border-radius:3px; color:#fff; background:var(--green); text-transform:uppercase; font-size:12px; font-weight:700; letter-spacing:.1em; }
+.pews-hero h1 { color:var(--deep); margin:0; font:600 clamp(38px,4.1vw,52px)/1.1 var(--serif); letter-spacing:-.025em; }
+.pews-hero-title > p:last-child { color:#5e655f; font:20px/1.5 var(--serif); margin:4px 0 0; }
+.pews-breadcrumb,.pews-layout { width:min(1504px,calc(100% - 48px)); margin-inline:auto; }
+.pews-breadcrumb { display:flex; flex-wrap:wrap; gap:9px; align-items:center; padding-block:10px; font-size:12px; }
+.pews-breadcrumb a { min-height:36px; display:inline-flex; align-items:center; }
+.pews-breadcrumb a:hover { text-decoration:underline; }
+.pews-layout { display:grid; grid-template-columns:220px minmax(0,1fr); gap:18px; align-items:start; padding-bottom:44px; }
+.pews-layout > * { min-width:0; }
+.pews-layout h2 { color:var(--deep); font:600 28px/1.25 var(--serif); margin:0 0 16px; }
+.pews-layout h3 { color:var(--deep); font:600 19px/1.35 var(--serif); margin:0 0 8px; }
+.pews-layout p { margin:8px 0; }
+.pews-layout a { color:var(--green); }
+.pews-layout a.btn-green { color:white; }
+.pews-layout p a { text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
+.pews-layout a:focus-visible,.pews-layout summary:focus-visible { outline:3px solid var(--green); outline-offset:3px; }
+.pews-layout summary { cursor:pointer; min-height:44px; display:flex; align-items:center; gap:8px; padding-block:10px; font-weight:600; }
+.pews-layout summary::before { content:'▸'; font-size:12px; }
+.pews-layout details[open] > summary::before { content:'▾'; }
+.pews-layout summary::-webkit-details-marker { display:none; }
+.pews-archive { position:sticky; top:110px; max-height:calc(100dvh - 130px); overflow-y:auto; border:1px solid #e7e2d8; border-radius:6px; background:#f9f7f2; }
+.pews-archive[id] { scroll-margin-top:110px; }
+.pews-archive-body { padding:22px 14px 12px; }
+.pews-archive-body h2 { font-size:28px; margin-bottom:10px; }
+.pews-archive-body > p { font-size:14px; line-height:1.6; margin-bottom:18px; }
+.pews-year { border-bottom:1px solid var(--stone); }
+.pews-year > summary { padding-inline:10px; color:var(--deep); border-radius:4px; background:#eceee5; font-size:14px; }
+.pews-year summary span { margin-left:auto; color:var(--muted); font-size:11px; font-weight:400; }
+.pews-year ul { margin:5px 0 12px; padding:0; list-style:none; }
+.pews-year li a { display:block; padding:11px 12px; min-height:44px; font-size:13px; border-left:3px solid transparent; border-radius:3px; }
+.pews-year a:hover { background:#eeeee6; }
+.pews-year a[aria-current] { background:#e2e9df; border-left-color:var(--green); font-weight:700; }
+.pews-year small { font-size:10px; color:var(--muted); }
+.pews-all-news { display:flex; align-items:center; min-height:48px; font-size:12px; margin-top:12px; }
+.pews-edition { min-width:0; display:grid; grid-template-columns:minmax(0,1fr) 290px; column-gap:22px; row-gap:22px; align-items:start; padding:24px; background:white; border:1px solid #ece8df; border-radius:6px; }
+.pews-edition > * { min-width:0; grid-column:1; }
+.pews-edition-heading { display:flex; justify-content:space-between; align-items:start; gap:12px; }
+.pews-edition-heading > div { min-width:0; }
+.pews-edition-heading .eyebrow { font-size:12px; font-weight:500; letter-spacing:.08em; color:#535d55; margin:0 0 8px; }
+.pews-edition-heading #edition-title { font:600 clamp(35px,3.4vw,48px)/1.15 var(--serif); margin:0 0 4px; }
+.pews-subtitle { font:23px/1.4 var(--serif); color:var(--muted); }
+.pews-clock { flex:0 0 150px; margin:0; text-align:center; }
+.pews-clock img { width:150px; height:auto; }
+.pews-clock figcaption { font-size:11px; color:#675c3c; line-height:1.4; max-width:180px; }
+.pews-sunday > h2::after { content:''; display:block; width:34px; height:3px; margin-top:10px; background:var(--green); }
+.pews-services { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pews-services > div { display:flex; gap:13px; align-items:start; background:#faf8f2; padding:16px; border:1px solid #eee8db; border-radius:6px; }
+.pews-service-symbol { color:var(--green); font:36px/1 sans-serif; }
+.pews-services .pews-service-time { font:600 27px/1.1 var(--serif); margin:0 0 6px; color:var(--deep); }
+.pews-services h3 { font-size:16px; margin:0 0 4px; }
+.pews-services p:last-child { font-size:13px; margin:0; }
+.pews-liturgy { display:grid; grid-template-columns:.9fr 1.3fr; gap:12px; margin-top:12px; }
+.pews-liturgy > section { display:flex; align-items:start; gap:12px; border:1px solid var(--stone); border-radius:5px; padding:14px; }
+.pews-liturgy > section > span { font:30px/1.1 Georgia,serif; color:var(--green); }
+.pews-liturgy h3 { font-size:17px; }
+.pews-liturgy p { font-size:14px; line-height:1.55; }
+.pews-online { padding:18px 20px; background:#edf5f9; border:1px solid #dae7ec; border-radius:6px; }
+.pews-online-intro { display:flex; gap:12px; align-items:start; }
+.pews-online-symbol { display:grid; place-items:center; flex:0 0 36px; height:36px; color:white; background:#31718b; border-radius:50%; font-size:27px; }
+.pews-online h2 { color:#24576c; font-size:24px; margin-bottom:6px; }
+.pews-online p { font-size:14px; line-height:1.55; }
+.pews-online-action { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-block:12px; }
+.pews-online-action .btn { font-size:14px; min-height:44px; padding:10px 20px; }
+.pews-codes { font-size:12px; display:flex; flex-wrap:wrap; gap:14px; margin:0!important; }
+.pews-codes strong { display:block; font-size:15px; }
+.pews-telephone { border-top:1px solid #d1e1e5; }
+.pews-telephone summary { font-size:13px; }
+.pews-telephone p { margin:0 0 8px; }
+.pews-telephone ul { display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none; }
+.pews-telephone a { display:flex; align-items:center; min-height:44px; padding:6px 9px; border-radius:4px; font-size:12px; color:#244d60; background:#e0ecf1; text-decoration:underline; text-underline-offset:3px; }
+.pews-timeline > h2 { margin-bottom:8px; }
+.pews-timeline-row { display:grid; grid-template-columns:56px minmax(0,1fr) 70px; gap:14px; padding:15px 0; border-bottom:1px solid var(--stone); }
+.pews-date-badge { display:flex; flex-direction:column; align-items:center; justify-content:center; width:56px; min-height:70px; padding:6px 3px; border-radius:5px; background:#f3f0e8; color:var(--deep); text-align:center; align-self:start; }
+.pews-date-badge span { font-size:10px; line-height:1.3; text-transform:uppercase; }
+.pews-date-badge strong { font:500 26px/1.2 var(--serif); white-space:nowrap; }
+.pews-date-badge.pews-date-multiple { width:78px; }
+.pews-timeline h3 { font-size:17px; margin-bottom:3px; }
+.pews-timeline .pews-when { font-size:12px; margin:0 0 4px; font-weight:500; }
+.pews-timeline-row p { font-size:14px; line-height:1.6; margin:4px 0; }
+.pews-timeline-image { width:70px; height:78px; object-fit:contain; align-self:center; }
+.pews-when { font-size:12px; font-weight:600; color:var(--green); line-height:1.5; }
+.pews-support { grid-column:2; grid-row:1 / span 4; display:grid; gap:16px; }
+.pews-support h2 { font-size:24px; margin:0 0 10px; }
+.pews-support p { font-size:14px; line-height:1.65; }
+.pews-feature-panel { background:#faf8f2; border:1px solid #eee7d9; border-radius:6px; overflow:hidden; }
+.pews-feature-picture { padding:12px; background:#f4f0e5; }
+.pews-feature-picture img { display:block; width:100%; height:144px; object-fit:contain; }
+.pews-feature-copy { padding:16px; }
+.pews-feature-copy > .eyebrow { font-size:10px; margin-top:0; }
+.pews-feature-copy p.pews-when { background:#e8eee2; padding:9px 11px; margin:14px 0; }
+.pews-poppy-panel { padding:18px; border:1px solid #efdbd9; border-radius:6px; background:linear-gradient(120deg,#fbefee,#fffaf6); display:flow-root; }
+.pews-poppy-image { float:right; width:85px; height:115px; object-fit:contain; margin:0 0 5px 10px; mix-blend-mode:multiply; }
+.pews-poppy-panel h2 { color:#70352c; }
+.pews-poppy-panel .eyebrow { font-size:10px; }
+.pews-poppy-panel summary { font-size:13px; border-top:1px solid #e6d4cd; }
+.pews-qr { display:flex; gap:12px; align-items:center; margin-block:10px; text-decoration:underline; font-size:12px; }
+.pews-qr img { width:130px; height:auto; max-width:60%; }
+.pews-text-link { display:flex; align-items:center; min-height:44px; font-size:12px; font-weight:600; }
+.pews-quick-links { padding:18px; border:1px solid var(--stone); border-radius:6px; }
+.pews-quick-links a { display:flex; justify-content:space-between; gap:10px; min-height:44px; align-items:center; padding-block:10px; font-size:13px; border-bottom:1px solid var(--stone); }
+.pews-quick-links a:last-child { border:0; }
+.pews-calendar,.pews-community,.pews-foodbank,.pews-edition-footer { grid-column:1/-1; }
+.pews-calendar { padding-top:18px; border-top:1px solid var(--stone); }
+.pews-section-title { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:18px; }
+.pews-section-title .eyebrow { margin:0 0 6px; font-size:11px; color:var(--green); }
+.pews-section-title h2 { margin:0; font-size:32px; }
+.pews-section-title > p { font-size:13px; line-height:1.5; color:var(--muted); margin:0; }
+.pews-calendar-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; align-items:start; }
+.pews-calendar-card { padding:18px; border:1px solid #e8e1d4; border-radius:6px; background:#fffdf8; min-width:0; }
+.pews-card-top { display:flex; justify-content:space-between; gap:16px; margin-bottom:14px; min-height:72px; }
+.pews-card-image { width:95px; height:86px; object-fit:contain; object-position:right center; }
+.pews-calendar-card h3 { font-size:21px; }
+.pews-calendar-card .pews-when { margin:0 0 7px; }
+.pews-calendar-card.pews-feature-card { background:#f3f4ec; border-color:#d7decc; }
+.pews-feature-card .pews-card-top { min-height:115px; align-items:center; }
+.pews-feature-card .pews-card-image { width:140px; height:120px; object-position:center; }
+.pews-important { padding:10px 12px; background:#f4ebdb; border-left:3px solid var(--gold); font-size:12px; line-height:1.6; }
+.pews-notice-details { margin-top:12px; border-top:1px solid #e5decf; }
+.pews-notice-details summary { justify-content:space-between; font-size:13px; color:var(--green); }
+.pews-notice-details summary::before { content:none!important; }
+.pews-notice-details[open] summary > span { transform:rotate(45deg); }
+.pews-notice-details p { font-size:14px; line-height:1.7; }
+.pews-notice-details .btn { font-size:12px; min-height:44px; padding:9px 12px; }
+.pews-notice-details .pews-codes { display:block; }
+.pews-notice-details .pews-codes span { display:block; margin-top:8px; }
+.pews-community { display:flex; align-items:center; gap:24px; background:#faf0de; padding:24px 30px; border-radius:6px; border:1px solid #e9dabd; }
+.pews-community h2 { font-size:28px; margin-bottom:10px; }
+.pews-community p { font-size:14px; line-height:1.7; }
+.pews-community .eyebrow { font-size:10px; color:#745722; }
+.pews-pumpkin { flex:0 0 140px; width:140px; height:140px; object-fit:contain; }
+.pews-foodbank { background:#edf1e8; border-radius:6px; border:1px solid #dce2d1; padding:28px; }
+.pews-foodbank header .eyebrow { color:var(--green); font-size:11px; margin:0 0 8px; }
+.pews-foodbank h2 { font-size:32px; }
+.pews-foodbank-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:26px; align-items:start; }
+.pews-foodbank figure { margin:0; }
+.pews-foodbank figure img { width:100%; height:auto; border-radius:5px; }
+.pews-foodbank figcaption { color:var(--muted); font-size:10px; margin-top:4px; }
+.pews-foodbank p { font-size:14px; line-height:1.75; margin:0 0 14px; }
+.pews-foodbank ul { display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px; padding:0; list-style:none; }
+.pews-foodbank li { border:1px solid #d3dcc8; border-radius:4px; padding:6px 10px; font-size:12px; background:#fffdf7; }
+.pews-edition-footer { display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between; border-top:1px solid var(--stone); padding-top:20px; }
+.pews-edition-footer h2 { font-size:21px; margin:0 0 4px; }
+.pews-edition-footer p { font-size:13px; margin:0; color:var(--muted); }
+.pews-download { display:inline-flex; align-items:center; gap:8px; min-height:44px; font-size:13px; text-decoration:underline; text-underline-offset:3px; }
+.pews-edition :is(section,article)[id] { scroll-margin-top:120px; }
+@media(min-width:1180px) { .pews-archive-toggle > summary { display:none; } }
+@media(max-width:1179px) {
+ .pews-layout { grid-template-columns:1fr; }
+ .pews-archive { position:static; max-height:none; }
+ .pews-archive-toggle > summary { padding:12px 18px; }
+ .pews-archive-body { padding-top:8px; }
+ .pews-archive-body h2 { display:none; }
+ .pews-year ul { display:grid; grid-template-columns:repeat(3,1fr); }
+ .pews-edition { grid-template-columns:minmax(0,1fr) 260px; }
+ .pews-clock { flex-basis:160px; }
+ .pews-clock img { width:160px; }
+ .pews-calendar-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
 }
-@media (max-width:760px) {
-  .pews-layout { width: calc(100% - 40px); display: flex; flex-direction: column; gap: 26px; padding-top: 24px; }
-  .pews-layout > * { width: 100%; }
-  .pews-support { display: none; }
-  .pews-mobile-support { display: grid; gap: 20px; margin-bottom: 30px; }
-  .pews-clock { display: grid; grid-template-columns: 100px 1fr; column-gap: 20px; text-align: left; align-items: center; }
-  .pews-clock img { grid-row: span 2; width: 100px; }
-  .pews-clock h2,.pews-clock p { margin: 0; }
-  .pews-notice { gap: 16px; }
-  .pews-notice-image { width: 80px; max-height: 120px; }
-  .pews-notice h3 { font-size: 21px; }
-  .pews-community { margin-top: 0; padding: 22px; }
-  .pews-hero { padding-block: 24px 32px; }
-  .pews-services > div { padding: 16px; }
+@media(max-width:959px) {
+ .pews-edition { grid-template-columns:1fr; }
+ .pews-support { grid-column:1; grid-row:auto; grid-template-columns:1fr 1fr; }
+ .pews-quick-links { grid-column:1/-1; }
+ .pews-quick-links a { display:inline-flex; margin-right:18px; min-width:180px; }
+ .pews-calendar-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .pews-clock { flex-basis:190px; }
+ .pews-clock img { width:190px; }
 }
-@media (max-width:380px) {
-  .pews-services { grid-template-columns: 1fr; }
-  .pews-notice { display: block; }
-  .pews-notice-image { float: right; margin: 0 0 12px 16px; }
-  .pews-notice > div { display: flow-root; }
-  .pews-foodbank ul { columns: 1; }
+@media(max-width:599px) {
+ .pews-hero { min-height:190px; }
+ .pews-hero-inner { width:calc(100% - 32px); margin-block:20px; }
+ .pews-hero-title { padding:18px 20px; max-width:310px; }
+ .pews-hero-title > p:last-child { font-size:18px; }
+ .pews-breadcrumb,.pews-layout { width:calc(100% - 24px); }
+ .pews-breadcrumb { font-size:10px; gap:7px; }
+ .pews-layout { gap:12px; }
+ .pews-edition { padding:18px 14px; row-gap:22px; }
+ .pews-edition-heading { gap:8px; align-items:center; }
+ .pews-edition-heading .eyebrow { font-size:10px; }
+ .pews-edition-heading #edition-title { font-size:34px; }
+ .pews-subtitle { font-size:18px; }
+ .pews-clock { flex:0 0 100px; }
+ .pews-clock img { width:100px; }
+ .pews-clock figcaption { font-size:9px; }
+ .pews-layout h2 { font-size:25px; }
+ .pews-services { gap:8px; }
+ .pews-services > div { padding:14px 10px; gap:8px; }
+ .pews-service-symbol { font-size:25px; }
+ .pews-services .pews-service-time { font-size:24px; }
+ .pews-services h3 { font-size:15px; }
+ .pews-services p:last-child { font-size:12px; }
+ .pews-liturgy { grid-template-columns:1fr; gap:8px; }
+ .pews-liturgy p { font-size:14px; }
+ .pews-online { padding:16px; }
+ .pews-online h2 { font-size:23px; }
+ .pews-online-action { align-items:start; }
+ .pews-online-action .btn { width:100%; }
+ .pews-codes { width:100%; justify-content:space-between; }
+ .pews-timeline-row { grid-template-columns:45px minmax(0,1fr) 46px; gap:10px; }
+ .pews-date-badge { width:45px; min-height:64px; }
+ .pews-date-badge strong { font-size:24px; }
+ .pews-timeline-image { width:46px; height:64px; }
+ .pews-timeline-row p { font-size:14px; }
+ .pews-timeline h3 { font-size:18px; }
+ .pews-support { grid-template-columns:1fr; }
+ .pews-feature-picture img { height:150px; }
+ .pews-support p { font-size:14px; }
+ .pews-section-title { align-items:start; gap:10px; }
+ .pews-section-title > p { max-width:115px; font-size:11px; }
+ .pews-calendar-grid { grid-template-columns:1fr; gap:12px; }
+ .pews-calendar-card { padding:18px; }
+ .pews-card-top { float:right; margin:0 0 10px 15px; min-height:64px; gap:8px; }
+ .pews-card-top .pews-card-image { display:block; width:65px; height:75px; }
+ .pews-feature-card .pews-card-top { float:none; margin:0 0 12px; min-height:100px; }
+ .pews-feature-card .pews-card-image { display:block; width:160px; height:140px; }
+ .pews-calendar-card h3 { font-size:22px; }
+ .pews-calendar-card .pews-notice-details { clear:both; }
+ .pews-notice-details p { font-size:15px; }
+ .pews-community { gap:16px; padding:20px; align-items:start; }
+ .pews-pumpkin { flex:0 0 70px; width:70px; height:90px; }
+ .pews-community p { font-size:14px; }
+ .pews-foodbank { padding:20px; }
+ .pews-foodbank-body { grid-template-columns:1fr; gap:16px; }
+ .pews-foodbank p { font-size:15px; }
+ .pews-foodbank li { font-size:13px; }
+ .pews-year ul { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:359px) {
+ .pews-services { grid-template-columns:1fr; }
+ .pews-clock { flex-basis:85px; }
+ .pews-clock img { width:85px; }
+ .pews-edition-heading #edition-title { font-size:29px; }
+ .pews-year ul { grid-template-columns:1fr; }
+ .pews-timeline-row { grid-template-columns:42px minmax(0,1fr); }
+ .pews-timeline-image { grid-column:2; justify-self:end; width:50px; height:50px; }
+ .pews-community { display:block; }
+ .pews-pumpkin { float:right; margin:0 0 12px 12px; }
+}
+@media print {
+ @page { margin:12mm; }
+ html,body:has(> [data-site-header]) { width:auto!important; max-width:none!important; margin:0!important; background:white!important; }
+ body .site-header,body .footer,.skip-link,.feedback-launcher,.feedback-dialog,.pews-archive,.pews-breadcrumb,.pews-hero-photo,.pews-quick-links { display:none!important; }
+ .pews-page { background:white; font-size:9.5pt; line-height:1.35; }
+ .pews-hero { min-height:0; display:block; background:none; }
+ .pews-hero-inner { width:100%; margin:0 0 10pt; }
+ .pews-hero-title { padding:0; background:none; box-shadow:none; }
+ .pews-hero h1 { font-size:25pt; }
+ .pews-hero-title > p:last-child,.pews-label { display:none; }
+ .pews-layout { display:block; width:100%; padding:0; }
+ .pews-edition { display:block; padding:0; border:0; }
+ .pews-edition > * { margin-bottom:12pt; }
+ .pews-layout h2 { font-size:16pt; margin:0 0 7pt; }
+ .pews-layout h3 { font-size:11pt; }
+ .pews-edition-heading #edition-title { display:none; }
+ .pews-edition-heading .eyebrow { font-size:11pt; }
+ .pews-subtitle { font-size:13pt; }
+ .pews-clock { flex-basis:95px; }
+ .pews-clock img { width:95px; }
+ .pews-services > div,.pews-liturgy > section,.pews-online { padding:8pt; }
+ .pews-layout p,.pews-support p,.pews-timeline-row p,.pews-notice-details p,.pews-community p,.pews-foodbank p { font-size:9.5pt; line-height:1.4; }
+ .pews-codes strong { font-size:10pt; }
+ .pews-online-symbol,.pews-service-symbol { display:none; }
+ .pews-online-action { justify-content:start; }
+ .pews-online-action .btn { padding:5pt 8pt; min-height:0; }
+ .pews-telephone a { min-height:0; padding:4pt; }
+ .pews-timeline-row { padding:8pt 0; break-inside:avoid; grid-template-columns:42px minmax(0,1fr) 50px; }
+ .pews-date-badge { width:42px; min-height:50px; }
+ .pews-date-badge strong { font-size:20px; }
+ .pews-timeline-image { width:50px; height:60px; }
+ .pews-support { display:grid; grid-template-columns:1fr 1fr; gap:12pt; }
+ .pews-feature-picture img { height:75px; }
+ .pews-feature-copy,.pews-poppy-panel { padding:9pt; }
+ .pews-qr img { width:80px; }
+ .pews-calendar { border:0; padding:0; break-before:page; }
+ .pews-section-title { break-after:avoid; }
+ .pews-calendar-grid { display:block; columns:2; column-gap:12pt; }
+ .pews-calendar-card { display:inline-block; width:100%; padding:9pt; margin:0 0 10pt; break-inside:avoid; }
+ .pews-card-top,.pews-feature-card .pews-card-top { float:right; margin:0 0 5pt 8pt; min-height:0; }
+ .pews-card-image,.pews-feature-card .pews-card-image { width:65px; height:65px; }
+ .pews-section-title > p,.pews-notice-details summary { display:none; }
+ .pews-notice-details { clear:both; border:0; margin:0; }
+ .pews-important { font-size:9pt; padding:6pt; }
+ .pews-community,.pews-foodbank { padding:10pt; break-inside:avoid; }
+ .pews-pumpkin { width:85px; height:85px; flex-basis:85px; }
+ .pews-foodbank-body { grid-template-columns:180px 1fr; gap:12pt; }
+ .pews-foodbank li { font-size:9pt; padding:3pt 5pt; }
+ .pews-edition-footer { padding-top:8pt; }
+ .pews-edition :is(section,article)[id] { scroll-margin:0; }
 }

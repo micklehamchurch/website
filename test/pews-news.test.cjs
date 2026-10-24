@@ -8,7 +8,10 @@ const source = path.resolve(__dirname, '..');
 test('edition retains authoritative Zoom details, notices, contacts and original artwork', () => {
   const html = fs.readFileSync(path.join(source, 'pews-news/2026-10-25.html'), 'utf8');
   const data = require('../_content/pews-news/2026-10-25.json');
-  for (const section of data.sections) for (const notice of section.notices) assert(html.includes(notice.title.replaceAll('’', '’').replaceAll('&','&amp;')), notice.title);
+  for (const section of data.sections) for (const notice of section.notices) {
+    assert(html.includes(notice.title.replaceAll('&','&amp;')), notice.title);
+    for (const paragraph of notice.paragraphs) assert(html.includes(text(paragraph)), `Full source paragraph retained: ${notice.title}`);
+  }
   for (const value of ['812 6812 6840','221883','893 9609 9494','967011','0131 460 1196','0208 080 6591','0203 481 5237','0203 481 5240','0203 901 7895','aewadsworth@hotmail.com','admin@micklehamchurch.org.uk','01372 376443','07905 985928','07787 126966','07789 775354','adiamond714@gmail.com','St Michael’s Church, not the Village Hall','Sunday, 6 December','Long Life Fruit Juice']) assert(html.includes(value), value);
   for (const z of [data.zoom, data.sections[1].notices[1].zoom]) assert(html.includes(z.url.replaceAll('&','&amp;')));
   const images = require('../_content/pews-news-images.json')['2026-10-25'];
@@ -26,12 +29,13 @@ test('future editions share layout; publication status controls archive, output 
     const images = require('../_content/pews-news-images.json')['2026-10-25'];
     const dates = ['2026-10-25','2027-01-03','2025-01-05'];
     const records = dates.map((date,i)=>({id:`pews-news-${date}`,type:'pews-news',date,title:'Pews News',published:i!==2,pdf:`assets/documents/news/pews-news/pews-news-${date}.pdf`}));
-    for (const date of dates) fs.writeFileSync(path.join(root,'_content/pews-news',`${date}.json`),JSON.stringify({...data,date,subtitle:'Fixture <script>alert(1)</script>'}));
+    for (const date of dates) fs.writeFileSync(path.join(root,'_content/pews-news',`${date}.json`),JSON.stringify({...data,date,subtitle:'Fixture <script>alert(1)</script>',...(date==='2027-01-03'?{clock:undefined,pumpkins:undefined,foodbank:undefined,sections:[{id:'january',layout:'grid',title:'January dates',notices:[{title:'A future parish gathering',when:'Sunday 3 January · 10am',dates:[date],paragraphs:['Future-edition test fixture only.']}]}]}:{})}));
     fs.writeFileSync(path.join(root,'_content/pews-news-images.json'),JSON.stringify(Object.fromEntries(dates.map(d=>[d,images]))));
     const save = () => fs.writeFileSync(path.join(root,'_content/publications.json'),JSON.stringify({publications:records}));
     save(); build(root);
     let html = fs.readFileSync(path.join(root,'pews-news.html'),'utf8');
     assert.match(html,/2027-01-03/); assert.match(html,/&lt;script&gt;/); assert(!html.includes('2025-01-05'));
+    assert.match(html,/January dates/); assert(!html.includes('Clocks go back')); assert(!html.includes('November dates'));
     assert(!fs.existsSync(path.join(root,'pews-news/2025-01-05.html')));
     records[1].published = false; save(); build(root);
     assert(!fs.existsSync(path.join(root,'pews-news/2027-01-03.html')));
@@ -41,6 +45,30 @@ test('future editions share layout; publication status controls archive, output 
     assert(!fs.existsSync(path.join(root,'pews-news/2026-10-25.html')));
     assert(!fs.readFileSync(path.join(root,'pews-news.html'),'utf8').includes('221883'));
   } finally { fs.rmSync(root,{recursive:true,force:true}); }
+});
+test('edition projects a compact timeline, event grid and selected side feature without dropping notices', () => {
+  const html = fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8');
+  assert.equal((html.match(/class="pews-notice pews-timeline-row"/g)||[]).length,4);
+  assert.equal((html.match(/class="pews-notice pews-calendar-card/g)||[]).length,11);
+  assert.equal((html.match(/class="pews-notice pews-feature-panel"/g)||[]).length,1);
+  assert.equal((html.match(/class="pews-notice-details"/g)||[]).length,11);
+  assert.equal((html.match(/id="join-online"/g)||[]).length,1);
+  assert.match(html,/<aside class="pews-support"[\s\S]*Chapel Farm Macmillan Coffee Morning/);
+  assert.match(html,/id="poppy-donations"/);
+  assert.match(html,/id="edition-archive"/);
+});
+test('News hub includes only real recent editions and preserves the Harvest story', () => {
+  const html = fs.readFileSync(path.join(source,'news.html'),'utf8');
+  const hub = html.match(/<!-- pews-hub:start -->([\s\S]*?)<!-- pews-hub:end -->/)[1];
+  const model = require('../publications-model');
+  const records = model.ordered(model.parse(require('../_content/publications.json'))).filter(r=>r.type==='pews-news');
+  for (const record of records.slice(0,5)) assert(hub.includes(record.date), record.date);
+  assert.equal((hub.match(/<li>/g)||[]).length,Math.min(4,records.length-1));
+  assert.match(hub,/View all Pews News/); assert.match(hub,/pews-news.html#edition-archive/);
+  const cp = require('node:child_process');
+  const old = cp.execFileSync('git',['show','d1c48494:news.html'],{cwd:source,encoding:'utf8'});
+  const story = value => value.match(/<!-- news-stories:start -->[\s\S]*?<!-- news-stories:end -->/)[0].replace(/\r/g,'');
+  assert.equal(story(html),story(old));
 });
 test('plain text is escaped and only contacts become actionable links', () => {
   assert.equal(text('<script>'), '&lt;script&gt;');
