@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "pews-news:2026-10-25",
+      "kind": "pews-news",
+      "title": "Pews News — 25 October 2026",
+      "date": "2026-10-25",
+      "summary": "Last Sunday after Trinity — services, parish notices and November dates.",
+      "url": "pews-news/2026-10-25.html",
+      "image": null
+    },
+    {
+      "id": "pews-news:2026-10-18",
+      "kind": "pews-news",
+      "title": "Pews News — 18 October 2026",
+      "date": "2026-10-18",
+      "summary": "Twentieth Sunday after Trinity",
+      "url": "pews-news/2026-10-18.html",
+      "image": null
+    },
+    {
+      "id": "story:a-harvest-of-thankfulness",
+      "kind": "parish-story",
+      "title": "A Harvest of Thankfulness",
+      "date": "2026-10-04",
+      "summary": "Flowers, worship, food and fellowship filled St Michael's as our church family gathered to celebrate Harvest together.",
+      "url": "news/a-harvest-of-thankfulness.html",
+      "image": {
+        "src": "assets/images/stories/harvest-2026/welcome-doors-1280.webp",
+        "small": "assets/images/stories/harvest-2026/welcome-doors-640.webp",
+        "width": 1280,
+        "height": 960,
+        "alt": "Open red church doors frame autumn flowers in the entrance porch"
+      },
+      "sourceCategory": "Harvest Family Service"
+    }
+  ]
+}

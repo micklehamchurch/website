@@ -6,7 +6,6 @@ module.exports={
  'church-life.html':{image:6,focal:'60% 55%',mobile:'65% 50%'},
  'worship.html':{image:3,focal:'60% 50%',mobile:'65% 50%'},
  'sunday-services.html':{image:4,focal:'60% 50%',mobile:'65% 50%'},
- 'news.html':{image:5,focal:'60% 50%',mobile:'65% 50%'},
  'whats-on.html':{image:2,focal:'60% 55%',mobile:'70% 50%'},
  'those-who-have-served.html':{image:4,focal:'60% 50%',mobile:'65% 50%'},
  // Genuine chapel image is only 300x199: unsuitable for a panoramic hero.

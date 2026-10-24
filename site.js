@@ -113,7 +113,7 @@ if (siteScript) {
     const photoStyles=document.createElement('link');photoStyles.rel='stylesheet';
     // Explicit approved hero routes; ordinary internal pages retain Phase 1.
     const seamlessHeroes={
-      'baptisms.html':'.baptism-hero','weddings.html':'.wedding-hero',
+      'news.html':'.news-hub-hero','baptisms.html':'.baptism-hero','weddings.html':'.wedding-hero',
       'funerals.html':'.funeral-hero','about.html':'.parish-about-hero',
       'our-history.html':'.history-hero','pastoral-care.html':'.pastoral-banner',
       'visit.html':'.visit-opening','finding-us.html':'.find-hero'

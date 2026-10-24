@@ -57,19 +57,15 @@ test('edition projects a compact timeline, event grid and selected side feature 
   assert.match(html,/id="poppy-donations"/);
   assert.match(html,/id="edition-archive"/);
 });
-test('News hub includes only real recent editions and preserves the Harvest story', () => {
-  const html = fs.readFileSync(path.join(source,'news.html'),'utf8');
-  const hub = html.match(/<!-- pews-hub:start -->([\s\S]*?)<!-- pews-hub:end -->/)[1];
-  const model = require('../publications-model');
-  const records = model.ordered(model.parse(require('../_content/publications.json'))).filter(r=>r.type==='pews-news');
-  for (const record of records.slice(0,5)) assert(hub.includes(record.date), record.date);
-  assert.equal((hub.match(/<li>/g)||[]).length,Math.min(4,records.length-1));
-  assert.match(hub,/View all Pews News/); assert.match(hub,/pews-news.html#edition-archive/);
-  const cp = require('node:child_process');
-  const old = cp.execFileSync('git',['show','d1c48494:news.html'],{cwd:source,encoding:'utf8'});
-  const story = value => value.match(/<!-- news-stories:start -->[\s\S]*?<!-- news-stories:end -->/)[0].replace(/\r/g,'');
-  assert.equal(story(html),story(old));
+test('News hub preserves real online editions, PDF resources and the Harvest destination',()=>{
+ const html=fs.readFileSync(path.join(source,'news.html'),'utf8');
+ for(const date of ['2026-10-25','2026-10-18'])assert(html.includes(`pews-news/${date}.html`));
+ for(const date of ['2026-10-10','2026-10-04','2026-09-27'])assert(html.includes(`pews-news-${date}.pdf`));
+ assert(html.includes('pews-news.html#edition-archive'));
+ assert(html.includes('news/a-harvest-of-thankfulness.html'));
+ assert(html.includes('Open red church doors frame autumn flowers'));
 });
+
 test('plain text is escaped and only contacts become actionable links', () => {
   assert.equal(text('<script>'), '&lt;script&gt;');
   assert.match(text('Email admin@micklehamchurch.org.uk, call 01372 376443.'), /href="mailto:admin@micklehamchurch.org.uk"/);
@@ -109,7 +105,7 @@ test('online archive has two real HTML editions and disjoint PDF-only archive on
     for (const d of ['2026-10-10','2026-10-04','2026-09-27']) assert(pdfs.includes(`${d}.pdf`));
   }
   const landing = fs.readFileSync(path.join(source,'news.html'),'utf8');
-  assert.match(landing,/href="pews-news\/2026-10-18.html"><time datetime="2026-10-18"/);
+  assert.match(landing,/href="pews-news\/2026-10-18.html"/); assert.match(landing,/datetime="2026-10-18"/);
   assert.deepEqual(require('../pews-news-data.json').editions,['2026-10-25','2026-10-18']);
 });
 test('25 October edition body remains unchanged outside the archive and masthead', () => {
