@@ -53,7 +53,9 @@ function build(siteRoot = root) {
     const images = imageCatalogue[record.date] || {};
     const currentPath = nested ? `pews-news/${record.date}.html` : 'pews-news.html';
     const anchor = id => `${currentPath}#${id}`;
-    function img(key, className = '', eager = false) {
+    // The complete optimized artwork set is about 410 KB. Eager loading also
+    // lets native printing include illustrations beyond the current viewport.
+    function img(key, className = '', eager = true) {
       const entry = images[key];
       if (!entry || !Number.isInteger(entry.width) || entry.width < 1 || !Number.isInteger(entry.height) || entry.height < 1) throw Error(`Invalid image dimensions: ${key}`);
       if (!/^assets\/images\/pews-news\/[\w/.-]+\.(webp|png)$/.test(entry.src) || entry.src.includes('..') || !fs.existsSync(path.join(root,entry.src))) throw Error(`Missing image: ${key}`);

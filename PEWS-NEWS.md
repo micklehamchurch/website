@@ -31,6 +31,6 @@ Web transcription is currently a repository content step; the PDF uploader does 
 
 ## Source and images for 25 October 2026
 
-The original PDF was already present on Dev and matches the supplied `Pews News Online 25th October 26 v2.pdf` byte for byte. The original PDF is retained unchanged. Images were extracted using pypdf, capped at 900 pixels without upscaling, and encoded as WebP quality 82; the donation QR image is lossless PNG. The source’s meaningful artwork is reused, including the Food Bank painting. The complete extracted asset set is approximately 410 KB; below-the-fold images load lazily with intrinsic dimensions.
+The original PDF was already present on Dev and matches the supplied `Pews News Online 25th October 26 v2.pdf` byte for byte. The original PDF is retained unchanged. Images were extracted using pypdf, capped at 900 pixels without upscaling, and encoded as WebP quality 82; the donation QR image is lossless PNG. The source’s meaningful artwork is reused, including the Food Bank painting. The complete extracted asset set is approximately 410 KB. The edition artwork loads eagerly with intrinsic dimensions so native printing also includes illustrations beyond the current viewport.
 
 References to the covering email and Parish Magazine remain faithful to the PDF. No email attachment or donation destination was invented.
