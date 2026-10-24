@@ -1,0 +1,52 @@
+/* Pastoral page only: shared navigation, shell, footer and other care pages are unchanged. */
+.pastoral-care-page.section { padding:0 0 48px; background:#fffdf8; }
+.pastoral-care-page .topic-container { width:100%; max-width:none; }
+.pastoral-banner { position:relative; isolation:isolate; overflow:hidden; min-height:280px; padding:48px max(24px,calc((100% - 1200px)/2)); color:#fffdf5; background:#214738; }
+.pastoral-banner picture { position:absolute; inset:0; z-index:-2; }
+.pastoral-banner::after { position:absolute; inset:0; z-index:-1; content:''; background:linear-gradient(90deg,#132e24e8,#132e24a6 55%,#132e2433); }
+.pastoral-banner img { width:100%; height:100%; object-fit:cover; object-position:50% 55%; }
+.pastoral-banner .eyebrow { color:#e8cf85; }
+.pastoral-banner h1 { margin:12px 0; color:inherit; font:600 clamp(42px,5vw,64px)/1.12 var(--serif); }
+.pastoral-banner div>p:last-child { max-width:30ch; font:400 clamp(20px,2vw,26px)/1.4 var(--serif); margin-bottom:0; }
+.pastoral-reading { width:min(1200px,calc(100% - 48px)); margin:32px auto 0; color:#214738; }
+.pastoral-reading p { line-height:1.65; }
+.pastoral-reading h2 { font:500 clamp(27px,2.8vw,36px)/1.25 var(--serif); margin:8px 0 16px; }
+.pastoral-lead { max-width:76ch; font:400 21px/1.6 var(--serif); }
+.pastoral-foundation { display:grid; grid-template-columns:.8fr 1.2fr; gap:28px; margin:28px 0 36px; padding:30px; background:linear-gradient(110deg,#f0f1e6,#f7f5ec); border:1px solid #c8b77844; border-radius:12px; }
+.pastoral-foundation figure { margin:0; padding-left:28px; border-left:1px solid #bba46466; }
+.pastoral-foundation blockquote { font:italic 400 clamp(20px,2vw,25px)/1.5 var(--serif); margin:0 0 18px; }
+.pastoral-foundation figcaption { font:600 12px var(--sans); letter-spacing:.12em; text-transform:uppercase; }
+.pastoral-foundation small { display:block; margin-top:12px; font:400 12px/1.5 var(--sans); }
+.pastoral-scripture-status { font-size:15px; }
+.pastoral-story { margin:36px 0; max-width:88ch; }
+.pastoral-arrangements { max-width:85ch; font-size:15px; color:#536357; }
+.pastoral-activity-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin:24px 0 36px; }
+.pastoral-activity-card { display:flex; flex-direction:column; min-width:0; padding:24px; border:1px solid #c5b88a66; border-radius:12px; background:#f5f4eb; color:#214738; text-decoration:none; box-shadow:0 3px 12px #35452506; transition:transform 160ms,border-color 160ms; }
+.pastoral-activity-card svg { width:44px; height:44px; color:#8b7332; }
+.pastoral-activity-card h3 { font:600 23px/1.3 var(--serif); margin:18px 0 10px; }
+.pastoral-activity-card p { margin:0 0 20px; font-size:16px; }
+.pastoral-detail-cue { margin-top:auto; font-size:13px; color:#5b602e; text-decoration:underline; text-underline-offset:4px; }
+.pastoral-reading a:focus-visible,.pastoral-modal :is(a,button):focus-visible { outline:3px solid #967934; outline-offset:4px; }
+.pastoral-detail { margin:32px 0; padding:28px; border:1px solid #d8cfb3; border-radius:12px; }
+.pastoral-detail[hidden] { display:none; }
+.pastoral-detail h3 { font:600 17px var(--sans); margin:24px 0 8px; }
+.pastoral-detail p { line-height:1.65; }
+.pastoral-detail-notice { padding:12px 16px; background:#f2f0e3; border-left:2px solid #a38b4c; font-size:14px; }
+.pastoral-contact,.pastoral-calendar { display:inline-flex; min-height:44px; align-items:center; margin:8px 20px 0 0; }
+.pastoral-listen { padding:32px; background:#eef0e6; border:1px solid #c8b77844; border-radius:12px; }
+.pastoral-contact-links { display:flex; flex-wrap:wrap; gap:20px; align-items:center; margin:24px 0; }
+.pastoral-safeguarding { font-size:14px; }
+.pastoral-modal { width:min(760px,calc(100% - 40px)); max-width:none; max-height:calc(100dvh - 40px); padding:0; color:#214738; background:#fffdf8; border:1px solid #c5b88a; border-radius:16px; box-shadow:0 20px 90px #0004; overscroll-behavior:contain; }
+.pastoral-modal::backdrop { background:#10281ed1; }
+.pastoral-modal .pastoral-detail { border:0; border-radius:0; margin:0; padding:24px 36px 36px; }
+.pastoral-modal h2 { font:500 34px/1.25 var(--serif); margin:12px 0; }
+.pastoral-modal header { position:sticky; top:0; display:flex; justify-content:flex-end; background:#fffdf8; padding:8px 12px; z-index:1; }
+.pastoral-modal button,[data-scripture-retry] { min-height:44px; min-width:44px; border:1px solid #a28b4b; border-radius:6px; padding:8px 14px; color:#214738; background:#f5f3e7; font:600 15px var(--sans); cursor:pointer; }
+html.pastoral-modal-open { overflow:hidden; scrollbar-gutter:stable; }
+html.pastoral-modal-open body { position:fixed; top:var(--pastoral-scroll); width:min(100%,var(--site-shell-max,1600px)); inset-inline:0; }
+@media(hover:hover) and (pointer:fine) { .pastoral-activity-card:hover { transform:translateY(-2px); border-color:#a28b4b; } }
+@media(max-width:1100px) { .pastoral-activity-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:700px) { .pastoral-banner { min-height:240px; padding:32px 20px; }.pastoral-reading { width:calc(100% - 32px); margin-top:24px; }.pastoral-lead { font-size:19px; }.pastoral-foundation { grid-template-columns:1fr; padding:22px; gap:14px; }.pastoral-foundation figure { padding:20px 0 0; border-left:0; border-top:1px solid #bba46466; }.pastoral-listen { padding:24px; }.pastoral-modal { width:calc(100% - 16px); max-height:calc(100dvh - 16px); border-radius:10px; }.pastoral-modal .pastoral-detail { padding:14px 20px 24px; } }
+@media(max-width:480px) { .pastoral-activity-grid { grid-template-columns:1fr; }.pastoral-activity-card { padding:22px; }.pastoral-activity-card h3 { margin-top:12px; } }
+@media(orientation:landscape) and (max-height:460px) { .pastoral-banner { min-height:210px; padding-block:28px; }.pastoral-modal { max-height:calc(100dvh - 12px); width:min(760px,calc(100% - 24px)); } }
+@media(prefers-reduced-motion:reduce) { .pastoral-activity-card { transition:none; }.pastoral-activity-card:hover { transform:none; } }

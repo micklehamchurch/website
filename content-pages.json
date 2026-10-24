@@ -649,13 +649,13 @@
       "section": "community",
       "category": "Our Community",
       "title": "Pastoral Care",
-      "summary": "Pastoral care is something the parish shares: noticing one another and reaching out in Christian love.",
+      "summary": "Sharing God’s love through care, friendship and practical support.",
       "back": "church-life.html",
       "action": "Contact the parish",
       "href": "contact.html",
       "layout": "pastoral-care",
-      "heroLabel": "PASTORAL CARE",
-      "heroTitle": "Caring for one another",
+      "heroLabel": "OUR COMMUNITY",
+      "heroTitle": "Pastoral Care",
       "heroAction": {
         "label": "Contact us about pastoral care",
         "href": "contact.html"
@@ -665,11 +665,10 @@
         "href": "prayer.html"
       },
       "introTitle": "Care belongs to the whole parish",
-      "introText": "In the Parish of Mickleham, people are encouraged to extend pastoral care to one another. It is not only the responsibility of church leaders; everyone has a part to play in reaching out in Christian love.",
-      "scripture": "I give you a new command: Love one another. Just as I have loved you, you are also to love one another. By this everyone will know that you are my disciples, if you love one another.",
+      "introText": "Here in the Parish of Mickleham, we encourage each other to extend pastoral care by everyone, to everyone; it is not just the role of the leader to shepherd the flock, for all of us have a part to play. We all should seek to reach out to one another in Christian love.",
       "scriptureReference": "John 13:34–35",
       "careTitle": "Here for one another",
-      "careIntro": "A close community can help people notice when someone has not been around or when they may need support. The parish describes responding both practically and prayerfully.",
+      "careIntro": "One of the benefits of the church community here is that people know one another, and so look out for others, noticing when someone hasn’t been around for a while or hearing news about someone, and then responding, both practically and prayerfully.",
       "carePractices": [
         {
           "mark": "◌",
@@ -692,7 +691,51 @@
       "communityTitle": "Community and friendship",
       "communityText": "Shared meals, refreshments and informal gatherings have been part of parish life. For current activities and arrangements, please check the Calendar or contact the parish.",
       "prayerTitle": "Prayer is part of care",
-      "prayerText": "The parish welcomes prayer for people who are struggling. Visit the Prayer page to find out how to ask about prayer and current arrangements."
+      "prayerText": "The parish welcomes prayer for people who are struggling. Visit the Prayer page to find out how to ask about prayer and current arrangements.",
+      "closingText": "When we reach out in these ways, and countless others, we demonstrate love, compassion and generosity towards others, reflecting what God has already shown to us. One of the primary messages of the Gospel is to serve and help other people, and we delight in seeking to embody these values in our lives and ministries.",
+      "activities": [
+        {
+          "id": "soup-lunches",
+          "title": "Soup Lunches",
+          "summary": "Food, friendship and good company during Lent and Autumn.",
+          "when": "During Lent and in the Autumn.",
+          "where": "The Village Hall.",
+          "paragraphs": [
+            "Bread, home-made soups, cheese and great company offer a wonderful opportunity to meet new friends and deepen relationships with those we already know, while enjoying a good meal together.",
+            "Transport can be arranged for those who need it. There is no charge; donations are welcome, with proceeds shared between charities nominated by the Church Community Group. Please confirm current transport and donation arrangements with the parish."
+          ]
+        },
+        {
+          "id": "breakfasts",
+          "title": "Breakfasts Together",
+          "summary": "Monthly Women’s and Men’s breakfasts for friendship and conversation.",
+          "when": "Women’s Breakfast: third Saturday of each month. Men’s Breakfast: fourth Saturday of each month. Both were listed at 9.00am.",
+          "where": "The Stepping Stones pub in Westhumble.",
+          "paragraphs": [
+            "The breakfasts provide opportunities for all members of the local community to get together for an enjoyable start to the day, with excellent company and conversation."
+          ]
+        },
+        {
+          "id": "afternoon-tea",
+          "title": "Afternoon Tea",
+          "summary": "Tea, conversation and friendship in local homes.",
+          "when": "Third Monday of each month, described as T@3.",
+          "where": "Local homes; please ask the parish about current hosting arrangements.",
+          "paragraphs": [
+            "Home-made refreshments and a selection of teas and coffees accompany a good get-together. It is a great time to get to know people we haven’t met before, as well as renew existing friendships."
+          ]
+        },
+        {
+          "id": "coffee-and-cake",
+          "title": "Coffee & Cake",
+          "summary": "A welcoming monthly gathering at the Chapel in Westhumble.",
+          "when": "First Saturday of each month, from 10.00am.",
+          "where": "The Chapel in Westhumble.",
+          "paragraphs": [
+            "The legacy parish page describes Coffee and Cake at the Chapel as a popular opportunity to meet. Please contact the parish to confirm the next gathering and current arrangements."
+          ]
+        }
+      ]
     },
     {
       "slug": "volunteering",
