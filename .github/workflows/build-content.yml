@@ -144,32 +144,7 @@ jobs:
         run: |
           # News-only refinements must not refresh unrelated date-sensitive Home data.
           if git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/content-changed-paths &&
-             ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)
-      - name: Commit generated website files
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A home-next-service-data.json homepage-verses.json homepage-verses-model.js calendar.ics events.json calendar-version.json news-data.json publications-data.json admin/publications-data.json parish-contact-directory.html admin/contacts-data.json admin/news-demo-data.json admin/msal-auth.bundle.js search-index.json contact.html index.html gallery.html news.html news-stories.html news those-who-have-served.html clergy-data.json our-history.html
-          git add -A news-feed.json pews-news.html pews-news pews-news-data.json
-          node -e "const d=require('./content-pages.json'); for (const p of d.pages) console.log(p.slug + '.html')" | while IFS= read -r page; do git add -A "$page"; done
-          if git diff --cached --quiet; then
-            echo "Generated website files are already current."
-          else
-            git commit -m "Build Dev website content [skip pages]"
-            git push origin HEAD:Dev
-          fi
-      - name: Request Pages build of the generated Dev content
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          source_branch=$(gh api repos/micklehamchurch/website/pages --jq '.source.branch')
-          if [ "$source_branch" != "Dev" ]; then
-            echo "::error::Pages is not sourced from Dev; refusing to request a build."
-            exit 1
-          fi
-          gh api --method POST repos/micklehamchurch/website/pages/builds --silent
-          echo "Requested the existing Pages build from Dev after content generation."
- /tmp/content-changed-paths; then
+             ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
             node build-news-hub.js
             node build-search-index.js
           else
