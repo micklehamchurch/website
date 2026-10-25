@@ -100,8 +100,10 @@ html.responsive-navigation-open body { position:fixed; inset-inline:0; top:var(-
 .responsive-navigation-dialog .nav-primary > .nav-link[aria-current], .responsive-navigation-dialog .nav-trigger.is-current-section { color:var(--header-gold); box-shadow:inset 0 -2px var(--header-gold); }
 .responsive-navigation-dialog .dropdown { position:static; min-width:0; max-height:none; overflow:visible; margin:4px 0 8px 8px; padding:0 0 0 12px; border:0; border-left:1px solid var(--header-gold); border-radius:0; background:transparent; box-shadow:none; }
 .responsive-navigation-dialog .dropdown a { display:flex; align-items:center; min-height:44px; padding:8px; font:400 16px/1.5 var(--sans); color:var(--cream); overflow-wrap:anywhere; }
-/* The shared tree leaves .site-header inside the drawer; override legacy pale current-link fills here. */
+/* The shared tree leaves .site-header inside the drawer; override legacy submenu interaction styles here. */
+.responsive-navigation-dialog .dropdown a:hover { background:#ffffff0c; color:var(--header-gold); }
 .responsive-navigation-dialog .dropdown a[aria-current="page"] { color:var(--cream); background:transparent; border-radius:0; font-weight:600; box-shadow:inset 2px 0 var(--header-gold); }
+.responsive-navigation-dialog .dropdown a:focus-visible { outline:2px solid var(--header-gold); outline-offset:-2px; }
 .responsive-navigation-dialog .nav-utilities, .responsive-navigation-dialog .drawer-contact { display:flex; flex-direction:column; align-items:stretch; gap:0; margin-top:16px; padding-top:12px; border-top:1px solid #f7f3e926; }
 .responsive-navigation-dialog .header-search { display:none; }
 .responsive-navigation-dialog .nav-actions { display:contents; }
