@@ -36,9 +36,11 @@
       "height": 476
     },
     "poppy-qr": {
-      "src": "assets/images/pews-news/2026-10-25/poppy-qr.png",
-      "width": 226,
-      "height": 215
+      "src": "assets/images/pews-news/rbl-mickleham-westhumble-qr.svg",
+      "width": 41,
+      "height": 41,
+      "alt": "QR code for the Mickleham and Westhumble Royal British Legion collection",
+      "href": "https://www.mygivinghub.com/go?id=jZ7arYjOPa"
     },
     "link-to-hope": {
       "src": "assets/images/pews-news/2026-10-25/link-to-hope.webp",
@@ -154,10 +156,11 @@
       "alt": "A soldier among remembrance poppies"
     },
     "poppy-qr": {
-      "src": "assets/images/pews-news/2026-10-18/poppy-qr.png",
-      "width": 226,
-      "height": 215,
-      "alt": "Scan to donate to the local Royal British Legion collection"
+      "src": "assets/images/pews-news/rbl-mickleham-westhumble-qr.svg",
+      "width": 41,
+      "height": 41,
+      "alt": "QR code for the Mickleham and Westhumble Royal British Legion collection",
+      "href": "https://www.mygivinghub.com/go?id=jZ7arYjOPa"
     },
     "coffee-cake": {
       "src": "assets/images/pews-news/2026-10-18/coffee-cake.webp",
