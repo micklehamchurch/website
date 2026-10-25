@@ -103,7 +103,7 @@
 .pews-poppy-panel .eyebrow { font-size:10px; }
 .pews-poppy-panel summary { font-size:13px; border-top:1px solid #e6d4cd; }
 .pews-qr { display:flex; gap:12px; align-items:center; margin-block:10px; text-decoration:underline; font-size:12px; }
-.pews-qr img { width:130px; height:auto; max-width:60%; }
+.pews-qr img { width:130px; height:auto; max-width:60%; flex-shrink:0; aspect-ratio:1; }
 .pews-text-link { display:flex; align-items:center; min-height:44px; font-size:12px; font-weight:600; }
 .pews-quick-links { padding:18px; border:1px solid var(--stone); border-radius:6px; }
 .pews-quick-links a { display:flex; justify-content:space-between; gap:10px; min-height:44px; align-items:center; padding-block:10px; font-size:13px; border-bottom:1px solid var(--stone); }

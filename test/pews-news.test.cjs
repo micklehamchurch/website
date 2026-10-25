@@ -112,8 +112,9 @@ test('25 October edition body remains unchanged outside the archive and masthead
   const cp = require('node:child_process');
   const previous = file => cp.execFileSync('git',['show',`2a57cb7:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'');
   assert.deepEqual(require('../_content/pews-news/2026-10-25.json'),JSON.parse(previous('_content/pews-news/2026-10-25.json')));
-  assert.deepEqual(require('../_content/pews-news-images.json')['2026-10-25'],JSON.parse(previous('_content/pews-news-images.json'))['2026-10-25']);
-  const stripArchive = value => value.replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version').replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version');
+  const withoutQR = images => Object.fromEntries(Object.entries(images).filter(([key])=>key!=='poppy-qr'));
+  assert.deepEqual(withoutQR(require('../_content/pews-news-images.json')['2026-10-25']),withoutQR(JSON.parse(previous('_content/pews-news-images.json'))['2026-10-25']));
+  const stripArchive = value => value.replace(/<a class="pews-qr"[\s\S]*?<\/a>/g,'DONATION_QR').replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version').replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version');
   assert.equal(stripArchive(fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8').replace(/\r/g,'')),stripArchive(previous('pews-news/2026-10-25.html')));
 });
 
@@ -124,7 +125,20 @@ test('publication masthead is shared, responsive and date-independent without ch
   const hero=html.match(/<section class="pews-hero"[\s\S]*?<\/section>/)[0];
   assert(!hero.includes('2026-10'));assert(hero.includes('Weekly news, services and events'));assert(hero.includes('church-card.webp 720w'));assert(hero.includes('church-hero.webp 1600w'));assert(hero.includes('alt=""'));assert.equal((hero.match(/<h1\b/g)||[]).length,1);
   if(masthead)assert.equal(hero,masthead);masthead=hero;
-  const strip=s=>s.replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version');
+  const strip=s=>s.replace(/<a class="pews-qr"[\s\S]*?<\/a>/g,'DONATION_QR').replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version');
   assert.equal(strip(html),strip(previous),file+' outside masthead changed');
+ }
+});
+
+test('every RBL collection QR uses the shared scalable asset and exact verified donation destination',()=>{
+ const url='https://www.mygivinghub.com/go?id=jZ7arYjOPa';
+ const catalogue=require('../_content/pews-news-images.json');
+ for(const images of Object.values(catalogue))if(images['poppy-qr'])assert.equal(images['poppy-qr'].href,url);
+ for(const file of ['pews-news.html','pews-news/2026-10-18.html','pews-news/2026-10-25.html']){
+ const html=fs.readFileSync(path.join(source,file),'utf8');
+ const qr=html.match(/<a class="pews-qr"[\s\S]*?<\/a>/g);assert.equal(qr.length,1);
+ assert(qr[0].includes('href="'+url+'"'));assert(qr[0].includes('rbl-mickleham-westhumble-qr.svg'));
+ assert(qr[0].includes('alt="QR code for the Mickleham and Westhumble Royal British Legion collection"'));
+ assert(!html.includes('/poppy-qr.png'));assert(qr[0].includes('Donate to the Royal British Legion'));
  }
 });

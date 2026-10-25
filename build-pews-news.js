@@ -58,11 +58,11 @@ function build(siteRoot = root) {
     function img(key, className = '', eager = true) {
       const entry = images[key];
       if (!entry || !Number.isInteger(entry.width) || entry.width < 1 || !Number.isInteger(entry.height) || entry.height < 1) throw Error(`Invalid image dimensions: ${key}`);
-      if (!/^assets\/images\/pews-news\/[\w/.-]+\.(webp|png)$/.test(entry.src) || entry.src.includes('..') || !fs.existsSync(path.join(root,entry.src))) throw Error(`Missing image: ${key}`);
+      if (!/^assets\/images\/pews-news\/[\w/.-]+\.(webp|png|svg)$/.test(entry.src) || entry.src.includes('..') || !fs.existsSync(path.join(root,entry.src))) throw Error(`Missing image: ${key}`);
       return `<img class="${className}" src="${esc(entry.src)}" alt="${esc(entry.alt || alt[key] || '')}" width="${entry.width}" height="${entry.height}" loading="${eager?'eager':'lazy'}" decoding="async">`;
     }
     const download = `<a class="pews-download" href="${esc(record.pdf)}" download><span aria-hidden="true">↓</span> Download original PDF</a>`;
-    const qr = n => n.extraImage ? `<a class="pews-qr" href="${esc(images[n.extraImage]?.src)}">${img(n.extraImage)}<span>View donation QR code</span></a>` : '';
+    const qr = n => n.extraImage ? `<a class="pews-qr" href="${esc(images[n.extraImage]?.href || images[n.extraImage]?.src)}">${img(n.extraImage)}<span>${images[n.extraImage]?.href ? 'Donate to the Royal British Legion' : 'View donation QR code'}</span></a>` : '';
     const body = (n, paragraphs = n.paragraphs) => paragraphs.map(p=>`<p>${text(p)}</p>`).join('') + (n.zoom ? zoom(n.zoom,'Join the celebration on Zoom') : '');
     const warning = n => n.emphasis ? `<p class="pews-important"><strong>${text(n.emphasis)}</strong></p>` : '';
     const allNotices = data.sections.flatMap(s=>s.notices);
@@ -94,7 +94,7 @@ function build(siteRoot = root) {
 <meta name="description" content="${esc(data.subtitle)}. Services, parish notices and dates from Pews News, ${esc(model.dateLabel(record))}.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=masthead-20261024-1">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=qr-20261025-1">
 <link rel="icon" href="favicon.ico"><script src="site.js" defer></script><script src="pews-news.js?v=editorial-20261024-2" defer></script></head>
 <body><a class="skip-link" href="${currentPath}#main-content">Skip to main content</a><header class="site-header" data-site-header></header>
 <main id="main-content" tabindex="-1" class="pews-page">
