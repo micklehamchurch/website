@@ -8,7 +8,13 @@
       "date": "2026-10-25",
       "summary": "Last Sunday after Trinity — services, parish notices and November dates.",
       "url": "pews-news/2026-10-25.html",
-      "image": null
+      "image": {
+        "src": "assets/images/news-artwork/pews-autumn-rich-1280.webp",
+        "small": "assets/images/news-artwork/pews-autumn-rich-640.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Pews News publication illustration"
+      }
     },
     {
       "id": "pews-news:2026-10-18",
@@ -17,7 +23,13 @@
       "date": "2026-10-18",
       "summary": "Twentieth Sunday after Trinity",
       "url": "pews-news/2026-10-18.html",
-      "image": null
+      "image": {
+        "src": "assets/images/news-artwork/pews-autumn-quiet-1280.webp",
+        "small": "assets/images/news-artwork/pews-autumn-quiet-640.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Pews News publication illustration"
+      }
     },
     {
       "id": "story:a-harvest-of-thankfulness",
