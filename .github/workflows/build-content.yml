@@ -147,6 +147,7 @@ jobs:
              ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
             node build-news-hub.js
             node build-search-index.js
+            node build-typography-preview.js
           else
             npm run build
           fi
