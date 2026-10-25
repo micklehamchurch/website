@@ -99,7 +99,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261022-inline-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261025-current-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
