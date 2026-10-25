@@ -55,6 +55,9 @@ on:
       - 'admin/news-api.mjs'
       - 'build-news-pages.js'
       - 'build-news-hub.js'
+      - 'home-news-render.cjs'
+      - 'home-news.css'
+      - 'home-news.js'
       - 'news-feed-model.js'
       - 'news-publication-artwork.json'
       - 'assets/images/news-artwork/**'
@@ -142,9 +145,9 @@ jobs:
           BEFORE_SHA: ${{ github.event.before }}
           CURRENT_SHA: ${{ github.sha }}
         run: |
-          # News-only refinements must not refresh unrelated date-sensitive Home data.
+          # News/Home-preview refinements must not refresh unrelated date-sensitive service data.
           if git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/content-changed-paths &&
-             ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
+             ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|home-news-render\.cjs|home-news\.(css|js)|index\.html|test/home-news\.test\.cjs|test/parish-gallery\.test\.cjs|docs/home-news\.md|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
             node build-news-hub.js
             node build-search-index.js
             node build-typography-preview.js
