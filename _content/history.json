@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "collections": [
+    {
+      "id": "people-families",
+      "title": "People & Families",
+      "description": "Stories of notable people and parish families, including Philippa Walton.",
+      "action": "Explore people and families",
+      "status": "active",
+      "route": "history-people-families.html",
+      "generated": true,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "order": 1
+    },
+    {
+      "id": "architecture",
+      "title": "Church & Architecture",
+      "description": "Discover the history of the church building, from its early traces to later changes.",
+      "action": "Explore the building",
+      "status": "active",
+      "route": "church-building.html",
+      "image": {
+        "src": "assets/images/about/church-hero.webp",
+        "small": "assets/images/about/church-card.webp",
+        "width": 1600,
+        "height": 899,
+        "smallWidth": 720,
+        "alt": "St Michael & All Angels Church and churchyard, Mickleham"
+      },
+      "order": 2
+    },
+    {
+      "id": "memorials",
+      "title": "Memorials & Monuments",
+      "description": "Discover the stories behind the church’s historic memorials, monuments, brasses and tombs.",
+      "action": "View the monuments",
+      "status": "active",
+      "route": "history-memorials.html",
+      "generated": true,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "order": 3
+    },
+    {
+      "id": "war",
+      "title": "Mickleham at War",
+      "description": "Find out about the parish’s war memorial and those it commemorates.",
+      "action": "Explore wartime stories",
+      "status": "active",
+      "route": "war-memorial.html",
+      "image": {
+        "src": "assets/images/war-memorial/memorial.webp",
+        "small": "assets/images/history/war-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "Mickleham War Memorial in the churchyard"
+      },
+      "order": 4
+    },
+    {
+      "id": "churchyard",
+      "title": "Churchyard & Graves",
+      "description": "Discover the churchyard, its memorials and the stories of those buried here.",
+      "action": "Read the churchyard history",
+      "status": "active",
+      "route": "churchyard.html",
+      "image": {
+        "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-960.webp",
+        "small": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-480.webp",
+        "width": 960,
+        "height": 720,
+        "smallWidth": 480,
+        "alt": "Headstones and trees in the churchyard at St Michael’s"
+      },
+      "order": 5
+    },
+    {
+      "id": "archive",
+      "title": "Archive & Photographs",
+      "description": "A collection for historical photographs, documents and other items from the parish archive.",
+      "action": "View the archive",
+      "status": "planned",
+      "image": null,
+      "order": 6
+    },
+    {
+      "id": "local-stories",
+      "title": "Stories from Mickleham",
+      "description": "A collection for people, events and local history from our parish and village.",
+      "action": "Read local stories",
+      "status": "planned",
+      "image": null,
+      "order": 7
+    }
+  ],
+  "timeline": [
+    {
+      "url": "history-saxon.html",
+      "period": "Early history",
+      "title": "Saxon traces",
+      "description": "The original church is thought to have been a small Saxon nave and chancel. Traces of early work remain and may date to around 950.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-domesday.html",
+      "period": "1086",
+      "title": "A church in Domesday",
+      "description": "The Domesday Book entry for Mickleham records a church and two acres of meadow.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-norman.html",
+      "period": "c. 1180",
+      "title": "Norman work",
+      "description": "Much of the present church dates to the Norman period, around 1180, including the chancel arch, lancet windows and font.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-norbury.html",
+      "period": "c. 1300",
+      "title": "The Norbury Chapel",
+      "description": "The side chapel, now called the Norbury Chapel, dates from around 1300. Its memorials include the Wyddowsoun tomb and brasses.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-restoration.html",
+      "period": "1823–1891",
+      "title": "Restoration and change",
+      "description": "The church underwent significant alterations: nave arches and piers were replaced in 1823, with further changes during the nineteenth century and the dismantling of the north aisle in 1891.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-bells.html",
+      "period": "1913",
+      "title": "The bells",
+      "description": "Four of the larger bells completing the peal of six were given in memory of Sir James Lawrence in 1913.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-today.html",
+      "period": "Today",
+      "title": "A living parish",
+      "description": "St Michael and All Angels continues as a place of worship and community life for Mickleham and Westhumble.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    }
+  ],
+  "feature": {
+    "eyebrow": "People of our parish",
+    "title": "Meet those who have served",
+    "description": "Explore the clergy of St Michael’s through the generations, with photographs and stories from the parish archive.",
+    "route": "those-who-have-served.html",
+    "action": "Those who have served",
+    "portraits": [
+      {
+        "src": "assets/images/clergy/2-360.jpg",
+        "small": "assets/images/clergy/2-360.jpg",
+        "width": 360,
+        "height": 584,
+        "smallWidth": 360,
+        "alt": "Alfred Burmester, from the parish clergy display"
+      },
+      {
+        "src": "assets/images/clergy/7-360.jpg",
+        "small": "assets/images/clergy/7-360.jpg",
+        "width": 360,
+        "height": 520,
+        "smallWidth": 360,
+        "alt": "Arthur W. Bedford, from the parish clergy display"
+      },
+      {
+        "src": "assets/images/clergy/13-360.jpg",
+        "small": "assets/images/clergy/13-360.jpg",
+        "width": 360,
+        "height": 465,
+        "smallWidth": 360,
+        "alt": "Barbara Steadman-Allen, from the parish clergy display"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "existing-history",
+      "title": "Existing parish history and retained period articles",
+      "notes": "The existing parish history and period articles retain their established wording."
+    },
+    {
+      "id": "memorial-photo",
+      "title": "Original memorial photograph supplied for this project",
+      "notes": "Identified by the contributor as Philippa Walton’s memorial inside St Michael & All Angels. No full biography or transcription has been published from this photograph alone."
+    }
+  ],
+  "entries": [
+    {
+      "id": "philippa-walton",
+      "title": "Philippa Walton’s memorial",
+      "period": "",
+      "primaryCollection": "people-families",
+      "collections": [
+        "people-families",
+        "memorials"
+      ],
+      "description": "A memorial inside St Michael & All Angels, Mickleham, shown in the original photograph supplied for this archive.",
+      "status": "teaser",
+      "order": 1,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "body": [],
+      "sourceRefs": [
+        "memorial-photo"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": [],
+      "transcription": null
+    },
+    {
+      "id": "norbury-chapel",
+      "title": "The Norbury Chapel",
+      "period": "c. 1300",
+      "primaryCollection": "memorials",
+      "collections": [
+        "memorials",
+        "architecture"
+      ],
+      "description": "The side chapel, now called the Norbury Chapel, dates from around 1300. Its memorials include the Wyddowsoun tomb and brasses.",
+      "status": "published",
+      "order": 2,
+      "url": "history-norbury.html",
+      "image": null,
+      "body": [],
+      "sourceRefs": [
+        "existing-history"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": []
+    },
+    {
+      "id": "war-memorial",
+      "title": "Mickleham War Memorial",
+      "period": "",
+      "primaryCollection": "war",
+      "collections": [
+        "war",
+        "memorials"
+      ],
+      "description": "Learn about the parish’s war memorial and those it commemorates.",
+      "status": "published",
+      "order": 3,
+      "url": "war-memorial.html",
+      "image": {
+        "src": "assets/images/war-memorial/memorial.webp",
+        "small": "assets/images/history/war-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "Mickleham War Memorial in the churchyard"
+      },
+      "body": [],
+      "sourceRefs": [
+        "existing-history"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": []
+    }
+  ]
+}
