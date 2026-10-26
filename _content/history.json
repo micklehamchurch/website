@@ -571,5 +571,47 @@
       "relatedEntries": [],
       "relatedPeople": []
     }
+  ],
+  "landingStories": [
+    {
+      "id": "philippa-walton",
+      "entryId": "philippa-walton",
+      "title": "Philippa Walton",
+      "description": "Discover Philippa Walton’s story, remembered inside the church by her eighteenth-century memorial.",
+      "action": "Read her story",
+      "order": 1,
+      "status": "published",
+      "focal": "50% 65%"
+    },
+    {
+      "id": "church-building",
+      "collectionId": "architecture",
+      "title": "The Church Building",
+      "description": "Explore the history of our church building, from its earliest origins to later changes and restorations.",
+      "action": "Explore the building",
+      "order": 2,
+      "status": "published",
+      "focal": "50% 30%"
+    },
+    {
+      "id": "war-memorial",
+      "entryId": "war-memorial",
+      "title": "Mickleham War Memorial",
+      "description": "Discover the story of the parish war memorial and those it commemorates.",
+      "action": "Read the story",
+      "order": 3,
+      "status": "published",
+      "focal": "50% 5%"
+    },
+    {
+      "id": "churchyard",
+      "collectionId": "churchyard",
+      "title": "The Churchyard",
+      "description": "Discover the history of our churchyard, its memorials and the stories of those buried here.",
+      "action": "Explore the churchyard",
+      "order": 4,
+      "status": "published",
+      "focal": "50% 55%"
+    }
   ]
 }
