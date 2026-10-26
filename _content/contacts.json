@@ -49,7 +49,29 @@
       "name": "John Banfield",
       "phone": "07831 606493",
       "email": "banfieldjohn@aol.com",
-      "status": "published"
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.07,
+        "x": 53,
+        "y": 0
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-efb6bec6-8f40-4003-be4c-6bc950306877-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 8964
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-efb6bec6-8f40-4003-be4c-6bc950306877-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 29464
+          }
+        ],
+        "position": "top"
+      }
     },
     {
       "id": "churchwarden-lucy-adshead",
