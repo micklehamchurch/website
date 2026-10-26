@@ -1,5 +1,7 @@
 # Historical hub
 
+Publication update,26 October2026:Philippa is now a source-backed published article; see [history-story.md](history-story.md) for the new evidence audit and reusable article pattern. The initial source-gap audit below records the original hub-only phase.
+
 Baseline 8c0c84a2c8dc46e133d4fa01c3390d8d4751ddf4. Header/footer/hero and seven period routes/wording are preserved. The existing timeline dialog JS remains unchanged; noJS still opens retained articles. Clergy feature follows timeline, before seven collections. Those Who Have Served remains the existing independent archive, not a copied set of biographies.
 
 _content/history.json is the single metadata source:version,timeline,feature,collections,sources,entries. Collections have id/title/description/action/order/status and optionally an existing or generated route/image. Entries have id/title/period/primaryCollection/collections/description/image/sourceRefs/status/order/body/transcription/relatedEntries/relatedPeople. build-history-hub.js validates local routes and assets, escapes text, generates the landing template and enabled collections; source-backed full articles can later be generated as history-entry-ID.html when published body content is supplied. Drafts are excluded; planned collections have no link/page; empty active generated collections fail. Owned generated outputs are removed when unpublished, without deleting existing historical routes. No framework, database or new browser JS.
