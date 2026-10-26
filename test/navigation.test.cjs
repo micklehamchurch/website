@@ -6,31 +6,36 @@ const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const source=fs.readFileSync(path.join(root,'site.js'),'utf8');
 const html=vm.runInNewContext(source.slice(0,source.indexOf('const socialArea'))+'\nnavigation');
-const menus=Object.fromEntries([...html.matchAll(/<div class="dropdown" id="menu-([^"]+)">(.*?)<\/div>/gs)].map(m=>[m[1],[...m[2].matchAll(/href="([^"]+)"/g)].map(a=>a[1])]));
-const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/♥\s*/g,'').trim();
-test('shared desktop/mobile top-level order retains styled utilities and excludes Media',()=>{
- const nav=html.match(/<nav\b.*?<\/nav>/s)[0].replace(/<div class="dropdown".*?<\/div>/gs,'');
- const names=[...nav.matchAll(/<(a|button)\b[^>]*>(.*?)<\/\1>/gs)].map(m=>labels(m[2]));
- assert.deepEqual(names,['Home','Services','Visit & Learn','Our Community','News','About Us','Search','','Calendar','Bible','Plan your visit →']);
- assert.equal((nav.match(/href="news.html"/g)||[]).length,1);
- assert.equal((html.match(/href="news.html"/g)||[]).length,1);
- assert(!menus.community.includes('news.html'));
- assert.match(nav,/class="nav-link nav-calendar"/);assert.doesNotMatch(nav,/nav-youtube|nav-give|href="give.html"/);
+const categories=vm.runInNewContext(source.slice(0,source.indexOf('const socialArea'))+'\nnavigationCategories');
+const menus=Object.fromEntries(categories.map(c=>[c.id,Array.from(c.links,p=>p[1])]));
+const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').trim();
+test('one desktop hub contains every audited category; Home and utilities remain separate',()=>{
+ assert.equal((html.match(/class="navigation-hub"/g)||[]).length,1);
+ assert.deepEqual(Array.from(categories,c=>c.title),['Services','Life Events','Visit & Explore','Community','About Us']);
+ const primary=html.match(/<div class="nav-primary">([\s\S]*?)<div class="navigation-hub"/)[1];
+ assert.match(primary,/href="index.html">Home/);assert.doesNotMatch(primary,/href="news.html"/);
+ assert.equal((html.match(/class="nav-trigger"/g)||[]).length,5);
+ assert.equal((html.match(/class="dropdown hub-column"/g)||[]).length,5);
+ assert.equal((html.match(/href="calendar.html"/g)||[]).length,1);
+ assert.equal((html.match(/href="bible.html"/g)||[]).length,1);
 });
-test('reviewed dropdowns group worship, visiting, community and parish governance without duplicates',()=>{
+test('exact Phase 1 destinations exclude lower-priority content without deleting it',()=>{
  assert.deepEqual(menus,{
- worship:['worship.html','sunday-services.html','weekly-worship.html','special-services.html','prayer.html','bible.html','baptisms.html','weddings.html','funerals.html'],
- visit:['visit.html','what-to-expect.html','finding-us.html','church-building.html','westhumble-chapel.html','churchyard.html','churchyard-regulations.html','war-memorial.html'],
- community:['church-life.html','gallery.html','children-families.html','alpha.html','bible-study-fellowship.html','pastoral-care.html','volunteering.html','supporting-community.html'],
- about:['our-team.html','about.html','our-vision.html','our-churches.html','our-history.html','eco-church.html','electoral-roll.html','safeguarding.html','privacy.html']});
- const urls=Object.values(menus).flat();assert.equal(new Set(urls).size,urls.length);
+ services:['worship.html','weekly-worship.html','prayer.html'],
+ 'life-events':['baptisms.html','weddings.html','funerals.html'],
+ visit:['finding-us.html','church-building.html','our-history.html','churchyard.html','westhumble-chapel.html'],
+ community:['news.html','church-life.html','children-families.html','bible-study-fellowship.html','pastoral-care.html','eco-church.html','news.html#latest-parish-magazine'],
+ about:['our-team.html','about.html','our-vision.html','our-churches.html','safeguarding.html','contact.html']});
+ for(const file of ['electoral-roll.html','privacy.html','norman-architecture.html','sunday-services.html','special-services.html','whats-on.html','parish-magazine.html'])assert(fs.existsSync(path.join(root,file)));
 });
-test('every submenu resolves to a retained public page with a main heading and unique controlled menu',()=>{
- for(const [id,urls] of Object.entries(menus)){
-  assert(urls.length);assert.equal((html.match(new RegExp(`id="menu-${id}"`,'g'))||[]).length,1);
-  assert.match(html,new RegExp(`aria-controls="menu-${id}"`));
-  for(const url of urls){const page=fs.readFileSync(path.join(root,url),'utf8');assert.match(page,/<main\b/);assert.match(page,/<h1\b/);}
+test('every hub destination and fragment resolves to retained content; decorative images are deferred',()=>{
+ for(const category of categories){
+  assert.match(html,new RegExp(`id="menu-${category.id}"`));
+  assert(category.description);assert(fs.existsSync(path.join(root,category.image)));
+  for(const [,url]of category.links){const [file,fragment]=url.split('#');const page=fs.readFileSync(path.join(root,file),'utf8');assert.match(page,/<main\b/);assert.match(page,/<h1\b/);if(fragment)assert(page.includes(`id="${fragment}"`));}
  }
+ assert.equal((html.match(/class="hub-image" data-src=/g)||[]).length,5);
+ assert.equal((html.match(/width="480" height="200" alt=""/g)||[]).length,5);
 });
 test('History and Prayer retain search discoverability and relevant contextual links',()=>{
  const search=JSON.parse(fs.readFileSync(path.join(root,'search-index.json'),'utf8'));

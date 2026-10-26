@@ -7,6 +7,22 @@ const socialLinks = [{
   icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>'
 }];
 
+// Audited destinations shared by the desktop hub and mobile accordions.
+const navigationCategories = [
+ {id:'services',title:'Services',description:'Join us for services and prayer',icon:'book',image:'assets/images/navigation/services-480.webp',links:[['Services Overview','worship.html'],['Service Times','weekly-worship.html'],['Prayer','prayer.html']]},
+ {id:'life-events',title:'Life Events',description:"For life's most important moments",icon:'heart',image:'assets/images/navigation/life-events-480.webp',links:[['Baptisms','baptisms.html'],['Weddings','weddings.html'],['Funerals','funerals.html']]},
+ {id:'visit',title:'Visit & Explore',description:'Discover our church and its heritage',icon:'church',image:'assets/images/navigation/visit-480.webp',links:[['Find Us','finding-us.html'],['The Church Building','church-building.html'],['Our History','our-history.html'],['The Churchyard','churchyard.html'],['Westhumble Chapel','westhumble-chapel.html']]},
+ {id:'community',title:'Community',description:'Life and activities in our parish',icon:'people',image:'assets/images/navigation/community-480.webp',links:[['News','news.html'],['Community & Groups','church-life.html'],['Children & Families','children-families.html'],['Bible Study & Fellowship','bible-study-fellowship.html'],['Pastoral Care','pastoral-care.html'],['Eco Church','eco-church.html'],['Parish Magazine','news.html#latest-parish-magazine']]},
+ {id:'about',title:'About Us',description:'Our people, vision and information',icon:'church',image:'assets/images/navigation/about-480.webp',links:[['Our Team','our-team.html'],['Our Parish','about.html'],['Our Vision','our-vision.html'],['Our Churches','our-churches.html'],['Safeguarding','safeguarding.html'],['Contact','contact.html']]}
+];
+const navigationEscape=value=>value.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const navigationIcons={
+ book:'<path d="M12 5Q7 2 2 4v16q5-2 10 1 5-3 10-1V4q-5-2-10 1Zm0 0v16"/>',
+ heart:'<path d="M12 21 3 12C-3 5 6-1 12 6c6-7 15-1 9 6Z"/>',
+ church:'<path d="M4 21V11l8-7 8 7v10ZM9 21v-7h6v7M12 1v6M9 3h6"/>',
+ people:'<circle cx="12" cy="6" r="3"/><path d="M6 21v-6a6 6 0 0 1 12 0v6ZM4 5a3 3 0 0 0 0 6M20 5a3 3 0 0 1 0 6M3 14H1v6h3M21 14h2v6h-3"/>'
+};
+const navigationIcon=icon=>`<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${navigationIcons[icon]}</svg>`;
 const navigation = `
   <div class="container nav-wrap">
     <div class="header-branding">
@@ -19,11 +35,10 @@ const navigation = `
     <nav class="nav" id="mainNav" aria-label="Main">
       <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-worship">Services<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-worship"><a href="worship.html">Worship overview</a><a href="sunday-services.html">Sunday Services</a><a href="weekly-worship.html">Weekly Worship</a><a href="special-services.html">Special Services</a><a href="prayer.html">Prayer</a><a href="bible.html">Read the Bible</a><a href="baptisms.html">Baptisms</a><a href="weddings.html">Weddings</a><a href="funerals.html">Funerals</a></div></div>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-visit">Visit &amp; Learn<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-visit"><a href="visit.html">Visit the Church</a><a href="what-to-expect.html">What to Expect</a><a href="finding-us.html">Find Us</a><a href="church-building.html">The Church Building</a><a href="westhumble-chapel.html">Westhumble Chapel</a><a href="churchyard.html">Churchyard</a><a href="churchyard-regulations.html">Churchyard Regulations</a><a href="war-memorial.html">War Memorial</a></div></div>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-community">Our Community<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-community"><a href="church-life.html">Church Community</a><a href="gallery.html">Parish Photographs</a><a href="children-families.html">Children &amp; Families</a><a href="alpha.html">Alpha</a><a href="bible-study-fellowship.html">Bible Study &amp; Fellowship</a><a href="pastoral-care.html">Pastoral Care</a><a href="volunteering.html">Volunteering</a><a href="supporting-community.html">Supporting the Community</a></div></div>
-      <a class="nav-link" href="news.html">News</a>
-      <div class="nav-item has-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="menu-about">About Us<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5"/></svg></button><div class="dropdown" id="menu-about"><a href="our-team.html">Our Team</a><a href="about.html">Our Parish</a><a href="our-vision.html">Our Vision</a><a href="our-churches.html">Our Churches</a><a href="our-history.html">Church History</a><a href="eco-church.html">Eco Church</a><a href="electoral-roll.html">Electoral Roll</a><a href="safeguarding.html">Safeguarding</a><a href="privacy.html">Privacy &amp; GDPR</a></div></div>
+      ${navigationCategories.map(category=>`<div class="nav-item has-dropdown" data-category="${category.id}"><button class="nav-trigger" id="trigger-${category.id}" type="button" aria-expanded="false" aria-controls="menu-${category.id}">${navigationEscape(category.title)}<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg></button></div>`).join('')}
+      </div>
+      <div class="navigation-hub" id="navigation-hub" role="region" aria-label="Explore our parish" hidden>
+      ${navigationCategories.map(category=>`<section class="dropdown hub-column" id="menu-${category.id}" data-category="${category.id}" aria-labelledby="heading-${category.id}"><div class="hub-heading">${navigationIcon(category.icon)}<h2 id="heading-${category.id}">${navigationEscape(category.title)}</h2></div><p class="hub-description">${navigationEscape(category.description)}</p><div class="hub-links">${category.links.map(([label,url])=>`<a href="${url}">${navigationEscape(label)}</a>`).join('')}</div><img class="hub-image" data-src="${category.image}" width="480" height="200" alt="" decoding="async"></section>`).join('')}
       </div>
       <div class="nav-utilities">
       <a class="compact-search" href="search.html" aria-label="Search the website"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search</span></a>
@@ -99,7 +114,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261025-current-2', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261026-hub-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -135,7 +150,7 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261022-inline-2',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261026-hub-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';
@@ -168,7 +183,17 @@ navigationBackdrop.className = 'navigation-dismiss-backdrop';
 navigationBackdrop.setAttribute('aria-hidden', 'true');
 navigationBackdrop.hidden = true;
 document.body.append(navigationBackdrop);
+const navigationHub=document.querySelector('.navigation-hub');
+function syncNavigationHub(){
+ const compact=matchMedia('(max-width:1535px)').matches;
+ const selected=dropdownButtons.find(button=>button.closest('.nav-item').classList.contains('is-open'));
+ dropdownButtons.forEach(button=>{button.setAttribute('aria-controls',compact?'menu-'+button.closest('.nav-item').dataset.category:'navigation-hub');if(!compact)button.setAttribute('aria-expanded',String(!!selected));});
+ if(navigationHub)navigationHub.hidden=compact||!selected;
+ document.querySelectorAll('.hub-column').forEach(column=>column.classList.toggle('is-selected',selected?.closest('.nav-item').dataset.category===column.dataset.category));
+ if(!compact&&selected)document.querySelectorAll('.hub-image[data-src]').forEach(image=>{image.addEventListener('error',()=>{image.style.visibility='hidden';},{once:true});image.src=new URL(image.dataset.src,siteScript.src).href;delete image.dataset.src;});
+}
 function syncNavigationBackdrop() {
+  syncNavigationHub();
   if (globalThis.churchResponsiveNavigation?.isOpen()) { navigationBackdrop.hidden = true; return; }
   navigationBackdrop.hidden = !nav?.classList.contains('is-open') && !dropdownButtons.some(button => button.getAttribute('aria-expanded') === 'true');
 }
@@ -194,7 +219,7 @@ menuButton?.addEventListener('click', () => {
 dropdownButtons.forEach(button => {
   button.addEventListener('click', event => {
     if(event.detail>0 && button.dataset.openedByHover){delete button.dataset.openedByHover;return;}
-    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    const isOpen = button.closest('.nav-item').classList.contains('is-open');
     closeDropdowns(button);
     button.setAttribute('aria-expanded', String(!isOpen));
     button.closest('.nav-item')?.classList.toggle('is-open', !isOpen);
@@ -231,7 +256,7 @@ document.addEventListener('pointerdown', event => {
 }, true);
 function closeNavigation(returnFocus = false) {
   if (globalThis.churchResponsiveNavigation?.close(returnFocus)) return;
-  const opener = nav?.classList.contains('is-open') ? menuButton : dropdownButtons.find(button => button.getAttribute('aria-expanded') === 'true');
+  const opener = nav?.classList.contains('is-open') ? menuButton : dropdownButtons.find(button => button.closest('.nav-item').classList.contains('is-open'));
   closeDropdowns();
   nav?.classList.remove('is-open');
   menuButton?.setAttribute('aria-expanded', 'false');
@@ -270,7 +295,7 @@ document.querySelectorAll('.nav a, .dropdown a').forEach(link => {
   if (link.getAttribute('href') === currentPage) {
     link.setAttribute('aria-current', 'page');
     // Prefer a direct page link; otherwise the first matching section is canonical.
-    if (!directNavigationPage && !document.querySelector('.nav-trigger.is-current-section')) link.closest('.nav-item')?.querySelector('.nav-trigger')?.classList.add('is-current-section');
+    if (!directNavigationPage && !document.querySelector('.nav-trigger.is-current-section')) document.querySelector(`[aria-controls="${link.closest('.hub-column')?.id}"]`)?.classList.add('is-current-section');
   }
   link.addEventListener('click', () => {
     closeNavigation();
@@ -286,7 +311,7 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
 // Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('responsive-navigation.js?v=20261022-inline-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261026-hub-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 
