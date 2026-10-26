@@ -85,7 +85,29 @@
       "name": "Richard Siberry",
       "phone": "01372 375303",
       "email": "pcctreasurer@micklehamchurch.org.uk",
-      "status": "published"
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.7,
+        "x": 53,
+        "y": 7
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-dd87f222-bf83-4da9-b9be-3fe2c2991929-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18704
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-dd87f222-bf83-4da9-b9be-3fe2c2991929-800.webp",
+            "width": 600,
+            "height": 800,
+            "bytes": 79194
+          }
+        ],
+        "position": "top"
+      }
     },
     {
       "id": "pcc-secretary",
