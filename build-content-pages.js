@@ -3,6 +3,8 @@ const path = require('node:path');
 
 const root = __dirname;
 const { pages } = JSON.parse(fs.readFileSync(path.join(root, 'content-pages.json'), 'utf8'));
+const selectedSlugs = new Set(process.argv.slice(2));
+for (const slug of selectedSlugs) if (!pages.some(p => p.slug === slug)) throw new Error(`Unknown content page: ${slug}`);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
 const renderItems = items => `<ul>${items.map(item => {
   if (typeof item === 'string') return `<li>${esc(item)}</li>`;
@@ -101,6 +103,7 @@ const renderWorshipLifeContent = page => {
 };
 
 for (const page of pages) {
+  if (selectedSlugs.size && !selectedSlugs.has(page.slug)) continue;
   if (page.source === 'contacts') continue;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug)) throw new Error(`Invalid content page slug: ${page.slug}`);
   const outputFile = path.join(root, `${page.slug}.html`);
@@ -156,6 +159,7 @@ for (const page of pages) {
   const image = page.image ? `<figure class="topic-image${page.imageClass ? ` ${esc(page.imageClass)}` : ''}${isEcoChurch ? ' eco-hero-image' : ''}"><img src="${esc(page.image)}" alt="${esc(page.alt || '')}" loading="lazy" decoding="async">${page.imageCaption ? `<figcaption>${esc(page.imageCaption)}</figcaption>` : isEcoChurch ? '' : '<figcaption>Illustrative image, not an approved parish photograph.</figcaption>'}</figure>` : '';
   const pageContent = isEcoChurch ? renderEcoChurchContent(page) : isFellowship ? renderFellowshipContent(page) : isChildrenFamilies ? renderChildrenFamiliesContent(page) : isPrayer ? renderPrayerContent(page) : isPastoralCare ? '' : isWorshipLife ? renderWorshipLifeContent(page) : `<div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>`;
   const lifeStylesheet = isFuneral ? '  <link rel="stylesheet" href="funerals.css?v=20261020-peace-1">\n' : isBaptism ? '  <link rel="stylesheet" href="baptisms.css?v=20261019-water-1">\n' : isWedding ? '  <link rel="stylesheet" href="weddings.css?v=20261019-story-1">\n' : isWorshipLife ? '  <link rel="stylesheet" href="worship-life.css">\n' : '';
+  const historySources = page.historySources?.length ? '<details class="history-building-sources"><summary>Sources &amp; further reading</summary><ul>'+page.historySources.map(s=>{if(!/^https:\/\//.test(s.href)&&!/^[-a-z]+\.html$/.test(s.href))throw new Error('Unsafe history source');return '<li><a href="'+esc(s.href)+'">'+esc(s.label)+'</a></li>';}).join('')+'</ul></details>' : '';
   const pageStructure = isPastoralCare ? require('./pastoral-care-render')(page) : isFuneral ? require('./funerals-render')(page) : isBaptism ? require('./baptisms-render')(page) : isWedding ? require('./weddings-render')(page) : page.layout === 'war-memorial' ? require('./war-memorial-render')(page) : page.layout === 'find-us' ? require('./find-us-render')(page) : isWorshipLife
     ? `<div class="life-hero life-hero-${esc(page.lifeEvent?.kind || 'page')}"><p class="eyebrow">${esc(page.lifeEvent?.heroLabel || page.category)}</p><h1>${esc(page.lifeEvent?.heroTitle || page.title)}</h1><p class="topic-lead">${esc(page.summary)}</p><div class="life-hero-actions"><a class="btn btn-green" href="${esc(page.lifeEvent?.primary?.href || page.href || 'contact.html')}">${esc(page.lifeEvent?.primary?.label || page.action || 'Find out more')} <span aria-hidden="true">→</span></a>${page.lifeEvent?.secondary ? `<a class="btn btn-outline-green" href="${esc(page.lifeEvent.secondary.href)}">${esc(page.lifeEvent.secondary.label)}</a>` : ''}</div></div>${pageContent}<div class="topic-actions"><a class="btn btn-outline-green" href="${esc(page.back)}">Back to ${esc(backLabel)}</a></div>`
     : isPrayer || isPastoralCare
@@ -181,7 +185,7 @@ for (const page of pages) {
           <h1>${esc(page.title)}</h1>
           <p class="topic-lead">${esc(page.summary)}</p>
 ${policyEntity}${documentHeading}          <div class="topic-body${isPrivacy ? ' privacy-body' : isSafeguarding ? ' safeguarding-body' : ''}">${sections}</div>
-${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
+${historySources}${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-actions">${related}</div>
         </article>
         ${image}
       </div>`;
@@ -198,7 +202,7 @@ ${electoralDocuments}${footnotes}${policyApproval}          <div class="topic-ac
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
-${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <script src="find-us-map.js" defer></script>\n' : ''}${page.layout === 'war-memorial' ? '  <link rel="stylesheet" href="war-memorial.css?v=20261015">\n' : ''}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
+${page.historySources?.length ? '  <link rel="stylesheet" href="history-preservation.css?v=20261027-1">\n' : ''}${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <script src="find-us-map.js" defer></script>\n' : ''}${page.layout === 'war-memorial' ? '  <link rel="stylesheet" href="war-memorial.css?v=20261015">\n' : ''}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -223,10 +227,11 @@ ${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <
 
 const expected = new Set(pages.map(page => `${page.slug}.html`));
 for (const name of fs.readdirSync(root)) {
+  if (selectedSlugs.size) break;
   if (expected.has(name) || !name.endsWith('.html')) continue;
   const file = path.join(root, name);
   const html = fs.readFileSync(file, 'utf8');
   if (/<meta\s+name=["']generated-topic-page["']\s+content=["']true["']\s*\/?\s*>/i.test(html)) fs.unlinkSync(file);
 }
 
-console.log(`Built ${pages.length} topic pages from content-pages.json.`);
+console.log(`Built ${selectedSlugs.size || pages.length} topic pages from content-pages.json.`);

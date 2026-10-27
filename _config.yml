@@ -4,3 +4,4 @@ exclude:
   - _archive-sources
   - CLERGY-ARCHIVE.md
   - admin/HISTORICAL-ARCHIVE.md
+  - docs/history-timeline.md

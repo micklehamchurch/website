@@ -1262,22 +1262,50 @@
       "section": "visit",
       "category": "Visit & Learn",
       "title": "The Church Building",
-      "summary": "Explore the historic fabric of St Michael and All Angels through the parish’s account of the building.",
+      "summary": "Discover the layers of history in St Michael and All Angels: early stonework, medieval craftsmanship and later changes.",
       "back": "our-history.html",
       "sections": [
         {
-          "title": "Historic fabric",
+          "title": "Early fabric and later change",
           "paragraphs": [
-            "The parish history describes a church with early Saxon traces and substantial Norman and medieval fabric. Among the features it records are the chancel arch, chancel lancet windows, stone font, Norbury Chapel, medieval tombstones, carved pulpit and six bells.",
-            "The building has been altered over the centuries. Read the fuller Our History account for the parish’s notes on restorations and historic features. Please confirm current opening and visitor arrangements before making a special journey."
+            "Historic England identifies 10th-century origins, with substantial late-12th-century work. The precise foundation date is uncertain: the parish account’s suggestion of around 950 is an interpretation of early fabric, not a documented building date.",
+            "The Norman chancel arch, raised in 1872, and the stone font connect the present church with its medieval past. The chancel has narrow lancet windows, but the three east lancets are 19th-century work. The west porch is dated to the 15th century; two medieval grave covers survive inside it.",
+            "Restoration in 1823 and extensive rebuilding in 1872 changed the church considerably. Our History timeline sets these changes beside the earlier fabric rather than treating the church as an unchanged medieval building."
+          ]
+        },
+        {
+          "title": "The Norbury Chapel",
+          "paragraphs": [
+            "The side chapel dates from around 1300 and has distinctive chequered flint and stone walls. Its chest tomb and brass figures commemorate William Wyddowsoun and his wife. Sources disagree on the memorial’s exact year, so it is described here as early 16th century.",
+            "The parish’s historical account links the chapel with the Stydolf family and later with the Locks of Norbury, who used it as a family pew. Historic England records 17th-century embossed wooden panels in the chapel."
+          ]
+        },
+        {
+          "title": "Carving, furnishings and remembrance",
+          "paragraphs": [
+            "The elaborately carved wooden pulpit was brought from Belgium in 1840, according to Historic England. The listing also records wooden panels beside the chancel reredos, probably 17th century and brought from Bohemia. Their age is an architectural assessment, not a known carving date.",
+            "The parish’s historical account dates the present reredos to 1938. It also records the four larger bells given by Dame Elizabeth Lawrence in 1913 in memory of her husband, Sir James Lawrence, completing the peal of six. These details are retained as the account’s record; the bells story includes a link to the historical film."
+          ]
+        },
+        {
+          "title": "A tradition in the chancel",
+          "paragraphs": [
+            "The parish account notes that the chancel is out of alignment with the nave. It traditionally interprets this as a “Weeping Chancel”, evoking Christ’s inclined head on the Cross. This is a symbolic reading of the building; it does not establish why the chancel was built at that angle."
           ]
         }
       ],
       "action": "Read Our History",
       "href": "our-history.html",
-      "image": "assets/demo/parish-exterior-demo.jpg",
-      "alt": "Illustrative generated image of a historic stone church exterior; not a photograph of St Michael and All Angels.",
-      "imageCaption": "Illustrative image · not an approved parish photograph."
+      "image": "assets/images/about/church-hero.webp",
+      "alt": "St Michael & All Angels Church and churchyard, Mickleham",
+      "imageCaption": "St Michael & All Angels, Mickleham · parish photograph",
+      "historySources": [
+        {
+          "href": "https://historicengland.org.uk/listing/the-list/list-entry/1028835",
+          "label": "Historic England · List Entry 1028835"
+        }
+      ],
+      "imageClass": "history-building-photo"
     },
     {
       "slug": "churchyard",
@@ -1295,6 +1323,13 @@
             "Set among mature trees and with the Surrey countryside all around, it is also a peaceful place simply to walk, pause and reflect. Visitors are very welcome to explore the churchyard and discover this beautiful part of our parish.",
             "For information about memorials, burials or the churchyard regulations, please contact the parish or read the current regulations."
           ]
+        },
+        {
+          "title": "Exploring the churchyard’s history",
+          "paragraphs": [
+            "The parish’s historical account records a Guide to the Oldest Part of the Churchyard, compiled by Carole Brough Fuller. It is a useful lead for further research into the people remembered here. Ask the parish about consulting a copy; current availability has not been confirmed.",
+            "The Mickleham & Westhumble Local History Group preserves local photographs, stories and research. Its independent website is a useful starting point for enquiries about parish and village history. For wildlife and care of the grounds, the Eco Church page includes the locally preserved 2024 Churchyard Trail."
+          ]
         }
       ],
       "action": "Read the regulations",
@@ -1302,7 +1337,17 @@
       "image": "assets/images/visit/churchyard-1600.webp",
       "alt": "The churchyard at St Michael & All Angels, Mickleham",
       "imageCaption": "The churchyard at St Michael & All Angels, Mickleham",
-      "imageClass": "churchyard-photo"
+      "imageClass": "churchyard-photo",
+      "historySources": [
+        {
+          "href": "https://www.micklehamwesthumblehistory.co.uk/community/mickleham-westhumble-local-history-group-13483/home/",
+          "label": "Mickleham & Westhumble Local History Group"
+        },
+        {
+          "href": "eco-church.html",
+          "label": "Eco Church · churchyard wildlife and the 2024 trail"
+        }
+      ]
     },
     {
       "slug": "churchyard-regulations",
