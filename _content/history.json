@@ -110,10 +110,11 @@
   "timeline": [
     {
       "url": "history-saxon.html",
-      "period": "Early history",
+      "period": "10th-century origins",
       "title": "Saxon traces",
-      "description": "The original church is thought to have been a small Saxon nave and chancel. Traces of early work remain and may date to around 950.",
+      "description": "The church has 10th-century origins, but its precise foundation date remains uncertain.",
       "sourceRefs": [
+        "timeline-he",
         "existing-history"
       ]
     },
@@ -121,26 +122,29 @@
       "url": "history-domesday.html",
       "period": "1086",
       "title": "A church in Domesday",
-      "description": "The Domesday Book entry for Mickleham records a church and two acres of meadow.",
+      "description": "A written record of a church at Mickleham, alongside two acres of meadow.",
       "sourceRefs": [
-        "existing-history"
+        "existing-history",
+        "timeline-local"
       ]
     },
     {
       "url": "history-norman.html",
-      "period": "c. 1180",
+      "period": "Late 12th century",
       "title": "Norman work",
-      "description": "Much of the present church dates to the Norman period, around 1180, including the chancel arch, lancet windows and font.",
+      "description": "The Norman chancel arch and font survive within a church much altered in later centuries.",
       "sourceRefs": [
-        "existing-history"
+        "timeline-he"
       ]
     },
     {
       "url": "history-norbury.html",
       "period": "c. 1300",
       "title": "The Norbury Chapel",
-      "description": "The side chapel, now called the Norbury Chapel, dates from around 1300. Its memorials include the Wyddowsoun tomb and brasses.",
+      "description": "A medieval side chapel with a stone tomb, memorial brasses and connections to Norbury families.",
       "sourceRefs": [
+        "timeline-he",
+        "timeline-brass",
         "existing-history"
       ]
     },
@@ -148,8 +152,9 @@
       "url": "history-restoration.html",
       "period": "1823–1891",
       "title": "Restoration and change",
-      "description": "The church underwent significant alterations: nave arches and piers were replaced in 1823, with further changes during the nineteenth century and the dismantling of the north aisle in 1891.",
+      "description": "A succession of 19th-century alterations shaped the church we recognise today.",
       "sourceRefs": [
+        "timeline-he",
         "existing-history"
       ]
     },
@@ -157,7 +162,7 @@
       "url": "history-bells.html",
       "period": "1913",
       "title": "The bells",
-      "description": "Four of the larger bells completing the peal of six were given in memory of Sir James Lawrence in 1913.",
+      "description": "A memorial gift of four larger bells completed the peal of six, according to the parish history.",
       "sourceRefs": [
         "existing-history"
       ]
@@ -166,7 +171,7 @@
       "url": "history-today.html",
       "period": "Today",
       "title": "A living parish",
-      "description": "St Michael and All Angels continues as a place of worship and community life for Mickleham and Westhumble.",
+      "description": "A continuing place of worship, welcome and community for Mickleham and Westhumble.",
       "sourceRefs": [
         "existing-history"
       ]
@@ -257,6 +262,24 @@
       "title": "Graham Watts — Objects better recognised than women",
       "url": "https://eastangliabylines.co.uk/lifestyle/history/objects-better-recognised-than-women/",
       "notes": "First-person account by a project organiser, 14 September 2023, with a photograph of Philippa’s plaque and its inscription."
+    },
+    {
+      "id": "timeline-he",
+      "title": "Historic England · List Entry 1028835",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1028835",
+      "notes": "Architectural dating and restoration phases; qualifiers retained."
+    },
+    {
+      "id": "timeline-local",
+      "title": "Mickleham & Westhumble Local History Group · 2018 newsletter",
+      "url": "https://www.micklehamwesthumblehistory.co.uk/shared/attachments.asp?f=32c38d8f-def5-4649-8b85-15a18f9719a2.pdf&o=M%26WLHG-Newsletter-2018.pdf",
+      "notes": "Sue Tatham’s 2017 article, reprinted: Domesday and early dating."
+    },
+    {
+      "id": "timeline-brass",
+      "title": "British Library · Add MS 32490 KK",
+      "url": "https://searcharchives.bl.uk/catalog/040-002026504",
+      "notes": "Brass catalogue dates the Wyddowsoun record to 1513; Historic England gives 1514. Exact year omitted."
     }
   ],
   "entries": [

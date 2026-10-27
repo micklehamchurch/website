@@ -173,3 +173,24 @@ html.history-modal-open body { position:fixed; top:var(--history-scroll-top); in
 @media(max-width:1100px){.history-direct-stories{grid-template-columns:repeat(2,minmax(0,1fr))}.history-direct-stories .history-direct-card img{max-height:220px}}
 @media(max-width:760px){.history-direct-stories{grid-template-columns:1fr;gap:20px}.history-direct-stories .history-direct-card img{height:170px;aspect-ratio:auto}.history-direct-stories .history-direct-card>a>div{padding:18px 20px}.history-direct-stories .history-direct-card h3{font-size:24px}.history-direct-stories .history-direct-card p{margin-bottom:12px}}
 @media(orientation:landscape) and (max-height:500px) and (max-width:1000px){.history-direct-stories{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.history-direct-stories .history-direct-card img{height:120px}.history-direct-stories .history-direct-card>a>div{padding:16px}.history-direct-stories .history-direct-card h3{font-size:23px}}
+/* Editorial components shared by the seven period pages and their dialog. */
+.history-period-panel{margin:24px 0;padding:20px 24px;background:#f1eddf;border-left:3px solid #967830;border-radius:0 4px 4px 0}
+.history-period-panel h3,.history-period-sequence h3{font:600 22px/1.3 var(--serif);color:#193e30;margin:0 0 12px}
+.history-period-panel ul{margin:0;padding-left:20px}.history-period-panel li{margin:10px 0;font-size:16px;line-height:1.65;color:#495b4f}
+.history-period-quote{margin:24px 0;padding:18px 24px;border-block:1px solid #d6c99f;text-align:center}
+.history-period-quote p,.history-story-body .history-period-quote p{font:500 clamp(23px,3vw,29px)/1.5 var(--serif);color:#204c3c;margin:0}
+.history-period-sequence{list-style:none;padding:0 0 0 20px;margin:26px 0;border-left:1px solid #b7a574}
+.history-period-sequence li{position:relative;padding:0 0 16px 15px}.history-period-sequence li::before{content:'';position:absolute;left:-25px;top:7px;width:9px;height:9px;border-radius:50%;background:#967830}
+.history-period-sequence h3{font-size:19px;margin-bottom:6px}.history-story-body .history-period-sequence p{font-size:16px;line-height:1.65;margin:0}
+.history-period-sources{margin:24px 0 12px;border-top:1px solid #ddd4bd;font-size:14px;line-height:1.6}
+.history-period-sources summary{min-height:44px;align-content:center;cursor:pointer;color:#3c5748;font-weight:600}
+.history-period-sources ul{padding-left:20px;margin:0}.history-period-sources a{display:inline-block;padding-block:10px;overflow-wrap:anywhere;text-underline-offset:3px}
+.history-period-related{display:inline-flex;min-height:44px;align-items:center;font-weight:600;text-underline-offset:4px}
+/* A single close control stays outside the scrolling story at every size. */
+.history-story-dialog button.history-story-close{appearance:none;display:grid;place-items:center;padding:0;border:1px solid #d8cfb8;background:#fcf9f0;color:#193e30;box-shadow:0 2px 8px #193e3014}
+.history-story-dialog button.history-story-close:hover{background:#ece7d9}
+.history-story-scroll{scrollbar-gutter:stable;overflow-wrap:anywhere}
+.history-story-scroll:focus-visible{outline-offset:-5px}
+@media(max-width:600px){.history-period-panel{padding:18px}.history-period-quote{padding:16px 8px}}
+@media(orientation:landscape) and (max-height:500px){.history-story-dialog{max-height:calc(100dvh - 20px)}.history-story-scroll{max-height:calc(100dvh - 22px);padding:54px 30px 24px}}
+@media(prefers-reduced-motion:reduce){.history-story-dialog,.history-story-scroll{animation:none;transition:none;scroll-behavior:auto}}

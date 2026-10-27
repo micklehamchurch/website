@@ -15,6 +15,32 @@
   const status = dialog.querySelector('[role="status"]');
   const scroller = dialog.querySelector('.history-story-scroll');
   const cache = new Map();
+  // Import only editorial markup and safe links from the retained period pages.
+  // Do not copy scripts, inline handlers, arbitrary classes or embedded content.
+  function editorialContent(source) {
+    const container = document.createElement('div');
+    const allowed = new Set(['P','SECTION','H3','UL','OL','LI','STRONG','EM','BLOCKQUOTE','DETAILS','SUMMARY','A']);
+    const classes = new Set(['history-period-panel','history-period-quote','history-period-sequence','history-period-sources','history-period-related']);
+    function copy(node, parent) {
+      if (node.nodeType === Node.TEXT_NODE) { parent.append(document.createTextNode(node.textContent)); return; }
+      if (node.nodeType !== Node.ELEMENT_NODE || !allowed.has(node.tagName)) return;
+      const element = document.createElement(node.tagName.toLowerCase());
+      for (const name of node.classList) if (classes.has(name)) element.classList.add(name);
+      if (node.tagName === 'A') {
+        const href = node.getAttribute('href') || '';
+        const url = new URL(href, location.href);
+        if (url.protocol !== 'https:' && !(url.origin === location.origin && url.protocol === location.protocol)) return;
+        element.href = url.href;
+      }
+      for (const child of node.childNodes) copy(child, element);
+      parent.append(element);
+    }
+    const rich = source.querySelector('.history-period-content');
+    const nodes = rich ? rich.childNodes : source.querySelectorAll('.history-detail-copy > p');
+    for (const node of nodes) copy(node, container);
+    if (!container.children.length) throw new Error('Story unavailable');
+    return container;
+  }
   let opener, request, pageScroll = 0;
 
   async function open(entry) {
@@ -35,21 +61,16 @@
     request = controller;
     try {
       const url = entry.href;
-      let paragraphs = cache.get(url);
-      if (!paragraphs) {
+      let content = cache.get(url);
+      if (!content) {
         const response = await fetch(url, {signal:controller.signal});
         if (!response.ok) throw new Error('Story unavailable');
         const source = new DOMParser().parseFromString(await response.text(), 'text/html');
-        paragraphs = [...source.querySelectorAll('.history-detail-copy > p')].map(p => p.textContent);
-        if (!paragraphs.length) throw new Error('Story unavailable');
-        cache.set(url, paragraphs);
+        content = editorialContent(source);
+        cache.set(url, content);
       }
       if (controller.signal.aborted || !dialog.open) return;
-      body.replaceChildren(...paragraphs.map(text => {
-        const p = document.createElement('p');
-        p.textContent = text;
-        return p;
-      }));
+      body.replaceChildren(...content.cloneNode(true).childNodes);
       status.textContent = '';
     } catch (error) {
       if (controller.signal.aborted) return;
@@ -66,7 +87,7 @@
   close.addEventListener('click', () => dialog.close());
   dialog.addEventListener('keydown', event => {
     if (event.key !== 'Tab') return;
-    const targets = [...dialog.querySelectorAll('button, a[href], [tabindex="0"]')];
+    const targets = [...dialog.querySelectorAll('button, a[href], summary, [tabindex="0"]')].filter(e => e.getClientRects().length && (e.tagName === 'SUMMARY' || !e.closest('details:not([open])')));
     const first = targets[0], last = targets.at(-1);
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
