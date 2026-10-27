@@ -61,7 +61,7 @@ const footer = `
   <div class="container footer-grid">
     <div class="footer-identity"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="bible.html">Read the Bible</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Parish Photographs</a></div></div>
-    <div><h2>Get in touch</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a></div>
+    <div><h2>Parish information</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="electoral-roll.html">Electoral Roll</a></div>
   </div>
   <!-- TEMPORARY TYPOGRAPHY PREVIEW: remove after parish typography decision. -->
   <section class="container typography-preview" aria-label="Preview typography">
@@ -72,7 +72,7 @@ const footer = `
       <button type="button" data-typography-option="contemporary" aria-pressed="false">Contemporary</button>
     </div>
   </section>
-  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="contact.html">Contact</a></div><p class="footer-credit">Website by Ed Popov</p></div>`;
+  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="privacy.html">Privacy &amp; GDPR</a></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);

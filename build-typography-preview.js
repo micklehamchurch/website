@@ -14,7 +14,7 @@ for (const directory of [root, path.join(root, 'news'), path.join(root, 'pews-ne
     // One central, idempotent version hook for every public shared script.
     // Other parameters (including the existing hero version) are preserved.
     html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/g, (match, url) =>
-      `src="${versionPublicScript(url, { typography: '20261007-v1', header: '20261026-hub-1', gallery: '20261009-v1', footer: '20261010-v2', feedback: '20261019-public-wording-1', ...(directory===root&&name==='index.html'?{}:{ headerPhoto: (directory===path.join(root,'pews-news')||name==='pews-news.html')?'20261024-pews-1':name==='news.html'?'20261024-newshub-1':'20261024-4' }) })}"`);
+      `src="${versionPublicScript(url, { typography: '20261007-v1', header: '20261026-hub-1', gallery: '20261009-v1', footer: '20261027-links-1', feedback: '20261019-public-wording-1', ...(directory===root&&name==='index.html'?{}:{ headerPhoto: (directory===path.join(root,'pews-news')||name==='pews-news.html')?'20261024-pews-1':name==='news.html'?'20261024-newshub-1':'20261024-4' }) })}"`);
     if (html.includes('typography-preview.js')) {
       fs.writeFileSync(filename, html);
       continue;
