@@ -272,3 +272,13 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 .site-header .nav-primary > .nav-link,.site-header .nav-trigger { font:500 17px/1.4 var(--serif); }
 .site-header .hub-links a { font:400 18px/1.4 var(--serif); }
 .hub-heading h2 { font-size:18px; letter-spacing:.025em; text-transform:uppercase; }
+
+/* Desktop hub motion polish: JS owns reveal/retraction; disable the former entrance-only animation. */
+.site-header .navigation-hub { animation:none; }
+@media(min-width:1536px) and (prefers-reduced-motion:no-preference) {
+ .site-header .navigation-hub .hub-column { position:relative; inset:auto; isolation:isolate; transition:border-top-color 180ms ease; }
+ .site-header .navigation-hub .hub-column::before { content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit; background:linear-gradient(#faebcb,#f8efde); opacity:0; transition:opacity 180ms ease; }
+ .site-header .navigation-hub .hub-column.is-selected { background:transparent; }
+ .site-header .navigation-hub .hub-column.is-selected::before { opacity:1; }
+ .site-header .nav-trigger { transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease; }
+}

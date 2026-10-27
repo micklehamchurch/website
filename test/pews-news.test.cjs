@@ -110,18 +110,18 @@ test('online archive has two real HTML editions and disjoint PDF-only archive on
 });
 test('25 October edition body remains unchanged outside the archive and masthead', () => {
   const cp = require('node:child_process');
-  const previous = file => cp.execFileSync('git',['show',`2a57cb7:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'').replace(/header=202610(?:26-hub|27-photos)-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
+  const previous = file => cp.execFileSync('git',['show',`2a57cb7:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'').replace(/header=202610(?:26-hub|27-(?:photos|motion))-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
   assert.deepEqual(require('../_content/pews-news/2026-10-25.json'),JSON.parse(previous('_content/pews-news/2026-10-25.json')));
   const withoutQR = images => Object.fromEntries(Object.entries(images).filter(([key])=>key!=='poppy-qr'));
   assert.deepEqual(withoutQR(require('../_content/pews-news-images.json')['2026-10-25']),withoutQR(JSON.parse(previous('_content/pews-news-images.json'))['2026-10-25']));
   const stripArchive = value => value.replace(/<a class="pews-qr"[\s\S]*?<\/a>/g,'DONATION_QR').replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version').replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version');
-  assert.equal(stripArchive(fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8').replace(/\r/g,'').replace(/header=202610(?:26-hub|27-photos)-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1')),stripArchive(previous('pews-news/2026-10-25.html')));
+  assert.equal(stripArchive(fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8').replace(/\r/g,'').replace(/header=202610(?:26-hub|27-(?:photos|motion))-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1')),stripArchive(previous('pews-news/2026-10-25.html')));
 });
 
 test('publication masthead is shared, responsive and date-independent without changing edition bodies',()=>{
  const cp=require('node:child_process');let masthead;
  for(const file of ['pews-news.html','pews-news/2026-10-18.html','pews-news/2026-10-25.html']){
-  const html=fs.readFileSync(path.join(source,file),'utf8').replace(/\r/g,'').replace(/header=202610(?:26-hub|27-photos)-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1'),previous=cp.execFileSync('git',['show',`379c2a4:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'').replace(/header=202610(?:26-hub|27-photos)-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
+  const html=fs.readFileSync(path.join(source,file),'utf8').replace(/\r/g,'').replace(/header=202610(?:26-hub|27-(?:photos|motion))-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1'),previous=cp.execFileSync('git',['show',`379c2a4:${file}`],{cwd:source,encoding:'utf8'}).replace(/\r/g,'').replace(/header=202610(?:26-hub|27-(?:photos|motion))-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
   const hero=html.match(/<section class="pews-hero"[\s\S]*?<\/section>/)[0];
   assert(!hero.includes('2026-10'));assert(hero.includes('Weekly news, services and events'));assert(hero.includes('church-card.webp 720w'));assert(hero.includes('church-hero.webp 1600w'));assert(hero.includes('alt=""'));assert.equal((hero.match(/<h1\b/g)||[]).length,1);
   if(masthead)assert.equal(hero,masthead);masthead=hero;

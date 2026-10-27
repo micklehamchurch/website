@@ -115,7 +115,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261027-photos-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261027-motion-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -179,11 +179,39 @@ navigationBackdrop.setAttribute('aria-hidden', 'true');
 navigationBackdrop.hidden = true;
 document.body.append(navigationBackdrop);
 const navigationHub=document.querySelector('.navigation-hub');
+/* Desktop hub motion begin */
+// Animate paint/compositor properties only; never measure or animate page height.
+function createNavigationHubMotion(panel, media=matchMedia('(prefers-reduced-motion: reduce)')) {
+ const duration=360, easing='cubic-bezier(0.4, 0, 0.6, 1)';
+ let desired=!panel.hidden, movement=null, contents=[];
+ function cancel(){const previous=movement;movement=null;previous?.cancel();contents.forEach(a=>a.cancel());contents=[];}
+ function interaction(open){panel.inert=!open;panel.setAttribute('aria-hidden',String(!open));}
+ function immediate(open){cancel();desired=open;interaction(open);panel.hidden=!open;panel.dataset.hubMotion=open?'open':'closed';}
+ immediate(desired);
+ function set(open, compact=false){
+  if(compact||media.matches||typeof panel.animate!=='function'){immediate(open);return;}
+  if(open===desired)return;
+  desired=open;interaction(open);panel.dataset.hubMotion=open?'opening':'closing';
+  if(movement){movement.reverse();contents.forEach(a=>a.reverse());return;}
+  panel.hidden=false;
+  const frames=[{clipPath:'inset(16px 0 100% 0)',transform:'translateY(-16px)'},{clipPath:'inset(0px 0 0% 0)',transform:'translateY(0px)'}];
+  movement=panel.animate(frames,{duration,easing,fill:'both'});
+  contents=[...panel.querySelectorAll('.hub-column')].map(column=>column.animate([{opacity:.92},{opacity:1}],{duration,easing,fill:'both'}));
+  if(!open){movement.currentTime=duration;movement.reverse();contents.forEach(a=>{a.currentTime=duration;a.reverse();});}
+  const current=movement;
+  current.onfinish=()=>{if(movement===current&&current.playState==='finished')immediate(desired);};
+ }
+ media.addEventListener('change',()=>immediate(desired));
+ addEventListener('pagehide',()=>immediate(desired));
+ return Object.freeze({set});
+}
+const hubMotion=navigationHub?createNavigationHubMotion(navigationHub):null;
+/* Desktop hub motion end */
 function syncNavigationHub(){
  const compact=matchMedia('(max-width:1535px)').matches;
  const selected=dropdownButtons.find(button=>button.closest('.nav-item').classList.contains('is-open'));
  dropdownButtons.forEach(button=>{button.setAttribute('aria-controls',compact?'menu-'+button.closest('.nav-item').dataset.category:'navigation-hub');if(!compact)button.setAttribute('aria-expanded',String(!!selected));});
- if(navigationHub)navigationHub.hidden=compact||!selected;
+ if(navigationHub)hubMotion.set(!compact&&!!selected,compact);
  document.querySelectorAll('.hub-column').forEach(column=>column.classList.toggle('is-selected',selected?.closest('.nav-item').dataset.category===column.dataset.category));
  if(!compact&&selected)document.querySelectorAll('.hub-image[data-src]').forEach(image=>{image.addEventListener('error',()=>{image.style.visibility='hidden';},{once:true});image.src=new URL(image.dataset.src,siteScript.src).href;delete image.dataset.src;});
 }
