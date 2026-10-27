@@ -22,3 +22,12 @@
 
 /* Keep the existing Dev destination separate from the public credit row. */
 .footer[data-site-footer] .footer-development a { display:inline-flex; align-items:center; min-height:44px; font-size:12px; }
+/* Wide desktop: balance the three public areas without changing DOM/tab order. */
+@media (min-width: 1440px) {
+  .footer[data-site-footer] .footer-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr) minmax(0,1.35fr); align-items:stretch; }
+  .footer[data-site-footer] .footer-grid > div:last-child { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); column-gap:18px; align-content:start; align-items:start; }
+  .footer[data-site-footer] .footer-grid > div:last-child > h2 { grid-column:1 / -1; }
+  .footer[data-site-footer] .footer-grid > div:last-child > a { grid-column:1; }
+  .footer[data-site-footer] .footer-grid > div:last-child > a:nth-of-type(5) { grid-column:2; grid-row:2; }
+  .footer[data-site-footer] .footer-grid > div:last-child > a:nth-of-type(6) { grid-column:2; grid-row:3; }
+}

@@ -112,7 +112,7 @@ if (siteScript) {
   const headerStyles = document.createElement('link');
   const footerStyles = document.createElement('link');
   footerStyles.rel = 'stylesheet';
-  footerStyles.href = new URL('footer-standard.css?v=20261027-clean-1', siteScript.src).href;
+  footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261026-hub-1', siteScript.src).href;
