@@ -1284,6 +1284,56 @@
             }
           ],
           "caption": ""
+        },
+        {
+          "id": "photo-6c58f8b8-e4ee-4401-ac54-f437fb9f92dd",
+          "alt": "The church organ pipes",
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6c58f8b8-e4ee-4401-ac54-f437fb9f92dd-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 33264
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6c58f8b8-e4ee-4401-ac54-f437fb9f92dd-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 109408
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6c58f8b8-e4ee-4401-ac54-f437fb9f92dd-1600.webp",
+              "width": 1086,
+              "height": 1448,
+              "bytes": 208802
+            }
+          ],
+          "caption": "A view inside the church organ, showing part of its remarkable arrangement of pipes in many different sizes."
+        },
+        {
+          "id": "photo-552bd7f1-de8d-46eb-af87-bd50083e2cda",
+          "alt": "Inside the church organ",
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-552bd7f1-de8d-46eb-af87-bd50083e2cda-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 42994
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-552bd7f1-de8d-46eb-af87-bd50083e2cda-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 145392
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-552bd7f1-de8d-46eb-af87-bd50083e2cda-1600.webp",
+              "width": 1086,
+              "height": 1448,
+              "bytes": 284988
+            }
+          ],
+          "caption": "A closer look inside the church organ, revealing the intricate arrangement of pipes that together create its range of sounds."
         }
       ],
       "status": "published"
