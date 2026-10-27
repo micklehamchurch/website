@@ -1259,6 +1259,31 @@
             }
           ],
           "caption": ""
+        },
+        {
+          "id": "photo-be8d2005-301c-463b-846e-bb79ed5fe0de",
+          "alt": "Parish photograph",
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-be8d2005-301c-463b-846e-bb79ed5fe0de-480.webp",
+              "width": 480,
+              "height": 360,
+              "bytes": 40448
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-be8d2005-301c-463b-846e-bb79ed5fe0de-960.webp",
+              "width": 960,
+              "height": 720,
+              "bytes": 138710
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-be8d2005-301c-463b-846e-bb79ed5fe0de-1600.webp",
+              "width": 1448,
+              "height": 1086,
+              "bytes": 273896
+            }
+          ],
+          "caption": ""
         }
       ],
       "status": "published"
