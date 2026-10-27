@@ -11,7 +11,7 @@ const socialLinks = [{
 const navigationCategories = [
  {id:'services',title:'Services',description:'Join us for services and prayer',icon:'book',image:'assets/images/navigation/services-480.webp',links:[['Services Overview','worship.html'],['Service Times','weekly-worship.html'],['Prayer','prayer.html']]},
  {id:'life-events',title:'Life Events',description:"For life's most important moments",icon:'heart',image:'assets/images/navigation/life-events-480.webp',links:[['Baptisms','baptisms.html'],['Weddings','weddings.html'],['Funerals','funerals.html']]},
- {id:'visit',title:'Visit & Explore',description:'Discover our church and its heritage',icon:'church',image:'assets/images/navigation/visit-480.webp',links:[['Find Us','finding-us.html'],['The Church Building','church-building.html'],['Our History','our-history.html'],['The Churchyard','churchyard.html'],['Westhumble Chapel','westhumble-chapel.html']]},
+ {id:'visit',title:'Visit & Explore',description:'Discover our church and its heritage',icon:'church',image:'assets/images/navigation/visit-480.webp',links:[['Find Us','finding-us.html'],['The Church Building','church-building.html'],['Our History','our-history.html'],['The Churchyard','churchyard.html'],['Westhumble Chapel','westhumble-chapel.html'],['Parish Photographs','gallery.html']]},
  {id:'community',title:'Community',description:'Life and activities in our parish',icon:'people',image:'assets/images/navigation/community-480.webp',links:[['News','news.html'],['Community & Groups','church-life.html'],['Children & Families','children-families.html'],['Bible Study & Fellowship','bible-study-fellowship.html'],['Pastoral Care','pastoral-care.html'],['Eco Church','eco-church.html'],['Parish Magazine','news.html#latest-parish-magazine']]},
  {id:'about',title:'About Us',description:'Our people, vision and information',icon:'church',image:'assets/images/navigation/about-480.webp',links:[['Our Team','our-team.html'],['Our Parish','about.html'],['Our Vision','our-vision.html'],['Our Churches','our-churches.html'],['Safeguarding','safeguarding.html'],['Contact','contact.html']]}
 ];
@@ -115,7 +115,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261026-hub-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261027-photos-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.

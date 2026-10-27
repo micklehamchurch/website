@@ -23,7 +23,7 @@ test('exact Phase 1 destinations exclude lower-priority content without deleting
  assert.deepEqual(menus,{
  services:['worship.html','weekly-worship.html','prayer.html'],
  'life-events':['baptisms.html','weddings.html','funerals.html'],
- visit:['finding-us.html','church-building.html','our-history.html','churchyard.html','westhumble-chapel.html'],
+ visit:['finding-us.html','church-building.html','our-history.html','churchyard.html','westhumble-chapel.html','gallery.html'],
  community:['news.html','church-life.html','children-families.html','bible-study-fellowship.html','pastoral-care.html','eco-church.html','news.html#latest-parish-magazine'],
  about:['our-team.html','about.html','our-vision.html','our-churches.html','safeguarding.html','contact.html']});
  for(const file of ['electoral-roll.html','privacy.html','norman-architecture.html','sunday-services.html','special-services.html','whats-on.html','parish-magazine.html'])assert(fs.existsSync(path.join(root,file)));

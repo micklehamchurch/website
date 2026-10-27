@@ -263,7 +263,8 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 .hub-heading { flex-direction:row; align-items:center; gap:10px; }
 .hub-heading h2 { font-size:20px; }
 .hub-heading h2::after { display:none; }
-.hub-image { height:84px; }
+@media(min-width:1536px) { .site-header .navigation-hub .hub-image { height:128px; flex-shrink:0; } }
+@media(min-width:1536px) and (max-height:740px) { .site-header .navigation-hub .hub-image { height:104px; } }
 .site-header .navigation-hub .hub-column { padding-top:18px; }
 
 .site-header .nav-trigger[aria-expanded="true"]:not(.is-current-section) { box-shadow:none; color:var(--navigation-ink); }
