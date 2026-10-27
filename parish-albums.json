@@ -681,7 +681,8 @@
               "height": 1600,
               "bytes": 366008
             }
-          ]
+          ],
+          "caption": "St Michael’s Church and churchyard beneath a blue sky"
         },
         {
           "id": "st-michaels-church-churchyard-02",
@@ -707,7 +708,8 @@
               "height": 1600,
               "bytes": 341142
             }
-          ]
+          ],
+          "caption": "The church porch and red entrance door"
         },
         {
           "id": "st-michaels-church-churchyard-03",
@@ -733,7 +735,8 @@
               "height": 1200,
               "bytes": 609420
             }
-          ]
+          ],
+          "caption": "Headstones and trees in the churchyard"
         },
         {
           "id": "st-michaels-church-churchyard-04",
@@ -759,7 +762,8 @@
               "height": 1600,
               "bytes": 254326
             }
-          ]
+          ],
+          "caption": "A path beside the church and churchyard headstones"
         },
         {
           "id": "st-michaels-church-churchyard-05",
@@ -785,7 +789,8 @@
               "height": 1600,
               "bytes": 139320
             }
-          ]
+          ],
+          "caption": "A carved wooden figure on a porch post"
         },
         {
           "id": "st-michaels-church-churchyard-06",
@@ -811,7 +816,8 @@
               "height": 1600,
               "bytes": 140818
             }
-          ]
+          ],
+          "caption": "Wooden porch carving and surrounding timberwork"
         },
         {
           "id": "st-michaels-church-churchyard-07",
@@ -837,7 +843,8 @@
               "height": 1067,
               "bytes": 191200
             }
-          ]
+          ],
+          "caption": "An inscription on a wooden churchyard memorial"
         },
         {
           "id": "st-michaels-church-churchyard-08",
@@ -863,7 +870,8 @@
               "height": 1600,
               "bytes": 480224
             }
-          ]
+          ],
+          "caption": "A wooden memorial in the sunlit churchyard"
         },
         {
           "id": "st-michaels-church-churchyard-09",
@@ -889,7 +897,8 @@
               "height": 1600,
               "bytes": 489956
             }
-          ]
+          ],
+          "caption": "The war memorial beside the church tower"
         },
         {
           "id": "st-michaels-church-churchyard-10",
@@ -915,7 +924,8 @@
               "height": 1600,
               "bytes": 507866
             }
-          ]
+          ],
+          "caption": "The memorial cross in the churchyard"
         },
         {
           "id": "st-michaels-church-churchyard-11",
@@ -941,7 +951,8 @@
               "height": 1600,
               "bytes": 268798
             }
-          ]
+          ],
+          "caption": "Painted poppy stones at the base of the war memorial"
         },
         {
           "id": "st-michaels-church-churchyard-12",
@@ -967,7 +978,8 @@
               "height": 1600,
               "bytes": 622778
             }
-          ]
+          ],
+          "caption": "Inscriptions on the war memorial"
         },
         {
           "id": "st-michaels-church-churchyard-13",
@@ -993,7 +1005,8 @@
               "height": 1600,
               "bytes": 415544
             }
-          ]
+          ],
+          "caption": "Stained glass depicting Jesus and children"
         },
         {
           "id": "st-michaels-church-churchyard-14",
@@ -1019,9 +1032,36 @@
               "height": 1600,
               "bytes": 248608
             }
-          ]
+          ],
+          "caption": "Carved wooden figures beside an interior handrail"
+        },
+        {
+          "id": "photo-109240c6-9c03-4dac-add0-1196b5bc5059",
+          "alt": "Parish photograph",
+          "variants": [
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-109240c6-9c03-4dac-add0-1196b5bc5059-480.webp",
+              "width": 360,
+              "height": 480,
+              "bytes": 34262
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-109240c6-9c03-4dac-add0-1196b5bc5059-960.webp",
+              "width": 720,
+              "height": 960,
+              "bytes": 138128
+            },
+            {
+              "src": "assets/images/albums/st-michaels-church-churchyard/photo-109240c6-9c03-4dac-add0-1196b5bc5059-1600.webp",
+              "width": 1086,
+              "height": 1448,
+              "bytes": 292954
+            }
+          ],
+          "caption": ""
         }
-      ]
+      ],
+      "status": "published"
     }
   ]
 }
