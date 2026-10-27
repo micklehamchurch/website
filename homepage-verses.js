@@ -4,13 +4,6 @@
   const element = document.querySelector('[data-home-verse]');
   const model = window.churchHomepageVersesModel;
   if (!hero || !element || !model) return;
-  const footer = document.querySelector('.footer-bottom-links');
-  if (footer) {
-    const link = document.createElement('a');
-    link.href = 'bible-translation.html';
-    link.textContent = 'Bible translation acknowledgement';
-    footer.append(link);
-  }
   const anchor = document.createComment('Weekly Scripture in narrow-screen flow');
   element.before(anchor);
   let schedule = null, loading = false;

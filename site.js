@@ -61,7 +61,7 @@ const footer = `
   <div class="container footer-grid">
     <div class="footer-identity"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">✝</span><span><strong>ST MICHAEL &amp; ALL ANGELS</strong><small>MICKLEHAM &amp; WESTHUMBLE</small></span></a><p>A friendly church community in the heart of the Surrey Hills.</p>${socialArea}</div>
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="bible.html">Read the Bible</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Parish Photographs</a></div></div>
-    <div><h2>Parish information</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="electoral-roll.html">Electoral Roll</a></div>
+    <div><h2>Parish information</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="electoral-roll.html">Electoral Roll</a><a href="privacy.html">Privacy &amp; GDPR</a><a href="bible-translation.html">Bible translation acknowledgement</a></div>
   </div>
   <!-- TEMPORARY TYPOGRAPHY PREVIEW: remove after parish typography decision. -->
   <section class="container typography-preview" aria-label="Preview typography">
@@ -72,7 +72,8 @@ const footer = `
       <button type="button" data-typography-option="contemporary" aria-pressed="false">Contemporary</button>
     </div>
   </section>
-  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span><a href="privacy.html">Privacy &amp; GDPR</a></div><p class="footer-credit">Website by Ed Popov</p></div>`;
+  <div class="container footer-development" role="group" aria-label="Development tools"></div>
+  <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
@@ -111,7 +112,7 @@ if (siteScript) {
   const headerStyles = document.createElement('link');
   const footerStyles = document.createElement('link');
   footerStyles.rel = 'stylesheet';
-  footerStyles.href = new URL('footer-standard.css?v=20261010-v2', siteScript.src).href;
+  footerStyles.href = new URL('footer-standard.css?v=20261027-clean-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261026-hub-1', siteScript.src).href;
@@ -157,20 +158,14 @@ if (siteScript) {
   landscapeStyles.href = new URL('phone-landscape.css?v=20261020-reading-1', siteScript.src).href;
   document.head.append(landscapeStyles);
 }
-const footerBottom = document.querySelector('.footer-bottom-links');
+const footerBottom = document.querySelector('.footer-development');
 if (siteScript && footerBottom) {
   const adminUrl = new URL('admin/', new URL('.', siteScript.src)).href;
   const adminLink = document.createElement('a');
   adminLink.href = adminUrl;
   adminLink.textContent = 'Administration — Development Preview';
   footerBottom.append(adminLink);
-  // The homepage verse script appends its acknowledgement after this hook.
-  if (!document.querySelector('.home-hero')) {
-    const bibleLink = document.createElement('a');
-    bibleLink.href = 'bible-translation.html';
-    bibleLink.textContent = 'Bible translation acknowledgement';
-    footerBottom.append(bibleLink);
-  }
+
 }
 
 document.querySelectorAll('[data-current-year]').forEach(node => { node.textContent = new Date().getFullYear(); });

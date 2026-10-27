@@ -19,3 +19,6 @@
 .footer[data-site-footer] .footer-typography-options summary { min-height: 44px; padding-block: 10px; cursor: pointer; }
 .footer[data-site-footer] .footer-typography-options summary:focus-visible { outline: 3px solid #e6cf88; outline-offset: 3px; }
 .footer[data-site-footer] .footer-grid .footer-diocese-note a:not(.brand):not(.social-link) { display: inline-flex; vertical-align: middle; }
+
+/* Keep the existing Dev destination separate from the public credit row. */
+.footer[data-site-footer] .footer-development a { display:inline-flex; align-items:center; min-height:44px; font-size:12px; }
