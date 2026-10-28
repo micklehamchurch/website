@@ -1334,56 +1334,6 @@
             }
           ],
           "caption": "A closer look inside the church organ, revealing the intricate arrangement of pipes that together create its range of sounds."
-        },
-        {
-          "id": "photo-6d57cdf1-7c4a-4f21-8916-6f4b68f12df4",
-          "alt": "Parish photograph",
-          "variants": [
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6d57cdf1-7c4a-4f21-8916-6f4b68f12df4-480.webp",
-              "width": 360,
-              "height": 480,
-              "bytes": 42994
-            },
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6d57cdf1-7c4a-4f21-8916-6f4b68f12df4-960.webp",
-              "width": 720,
-              "height": 960,
-              "bytes": 145392
-            },
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-6d57cdf1-7c4a-4f21-8916-6f4b68f12df4-1600.webp",
-              "width": 1086,
-              "height": 1448,
-              "bytes": 284988
-            }
-          ],
-          "caption": ""
-        },
-        {
-          "id": "photo-330b6589-3eab-46ee-94f4-10249a6cbf01",
-          "alt": "Parish photograph",
-          "variants": [
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-330b6589-3eab-46ee-94f4-10249a6cbf01-480.webp",
-              "width": 360,
-              "height": 480,
-              "bytes": 33264
-            },
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-330b6589-3eab-46ee-94f4-10249a6cbf01-960.webp",
-              "width": 720,
-              "height": 960,
-              "bytes": 109408
-            },
-            {
-              "src": "assets/images/albums/st-michaels-church-churchyard/photo-330b6589-3eab-46ee-94f4-10249a6cbf01-1600.webp",
-              "width": 1086,
-              "height": 1448,
-              "bytes": 208802
-            }
-          ],
-          "caption": ""
         }
       ],
       "status": "published"
