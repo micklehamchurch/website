@@ -50,8 +50,9 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   const feedbackAdmin = registrations.find(r => r.name === 'feedback-admin');
   assert.equal(feedbackAdmin.options.route, 'feedback-admin');
   assert.equal(feedbackAdmin.options.authLevel, 'anonymous');
-  assert.equal(registrations.length, 17);
+  assert.equal(registrations.length, 18);
   for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'feedback-admin'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.find(r=>r.name==='sunday-service-sync').options.schedule,'0 */15 * * * *');
   const timer=registrations.find(r=>r.timer);
   assert.equal(timer.name,'google-calendar-hourly');
   assert.equal(timer.options.schedule,'0 */15 * * * *');

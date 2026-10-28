@@ -67,6 +67,9 @@ on:
       - 'home-life-events.css'
       - 'assets/images/home/life-events/**'
       - 'home-news.js'
+      - 'youtube-sunday-source.json'
+      - 'sunday-service.json'
+      - 'assets/images/sunday-services/**'
       - 'news-feed-model.js'
       - 'news-publication-artwork.json'
       - 'assets/images/news-artwork/**'
@@ -168,8 +171,8 @@ jobs:
              ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/[^/]+\.test\.cjs|scripts/check-navigation-(hub|preservation)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
           # Homepage presentation releases rebuild only its feed preview and search projection.
-          elif grep -Eq '^(index\.html|home-(editorial|life-events|news)\.css)$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^(index\.html|home-news-render\.cjs|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|scripts/check-home-discovery-layout\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+          elif grep -Eq '^(index\.html|home-(editorial|life-events|news)\.css|sunday-service\.json|youtube-sunday-source\.json)$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(index\.html|home-news-render\.cjs|home-news\.js|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|scripts/check-home-discovery-layout\.cjs|youtube-sunday-source\.json|sunday-service\.json|assets/images/sunday-services/.*|azure-function/(src/(index|sunday-service-(model|source|sync)|functions/sunday-service-timer)\.js|verify-package\.js|test/(sunday-service|function-registration)\.test\.js)|docs/latest-sunday-service\.md|\.github/workflows/deploy-azure-function\.yml|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node home-news-render.cjs
             node build-search-index.js
           # News/Home-preview refinements must not refresh unrelated date-sensitive service data.

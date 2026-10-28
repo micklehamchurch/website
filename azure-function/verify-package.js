@@ -19,9 +19,10 @@ function verifyEntrypoint(root) {
     Module._load = originalLoad;
   }
   require('./validate-http-routes').validateHttpRoutes(registrations);
-  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'bible', 'calendar', 'contacts', 'feedback-admin', 'github-status', 'google-calendar-hourly', 'google-calendar-sync', 'google-calendar-sync-status', 'health', 'historical-archive', 'homepage-verses', 'identity', 'news', 'photo-albums', 'publications', 'website-feedback']);
+  assert.deepEqual(registrations.map(r => r.name).sort(), ['authorization-status', 'bible', 'calendar', 'contacts', 'feedback-admin', 'github-status', 'google-calendar-hourly', 'google-calendar-sync', 'google-calendar-sync-status', 'health', 'historical-archive', 'homepage-verses', 'identity', 'news', 'photo-albums', 'publications', 'sunday-service-sync', 'website-feedback']);
   for (const { name, options, timer } of registrations) if (!timer) assert.deepEqual(options.methods, name==='bible' ? ['GET','OPTIONS'] : name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'feedback-admin'].includes(name) ? ['GET', 'POST'] : ['GET']);
   assert.deepEqual(registrations.find(r=>r.timer).options, {schedule:'0 */15 * * * *',runOnStartup:false,useMonitor:true,handler:registrations.find(r=>r.timer).options.handler});
+  assert.equal(registrations.find(r=>r.name==='sunday-service-sync').options.schedule,'0 */15 * * * *');
   assert.equal(require(path.join(root,'host.json')).extensionBundle.version,'[4.0.0, 5.0.0)');
   assert.equal(registrations.find(r => r.name === 'calendar').options.route, 'calendar');
   assert.equal(typeof require(path.join(root, 'src/calendar-model.js')).buildCalendar, 'function');

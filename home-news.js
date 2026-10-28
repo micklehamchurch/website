@@ -1,1 +1,4 @@
 (()=>{'use strict';for(const img of document.querySelectorAll('.home-news-media>img')){const failed=()=>{const media=img.parentElement,template=media.querySelector('template');if(template){img.replaceWith(template.content.cloneNode(true));template.remove();}};if(img.complete&&!img.naturalWidth)failed();else img.addEventListener('error',failed,{once:true});}})();
+
+// If the cached thumbnail cannot load, retain an ordinary, labelled service link.
+(()=>{for(const img of document.querySelectorAll('.home-service-media>img')){const fail=()=>{const text=document.createElement('div');text.className='home-service-placeholder';text.setAttribute('aria-hidden','true');text.textContent='Sunday worship';img.replaceWith(text);};if(img.complete&&!img.naturalWidth)fail();else img.addEventListener('error',fail,{once:true});}})();

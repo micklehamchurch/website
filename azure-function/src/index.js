@@ -17,3 +17,5 @@ require('./functions/photo-albums');
 require('./functions/bible');
 
 require('./functions/feedback');
+
+require('./functions/sunday-service-timer');

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "source": {
+    "channelId": "UCl4pbewCT91iZhcdoEjJBIw",
+    "playlistId": "PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb",
+    "selection": "playlist-sunday-publication"
+  },
+  "video": {
+    "id": "zdybAROB5Zg",
+    "title": "Last Sunday of Trinity 25th October 2026",
+    "publishedAt": "2026-10-25T11:53:33.000Z"
+  },
+  "thumbnail": {
+    "path": "assets/images/sunday-services/zdybAROB5Zg.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 67070
+  },
+  "checkedAt": "2026-10-28T20:07:10.982Z",
+  "verifiedBy": "bootstrap"
+}
