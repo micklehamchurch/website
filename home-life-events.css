@@ -1,5 +1,22 @@
-/* Only the right-hand parish column; the approved News preview is unchanged. */
-.home-life-events{container-type:inline-size}.home-content .home-life-events>h2{line-height:1.18}.home-life-intro{font:400 16px/1.5 var(--sans);color:var(--ink);margin:0 0 18px}.home-life-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}.home-life-card{min-width:0;border:1px solid #dfd9c9;border-radius:3px;background:#fffdf7;box-shadow:0 2px 5px #18392d04}.home-life-card-link{display:flex;flex-direction:column;height:100%;color:var(--deep);text-decoration:none}.home-life-media{aspect-ratio:8/5;overflow:hidden;background:#ede9dc;border-radius:2px 2px 0 0}.home-life-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:65% 50%}.home-life-card:nth-child(2) img{object-position:35% 50%}.home-life-card:nth-child(3) img{object-position:40% 50%}.home-life-copy{display:flex;flex-direction:column;flex:1;padding:14px 12px 8px}.home-life-copy h3{display:flex;align-items:center;gap:7px;font:600 23px/1.2 var(--serif);color:var(--deep);margin:0 0 10px}.home-life-copy h3 svg{width:22px;height:22px;flex:none;color:#8a6b22}.home-life-copy>p{font:400 15px/1.5 var(--sans);color:#495a50;margin:0 0 10px}.home-life-action{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:auto;font:600 14px/1.4 var(--sans)}.home-life-card-link:hover .home-life-action{text-decoration:underline;text-underline-offset:4px}.home-life-card:focus-within{outline:3px solid #93701f;outline-offset:3px}.home-life-card-link:focus-visible{outline:none}
-@container(max-width:559px){.home-life-grid{grid-template-columns:1fr;gap:12px}.home-life-card-link{display:grid;grid-template-columns:110px minmax(0,1fr)}.home-life-media{aspect-ratio:auto;height:100%;min-height:136px;border-radius:2px 0 0 2px}.home-life-copy{padding:12px 14px 6px}.home-life-copy h3{font-size:22px;margin-bottom:6px}.home-life-copy>p{font-size:15px;line-height:1.45;margin-bottom:4px}.home-life-action{font-size:14px}.home-life-intro{margin-bottom:16px}}
-@container(max-width:370px){.home-life-card-link{grid-template-columns:96px minmax(0,1fr)}.home-life-copy{padding-inline:12px}.home-life-copy h3{font-size:21px;gap:6px}.home-life-copy h3 svg{width:20px;height:20px}.home-life-copy>p{font-size:14px;line-height:1.5}.home-life-media{min-height:140px}}
-@media(max-height:500px) and (orientation:landscape){.home-life-grid{grid-template-columns:1fr}.home-life-card-link{display:grid;grid-template-columns:110px minmax(0,1fr)}.home-life-media{height:100%;aspect-ratio:auto;min-height:110px}.home-life-copy{padding:10px 14px 4px}.home-life-copy h3{font-size:21px;margin-bottom:4px}.home-life-copy>p{margin-bottom:2px}.home-life-intro{margin-bottom:14px}}
+/* Calm pastoral section using the existing parish photographs and destinations. */
+.home-life-events { padding:34px 0; background:#f0f0e5; }
+.home-life-inner { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr); gap:40px; align-items:center; }
+.home-life-introduction h2 { margin:0 0 18px; font:500 clamp(28px,2.4vw,39px)/1.18 var(--serif); letter-spacing:-.025em; color:var(--deep); }
+.home-life-intro { margin:0; max-width:46ch; color:#495a50; font:400 18px/1.5 var(--serif); }
+.home-life-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.home-life-card { min-width:0; background:var(--paper); border:1px solid #e1d7bf; border-radius:6px; overflow:hidden; }
+.home-life-card-link { display:flex; flex-direction:column; height:100%; color:var(--deep); text-decoration:none; }
+.home-life-media { aspect-ratio:1.45; overflow:hidden; background:#ede9dc; }
+.home-life-media img { display:block; width:100%; height:100%; object-fit:cover; object-position:65% 50%; }
+.home-life-card:nth-child(2) img { object-position:35% 50%; }
+.home-life-card:nth-child(3) img { object-position:40% 50%; }
+.home-life-copy { position:relative; flex:1; padding:14px 12px 12px; }
+.home-life-copy h3 { display:flex; align-items:center; gap:7px; margin:0 0 7px; font:500 21px/1.2 var(--serif); }
+.home-life-copy h3 svg { width:24px; height:24px; color:#8a6b22; flex:none; }
+.home-life-copy>p { margin:0 0 8px; font:400 13px/1.45 var(--sans); color:#495a50; }
+.home-life-action { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; font:500 14px/1.4 var(--serif); }
+.home-life-action>span { font-size:21px; color:#80601a; }
+.home-life-card-link:hover h3 { text-decoration:underline; text-underline-offset:4px; }
+.home-life-card-link:focus-visible { outline:3px solid #93701f; outline-offset:-3px; }
+@media(max-width:1200px) { .home-life-inner { grid-template-columns:1fr; gap:24px; } .home-life-introduction { max-width:700px; } .home-life-intro { max-width:none; } .home-life-media { aspect-ratio:1.85; } .home-life-copy h3 { font-size:24px; } }
+@media(max-width:600px) { .home-life-events { padding:28px 0; } .home-life-grid { grid-template-columns:1fr; gap:12px; } .home-life-card-link { display:grid; grid-template-columns:110px minmax(0,1fr); } .home-life-media { height:100%; min-height:134px; aspect-ratio:auto; } .home-life-copy { padding:12px 14px 6px; } .home-life-copy h3 { font-size:23px; } .home-life-copy>p { margin-bottom:0; } .home-life-intro { font-size:17px; } }

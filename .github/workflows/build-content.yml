@@ -167,6 +167,11 @@ jobs:
           elif grep -Eq '^(site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|build-typography-preview\.js)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/[^/]+\.test\.cjs|scripts/check-navigation-(hub|preservation)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
+          # Homepage presentation releases rebuild only its feed preview and search projection.
+          elif grep -Eq '^(index\.html|home-(editorial|life-events|news)\.css)$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(index\.html|home-news-render\.cjs|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node home-news-render.cjs
+            node build-search-index.js
           # News/Home-preview refinements must not refresh unrelated date-sensitive service data.
           elif git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/content-changed-paths &&
              ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|home-news-render\.cjs|home-news\.(css|js)|home-about\.css|home-life-events\.css|assets/images/home/life-events/.*|test/home-life-events\.test\.cjs|docs/home-life-events\.md|test/home-about\.test\.cjs|test/home-content\.test\.cjs|docs/home-about\.md|index\.html|test/home-news\.test\.cjs|test/parish-gallery\.test\.cjs|docs/home-news\.md|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
