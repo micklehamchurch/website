@@ -223,15 +223,18 @@ jobs:
           PY
 
       - name: Verify and exercise automatic Sunday service selection
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           app_id=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].id | [0]" -o tsv)
           az rest --method post --url "https://management.azure.com${app_id}/hostruntime/admin/functions/sunday-service-sync?api-version=2024-11-01" --body '{"input":null}' --only-show-errors -o none
           python - <<'PY'
-          import json,time,urllib.request
-          url='https://raw.githubusercontent.com/micklehamchurch/website/Dev/sunday-service.json'
+          import base64,json,os,time,urllib.request
+          url='https://api.github.com/repos/micklehamchurch/website/contents/sunday-service.json?ref=Dev'
           for attempt in range(30):
-              with urllib.request.urlopen(url+'?verify='+str(time.time())) as response:
-                  data=json.load(response)
+              request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Cache-Control':'no-cache'})
+              with urllib.request.urlopen(request,timeout=20) as response:
+                  data=json.loads(base64.b64decode(json.load(response)['content']))
               if data and data.get('verifiedBy')=='azure-timer':
                   assert data['video']['id'] != '9eNFCR04xWE'
                   print('Automatic Azure selection verified:',data['video']['id'],data['checkedAt'])
