@@ -169,7 +169,7 @@ jobs:
             node build-typography-preview.js
           # Homepage presentation releases rebuild only its feed preview and search projection.
           elif grep -Eq '^(index\.html|home-(editorial|life-events|news)\.css)$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^(index\.html|home-news-render\.cjs|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+             ! grep -Ev '^(index\.html|home-news-render\.cjs|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|scripts/check-home-discovery-layout\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node home-news-render.cjs
             node build-search-index.js
           # News/Home-preview refinements must not refresh unrelated date-sensitive service data.
