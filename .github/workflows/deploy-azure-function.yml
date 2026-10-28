@@ -116,6 +116,19 @@ jobs:
           path: admin-api.zip
           retention-days: 7
 
+      - name: Record existing public Feedback configuration
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          url = 'https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/website-feedback?action=config'
+          with urllib.request.urlopen(url, timeout=30) as response:
+              config = json.load(response)
+          assert config.get('ok') is True and config.get('mode') in ('off', 'pcc', 'public')
+          assert isinstance(config.get('requireCode'), bool)
+          with open('feedback-mode-before.json', 'w') as output:
+              json.dump({'mode': config['mode'], 'requireCode': config['requireCode']}, output)
+          PY
+
       - name: Log in to Azure with GitHub OIDC
         uses: azure/login@v3
         with:
@@ -202,7 +215,9 @@ jobs:
                   assert error.code == 401, (route, error.code)
           with urllib.request.urlopen(base + 'website-feedback?action=config') as response:
               config = json.load(response)
-              assert config['ok'] is True and config['mode'] == 'off'
-              assert isinstance(config['requireCode'], bool)
-          print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary preserved; mode remains Off.')
+              assert config['ok'] is True
+              before = json.load(open('feedback-mode-before.json'))
+              assert config['mode'] == before['mode'], 'Feedback mode changed during deployment'
+              assert config['requireCode'] == before['requireCode'], 'Feedback access-code setting changed during deployment'
+          print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary and existing Feedback configuration preserved.')
           PY

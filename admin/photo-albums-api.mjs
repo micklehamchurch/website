@@ -7,7 +7,7 @@ const messages = Object.freeze({
   'album-version-conflict':'Someone changed the shared Dev version. Your changes have not been saved. Reload albums before editing again.',
   'album-unsupported-format':'Use a JPEG, PNG or WebP photograph. For HEIC/HEIF, export or save a JPEG first.',
   'album-invalid-image':'A photograph could not be processed. Check that it opens correctly and export a fresh JPEG or PNG. Animated images and files with extra embedded content are not supported.',
-  'album-too-large':'Use at most 6 photographs per save, each up to 10 MiB and 20 MiB in total. Save and add another batch for larger albums.',
+  'album-too-large':'This photograph could not be reduced enough for uploading. Export a smaller JPEG or WebP and try again. You may select up to 20 photographs totalling 200 MB.',
   'album-consent-required':'Choose at least one photograph and confirm the church has permission to publish.',
   'album-delete-confirmation-required':'Type the album title exactly to confirm deletion.',
   'invalid-album-request':'Check the title, description, cover, captions and image descriptions. Titles are limited to 150 characters, descriptions to 500 and captions/image descriptions to 300.',

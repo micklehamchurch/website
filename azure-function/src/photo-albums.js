@@ -23,8 +23,10 @@ function createPhotoAlbumsHandler({env=process.env,readConfiguration=readGithubC
       const bytes=Buffer.from(file.content,'base64');if(bytes.length>model.MAX_METADATA)throw Error();
       current={sha:file.sha,data:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes))};model.validateExisting(current.data);
     }catch{return failure(502,'album-repository-unavailable');}
-    if(request.method==='GET')return response(200,{ok:true,sha:current.sha,headSha,albums:current.data.albums});
-    if(body.sha!==current.sha||body.headSha!==headSha)return failure(409,'album-version-conflict');
+    if(request.method==='GET')return response(200,{ok:true,uploadMode:'serial-receipt-v1',sha:current.sha,headSha,albums:current.data.albums});
+    // Content builds advance Dev without changing albums. Use their latest tree;
+    // the metadata SHA still prevents overwriting another editor's album changes.
+    if(body.sha!==current.sha)return failure(409,'album-version-conflict');
     let mutation;
     try {mutation=await model.applyMutation(current.data,body);}catch(e){return failure(e.message==='album-version-conflict'?409:e.message==='album-too-large'?413:400,['album-version-conflict','album-too-large','album-delete-confirmation-required','album-unsupported-format','album-invalid-image'].includes(e.message)?e.message:'invalid-album-request');}
     try {
@@ -43,7 +45,7 @@ function createPhotoAlbumsHandler({env=process.env,readConfiguration=readGithubC
       // A competing ref update makes this a sibling commit, rejected by force:false.
       // Failed processing/commits never attach blobs or metadata to the Dev branch.
       await writer.rest.git.updateRef({...target,ref:'heads/Dev',sha:commit.sha,force:false});
-      return response(200,{ok:true,sha:metadata.sha,headSha:commit.sha,commitSha:commit.sha,albumId:mutation.albumId||null,albums:mutation.next.albums});
+      return response(200,{ok:true,uploadMode:'serial-receipt-v1',sha:metadata.sha,headSha:commit.sha,commitSha:commit.sha,albumId:mutation.albumId||null,albums:mutation.next.albums});
     }catch(e){return failure([409,422].includes(e.status)?409:502,[409,422].includes(e.status)?'album-version-conflict':'album-save-unavailable');}
   };
 }

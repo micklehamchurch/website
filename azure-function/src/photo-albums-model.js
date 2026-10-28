@@ -124,7 +124,9 @@ async function processUploads(values, albumId, profile = false) {
       if (/<\?(?:php|=)|<script\b|<html\b/i.test(bytes.toString('latin1')) || bytes.includes(Buffer.from('504b0304','hex'))) throw Error('album-invalid-image');
       const decoder = sharp(bytes,{limitInputPixels:40000000,failOn:'warning'}), m = await decoder.metadata();
       if (m.format !== format || (m.pages || 1) !== 1 || !m.width || !m.height) throw Error('album-invalid-image');
-      const id = `photo-${randomUUID()}`, variants = []; let lastWidth = 0;
+      // Stable album receipt lets the client reconcile a lost success response.
+      // Profile-photo IDs retain their existing behaviour. Paths remain server-built.
+      const id = `photo-${profile ? randomUUID() : u.id.slice('upload:'.length)}`, variants = []; let lastWidth = 0;
       for (const [size,quality] of (profile ? [[400,80],[800,84]] : [[480,78],[960,82],[1600,84]])) {
         const output = await decoder.clone().rotate().resize({width:size,height:size,fit:'inside',withoutEnlargement:true}).webp({quality,effort:4}).toBuffer({resolveWithObject:true});
         if (output.info.width === lastWidth) continue; // Small originals need only one derivative.
