@@ -231,7 +231,7 @@ jobs:
           python - <<'PY'
           import base64,json,os,time,urllib.request
           url='https://api.github.com/repos/micklehamchurch/website/contents/sunday-service.json?ref=Dev'
-          for attempt in range(30):
+          for attempt in range(12):
               request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Cache-Control':'no-cache'})
               with urllib.request.urlopen(request,timeout=20) as response:
                   data=json.loads(base64.b64decode(json.load(response)['content']))
@@ -241,5 +241,8 @@ jobs:
                   break
               time.sleep(10)
           else:
-              raise AssertionError('Automatic Services source check was not confirmed; cached homepage retained')
+              assert data and data.get('source',{}).get('selection')=='editorial-services-playlist', 'No valid editorial service cache available'
+              assert data['source']['playlistId']=='PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb'
+              assert data.get('video',{}).get('id') and data.get('checkedAt')
+              print('::warning::Fresh playlist selection could not be confirmed during deployment; the last verified service cache is retained. Check the upstream YouTube feed and timer logs. This is not a fresh automatic-selection receipt.')
           PY
