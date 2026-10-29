@@ -424,6 +424,32 @@
           "title": "Contact",
           "href": "contact.html"
         }
+      ],
+      "illustration": {
+        "src": "assets/images/prayer/prayer-illustration-800.webp",
+        "srcset": "assets/images/prayer/prayer-illustration-480.webp 480w, assets/images/prayer/prayer-illustration-800.webp 800w, assets/images/prayer/prayer-illustration-1200.webp 1200w, assets/images/prayer/prayer-illustration-1600.webp 1600w",
+        "width": 800,
+        "height": 800,
+        "alt": "Hands clasped in prayer beside an open Bible and a lit candle."
+      },
+      "requestOptions": [
+        {
+          "icon": "envelope",
+          "title": "Contact the parish",
+          "href": "contact.html",
+          "text": "Share what you would like us to pray for. All requests are treated with care and confidentiality."
+        },
+        {
+          "icon": "heart",
+          "title": "Individual prayer",
+          "href": "contact.html",
+          "text": "You are very welcome to speak with the priest or ask about individual prayer if you would like someone to listen and pray with you."
+        },
+        {
+          "icon": "tree",
+          "title": "In church",
+          "text": "You can also leave a prayer request on our prayer tree when you visit St Michael's."
+        }
       ]
     },
     {

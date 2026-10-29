@@ -4,6 +4,7 @@ module.exports={
  'our-team.html':{image:1,focal:'60% 50%',mobile:'65% 50%'},
  'gallery.html':{image:2,focal:'60% 55%',mobile:'70% 50%'},
  'church-life.html':{image:6,focal:'60% 55%',mobile:'65% 50%'},
+ 'prayer.html':{image:3,focal:'60% 50%',mobile:'65% 50%'},
  'worship.html':{image:3,focal:'60% 50%',mobile:'65% 50%'},
  'sunday-services.html':{image:4,focal:'60% 50%',mobile:'65% 50%'},
  'whats-on.html':{image:2,focal:'60% 55%',mobile:'70% 50%'},

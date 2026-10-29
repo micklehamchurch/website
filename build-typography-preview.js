@@ -8,6 +8,7 @@ for (const directory of [root, path.join(root, 'news'), path.join(root, 'pews-ne
   if (!fs.existsSync(directory)) continue;
   for (const name of fs.readdirSync(directory)) {
     if (!name.endsWith('.html')) continue;
+    if (process.argv.length>2&&!process.argv.slice(2).includes(path.relative(root,path.join(directory,name)).replace(/\\/g,'/'))) continue;
     const filename = path.join(directory, name);
     let html = fs.readFileSync(filename, 'utf8');
     if (!html.includes('data-site-footer')) continue;
