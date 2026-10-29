@@ -1,0 +1,73 @@
+/* Worship-only editorial layout. Image and copy remain in normal document flow. */
+.worship-page .page-content { padding:32px 0 48px; }
+.worship-page .worship-intro-grid { grid-template-columns:minmax(0,.95fr) minmax(0,1fr); gap:40px; }
+.worship-page .worship-intro-grid h2 { font-size:clamp(30px,3.2vw,42px); line-height:1.14; }
+.worship-page .worship-intro-grid p { margin:0 0 14px; line-height:1.55; }
+.worship-page .worship-intro-grid .eyebrow { margin-bottom:10px; }
+.worship-page .worship-parish-photo { padding:6px; box-shadow:none; border-radius:3px; }
+.worship-page .worship-parish-photo img { height:auto; aspect-ratio:8/5; object-fit:cover; object-position:50% 48%; border-radius:0; }
+.worship-regular { margin-top:30px; padding-top:26px; border-top:1px solid var(--stone); }
+.worship-section-heading { margin-bottom:18px; }
+.worship-section-heading .eyebrow { margin:0 0 7px; }
+.worship-section-heading h2 { margin:0 0 7px; font-size:clamp(29px,3.4vw,40px); }
+.worship-section-heading>p:last-child { margin:0; color:var(--muted); line-height:1.5; }
+.worship-service-grid,.worship-explore-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.worship-service-card { min-width:0; padding:9px; border:1px solid var(--stone); border-radius:3px; background:var(--paper); }
+.worship-card-media { display:flex; align-items:center; justify-content:center; aspect-ratio:3/2; background:#eeeede; }
+.worship-card-media img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; }
+.worship-chapel-card .worship-card-media img { max-width:300px; aspect-ratio:auto; }
+.worship-card-copy { padding:12px 7px 8px; }
+.worship-card-copy h3 { margin:0 0 10px; font:500 clamp(21px,1.9vw,25px)/1.16 var(--serif); letter-spacing:-.025em; color:var(--deep); }
+.worship-card-copy>p:last-child { margin:0; font-size:15px; line-height:1.5; color:var(--muted); }
+.worship-service-time { margin:0 0 5px; font-size:14px; font-weight:600; line-height:1.4; }
+.worship-calendar-note,.worship-weekday-note { font-size:14px; line-height:1.55; color:var(--muted); }
+.worship-calendar-note { margin:12px 0 0; }
+.worship-page main p a { color:var(--deep); text-decoration:underline; text-underline-offset:3px; }
+.worship-welcome-strip { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px; margin:20px 0 12px; padding:22px; background:#f0f2e8; border-radius:4px; }
+.worship-welcome-item { display:grid; grid-template-columns:76px minmax(0,1fr); align-items:center; gap:20px; min-width:0; }
+.worship-welcome-item+div { border-left:1px solid #bcc7b7; padding-left:26px; }
+.worship-welcome-item svg { display:block; width:76px; height:76px; color:var(--green); }
+.worship-welcome-item+div svg { color:#9a7814; }
+.worship-welcome-item h2 { margin:0 0 6px; font:500 clamp(21px,2vw,25px)/1.2 var(--serif); color:var(--deep); }
+.worship-welcome-item p { margin:0; color:var(--muted); font-size:14px; line-height:1.5; }
+.worship-weekday-note { margin:10px 5px 28px; }
+.worship-explore { margin-top:26px; }
+.worship-next-card { display:flex; flex-direction:column; min-width:0; padding:6px; text-decoration:none; border:1px solid var(--stone); border-radius:3px; color:var(--deep); background:var(--paper); }
+.worship-next-media { display:block; background:#f0f0e4; }
+.worship-next-media img { display:block; width:100%; height:auto; aspect-ratio:2.8/1; object-fit:cover; }
+.worship-next-media svg { display:block; width:100%; height:auto; aspect-ratio:2.8/1; color:#8b701d; padding:9px; }
+.worship-next-copy { display:flex; flex:1; flex-direction:column; padding:10px 9px 7px; }
+.worship-next-copy h3 { margin:0 0 7px; font:500 clamp(21px,1.9vw,25px)/1.17 var(--serif); letter-spacing:-.02em; }
+.worship-next-copy p { margin:0 0 12px; font-size:14px; line-height:1.4; color:var(--muted); }
+.worship-next-action { display:flex; align-items:center; min-height:44px; margin-top:auto; font-size:14px; }
+.worship-next-card:hover { border-color:#9b8251; }
+.worship-next-card:focus-visible,.worship-page main a:focus-visible { outline:3px solid #987413; outline-offset:4px; }
+.worship-imagery-note { margin:15px 0 0; font-size:12px; line-height:1.5; color:var(--muted); }
+.worship-page main p,.worship-page main h2,.worship-page main h3 { overflow-wrap:anywhere; }
+@media(max-width:1000px) {
+ .worship-service-grid,.worship-explore-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+ .worship-page .worship-intro-grid { gap:26px; }
+ .worship-welcome-item { grid-template-columns:55px minmax(0,1fr); gap:13px; }
+ .worship-welcome-item svg { width:55px; height:55px; }
+ .worship-welcome-strip { padding:20px; gap:18px; }
+ .worship-welcome-item+div { padding-left:18px; }
+}
+@media(max-width:760px) {
+ .worship-page .worship-intro-grid { display:block; }
+ .worship-page .worship-parish-photo { margin-top:26px; }
+ .worship-page .worship-parish-photo img { aspect-ratio:4/3; }
+ .worship-welcome-strip { grid-template-columns:minmax(0,1fr); gap:20px; }
+ .worship-welcome-item+div { padding:20px 0 0; border-left:0; border-top:1px solid #bcc7b7; }
+}
+@media(max-width:600px) {
+ .worship-service-grid,.worship-explore-grid { grid-template-columns:minmax(0,1fr); }
+ .worship-page .page-content { padding-top:26px; }
+ .worship-card-copy { padding:15px 10px 12px; }
+ .worship-card-copy h3,.worship-next-copy h3 { font-size:25px; }
+ .worship-card-copy>p:last-child,.worship-next-copy p { font-size:16px; }
+ .worship-next-copy { padding:14px 12px 8px; }
+ .worship-next-media img,.worship-next-media svg { aspect-ratio:2.4/1; }
+ .worship-welcome-strip { padding:18px 14px; }
+ .worship-page main p a { display:inline-block; padding-block:5px; }
+}
+@media(prefers-reduced-motion:reduce) { .worship-page { scroll-behavior:auto; } .worship-page main * { transition:none; animation:none; } }
