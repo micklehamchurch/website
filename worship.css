@@ -4,7 +4,7 @@
 .worship-page .worship-intro-grid h2 { font-size:clamp(30px,3.2vw,42px); line-height:1.14; }
 .worship-page .worship-intro-grid p { margin:0 0 14px; line-height:1.55; }
 .worship-page .worship-intro-grid .eyebrow { margin-bottom:10px; }
-.worship-page .worship-parish-photo { padding:6px; box-shadow:none; border-radius:3px; }
+.worship-page .worship-parish-photo { max-height:none; padding:6px; box-shadow:none; border-radius:3px; }
 .worship-page .worship-parish-photo img { height:auto; aspect-ratio:8/5; object-fit:cover; object-position:50% 48%; border-radius:0; }
 .worship-regular { margin-top:30px; padding-top:26px; border-top:1px solid var(--stone); }
 .worship-section-heading { margin-bottom:18px; }

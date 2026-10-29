@@ -57,7 +57,7 @@ No new AI-generated image is created. Existing Life Events/candle illustrations 
 
 ## Layout, accessibility and performance
 
-Four service cards / four gateway columns above 1000px; two columns from 601–1000px; single columns at 600px and below. Intro stacks at 760px, welcome strip stacks at 760px. Minmax grids, explicit image aspect ratios and ordinary document flow avoid the old direct-grid image `height:100%` problem. No fragile absolute positioning, new runtime JavaScript, iframe or heavy dependency. Stable image dimensions and lazy loading; most imagery reuses existing assets.
+Four service cards / four gateway columns above 1000px; two columns from 601–1000px; single columns at 600px and below. Intro stacks at 760px, welcome strip stacks at 760px. Minmax grids, explicit image aspect ratios and ordinary document flow avoid the old direct-grid image `height:100%` problem. The old shared 360px topic-image frame cap is disabled for this genuine photo only; live visual review caught and corrected it, and intro frame bounds are now asserted. No fragile absolute positioning, new runtime JavaScript, iframe or heavy dependency. Stable image dimensions and lazy loading; most imagery reuses existing assets.
 
 One H1, sequential section H2/card H3 headings, meaningful genuine-photo alt, decorative empty alt/hidden SVG, native full-card links, 44px action rows, visible three-pixel focus outlines, serif/ivory/green/gold styling, responsive wrapping and reduced-motion treatment. Shared hero/header/footer stylesheet/script links remain unchanged. Enlarged text and image/copy bounds checked in browser.
 
