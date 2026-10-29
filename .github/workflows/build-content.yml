@@ -85,6 +85,11 @@ on:
       - 'assets/images/editorial/**'
       - 'seamless-heroes.js'
       - 'seamless-heroes.css'
+      - 'prayer-cycle.json'
+      - 'prayer-cycle-model.js'
+      - 'prayer-cycle-render.js'
+      - 'prayer-cycle.js'
+      - 'prayer-cycle.css'
       - 'prayer-render.js'
       - 'prayer.css'
       - 'assets/images/prayer/**'
@@ -176,12 +181,13 @@ jobs:
              ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/[^/]+\.test\.cjs|scripts/check-navigation-(hub|preservation)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
           # Prayer-only content updates regenerate Prayer, never unrelated projections.
-          elif grep -Eq '^(prayer\.(html|css)|prayer-render\.js|content-pages\.json)$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^(prayer\.(html|css)|prayer-render\.js|content-pages\.json|build-content-pages\.js|build-editorial-heroes\.js|build-typography-preview\.js|editorial-hero-config\.cjs|assets/images/prayer/.*|test/(prayer-page|editorial-heroes)\.test\.cjs|scripts/check-prayer-layout\.cjs|docs/prayer-redesign\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths &&
+          elif grep -Eq '^(prayer\.(html|css)|prayer-cycle(-model|-render)?\.(js|json|css)|prayer-render\.js|content-pages\.json)$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(prayer\.(html|css)|prayer-render\.js|prayer-cycle(-model|-render)?\.(js|json|css)|admin/(admin\.js|documents-data\.json)|assets/documents/prayer/cycle-of-prayer-2023-4\.pdf|search-index\.json|content-pages\.json|build-content-pages\.js|build-editorial-heroes\.js|build-typography-preview\.js|editorial-hero-config\.cjs|assets/images/prayer/.*|test/(prayer-page|prayer-cycle|editorial-heroes)\.test\.cjs|test/fixtures/prayer-cycle-source\.json|scripts/check-prayer(-layout|-cycle)\.cjs|docs/prayer(-redesign|-cycle|-cycle-migration)\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths &&
              git diff "$BEFORE_SHA" "$CURRENT_SHA" -- content-pages.json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const cp=require("child_process"),a=JSON.parse(cp.execFileSync("git",["show",process.env.BEFORE_SHA+":content-pages.json"])),b=require("./content-pages.json");a.pages=a.pages.filter(p=>p.slug!=="prayer");b.pages=b.pages.filter(p=>p.slug!=="prayer");process.exit(JSON.stringify(a)===JSON.stringify(b)?0:1);})'; then
             node build-content-pages.js prayer
             node build-editorial-heroes.js prayer.html
             node build-typography-preview.js prayer.html
+            node build-search-index.js
           # Handwritten Worship releases update search only, preserving homepage/Calendar data.
           elif grep -Eq '^(worship\.html|worship\.css)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(worship\.(html|css)|assets/images/worship/.*|search-index\.json|test/worship-page\.test\.cjs|scripts/check-worship-layout\.cjs|docs/worship-redesign\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then

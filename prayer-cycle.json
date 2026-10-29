@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "month": 8,
+      "ordinalSunday": 4,
+      "community": "Cherkley Hill",
+      "localCause": "Mickleham & Westhumble Book Club",
+      "overseas": "Australia"
+    },
+    {
+      "month": 9,
+      "ordinalSunday": 1,
+      "community": "Chapel Lane",
+      "localCause": "Bible Study Group",
+      "overseas": "Myanmar"
+    },
+    {
+      "month": 9,
+      "ordinalSunday": 2,
+      "community": "Crabtree Lane",
+      "localCause": "Mickleham Village Hall",
+      "overseas": "Botswana"
+    },
+    {
+      "month": 9,
+      "ordinalSunday": 3,
+      "community": "Burford Lodge",
+      "localCause": "Box Hill School",
+      "overseas": "Mozambique"
+    },
+    {
+      "month": 9,
+      "ordinalSunday": 4,
+      "community": "Moleford Cottages",
+      "localCause": "Mickleham Parish Council",
+      "overseas": "Grenada"
+    },
+    {
+      "month": 10,
+      "ordinalSunday": 1,
+      "community": "Pilgrims Close",
+      "localCause": "Friends of St Michael's Infant School",
+      "overseas": "Paraguay"
+    },
+    {
+      "month": 10,
+      "ordinalSunday": 2,
+      "community": "Pilgrims Way",
+      "localCause": "Mickleham Children's Playground Assoc.",
+      "overseas": "Sri Lanka"
+    },
+    {
+      "month": 10,
+      "ordinalSunday": 3,
+      "community": "Ranmore Common Road",
+      "localCause": "Westhumble Chapel",
+      "overseas": "Argentina"
+    },
+    {
+      "month": 10,
+      "ordinalSunday": 4,
+      "community": "Old Dene Cottages",
+      "localCause": "Mickleham Parish Magazine",
+      "overseas": "Russia"
+    },
+    {
+      "month": 10,
+      "ordinalSunday": 5,
+      "community": "Burford Corner",
+      "localCause": "Helping Hands",
+      "overseas": "Afghanistan"
+    },
+    {
+      "month": 11,
+      "ordinalSunday": 1,
+      "community": "Cowslip Lane",
+      "localCause": "St Michael's Community Nursery",
+      "overseas": "Cambodia"
+    },
+    {
+      "month": 11,
+      "ordinalSunday": 2,
+      "community": "Elm Cottages",
+      "localCause": "Surrey Wildlife Trust",
+      "overseas": "Zimbabwe"
+    },
+    {
+      "month": 11,
+      "ordinalSunday": 3,
+      "community": "The Almshouses",
+      "localCause": "Mickleham & W’humble Horticultural Society",
+      "overseas": "Ethiopia"
+    },
+    {
+      "month": 11,
+      "ordinalSunday": 4,
+      "community": "Byttom Hill",
+      "localCause": "Church Flower Arrangers",
+      "overseas": "Central and East Africa"
+    },
+    {
+      "month": 12,
+      "ordinalSunday": 1,
+      "community": "Fredley Park",
+      "localCause": "The Arts Society",
+      "overseas": "Trinidad and Tobago"
+    },
+    {
+      "month": 12,
+      "ordinalSunday": 2,
+      "community": "Juniper Hall",
+      "localCause": "Friends of Juniper Hall Field Studies",
+      "overseas": "Japan"
+    },
+    {
+      "month": 12,
+      "ordinalSunday": 3,
+      "community": "Box Hill School",
+      "localCause": "Those members who live outside the village",
+      "overseas": "North and South India"
+    },
+    {
+      "month": 12,
+      "ordinalSunday": 4,
+      "community": "Headley Lane",
+      "localCause": "Mickleham Choral Society",
+      "overseas": "Namibia"
+    },
+    {
+      "month": 12,
+      "ordinalSunday": 5,
+      "community": "Dell Close",
+      "localCause": "National Trust",
+      "overseas": "Nigeria"
+    },
+    {
+      "month": 1,
+      "ordinalSunday": 1,
+      "community": "Westhumble Street",
+      "localCause": "Surrey County Council",
+      "overseas": "Middle East"
+    },
+    {
+      "month": 1,
+      "ordinalSunday": 2,
+      "community": "The Downs",
+      "localCause": "Westhumble Residents Association",
+      "overseas": "Malawi"
+    },
+    {
+      "month": 1,
+      "ordinalSunday": 3,
+      "community": "Old London Road",
+      "localCause": "Westhumble Neighbourhood Watch",
+      "overseas": "Brazil"
+    },
+    {
+      "month": 1,
+      "ordinalSunday": 4,
+      "community": "London Road",
+      "localCause": "Friends of Box Hill",
+      "overseas": "Pakistan"
+    },
+    {
+      "month": 2,
+      "ordinalSunday": 1,
+      "community": "Pinehurst Rest Home",
+      "localCause": "Epsom General and East Surrey Hospitals",
+      "overseas": "South Africa"
+    },
+    {
+      "month": 2,
+      "ordinalSunday": 2,
+      "community": "Mickleham Downs",
+      "localCause": "Surrey Police",
+      "overseas": "Bolivia"
+    },
+    {
+      "month": 2,
+      "ordinalSunday": 3,
+      "community": "Norbury Park",
+      "localCause": "British Trust for Conservation Volunteers",
+      "overseas": "Papua New Guinea"
+    },
+    {
+      "month": 2,
+      "ordinalSunday": 4,
+      "community": "School Lane",
+      "localCause": "St Michael's Infant School",
+      "overseas": "Ghana"
+    },
+    {
+      "month": 3,
+      "ordinalSunday": 1,
+      "community": "Swanworth Lane",
+      "localCause": "St Michael's Church Choir",
+      "overseas": "Bangladesh"
+    },
+    {
+      "month": 3,
+      "ordinalSunday": 2,
+      "community": "Adlers Lane",
+      "localCause": "Tea @ 3 Group",
+      "overseas": "North and South Korea"
+    },
+    {
+      "month": 3,
+      "ordinalSunday": 3,
+      "community": "Burney Road",
+      "localCause": "Dorking Museum and Heritage Centre",
+      "overseas": "Mauritius"
+    },
+    {
+      "month": 3,
+      "ordinalSunday": 4,
+      "community": "Camilla Drive",
+      "localCause": "Mickleham & Westhumble Local History Group",
+      "overseas": "Cyprus and the Gulf"
+    }
+  ]
+}
