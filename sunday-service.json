@@ -3,7 +3,7 @@
   "source": {
     "channelId": "UCl4pbewCT91iZhcdoEjJBIw",
     "playlistId": "PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb",
-    "selection": "playlist-sunday-publication"
+    "selection": "editorial-services-playlist"
   },
   "video": {
     "id": "zdybAROB5Zg",
@@ -17,5 +17,5 @@
     "bytes": 67070
   },
   "checkedAt": "2026-10-28T20:33:14.541Z",
-  "verifiedBy": "azure-timer"
+  "verifiedBy": "bootstrap"
 }

@@ -1,4 +1,4 @@
-# Automatic latest Sunday service
+# Automatic latest service
 
 The homepage feature uses cached metadata and a cached real YouTube thumbnail, not a player or browser-side YouTube request. The existing canonical News feed is unchanged; its newest two items sit beside the service. If no valid cache has ever been obtained, three ordinary News items are rendered.
 
@@ -8,17 +8,25 @@ Official channel: https://www.youtube.com/@stmichaelandallangelschurc3012 — ch
 
 Existing parish Services playlist: https://www.youtube.com/playlist?list=PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb . The site already embeds this playlist on Sunday Services. Its public Atom feed supplies real titles and publication timestamps. On 28 October 2026 its latest entry is `zdybAROB5Zg`, “Last Sunday of Trinity 25th October 2026”, published 25 October at 11:53 UTC. The audited latest 15 entries mainly contain Sunday worship, but the playlist also contains a Monday school service, Christmas worship and other special services. It is **not exclusively a Sunday playlist**.
 
-`youtube-sunday-source.json` is the one-time configuration point. Current conservative policy: `playlist-sunday-publication`. A video must be in this Services playlist, uploaded by the church channel, and published on a Sunday in Europe/London. The known Bells film ID is always excluded. Other channel uploads, History, concerts and announcements outside the Services playlist are not queried or selected. No AI or title-based service classifier is used.
+The church explicitly authorises this existing Services playlist as the editorial source for **Latest Service**. Configuration uses the single policy `editorial-services-playlist`. No publication-day filter, title guessing, Sunday-only requirement or special-video blacklist applies. Any valid public video deliberately included in this playlist is eligible, including delayed uploads, weekday/special services and included contributions from other channels. The newest publication timestamp in its recent feed is selected; this differs from the old player, which opened playlist position zero. Videos outside this playlist are never queried as candidates.
 
-**Limitation:** a Sunday recording first published on Monday is skipped. Publication day does not prove the worship date, so the page labels its reliable date “Published” and retains the actual YouTube title. This policy is deliberately conservative, not a claim that every item in the general Services playlist is a Sunday service.
+Editors continue adding services to the same YouTube playlist; no weekly homepage edits are required. Public dates are labelled “Published”, since publication is not necessarily the service date.
 
-For date-independent weekly automation, use a genuinely Sunday-only playlist on the church channel and change the one-time configuration to its ID with `selection: "curated-sunday-playlist"`. Editors then only publish/add each service to that source on YouTube. They never edit homepage HTML, metadata JSON, GitHub or Admin each week. Do not select curated mode for the existing mixed playlist unless its contents are made Sunday-only. The runtime reads configuration from Dev on every scheduled check; changing this source does not require a new interface or backend code.
+### Git-history audit and architecture decision, 29 October 2026
+
+Commit `7375a26` introduced the Sunday Services page with a direct YouTube privacy-enhanced playlist iframe. The homepage later had that same `videoseries?list=…&index=0` player. Commit `7680f16` consolidated duplicate homepage players; immediately before the reorganisation, the Worship / Explore & Learn / Sunday Services row contained one player and its Sunday Services page link. Commit `102905a` removed the row.
+
+The player followed live YouTube playlist ordering automatically; it did not calculate newest publication, expose metadata to website code, cache a thumbnail, or run an Azure/JavaScript updater. Historical searches of backend, workflows and site scripts found no competing service selection system. The existing Sunday Services page retains its original playlist embed and link, unchanged.
+
+Keep that established playlist and browsing page. Retain just one scheduled cached metadata/thumbnail updater for the approved lightweight homepage presentation. An Azure timer is unnecessary for an iframe, but necessary in this chosen architecture for automatic static homepage refresh without browser-side YouTube requests. It reuses the existing Azure app and credentials rather than provisioning another service. Historical Sunday-named filenames and timer registration remain stable internal identifiers; they do not impose a Sunday filter.
+
+The first deployment `40763894706` deployed/indexed successfully and the timer wrote cache commit `0f04a8e`; only the final receipt assertion failed after reading stale raw GitHub CDN content. Commit `eba10db` changed verification to the authenticated GitHub Contents API with a bounded timeout. Subsequent deployment `40765344906` passed. This was a verification failure, not a failure of the new timer to run.
 
 ## Runtime and cache
 
 An Azure Functions timer, `sunday-service-sync`, checks every 15 minutes (`0 */15 * * * *`), with host monitoring and startup execution disabled. It reuses the existing GitHub App settings and writes **only Dev**. No new key, YouTube API key, public API route, storage account or Admin UI is required. GitHub cron was not used because scheduled workflows run from the default branch, which is main; this release must not modify main.
 
-Feed and metadata requests are bounded and time-limited. Playlist/channel identity, video IDs, XML entities, dates and cache image paths are validated. DTDs/entities, oversized responses and foreign ownership are rejected. Public oEmbed checks identify unavailable entries. Real thumbnails are fetched only from fixed YouTube image paths and decoded with the existing Sharp dependency under a pixel/byte budget, producing a WebP of at most 960 px.
+Feed and metadata requests are bounded and time-limited. A 15-minute feed query cache key and no-cache request header reduce stale intermediary responses; upstream 404/429/5xx still retain the last published cache. Playlist/channel identity, video IDs, XML entities, dates and cache image paths are validated. DTDs/entities, oversized responses and mismatched playlist ownership are rejected. Public oEmbed checks identify unavailable entries. Real thumbnails are fetched only from fixed YouTube image paths and decoded with the existing Sharp dependency under a pixel/byte budget, producing a WebP of at most 960 px.
 
 `sunday-service.json` and any new thumbnail are committed atomically to Dev with a non-forced Git reference update. A competing editor/build commit causes a safe retry on a later check, never an overwrite. Read-scoped credentials are used until a publication is necessary. Unchanged checks create no commit or Pages rebuild. First automatic validation changes the bootstrap receipt to `verifiedBy: "azure-timer"`; subsequent identical checks do not change the receipt timestamp just to create activity.
 
@@ -40,4 +48,4 @@ Browser failure handling leaves a labelled link when an image fails to load. On 
 - `npm run build`
 - Full root `node --test --test-concurrency=1` and Azure `node --test`.
 
-Tests cover source identity and newest eligible selection; newer unrelated channel material; the known Bells film; unavailable/private/deleted entries; conservative and curated modes; missing/malformed metadata and thumbnail; stale cache, rate limits and upstream failure; no eligible item; safe Dev-only atomic publication; unchanged checks; independent News promotion; no iframe/autoplay; image/link accessibility; and preservation outside From our parish.
+Tests cover source identity and newest eligible selection; newer unrelated channel material; explicit editorial inclusion even of a historically excluded ID; unavailable/private/deleted entries; weekday and delayed publications, editorial inclusion; missing/malformed metadata and thumbnail; stale cache, rate limits and upstream failure; no eligible item; safe Dev-only atomic publication; unchanged checks; independent News promotion; no iframe/autoplay; image/link accessibility; and preservation outside From our parish.

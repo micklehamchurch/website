@@ -222,7 +222,7 @@ jobs:
           print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary and existing Feedback configuration preserved.')
           PY
 
-      - name: Verify and exercise automatic Sunday service selection
+      - name: Verify and exercise automatic latest service selection
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -236,10 +236,10 @@ jobs:
               with urllib.request.urlopen(request,timeout=20) as response:
                   data=json.loads(base64.b64decode(json.load(response)['content']))
               if data and data.get('verifiedBy')=='azure-timer':
-                  assert data['video']['id'] != '9eNFCR04xWE'
+                  assert data['source']['selection']=='editorial-services-playlist'
                   print('Automatic Azure selection verified:',data['video']['id'],data['checkedAt'])
                   break
               time.sleep(10)
           else:
-              raise AssertionError('Automatic Sunday source check was not confirmed; cached homepage retained')
+              raise AssertionError('Automatic Services source check was not confirmed; cached homepage retained')
           PY

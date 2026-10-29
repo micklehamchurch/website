@@ -1,2 +1,2 @@
 const {app}=require('@azure/functions');const {createService}=require('../sunday-service-sync');const sync=createService();
-app.timer('sunday-service-sync',{schedule:'0 */15 * * * *',runOnStartup:false,useMonitor:true,handler:async(_timer,context)=>{try{const r=await sync();context.log('Sunday service check:',r.result,r.id||'no eligible service');}catch{context.error('Sunday service check unavailable; published cache retained.');}}});
+app.timer('sunday-service-sync',{schedule:'0 */15 * * * *',runOnStartup:false,useMonitor:true,handler:async(_timer,context)=>{try{const r=await sync();context.log('Latest service check:',r.result,r.id||'no eligible service');}catch{context.error('Latest service check unavailable; published cache retained.');}}});
