@@ -46,12 +46,21 @@ function build(siteRoot = root) {
         notice.anchor = `notice-${section.id}-${index}`;
       });
     }
+    for (const feature of data.features || []) {
+      if (!/^[a-z][a-z0-9-]*$/.test(feature.id) || ids.has(feature.id) || !feature.title || !Array.isArray(feature.paragraphs) || !feature.paragraphs.length) throw Error('Invalid edition feature');
+      ids.add(feature.id); ids.add(`${feature.id}-heading`);
+      for (const link of feature.links || []) {
+        const url = new URL(link.url);
+        if (url.protocol !== 'https:' || url.username || url.password || !link.label) throw Error('Invalid feature link');
+      }
+    }
     editions.set(record.date,data);
   }
   const alt = {'fall-back':'Fall back: set your clocks back an hour','bible':'An open Bible','bible-study':'Reading the Bible','alpha':'The Alpha Course: explore the meaning of life','macmillan':'Macmillan Cancer Support: World’s Biggest Coffee Morning','link-to-hope':'Link to Hope: it begins with an ordinary shoebox','coffee-cake':'A cup of coffee and a slice of cake','remembrance':'A soldier among remembrance poppies','poppy-qr':'Scan to donate to the local Royal British Legion collection','pcc':'People gathered around a meeting table','lights':'Hands holding a lighted candle','snowman':'The Snowman by Raymond Briggs','soup':'A bowl of autumn soup','pumpkins':'Harvest pumpkin with autumn leaves','foodbank-bag':'A bag of Food Bank donations','foodbank':'Original Food Bank artwork showing donated groceries','zoom':'People joining a service online'};
   function render(record,data,nested) {
     const images = imageCatalogue[record.date] || {};
     const currentPath = nested ? `pews-news/${record.date}.html` : 'pews-news.html';
+    const headingArt = data.editionArt || data.clock;
     const anchor = id => `${currentPath}#${id}`;
     // The complete optimized artwork set is about 410 KB. Eager loading also
     // lets native printing include illustrations beyond the current viewport.
@@ -84,6 +93,7 @@ function build(siteRoot = root) {
     const timelineSections = data.sections.filter(s=>(s.layout||'timeline')==='timeline').map(timeline).join('');
     const calendarSections = data.sections.filter(s=>s.layout==='grid').map(calendar).join('');
     const support = `<aside class="pews-support" aria-label="Featured parish information">${sideNotices.map(n=>`<article class="pews-notice pews-feature-panel${n.featured?' pews-feature-panel-lead':''}" id="${n.anchor}">${n.image?`<div class="pews-feature-picture">${img(n.image,'',true)}</div>`:''}<div class="pews-feature-copy"><p class="eyebrow">In our community</p><h2>${esc(n.title)}</h2><p class="pews-when">${esc(n.when)}</p>${body(n)}${warning(n)}${qr(n)}</div></article>`).join('')}${poppies?`<section class="pews-poppy-panel" id="poppy-donations">${poppies.image?img(poppies.image,'pews-poppy-image'):''}<p class="eyebrow">Remembrance</p><h2>Poppies &amp; remembering</h2>${body(poppies,poppies.paragraphs.slice(1))}<details><summary>Donate by QR code</summary>${qr(poppies)}</details><a class="pews-text-link" href="${anchor(poppies.anchor)}">Remembrance Sunday service →</a></section>`:''}<nav class="pews-quick-links" aria-label="Quick links"><h2>Quick links</h2>${data.sections.map(s=>`<a href="${anchor(s.id)}">${esc(s.title)} <span aria-hidden="true">→</span></a>`).join('')}${magazine?`<a href="${esc(magazine.pdf)}">${esc(new Intl.DateTimeFormat('en-GB',{month:'long',timeZone:'UTC'}).format(new Date(magazine.date)))} Parish Magazine <span aria-hidden="true">↗</span></a>`:''}${data.foodbank?`<a href="${anchor('foodbank')}">Food Bank this week <span aria-hidden="true">→</span></a>`:''}${download}</nav></aside>`;
+    const features = (data.features || []).map(feature => `<section class="pews-community pews-edition-feature" id="${esc(feature.id)}" aria-labelledby="${esc(feature.id)}-heading">${feature.image?img(feature.image,'pews-pumpkin'):''}<div><h2 id="${esc(feature.id)}-heading">${esc(feature.title)}</h2>${feature.paragraphs.map(p=>`<p>${text(p)}</p>`).join('')}<div class="pews-feature-links">${(feature.links || []).map(link=>`<p>${esc(link.label)}: <a href="${esc(link.url)}">${esc(link.url)}</a></p>`).join('')}</div></div></section>`).join('');
     const hero = data.heroImage || 'assets/images/about/church-hero.webp';
     if (!/^assets\/images\/[a-zA-Z0-9/_-]+\.(?:webp|jpg)$/.test(hero) || hero.includes('..')) throw Error('Invalid hero asset');
     return `<!doctype html>
@@ -94,7 +104,7 @@ function build(siteRoot = root) {
 <meta name="description" content="${esc(data.subtitle)}. Services, parish notices and dates from Pews News, ${esc(model.dateLabel(record))}.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=qr-20261025-1">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-1">
 <link rel="icon" href="favicon.ico"><script src="site.js" defer></script><script src="pews-news.js?v=editorial-20261024-2" defer></script></head>
 <body><a class="skip-link" href="${currentPath}#main-content">Skip to main content</a><header class="site-header" data-site-header></header>
 <main id="main-content" tabindex="-1" class="pews-page">
@@ -102,14 +112,14 @@ function build(siteRoot = root) {
 <nav class="pews-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><a href="news.html">News</a><span aria-hidden="true">›</span><a href="pews-news.html">Pews News</a><span aria-hidden="true">›</span><span>${esc(model.dateLabel(record).replace(/^[^,]+, /,''))}</span></nav>
 <div class="pews-layout"><nav class="pews-archive" id="edition-archive" aria-label="Pews News archive"><details class="pews-archive-toggle" open><summary>Browse editions</summary><div class="pews-archive-body"><h2>Pews News</h2><p>Read the latest edition or browse our archive.</p>${archive}<a class="pews-all-news" href="news.html">News &amp; Parish Magazine →</a></div></details></nav>
 <article class="pews-edition" aria-labelledby="edition-title">
-<header class="pews-edition-heading"><div><p class="eyebrow"><time datetime="${record.date}">${esc(model.dateLabel(record))}</time></p><h2 id="edition-title">Pews News</h2><p class="pews-subtitle">${esc(data.subtitle)}</p></div>${data.clock?`<figure class="pews-clock">${img(data.clock.image,'',true)}<figcaption>${esc(data.clock.text)}</figcaption></figure>`:''}</header>
+<header class="pews-edition-heading"><div><p class="eyebrow"><time datetime="${record.date}">${esc(model.dateLabel(record))}</time></p><h2 id="edition-title">Pews News</h2><p class="pews-subtitle">${esc(data.subtitle)}</p></div>${headingArt?`<figure class="pews-clock">${img(headingArt.image,'',true)}${headingArt.text?`<figcaption>${esc(headingArt.text)}</figcaption>`:''}</figure>`:''}</header>
 <section class="pews-sunday" id="this-sunday" aria-labelledby="sunday-heading"><h2 id="sunday-heading">This Sunday</h2><div class="pews-services">${data.services.map(s=>`<div><span class="pews-service-symbol" aria-hidden="true">◷</span><div><p class="pews-service-time">${esc(s.time)}</p><h3>${esc(s.title)}</h3><p>${esc(s.place)}</p></div></div>`).join('')}</div><div class="pews-liturgy"><section><span aria-hidden="true">▤</span><div><h3>Today’s readings</h3><p>${esc(data.readings)}</p></div></section><section class="pews-collect"><span aria-hidden="true">✝</span><div><h3>The Collect for today</h3><p>${esc(data.collect)}</p></div></section></div></section>
 <section class="pews-online" id="join-online" aria-labelledby="online-heading"><div class="pews-online-intro"><span class="pews-online-symbol" aria-hidden="true">▹</span><div><h2 id="online-heading">Join the service on Zoom</h2><p>If you are zooming, please try and join at least five minutes before the service is due to start.</p></div></div><div class="pews-online-action">${zoom(data.zoom,'Join Sunday’s service')}</div><details class="pews-telephone" open><summary>Join by telephone</summary><p>Call any of these numbers to listen to the service. There will be a recorded message and you will be asked to enter the Meeting ID and then the Passcode.</p><ul>${data.zoom.phones.map(p=>`<li>${text(p)}</li>`).join('')}</ul></details></section>
 ${timelineSections}
 ${support}
 ${calendarSections}
 ${data.pumpkins?`<section class="pews-community" id="harvest" aria-labelledby="harvest-heading">${img(data.pumpkinImage,'pews-pumpkin')}<div><p class="eyebrow">A little colour for your home</p><h2 id="harvest-heading">Take a little Harvest home</h2><p>${text(data.pumpkins)}</p></div></section>`:''}
-${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="foodbank-heading"><header><p class="eyebrow">Caring for our neighbours</p><h2 id="foodbank-heading">News from the Food Bank</h2></header><div class="pews-foodbank-body"><figure>${img(data.foodbank.image)}<figcaption>Original artwork from this week’s Pews News</figcaption></figure><div><p>${text(data.foodbank.intro)}</p><ul>${data.foodbank.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>${data.foodbank.note?`<p>${text(data.foodbank.note)}</p>`:''}<p>${text(data.foodbank.donations)}</p></div></div></section>`:''}
+${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="foodbank-heading"><header><p class="eyebrow">Caring for our neighbours</p><h2 id="foodbank-heading">News from the Food Bank</h2></header><div class="pews-foodbank-body"><figure>${img(data.foodbank.image)}<figcaption>Original artwork from this week’s Pews News</figcaption></figure><div><p>${text(data.foodbank.intro)}</p><ul>${data.foodbank.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>${data.foodbank.note?`<p>${text(data.foodbank.note)}</p>`:''}<p>${text(data.foodbank.donations)}</p></div></div></section>`:''}${features}
 <footer class="pews-edition-footer"><div><h2>Prefer a paper copy?</h2><p>Keep the original Pews News to read or print.</p></div>${download}</footer>
 </article></div></main><footer class="footer" data-site-footer></footer></body></html>\n`;
   }

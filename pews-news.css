@@ -327,3 +327,9 @@
  /* The semantic source stays inside the layout; only the clipped decorative crop shifts. */
  .pews-hero.seamless-hero>.pews-hero-photo { left:0; }
 }
+/* Optional source-backed features; older edition layouts retain their existing rules. */
+.pews-edition-feature { background:var(--cream); align-items:start; }
+.pews-edition-feature > img { flex-basis:200px; width:200px; height:220px; object-fit:contain; }
+.pews-feature-links a { display:inline-block; min-height:44px; padding-block:8px; max-width:100%; overflow-wrap:anywhere; }
+@media(max-width:599px) { .pews-edition-feature > img { flex-basis:85px; width:85px; height:auto; } }
+@media print { .pews-edition-feature > img { flex-basis:90px; width:90px; height:100px; } .pews-feature-links a { min-height:0; padding:0; } }

@@ -13,6 +13,13 @@
       "width": 1280,
       "height": 720,
       "alt": "Pews News publication illustration"
+    },
+    "2026-11-01": {
+      "src": "assets/images/pews-news/2026-11-01/autumn-leaves.webp",
+      "width": 794,
+      "height": 794,
+      "small": "assets/images/pews-news/2026-11-01/autumn-leaves-640.webp",
+      "alt": "Pews News publication illustration"
     }
   }
 }

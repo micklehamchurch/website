@@ -2,6 +2,21 @@
   "version": 1,
   "items": [
     {
+      "id": "pews-news:2026-11-01",
+      "kind": "pews-news",
+      "title": "Pews News — 1 November 2026",
+      "date": "2026-11-01",
+      "summary": "All Saints’ Day — Worship for All and Shoebox Sunday, parish notices and the Wintershall Nativity Journey.",
+      "url": "pews-news/2026-11-01.html",
+      "image": {
+        "src": "assets/images/pews-news/2026-11-01/autumn-leaves.webp",
+        "width": 794,
+        "height": 794,
+        "small": "assets/images/pews-news/2026-11-01/autumn-leaves-640.webp",
+        "alt": "Pews News publication illustration"
+      }
+    },
+    {
       "id": "pews-news:2026-10-25",
       "kind": "pews-news",
       "title": "Pews News — 25 October 2026",

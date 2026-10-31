@@ -53,6 +53,15 @@
       "description": "Last Sunday after Trinity — services, parish notices and November dates.",
       "pdf": "assets/documents/news/pews-news/pews-news-2026-10-25.pdf",
       "published": true
+    },
+    {
+      "id": "pews-news-2026-11-01",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-11-01",
+      "description": "All Saints’ Day — Worship for All and Shoebox Sunday, parish notices and the Wintershall Nativity Journey.",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-11-01.pdf",
+      "published": true
     }
   ]
 }

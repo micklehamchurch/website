@@ -168,5 +168,79 @@
       "height": 202,
       "alt": "A cup of coffee and a slice of cake"
     }
+  },
+  "2026-11-01": {
+    "autumn-leaves": {
+      "src": "assets/images/pews-news/2026-11-01/autumn-leaves.webp",
+      "width": 794,
+      "height": 794,
+      "alt": "Autumn leaves from the All Saints’ Day Pews News edition"
+    },
+    "zoom": {
+      "src": "assets/images/pews-news/2026-10-25/zoom.webp",
+      "width": 263,
+      "height": 198
+    },
+    "bible": {
+      "src": "assets/images/pews-news/2026-10-18/bible.webp",
+      "width": 248,
+      "height": 136,
+      "alt": "An open Bible"
+    },
+    "lights": {
+      "src": "assets/images/pews-news/2026-10-25/lights.webp",
+      "width": 235,
+      "height": 240
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-10-25/bible-study.webp",
+      "width": 170,
+      "height": 224
+    },
+    "alpha": {
+      "src": "assets/images/pews-news/2026-10-25/alpha.webp",
+      "width": 311,
+      "height": 200
+    },
+    "remembrance": {
+      "src": "assets/images/pews-news/2026-10-25/remembrance.webp",
+      "width": 475,
+      "height": 476
+    },
+    "poppy-qr": {
+      "src": "assets/images/pews-news/rbl-mickleham-westhumble-qr.svg",
+      "width": 41,
+      "height": 41,
+      "alt": "QR code for the Mickleham and Westhumble Royal British Legion collection",
+      "href": "https://www.mygivinghub.com/go?id=jZ7arYjOPa"
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-11-01/snowman.webp",
+      "width": 285,
+      "height": 302,
+      "alt": "The Snowman by Raymond Briggs"
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-10-25/foodbank.webp",
+      "width": 612,
+      "height": 501
+    },
+    "christingle": {
+      "src": "assets/images/pews-news/2026-11-01/christingle.webp",
+      "width": 260,
+      "height": 264,
+      "alt": "A Christingle orange with a lighted candle"
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-10-25/soup.webp",
+      "width": 484,
+      "height": 339
+    },
+    "nativity": {
+      "src": "assets/images/pews-news/2026-11-01/nativity.webp",
+      "width": 368,
+      "height": 376,
+      "alt": "Mary and Joseph with the infant Jesus"
+    }
   }
 }
