@@ -28,3 +28,6 @@ for (const directory of [root, path.join(root, 'news'), path.join(root, 'pews-ne
     fs.writeFileSync(filename, html);
   }
 }
+
+// Keep Home initial state aligned with the public projections after every normal build.
+if ((process.argv.length === 2 || process.argv.slice(2).includes('index.html')) && fs.existsSync(path.join(root, 'home-style-sources.json'))) require('./build-home-performance').build();

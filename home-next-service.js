@@ -12,6 +12,7 @@
  }
  function mount(){
   const card=document.querySelector('[data-home-next-service]');if(!card)return;let data=null,timer;
+  try{data=JSON.parse(document.getElementById('home-service-initial')?.textContent||'null');}catch{/* The existing fetch/fallback remains available. */}
   const get=s=>card.querySelector(s);
   function render(){const service=choose(data);card.href=service?.href||'calendar.html';card.classList.toggle('has-service',!!service);get('.next-service-date').hidden=!service;get('.next-service-label').textContent=service?.label||'JOIN US FOR WORSHIP';get('.next-service-title').textContent=service?`${service.title} · ${service.time}`:'See our upcoming services';get('.next-service-location').textContent='St Michael & All Angels';if(service){get('.next-service-day').textContent=service.day;get('.next-service-month').textContent=service.month;get('.next-service-date').dateTime=service.start.slice(0,10);get('.next-service-date').setAttribute('aria-label',service.fullDate);}card.setAttribute('aria-label',service?`Next Sunday service at St Michael & All Angels, Mickleham: ${service.title}, ${service.fullDate}, ${service.time}`:'Next Sunday service at St Michael & All Angels, Mickleham: See our upcoming services');clearTimeout(timer);if(!document.hidden)timer=setTimeout(render,60000-Date.now()%60000+50);}
   async function load(){try{const r=await fetch('home-next-service-data.json',{credentials:'omit',cache:'no-cache',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error();data=await r.json();}catch{data=null;}render();}

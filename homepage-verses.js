@@ -7,6 +7,7 @@
   const anchor = document.createComment('Weekly Scripture in narrow-screen flow');
   element.before(anchor);
   let schedule = null, loading = false;
+  try { schedule = model.validateHomepageVerses(JSON.parse(document.getElementById('home-verses-initial')?.textContent || 'null')); } catch { /* Public fetch remains the fallback. */ }
   function render() {
     const verse = model.selectVerse(schedule);
     element.hidden = !verse;
@@ -35,5 +36,6 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) void refresh(); });
   setInterval(render, 60000); // London midnight/week changes also work in an open tab.
   setInterval(refresh, 900000);
+  render(); // Render the public build snapshot before waiting for the network.
   void refresh();
 })();

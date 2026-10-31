@@ -1,0 +1,26 @@
+{
+  "comment": "Home-only bundle. Keep source order: these are the existing approved styles, followed by the final shared header and first-paint reserve.",
+  "sources": [
+    "home-fonts.css?v=20261031-1",
+    "home-hero-carousel.css?v=20261023-2",
+    "styles.css?v=natural-photos-card-cta-v4",
+    "news-stories.css",
+    "home-news.css?v=20261029-service-2",
+    "home-life-events.css?v=20261028-editorial-1",
+    "v1-accessibility.css",
+    "home-hero-v3.css?v=welcome-vision-20261010",
+    "clergy-archive.css",
+    "parish-gallery.css?v=20261009-discreet-dots-v1",
+    "homepage-verses.css?v=weekly-1",
+    "home-next-service.css?v=20261024-1",
+    "home-content.css?v=20261022-quick-cards-1",
+    "home-editorial.css?v=20261028-phone-flow-1",
+    "home-bottom.css?v=20261018-grid-1",
+    "home-concert.css?v=20261014-hero-bridge",
+    "home-shell.css?v=20261018-contained-1",
+    "home-grid.css?v=20261018-grid-1",
+    "peace.css?v=20261024-invitation-1",
+    "header-navigation.css?navigation=20261027-motion-1",
+    "home-performance.css?v=20261031-1"
+  ]
+}

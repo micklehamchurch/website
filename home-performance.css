@@ -1,0 +1,5 @@
+/* Home only: use the shared header's real breakpoint dimensions from first paint.
+   The shared enhancement inserts its own spacer later; that must not add a second reserve. */
+body.home-header-hero > main { margin-top:var(--header-reserve); }
+body.home-header-hero > .public-header-space { display:none; }
+@media(min-width:1536px) { body.home-header-hero > main { margin-top:0; } }
