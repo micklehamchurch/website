@@ -8,7 +8,10 @@ app.http('identity', {
 });
 app.http('authorization-status', {
   methods: ['GET'], authLevel: 'anonymous', route: 'auth/status',
-  handler: async request => process.env.ADMIN_ACCESS_MODE==='capabilities'
-    ? (await requireAccess(request,'session')) || {status:200,headers:{'Cache-Control':'no-store'},jsonBody:{ok:true,access:true}}
-    : authorizationStatus(request)
+  handler: async request => {
+    const denied=await requireAccess(request,'session');if(denied)return denied;
+    return process.env.ADMIN_ACCESS_MODE==='capabilities'
+      ? {status:200,headers:{'Cache-Control':'no-store'},jsonBody:{ok:true,access:true}}
+      : authorizationStatus(request);
+  }
 });

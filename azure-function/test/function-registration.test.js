@@ -100,6 +100,13 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   assert.equal(githubStatus.options.route, 'github/status');
   assert.equal(githubStatus.options.authLevel, 'anonymous');
   assert.equal((await githubStatus.options.handler()).status,401,'diagnostics require owner authentication');
+  const previousMode=process.env.ADMIN_ACCESS_MODE;
+  try{
+    process.env.ADMIN_ACCESS_MODE='invalid-mode';
+    assert.equal((await authorization.options.handler(verified)).status,503,'unknown enforcement mode fails closed even for the current owner');
+  }finally{
+    if(previousMode===undefined)delete process.env.ADMIN_ACCESS_MODE;else process.env.ADMIN_ACCESS_MODE=previousMode;
+  }
 
   const host = require(path.join(projectRoot, 'host.json'));
   assert.equal(host.extensions.http.routePrefix, 'api');
