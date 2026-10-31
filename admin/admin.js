@@ -8,14 +8,14 @@
   const stateKey = 'mickleham-admin-cms-demo-v1';
   const githubEdit = 'https://github.com/micklehamchurch/website/edit/Dev/';
   const images = [
-    { value: '../assets/demo/parish-exterior-demo.jpg', label: 'Parish exterior (demo image)', alt: 'Demonstration photograph of a parish church exterior' },
-    { value: '../assets/demo/sanctuary-interior-demo.jpg', label: 'Sanctuary interior (demo image)', alt: 'Demonstration photograph of a church sanctuary' },
-    { value: '../assets/demo/community-gathering-demo.png', label: 'Community gathering (demo image)', alt: 'Demonstration photograph of a community gathering' },
-    { value: '../assets/demo/churchyard-demo.jpg', label: 'Churchyard (demo image)', alt: 'Demonstration photograph of a churchyard' },
-    { value: '../assets/demo/chapel-exterior-demo.jpg', label: 'Chapel exterior (demo image)', alt: 'Demonstration photograph of a chapel exterior' }
+    { value: '../assets/demo/parish-exterior-demo.jpg', label: 'Parish exterior (illustration)', alt: 'Illustration of a parish church exterior' },
+    { value: '../assets/demo/sanctuary-interior-demo.jpg', label: 'Sanctuary interior (illustration)', alt: 'Illustration of a church sanctuary' },
+    { value: '../assets/demo/community-gathering-demo.png', label: 'Community gathering (illustration)', alt: 'Illustration of a community gathering' },
+    { value: '../assets/demo/churchyard-demo.jpg', label: 'Churchyard (illustration)', alt: 'Illustration of a churchyard' },
+    { value: '../assets/demo/chapel-exterior-demo.jpg', label: 'Chapel exterior (illustration)', alt: 'Illustration of a chapel exterior' }
   ];
   const sections = [
-    ['dashboard', '⌂', 'Overview'], ['news', '▤', 'News & Magazine'], ['calendar', '▦', 'Calendar'], ['contacts', '♧', 'Parish Contacts'],
+    ['publications','▤','Publications'], ['owner','⚙','Website Administration'], ['users','♧','Users & Permissions'], ['dashboard', '⌂', 'Dashboard'], ['news', '▤', 'News & Magazine'], ['calendar', '▦', 'Calendar'], ['contacts', '♧', 'Parish Contacts'],
     ['verses', '✝', 'Bible Verses'], ['archive', '▧', 'Historical Archive'], ['feedback', '💬', 'Feedback'], ['documents', '▧', 'Documents'], ['services', '✝', 'Worship & Services'], ['gallery', '▧', 'Photo Albums'], ['media', '▷', 'Media / YouTube'],
     ['community', '♧', 'Our Community'], ['pages', '▤', 'Pages'], ['settings', '⚙', 'Website Settings']
   ];
@@ -37,6 +37,7 @@
   const googleSync = {busy:false,review:null,message:'Not checked yet.',checkedAt:null,lastSuccessfulSync:null,status:null,statusBusy:false,statusLoaded:false,statusError:''};
   const meaningfulGoogleReport = report => !!report && (['additions','updates','removals','missing','conflicts','unsupported'].some(k=>(report[k]||[]).length) || report.warnings.length);
   function googleSyncPanel() {
+    if (!window.AdminShell?.owner() || currentView()==='calendar') return '<p class="admin-section-note">Alison maintains Google Calendar. Website events synchronise automatically.</p>';
     const report=googleSync.review?.report, status=googleSync.status, run=status?.lastAutomatic;
     const when=value=>value?safe(new Date(value).toLocaleString('en-GB')):'Not yet';
     const resultNames={'up-to-date':'Everything is up to date','updated':'Safe updates applied','needs-review':'Attention needed — review the items below','failed':'Automatic check failed','concurrent-change':'An editor changed Calendar — safely deferred'};
@@ -46,18 +47,19 @@
     return '<section class="admin-section-note" aria-labelledby="google-sync-heading"><h2 id="google-sync-heading">Google Calendar sync</h2><p>Alison continues to manage the parish Google Calendar. Safe changes update the website automatically; uncertain changes remain for review.</p>'+automatic+'<p>Last manual check: '+when(googleSync.checkedAt)+'</p><p role="status">'+safe(googleSync.message)+'</p>'+(sharedCalendar.dirty?'<p>Publish or discard your staged Calendar changes before checking Google.</p>':'')+'<div class="admin-heading-actions"><button class="admin-button secondary" data-action="google-check" '+(googleSync.busy||googleSync.statusBusy||sharedCalendar.dirty||sharedCalendar.busy?'disabled':'')+'>Check Google Calendar</button>'+(googleSync.review?.canApply?'<button class="admin-button" data-action="google-apply" '+(googleSync.busy||googleSync.statusBusy||sharedCalendar.dirty||sharedCalendar.busy?'disabled':'')+'>Apply safe updates</button>':'')+'</div>'+details+'</section>';
   }
   async function loadGoogleSyncStatus() {
+    if (!window.AdminShell?.owner()) return;
     if(googleSync.statusBusy||googleSync.busy||!window.churchGoogleSyncApi?.status)return;
     googleSync.statusBusy=true;
     const result=await window.churchGoogleSyncApi.status();googleSync.statusBusy=false;googleSync.statusLoaded=true;
     if(result.ok){googleSync.status=result;googleSync.statusError='';}else{googleSync.status=null;googleSync.statusError='Automatic status could not be checked. Reload Calendar to try again.';}
-    if(currentView()==='calendar')render({focus:false});
+    if(['calendar','owner'].includes(currentView()))render({focus:false});
   }
   window.addEventListener('admin-google-sync-ready',()=>{if(currentView()==='calendar')void loadGoogleSyncStatus();});
   // This polls status only; Google synchronization is exclusively server-scheduled.
   window.setInterval?.(()=>{if(currentView()==='calendar'&&!document.hidden)void loadGoogleSyncStatus();},60000);
   async function googleSyncAction(apply=false) {
     if(googleSync.busy||googleSync.statusBusy||sharedCalendar.busy||sharedCalendar.dirty)return;
-    if(apply && (!googleSync.review?.canApply || !window.confirm('Apply the reviewed safe Google Calendar updates to Dev? Conflicts and uncertain removals will not be applied.')))return;
+    if(apply && (!googleSync.review?.canApply || !window.confirm('Apply the reviewed safe Google Calendar updates to the preview website? Conflicts and uncertain removals will not be applied.')))return;
     googleSync.busy=true;googleSync.message=apply?'Applying reviewed safe updates…':'Checking Alison’s Google Calendar…';render({focus:false});
     const api=window.churchGoogleSyncApi;
     const result=api ? await (apply?api.apply(googleSync.review):api.check()) : {ok:false,error:'authentication-required'};
@@ -65,7 +67,7 @@
     if(!result.ok){googleSync.review=null;googleSync.message=({ 'authentication-required':'Sign in and authorise the Admin API connection, then try again.', 'administrator-required':'This account does not have administrator access.', 'review-again':'Calendar or Google data changed. Reload Calendar and check Google again before applying.', 'sync-unavailable':'The check or publication could not be confirmed. Reload Calendar before retrying.' })[result.error]||'Check could not be completed. Reload Calendar and try again.';}
     else {
       googleSync.review=apply?null:result;googleSync.checkedAt=result.checkedAt;googleSync.lastSuccessfulSync=result.lastSuccessfulSync;
-      googleSync.message=apply?(result.unchanged?'Google Calendar is already up to date.':'Safe updates saved to Dev. The public website is rebuilding.'):meaningfulGoogleReport(result.report)?'Check complete: '+result.report.additions.length+' additions, '+result.report.updates.length+' updates, '+result.report.conflicts.length+' conflicts, '+result.report.missing.length+' missing. Review before applying.':'Everything is up to date — '+result.report.unchanged.length+' events checked.';
+      googleSync.message=apply?(result.unchanged?'Google Calendar is already up to date.':'Safe updates saved to the preview website. The public website is rebuilding.'):meaningfulGoogleReport(result.report)?'Check complete: '+result.report.additions.length+' additions, '+result.report.updates.length+' updates, '+result.report.conflicts.length+' conflicts, '+result.report.missing.length+' missing. Review before applying.':'Everything is up to date — '+result.report.unchanged.length+' events checked.';
       if(apply){await loadSharedCalendar();if(result.calendarChanged && window.monitorPublishedCalendar)window.monitorPublishedCalendar(result.calendarSha,()=>{googleSync.message='Safe Google updates are saved and the public Calendar data is deployed.';render({focus:false});},()=>{googleSync.message='Safe Google updates are saved; public deployment has not yet been confirmed.';render({focus:false});});}
     }
     render({focus:false});
@@ -78,7 +80,7 @@
   }
   function calendarStaged(action) {
     sharedCalendar.dirty = true;
-    sharedCalendar.message = `${action}. Changes are staged; choose Publish changes to update the shared Dev website.`;
+    sharedCalendar.message = `${action}. Changes are staged; choose Publish changes to update the shared website.`;
     showToast(sharedCalendar.message);
   }
   window.addEventListener('beforeunload', event => {
@@ -95,7 +97,7 @@
   async function loadSharedCalendar() {
     if (sharedCalendar.busy) return;
     if (sharedCalendar.dirty && !window.confirm('Reload the shared Calendar and discard your staged changes?')) return;
-    sharedCalendar.busy = true; sharedCalendar.error = ''; sharedCalendar.message = 'Loading shared Dev Calendar…';
+    sharedCalendar.busy = true; sharedCalendar.error = ''; sharedCalendar.message = 'Loading shared website Calendar…';
     render({ focus: false });
     const api = window.churchCalendarApi;
     const result = api ? await api.load() : { ok: false, category: 'authentication-required' };
@@ -109,7 +111,7 @@
   }
   async function publishCalendar() {
     if (!calendarCanEdit() || !sharedCalendar.dirty) return;
-    if (!window.confirm('Publish these Calendar changes to the shared Dev website? Other people will see them after the website rebuilds.')) return;
+    if (!window.confirm('Publish these Calendar changes to the shared website? Other people will see them after the website rebuilds.')) return;
     sharedCalendar.busy = true; sharedCalendar.error = ''; sharedCalendar.message = 'Publishing Calendar changes…';
     const snapshot = calendarData();
     render({ focus: false });
@@ -141,13 +143,14 @@
   window.addEventListener('admin-calendar-ready', () => {
     if (currentView() === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy) void loadSharedCalendar();
   });
-  window.addEventListener('admin-publications-ready', () => { if (currentView() === 'news') render({ focus: false }); });
+  window.addEventListener('admin-publications-ready', () => { if (currentView() === 'publications') render({ focus: false }); });
   const sharedNews = { loaded: false, busy: false, sha: null, headSha: null, message: '' };
   async function loadSharedNews() {
+    if (!window.AdminShell?.can('news')) return;
     if (sharedNews.busy || !window.churchNewsApi) return;
     sharedNews.busy = true;
     const result = await window.churchNewsApi.loadNews(); sharedNews.busy = false;
-    if (result.ok) { baseArticles = result.articles.filter(item => !item.demo).map(item => ({ ...item, id: item.slug, image: item.image ? '../' + item.image : '', demo: false })); demoState.news = initialState().news; Object.assign(sharedNews, { loaded: true, sha: result.sha, headSha: result.headSha }); if (!/published successfully|Draft saved/.test(sharedNews.message)) sharedNews.message = ''; }
+    if (result.ok) { baseArticles = result.articles.filter(item => !item.demo).map(item => ({ ...item, id: item.slug, image: item.image ? '../' + item.image : '', demo: false })); demoState.news = initialState().news; Object.assign(sharedNews, { loaded: true, sha: result.sha, headSha: result.headSha }); if (!/Saved — website updating|Saved draft/.test(sharedNews.message)) sharedNews.message = ''; }
     else { sharedNews.loaded = false; sharedNews.message = window.churchNewsApi.message(result.category); }
     if (currentView() === 'news') render({ focus: false });
   }
@@ -157,12 +160,12 @@
     if (!form || sharedNews.busy || !sharedNews.loaded || !validateForm(form)) return;
     const values = readForm(form), prior = baseArticles.find(item => item.id === values.id);
     const article = { slug: values.slug || prior?.slug || slugify(values.title), title: values.title.trim(), date: values.date, excerpt: values.summary.trim(), paragraphs: values.content.split(/\n\s*\n/).map(part => part.trim()).filter(Boolean), category: values.category, status: values.status, ...(values.expires ? { expires: values.expires } : {}), ...(values.image ? { image: values.image.replace(/^\.\.\//, '') } : {}) };
-    if (!window.confirm(article.status === 'draft' ? 'Save this draft to shared Dev content? It will not appear on the public website.' : 'Publish this story to the shared Dev website?')) return;
+    if (!window.confirm(article.status === 'draft' ? (prior?.status==='published'?'Unpublish this story? It will no longer be displayed on the website and will be kept as a draft.':'Save this draft? It will not be displayed on the website. Do not include confidential information.') : 'Publish this story to the shared website?')) return;
     sharedNews.busy = true; const button = form.querySelector('[data-action="publish-news"]'); button.disabled = true;
     const error = form.querySelector('#admin-form-error'); error.hidden = false; error.textContent = 'Saving shared news…';
     const result = await window.churchNewsApi.publishNews({ sha: sharedNews.sha, headSha: sharedNews.headSha, originalSlug: prior?.slug || null, article });
     sharedNews.busy = false;
-    if (result.ok) { sharedNews.message = article.status === 'draft' ? 'Draft saved to shared Dev content. It is not public.' : 'Website News published successfully. The Dev website is rebuilding.'; document.querySelector('#admin-dialog').close(); await loadSharedNews(); showToast(sharedNews.message); }
+    if (result.ok) { sharedNews.message = article.status === 'draft' ? 'Saved draft. Not displayed on the website. Do not include confidential information.' : 'Saved — website updating.'; document.querySelector('#admin-dialog').close(); await loadSharedNews(); showToast(sharedNews.message); }
     else { sharedNews.loaded = false; error.textContent = window.churchNewsApi.message(result.category); sharedNews.message = error.textContent; }
   }
   const contactUploads = new Map();
@@ -171,7 +174,7 @@
   async function loadSharedContacts() {
     if (sharedContacts.busy) return;
     if (sharedContacts.dirty && !window.confirm('Reload the shared directory and discard your staged Contacts changes?')) return;
-    sharedContacts.busy = true; sharedContacts.error = ''; sharedContacts.message = 'Loading shared Dev Contacts…'; render({ focus: false });
+    sharedContacts.busy = true; sharedContacts.error = ''; sharedContacts.message = 'Loading shared website Contacts…'; render({ focus: false });
     const api = window.churchContactsApi;
     const result = api ? await api.load() : { ok: false, category: 'authentication-required' };
     sharedContacts.busy = false;
@@ -181,7 +184,7 @@
   }
   async function publishContacts() {
     if (!contactsCanEdit() || !sharedContacts.dirty) return;
-    if (!window.confirm('Publish these Contacts changes to the shared Dev website? Staged deletions will remove records from shared data.')) return;
+    if (!window.confirm('Publish these Contacts changes to the shared website? Staged deletions will remove records from shared data.')) return;
     const snapshot = contactData(); sharedContacts.busy = true; sharedContacts.message = 'Publishing Contacts…'; render({ focus: false });
     const api = window.churchContactsApi;
     const result = api ? await api.publish({ sha: sharedContacts.sha, headSha: sharedContacts.headSha, contacts: snapshot, uploads: [...contactUploads.values()].filter(u => [...snapshot.contacts,...snapshot.pccMembers].some(r => r.id === u.contactId)) }) : { ok: false, category: 'authentication-required' };
@@ -217,7 +220,7 @@
   };
   const slugify = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'demo-article';
   const idFor = prefix => `${prefix}-${globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
-  const optionsForImages = selected => `<option value="">No image selected</option>${images.map(image => `<option value="${escAttr(image.value)}" ${selected === image.value ? 'selected' : ''}>${safe(image.label)}</option>`).join('')}`;
+  const optionsForImages = selected => `<option value="">No image selected</option>${selected&&!images.some(image=>image.value===selected)?`<option value="${escAttr(selected)}" selected>Current image</option>`:''}${images.map(image => `<option value="${escAttr(image.value)}" ${selected === image.value ? 'selected' : ''}>${safe(image.label)}</option>`).join('')}`;
 
   function adminApiStatusPanel() {
     const label = adminApiStatusLabels[adminApiStatus] || adminApiStatusLabels.checking;
@@ -284,15 +287,16 @@
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 6500);
   }
   function savedToast(action) {
-    showToast(`${action} — Saved in development preview. To publish to the shared Dev website, commit the corresponding repository content.`);
+    showToast(`${action} — Saved in development preview. To publish to the shared website, commit the corresponding repository content.`);
   }
   function currentView() {
     const wanted = location.hash.slice(1) || 'dashboard';
     return sections.some(([id]) => id === wanted) || wanted === workflowView ? wanted : 'dashboard';
   }
   function setNavigation(view) {
-    nav.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('is-active', button.dataset.view === view));
-    nav.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-current', button.dataset.view === view ? 'page' : 'false'));
+    const active=['users','pages','documents','media','publishing','services','community','settings'].includes(view)?'owner':view;
+    nav.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('is-active', button.dataset.view === active));
+    nav.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-current', button.dataset.view === active ? (active===view?'page':'location') : 'false'));
   }
   function demoBanner() {
     return `<div class="admin-demo-banner" role="note"><span class="admin-demo-pill">DEVELOPMENT DEMO</span><p>Changes here are saved only in this browser tab for demonstration. They do not publish to the shared website.</p></div>`;
@@ -300,8 +304,8 @@
   function pageHeading(kicker, title, description, action = '') {
     return `<div class="admin-page-heading"><div><p class="admin-kicker">${safe(kicker)}</p><h1>${safe(title)}</h1><p>${safe(description)}</p></div>${action}</div>`;
   }
-  function workflowPanel(compact = false) {
-    return `<section class="admin-publishing-panel ${compact ? 'compact' : ''}"><div><p class="admin-kicker">SHARED WEBSITE · CURRENT PROCESS</p><h2>How publishing works today</h2><p>Calendar, Contacts, Website News, PDF editions and Historical Archive publish shared Dev content through the authenticated Admin API. Other sections remain development previews.</p></div><ol class="admin-publishing-steps"><li><strong>Edit Calendar.</strong> Load shared Dev data, stage changes and choose Publish changes. News & Magazine has separate story and PDF publishing controls. Other sections remain previews.</li><li><strong>Commit the approved content.</strong> An authorised editor records it in <code>_content/calendar.json</code>, <code>_content/news.json</code> or <code>_content/contacts.json</code> on <code>Dev</code>.</li><li><strong>Build and review.</strong> GitHub Actions validates the files and regenerates calendar pages, article pages, the contact directory and search.</li><li><strong>Deploy.</strong> GitHub Pages serves the generated version after the workflow completes.</li></ol><p class="admin-publishing-note">Calendar publishing requires server-side administrator authorization. News and Magazine publishing requires the same server-side administrator authorization. Historical Archive uses the same protected API for staged drafts, previews and explicit Dev publishing. Pages and Media remain previews.</p><details class="admin-technical-details"><summary>Repository editing links for authorised editors</summary><div><a href="${githubEdit}_content/calendar.json" target="_blank" rel="noopener noreferrer">Calendar source on GitHub ↗</a><a href="${githubEdit}_content/news.json" target="_blank" rel="noopener noreferrer">News source on GitHub ↗</a><a href="${githubEdit}_content/contacts.json" target="_blank" rel="noopener noreferrer">Parish contacts source on GitHub ↗</a></div></details></section>`;
+  function workflowPanel() {
+    return '<section class="admin-section-note"><h2>Publishing and recovery</h2><ol><li>Edit and review content in its module.</li><li>The protected API validates changes and saves approved content to Dev using the server GitHub application.</li><li>GitHub Actions builds the website; GitHub Pages then deploys it.</li></ol><p>A successful source save is not proof of a completed deployment. The interface stops at Saved — website updating unless served output can actually be verified.</p><p>Feedback replies, moderation and access settings use private storage and take effect without a Pages build.</p><p>Repository-backed drafts and research notes are not confidential. Recovery from published changes uses version history; do not overwrite concurrent edits.</p><h3>Owner source references</h3><ul>'+[['_content/news.json','News'],['_content/publications.json','Publications'],['_content/calendar.json','Events'],['_content/contacts.json','Contacts'],['_content/homepage-verses.json','Weekly quotation'],['_content/clergy.json','Historical People'],['parish-albums.json','Photo Albums']].map(([path,label])=>'<li><a href="'+githubEdit+path+'" target="_blank" rel="noopener">'+label+' source ↗</a></li>').join('')+'</ul><p><a href="https://github.com/micklehamchurch/website/actions" target="_blank" rel="noopener">Deployment history ↗</a></p></section>';
   }
   function demoCounts() {
     const events = listRecords('calendar');
@@ -311,7 +315,7 @@
   function overview() {
     const counts = demoCounts();
     const labels = {
-      calendar: ['▦', 'Calendar / Events', `${baseEvents.length} current church events. Edit events and publish changes to shared Dev.`],
+      calendar: ['▦', 'Calendar / Events', `${baseEvents.length} current church events. Edit events and publish changes to shared website.`],
       news: ['▤', 'News & Announcements', `${counts.newsCount} current articles. Manage shared stories and PDF editions.`],
       pages: ['▱', 'Pages', `${basePages.length} public pages with links to their current content source.`],
       feedback: ['💬','Feedback','Website discussions, replies and review access.'],
@@ -319,7 +323,7 @@
       contacts: ['♧', 'Contacts', `${contactRecords().length} parish contacts across ${baseContacts.sections.length} sections.`],
       documents: ['▧', 'Documents', `${documentGroups.reduce((total, group) => total + group.items.length, 0)} migrated pages and files to view or manage.`],
       media: ['▷', 'Media', 'See how current photos and YouTube content are managed today.'],
-      website: ['↗', 'Website', 'Open the current public Dev website.']
+      website: ['↗', 'Website', 'Open the current public preview website.']
     };
     return `${pageHeading('CHURCH WEBSITE CONTENT', 'Welcome', 'Manage the St Michael & All Angels website and preview how future updates could work.', '<span class="admin-prototype-tag">DEVELOPMENT DEMO</span>')}
       ${adminApiStatusPanel()}
@@ -378,7 +382,7 @@
       return aFuture !== bFuture ? (aFuture ? -1 : 1) : eventStart(a).localeCompare(eventStart(b));
     });
     const action = `<div class="admin-heading-actions"><a class="admin-button secondary" href="../calendar.html" target="_blank" rel="noopener noreferrer">Preview public calendar ↗</a><button class="admin-button secondary" type="button" data-action="reload-calendar" ${sharedCalendar.busy || googleSync.busy ? 'disabled' : ''}>Reload shared Calendar</button><button class="admin-button" type="button" data-action="add" data-kind="calendar" ${calendarCanEdit() ? '' : 'disabled'}>＋ Add event</button><button class="admin-button" type="button" data-action="publish-calendar" ${calendarCanEdit() && sharedCalendar.dirty ? '' : 'disabled'}>${sharedCalendar.busy ? 'Please wait…' : 'Publish changes'}</button></div>`;
-    return `${pageHeading('SHARED DEV WEBSITE', 'Calendar', 'Add, edit or remove events, then publish your staged changes to the shared Dev website.', action)}
+    return `${pageHeading('PREVIEW WEBSITE', 'Events', 'Add, edit or remove events, then publish your staged changes to the shared website.', action)}
       ${sharedCalendar.dirty ? `<div class="admin-calendar-pending" role="status" aria-live="polite"><div><strong>${sharedCalendar.busy ? 'Publishing Calendar changes…' : sharedCalendar.error ? 'Publication not confirmed' : 'Unpublished Calendar changes'}</strong><p>${sharedCalendar.error ? 'Do not assume the website has changed. Your staged changes remain here; check the message below before continuing.' : sharedCalendar.busy ? 'Please wait for confirmation. The public website updates after deployment.' : 'Removing an event here does not remove it from the website yet. Choose Publish changes to save your edits and removals.'}</p></div><button class="admin-button" type="button" data-action="publish-calendar-pending" ${calendarCanEdit() ? '' : 'disabled'}>${sharedCalendar.busy ? 'Publishing…' : 'Publish changes'}</button></div>` : ''}
       <div class="admin-section-note"><strong>Calendar changes require publication.</strong> Add, edit and delete work in this preview first. Publish changes saves them to the shared website; deployment follows. Draft events stay out of the public Calendar.</div>
       <p role="status">${safe(sharedCalendar.message || 'Sign in, then load the shared Calendar.')}</p>
@@ -412,8 +416,8 @@
   function newsView() {
     const records = (sharedNews.loaded ? listRecords('news') : []).map(articleFields).sort((a, b) => b.date.localeCompare(a.date));
     const action = '<button class="admin-button" type="button" data-action="add" data-kind="news">＋ Add news story</button>';
-    return `${pageHeading('PARISH STORIES & UPDATES', 'News & Magazine', 'Prepare website stories and PDF editions, with clear local previews.', action)}
-      <p class="admin-section-note" id="news-publishing-unavailable">${safe(sharedNews.message || (sharedNews.loaded ? 'Shared Website News loaded from Dev. Publish saves an approved story or draft to the repository.' : 'Sign in and reload shared news before publishing.'))} <button type="button" class="admin-button secondary small" data-action="reload-news">Reload shared news</button></p>${window.publicationsAdmin?.render() || ''}<h2>Website News</h2><div class="admin-section-note"><strong>Current news:</strong> shared published articles and drafts are loaded from Dev. Preview is local. Publish saves to shared Dev content; the site rebuilds afterwards.</div>
+    return `${pageHeading('PARISH STORIES & UPDATES', 'News', 'Create and manage parish news stories.', action)}
+      <p class="admin-section-note" id="news-publishing-unavailable">${safe(sharedNews.message || (sharedNews.loaded ? 'News loaded. Save a draft or publish an approved story.' : 'Sign in and reload shared news before publishing.'))} <button type="button" class="admin-button secondary small" data-action="reload-news">Reload shared news</button></p><h2>News stories</h2><div class="admin-section-note"><strong>Current news:</strong> Preview your changes, then save a draft or publish. The website updates after publishing.</div>
       <div class="admin-list-toolbar"><label for="news-filter">Find an article</label><input id="news-filter" type="search" placeholder="Search title, category or summary"><span>${records.length} items shown</span></div>
       <div class="admin-cms-list news-list" id="news-records">${records.map(item => recordCard('news', item)).join('') || '<p class="admin-empty">No news items match this view.</p>'}</div>`;
   }
@@ -432,7 +436,7 @@
     const pcc = data.pccMembers.map((item, index) => `<li class="admin-pcc-row"><strong>${safe(item.name)}</strong><span class="admin-status ${item.status === 'draft' ? 'draft' : 'feed'}">${item.status === 'draft' ? 'Draft' : 'Published'}</span><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="-1" aria-label="Move ${escAttr(item.name)} up" ${index === 0 ? 'disabled' : ''}>↑</button><button class="admin-button secondary small" type="button" data-action="move-pcc" data-id="${escAttr(item.id)}" data-direction="1" aria-label="Move ${escAttr(item.name)} down" ${index === data.pccMembers.length - 1 ? 'disabled' : ''}>↓</button><button class="admin-button secondary small" type="button" data-action="edit-pcc" data-id="${escAttr(item.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-pcc-status" data-id="${escAttr(item.id)}">${item.status === "draft" ? "Restore from draft" : "Move to draft"}</button><button class="admin-button danger small" type="button" data-action="delete-pcc" data-id="${escAttr(item.id)}">Delete</button></div></li>`).join('');
     const downloadLink = `<button class="admin-button" type="button" data-action="download-contacts">Download Contacts backup</button>`;
     return `${pageHeading('PEOPLE & PARISH CONTACTS', 'Parish Contacts', 'Review and prepare contact updates for the shared Parish Contact Directory.', '<a class="admin-button" href="../parish-contact-directory.html" target="_blank" rel="noopener noreferrer">Preview public directory ↗</a>')}
-      <div class="admin-section-note" id="contacts-shared-status" role="status">${safe(sharedContacts.message || "Loading shared Dev Contacts…")} ${sharedContacts.dirty ? "Unsaved / staged changes." : ""}<div class="admin-actions"><button class="admin-button secondary" type="button" data-action="reload-contacts" ${sharedContacts.busy ? "disabled" : ""}>Reload shared Contacts</button><button class="admin-button" type="button" data-action="publish-contacts" ${contactsCanEdit() && sharedContacts.dirty ? "" : "disabled"}>${sharedContacts.busy ? "Please wait…" : "Publish changes"}</button></div></div><fieldset style="border:0;padding:0;margin:0;min-width:0" ${contactsCanEdit() ? "" : "disabled"}>
+      <div class="admin-section-note" id="contacts-shared-status" role="status">${safe(sharedContacts.message || "Loading shared website Contacts…")} ${sharedContacts.dirty ? "Unsaved / staged changes." : ""}<div class="admin-actions"><button class="admin-button secondary" type="button" data-action="reload-contacts" ${sharedContacts.busy ? "disabled" : ""}>Reload shared Contacts</button><button class="admin-button" type="button" data-action="publish-contacts" ${contactsCanEdit() && sharedContacts.dirty ? "" : "disabled"}>${sharedContacts.busy ? "Please wait…" : "Publish changes"}</button></div></div><fieldset style="border:0;padding:0;margin:0;min-width:0" ${contactsCanEdit() ? "" : "disabled"}>
       <div class="admin-section-note"><strong>${published} published · ${drafts} draft</strong><br>Published items appear in the public directory after the repository update is built. Draft contacts and draft PCC members are left out of the public page and search index.</div>
       <div class="admin-contact-toolbar"><button class="admin-button" type="button" data-action="add-contact">＋ Add contact</button><button class="admin-button secondary" type="button" data-action="add-pcc">＋ Add PCC member</button></div>
       ${sectionViews}
@@ -448,10 +452,10 @@
     const time = kind === 'calendar' ? ` · ${safe(fields.allDay ? 'All day' : fields.startTime || 'Time not set')}` : '';
     const title = fields.title || 'Untitled';
     const description = kind === 'calendar' ? fields.location : fields.summary;
-    const origin = kind === 'calendar' ? '<span class="admin-status feed">Shared Dev / staged content</span>' : item._origin === 'repository' ? '<span class="admin-status feed">Current website content</span>' : '<span class="admin-status demo">DEMO ITEM</span>';
-    const sample = kind === 'news' && item.demo ? '<span class="admin-status demo">SAMPLE / DEMO</span>' : '';
+    const origin = kind === 'calendar' ? '<span class="admin-status feed">Shared Dev / staged content</span>' : item._origin === 'repository' ? '<span class="admin-status feed">Current website content</span>' : '<span class="admin-status demo">Website item</span>';
+    const sample = kind === 'news' && item.demo ? '<span class="admin-status demo">Illustration</span>' : '';
     const image = fields.image ? `<img class="admin-record-image" src="${escAttr(fields.image)}" alt="${safe(imageAlt(fields.image))}"><small class="admin-image-caption">Demo image · replace with church-approved photography in a future CMS</small>` : '';
-    return `<article class="admin-cms-card ${fields.image ? 'has-image' : ''}" data-record-card data-search="${escAttr(`${title} ${fields.category} ${fields.location || ''} ${fields.summary || ''} ${fields.date}`.toLowerCase())}">${image}<div class="admin-cms-card-main"><div class="admin-record-meta"><span>${safe(fields.category)}</span><span>${safe(date)}${time}</span>${origin}${sample}<span class="admin-status ${fields.status === 'draft' ? 'draft' : ''}">${fields.status === 'draft' ? 'Draft' : kind === 'calendar' ? 'Public after publishing' : 'Published in preview'}</span></div><h2>${safe(title)}</h2><p>${safe(description || (kind === 'calendar' ? 'No location supplied' : 'No summary supplied'))}</p><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="preview" data-kind="${kind}" data-id="${escAttr(fields.id)}">Preview</button><button class="admin-button secondary small" type="button" data-action="edit" data-kind="${kind}" data-id="${escAttr(fields.id)}">Edit</button><button class="admin-button secondary small" type="button" data-action="toggle-status" data-kind="${kind}" data-id="${escAttr(fields.id)}">${fields.status === 'draft' ? (kind === 'calendar' ? 'Mark for publication' : 'Restore from draft') : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete" data-kind="${kind}" data-id="${escAttr(fields.id)}">Delete</button></div></div></article>`;
+    return `<article class="admin-cms-card ${fields.image ? 'has-image' : ''}" data-record-card data-search="${escAttr(`${title} ${fields.category} ${fields.location || ''} ${fields.summary || ''} ${fields.date}`.toLowerCase())}">${image}<div class="admin-cms-card-main"><div class="admin-record-meta"><span>${safe(fields.category)}</span><span>${safe(date)}${time}</span>${origin}${sample}<span class="admin-status ${fields.status === 'draft' ? 'draft' : ''}">${fields.status === 'draft' ? 'Draft' : kind === 'calendar' ? 'Public after publishing' : 'Published'}</span></div><h2>${safe(title)}</h2><p>${safe(description || (kind === 'calendar' ? 'No location supplied' : 'No summary supplied'))}</p><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="preview" data-kind="${kind}" data-id="${escAttr(fields.id)}">Preview</button><button class="admin-button secondary small" type="button" data-action="edit" data-kind="${kind}" data-id="${escAttr(fields.id)}">Edit</button>${kind === 'news' ? '' : `<button class="admin-button secondary small" type="button" data-action="toggle-status" data-kind="${kind}" data-id="${escAttr(fields.id)}">${fields.status === 'draft' ? (kind === 'calendar' ? 'Mark for publication' : 'Restore from draft') : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete" data-kind="${kind}" data-id="${escAttr(fields.id)}">Delete</button>`}</div></div></article>`;
   }
   function imageAlt(path) { return images.find(item => item.value === path)?.alt || 'Demonstration church website image'; }
 
@@ -487,9 +491,9 @@
   }
 
   function mediaView() {
-    const samples = images.map(image => `<article class="admin-media-card"><img src="${escAttr(image.value)}" alt="${safe(image.alt)}"><div><strong>${safe(image.label)}</strong><p>Available in the development image selector. Replacing or uploading parish photographs requires a future authenticated media library.</p></div></article>`).join('');
+    const samples = images.map(image => `<article class="admin-media-card"><img src="${escAttr(image.value)}" alt="${safe(image.alt)}"><div><strong>${safe(image.label)}</strong><p>Available in the development image selector. Use Photo Albums for album uploads and Parish Contacts for portraits.</p></div></article>`).join('');
     return `${pageHeading('PHOTOGRAPHS & VIDEO', 'Media', 'Review current media and understand how it is managed for the website.', '<a class="admin-button secondary" href="../sunday-services.html" target="_blank" rel="noopener noreferrer">Open Sunday Services ↗</a>')}
-      <div class="admin-section-note"><strong>No online upload manager is connected.</strong> Images and video links are maintained in repository content. The event and article forms can select from the existing labelled demo images, but cannot upload a photograph or publish a replacement. A future CMS will need secure media storage.</div>
+      <div class="admin-section-note"><strong>Photo Albums has a dedicated upload manager. This reference catalogue is not a general media editor.</strong> Images and video links are maintained in repository content. The event and article forms can select from the existing labelled demo images, but cannot upload a photograph or publish a replacement. A future CMS will need secure media storage.</div>
       <section class="admin-media-section"><p class="admin-kicker">CURRENT PHOTO OPTIONS</p><h2>Illustrative development images</h2><p>These are the existing illustrative images used to demonstrate layouts. They are not presented as official parish photographs.</p><div class="admin-media-grid">${samples}</div><a class="admin-source-link" href="${githubEdit}assets/demo/README.txt" target="_blank" rel="noopener noreferrer">View media notes in the repository ↗</a></section>
       <section class="admin-media-section"><p class="admin-kicker">VIDEO</p><h2>Sunday Services on YouTube</h2><p>The Sunday Services page embeds the parish playlist and links to the church’s YouTube content.</p><a class="admin-button secondary" href="../sunday-services.html" target="_blank" rel="noopener noreferrer">Preview Media page ↗</a></section>`;
   }
@@ -502,16 +506,25 @@
   };
   function futureView(view) {
     const [title, desc, links] = futureAreas[view];
-    return `${pageHeading('CMS AREA PREVIEW', title, desc)}${demoBanner()}<section class="admin-coming-soon"><span class="admin-card-icon" aria-hidden="true">${safe(sections.find(([id]) => id === view)?.[1] || '◇')}</span><div><h2>Future CMS area</h2><p>This section previews where a secure online CMS could manage this content. The current publishing workflow remains the repository build on <code>Dev</code>; no changes made here are saved to the website.</p><p class="admin-image-caption">Future media library: authorised editors could upload, replace, caption and reuse church-approved images stored in secure cloud media storage.</p></div></section><h2 class="admin-subheading">Explore the current website</h2><div class="admin-link-grid">${links.map(([label, href]) => `<a class="admin-dashboard-card" href="${escAttr(href)}" ${href.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}><strong>${safe(label)}</strong><span aria-hidden="true"> ↗</span></a>`).join('')}</div>`;
+    return pageHeading('OWNER REFERENCE',title,'Reference links only. This area does not have a browser editor.')+'<div class="admin-link-grid">'+links.map(([label,href])=>'<a class="admin-dashboard-card" href="'+escAttr(href)+'"><strong>'+safe(label)+'</strong></a>').join('')+'</div>';
   }
-  function publishingView() {
-    return `${pageHeading('SHARED DEV WEBSITE', 'How publishing works today', 'Calendar, News publications and Parish Contacts publish to shared Dev through the Admin API.')}${workflowPanel()}<div class="admin-section-note"><strong>About storage:</strong> Calendar and Contacts load shared repository content; staged changes are lost on refresh. Remaining demo changes use this browser tab’s session storage, which clears when the tab session ends. They are not in the project files, not visible to other visitors and not published. There is no GitHub token or credential in the dashboard.</div><button type="button" class="admin-button secondary" data-action="reset-demo">Clear this tab’s demo changes</button>`;
-  }
+
+  function publishingView() { return pageHeading('OWNER REFERENCE','Publishing information','Technical publishing and recovery information for Website Owners.')+workflowPanel(); }
   function render({ focus = true } = {}) {
     const view = currentView();
+    if (!window.AdminShell?.session?.access) { root.innerHTML='<p role="status">Checking your website access…</p>';return; }
+    document.body.dataset.cmsView=view;
+    nav.innerHTML=window.AdminShell.navigation();
+    setNavigation(view);
+    if (!window.AdminShell.canView(view)) { root.innerHTML='<h1>Section not available</h1><p>Your account does not have access to this section.</p><button class="admin-button" data-go="dashboard">Return to Dashboard</button>';return; }
+    const moduleTarget=()=>{const target=document.createElement('section');target.className='cms-module';root.replaceChildren(target);return target;};
+    if(view==='users'){ void window.AdminUsers.mount(moduleTarget()); return; }
+    if(view==='owner'){root.innerHTML=window.AdminShell.administration()+googleSyncPanel();if(!googleSync.statusLoaded&&!googleSync.statusBusy)void loadGoogleSyncStatus();return;}
+    if(view==='dashboard'){root.innerHTML=window.AdminShell.dashboard();setNavigation(view);if(focus)document.querySelector('#admin-main').focus({preventScroll:true});return;}
+    if(view==='publications'){ root.innerHTML=pageHeading('PDF EDITIONS','Publications','Upload Pews News and Parish Magazine PDFs. Full web editions are managed separately.')+(window.publicationsAdmin?.render()||'<p>Loading publications…</p>');return;}
     document.body?.classList?.toggle('archive-admin-active', view === 'archive');
     const topbarTitle = document.querySelector('.admin-topbar-title');
-    if (topbarTitle) topbarTitle.textContent = ['archive', 'verses', 'gallery', 'feedback'].includes(view) ? 'Church website · Administration' : 'Church website · Admin demo';
+    if (topbarTitle) topbarTitle.textContent='Preview environment';
     setNavigation(view);
     if (!recordsReady) {
       root.innerHTML = `<p class="admin-loading" role="status">Loading the church calendar and sample articles…</p>`;
@@ -519,11 +532,11 @@
     }
     if (view === 'contacts' && !sharedContacts.loaded && !sharedContacts.busy && !sharedContacts.error) { void loadSharedContacts(); return; }
     if (view === 'calendar' && !sharedCalendar.loaded && !sharedCalendar.busy && !sharedCalendar.error) { void loadSharedCalendar(); return; }
-    if (view === 'verses') { window.churchHomepageVersesAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
-    if (view === 'gallery') { window.churchPhotoAlbumsAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
-    if (view === 'feedback') {if(window.churchFeedbackAdmin)void window.churchFeedbackAdmin.mount(root);else root.innerHTML='<p>Sign in to manage website feedback.</p>';return;}
-    if (view === 'archive') { window.churchClergyAdmin.mount(root); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
-    const markup = view === 'dashboard' ? overview()
+    if (view === 'verses') { window.churchHomepageVersesAdmin.mount(moduleTarget()); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
+    if (view === 'gallery') { window.churchPhotoAlbumsAdmin.mount(moduleTarget()); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
+    if (view === 'feedback') {if(window.churchFeedbackAdmin)void window.churchFeedbackAdmin.mount(moduleTarget());else root.innerHTML='<p>Sign in to manage website feedback.</p>';return;}
+    if (view === 'archive') { window.churchClergyAdmin.mount(moduleTarget()); if (focus) document.querySelector('#admin-main').focus({preventScroll:true}); return; }
+    const markup = view === 'dashboard' ? window.AdminShell.dashboard()
       : view === 'calendar' ? calendarView()
         : view === 'news' ? newsView()
       : view === 'contacts' ? contactsView()
@@ -597,7 +610,7 @@
     if (id && !item) return showToast('That contact is no longer available in this preview.', true);
     const sectionChoices = data.sections.filter(section => section.id !== 'pcc-members').map(section => [section.id, section.title]);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Stage changes, then choose Publish changes to update shared Dev.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-contact-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · PREVIEW WEBSITE</p><h2 id="admin-dialog-title">${item ? 'Edit contact' : 'Add contact'}</h2><p>Stage changes, then choose Publish changes to update shared website.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><input type="hidden" name="groupId" value="${escAttr(item?.groupId || '')}"><div class="admin-form-grid">${field('Role', 'role', item?.role || '', { required: true, full: true, placeholder: 'For example, Parish Administrator' })}${field('Name', 'name', item?.name || '', { required: true })}${field('Section', 'section', item?.section || sectionId || sectionChoices[0]?.[0] || '', { required: true, choices: sectionChoices })}${field('Telephone', 'phone', item?.phone || '', { type: 'tel', hint: 'Optional. Use normal UK telephone formatting.' })}${field('Email', 'email', item?.email || '', { type: 'email', hint: 'Optional.' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-contact-form');
     form.addEventListener('submit', event => { event.preventDefault(); saveContactForm(form); });
@@ -610,7 +623,7 @@
     const item = id ? data.pccMembers.find(member => member.id === id) : null;
     if (id && !item) return showToast('That PCC member is no longer available in this preview.', true);
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · SHARED DEV</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>Stage changes, then choose Publish changes.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
+    dialog.innerHTML = `<form id="admin-pcc-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PCC MEMBERS · PREVIEW WEBSITE</p><h2 id="admin-dialog-title">${item ? 'Edit PCC member' : 'Add PCC member'}</h2><p>Stage changes, then choose Publish changes.</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="id" value="${escAttr(item?.id || '')}"><div class="admin-form-grid">${field('Name', 'name', item?.name || '', { required: true, full: true, placeholder: 'Enter the member’s name' })}${field('Status', 'status', item?.status || 'published', { required: true, choices: [['published', 'Published'], ['draft', 'Draft']] })}${profileControls(item)}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">Stage changes</button></div></div></form>`;
     dialog.showModal();
     const form = dialog.querySelector('#admin-pcc-form');
     form.addEventListener('submit', event => { event.preventDefault(); savePccForm(form); });
@@ -621,7 +634,7 @@
     if (!contactsCanEdit()) return;
     demoState.contacts.working = data;
     sharedContacts.dirty = true;
-    sharedContacts.message = `${message}. Changes are staged; choose Publish changes to update shared Dev.`;
+    sharedContacts.message = `${message}. Changes are staged; choose Publish changes to update shared website.`;
     document.querySelector('#admin-dialog').close();
     render({ focus: false });
     showToast(sharedContacts.message);
@@ -686,7 +699,7 @@
     const item = type === 'pcc' ? data.pccMembers.find(member => member.id === id) : data.contacts.find(contact => contact.id === id);
     if (!item) return;
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · SHARED DEV</p><h2 id="admin-dialog-title">Delete ${type === 'pcc' ? 'PCC member' : 'contact'}?</h2><p>${safe(type === 'pcc' ? item.name : `${item.role} · ${item.name}`)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel deletion">×</button></div><div class="admin-section-note">This stages permanent deletion. Publishing will remove the record from shared Contacts data. Use Move to draft instead to hide it temporarily.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="button" class="admin-button danger" data-action="confirm-contact-delete" data-kind="${type}" data-id="${escAttr(id)}">Stage permanent deletion</button></div></div>`;
+    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">PARISH CONTACTS · PREVIEW WEBSITE</p><h2 id="admin-dialog-title">Delete ${type === 'pcc' ? 'PCC member' : 'contact'}?</h2><p>${safe(type === 'pcc' ? item.name : `${item.role} · ${item.name}`)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel deletion">×</button></div><div class="admin-section-note">This stages permanent deletion. Publishing will remove the record from shared Contacts data. Use Move to draft instead to hide it temporarily.</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="button" class="admin-button danger" data-action="confirm-contact-delete" data-kind="${type}" data-id="${escAttr(id)}">Stage permanent deletion</button></div></div>`;
     dialog.showModal();
   }
   function deleteContactFromPreview(id, type) {
@@ -752,17 +765,18 @@
         ${field('Archive after (optional)', 'expires', current.expires, { type: 'date', hint: 'The story leaves the current listing after this date; its article remains accessible.' })}
         ${commonImage}
       </div>`;
-    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'SHARED DEV · CALENDAR' : 'SHARED DEV · WEBSITE NEWS'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared Dev website.' : 'Preview stays local. Publish saves the story or draft to shared Dev content.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="seriesScope" value="${scope}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button><button type="submit" class="admin-button">${event ? 'Stage event changes' : 'Save local preview'}</button>${event ? '' : '<button type="button" class="admin-button" data-action="publish-news" '+ (sharedNews.loaded ? '' : 'disabled') +'>Publish / Save draft</button>'}</div></div></form>`;
+    dialog.innerHTML = `<form id="admin-editor-form" novalidate><div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${event ? 'EVENTS' : 'NEWS'}</p><h2 id="admin-dialog-title">${title}</h2><p>${event ? 'Changes are staged. Publish changes from Calendar to update the shared website.' : 'Preview stays local. Publish saves the story or draft to shared website content.'}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Close editor">×</button></div><input type="hidden" name="kind" value="${kind}"><input type="hidden" name="seriesScope" value="${scope}"><input type="hidden" name="id" value="${escAttr(id)}"><div class="admin-form-grid">${form}</div><p class="admin-form-error" id="admin-form-error" role="alert" hidden></p><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="preview-form">Preview</button><button type="button" class="admin-button secondary" data-action="close-dialog">Cancel</button>${event ? '<button type="submit" class="admin-button">Save changes for publication</button>' : ''}${event ? '' : '<button type="button" class="admin-button" data-action="publish-news" '+ (sharedNews.loaded ? '' : 'disabled') +'>Save draft or publish</button>'}</div></div></form>`;
     dialog.showModal();
     const editorForm = dialog.querySelector('#admin-editor-form');
     editorForm.addEventListener('submit', event => {
       event.preventDefault();
-      saveForm(editorForm);
+      if(kind==='news')void publishNewsForm();else saveForm(editorForm);
     });
+    if(kind==='news'){const control=editorForm.querySelector('[name=status]'),publish=editorForm.querySelector('[data-action=publish-news]');const label=()=>publish.textContent=control.value==='draft'?(item?.status==='published'?'Unpublish story':'Save draft'):'Publish story';control.addEventListener('change',label);label();}
     if (event) window.churchRecurrence?.wire(editorForm);
     updateImagePreview(dialog.querySelector('[name="image"]')?.value || '');
     dialog.querySelector('[name="image"]')?.addEventListener('change', event => updateImagePreview(event.target.value));
-    dialog.querySelector('input:not([type="hidden"]),textarea,select')?.focus();
+    dialog.querySelector(kind==='news'?'[name=title]':'input:not([type="hidden"]),textarea,select')?.focus();
   }
   function calendarSeriesPanel() {
     const series = demoState.calendar.series || [], cancelled = (demoState.calendar.exceptions || []).filter(e=>e.cancelled);
@@ -890,8 +904,8 @@
     const image = item.image ? `<img class="admin-preview-image" src="${escAttr(item.image)}" alt="${safe(imageAlt(item.image))}"><p class="admin-image-caption">DEMO IMAGE · temporary selection</p>` : '';
     const body = isEvent
       ? `<p><strong>${safe(dateLabel(item.date))} · ${safe(item.allDay ? 'All day' : item.startTime || 'Time not set')}${item.endTime ? `–${safe(item.endTime)}` : ''}</strong></p><p>${safe(item.location)}</p><p>${safe(item.description)}</p>${item.externalLink ? `<p><a href="${escAttr(item.externalLink)}" target="_blank" rel="noopener noreferrer">Open event link ↗</a></p>` : ''}`
-      : `${item.demo ? '<p class="admin-demo-caption">SAMPLE / DEMO ARTICLE · FICTIONAL CONTENT</p>' : ''}<p>${safe(item.summary)}</p>${item.content.split(/\n\s*\n/).filter(Boolean).map(paragraph => `<p>${safe(paragraph)}</p>`).join('')}`;
-    return `<div class="admin-dialog-head"><div><p class="admin-kicker">PREVIEW ONLY · ${isEvent ? 'CALENDAR EVENT' : 'NEWS ARTICLE'}</p><h2 id="admin-dialog-title">${safe(item.title)}</h2><p>${safe(item.category)} · ${safe(dateLabel(item.date))} · ${item.status === 'draft' ? 'Draft preview' : 'Preview status'}</p></div></div><article class="admin-preview-card">${image}${!isEvent && item.demo ? '<p class="admin-demo-caption">SAMPLE / DEMO — this local preview is not a published church announcement.</p>' : ''}<h3>${safe(item.title)}</h3>${body}</article>`;
+      : `${item.demo ? '<p class="admin-demo-caption">Illustration ARTICLE · FICTIONAL CONTENT</p>' : ''}<p>${safe(item.summary)}</p>${item.content.split(/\n\s*\n/).filter(Boolean).map(paragraph => `<p>${safe(paragraph)}</p>`).join('')}`;
+    return `<div class="admin-dialog-head"><div><p class="admin-kicker">PREVIEW ONLY · ${isEvent ? 'CALENDAR EVENT' : 'NEWS ARTICLE'}</p><h2 id="admin-dialog-title">${safe(item.title)}</h2><p>${safe(item.category)} · ${safe(dateLabel(item.date))} · ${item.status === 'draft' ? 'Draft preview' : 'Preview status'}</p></div></div><article class="admin-preview-card">${image}${!isEvent && item.demo ? '<p class="admin-demo-caption">Illustration — this local preview is not a published church announcement.</p>' : ''}<h3>${safe(item.title)}</h3>${body}</article>`;
   }
   function previewRecord(kind, value) {
     const isEvent = kind === 'calendar';
@@ -936,7 +950,7 @@
     if (!item) return;
     if (kind === 'calendar' && item.seriesId) return chooseSeriesScope(item, 'delete');
     const dialog = document.querySelector('#admin-dialog');
-    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${kind === 'calendar' ? 'CALENDAR · SHARED DEV' : 'DEVELOPMENT DEMO · PREVIEW ONLY'}</p><h2 id="admin-dialog-title">Remove this ${kind === 'calendar' ? 'event' : 'article'}?</h2><p>${safe(item.title)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel removal">×</button></div><div class="admin-section-note">${kind === 'calendar' ? 'This stages an event removal. Choose Publish changes from Calendar to remove it from the shared Dev website.' : 'This removes the item from this browser tab’s preview only. It will not change the repository or the shared public website.'}</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Keep item</button><button type="button" class="admin-button danger" data-action="confirm-delete" data-kind="${kind}" data-id="${escAttr(id)}">${kind === 'calendar' ? 'Stage removal' : 'Remove from preview'}</button></div></div>`;
+    dialog.innerHTML = `<div class="admin-dialog-inner"><div class="admin-dialog-head"><div><p class="admin-kicker">${kind === 'calendar' ? 'CALENDAR · PREVIEW WEBSITE' : 'DEVELOPMENT DEMO · PREVIEW ONLY'}</p><h2 id="admin-dialog-title">Remove this ${kind === 'calendar' ? 'event' : 'article'}?</h2><p>${safe(item.title)}</p></div><button type="button" class="admin-icon-button" data-action="close-dialog" aria-label="Cancel removal">×</button></div><div class="admin-section-note">${kind === 'calendar' ? 'This stages an event removal. Choose Publish changes from Calendar to remove it from the shared website.' : 'This removes the item from this browser tab’s preview only. It will not change the repository or the shared public website.'}</div><div class="admin-form-actions"><button type="button" class="admin-button secondary" data-action="close-dialog">Keep item</button><button type="button" class="admin-button danger" data-action="confirm-delete" data-kind="${kind}" data-id="${escAttr(id)}">${kind === 'calendar' ? 'Stage removal' : 'Remove from preview'}</button></div></div>`;
     dialog.showModal();
   }
   function removeRecordFromPreview(kind, id) {
@@ -976,7 +990,10 @@
     if (count) count.textContent = `${shown} item${shown === 1 ? '' : 's'} shown`;
   }
 
-  nav.innerHTML = `${sections.map(([id, icon, label]) => `<button type="button" data-view="${id}" class="${id === 'dashboard' ? 'is-active' : ''}"><span aria-hidden="true">${icon}</span>${safe(label)}</button>`).join('')}<button type="button" data-view="${workflowView}"><span aria-hidden="true">◇</span>How publishing works</button>`;
+  /* Legacy navigation construction retained below for source reference only. */
+  const legacyNavigation = `${sections.map(([id, icon, label]) => `<button type="button" data-view="${id}" class="${id === 'dashboard' ? 'is-active' : ''}"><span aria-hidden="true">${icon}</span>${safe(label)}</button>`).join('')}<button type="button" data-view="${workflowView}"><span aria-hidden="true">◇</span>How publishing works</button>`;
+  nav.innerHTML=window.AdminShell?.navigation()||'';
+  window.addEventListener('admin-access-change',()=>render({focus:false}));
   nav.addEventListener('click', event => {
     const button = event.target.closest('[data-view]');
     if (!button) return;
@@ -987,17 +1004,13 @@
   });
   window.addEventListener('hashchange', () => render());
   window.addEventListener('admin-feedback-ready',()=>{if(currentView()==='feedback')render();});
-  menuButton.addEventListener('click', () => {
-    const opened = sidebar.classList.toggle('is-open');
-    menuButton.setAttribute('aria-expanded', String(opened));
-    menuButton.setAttribute('aria-label', opened ? 'Close administration menu' : 'Open administration menu');
-  });
   root.addEventListener('click', event => {
     const go = event.target.closest('[data-go]');
     if (go) { location.hash = go.dataset.go; return; }
     const button = event.target.closest('[data-action]');
     if (!button) return;
     const { action, kind, id } = button.dataset;
+    if (kind === 'news' && ['toggle-status','delete','reset-demo'].includes(action)) return;
     if (action === 'reload-contacts') { void loadSharedContacts(); return; }
     if (action === 'publish-contacts') { void publishContacts(); return; }
     if (action === 'toggle-pcc-status') { changeContactStatus(id, 'pcc'); return; }
@@ -1069,7 +1082,7 @@
   Promise.all([
     fetch('../events.json').then(response => { if (!response.ok) throw new Error('The generated calendar is unavailable.'); return response.json(); }),
     fetch('../news-data.json').then(response => { if (!response.ok) throw new Error('The published news list is unavailable.'); return response.json(); }),
-    fetch('./news-demo-data.json').then(response => { if (!response.ok) throw new Error('The sample news previews are unavailable.'); return response.json(); }),
+    Promise.resolve({articles:[]}),
     fetch('./contacts-data.json').then(response => { if (!response.ok) throw new Error('The generated contact source is unavailable.'); return response.json(); }),
     fetch('../search-index.json').then(response => { if (!response.ok) throw new Error('The public page list is unavailable.'); return response.json(); }),
     fetch('../content-pages.json').then(response => { if (!response.ok) throw new Error('The managed page list is unavailable.'); return response.json(); }),
@@ -1089,7 +1102,8 @@
     render({ focus: false });
   }).catch(error => {
     console.error(error);
+    recordsReady = true;
     root.setAttribute('aria-busy', 'false');
-    root.innerHTML = `<h1>Preview content unavailable</h1><p>${safe(error.message)} Refresh after the repository build has completed. No content has been changed.</p>`;
+    render({focus:false});
   });
 })();

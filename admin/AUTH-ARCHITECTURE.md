@@ -1,9 +1,33 @@
-# Admin Dashboard authentication boundary
+# Admin Dashboard authentication and section access
 
-The Admin Dashboard uses MSAL Browser with the Microsoft identity platform authorization-code flow and PKCE. Its browser-side Graph `User.Read` check controls the demonstration UI only. The static GitHub Pages site cannot enforce authorization, protect repository content, or safely publish changes.
+Microsoft sign-in uses the existing MSAL Browser authorization-code flow with PKCE.
+Graph User.Read obtains display information only; it never grants content access.
+The separate Admin API token is sent as a bearer token with credentials omitted.
+MSAL 4.30.0 remains pinned; this phase does not migrate the app registration or SDK.
+Application IDs, authority and API scope/host are centralized in auth-config.mjs.
 
-When a secure publishing API is added, it must independently validate the Microsoft access token (including issuer, audience, signature and lifetime) and authorize the signed-in identity on the server before any repository operation. Keep GitHub credentials and all other secrets in that server-side service. Never trust the frontend allow-list or a browser-provided identity claim as authorization to write to the repository.
+Azure Easy Auth authenticates requests before the trusted principal header is
+parsed. The application preserves strict immutable Microsoft identity bindings.
+Email and display names are labels, not authorization keys. Active permissions
+come from the private Azure permission store, never GitHub or browser assertions.
 
-MSAL Browser 4.30.0 is pinned as the supported LTS release for the app registration's existing same-page `/website/admin/` redirect. MSAL Browser 5 introduces a dedicated redirect-bridge requirement; adopting v5 would require registering and deploying the bridge URI with Microsoft Entra first.
+The interface consumes access/session. An owner receives all registered content
+sections and Website Administration; an editor receives only granted sections.
+Each protected API operation independently enforces its section or owner role.
+Frontend visibility does not establish security. Revocation applies to the next
+protected request even while the Microsoft token remains valid.
 
-The dashboard keeps Microsoft Graph `User.Read` and the Church Admin API delegated scope as separate MSAL token requests. After Graph has verified the authorised profile, the Overview may silently request the API scope and call only the Easy Auth-protected `GET /api/health` endpoint. If MSAL requires interaction or consent, the dashboard waits for the editor to choose its Authorise connection button before opening the API-scope popup. This health check does not enable content publishing, GitHub calls, or repository writes.
+Pending account presentation records a candidate identity with ZERO content
+access. An owner must review and approve it; no invitation links or automatic
+email-based activation exist. The access roster and identity diagnostics are
+owner-only. The legacy immutable allowlist remains only for the controlled initial
+bootstrap and explicitly configured legacy staging mode, not as an outage fallback.
+
+When ADMIN_ACCESS_MODE is capabilities, missing/corrupt/unavailable private state
+fails closed. The guarded deployment transition checks actual private owner
+read-back and the served Admin assets before changing that setting. Routine
+future deployments never silently reactivate a deliberately rolled-back setting.
+
+See [rollout and recovery](PHASE3-ACCESS-ROLLOUT.md). Credentials, private permission
+records and bootstrap input must never be committed, logged or placed in static
+website output. Easy Auth exclusions and public reviewer/Bible routes are unchanged.

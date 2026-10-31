@@ -3,21 +3,21 @@ import { acquireAdminApiToken } from './auth-tokens.mjs';
 
 export const CONTACTS_URL = new URL('contacts', ADMIN_API_HEALTH_URL).href;
 export const contactsMessages = Object.freeze({
-  'authentication-required': 'Sign in and authorise the Admin API connection, then reload Contacts.',
-  'administrator-required': 'This Microsoft account does not have server-side administrator access.',
+  'authentication-required': 'Connect to the website, then reload Contacts.',
+  'administrator-required': 'This Microsoft account does not have access to this section.',
   'invalid-contacts': 'Contacts validation failed. Check names, roles, contact details and categories before publishing.',
   'contacts-too-large': 'The directory is too large to publish. Reduce the content and try again.',
   'contacts-version-conflict': 'The shared Contacts changed. Reload it before editing and publishing again; your staged changes have not been published.',
-  'contacts-repository-unavailable': 'The shared Contacts could not be loaded from GitHub. Try reloading.',
-  'contacts-publish-unavailable': 'GitHub could not publish the Contacts. Reload to check the shared version before trying again.',
-  'contacts-publish-permission-denied': 'GitHub denied permission to publish the Contacts. No change was confirmed; contact the website administrator.',
+  'contacts-repository-unavailable': 'The shared Contacts could not be loaded. Try reloading.',
+  'contacts-publish-unavailable': 'The website could not save the Contacts. Reload to check the shared version before trying again.',
+  'contacts-publish-permission-denied': 'The website connection denied permission to publish the Contacts. No change was confirmed; contact the website administrator.',
   'contacts-publish-result-unavailable': 'The publish result could not be confirmed. Reload Contacts to check the shared version.',
   'network-failure': 'The request could not be completed. Reload Contacts to check the shared version before trying again.',
   'album-unsupported-format': 'Choose a JPEG, PNG or static WebP photograph. For HEIC/HEIF, export as JPEG first.',
   'album-invalid-image': 'This photograph cannot be decoded safely. Export a fresh JPEG and try again.',
   'album-too-large': 'Each photograph must be at most 10 MB; upload at most six and 20 MB in total per publication.',
   busy: 'A Contacts request is already in progress.',
-  success: 'Contacts published to Dev. The website is rebuilding.',
+  success: 'Contacts saved — website updating.',
   unchanged: 'The shared Contacts is already up to date.'
 });
 export function contactsMessage(category) { return contactsMessages[category] || 'The Contacts request failed. Reload and try again.'; }

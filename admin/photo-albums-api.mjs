@@ -2,7 +2,7 @@ import { ADMIN_API_HEALTH_URL } from './auth-config.mjs';
 import { acquireAdminApiToken } from './auth-tokens.mjs';
 export const PHOTO_ALBUMS_URL = new URL('photo-albums',ADMIN_API_HEALTH_URL).href;
 const messages = Object.freeze({
-  'authentication-required':'Sign in and authorise the Admin API connection, then reload Photo Albums.',
+  'authentication-required':'Connect to the website, then reload Photo Albums.',
   'administrator-required':'This Microsoft account does not have administrator access.',
   'album-version-conflict':'Someone changed the shared Dev version. Your changes have not been saved. Reload albums before editing again.',
   'album-unsupported-format':'Use a JPEG, PNG or WebP photograph. For HEIC/HEIF, export or save a JPEG first.',

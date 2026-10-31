@@ -1,16 +1,46 @@
 # Phase 3: staged permission rollout (Dev only)
 
-## This release is a prerequisite, not the completed Admin redesign
+## Redesigned CMS and guarded enforcement transition
 
-The existing Microsoft frontend admission remains in place. In the absence of
+The owner confirmed successful private storage write/read-back and signed-in
+owner verification after foundation release `965cd9d`. The redesigned interface
+now consumes `access/session`, displays capability-filtered cards/navigation,
+and supplies owner-only Users & Permissions. News and PDF Publications are
+separate sections. Technical diagnostics and references are owner-only.
+
+The explicit Dev commit tag `[activate-admin-access]` requests the deployment
+transition. After normal API tests/deployment, the workflow verifies the existing
+owner against the ACTUAL private store and checks the served Admin HTML, bundle,
+router and CMS stylesheet against the exact release. Only then does it set
+`ADMIN_ACCESS_MODE=capabilities`. Failed prerequisites do not activate it. This
+tag is not used on routine future deployments. No permission records are written
+by activation; no missing store is recreated. Owner/browser verification should
+be repeated after activation. Never infer successful activation from a push.
+
+Ordinary editors do not call owner health/GitHub diagnostics. Access is refreshed
+on tab return, periodically, and after permission-denial responses. Pending users
+can request owner review and check approval but cannot enter the content UI.
+All Microsoft claim labels remain hints; owner review is still mandatory.
+
+Repository-backed drafts are not confidential. Draft and publish terminology
+reflects persistence: local staging is not a saved draft, and successful content
+commits stop at “Saved — website updating” unless deployment is actually verified.
+No shared News deletion is invented. Existing non-catalogue images are retained
+when editing stories. Public site content/build projections are preserved by
+the scoped Admin release build.
+
+## Foundation staging history
+
+Before this redesigned interface was deployed, the existing Microsoft frontend
+admission remained in place. In the absence of
 `ADMIN_ACCESS_MODE`, content handlers retain the existing immutable owner policy.
 Only an operator may select `ADMIN_ACCESS_MODE=capabilities`, AFTER the private
 owner has been bootstrapped, read back, and verified from the signed-in browser.
-Do not enable that setting with the old frontend admission still installed: the
-new editor-facing shell must be integrated in the next release first.
+Do not enable that setting with the old frontend admission still installed.
 
-No application setting, Easy Auth exclusion, Azure role or storage resource is
-changed by pushing this release. The operator bootstrap is separate and explicit.
+Ordinary deployments do not change enforcement. The explicitly tagged activation
+changes only the mode setting after its checks. Easy Auth exclusions and Azure
+roles are never changed. Operator bootstrap remains separate and explicit.
 
 ## Approved onboarding
 
@@ -86,8 +116,8 @@ When capabilities mode is eventually enabled, every content handler checks its
 own section before protected backend work, and diagnostics/manual Google sync
 require owner. Automatic timer jobs retain their trusted server workflow.
 Revocation denies the next API request even with a still-valid Microsoft token;
-it cannot undo already committed operations. Users & Permissions UI, the new
-editor shell and permission refresh are subsequent work, not activated here.
+it cannot undo already committed operations. Users & Permissions, the editor
+shell and permission refresh are implemented in the redesigned release above.
 
 ## Recovery and rollback
 

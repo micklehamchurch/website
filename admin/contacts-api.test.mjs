@@ -29,7 +29,7 @@ test('authentication, permission, validation, conflict and network errors use fi
   assert.equal((await api.load()).category, 'authentication-required');
   const network = createContactsApi({ getToken: async () => 'synthetic', fetchImpl: async () => { throw new Error('secret'); } });
   assert.equal((await network.publish({ sha, contacts })).category, 'network-failure');
-  assert.match(contactsMessage('success'), /website is rebuilding/); assert.match(contactsMessage('contacts-version-conflict'), /Reload/);
+  assert.match(contactsMessage('success'), /website updating/); assert.match(contactsMessage('contacts-version-conflict'), /Reload/);
 });
 test('MSAL bridge acquires the Admin API scope and exposes operations without exposing tokens', async () => {
   const previous = globalThis.window; globalThis.window = {dispatchEvent(){}};

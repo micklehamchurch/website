@@ -1,8 +1,8 @@
 import { ADMIN_API_HEALTH_URL } from './auth-config.mjs';
 import { acquireAdminApiToken } from './auth-tokens.mjs';
 const messages = Object.freeze({
-  'authentication-required': 'Sign in and authorise the Admin API connection, then reload News & Magazine.',
-  'administrator-required': 'This account does not have server-side administrator access.',
+  'authentication-required': 'Connect to the website, then reload News & Magazine.',
+  'administrator-required': 'This account does not have access to this section.',
   'news-version-conflict': 'The shared version changed. Reload News & Magazine before publishing again. Your changes were not published.',
   'publication-already-exists': 'An edition for this date or month already exists. It has not been overwritten.',
   'invalid-news-request': 'Check the title, date, content and PDF details. Only valid PDFs and plain text are accepted.',

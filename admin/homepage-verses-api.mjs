@@ -3,18 +3,18 @@ import { acquireAdminApiToken } from './auth-tokens.mjs';
 
 export const HOMEPAGE_VERSES_URL = new URL('homepage-verses', ADMIN_API_HEALTH_URL).href;
 export const homepageVersesMessages = Object.freeze({
-  'authentication-required': 'Sign in and authorise the Admin API connection, then reload Bible Verses.',
-  'administrator-required': 'This Microsoft account does not have server-side administrator access.',
+  'authentication-required': 'Connect to the website, then reload Bible Verses.',
+  'administrator-required': 'This Microsoft account does not have access to this section.',
   'invalid-homepage-verses': 'Bible verse validation failed. Check the quotation, reference, translation and weekly schedule before publishing.',
   'homepage-verses-too-large': 'The schedule is too large to publish. Reduce the content and try again.',
   'homepage-verses-version-conflict': 'The shared Bible verses changed. Reload it before editing and publishing again; your staged changes have not been published.',
-  'homepage-verses-repository-unavailable': 'The shared Bible verses could not be loaded from GitHub. Try reloading.',
-  'homepage-verses-publish-unavailable': 'GitHub could not publish the Bible verses. Reload to check the shared version before trying again.',
-  'homepage-verses-publish-permission-denied': 'GitHub denied permission to publish the Bible verses. No change was confirmed; contact the website administrator.',
+  'homepage-verses-repository-unavailable': 'The shared Bible verses could not be loaded. Try reloading.',
+  'homepage-verses-publish-unavailable': 'The website could not save the Bible verses. Reload to check the shared version before trying again.',
+  'homepage-verses-publish-permission-denied': 'The website connection denied permission to publish the Bible verses. No change was confirmed; contact the website administrator.',
   'homepage-verses-publish-result-unavailable': 'The publish result could not be confirmed. Reload Bible Verses to check the shared version.',
   'network-failure': 'The request could not be completed. Reload Bible Verses to check the shared version before trying again.',
   busy: 'A Bible verse request is already in progress.',
-  success: 'Bible verses published to Dev. The website is rebuilding.',
+  success: 'Bible verses saved — website updating.',
   unchanged: 'The shared Bible verse schedule is already up to date.'
 });
 export function homepageVersesMessage(category) { return homepageVersesMessages[category] || 'The Bible verse request failed. Reload and try again.'; }

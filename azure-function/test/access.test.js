@@ -83,6 +83,7 @@ test('HTTP users management is owner-only before body parsing and version checke
   assert.equal((await api.users(request(owner))).jsonBody.users.length,2);
   assert.equal((await api.verify(request(owner))).jsonBody.ownerVerified,true);
   assert.equal((await api.verify(request(editor))).status,403);
+  assert.equal((await createAccessHandlers({store,env:{ADMIN_ACCESS_MODE:'unknown'}}).session(request(owner))).status,503);
 });
 test('HTTP pending session leaks no identities or section grants and cannot activate itself',async()=>{
   let state=model.bootstrap(owner,'owner@example.org');state=model.manage(state,owner,{action:'add',account:'editor@example.org',role:'editor',capabilities:['news']});

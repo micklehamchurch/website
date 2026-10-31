@@ -246,3 +246,7 @@ jobs:
               assert data.get('video',{}).get('id') and data.get('checkedAt')
               print('::warning::Fresh playlist selection could not be confirmed during deployment; the last verified service cache is retained. Check the upstream YouTube feed and timer logs. This is not a fresh automatic-selection receipt.')
           PY
+
+      - name: Activate section permissions only after private owner and live Admin verification
+        if: github.event_name == 'push' && contains(github.event.head_commit.message, '[activate-admin-access]')
+        run: node azure-function/scripts/activate-access.cjs

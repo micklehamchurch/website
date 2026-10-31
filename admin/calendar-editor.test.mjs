@@ -13,12 +13,12 @@ async function harness({ load = initial, publish = async () => ({ ok: true, sha:
       addEventListener(name, callback) { this.listeners[name] = callback; } });
     return elements.get(selector);
   };
-  const window = { monitorPublishedCalendar: (sha, onLive, onTimeout) => monitors.push({ sha, onLive, onTimeout }), confirm: () => true, addEventListener: (name, fn) => { listeners[name] = fn; }, churchCalendarApi: {
+  const window = { AdminShell:{session:{access:{role:'owner'}},can:()=>true,owner:()=>true,canView:()=>true,navigation:()=>'',dashboard:()=>''}, monitorPublishedCalendar: (sha, onLive, onTimeout) => monitors.push({ sha, onLive, onTimeout }), confirm: () => true, addEventListener: (name, fn) => { listeners[name] = fn; }, churchCalendarApi: {
     load: async () => { calls.push({ method: 'GET' }); return load(); },
     publish: async payload => { calls.push({ method: 'PUT', payload: structuredClone(payload) }); return publish(payload); }, message: calendarMessage
   } };
   const location = { hash: '#calendar' };
-  const context = { window, location, document: { addEventListener(name, fn) { listeners['document-' + name] = fn; }, querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ calendar: { created: [{ id: 'old-demo' }] } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
+  const context = { window, location, document: { body:{dataset:{}}, addEventListener(name, fn) { listeners['document-' + name] = fn; }, querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ calendar: { created: [{ id: 'old-demo' }] } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
     fetch: async url => ({ ok: true, json: async () => url.includes('events') ? { items: [] } : url.includes('contacts') ? { sections: [], contacts: [], pccMembers: [] } : url.includes('news') ? { articles: [] } : url.includes('pages') ? { pages: [] } : [] }) };
   vm.runInNewContext(code, context);
   const flush = async () => { for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve)); };

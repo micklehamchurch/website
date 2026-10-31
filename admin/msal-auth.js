@@ -7,8 +7,7 @@ import {
   LogLevel,
   PublicClientApplication
 } from '@azure/msal-browser';
-import { isAuthorisedProfile, verifiedAdminEmail } from './auth-policy.mjs';
-import { GRAPH_USER_SCOPE } from './auth-config.mjs';
+import { GRAPH_USER_SCOPE, MICROSOFT_CLIENT_ID, MICROSOFT_AUTHORITY } from './auth-config.mjs';
 import { checkAdministratorIdentity } from './api-identity.mjs';
 import { checkAdminApiHealth } from './api-health.mjs';
 import { checkGithubRepositoryStatus } from './api-github-status.mjs';
@@ -22,8 +21,13 @@ import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
 import { attachGoogleSyncApi } from './google-calendar-sync-api.mjs';
 import {verifyPrivateOwner} from './access-setup.mjs';
+import {createShell,attachDrawer} from './cms-shell.mjs';
+import {createAccessClient} from './access-client.mjs';
+import {createUsersInterface} from './users-permissions.mjs';
+window.AdminShell=createShell();
+attachDrawer();
 
-const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
+const clientId = MICROSOFT_CLIENT_ID;
 const redirectUri = new URL('.', window.location.href).href;
 const login = document.querySelector('#admin-login');
 const app = document.querySelector('#admin-app');
@@ -38,6 +42,9 @@ const switchAccountButton = document.querySelector('#admin-ms-switch');
 const dashboardSignOut = document.querySelector('#admin-sign-out');
 let msal;
 let activeAdminApiAccount = null;
+let connectionAccount=null,connectionProfile=null;
+let currentProfile=null;
+let accessCall;
 
 const adminApiStatusLabels = {
   checking: 'Checking…',
@@ -54,7 +61,7 @@ const githubRepositoryStatusLabels = {
 const publicClient = new PublicClientApplication({
   auth: {
     clientId,
-    authority: 'https://login.microsoftonline.com/common',
+    authority: MICROSOFT_AUTHORITY,
     redirectUri,
     postLogoutRedirectUri: redirectUri,
     navigateToLoginRequestUrl: false
@@ -219,19 +226,60 @@ async function graphProfile(account, response = null) {
   });
   if (!result.ok) throw new Error('profile_unavailable');
   const profile = await result.json();
-  const email = verifiedAdminEmail(profile);
-  if (!email || !isAuthorisedProfile(profile)) {
+  currentProfile=profile;
+  activeAdminApiAccount = account;
+  await completeAccess(account,profile);
+}
+
+async function completeAccess(account,profile,{interactive=false}={}){
+  activeAdminApiAccount=account;
+  const current=await accessCall('session',{interactive});
+  if(!current.ok){
+    connectionAccount=account;connectionProfile=profile;
+    showLogin(current.error==='connection-required'?'Connect your Microsoft account to the website to continue.':'Website access could not be checked. Try again; your permissions have not been changed.');
+    signIn.textContent='Connect to website';return;
+  }
+  connectionAccount=null;connectionProfile=null;
+  if(!current.access){
+    const label=profile.mail||profile.userPrincipalName;
+    if(current.status==='no-access'&&label)await accessCall('enrolment',{method:'POST',body:{account:label}});
     showNotAuthorised();
+    denied.querySelector('h2').textContent='Your account needs approval from the Website Owner before you can manage content.';
+    let requestForm=document.querySelector('#cms-request-access');
+    if(!requestForm){
+      requestForm=document.createElement('form');requestForm.id='cms-request-access';requestForm.innerHTML='<p>If the owner added you under another account email, enter it here. This requests review; it does not grant access.</p><label for="cms-request-account">Microsoft account email</label><input id="cms-request-account" type="email" required maxlength="254"><button class="admin-button" type="submit">Request owner review</button><button class="admin-button secondary" type="button" id="cms-check-approval">Check approval</button><p role="status"></p>';
+      denied.append(requestForm);
+      requestForm.addEventListener('submit',async event=>{event.preventDefault();const button=requestForm.querySelector('[type=submit]');button.disabled=true;try{const result=await accessCall('enrolment',{method:'POST',body:{account:requestForm.querySelector('input').value.trim()}});requestForm.querySelector('[role=status]').textContent=result.ok?'Your account is awaiting owner approval. You cannot manage content yet.':'The request could not be matched. Contact the Website Owner.';}finally{button.disabled=false;}});
+      requestForm.querySelector('#cms-check-approval').addEventListener('click',()=>void completeAccess(activeAdminApiAccount,currentProfile));
+    }
+    requestForm.querySelector('input').value=label||'';
     return;
   }
-  showDashboard(profile, email);
-  activeAdminApiAccount = account;
-  window.dispatchEvent(new Event('admin-feedback-ready'));
-  window.dispatchEvent(new CustomEvent('admin-calendar-ready'));
-  window.dispatchEvent(new Event('admin-news-ready'));
-      window.dispatchEvent(new Event('admin-clergy-ready'));
-  void checkAdminApiConnection(account);
+  if(current.enforcement!=='capabilities'&&current.access.role!=='owner'){
+    showNotAuthorised();denied.querySelector('h2').textContent='Your access has been approved. Section access is awaiting activation by the Website Owner.';return;
+  }
+  window.AdminShell.setSession(current);
+  showDashboard(profile,profile.mail||profile.userPrincipalName||'Microsoft account');
+  updateAdminApiStatus('connected');
+  for(const [cap,event] of [['events','admin-calendar-ready'],['contacts','admin-contacts-ready'],['news','admin-news-ready'],['publications','admin-news-ready'],['weekly_quotation','admin-homepage-verses-ready'],['historical_people','admin-clergy-ready'],['photo_albums','admin-photo-albums-ready'],['feedback','admin-feedback-ready']])if(window.AdminShell.can(cap))window.dispatchEvent(new Event(event));
 }
+let refreshingAccess=false;
+async function refreshAccess(){
+  if(refreshingAccess||!activeAdminApiAccount||!window.AdminShell.session?.access)return;
+  refreshingAccess=true;
+  try{
+    const next=await accessCall('session');
+    if(!next.ok||!next.access){window.AdminShell.setSession(null);document.querySelectorAll('dialog[open]').forEach(d=>d.close());window.dispatchEvent(new Event('admin-access-lost'));showLogin('Your website access could not be confirmed. Sign in again or contact the Website Owner.');return;}
+    if(next.enforcement!==window.AdminShell.session.enforcement||JSON.stringify(next.access)!==JSON.stringify(window.AdminShell.session.access)){
+      document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
+      window.AdminShell.setSession(next);
+    }
+  }finally{refreshingAccess=false;}
+}
+window.setInterval(()=>{if(!document.hidden)void refreshAccess();},60000);
+window.addEventListener('focus',()=>void refreshAccess());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refreshAccess();});
+window.addEventListener('admin-access-recheck',()=>void refreshAccess());
 
 async function restoreAccount(account) {
   status.hidden = false;
@@ -251,6 +299,7 @@ async function restoreAccount(account) {
 }
 
 async function beginSignIn() {
+  if(connectionAccount){await completeAccess(connectionAccount,connectionProfile,{interactive:true});return;}
   setError('');
   status.hidden = false;
   status.textContent = 'Opening Microsoft sign-in…';
@@ -315,6 +364,19 @@ document.querySelector('#admin-check-private-owner')?.addEventListener('click',a
 });
 signOutButton.addEventListener('click', signOut);
 dashboardSignOut.addEventListener('click', signOut);
+window.addEventListener('github-repository-status-change',event=>{const target=document.querySelector('#cms-repository-result');if(target)target.textContent='Repository connection: '+(githubRepositoryStatusLabels[event.detail.state]||'Not available')+'.';});
+document.querySelector('#cms-help')?.addEventListener('click',()=>{
+  const dialog=document.querySelector('#admin-dialog');
+  dialog.innerHTML='<div class="admin-dialog-inner"><div class="admin-dialog-head"><h2 id="admin-dialog-title">Help with website administration</h2><button class="admin-icon-button" type="button" aria-label="Close help">×</button></div><p>Choose a section, make your changes, then use its Save or Publish action. Changes awaiting publication are not yet displayed on the website.</p><p>After publishing, “Saved — website updating” means the update was saved and the website is rebuilding. It does not confirm the public page has updated.</p><p>Drafts and research notes stored with website content are not confidential. Do not include sensitive personal information.</p><p>If access or a save fails, keep your work and contact the Website Owner. Do not repeat a publish if the result is uncertain.</p></div>';
+  dialog.querySelector('button').addEventListener('click',()=>dialog.close());dialog.showModal();dialog.querySelector('button').focus();
+});
+document.addEventListener('click',event=>{if(event.target.closest('a[href="#help"]')){event.preventDefault();document.querySelector('#cms-help')?.click();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){const menu=document.querySelector('.cms-account-menu[open]');if(menu){menu.open=false;menu.querySelector('summary').focus();}}});
+document.addEventListener('click',async event=>{
+  const button=event.target.closest('[data-owner-connection]');if(!button||!window.AdminShell.owner())return;
+  button.disabled=true;await checkAdminApiConnection(activeAdminApiAccount,{interactive:true});
+  const target=document.querySelector('#cms-connection-result');if(target)target.textContent='Connection check complete. '+(document.documentElement.dataset.adminApiStatus==='connected'?'Website API connected.':'Connection needs attention.');button.disabled=false;
+});
 document.addEventListener('click', event => {
   if (!event.target.closest('#admin-api-authorize') || !activeAdminApiAccount) return;
   const button = event.target.closest('#admin-api-authorize');
@@ -328,6 +390,18 @@ async function start() {
   try {
     await publicClient.initialize();
     msal = publicClient;
+    accessCall=createAccessClient(msal,()=>activeAdminApiAccount);
+    window.AdminUsers=createUsersInterface(accessCall);
+    // React to server denials without logging responses or token values.
+    const originalFetch=window.fetch.bind(window);
+    window.fetch=async(...args)=>{
+      const response=await originalFetch(...args);
+      const url=String(args[0]?.url||args[0]);
+      if([403,503].includes(response.status)&&url.includes('azurewebsites.net/api/')){
+        try{const error=(await response.clone().json()).error;if(['access-denied','owner-required','administrator-required','access-unavailable'].includes(error))window.dispatchEvent(new Event('admin-access-recheck'));}catch{}
+      }
+      return response;
+    };
     attachCalendarApi(msal, () => activeAdminApiAccount);
     attachGoogleSyncApi(msal, () => activeAdminApiAccount);
     attachContactsApi(msal, () => activeAdminApiAccount);

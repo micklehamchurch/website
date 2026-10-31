@@ -4,14 +4,14 @@ import { watchCalendar } from '../calendar-updates.mjs';
 
 export const CALENDAR_URL = new URL('calendar', ADMIN_API_HEALTH_URL).href;
 export const calendarMessages = Object.freeze({
-  'authentication-required': 'Sign in and authorise the Admin API connection, then reload Calendar.',
-  'administrator-required': 'This Microsoft account does not have server-side administrator access.',
+  'authentication-required': 'Connect to the website, then reload Calendar.',
+  'administrator-required': 'This Microsoft account does not have access to this section.',
   'invalid-calendar': 'Calendar validation failed. Check event details, dates, times and links before publishing.',
   'calendar-too-large': 'The Calendar is too large to publish. Reduce the content and try again.',
   'calendar-version-conflict': 'The shared Calendar changed. Reload it before editing and publishing again; your staged changes have not been published.',
-  'calendar-repository-unavailable': 'The shared Calendar could not be loaded from GitHub. Try reloading.',
-  'calendar-publish-unavailable': 'GitHub could not publish the Calendar. Reload to check the shared version before trying again.',
-  'calendar-publish-permission-denied': 'GitHub denied permission to publish the Calendar. No change was confirmed; contact the website administrator.',
+  'calendar-repository-unavailable': 'The shared Calendar could not be loaded. Try reloading.',
+  'calendar-publish-unavailable': 'The website could not save the Calendar. Reload to check the shared version before trying again.',
+  'calendar-publish-permission-denied': 'The website connection denied permission to publish the Calendar. No change was confirmed; contact the website administrator.',
   'calendar-publish-result-unavailable': 'The publish result could not be confirmed. Reload Calendar to check the shared version.',
   'network-failure': 'The request could not be completed. Reload Calendar to check the shared version before trying again.',
   busy: 'A Calendar request is already in progress.',

@@ -20,6 +20,7 @@ async function json(request){
 function createAccessHandlers({store=createAccessStore(),env=process.env}={}) {
   async function run(request,area){
     const identity=readIdentity(request);if(!identity)return result(401,{ok:false,error:'authentication-required'});
+    if(env.ADMIN_ACCESS_MODE && !['legacy','capabilities'].includes(env.ADMIN_ACCESS_MODE))return result(503,{ok:false,error:'access-unavailable'});
     try {
       const current=await store.read(), actor=model.resolve(current.state,identity);
       if(area==='session') {

@@ -13,12 +13,12 @@ async function harness({ publish = async () => ({ ok: true, sha: 'c'.repeat(40) 
       addEventListener(name, callback) { this.listeners[name] = callback; } });
     return elements.get(selector);
   };
-  const window = { monitorPublishedCalendar: (sha, onLive, onTimeout) => monitors.push({ sha, onLive, onTimeout }), confirm: () => true, addEventListener: (name, fn) => { listeners[name] = fn; }, churchContactsApi: {
+  const window = { AdminShell:{session:{access:{role:'owner'}},can:()=>true,owner:()=>true,canView:()=>true,navigation:()=>'',dashboard:()=>''}, monitorPublishedCalendar: (sha, onLive, onTimeout) => monitors.push({ sha, onLive, onTimeout }), confirm: () => true, addEventListener: (name, fn) => { listeners[name] = fn; }, churchContactsApi: {
     load: async () => { calls.push({ method: 'GET' }); return initial(); },
     publish: async payload => { calls.push({ method: 'PUT', payload: structuredClone(payload) }); return publish(payload); }, message: calendarMessage
   } };
   const location = { hash: '#contacts' };
-  const context = { window, location, document: { addEventListener() {}, querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ contacts: { working: { sections:[],contacts:[{id:'old-demo',name:'Old demo'}],pccMembers:[] } } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
+  const context = { window, location, document: { body:{dataset:{}}, addEventListener() {}, querySelector: node, documentElement: { dataset: {} } }, sessionStorage: { getItem: () => JSON.stringify({ contacts: { working: { sections:[],contacts:[{id:'old-demo',name:'Old demo'}],pccMembers:[] } } }), setItem: (key, value) => storage.push(JSON.parse(value)), removeItem() {} }, console, Date, Intl, URL, setTimeout: () => 0, clearTimeout() {}, FormData: class { constructor(form) { this.form = form; } entries() { return Object.entries(this.form.values); } },
     fetch: async url => ({ ok: true, json: async () => url.includes('events') ? { items: [] } : url.includes('contacts') ? { sections: [], contacts: [], pccMembers: [] } : url.includes('news') ? { articles: [] } : url.includes('pages') ? { pages: [] } : [] }) };
   vm.runInNewContext(code, context);
   const flush = async () => { for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve)); };
@@ -38,7 +38,7 @@ test('Contacts editor loads shared data, ignores stale tab data, stages edits an
  assert.match(h.node('#admin-content').innerHTML,/data-action="publish-contacts" disabled/);
  h.submit({name:'Updated fixture'},'fixture-contact');assert.match(h.node('#admin-content').innerHTML,/Changes are staged/);
  h.click('publish-contacts');await h.flush();const p=h.calls[1].payload;assert.equal(p.sha,'a'.repeat(40));assert.equal(p.contacts.contacts[0].name,'Updated fixture');assert.equal(p.contacts.contacts[0].photo,'assets/images/contacts/fixture-person.jpg');assert.equal(h.storage.length,0);
- assert.match(h.node('#admin-content').innerHTML,/website is rebuilding/);assert.doesNotMatch(h.node('#admin-content').innerHTML,/Contacts live/);
+ assert.match(h.node('#admin-content').innerHTML,/website updating/);assert.doesNotMatch(h.node('#admin-content').innerHTML,/Contacts live/);
  h.submit({name:'Second fixture'},'fixture-contact');h.click('publish-contacts');await h.flush();assert.equal(h.calls[2].payload.sha,'c'.repeat(40));
 });
 test('Contacts editor stages adds, draft/restore, category, PCC ordering and confirmed deletion',async()=>{
