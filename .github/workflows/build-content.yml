@@ -207,7 +207,7 @@ jobs:
           elif ! git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" | grep -Ev '^(_archive-sources/history/.*|_config\.yml|content-pages\.json|build-content-pages\.js|build-history-preservation\.cjs|history-preservation\.css|church-building\.html|churchyard\.html|history-[-a-z0-9]+\.html|our-history\.html|search-index\.json|test/history-(preservation|timeline)\.test\.cjs|\.github/workflows/build-content\.yml)$'; then
             node build-history-preservation.cjs
           else
-            if git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" | grep -Ev '^(_content/history\.json|_content/history-assets/.*|_templates/history-hub\.html|build-history-hub\.js|history-story-render\.js|our-history\.(html|css|js)|history-[-a-z0-9]+\.html|assets/images/history/.*|docs/history-(hub|story|direct|timeline)\.md|test/(history-hub|history-story|history-direct|history-timeline|drawer-current|our-history)\.test\.cjs|package\.json|search-index\.json|\.github/workflows/build-content\.yml)$'; then
+            if git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" | grep -Ev '^(_content/history\.json|_content/history-assets/.*|_templates/history-hub\.html|build-history-hub\.js|history-story-render\.js|our-history\.(html|css|js)|history-[-a-z0-9]+\.html|assets/images/history/.*|sunday-services\.html|scripts/check-history-bells\.cjs|docs/history-(hub|story|direct|timeline|bells)\.md|test/(history-hub|history-story|history-direct|history-bells-move|history-timeline|drawer-current|our-history)\.test\.cjs|package\.json|search-index\.json|\.github/workflows/build-content\.yml)$'; then
               npm run build
             else
               node build-history-hub.js

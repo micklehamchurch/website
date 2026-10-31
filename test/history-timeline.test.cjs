@@ -11,7 +11,7 @@ test('timeline keeps uncertain dating and delivers distinct editorial details',(
 });
 test('timeline upgrade preserves hero, clergy placement, story cards and unrelated global behaviour',()=>{
  const old=f=>cp.execFileSync('git',['show','7ed4865:'+f],{encoding:'utf8'}).replace(/\r/g,''),current=read('our-history.html');
- for(const re of [/<section class="history-hero">[\s\S]*?<\/section>/,/<aside class="history-feature"[\s\S]*?<\/aside>/,/<section class="history-collections"[\s\S]*?<\/section>/])assert.equal(current.match(re)[0],old('our-history.html').match(re)[0]);
+ for(const re of [/<section class="history-hero">[\s\S]*?<\/section>/,/<aside class="history-feature"[\s\S]*?<\/aside>/,/<section class="history-collections"[\s\S]*?<\/section>/])assert.equal(current.match(re)[0].replace(/<article class="history-collection-card history-direct-card"><a href="https:\/\/www.youtube.com[\s\S]*?<\/article>/,''),old('our-history.html').match(re)[0]);
  for(const f of ['site.js','responsive-navigation.js','public-header.js','feedback.js','calendar.html','war-memorial.html'])assert.equal(read(f).replace(/\r/g,''),old(f),f);
  const css=read('our-history.css');assert(css.replace(/\r/g,'').startsWith(old('our-history.css').trimEnd()));
 });

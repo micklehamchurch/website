@@ -194,3 +194,7 @@ html.history-modal-open body { position:fixed; top:var(--history-scroll-top); in
 @media(max-width:600px){.history-period-panel{padding:18px}.history-period-quote{padding:16px 8px}}
 @media(orientation:landscape) and (max-height:500px){.history-story-dialog{max-height:calc(100dvh - 20px)}.history-story-scroll{max-height:calc(100dvh - 22px);padding:54px 30px 24px}}
 @media(prefers-reduced-motion:reduce){.history-story-dialog,.history-story-scroll{animation:none;transition:none;scroll-behavior:auto}}
+
+/* Five heritage features: three then two, retaining the existing card component. */
+@media(min-width:1101px){.history-direct-stories{grid-template-columns:repeat(6,minmax(0,1fr))}.history-direct-stories .history-direct-card{grid-column:span 2}.history-direct-stories .history-direct-card:nth-last-child(-n+2){grid-column:span 3}}
+.history-direct-card>a{position:relative}.history-direct-stories .history-film-play{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:38px;height:38px;border:1px solid #d8c68a;border-radius:50%;background:#193e30e8;color:#fff9e9;font-size:25px;line-height:1;pointer-events:none}.history-direct-stories .history-direct-card .eyebrow{font-size:11px;color:#806719;margin:0 0 8px;letter-spacing:.12em}.history-direct-stories .history-direct-card>a:focus-visible{outline:3px solid #96751d;outline-offset:4px}

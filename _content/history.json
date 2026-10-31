@@ -635,6 +635,25 @@
       "order": 4,
       "status": "published",
       "focal": "50% 55%"
+    },
+    {
+      "id": "bells-film",
+      "filmUrl": "https://www.youtube.com/watch?v=9eNFCR04xWE",
+      "title": "The Bells of Mickleham",
+      "eyebrow": "Bells & music",
+      "description": "Discover the story and sound of St Michael’s bells in this film about Mickleham’s ringing tradition.",
+      "action": "Watch on YouTube",
+      "order": 5,
+      "status": "published",
+      "focal": "50% 50%",
+      "image": {
+        "src": "assets/images/history/bells-illustration-960.webp",
+        "small": "assets/images/history/bells-illustration-480.webp",
+        "width": 960,
+        "height": 540,
+        "smallWidth": 480,
+        "alt": "Illustration of traditional church bells in a wooden bell frame"
+      }
     }
   ]
 }
