@@ -486,21 +486,7 @@
       "welcomeText": "The parish seeks to encourage children and young people to develop their own Christian faith, while supporting parents and families as they learn about God. The hope is that each person can grow in confidence, discover the gifts God has given them and find support for life’s challenges.",
       "welcomeAside": "Children, students and young families are invited to share in a loving church community, where there is room for fun as well as learning about God.",
       "servicesTitle": "Family Services",
-      "servicesIntro": "The parish has described Family Services as worship shaped to be accessible across different ages. The approach is informal yet structured, with multimedia gospel presentations.",
-      "serviceDetails": [
-        {
-          "mark": "◌",
-          "text": "Worship and presentations intended to be enjoyed by all ages"
-        },
-        {
-          "mark": "✦",
-          "text": "Multimedia used to support gospel presentations"
-        },
-        {
-          "mark": "＋",
-          "text": "Refreshments and time to catch up together afterwards"
-        }
-      ],
+      "servicesIntro": "Family Services bring all ages together in informal yet structured worship, with multimedia and lively interaction.",
       "servicesNote": "For forthcoming service dates and times, use the live church calendar.",
       "schoolsTitle": "Connected with local schools",
       "schoolsIntro": "The parish has welcomed two nearby school communities into the life of the Parish Church.",
@@ -513,7 +499,9 @@
         {
           "label": "SCHOOL COMMUNITY",
           "name": "RGS Surrey Hills",
-          "description": "The school community has joined services in church and used the church for concerts and recitals."
+          "description": "The school community has joined services in church and used the church for concerts and recitals.",
+          "website": "https://www.boxhillschool.com/",
+          "websiteAction": "Visit Box Hill School"
         }
       ],
       "schoolsNote": "For current school activities and arrangements, please contact the parish.",
@@ -550,7 +538,43 @@
         }
       ],
       "invitationTitle": "Come and join us",
-      "invitationText": "Whether you are exploring church for the first time or returning with your family, you are warmly invited to find a service that suits you and be in touch if you have a question."
+      "invitationText": "Whether you are exploring church for the first time or returning with your family, you are warmly invited to find a service that suits you and be in touch if you have a question.",
+      "practicalTitle": "Coming to church with children",
+      "practicalCards": [
+        {
+          "title": "Everyone is welcome",
+          "text": "Children are welcome to share in worship, with room for the sounds and movement of family life. A carpeted children’s area and resources help younger visitors take part.",
+          "links": []
+        },
+        {
+          "title": "What happens on Sunday?",
+          "text": "Family Services offer an accessible way to worship together. Refreshments are normally served after the main Sunday service—a chance to meet people and catch up.",
+          "links": [
+            {
+              "href": "worship.html",
+              "text": "Explore Sunday worship"
+            },
+            {
+              "href": "sunday-services.html",
+              "text": "Watch Sunday Services"
+            }
+          ]
+        },
+        {
+          "title": "Your first visit",
+          "text": "Check the Calendar for current dates and times, then use our visitor information to plan your journey. Please contact the parish if you have a question before coming.",
+          "links": [
+            {
+              "href": "finding-us.html",
+              "text": "Plan your visit"
+            },
+            {
+              "href": "contact.html",
+              "text": "Ask the parish"
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "alpha",

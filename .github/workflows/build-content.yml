@@ -36,6 +36,7 @@ on:
       - 'build-history-hub.js'
       - 'history-story-render.js'
       - 'our-history.css'
+      - 'children-families.css'
       - 'assets/images/history/**'
       - 'build-clergy-archive.js'
       - 'clergy-profiles.js'
@@ -190,6 +191,13 @@ jobs:
           elif grep -Eq '^(home-performance\.css|home-fonts\.css|build-home-performance\.js)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(index\.html|home-(performance|fonts|critical)\.css|home-style-sources\.json|build-home-performance\.js|build-typography-preview\.js|homepage-verses\.js|home-next-service\.js|assets/fonts/home/.*|assets/images/home/performance/.*|test/([^/]+\.test\.cjs|helpers/home-performance\.cjs)|docs/home-performance\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js index.html
+          # Family content releases rebuild only the approved Children & Families page.
+          elif grep -Eq '^children-families\.(html|css)$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(children-families\.(html|css)|content-pages\.json|build-content-pages\.js|search-index\.json|test/(children-families|prayer-page)\.test\.cjs|scripts/check-children-families\.cjs|docs/children-families\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths &&
+             node -e 'const cp=require("child_process"),a=JSON.parse(cp.execFileSync("git",["show",process.env.BEFORE_SHA+":content-pages.json"])),b=require("./content-pages.json");a.pages=a.pages.filter(p=>p.slug!=="children-families");b.pages=b.pages.filter(p=>p.slug!=="children-families");process.exit(JSON.stringify(a)===JSON.stringify(b)?0:1);'; then
+            node build-content-pages.js children-families
+            node build-typography-preview.js children-families.html
+            node build-search-index.js
           # Prayer-only content updates regenerate Prayer, never unrelated projections.
           elif grep -Eq '^(prayer\.(html|css)|prayer-cycle(-model|-render)?\.(js|json|css)|prayer-render\.js|content-pages\.json)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(prayer\.(html|css)|prayer-render\.js|prayer-cycle(-model|-render)?\.(js|json|css)|admin/(admin\.js|documents-data\.json)|assets/documents/prayer/cycle-of-prayer-2023-4\.pdf|search-index\.json|content-pages\.json|build-content-pages\.js|build-editorial-heroes\.js|build-typography-preview\.js|editorial-hero-config\.cjs|assets/images/prayer/.*|test/(prayer-page|prayer-cycle|editorial-heroes)\.test\.cjs|test/fixtures/prayer-cycle-source\.json|scripts/check-prayer(-layout|-cycle)\.cjs|docs/prayer(-redesign|-cycle|-cycle-migration)\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths &&
