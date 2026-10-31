@@ -104,7 +104,7 @@ function build(siteRoot = root) {
 <meta name="description" content="${esc(data.subtitle)}. Services, parish notices and dates from Pews News, ${esc(model.dateLabel(record))}.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-1">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-2">
 <link rel="icon" href="favicon.ico"><script src="site.js" defer></script><script src="pews-news.js?v=editorial-20261024-2" defer></script></head>
 <body><a class="skip-link" href="${currentPath}#main-content">Skip to main content</a><header class="site-header" data-site-header></header>
 <main id="main-content" tabindex="-1" class="pews-page">
