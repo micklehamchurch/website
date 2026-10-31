@@ -67,3 +67,13 @@ news-publication-artwork.json maps editions[YYYY-MM-DD] to {src,small,width:1280
 
 ## Approved autumn artwork installed
 The previously pending25October pumpkin/red-berry and18October apple/leaf illustrations are now supplied and explicitly approved. Both are mapped through news-publication-artwork.json, using1280w/640w WebP derivatives atquality82. Only resize/compression was applied, with source aspect ratio retained; no regenerated artwork, retouching or alteration of content. Source PNGs remain in the user attachments; full originals are not deployed. Existing HTML titles/dates and illustrative alt remain. Artwork follows edition identity when another item becomes Latest. Prior pending-artwork notes above describe the earlier temporary state and are superseded by this section.
+
+## Pews News newspaper identity (31 October 2026)
+
+Pews News feature/thumbnail artwork uses a recognisable newspaper presentation, with a distinct seasonal/church-calendar setting for each weekly edition. Parish Stories continue to use genuine parish/event photography. Each edition has an explicit, independent `editions[YYYY-MM-DD]` record in `news-publication-artwork.json`; this is the existing reusable feature-image field, separate from the PDF-derived internal illustrations. Do not reuse the same scene for dozens of editions.
+
+The supplied 1 November All Saints’ Day newspaper scene now replaces the leaf thumbnail in that record. The existing responsive pipeline uses 1280×720 and 640×360 WebP derivatives at quality 82, with intrinsic dimensions, srcset, existing loading priority and a 16:9 reserved media box. Only resize/compression was applied. The source PNG stays outside the public repository. Its original edition leaf and all other PDF artwork/content remain unchanged. News and the existing Home preview consume the same artwork record automatically.
+
+Descriptive alt text is now supported (non-empty, up to 200 characters), superseding the old fixed generic-alt validation above. This edition uses “Pews News for 1 November 2026 in a warm autumn church setting”. Older autumn newspaper variants and the Harvest photograph remain unchanged.
+
+Weekly workflow: inspect the PDF and create the proper web edition; preserve/extract authentic internal illustrations; select an approved newspaper feature scene suited to that week; produce the two responsive WebP sizes and register the feature-image metadata for its date. Existing publication records then manage latest promotion, archives and original-PDF actions without editing the layout.
