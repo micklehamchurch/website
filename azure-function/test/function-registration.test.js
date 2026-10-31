@@ -50,8 +50,8 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   const feedbackAdmin = registrations.find(r => r.name === 'feedback-admin');
   assert.equal(feedbackAdmin.options.route, 'feedback-admin');
   assert.equal(feedbackAdmin.options.authLevel, 'anonymous');
-  assert.equal(registrations.length, 18);
-  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'feedback-admin'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.length, 22);
+  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='access-enrolment' ? ['POST'] : registration.name==='access-users' ? ['GET','POST'] : registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'feedback-admin'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
   assert.equal(registrations.find(r=>r.name==='sunday-service-sync').options.schedule,'0 */15 * * * *');
   const timer=registrations.find(r=>r.timer);
   assert.equal(timer.name,'google-calendar-hourly');
@@ -85,7 +85,10 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   assert.deepEqual(health.options.methods, ['GET']);
   assert.equal(health.options.route, 'health');
   assert.equal(health.options.authLevel, 'anonymous');
-  assert.deepEqual(await health.options.handler(), {
+  assert.equal((await health.options.handler()).status,401);
+  const live=require('./fixtures/ed-live-identity.json');
+  const verified={headers:new Headers({'x-ms-client-principal':Buffer.from(JSON.stringify({auth_typ:'aad',claims:Object.entries({tid:live.tenantId,oid:live.objectId,iss:live.issuer,sub:live.subject}).map(([typ,val])=>({typ,val}))})).toString('base64')})};
+  assert.deepEqual(await health.options.handler(verified), {
     status: 200,
     jsonBody: {
       ok: true,
@@ -96,7 +99,7 @@ test('configured package entry point registers diagnostics and scoped Calendar, 
   assert.deepEqual(githubStatus.options.methods, ['GET']);
   assert.equal(githubStatus.options.route, 'github/status');
   assert.equal(githubStatus.options.authLevel, 'anonymous');
-  assert.equal(githubStatus.options.handler.length, 0, 'the endpoint does not accept request parameters');
+  assert.equal((await githubStatus.options.handler()).status,401,'diagnostics require owner authentication');
 
   const host = require(path.join(projectRoot, 'host.json'));
   assert.equal(host.extensions.http.routePrefix, 'api');

@@ -1,11 +1,11 @@
-const { requireAdministrator } = require('./identity');
+const { requireAccess } = require('./access-policy');
 const { createGoogleSyncService, PATHS, sha, publicStatus } = require('./google-sync-service');
 const response = (status,body) => ({status,headers:{'Cache-Control':'no-store',Pragma:'no-cache'},jsonBody:body});
 const failure = (status,error) => response(status,{ok:false,error});
 function createGoogleSyncHandler(options = {}) {
   const service = createGoogleSyncService(options);
   return async request => {
-    const denied = requireAdministrator(request); if (denied) return denied;
+    const denied = await requireAccess(request, 'owner'); if (denied) return denied;
     if (!['GET','POST'].includes(request.method)) return failure(405,'method-not-allowed');
     if (request.query && [...request.query.keys()].length) return failure(400,'invalid-sync-request');
     let body;
@@ -39,7 +39,7 @@ function createGoogleSyncHandler(options = {}) {
 function createGoogleSyncStatusHandler(options = {}) {
   const service = createGoogleSyncService(options);
   return async request => {
-    const denied = requireAdministrator(request); if (denied) return denied;
+    const denied = await requireAccess(request, 'owner'); if (denied) return denied;
     if (request.method!=='GET' || (request.query && [...request.query.keys()].length)) return failure(400,'invalid-sync-request');
     try {return response(200,{ok:true,...publicStatus(await service.store.read())});}
     catch {return failure(502,'sync-status-unavailable');}

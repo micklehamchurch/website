@@ -1,7 +1,7 @@
 const {randomBytes,randomUUID,createHash,scrypt:derive,timingSafeEqual}=require('node:crypto');
 const {promisify}=require('node:util');
 const scrypt=promisify(derive);
-const {requireAdministrator}=require('./identity');
+const {requireAccess}=require('./access-policy');
 const {readJson}=require('./news-publishing');
 const {createFeedbackStore}=require('./feedback-store');
 const STATUSES=['New','In discussion','Planned','In development','Done'];
@@ -20,7 +20,7 @@ function reviewer(state,request,now){const header=request.headers.get('authoriza
 function summary(topic){return {id:topic.id,author:topic.author,createdAt:topic.createdAt,page:topic.page,body:topic.body,status:topic.status,updatedAt:topic.updatedAt,reviewed:topic.reviewed,removed:topic.removed,audience:topic.audience,replyCount:topic.replies.length};}
 function createFeedbackHandlers({store=createFeedbackStore(),now=Date.now}={}){
  async function run(request,admin){
-  if(admin){const denied=requireAdministrator(request);if(denied)return denied;}
+  if(admin){const denied=await requireAccess(request,'feedback');if(denied)return denied;}
   try{
    if(!['GET','POST'].includes(request.method))reject(405,'method-not-allowed');
    if(request.method==='POST'&&!admin&&request.headers.get('origin')!==ORIGIN)reject(403,'origin-not-allowed');

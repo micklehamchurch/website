@@ -1,4 +1,4 @@
-const { requireAdministrator } = require('./identity');
+const { createAccessPolicy } = require('./access-policy');
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
 const model = require('./news-model');
 const MAX_BODY_BYTES = Math.ceil(model.MAX_PDF_BYTES / 3) * 4 + 8192;
@@ -24,7 +24,7 @@ async function file(client, path, ref) {
 function createNewsPublishingHandler(kind, { env = process.env, readConfiguration = readGithubConfiguration, createClient = (configuration, permission) => createInstallationClient(configuration, undefined, permission) } = {}) {
   if (!Object.hasOwn(metadataPaths, kind)) throw new Error('invalid-handler-kind');
   return async request => {
-    const denied = requireAdministrator(request); if (denied) return denied;
+    const denied = await createAccessPolicy({env}).requireAccess(request, kind === 'news' ? 'news' : 'publications'); if (denied) return denied;
     if (!['GET', 'POST'].includes(request.method)) return failure(405, 'method-not-allowed');
     if (request.query && [...request.query.keys()].length) return failure(400, 'invalid-news-request');
     let body, upload, article;

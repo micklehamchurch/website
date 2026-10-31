@@ -21,6 +21,7 @@ import { attachClergyApi } from './clergy-api.mjs';
 import { attachNewsApi } from './news-api.mjs';
 import { attachCalendarApi } from './calendar-api.mjs';
 import { attachGoogleSyncApi } from './google-calendar-sync-api.mjs';
+import {verifyPrivateOwner} from './access-setup.mjs';
 
 const clientId = '065a6151-8b4e-4ee7-a957-b414bc83b5ee';
 const redirectUri = new URL('.', window.location.href).href;
@@ -290,6 +291,28 @@ document.querySelector('#admin-check-identity').addEventListener('click', async 
   }
 });
 switchAccountButton.addEventListener('click', beginSignIn);
+document.querySelector('#admin-copy-owner-setup')?.addEventListener('click',async event=>{
+  const button=event.currentTarget,result=document.querySelector('#admin-private-owner-result');
+  button.disabled=true;result.textContent='Verifying the existing owner…';
+  try{
+    if(!activeAdminApiAccount)throw Error('account-required');
+    const check=await checkAdministratorIdentity(msal,activeAdminApiAccount,{interactive:true});
+    if(!check.ok || check.identity.administrator!==true || check.identity.authorizationStatus!=='http-200')throw Error('owner-required');
+    await navigator.clipboard.writeText(JSON.stringify(check.identity));
+    result.textContent='Verified owner setup copied as one line. Paste it only into the private Cloud Shell bootstrap prompt. No token was copied.';
+  }catch{result.textContent='Owner setup could not be verified or copied. Check Microsoft sign-in and browser clipboard access, then try again.';}
+  finally{button.disabled=false;}
+});
+document.querySelector('#admin-check-private-owner')?.addEventListener('click',async event=>{
+  const button=event.currentTarget,result=document.querySelector('#admin-private-owner-result');
+  button.disabled=true;result.textContent='Checking private owner access…';
+  try{
+    if(!activeAdminApiAccount)throw Error('account-required');
+    const check=await verifyPrivateOwner(msal,activeAdminApiAccount);
+    result.textContent=check.ok?'Private permission store read-back succeeded. Your signed-in Microsoft account is an active Website Owner. '+(check.enforcement==='capabilities'?'Section permissions are enabled.':'Existing owner admission is still in place; section permissions have not been enabled.'):'Private owner access could not be verified. Complete storage setup before changing authentication enforcement.';
+  }catch{result.textContent='Private owner access could not be checked. Sign in and connect to the Admin API, then try again.';}
+  finally{button.disabled=false;}
+});
 signOutButton.addEventListener('click', signOut);
 dashboardSignOut.addEventListener('click', signOut);
 document.addEventListener('click', event => {

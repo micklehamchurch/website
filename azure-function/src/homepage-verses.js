@@ -1,4 +1,4 @@
-const { requireAdministrator } = require('./identity');
+const { createAccessPolicy } = require('./access-policy');
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
 const { validateHomepageVerses, MAX_HOMEPAGE_VERSES_BYTES } = require('./homepage-verses-model');
 const { isDeepStrictEqual } = require('node:util');
@@ -44,7 +44,7 @@ function createHomepageVersesHandler({ env = process.env, readConfiguration = re
   return async function homepageVerses(request) {
     // Easy Auth is the deployment perimeter; the existing verified-claim policy
     // is the application gate. No request-supplied flags or selectors are used.
-    const denied = requireAdministrator(request);
+    const denied = await createAccessPolicy({env}).requireAccess(request, 'weekly_quotation');
     if (denied) return denied;
     if (!['GET', 'PUT'].includes(request.method)) return failure(405, 'method-not-allowed');
     if (request.query && [...request.query.keys()].length) return failure(400, 'invalid-homepage-verses-request');

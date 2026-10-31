@@ -1,6 +1,7 @@
 require('./functions/health');
 require('./functions/github-status');
 require('./functions/identity');
+require('./functions/access');
 require('./functions/calendar');
 
 require('./functions/news-publishing');

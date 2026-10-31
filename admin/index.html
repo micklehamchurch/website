@@ -83,6 +83,11 @@
           <p id="admin-api-diagnostic" role="status"></p>
           <button type="button" class="admin-button secondary" id="admin-check-identity">Check administrator identity</button>
           <pre id="admin-identity-result" aria-live="polite"></pre>
+          <h2>Private owner access setup</h2>
+          <p>After the private permission store has been initialised, verify your owner access here before enabling section permissions. This check does not change access.</p>
+          <button type="button" class="admin-button secondary" id="admin-check-private-owner">Verify private owner setup</button>
+          <button type="button" class="admin-button secondary" id="admin-copy-owner-setup">Copy verified owner setup</button>
+          <p id="admin-private-owner-result" role="status"></p>
         </details>
         <div id="admin-content" aria-live="polite" aria-busy="true"><p class="admin-loading">Loading the administration preview…</p></div>
       </main>
@@ -94,7 +99,7 @@
   </div>
   <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title"></dialog>
   <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
-  <script src="msal-auth.bundle.js?v=albums-queue-1" defer></script>
+  <script src="msal-auth.bundle.js?v=access-foundation-1" defer></script>
   <script src="../publications-model.js" defer></script>
   <script src="publications-admin.js" defer></script>
   <link rel="stylesheet" href="../clergy-archive.css">

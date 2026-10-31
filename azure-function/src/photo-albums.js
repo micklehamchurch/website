@@ -1,4 +1,4 @@
-const {requireAdministrator} = require('./identity');
+const {createAccessPolicy} = require('./access-policy');
 const {readGithubConfiguration,createInstallationClient,EXPECTED_TARGET} = require('./github-status');
 const {readJson} = require('./news-publishing');
 const model = require('./photo-albums-model');
@@ -8,7 +8,7 @@ const response = (status,jsonBody)=>({status,headers:{'Cache-Control':'no-store'
 const failure = (status,error)=>response(status,{ok:false,error});
 function createPhotoAlbumsHandler({env=process.env,readConfiguration=readGithubConfiguration,createClient=(c,p)=>createInstallationClient(c,undefined,p)}={}) {
   return async request=>{
-    const denied=requireAdministrator(request); if(denied)return denied;
+    const denied=await createAccessPolicy({env}).requireAccess(request,'photo_albums'); if(denied)return denied;
     if(!['GET','POST'].includes(request.method))return failure(405,'method-not-allowed');
     if(request.query && [...request.query.keys()].length)return failure(400,'invalid-album-request');
     let body;

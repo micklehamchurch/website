@@ -1,4 +1,4 @@
-const { requireAdministrator } = require('./identity');
+const { createAccessPolicy } = require('./access-policy');
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
 const { readJson } = require('./news-publishing');
 const model = require('./clergy-model');
@@ -10,7 +10,7 @@ const validationError = e => ({'invalid-sources':'archive-invalid-sources','inva
 const failure = (status,error) => response(status,{ok:false,error});
 function createClergyHandler({env=process.env,readConfiguration=readGithubConfiguration,createClient=(c,p)=>createInstallationClient(c,undefined,p)}={}) {
   return async request => {
-    const denied = requireAdministrator(request); if (denied) return denied;
+    const denied = await createAccessPolicy({env}).requireAccess(request, 'historical_people'); if (denied) return denied;
     if (!['GET','PUT','POST'].includes(request.method)) return failure(405,'method-not-allowed');
     if (request.method === 'POST') {
       let configuration,writer;

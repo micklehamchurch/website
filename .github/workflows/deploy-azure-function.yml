@@ -163,7 +163,7 @@ jobs:
               if python - <<'PY'
           import json
           names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
-          expected = {'website-feedback', 'feedback-admin', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly', 'sunday-service-sync'}
+          expected = {'access-session', 'access-users', 'access-enrolment', 'access-verify', 'website-feedback', 'feedback-admin', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly', 'sunday-service-sync'}
           print('Indexed HTTP functions:', ', '.join(sorted(names)))
           assert expected <= names, 'Required HTTP functions are not indexed'
           PY
@@ -207,7 +207,7 @@ jobs:
           assert auth['requireAuthentication'] is True
           assert sorted(auth['excludedPaths']) == ['/api/bible/*', '/api/website-feedback']
           base = 'https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/'
-          for route in ['feedback-admin', 'calendar', 'news', 'historical-archive', 'auth/status']:
+          for route in ['access/session', 'access/users', 'access/verify', 'access/enrolment', 'feedback-admin', 'calendar', 'news', 'historical-archive', 'auth/status']:
               try:
                   urllib.request.urlopen(base + route)
                   raise AssertionError('Private route accepted an unsigned request: ' + route)

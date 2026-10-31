@@ -1,4 +1,4 @@
-const { requireAdministrator } = require('./identity');
+const { createAccessPolicy } = require('./access-policy');
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
 const { buildCalendar, validateEditorial } = require('./calendar-model');
 const { isDeepStrictEqual } = require('node:util');
@@ -45,7 +45,7 @@ function createCalendarHandler({ env = process.env, readConfiguration = readGith
   return async function calendar(request) {
     // Easy Auth is the deployment perimeter; the existing verified-claim policy
     // is the application gate. No request-supplied flags or selectors are used.
-    const denied = requireAdministrator(request);
+    const denied = await createAccessPolicy({env}).requireAccess(request, 'events');
     if (denied) return denied;
     if (!['GET', 'PUT'].includes(request.method)) return failure(405, 'method-not-allowed');
     if (request.query && [...request.query.keys()].length) return failure(400, 'invalid-calendar-request');
