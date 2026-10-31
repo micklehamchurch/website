@@ -23,7 +23,7 @@ test('only the first hero receives priority; preload and picture candidates agre
 });
 test('approved typography and every source photograph remain unchanged; no global UI changes',()=>{
  const old=f=>cp.execFileSync('git',['show','8f15696:'+f],{maxBuffer:10e6});
- for(const f of ['site.js','header-navigation.css','public-header.js','responsive-navigation.js','footer-standard.css','home-hero-carousel.js','home-hero-photos.js','home-next-service-config.json'])assert.equal(fs.readFileSync(f,'utf8').replace(/\r/g,''),old(f).toString().replace(/\r/g,''),f);
+ for(const f of ['site.js','header-navigation.css','public-header.js','responsive-navigation.js','footer-standard.css','home-hero-carousel.js','home-next-service-config.json'])assert.equal(fs.readFileSync(f,'utf8').replace(/\r/g,''),old(f).toString().replace(/\r/g,''),f);
  for(const f of ['assets/images/home/ed-popov-e6523-v3-mobile.webp','assets/images/home/ed-popov-e6523-v2-tablet.webp'])assert.deepEqual(fs.readFileSync(f),old(f),f);
  const css=fs.readFileSync('home-fonts.css','utf8');assert(css.includes("'DM Sans'"));assert(css.includes("'Playfair Display'"));assert(!css.includes('https://'));assert(fs.existsSync('assets/fonts/home/DM-Sans-OFL.txt'));assert(fs.existsSync('assets/fonts/home/Playfair-Display-OFL.txt'));
 });

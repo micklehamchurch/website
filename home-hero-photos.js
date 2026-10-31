@@ -4,7 +4,7 @@
  const photos=[
   {id:'original',name:'Original St Michael and All Angels homepage photograph',focus:{wide:'50% 62%',phone:'50% 50%',short:'40% 50%'},shortFit:'cover',sources:{src:'assets/images/home/ed-popov-e6523-v2-large.jpg',srcset:'assets/images/home/ed-popov-e6523-v2-tablet.webp 1920w, assets/images/home/ed-popov-e6523-v2-large.webp 3200w',phone:'assets/images/home/ed-popov-e6523-v3-mobile.webp',short:'assets/images/home/ed-popov-e6523-v3-mobile.webp'}},
   {id:'exterior',name:'St Michael and All Angels church exterior',focus:{wide:'50% 20%',phone:'50% 50%',short:'64% 50%'},shortFit:'contain'},
-  {id:'memorial',name:'Mary Munday memorial and churchyard',focus:{wide:'50% 70%',phone:'50% 0%',short:'50% 65%'},shortFit:'contain',phoneFit:'contain'},
+  {id:'autumn-church',name:'St Michael & All Angels viewed across the churchyard in autumn light',focus:{wide:'50% 35%',phone:'50% 45%',short:'50% 40%'},shortFit:'cover'},
   {id:'churchyard',name:'Churchyard and autumn foliage',focus:{wide:'50% 62%',phone:'50% 50%',short:'35% 55%'},shortFit:'cover'}
  ];
  const sizes='(max-width: 600px) 100vw, (max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw';
