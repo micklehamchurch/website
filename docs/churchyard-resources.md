@@ -36,3 +36,19 @@ Run `node build-churchyard-resources.cjs` for the three affected pages, standard
 `node --test test/churchyard-resources.test.cjs test/funerals.test.cjs test/history-preservation.test.cjs test/history-hub.test.cjs test/history-story.test.cjs`
 
 Tests cover PDF hashes, official/form/history separation, compiler/date credit, download/view links, lazy dimensioned cover, preservation of historical narrative and unrelated models, scoped build preservation, and search inclusion. Browser checks at desktop/tablet/portrait/landscape/320px check overflow, contrast/axe, PDF requests, image loading, touch targets and focus. Live PDF downloads must be hash-checked against the manifest after Pages succeeds.
+
+## Practical summary expansion (1 November 2026)
+
+The regulations page now uses `churchyard-practical-guidance.json` for five scan-friendly sections: burials; memorials following a burial; flowers/plants/memorabilia; cremated remains; records/remembrance. Each section links to the complete relevant document and PDF page. The three original document cards, contact panel and historical route remain.
+
+Source comparison:
+
+- Former webpage capture: `Regulations - St. Michael and All Angels Church.pdf` supplied by owner, records local approval 7 November 2023. Used to audit missing practical subjects; not republished as current full regulations.
+- Burial eligibility, reservations, ownership, memorial process, ordinary grave care: supplied diocesan 2022 document, regulations 7–15, 19–32, 44.
+- Ashes: local March 2026 document is principal. Normally no container; biodegradable urn/casket only at Incumbent's discretion. Distinguish Garden (maximum two family members; church-supplied 5×3-inch bronze plaque) and extension ashes plots (maximum four; small upright headstone, six-month settlement period; maximum 55×45×7.5 cm, material/inscription/application requirements). No old blanket 2×2-foot plot assumption or automatic container choice.
+- Ashes flowers: local 2026 loose-laid preference, maximum one plant/small vase, non-plastic containers, no cellophane, removal rules. These limits are not applied indiscriminately to burial graves.
+- Burial memorial waiting time is deliberately qualified: diocesan six-month minimum can be extended to 12; old local page specified 12. Visitors must confirm with parish; no new local rule chosen.
+- Faculty wording follows supplied diocesan rules identifying the Chancellor, not the old page's DAC wording.
+- Register/Book of Remembrance: diocesan 12/36 and local 2026 sections 1.3/1.4. No new right, historical claim or independent legal interpretation.
+
+No source PDF or historical guide was changed. Summary content has limited line lengths, section jump links and restrained dividers rather than another card collection.
