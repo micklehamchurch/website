@@ -6,16 +6,16 @@
     "selection": "editorial-services-playlist"
   },
   "video": {
-    "id": "zdybAROB5Zg",
-    "title": "Last Sunday of Trinity 25th October 2026",
-    "publishedAt": "2026-10-25T11:53:33.000Z"
+    "id": "FvUXXZha6NQ",
+    "title": "Shoe Box Family Service 1st November 2026",
+    "publishedAt": "2026-11-01T11:55:28.000Z"
   },
   "thumbnail": {
-    "path": "assets/images/sunday-services/zdybAROB5Zg.webp",
+    "path": "assets/images/sunday-services/FvUXXZha6NQ.webp",
     "width": 960,
     "height": 540,
-    "bytes": 67070
+    "bytes": 23958
   },
-  "checkedAt": "2026-10-29T07:15:01.776Z",
+  "checkedAt": "2026-11-01T12:00:02.623Z",
   "verifiedBy": "azure-timer"
 }
