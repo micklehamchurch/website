@@ -208,7 +208,7 @@ jobs:
           elif ! grep -Ev '^(admin/(index\.html|photo-upload-queue\.js|photo-albums-admin\.(js|css)|photo-albums-api\.mjs|msal-auth\.bundle\.js)|azure-function/(src/photo-albums(-model)?\.js|test/photo-albums\.test\.js|test/fixtures/photo-albums-before-queue\.txt)|test/photo-upload-queue\.test\.cjs|docs/photo-upload-queue\.md|\.github/workflows/(build-content|deploy-azure-function)\.yml)$' /tmp/navigation-changed-paths; then
             node build-admin-auth.js
           elif grep -Eq '^(site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|build-typography-preview\.js)$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/[^/]+\.test\.cjs|scripts/check-navigation-(hub|preservation)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+             ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/([^/]+\.test\.cjs|helpers/approved-navigation\.cjs)|scripts/check-navigation-(hub|preservation|alpha)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
           # Confirmed Giving content has no generated page dependencies beyond search.
           elif grep -Eq '^give\.html$' /tmp/navigation-changed-paths &&

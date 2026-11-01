@@ -57,3 +57,11 @@ Visit & Explore adds Parish Photographs last, reusing gallery.html from the unch
 
 ### Desktop hub motion (27 October 2026)
 The persistent desktop panel reveals/retracts over 360ms with cubic-bezier(0.4, 0, 0.6, 1), using a clipping reveal and 16px upward offset. Content opacity changes only from 0.92 to 1. In-flight changes reverse the same animation; switching open categories keeps the panel stationary and crossfades the existing selected gradient over 180ms. Closing makes the panel inert immediately and hides it after retraction. Reduced-motion, compact layouts, preference changes and page navigation settle immediately. No geometry reads, height animation, dependencies or page layout changes are introduced.
+
+## Alpha Course restoration — 1 November 2026
+
+Starting Dev: 0c41b2cfdd2be19fac4d9e38c62a357b40960817. Alpha already exists at alpha.html with current shared header/footer, evergreen parish content and Contact action. No dates, named organiser or currently-running course claims were added. Its existing explanatory historical-contact note remains; a future editorial tidy could simplify that wording without changing the safe route. There is no external Alpha link or embed to verify. Search already indexes Alpha and Church Life/Bible Study already link to it; these sources remain unchanged. No standalone sitemap manifest exists to update.
+
+The sole navigation addition is Community → Alpha Course, immediately after Pastoral Care and before Eco Church. Existing category order and every other link remain. Responsive navigation moves the same real menu into the native dialog; no separate mobile destination or new navigation code. Current-page semantics automatically select Alpha and mark Community. Header/controller CSS and interaction scripts remain unchanged.
+
+Shared site.js header cache key advances to 20261101-alpha-1 through build-typography-preview.js. Public HTML changes are cache references only; a focused test compares every retained public body with starting Dev. Historical preservation tests use an explicit helper allowing only this exact Alpha insertion and cache-key change, retaining binary image comparisons unchanged.

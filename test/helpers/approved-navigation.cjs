@@ -1,0 +1,2 @@
+// Only these explicitly approved navigation changes may differ from historical snapshots.
+module.exports=value=>{const buffer=Buffer.isBuffer(value);if(!buffer&&typeof value!=='string')return value;if(buffer&&!Buffer.from(value.toString()).equals(value))return value;let text=value.toString().replaceAll('header=20261027-motion-1','header=20261101-alpha-1').replace("['Pastoral Care','pastoral-care.html'],['Eco Church'","['Pastoral Care','pastoral-care.html'],['Alpha Course','alpha.html'],['Eco Church'");return buffer?Buffer.from(text):text;};
