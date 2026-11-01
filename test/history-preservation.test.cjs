@@ -23,7 +23,7 @@ test('source archive is complete, excluded from Pages, and not linked by visitor
 test('architectural history is qualified and uses genuine photography; scoped rebuild leaves other pages alone',()=>{
  const d=JSON.parse(read('content-pages.json')),b=d.pages.find(p=>p.slug==='church-building');assert.equal(b.image,'assets/images/about/church-hero.webp');assert(fs.existsSync(b.image));
  const h=read('church-building.html');for(const s of ['Weeping Chancel','symbolic','Belgium','Bohemia','1938','Sources &amp; further reading'])assert(h.includes(s));assert(!h.includes('Great Fire'));assert(!h.includes('leper'));
- assert.match(read('churchyard.html'),/Carole Brough Fuller/);assert.match(read('churchyard.html'),/current availability has not been confirmed/);
+ assert.match(read('churchyard.html'),/Carole Brough Fuller/);assert.match(read('churchyard.html'),/Read the guide/);assert.doesNotMatch(read('churchyard.html'),/current availability has not been confirmed/);
  const files=['index.html','war-memorial.html','history-entry-philippa-walton.html','site.js','feedback.js'];
  const before=files.map(f=>read(f));cp.execFileSync(process.execPath,['build-content-pages.js','church-building','churchyard']);files.forEach((f,i)=>assert.equal(read(f),before[i],f));
  assert.throws(()=>cp.execFileSync(process.execPath,['build-content-pages.js','unknown-history-page'],{stdio:'pipe'}));

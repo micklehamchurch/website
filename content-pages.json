@@ -1374,7 +1374,7 @@
         {
           "title": "Exploring the churchyard’s history",
           "paragraphs": [
-            "The parish’s historical account records a Guide to the Oldest Part of the Churchyard, compiled by Carole Brough Fuller. It is a useful lead for further research into the people remembered here. Ask the parish about consulting a copy; current availability has not been confirmed.",
+            "The parish’s historical account records a Guide to the Oldest Part of the Churchyard, compiled by Carole Brough Fuller. The complete guide is now available to read below, as a preserved source for exploring the people and memorials remembered here.",
             "The Mickleham & Westhumble Local History Group preserves local photographs, stories and research. Its independent website is a useful starting point for enquiries about parish and village history. For wildlife and care of the grounds, the Eco Church page includes the locally preserved 2024 Churchyard Trail."
           ]
         }
@@ -1394,26 +1394,30 @@
           "href": "eco-church.html",
           "label": "Eco Church · churchyard wildlife and the 2024 trail"
         }
-      ]
+      ],
+      "heritageGuide": true
     },
     {
       "slug": "churchyard-regulations",
-      "section": "visit",
-      "category": "Visit & Learn",
+      "section": "worship",
+      "category": "Life Events · Funerals",
       "title": "Churchyard Regulations",
-      "summary": "Ask the parish for the current approved churchyard regulations and forms before making arrangements.",
-      "back": "churchyard.html",
+      "summary": "Practical guidance for burials, memorials and the care of St Michael’s churchyard.",
+      "back": "funerals.html",
       "sections": [
         {
-          "title": "Current rules and advice",
+          "title": "A place of remembrance and history",
           "paragraphs": [
-            "The previous parish website published regulations approved by the Mickleham Parochial Church Council on 7 November 2023. They cover burial eligibility, memorials, flowers, planting, cremated remains and the Book of Remembrance.",
-            "As these rules are locally approved and date-sensitive, this page does not reproduce them as current. Please contact the parish for the latest version and any required forms before taking action."
+            "Our churchyard is a place of great beauty and historical value. It is both a place of burial and remembrance and an important part of the historic parish.",
+            "The original documents below provide the regulations and application form. Please contact the parish if you are unsure which guidance applies before making arrangements."
           ]
         }
       ],
       "action": "Contact the parish",
-      "href": "contact.html"
+      "href": "contact.html",
+      "layout": "churchyard-regulations",
+      "parentLabel": "Funerals",
+      "parentTitle": "Funerals"
     },
     {
       "slug": "norman-architecture",
