@@ -1,0 +1,11 @@
+# Giving page: confirmed parish arrangements
+
+Starting Dev89051b0c1cd24527f47c231b6ccb4ee4a0bbc9a1; main804a189 unchanged. Source: editor's confirmed parish brief,1November2026,following review with church website lead. Repository had no existing parish charity number/bank details or conflicting parish number. Unrelated RBL charity219279 is the external Poppy Appeal,not Mickleham PCC. User confirmation authorizes public bank details; no other financial data exposed.
+
+Static give.html uses existing Giving rules in styles.css and shared site.js; no page-specific JS. Hero/image/disclosure,purpose cards,thanks,global header/footer preserved. Main giving cards now regularPGS,bank/Standing Order,Payaz,cash/cheque; existing GiftAid and legacy sections complete the six methods. Remove main GiveOnline card; retain short security note that website does not process donations. No payment integration,QR,provider buttons,forms or new financial links.
+
+Bank as text dl/dt/dd: NatWest; Mickleham PCC;60-07-02;31547257. Cheques separately payable to Mickleham Church PCC; in-church wall safe by Payaz. No verified cheque postal recipient/address was established; FindUs church location is not assumed to be cheque-mailing instructions. Existing Contact route used. No verified parish-specific PGS enrolment destination found; Contact route used,not invented. GiftAid/envelopes confirmed; no tax calculations/advice. Existing legacy area now A lasting gift/Leave a gift in your will,optional future-generations wording and Contact CTA; no inheritance-tax/share advice. Discreet full charity name/1128482 below legacy section,above thanks.
+
+Replace historical/provisional wording throughout: previous/earlier/old parish website,needs confirmation,check terminal availability,bank details withheld,check before giving,andlegacy/current-guidance disclaimers. CONTENT-MIGRATION-NOTES.md updated to record confirmation rather than leave a conflicting historical instruction. No unrelated address or private contact details added.
+
+Page-only giving-refinements.css supports balanced2×2 main cards,single-column≤700px,semantic bank rows stack on narrow screens,44px text links,visible focus and restrained charity text. Shared styles unchanged. CI Giving branch updates search only; avoids unrelated date-sensitive regeneration. No new JavaScript or external network dependency.

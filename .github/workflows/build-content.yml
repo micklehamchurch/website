@@ -37,6 +37,8 @@ on:
       - 'history-story-render.js'
       - 'our-history.css'
       - 'children-families.css'
+      - 'give.html'
+      - 'giving-refinements.css'
       - 'home-hero-photos.js'
       - 'assets/images/home/hero-autumn-church*'
       - 'assets/images/history/**'
@@ -205,6 +207,10 @@ jobs:
           elif grep -Eq '^(site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|build-typography-preview\.js)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/[^/]+\.test\.cjs|scripts/check-navigation-(hub|preservation)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
+          # Confirmed Giving content has no generated page dependencies beyond search.
+          elif grep -Eq '^give\.html$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(give\.html|giving-refinements\.css|search-index\.json|CONTENT-MIGRATION-NOTES\.md|test/giving\.test\.cjs|scripts/check-giving\.cjs|docs/giving\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node build-search-index.js
           # A carousel photograph replacement has no generated page-body dependencies.
           elif grep -Eq '^home-hero-photos\.js$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(home-hero-photos\.js|index\.html|assets/images/home/hero-autumn-church[-a-z0-9.]*|test/home-(hero-carousel|hero-autumn|performance)\.test\.cjs|scripts/check-home-hero-autumn\.cjs|docs/home-hero-autumn\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
