@@ -25,7 +25,7 @@ test('exact Phase 1 destinations exclude lower-priority content without deleting
  'life-events':['baptisms.html','weddings.html','funerals.html'],
  visit:['finding-us.html','church-building.html','our-history.html','churchyard.html','westhumble-chapel.html','gallery.html'],
  community:['news.html','church-life.html','children-families.html','bible-study-fellowship.html','pastoral-care.html','alpha.html','eco-church.html','news.html#latest-parish-magazine'],
- about:['our-team.html','about.html','our-vision.html','our-churches.html','safeguarding.html','contact.html']});
+ about:['our-team.html','about.html','give.html','our-vision.html','our-churches.html','safeguarding.html','contact.html']});
  for(const file of ['electoral-roll.html','privacy.html','norman-architecture.html','sunday-services.html','special-services.html','whats-on.html','parish-magazine.html'])assert(fs.existsSync(path.join(root,file)));
 });
 test('every hub destination and fragment resolves to retained content; decorative images are deferred',()=>{

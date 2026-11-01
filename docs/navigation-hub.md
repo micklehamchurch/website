@@ -65,3 +65,9 @@ Starting Dev: 0c41b2cfdd2be19fac4d9e38c62a357b40960817. Alpha already exists at 
 The sole navigation addition is Community → Alpha Course, immediately after Pastoral Care and before Eco Church. Existing category order and every other link remain. Responsive navigation moves the same real menu into the native dialog; no separate mobile destination or new navigation code. Current-page semantics automatically select Alpha and mark Community. Header/controller CSS and interaction scripts remain unchanged.
 
 Shared site.js header cache key advances to 20261101-alpha-1 through build-typography-preview.js. Public HTML changes are cache references only; a focused test compares every retained public body with starting Dev. Historical preservation tests use an explicit helper allowing only this exact Alpha insertion and cache-key change, retaining binary image comparisons unchanged.
+
+## Give navigation restoration — 1 November 2026
+
+Starting Dev: 59ca31f38094a700cb5ef9a13eb3b81dd6a0ddca. The existing give.html page and its Search entry/homepage discovery link already work. No separate sitemap manifest requires editing. Added Give as the third About Us link, after Our Parish and before Our Vision. All other links, the completed Alpha entry, top-level categories, responsive breakpoints and navigation controllers/styles remain unchanged. The same menu moves into the tablet/mobile dialog; no separate mobile link.
+
+The shared header cache key is 20261101-give-1, propagated through the established typography/cache builder. Public HTML changes are cache references only; no Giving content, bank details, imagery, layout or styling changes. Search and page source data remain untouched. Historical preservation fixtures accept only this exact additional menu item and cache update. The stopped Churchyard redesign remains stopped; no regulatory source, stylesheet or controller changes.
