@@ -22,3 +22,6 @@
  .home-hero .hero-photo-controls { left:calc(50% - 96px); }
 }
 @media (max-width:359px), (orientation:landscape) and (max-width:650px) and (max-height:460px) { .home-hero .home-next-service { min-height:136px; } }
+
+/* Sunday TODAY mode only; normal card typography and geometry are unchanged. */
+.has-zoom .next-service-label{display:flex;flex-wrap:wrap;align-items:center;gap:0 10px}.next-service-zoom{font:inherit;letter-spacing:.08em}
