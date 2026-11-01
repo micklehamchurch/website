@@ -115,6 +115,7 @@ function showAccountChoices(accounts) {
   denied.hidden = true;
   status.hidden = false;
   status.textContent = 'Choose a Microsoft account to continue.';
+  status.dataset.loading = 'false';
   setError('');
   signIn.hidden = true;
   accountChoices.replaceChildren();
@@ -284,6 +285,7 @@ window.addEventListener('admin-access-recheck',()=>void refreshAccess());
 async function restoreAccount(account) {
   status.hidden = false;
   status.textContent = 'Checking your Microsoft account…';
+  status.dataset.loading = 'true';
   accountChoices.hidden = true;
   signIn.hidden = true;
   setError('');
@@ -303,6 +305,7 @@ async function beginSignIn() {
   setError('');
   status.hidden = false;
   status.textContent = 'Opening Microsoft sign-in…';
+  status.dataset.loading = 'true';
   signIn.disabled = true;
   try {
     await msal.loginRedirect({ scopes: [GRAPH_USER_SCOPE], prompt: 'select_account', redirectUri });

@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="admin.css?v=contact-framing-1">
-  <link rel="stylesheet" href="cms.css?v=cms-phase3-news-2">
+  <link rel="stylesheet" href="cms.css?v=cms-phase31-auth-1">
   <link rel="stylesheet" href="publications-admin.css">
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
@@ -22,21 +22,23 @@
 </head>
 <body class="admin-body">
   <main class="admin-login" id="admin-login">
-    <a class="admin-login-brand" href="../index.html"><img src="./favicon-32x32.png" alt="" width="42" height="42"><span>ST MICHAEL &amp; ALL ANGELS</span></a>
     <section class="admin-login-card" aria-labelledby="admin-login-title">
-      <p class="admin-kicker">CHURCH WEBSITE ADMINISTRATION</p>
-      <h1 id="admin-login-title">St Michael &amp; All Angels<br>Administration</h1>
+      <a class="admin-login-brand" href="../index.html"><img src="./church-mark.svg" alt="" width="105" height="74"><span><strong>St Michael &amp; All Angels</strong><small>Mickleham &amp; Westhumble</small></span></a>
+      <p class="admin-kicker">CHURCH WEBSITE</p>
+      <h1 id="admin-login-title">Website Administration</h1>
       <p id="admin-login-copy">Sign in with an authorised Microsoft account to manage the church website.</p>
-      <p class="admin-auth-status" id="admin-auth-status" role="status">Checking Microsoft sign-in…</p>
+      <div class="admin-auth-primary">
+      <p class="admin-auth-status" id="admin-auth-status" role="status" aria-live="polite" aria-atomic="true" data-loading="true">Checking Microsoft sign-in…</p>
+      <button class="admin-button admin-ms-button" type="button" id="admin-ms-sign-in" hidden><span class="admin-ms-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Sign in with Microsoft</button>
+      </div>
       <div class="admin-auth-error" id="admin-auth-error" role="alert" hidden></div>
       <div class="admin-auth-accounts" id="admin-auth-accounts" hidden></div>
-      <button class="admin-button admin-ms-button" type="button" id="admin-ms-sign-in" hidden><span class="admin-ms-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Sign in with Microsoft</button>
       <section class="admin-auth-denied" id="admin-auth-denied" aria-labelledby="admin-auth-denied-title" hidden>
         <h2 id="admin-auth-denied-title">This Microsoft account is not authorised to administer this website.</h2>
         <div class="admin-auth-actions"><button class="admin-button secondary" type="button" id="admin-ms-sign-out">Sign out</button><button class="admin-button" type="button" id="admin-ms-switch">Sign in with another account</button></div>
       </section>
-    </section>
     <a class="admin-login-home" href="../index.html">← Return to the church website</a>
+    </section>
   </main>
   <div class="admin-app" id="admin-app" hidden>
     <a class="admin-skip-link" href="#admin-main">Skip to administration content</a>
@@ -99,7 +101,7 @@
   </div>
   <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title"></dialog>
   <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
-  <script src="msal-auth.bundle.js?v=cms-phase3-news-2" defer></script>
+  <script src="msal-auth.bundle.js?v=cms-phase31-auth-1" defer></script>
   <script src="../publications-model.js" defer></script>
   <script src="publications-admin.js" defer></script>
   <link rel="stylesheet" href="../clergy-archive.css">
@@ -114,6 +116,6 @@
   <link rel="stylesheet" href="photo-albums-admin.css?v=albums-queue-1">
   <script src="photo-upload-queue.js?v=albums-queue-1" defer></script>
   <script src="photo-albums-admin.js?v=albums-queue-1" defer></script>
-  <script src="admin.js?v=cms-phase3-news-2" defer></script>
+  <script src="admin.js?v=cms-phase31-auth-1" defer></script>
 </body>
 </html>
