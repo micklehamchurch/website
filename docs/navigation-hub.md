@@ -11,7 +11,7 @@ At 1535px and below, the existing modal drawer moves the SAME navigation tree; e
 - Services: Services Overview → worship.html; Service Times → weekly-worship.html; Prayer → prayer.html.
 - Life Events: Baptisms → baptisms.html; Weddings → weddings.html; Funerals → funerals.html.
 - Visit & Explore: Find Us → finding-us.html; The Church Building → church-building.html; Our History → our-history.html; The Churchyard → churchyard.html; Westhumble Chapel → westhumble-chapel.html.
-- Community: News → news.html; Community & Groups → church-life.html; Children & Families → children-families.html; Bible Study & Fellowship → bible-study-fellowship.html; Pastoral Care → pastoral-care.html; Eco Church → eco-church.html; Parish Magazine → news.html#latest-parish-magazine.
+- Community: Parish News → news.html; Community & Groups → church-life.html; Children & Families → children-families.html; Bible Study & Fellowship → bible-study-fellowship.html; Pastoral Care → pastoral-care.html; Eco Church → eco-church.html.
 - About Us: Our Team FIRST → our-team.html; Our Parish → about.html; Our Vision → our-vision.html; Our Churches → our-churches.html; Safeguarding → safeguarding.html; Contact → contact.html.
 
 Search, Calendar, Bible and Plan your visit retain their destinations and existing behaviour. No Calendar or Bible duplicate appears in the hub. Existing lower-priority pages are retained. Electoral Roll and Privacy currently lack shared footer links: this is reported for a later approved footer/contextual change, not silently redesigned here.

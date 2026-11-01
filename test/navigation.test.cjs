@@ -24,7 +24,7 @@ test('exact Phase 1 destinations exclude lower-priority content without deleting
  services:['worship.html','weekly-worship.html','prayer.html'],
  'life-events':['baptisms.html','weddings.html','funerals.html'],
  visit:['finding-us.html','church-building.html','our-history.html','churchyard.html','westhumble-chapel.html','gallery.html'],
- community:['news.html','church-life.html','children-families.html','bible-study-fellowship.html','pastoral-care.html','alpha.html','eco-church.html','news.html#latest-parish-magazine'],
+ community:['news.html','church-life.html','children-families.html','bible-study-fellowship.html','pastoral-care.html','alpha.html','eco-church.html'],
  about:['our-team.html','about.html','give.html','our-vision.html','our-churches.html','safeguarding.html','contact.html']});
  for(const file of ['electoral-roll.html','privacy.html','norman-architecture.html','sunday-services.html','special-services.html','whats-on.html','parish-magazine.html'])assert(fs.existsSync(path.join(root,file)));
 });
@@ -66,3 +66,5 @@ test('Bible utility follows Calendar, has an accessible name and desktop label, 
  assert.equal((hero.match(/<a /g)||[]).length,0);assert.doesNotMatch(hero,/bible/i);
  assert(fs.existsSync(path.join(root,'assets/images/bible-closed.svg')));
 });
+
+test('Community label and retained magazine content',()=>{const c=categories.find(c=>c.id==='community');assert.deepEqual(Array.from(c.links[0]),['Parish News','news.html']);assert(!c.links.some(([l])=>l==='Parish Magazine'));assert.match(fs.readFileSync(path.join(root,'news.html'),'utf8'),/id="latest-parish-magazine"/);});
