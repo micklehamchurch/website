@@ -15,6 +15,7 @@
 #admin-main:focus{outline:none}#admin-content p{font-size:16px}#admin-content label{font-size:16px}#admin-content input:not([type=checkbox]):not([type=radio]):not([type=range]),#admin-content select,#admin-content textarea{font-size:16px;min-height:44px}.admin-contact-card .admin-contact-role,.admin-pcc-row>strong{font-size:15px}.admin-page-table small,.admin-table small{font-size:14px;color:#526158}.admin-brand-icon{width:105px;height:74px}
 .admin-technical-details{display:none}body[data-cms-owner=true] .admin-technical-details{display:block}#admin-content small{font-size:14px;color:#526158}
 .admin-sidebar-label{display:none}
+.admin-record-media{margin:0;min-width:0;align-self:start}.admin-record-media .admin-record-image{height:180px;min-height:0}.admin-record-media .admin-image-caption{display:block;padding:8px}
 .cms-drawer-close{position:sticky;top:0;z-index:2;background:#073622}
 #admin-content .fb-admin button,#admin-content .fb-button,#admin-content button:not(.admin-icon-button){min-height:44px}#admin-content .fb-admin input,#admin-content .fb-admin select{font-size:16px}
 #admin-content input[type=range]{min-height:44px}

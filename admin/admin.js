@@ -454,10 +454,10 @@
     const description = kind === 'calendar' ? fields.location : fields.summary;
     const origin = kind === 'calendar' ? '<span class="admin-status feed">Shared Dev / staged content</span>' : item._origin === 'repository' ? '<span class="admin-status feed">Current website content</span>' : '<span class="admin-status demo">Website item</span>';
     const sample = kind === 'news' && item.demo ? '<span class="admin-status demo">Illustration</span>' : '';
-    const image = fields.image ? `<img class="admin-record-image" src="${escAttr(fields.image)}" alt="${safe(imageAlt(fields.image))}"><small class="admin-image-caption">Demo image · replace with church-approved photography in a future CMS</small>` : '';
+    const image = fields.image ? `<figure class="admin-record-media"><img class="admin-record-image" src="${escAttr(fields.image)}" alt="${safe(imageAlt(fields.image))}">${images.some(item => item.value === fields.image) ? '<figcaption class="admin-image-caption">Illustrative image</figcaption>' : ''}</figure>` : '';
     return `<article class="admin-cms-card ${fields.image ? 'has-image' : ''}" data-record-card data-search="${escAttr(`${title} ${fields.category} ${fields.location || ''} ${fields.summary || ''} ${fields.date}`.toLowerCase())}">${image}<div class="admin-cms-card-main"><div class="admin-record-meta"><span>${safe(fields.category)}</span><span>${safe(date)}${time}</span>${origin}${sample}<span class="admin-status ${fields.status === 'draft' ? 'draft' : ''}">${fields.status === 'draft' ? 'Draft' : kind === 'calendar' ? 'Public after publishing' : 'Published'}</span></div><h2>${safe(title)}</h2><p>${safe(description || (kind === 'calendar' ? 'No location supplied' : 'No summary supplied'))}</p><div class="admin-actions"><button class="admin-button secondary small" type="button" data-action="preview" data-kind="${kind}" data-id="${escAttr(fields.id)}">Preview</button><button class="admin-button secondary small" type="button" data-action="edit" data-kind="${kind}" data-id="${escAttr(fields.id)}">Edit</button>${kind === 'news' ? '' : `<button class="admin-button secondary small" type="button" data-action="toggle-status" data-kind="${kind}" data-id="${escAttr(fields.id)}">${fields.status === 'draft' ? (kind === 'calendar' ? 'Mark for publication' : 'Restore from draft') : 'Move to draft'}</button><button class="admin-button danger small" type="button" data-action="delete" data-kind="${kind}" data-id="${escAttr(fields.id)}">Delete</button>`}</div></div></article>`;
   }
-  function imageAlt(path) { return images.find(item => item.value === path)?.alt || 'Demonstration church website image'; }
+  function imageAlt(path) { return images.find(item => item.value === path)?.alt || 'News story image'; }
 
   function sourceForPage(page) {
     const route = String(page.url || '').replace(/^\//, '');
@@ -901,7 +901,7 @@
   }
   function previewMarkup(kind, item) {
     const isEvent = kind === 'calendar';
-    const image = item.image ? `<img class="admin-preview-image" src="${escAttr(item.image)}" alt="${safe(imageAlt(item.image))}"><p class="admin-image-caption">DEMO IMAGE · temporary selection</p>` : '';
+    const image = item.image ? `<img class="admin-preview-image" src="${escAttr(item.image)}" alt="${safe(imageAlt(item.image))}">${images.some(image => image.value === item.image) ? '<p class="admin-image-caption">Illustrative image</p>' : ''}` : '';
     const body = isEvent
       ? `<p><strong>${safe(dateLabel(item.date))} · ${safe(item.allDay ? 'All day' : item.startTime || 'Time not set')}${item.endTime ? `–${safe(item.endTime)}` : ''}</strong></p><p>${safe(item.location)}</p><p>${safe(item.description)}</p>${item.externalLink ? `<p><a href="${escAttr(item.externalLink)}" target="_blank" rel="noopener noreferrer">Open event link ↗</a></p>` : ''}`
       : `${item.demo ? '<p class="admin-demo-caption">Illustration ARTICLE · FICTIONAL CONTENT</p>' : ''}<p>${safe(item.summary)}</p>${item.content.split(/\n\s*\n/).filter(Boolean).map(paragraph => `<p>${safe(paragraph)}</p>`).join('')}`;
