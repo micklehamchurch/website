@@ -52,6 +52,9 @@ on:
       - 'content-pages.json'
       - 'churchyard-resources.*'
       - 'churchyard-practical-guidance.json'
+      - 'churchyard-regulations-render.cjs'
+      - 'churchyard-regulations.css'
+      - 'churchyard-regulations.js'
       - 'churchyard-resources-render.cjs'
       - 'build-churchyard-resources.cjs'
       - 'assets/documents/churchyard/**'
@@ -200,7 +203,7 @@ jobs:
           git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/navigation-changed-paths
           if node scripts/is-admin-access-release.cjs /tmp/navigation-changed-paths; then
             node build-admin-auth.js
-          elif ! grep -Ev '^(content-pages\.json|build-content-pages\.js|funerals-render\.js|churchyard-resources\.(json|css)|churchyard-practical-guidance\.json|churchyard-resources-render\.cjs|build-churchyard-resources\.cjs|funerals\.html|churchyard(-regulations)?\.html|search-index\.json|assets/documents/churchyard/[^/]+\.pdf|assets/documents/history/guide-to-churchyard-2019\.pdf|assets/images/churchyard/[^/]+\.webp|test/(churchyard-resources|history-preservation|children-families|prayer-page)\.test\.cjs|docs/churchyard-resources\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+          elif ! grep -Ev '^(content-pages\.json|build-content-pages\.js|funerals-render\.js|churchyard-resources\.(json|css)|churchyard-practical-guidance\.json|churchyard-regulations-render\.cjs|churchyard-regulations\.(css|js)|churchyard-resources-render\.cjs|build-churchyard-resources\.cjs|funerals\.html|churchyard(-regulations)?\.html|search-index\.json|assets/documents/churchyard/[^/]+\.pdf|assets/documents/history/guide-to-churchyard-2019\.pdf|assets/images/churchyard/[^/]+\.webp|test/(churchyard-resources|history-preservation|children-families|prayer-page)\.test\.cjs|docs/churchyard-resources\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-churchyard-resources.cjs
           elif ! grep -Ev '^(admin/(index\.html|photo-upload-queue\.js|photo-albums-admin\.(js|css)|photo-albums-api\.mjs|msal-auth\.bundle\.js)|azure-function/(src/photo-albums(-model)?\.js|test/photo-albums\.test\.js|test/fixtures/photo-albums-before-queue\.txt)|test/photo-upload-queue\.test\.cjs|docs/photo-upload-queue\.md|\.github/workflows/(build-content|deploy-azure-function)\.yml)$' /tmp/navigation-changed-paths; then
             node build-admin-auth.js

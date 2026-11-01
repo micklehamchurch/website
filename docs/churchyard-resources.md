@@ -52,3 +52,19 @@ Source comparison:
 - Register/Book of Remembrance: diocesan 12/36 and local 2026 sections 1.3/1.4. No new right, historical claim or independent legal interpretation.
 
 No source PDF or historical guide was changed. Summary content has limited line lengths, section jump links and restrained dividers rather than another card collection.
+
+## Approved UX redesign (1 November 2026)
+
+The Churchyard Regulations page now uses a dedicated `churchyard-regulations-render.cjs`, scoped stylesheet and small progressive-enhancement script. The Churchyard guide and Funerals still use their original shared renderer/CSS and are not redesigned.
+
+Hierarchy follows the approved mock-up: genuine photo/green hero; two-column introduction; five topic cards; early parish contact panel; five guidance accordions alongside compact official documents; one authoritative-document notice and a secondary history link. No unverified charity number from the mock-up was copied.
+
+Photography audit considered the genuine churchyard album (including portrait IMG_6543, the headstones/trees image IMG_6529 and the narrow path photograph IMG_1833) and existing homepage photographs. Selected the existing wide IMG_E6550 church exterior: `assets/images/home/hero-exterior-{640,960,1600}.webp`, 640×360 / 42,654 bytes, 960×540 / 93,080 bytes, 1600×900 / 262,328 bytes. Reused responsive derivatives; no new images, stock, generation or visual alteration. Desktop right-hand framing uses 53% 25%; phone uses 58% 20% in a short stacked image. No PDF preload; one eager high-priority hero image, no redundant preload.
+
+Accordions are real buttons with `aria-expanded`/`aria-controls` and labelled regions. Server-rendered content is expanded and readable with JavaScript disabled. Enhancement initially collapses panels, except valid deep links. Enter/Space toggle; Up/Down/Home/End move trigger focus; native Tab stays intact. Cards reveal/focus the relevant section or documents without page reloads. Native hash history supports Back/Forward and reload. Small Web Animations height/opacity transitions are cancelled safely on repeated actions, and removed under reduced motion. Closed panels are hidden/inert. No third-party library.
+
+All rule lists, dimensions and permission limits remain. Attribution-only copy was made visitor-facing. The internal reference to the former webpage was removed from public waiting-period copy, but the cautious instruction to confirm the applicable period, six-month diocesan minimum and possible 12-month extension remain. Delivery notes retain the historical local 12-month statement; no new local policy was chosen. Quiet “Based on” references remain inside all five panels.
+
+Focused content/preservation suite: 29/29. Full regression: 699 total, 684 passed, 15 failed. Fourteen failure names match earlier baseline logs. The Home semantic snapshot failure was independently reproduced by comparing the starting Dev HTML against the test's older 8f15696 baseline; current Home equals starting Dev. This release does not change Home or those baseline expectations.
+
+Browser verification covers ten sizes (1920, 1600, 1366, 1024, 768, 430, 390, 375, 320 and 844×390 landscape), closed/open accessibility checks, all cards, keyboard/ARIA states, hash Back/Forward and direct deep-link reload, no-JS content, reduced and normal motion, enlarged text and a 200% desktop reflow equivalent. Actual Dev verification and final SHA/deployment receipt are recorded in the delivery report.
