@@ -201,12 +201,13 @@
     {
       "id": "verse-week-19",
       "reference": "Matthew 5:14",
-      "translation": "Website paraphrase",
+      "translation": "",
       "quotation": "Jesus tells his followers that they are the light of the world.",
       "startDate": "2027-02-08",
       "endDate": "2027-02-14",
       "published": true,
-      "note": "Approved website paraphrase, not verbatim NLT. Set translation to NLT only after replacing this with approved verbatim NLT wording."
+      "note": "Approved website paraphrase, not verbatim NLT. Set translation to NLT only after replacing this with approved verbatim NLT wording.",
+      "updatedAt": "2026-11-01T05:23:34.512Z"
     },
     {
       "id": "verse-week-20",
