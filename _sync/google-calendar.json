@@ -218,7 +218,7 @@
       "seriesId": "migration-hc-second",
       "occurrenceStart": "2026-11-08T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Remembrance Service",
         "start": "2026-11-08T10:00",
         "end": "2026-11-08T11:00",
         "allDay": false,
@@ -226,14 +226,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Remembrance Service",
         "start": "2026-11-08T10:00",
         "end": "2026-11-08T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "461cc6fcc2d9429c9e01f2aa3f568dac7dc5886d503a482f0246f25b0748a313",
+      "fingerprint": "a5e6049d8e31044f5ee5c9cc311d0c2365e6b57b01dba72183050afd91ebf831",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -3829,14 +3829,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-10-20T10:45:05.142Z",
+  "lastSuccessfulSync": "2026-11-03T16:00:04.514Z",
   "audit": {
-    "at": "2026-10-20T10:45:05.142Z",
+    "at": "2026-11-03T16:00:04.514Z",
     "mode": "automatic",
-    "added": 2,
-    "updated": 0,
+    "added": 0,
+    "updated": 1,
     "removed": 0,
-    "unchanged": 127,
+    "unchanged": 128,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1

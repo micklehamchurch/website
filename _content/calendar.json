@@ -633,6 +633,13 @@
       "changes": {
         "title": "Informal Holy Communion (no creche)"
       }
+    },
+    {
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2026-11-08T10:00",
+      "changes": {
+        "title": "Remembrance Service"
+      }
     }
   ]
 }
