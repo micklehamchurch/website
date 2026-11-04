@@ -5,7 +5,7 @@ test('shared information links retain main navigation, branding and footer exact
  assert.deepEqual(current.navigationCategories,old.navigationCategories);
  for(const [label,href]of [['Safeguarding','safeguarding.html'],['Policies &amp; documents','policies.html'],['Church open daily','visit.html']]){assert(current.navigation.includes(`href="${href}"`));assert(current.navigation.includes(label));assert(fs.existsSync(href));}
  assert.equal(source.match(/const footer = `[\s\S]*?`;/)[0],before('site.js').match(/const footer = `[\s\S]*?`;/)[0]);
- assert.equal(current.navigation.match(/<div class="header-branding">[\s\S]*?<\/div>/)[0],old.navigation.match(/<div class="header-branding">[\s\S]*?<\/div>/)[0]);
+ assert.equal(require('./helpers/header-church-mark-snapshot.cjs')(current.navigation.match(/<div class="header-branding">[\s\S]*?<\/div>/)[0]),old.navigation.match(/<div class="header-branding">[\s\S]*?<\/div>/)[0]);
  assert(current.navigation.indexOf('Important information')<current.navigation.indexOf('class="nav-primary"'));
 });
 test('all existing page bodies, homepage systems and regulatory documents remain unchanged',()=>{

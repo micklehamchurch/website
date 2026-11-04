@@ -210,6 +210,9 @@ jobs:
           git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/navigation-changed-paths
           if node scripts/is-admin-access-release.cjs /tmp/navigation-changed-paths; then
             node build-admin-auth.js
+          elif node scripts/is-header-church-mark-release.cjs /tmp/navigation-changed-paths; then
+            node build-typography-preview.js
+            node build-home-performance.js
           elif node scripts/is-header-information-release.cjs /tmp/navigation-changed-paths; then
             node build-content-pages.js safeguarding
             node build-typography-preview.js
