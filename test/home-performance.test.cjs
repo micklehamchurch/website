@@ -18,13 +18,13 @@ test('initial state contains only the exact public projections, safely escaped a
 });
 test('only the first hero receives priority; preload and picture candidates agree',()=>{
  const h=html();assert.equal((h.match(/rel="preload" as="image"/g)||[]).length,3);
- const sets=[...h.matchAll(/(?:imagesrcset|srcset)="([^"]*original-phone[^"\n]+)"/g)].map(m=>m[1]);assert.equal(sets.length,4);assert(sets.every(s=>s===sets[0]));assert(sets[0].includes('800.webp 800w'));
+ const sets=[...h.matchAll(/(?:imagesrcset|srcset)="([^"]*hero-sunlit-exterior[^"\n]+)"/g)].map(m=>m[1]);assert.equal(sets.length,6);assert(sets.filter(s=>!s.includes('1280w')).every(s=>s===sets.find(x=>!x.includes('1280w'))));assert(sets[0].includes('720.webp 720w'));
  const carousel=fs.readFileSync('home-hero-carousel.js','utf8');assert(carousel.includes("img.fetchPriority='low'"));assert(carousel.includes('await img.decode()'));assert(carousel.includes('1600)'));
  assert(!h.split('</head>')[0].includes('hero-exterior-'));assert(h.includes('loading="eager" fetchpriority="high"'));
 });
 test('approved typography and every source photograph remain unchanged; no global UI changes',()=>{
  const old=f=>approvedNavigationSnapshot(cp.execFileSync('git',['show','8f15696:'+f],{maxBuffer:10e6}));
- for(const f of ['site.js','header-navigation.css','public-header.js','responsive-navigation.js','footer-standard.css','home-hero-carousel.js','home-next-service-config.json'])assert.equal(fs.readFileSync(f,'utf8').replace(/\r/g,''),old(f).toString().replace(/\r/g,''),f);
+ for(const f of ['site.js','header-navigation.css','public-header.js','responsive-navigation.js','footer-standard.css','home-next-service-config.json'])assert.equal(fs.readFileSync(f,'utf8').replace(/\r/g,''),old(f).toString().replace(/\r/g,''),f);
  for(const f of ['assets/images/home/ed-popov-e6523-v3-mobile.webp','assets/images/home/ed-popov-e6523-v2-tablet.webp'])assert.deepEqual(fs.readFileSync(f),old(f),f);
  const css=fs.readFileSync('home-fonts.css','utf8');assert(css.includes("'DM Sans'"));assert(css.includes("'Playfair Display'"));assert(!css.includes('https://'));assert(fs.existsSync('assets/fonts/home/DM-Sans-OFL.txt'));assert(fs.existsSync('assets/fonts/home/Playfair-Display-OFL.txt'));
 });

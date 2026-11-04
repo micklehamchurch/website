@@ -2,11 +2,87 @@
 (function(root,factory){const model=factory();if(typeof module==='object'&&module.exports)module.exports=model;else root.HomeHeroPhotos=model;})(typeof window==='object'?window:globalThis,()=>{
  'use strict';
  const photos=[
-  {id:'original',name:'Original St Michael and All Angels homepage photograph',focus:{wide:'50% 62%',phone:'50% 50%',short:'40% 50%'},shortFit:'cover',sources:{src:'assets/images/home/ed-popov-e6523-v2-large.jpg',srcset:'assets/images/home/ed-popov-e6523-v2-tablet.webp 1920w, assets/images/home/ed-popov-e6523-v2-large.webp 3200w',phone:'assets/images/home/ed-popov-e6523-v3-mobile.webp',short:'assets/images/home/ed-popov-e6523-v3-mobile.webp'}},
-  {id:'exterior',name:'St Michael and All Angels church exterior',focus:{wide:'50% 20%',phone:'50% 50%',short:'64% 50%'},shortFit:'contain'},
-  {id:'autumn-church',name:'St Michael & All Angels viewed across the churchyard in autumn light',focus:{wide:'50% 35%',phone:'50% 45%',short:'50% 40%'},shortFit:'cover'},
-  {id:'churchyard',name:'Churchyard and autumn foliage',focus:{wide:'50% 62%',phone:'50% 50%',short:'35% 55%'},shortFit:'cover'}
- ];
+  {
+    "id": "sunlit-exterior",
+    "name": "St Michael & All Angels Church in autumn sunshine, showing the clock tower and red entrance door",
+    "focus": {
+      "wide": "50% 0%",
+      "phone": "42% 0%",
+      "short": "40% 30%"
+    },
+    "shortFit": "cover",
+    "sources": {
+      "src": "assets/images/home/hero-sunlit-exterior-1600.webp",
+      "srcset": "assets/images/home/hero-sunlit-exterior-480.webp 480w, assets/images/home/hero-sunlit-exterior-720.webp 720w, assets/images/home/hero-sunlit-exterior-960.webp 960w, assets/images/home/hero-sunlit-exterior-1280.webp 1280w, assets/images/home/hero-sunlit-exterior-1600.webp 1600w",
+      "phone": "assets/images/home/hero-sunlit-exterior-480.webp 480w, assets/images/home/hero-sunlit-exterior-720.webp 720w, assets/images/home/hero-sunlit-exterior-960.webp 960w",
+      "short": "assets/images/home/hero-sunlit-exterior-480.webp 480w, assets/images/home/hero-sunlit-exterior-720.webp 720w, assets/images/home/hero-sunlit-exterior-960.webp 960w"
+    }
+  },
+  {
+    "id": "golden-church",
+    "name": "St Michael & All Angels Church surrounded by gravestones in warm afternoon light",
+    "focus": {
+      "wide": "50% 0%",
+      "phone": "62% 0%",
+      "short": "66% 30%"
+    },
+    "shortFit": "cover",
+    "sources": {
+      "src": "assets/images/home/hero-golden-church-1600.webp",
+      "srcset": "assets/images/home/hero-golden-church-480.webp 480w, assets/images/home/hero-golden-church-720.webp 720w, assets/images/home/hero-golden-church-960.webp 960w, assets/images/home/hero-golden-church-1280.webp 1280w, assets/images/home/hero-golden-church-1600.webp 1600w",
+      "phone": "assets/images/home/hero-golden-church-480.webp 480w, assets/images/home/hero-golden-church-720.webp 720w, assets/images/home/hero-golden-church-960.webp 960w",
+      "short": "assets/images/home/hero-golden-church-480.webp 480w, assets/images/home/hero-golden-church-720.webp 720w, assets/images/home/hero-golden-church-960.webp 960w"
+    }
+  },
+  {
+    "id": "congregation",
+    "name": "Congregation gathered inside St Michael & All Angels Church",
+    "focus": {
+      "wide": "50% 45%",
+      "phone": "50% 45%",
+      "short": "50% 45%"
+    },
+    "shortFit": "cover",
+    "sources": {
+      "src": "assets/images/home/hero-congregation-1600.webp",
+      "srcset": "assets/images/home/hero-congregation-480.webp 480w, assets/images/home/hero-congregation-720.webp 720w, assets/images/home/hero-congregation-960.webp 960w, assets/images/home/hero-congregation-1280.webp 1280w, assets/images/home/hero-congregation-1600.webp 1600w",
+      "phone": "assets/images/home/hero-congregation-480.webp 480w, assets/images/home/hero-congregation-720.webp 720w, assets/images/home/hero-congregation-960.webp 960w",
+      "short": "assets/images/home/hero-congregation-480.webp 480w, assets/images/home/hero-congregation-720.webp 720w, assets/images/home/hero-congregation-960.webp 960w"
+    }
+  },
+  {
+    "id": "autumn-yard",
+    "name": "Autumn sunshine across the historic churchyard at Mickleham",
+    "focus": {
+      "wide": "50% 45%",
+      "phone": "28% 45%",
+      "short": "22% 45%"
+    },
+    "shortFit": "cover",
+    "sources": {
+      "src": "assets/images/home/hero-autumn-yard-1600.webp",
+      "srcset": "assets/images/home/hero-autumn-yard-480.webp 480w, assets/images/home/hero-autumn-yard-720.webp 720w, assets/images/home/hero-autumn-yard-960.webp 960w, assets/images/home/hero-autumn-yard-1280.webp 1280w, assets/images/home/hero-autumn-yard-1600.webp 1600w",
+      "phone": "assets/images/home/hero-autumn-yard-480.webp 480w, assets/images/home/hero-autumn-yard-720.webp 720w, assets/images/home/hero-autumn-yard-960.webp 960w",
+      "short": "assets/images/home/hero-autumn-yard-480.webp 480w, assets/images/home/hero-autumn-yard-720.webp 720w, assets/images/home/hero-autumn-yard-960.webp 960w"
+    }
+  },
+  {
+    "id": "sunset-yard",
+    "name": "Golden evening sunlight over St Michael's churchyard and historic gravestones",
+    "focus": {
+      "wide": "50% 15%",
+      "phone": "46% 15%",
+      "short": "46% 20%"
+    },
+    "shortFit": "cover",
+    "sources": {
+      "src": "assets/images/home/hero-sunset-yard-1600.webp",
+      "srcset": "assets/images/home/hero-sunset-yard-480.webp 480w, assets/images/home/hero-sunset-yard-720.webp 720w, assets/images/home/hero-sunset-yard-960.webp 960w, assets/images/home/hero-sunset-yard-1280.webp 1280w, assets/images/home/hero-sunset-yard-1600.webp 1600w",
+      "phone": "assets/images/home/hero-sunset-yard-480.webp 480w, assets/images/home/hero-sunset-yard-720.webp 720w, assets/images/home/hero-sunset-yard-960.webp 960w",
+      "short": "assets/images/home/hero-sunset-yard-480.webp 480w, assets/images/home/hero-sunset-yard-720.webp 720w, assets/images/home/hero-sunset-yard-960.webp 960w"
+    }
+  }
+];
  const sizes='(max-width: 600px) 100vw, (max-height: 460px) and (max-width: 999px) 53vw, (min-width: 1600px) 1600px, 100vw';
  const srcset=p=>p.sources?.srcset||[640,960,1600,2560].map(w=>`assets/images/home/hero-${p.id}-${w}.webp ${w}w`).join(', ');
  const wrap=(i,n)=>((i%n)+n)%n;

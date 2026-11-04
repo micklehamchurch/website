@@ -1,0 +1,202 @@
+[
+  {
+    "id": "sunlit-exterior",
+    "source": "Sunlit Flintstone Churchyard with Red Door.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 3115980,
+    "sha256": "255754750dd40493fab5c47e78a209a6f4d5d14df348b645fb9372938a928d25",
+    "outputs": [
+      {
+        "file": "assets/images/home/hero-sunlit-exterior-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 37578
+      },
+      {
+        "file": "assets/images/home/hero-sunlit-exterior-720.webp",
+        "width": 720,
+        "height": 405,
+        "bytes": 79384
+      },
+      {
+        "file": "assets/images/home/hero-sunlit-exterior-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 133062
+      },
+      {
+        "file": "assets/images/home/hero-sunlit-exterior-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 218592
+      },
+      {
+        "file": "assets/images/home/hero-sunlit-exterior-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 312518
+      }
+    ]
+  },
+  {
+    "id": "golden-church",
+    "source": "Golden-Hour Church and Graveyard.png",
+    "width": 1671,
+    "height": 941,
+    "bytes": 3134449,
+    "sha256": "25dae39cf5b2a7da3390da7b4a1d534d687e006ecefb027a7b62de5ce0fa0b71",
+    "outputs": [
+      {
+        "file": "assets/images/home/hero-golden-church-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 36926
+      },
+      {
+        "file": "assets/images/home/hero-golden-church-720.webp",
+        "width": 720,
+        "height": 405,
+        "bytes": 76134
+      },
+      {
+        "file": "assets/images/home/hero-golden-church-960.webp",
+        "width": 960,
+        "height": 541,
+        "bytes": 128984
+      },
+      {
+        "file": "assets/images/home/hero-golden-church-1280.webp",
+        "width": 1280,
+        "height": 721,
+        "bytes": 213540
+      },
+      {
+        "file": "assets/images/home/hero-golden-church-1600.webp",
+        "width": 1600,
+        "height": 901,
+        "bytes": 298824
+      }
+    ]
+  },
+  {
+    "id": "congregation",
+    "source": "Vibrant Church Interior and Congregation.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 3029025,
+    "sha256": "625a3e2e56bc23d0a04bdb83a20271499f713b2fd749ac7e8390015cb3c303a0",
+    "outputs": [
+      {
+        "file": "assets/images/home/hero-congregation-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 36136
+      },
+      {
+        "file": "assets/images/home/hero-congregation-720.webp",
+        "width": 720,
+        "height": 405,
+        "bytes": 74070
+      },
+      {
+        "file": "assets/images/home/hero-congregation-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 120246
+      },
+      {
+        "file": "assets/images/home/hero-congregation-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 187386
+      },
+      {
+        "file": "assets/images/home/hero-congregation-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 258094
+      }
+    ]
+  },
+  {
+    "id": "autumn-yard",
+    "source": "Sunlit Autumn Churchyard Graveyard.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 3761405,
+    "sha256": "93d5f7caa5cb109e5389664d9d8a5808655c3912519783057fc2d9d2f6d6ff72",
+    "outputs": [
+      {
+        "file": "assets/images/home/hero-autumn-yard-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 47382
+      },
+      {
+        "file": "assets/images/home/hero-autumn-yard-720.webp",
+        "width": 720,
+        "height": 405,
+        "bytes": 102520
+      },
+      {
+        "file": "assets/images/home/hero-autumn-yard-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 178498
+      },
+      {
+        "file": "assets/images/home/hero-autumn-yard-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 297792
+      },
+      {
+        "file": "assets/images/home/hero-autumn-yard-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 422472
+      }
+    ]
+  },
+  {
+    "id": "sunset-yard",
+    "source": "Golden Hour Churchyard and Autumn Gravestones.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 3540958,
+    "sha256": "a262aa0b0994ac946cbc311195f6930876f7573b54529d495eb061bfc61065cd",
+    "outputs": [
+      {
+        "file": "assets/images/home/hero-sunset-yard-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 42308
+      },
+      {
+        "file": "assets/images/home/hero-sunset-yard-720.webp",
+        "width": 720,
+        "height": 405,
+        "bytes": 94362
+      },
+      {
+        "file": "assets/images/home/hero-sunset-yard-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 161498
+      },
+      {
+        "file": "assets/images/home/hero-sunset-yard-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 266754
+      },
+      {
+        "file": "assets/images/home/hero-sunset-yard-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 376574
+      }
+    ]
+  }
+]
