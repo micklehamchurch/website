@@ -88,6 +88,7 @@ on:
       - 'assets/images/worship/**'
       - 'home-news.css'
       - 'home-performance.css'
+      - 'home-content.css'
       - 'home-fonts.css'
       - 'home-style-sources.json'
       - 'build-home-performance.js'
@@ -210,6 +211,10 @@ jobs:
           git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/navigation-changed-paths
           if node scripts/is-admin-access-release.cjs /tmp/navigation-changed-paths; then
             node build-admin-auth.js
+          # Compact quick links change only Home markup/styles, never public content projections.
+          elif grep -Eq '^home-content\.css$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(index\.html|home-content\.css|home-critical\.css|home-style-sources\.json|test/([^/]+\.test\.cjs|helpers/(home-performance|approved-quick-links)\.cjs)|scripts/check-home-quick-links\.cjs|docs/home-quick-links\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node build-home-performance.js
           elif node scripts/is-header-church-mark-release.cjs /tmp/navigation-changed-paths; then
             node build-typography-preview.js
             node build-home-performance.js

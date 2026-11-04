@@ -10,6 +10,6 @@ test('SVG is transparent, vector-only, bounded, lightweight and has no generated
 });
 test('all public HTML content is unchanged except shared script and homepage CSS cache versions',()=>{
  const files=cp.execFileSync('git',['ls-tree','-r','--name-only','7c598368'],{encoding:'utf8'}).trim().split('\n').filter(f=>f.endsWith('.html')&&!f.startsWith('admin/')&&read(f).includes('data-site-header'));
- const strip=s=>s.replace(/header=[^&" ]+/g,'header=VERSION').replace(/home-critical\.css\?v=[^" ]+/g,'home-critical.css?v=VERSION');
+ const strip=s=>require('./helpers/approved-quick-links.cjs')(s).replace(/header=[^&" ]+/g,'header=VERSION').replace(/home-critical\.css\?v=[^" ]+/g,'home-critical.css?v=VERSION');
  for(const f of files)assert.equal(strip(read(f)),strip(old(f)),f);
 });
