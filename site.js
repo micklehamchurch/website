@@ -36,7 +36,7 @@ const navigation = `
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
     <nav class="nav" id="mainNav" aria-label="Main">
       <div class="header-information" role="group" aria-label="Important information"><p class="drawer-information-title">Important information</p><a href="safeguarding.html">${navigationIcon('shield')}<span>Safeguarding</span></a><a href="policies.html">${navigationIcon('document')}<span>Policies &amp; documents</span></a></div>
-      <a class="header-opening" href="visit.html">${navigationIcon('church')}<span>Church open daily</span></a>
+      <a class="header-opening" href="finding-us.html">${navigationIcon('church')}<span>Church open daily</span></a>
       <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
       ${navigationCategories.map(category=>`<div class="nav-item has-dropdown" data-category="${category.id}"><button class="nav-trigger" id="trigger-${category.id}" type="button" aria-expanded="false" aria-controls="menu-${category.id}">${navigationEscape(category.title)}<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg></button></div>`).join('')}
