@@ -1087,6 +1087,19 @@
       "policyEntity": "The Parochial Church Council (PCC) of St. Michael and All Angels Church, Mickleham (St. Michael’s)",
       "sections": [
         {
+          "title": "Need to report a safeguarding concern?",
+          "variant": "contacts",
+          "paragraphs": [
+            "If you have a safeguarding concern, contact the Parish Safeguarding Officer or the diocesan safeguarding team using the details below."
+          ],
+          "links": [
+            {
+              "href": "https://www.cofeguildford.org.uk/meet-the-team.php",
+              "label": "Diocesan safeguarding contacts and guidance"
+            }
+          ]
+        },
+        {
           "title": "Our safeguarding commitments",
           "variant": "commitments",
           "paragraphs": [
@@ -1127,14 +1140,6 @@
           "paragraphs": [
             "Each person who works within this church community will agree to abide by this policy and the guidelines established by this church.",
             "Mickleham appoints Vickie Leney as the Safeguarding Officer"
-          ]
-        },
-        {
-          "title": "Need to report a safeguarding concern?",
-          "variant": "contacts",
-          "paragraphs": [
-            "Our Parish Safeguarding Officer is:",
-            "The Diocesan Safeguarding Adviser is:"
           ]
         }
       ],

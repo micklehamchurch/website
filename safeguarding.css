@@ -76,6 +76,8 @@
 }
 .safeguarding-contacts h2 { color: #fffdf8; }
 .safeguarding-contacts > p { color: #e3e9e4; }
+.safeguarding-guidance-links a { color:#f3dfb1; text-decoration:underline; text-underline-offset:3px; }
+.safeguarding-guidance-links a:focus-visible { outline:2px solid #f0dba9; outline-offset:4px; }
 .safeguarding-contact-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

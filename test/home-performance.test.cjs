@@ -1,9 +1,9 @@
 const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs,cp=require('node:child_process');
 const html=()=>fs.readFileSync('index.html','utf8');
 test('Home critical CSS is deterministic, uses the original cascade and reserves the actual header breakpoints',()=>{
  const manifest=require('../home-style-sources.json');
- assert(manifest.sources.indexOf('header-navigation.css?navigation=20261027-motion-1')>manifest.sources.indexOf('styles.css?v=natural-photos-card-cta-v4'));
+ assert(manifest.sources.indexOf('header-navigation.css?navigation=20261104-information-1')>manifest.sources.indexOf('styles.css?v=natural-photos-card-cta-v4'));
  const first=html(),css=fs.readFileSync('home-critical.css','utf8');require('../build-home-performance').build();assert.equal(html(),first);assert.equal(fs.readFileSync('home-critical.css','utf8'),css);
  assert.match(first,/<link rel="stylesheet" href="home-critical.css\?v=[a-f0-9]{12}">/);
  assert.match(first,/<body class="home-header-hero header-photo-page">/);

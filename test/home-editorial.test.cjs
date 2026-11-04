@@ -1,6 +1,6 @@
 const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
 const delivery=require('./helpers/home-performance.cjs');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs,cp=require('node:child_process');
 const home=()=>fs.readFileSync('index.html','utf8').replace(/\r/g,'');
 const baseline=approvedNavigationSnapshot(cp.execFileSync('git',['show','96364a3:index.html'],{encoding:'utf8'})).replace(/\r/g,'');
 const protectedUpper=s=>s.slice(s.indexOf('<body'),s.indexOf('\n',s.indexOf('<div class="home-peace-entry">')));

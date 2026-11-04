@@ -1,0 +1,14 @@
+.policies-page { padding-bottom:56px; }
+.policies-hero { padding:38px 0 34px; background:var(--cream); border-bottom:1px solid var(--stone); }
+.policies-hero h1 { margin:8px 0 16px; font:600 clamp(32px,4vw,48px)/1.15 var(--serif); color:var(--deep); }
+.policies-hero p:last-child { max-width:64ch; margin:0; font-size:18px; }
+.policies-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; padding-top:32px; }
+.policies-groups section { padding:26px; border:1px solid var(--stone); border-radius:7px; background:var(--paper); min-width:0; }
+.policies-groups h2 { font:600 26px/1.25 var(--serif); color:var(--deep); margin:0 0 12px; }
+.policies-groups p { line-height:1.6; }
+.policies-groups ul { list-style:none; padding:0; margin:18px 0 0; }
+.policies-groups li + li { border-top:1px solid var(--stone); }
+.policies-groups a { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:9px 0; color:var(--deep); text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
+.policies-groups a:focus-visible { outline:2px solid #946914; outline-offset:4px; }
+.policies-help { grid-column:1/-1; }
+@media(max-width:760px) { .policies-groups { grid-template-columns:1fr; gap:18px; } .policies-groups section { padding:22px; } }

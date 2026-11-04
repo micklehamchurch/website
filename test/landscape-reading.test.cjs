@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs;
 const css=fs.readFileSync('phone-landscape.css','utf8'),site=fs.readFileSync('site.js','utf8');
 test('phone reading styles have no declarations outside short-landscape media queries',()=>{
  const clean=css.replace(/\/\*[\s\S]*?\*\//g,'').trim();let depth=0,start=0,blocks=[];

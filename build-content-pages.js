@@ -126,7 +126,7 @@ for (const page of pages) {
     const contact = isPrivacy && section.variant === 'contact' ? renderPrivacyContact(page.contactDetails) : '';
     const safeguardingContactCards = isSafeguarding && section.variant === 'contacts' ? renderSafeguardingContacts(page.safeguardingContacts) : '';
     const consentForm = isPrivacy && section.variant === 'contact' ? renderPrivacyConsentForm(page.consentForm) : '';
-    return `${consentForm}<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}</section>`;
+    return `${consentForm}<section${section.variant === 'contact' ? ' id="privacy-contact-details"' : ''} class="${sectionClass}">${section.title ? `<h2>${esc(section.title)}${footnoteRef}</h2>` : ''}${paragraphs}${items}${contact}${safeguardingContactCards}${isSafeguarding && section.links ? `<p class="safeguarding-guidance-links">${section.links.map(link=>`<a href="${esc(link.href)}">${esc(link.label)}</a>`).join(' · ')}</p>` : ''}</section>`;
   }).join('\n          ');
   const electoralDocuments = isElectoralRoll ? `          <section class="electoral-documents-section" aria-labelledby="electoral-documents-heading"><h2 id="electoral-documents-heading">Application documents</h2><p>These parish documents open as PDFs in your browser. You can save or print them from the PDF viewer.</p>${renderElectoralDocuments(page.documents || [])}</section>\n` : '';
   const documentHeading = isPrivacy ? `          <div class="privacy-document-heading">

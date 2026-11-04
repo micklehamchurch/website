@@ -1,5 +1,5 @@
 const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs,cp=require('node:child_process');
 const read=f=>fs.readFileSync(f,'utf8'),data=JSON.parse(read('_content/history.json'));
 test('timeline keeps uncertain dating and delivers distinct editorial details',()=>{
  assert.equal(data.timeline.length,7);assert.equal(data.timeline[2].period,'Late 12th century');

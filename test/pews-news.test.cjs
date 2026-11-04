@@ -1,7 +1,7 @@
 const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
+const fs = require('./helpers/header-information-snapshot.cjs').fs;
 const path = require('node:path');
 const os = require('node:os');
 const { build, text } = require('../build-pews-news');

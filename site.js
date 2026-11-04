@@ -20,6 +20,8 @@ const navigationIcons={
  book:'<path d="M12 5Q7 2 2 4v16q5-2 10 1 5-3 10-1V4q-5-2-10 1Zm0 0v16"/>',
  heart:'<path d="M12 21 3 12C-3 5 6-1 12 6c6-7 15-1 9 6Z"/>',
  church:'<path d="M4 21V11l8-7 8 7v10ZM9 21v-7h6v7M12 1v6M9 3h6"/>',
+ shield:'<path d="M12 2 3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5Z"/><path d="m8 12 3 3 5-6"/>',
+ document:'<path d="M5 2h9l5 5v15H5Z"/><path d="M14 2v6h5M8 12h8M8 16h8M8 19h5"/>',
  people:'<circle cx="12" cy="6" r="3"/><path d="M6 21v-6a6 6 0 0 1 12 0v6ZM4 5a3 3 0 0 0 0 6M20 5a3 3 0 0 1 0 6M3 14H1v6h3M21 14h2v6h-3"/>'
 };
 const navigationIcon=icon=>`<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${navigationIcons[icon]}</svg>`;
@@ -33,6 +35,8 @@ const navigation = `
     </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
     <nav class="nav" id="mainNav" aria-label="Main">
+      <div class="header-information" role="group" aria-label="Important information"><p class="drawer-information-title">Important information</p><a href="safeguarding.html">${navigationIcon('shield')}<span>Safeguarding</span></a><a href="policies.html">${navigationIcon('document')}<span>Policies &amp; documents</span></a></div>
+      <a class="header-opening" href="visit.html">${navigationIcon('church')}<span>Church open daily</span></a>
       <div class="nav-primary">
       <a class="nav-link" href="index.html">Home</a>
       ${navigationCategories.map(category=>`<div class="nav-item has-dropdown" data-category="${category.id}"><button class="nav-trigger" id="trigger-${category.id}" type="button" aria-expanded="false" aria-controls="menu-${category.id}">${navigationEscape(category.title)}<svg class="nav-chevron" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg></button></div>`).join('')}
@@ -115,7 +119,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261027-motion-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261104-information-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -151,7 +155,7 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261026-hub-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261104-information-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';

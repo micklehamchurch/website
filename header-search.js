@@ -8,7 +8,7 @@ function layout(){
  if(!panel||panel.hidden)return;
  const wrap=header.querySelector('.nav-wrap'),r=wrap.getBoundingClientRect(),button=trigger.getBoundingClientRect(),brand=header.querySelector('.header-branding').getBoundingClientRect();
  const wide=matchMedia('(min-width:1536px)').matches;panel.classList.toggle('is-wide',wide);
- if(wide){panel.style.left='auto';panel.style.right=`${r.right-button.right}px`;panel.style.width=`${Math.min(560,button.right-brand.right-28)}px`;panel.style.top=`${(r.height-48)/2}px`;}
+ if(wide){panel.style.left='auto';panel.style.right=`${r.right-button.right}px`;panel.style.width=`${Math.min(560,button.right-brand.right-28)}px`;panel.style.top=`${button.top-r.top}px`;}
  else{panel.style.left='0';panel.style.right='0';panel.style.width='auto';panel.style.top='calc(100% + 8px)';}
  const y=wide?button.top:header.getBoundingClientRect().bottom+8;
  const available=Math.min(400,Math.max(48,(globalThis.visualViewport?.height||innerHeight)-y-72));
