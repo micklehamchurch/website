@@ -2,3 +2,9 @@
 .giving-method-grid,.giving-assurance-grid{grid-auto-rows:minmax(min-content,auto)}.giving-method-card,.giving-assurance-card{min-height:min-content}
 .giving-difference .giving-section-heading>p:not(.eyebrow){color:var(--muted)}
 .giving-assurance-card{min-width:0}.giving-assurance-card a{max-width:100%;overflow-wrap:anywhere}
+/* Approved thank-you colours; preserve the existing full-width geometry and footer. */
+.giving-page .giving-thanks{background:#e5e9dd;color:#244537}
+.giving-page .giving-thanks h2,.giving-page .giving-thanks .eyebrow{color:#244537}
+.giving-page .giving-thanks-inner p:last-child{color:#46594d}
+.giving-page .giving-thanks .btn{border-color:#244537}
+.giving-page .giving-thanks .btn:focus-visible{outline-color:#244537}

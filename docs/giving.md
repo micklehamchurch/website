@@ -33,3 +33,7 @@ No PCC reconfirmation is outstanding for these arrangements given the owner's co
 Keep the existing hero, genuine images, green/ivory palette, typography, four main cards, two assurance cards, legacy, charity and thanks sections, shared header/footer and responsive breakpoints. Content expands naturally. Page-specific CSS keeps both introductory paragraphs in the existing muted colour and allows the verified email to wrap within narrow cards; no shared styling/runtime JavaScript changes. Search is regenerated only for Giving. Historical preservation assertions are updated narrowly where needed; independent tests protect exact financial/contact details and unaffected markup/systems.
 
 PGS optional inflation-linked giving and Gift Aid processing are also corroborated by the Church of England: https://www.churchofengland.org/resources/building-generous-church/enabling-giving/giving-mechanisms/direct-debits
+
+## Approved thank-you colour refinement
+
+The thank-you section alone uses soft sage #E5E9DD, heading/label #244537 and description #46594D. The existing white contact button keeps its original dark text, typography and dimensions; only its existing border and focus-outline colours become #244537 for clear contrast. Full-width geometry, spacing, text, email destination and the adjoining dark footer remain unchanged. No global colours change. Heading/label contrast is 8.60:1 and description 6.09:1. The page stylesheet cache version changes; historical snapshots allow only that exact delivery-version update.
