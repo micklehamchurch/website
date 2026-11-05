@@ -1,0 +1,4 @@
+{
+  "append": "\n/* Church opening link: preserve the row's rule without making empty space a link. */\n@media(min-width:1536px) {\n .site-header:not(.is-condensed) .header-opening { justify-self:end; width:max-content; padding-inline:4px; margin-right:-4px; border-bottom-color:transparent; }\n .site-header:not(.is-condensed) .nav-wrap::after { content:''; grid-column:3; grid-row:1; align-self:stretch; border-bottom:1px solid var(--navigation-line); pointer-events:none; }\n}\n",
+  "minified": "@media(min-width:1536px){.site-header:not(.is-condensed) .header-opening{justify-self:end;width:max-content;padding-inline:4px;margin-right:-4px;border-bottom-color:transparent}.site-header:not(.is-condensed) .nav-wrap:after{content:\"\";grid-column:3;grid-row:1;align-self:stretch;border-bottom:1px solid var(--navigation-line);pointer-events:none}}"
+}

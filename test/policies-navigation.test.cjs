@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process');
-const read=f=>fs.readFileSync(f,'utf8').replace(/\r/g,''),old=f=>cp.execFileSync('git',['show','c91f794:'+f],{encoding:'utf8'}).replace(/\r/g,'');
+const normal=s=>require('./helpers/header-opening-area-snapshot.cjs')(s).replace(/home-critical\.css\?v=[a-f0-9]+/g,'home-critical.css?v=HASH'); const read=f=>normal(fs.readFileSync(f,'utf8')),old=f=>normal(cp.execFileSync('git',['show','c91f794:'+f],{encoding:'utf8'}));
 test('Policies enhancement preserves the existing header implementation and all page content',()=>{
  assert.equal(read('public-header.js').split('/* Policies navigation enhancement;')[0].trim(),old('public-header.js').trim());
  for(const f of ['site.js','header-navigation.css','responsive-navigation.js','index.html','home-critical.css','home-bottom.css','home-content.css','home-next-service.js','home-next-service.css','home-next-service-data.json','home-hero-carousel.js','home-hero-photos.js','policies.html','churchyard-regulations.html','churchyard-regulations.css','churchyard-regulations.js','safeguarding.html','footer-standard.css'])assert.equal(read(f),old(f),f);

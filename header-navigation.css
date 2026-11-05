@@ -315,3 +315,9 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 @media(max-width:767px) { .site-header .header-church-mark { width:44px; height:44px; } }
 @media(orientation:landscape) and (max-width:999px) and (max-height:460px) { html body .site-header .header-church-mark { width:36px; height:36px; } }
 .responsive-navigation-heading .header-church-mark { width:44px; height:44px; }
+
+/* Church opening link: preserve the row's rule without making empty space a link. */
+@media(min-width:1536px) {
+ .site-header:not(.is-condensed) .header-opening { justify-self:end; width:max-content; padding-inline:4px; margin-right:-4px; border-bottom-color:transparent; }
+ .site-header:not(.is-condensed) .nav-wrap::after { content:''; grid-column:3; grid-row:1; align-self:stretch; border-bottom:1px solid var(--navigation-line); pointer-events:none; }
+}

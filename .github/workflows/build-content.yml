@@ -225,6 +225,10 @@ jobs:
           elif node scripts/is-header-church-mark-release.cjs /tmp/navigation-changed-paths; then
             node build-typography-preview.js
             node build-home-performance.js
+          elif grep -Eq '^header-navigation\.css$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(header-navigation\.css|home-critical\.css|index\.html|test/(header-opening-area|home-involvement-links|home-quick-links|policies-navigation)\.test\.cjs|test/helpers/(header-opening-area|policies-navigation)-snapshot\.cjs|test/fixtures/header-opening-area\.json|scripts/check-header-opening-area\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            # Hit-area correction only; preserve every page body and date-sensitive projection.
+            node build-home-performance.js
           elif grep -Eq '^policies-navigation\.(js|css)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(public-header\.js|policies-navigation\.(js|css)|test/(policies-navigation|header-church-mark|header-opening-link)\.test\.cjs|test/helpers/(policies-navigation|header-information)-snapshot\.cjs|test/fixtures/policies-navigation-loader\.json|scripts/check-policies-navigation\.cjs|docs/policies-navigation\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             # Shared disclosure only: leave content, calendar and service projections untouched.
