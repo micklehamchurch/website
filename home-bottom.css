@@ -9,7 +9,7 @@
 .home-involvement-card > div { min-width: 0; }
 .home-involvement-card h3 { font: 600 clamp(22px, 1.8vw, 28px)/1.15 var(--serif); margin: 0 0 16px; }
 .home-involvement-card p:not(.eyebrow) { font-size: 15px; line-height: 1.55; color: #647069; margin: 0 0 4px; }
-.home-involvement-card a { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 5px; min-width: 44px; min-height: 44px; color: var(--deep); font-size: 14px; font-weight: 600; line-height: 1.5; }
+.home-involvement-card span:where(.home-involvement-cta) { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 5px; min-width: 44px; min-height: 44px; color: var(--deep); font-size: 14px; font-weight: 600; line-height: 1.5; }
 .home-involvement-badge { width: 100%; height: auto; margin-top: 10px; }
 .home-involvement-photo { display: block; width: 100%; height: 230px; object-fit: cover; object-position: 57% center; border-radius: 4px; }
 .home-involvement-diocese { align-self: center; }
@@ -32,13 +32,7 @@
 @media (max-width: 700px) { .home-involvement-grid { grid-template-columns: 1fr; } .home-involvement-card { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 18px; } .home-involvement-photo { height: 210px; } }
 
 
-.home-involvement-card a { display: block; padding-block: 10px; }
-.home-involvement-card a span { margin-left: 4px; }
-.home-involvement-card a { padding-block: 0; }
-.home-involvement-card a .home-involvement-cta-tail { margin-left: 0; white-space: nowrap; }
-
-/* Extend each existing native link without changing the card's normal rendering. */
-.home-involvement-card { position: relative; }
-.home-involvement-card a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 4px; }
-.home-involvement-card a:focus-visible { outline: none; }
-.home-involvement-card a:focus-visible::after { outline: 3px solid #947224; outline-offset: 3px; }
+.home-involvement-card span:where(.home-involvement-cta) { display: block; padding-block: 10px; }
+.home-involvement-card span:where(.home-involvement-cta) span { margin-left: 4px; }
+.home-involvement-card span:where(.home-involvement-cta) { padding-block: 0; }
+.home-involvement-card span:where(.home-involvement-cta) .home-involvement-cta-tail { margin-left: 0; white-space: nowrap; }

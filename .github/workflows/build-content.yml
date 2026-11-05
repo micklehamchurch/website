@@ -214,7 +214,7 @@ jobs:
             node build-admin-auth.js
           # Expand existing involvement links without regenerating page content or projections.
           elif grep -Eq '^home-bottom\.css$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^(index\.html|home-bottom\.css|home-critical\.css|home-style-sources\.json|test/[^/]+\.test\.cjs|scripts/check-home-involvement-links\.cjs|docs/home-involvement-links\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+             ! grep -Ev '^(index\.html|home-bottom\.css|home-critical\.css|home-style-sources\.json|test/([^/]+\.test\.cjs|helpers/approved-(quick|involvement)-links\.cjs)|scripts/check-home-involvement-links\.cjs|docs/home-involvement-links\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-home-performance.js
           # Compact quick links change only Home markup/styles, never public content projections.
           elif grep -Eq '^home-content\.css$' /tmp/navigation-changed-paths &&
