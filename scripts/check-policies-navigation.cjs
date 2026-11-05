@@ -9,7 +9,7 @@ const expected=['safeguarding.html','baptisms.html','churchyard-regulations.html
   if(!wide)await p.locator('.menu-toggle').click();
   const start=p.url(),scroll=await p.evaluate(()=>scrollY),main=await p.locator('main').boundingBox();await trigger.focus();await p.keyboard.press('Enter');assert.equal(p.url(),start);assert.equal(await p.evaluate(()=>scrollY),scroll);assert.equal(await trigger.getAttribute('aria-expanded'),'true');await panel.waitFor({state:'visible'});
   assert.deepEqual(await panel.locator('a').evaluateAll(a=>a.map(e=>e.href)),expected.map(x=>new URL(x,base).href));
-  if(wide){const r=await panel.boundingBox(),hr=await header.boundingBox();assert(r.y>=hr.y+hr.height);assert(r.y+r.height<=h);assert.deepEqual(await p.locator('main').boundingBox(),main);assert(await panel.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0));}
+  if(wide){const r=await panel.boundingBox(),hr=await header.boundingBox();assert(r.y>=hr.y+hr.height);assert(r.y+r.height<=h);assert.deepEqual(await p.locator('main').boundingBox(),main);await panel.locator('img').evaluate(i=>i.decode());assert(await panel.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0));}
   await panel.screenshot({path:path.join(out,`open-${w}x${h}.png`)});await p.screenshot({path:path.join(out,`context-${w}x${h}.png`)});
   await p.keyboard.press('Tab');assert(await panel.locator('a').first().evaluate(e=>e===document.activeElement&&e.matches(':focus-visible')));await p.keyboard.press('Escape');assert.equal(await trigger.getAttribute('aria-expanded'),'false');assert(await trigger.evaluate(e=>e===document.activeElement));
   await trigger.click();await trigger.click();assert(await panel.isHidden());await trigger.click();
