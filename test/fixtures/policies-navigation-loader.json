@@ -1,0 +1,3 @@
+{
+  "append": "\n/* Policies navigation enhancement; retain the direct link if either asset fails. */\n(() => {\n  const script=document.querySelector('script[src*=\"site.js\"]');\n  if(!script||!document.querySelector('.header-information'))return;\n  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261105-1',script.src).href;\n  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261105-1',script.src).href;document.head.append(enhancement);},{once:true});\n  document.head.append(css);\n})();\n"
+}

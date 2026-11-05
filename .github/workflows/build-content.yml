@@ -146,6 +146,8 @@ on:
       - 'build-search-index.js'
       - 'site.js'
       - 'public-header.js'
+      - 'policies-navigation.js'
+      - 'policies-navigation.css'
       - 'responsive-navigation.js'
       - 'header-navigation.css'
       - 'assets/images/navigation/**'
@@ -223,6 +225,11 @@ jobs:
           elif node scripts/is-header-church-mark-release.cjs /tmp/navigation-changed-paths; then
             node build-typography-preview.js
             node build-home-performance.js
+          elif grep -Eq '^policies-navigation\.(js|css)$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(public-header\.js|policies-navigation\.(js|css)|test/(policies-navigation|header-church-mark|header-opening-link)\.test\.cjs|test/helpers/(policies-navigation|header-information)-snapshot\.cjs|test/fixtures/policies-navigation-loader\.json|scripts/check-policies-navigation\.cjs|docs/policies-navigation\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            # Shared disclosure only: leave content, calendar and service projections untouched.
+            node --check public-header.js
+            node --check policies-navigation.js
           elif node scripts/is-header-information-release.cjs /tmp/navigation-changed-paths; then
             node build-content-pages.js safeguarding
             node build-typography-preview.js
