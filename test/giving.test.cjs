@@ -15,7 +15,7 @@ test('modern artwork, purpose cards, page structure and every shared system are 
  assert.deepEqual([...h.matchAll(/<(?:script|img|footer)\b[^>]*>/g)].map(x=>x[0]),[...before.matchAll(/<(?:script|img|footer)\b[^>]*>/g)].map(x=>x[0]));
  assert(read('giving-refinements.css').startsWith(old('giving-refinements.css')));
  for(const f of ['index.html','contact.html','_content/contacts.json','site.js','styles.css','public-header.js','header-navigation.css','policies-navigation.js','policies-navigation.css','home-next-service.js','home-hero-carousel.js'])assert.equal(read(f),old(f),f);
- const a=JSON.parse(read('search-index.json')).filter(x=>x.url!=='give.html'),b=JSON.parse(old('search-index.json')).filter(x=>x.url!=='give.html');assert.deepEqual(a,b);
+ const a=JSON.parse(read('search-index.json')).filter(x=>!['give.html','alpha.html'].includes(x.url)),b=JSON.parse(old('search-index.json')).filter(x=>!['give.html','alpha.html'].includes(x.url));assert.deepEqual(a,b);
 });
 test('every giving enquiry uses Richard Siberry’s published contact, with no guessed payment destination',()=>{
  const contact=JSON.parse(read('_content/contacts.json')).contacts.find(x=>x.id==='treasurer');assert.equal(contact.name,'Richard Siberry');assert.equal(contact.email,'pcctreasurer@micklehamchurch.org.uk');

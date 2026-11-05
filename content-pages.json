@@ -581,36 +581,45 @@
       "section": "community",
       "category": "Explore faith",
       "title": "Alpha Course",
-      "summary": "A welcoming space to explore the basics of Christian faith, ask questions and share your point of view.",
+      "summary": "Alpha is a welcoming opportunity to explore Christian faith, ask questions and share your thoughts. Whether you are curious, uncertain or simply interested in finding out more, you are welcome to explore.",
       "back": "church-life.html",
       "sections": [
         {
           "title": "What is Alpha?",
           "paragraphs": [
-            "The parish describes Alpha as a series of sessions exploring the basics of Christian faith. It is for anyone who would like to explore, ask questions and share their point of view, whatever their background or context."
+            "Alpha is a series of sessions exploring the basics of Christian faith. It is an opportunity to ask questions and share your point of view, whatever your background or context."
           ]
         },
         {
           "title": "What happens at a session?",
           "paragraphs": [
-            "The format described by the parish begins with tea and cake, followed by a short film presentation on a question about Christian faith and time for discussion. The course material explores topics including Jesus, prayer, faith, the Holy Spirit, the Bible and how God guides us."
+            "The parish’s traditional format begins with tea and cake, followed by a short film presentation and time for discussion."
           ]
         },
         {
-          "title": "Who is Alpha for?",
+          "title": "Interested in joining Alpha?",
           "paragraphs": [
-            "Alpha is intended for people who want space to explore Christian faith and ask questions. You do not need to have everything worked out before you come."
-          ]
-        },
-        {
-          "title": "Ask about a future course",
-          "paragraphs": [
-            "The old website listed a course contact and dates that may no longer be current, so no course date or named contact is shown here. Please use the Contact page to ask whether a new course is planned."
+            "Contact the parish to ask about future courses. We would be happy to hear from you and answer your questions."
           ]
         }
       ],
       "action": "Ask about Alpha",
-      "href": "contact.html"
+      "href": "contact.html",
+      "layout": "alpha",
+      "programme": [
+        "Is there more to life than this?",
+        "Who is Jesus?",
+        "Why did Jesus have to die?",
+        "How can I have faith?",
+        "Why and how do I pray?",
+        "Who is the Holy Spirit?",
+        "What does the Holy Spirit do?",
+        "How can I be filled with the Holy Spirit?",
+        "How can I make the most of the rest of my life?",
+        "Why and how should I read the Bible?",
+        "How does God guide us?",
+        "Why and how should I tell others?"
+      ]
     },
     {
       "slug": "bible-study-fellowship",
