@@ -40,8 +40,18 @@
   let links = [];
   let activeAlbum;
   let current = 0;
+  let imageRequest = 0;
+  function clearImage() {
+    imageRequest++;
+    const image = new Image();
+    image.style.visibility = 'hidden';
+    image.alt = '';
+    dialog.querySelector('img').replaceWith(image);
+    dialog.querySelector('[data-gallery-status]').textContent = '';
+  }
   function route(focus = false) {
     const template = templates.find(item => item.dataset.albumTemplate === location.hash.slice(1));
+    clearImage();
     if (dialog.open) dialog.close();
     view.replaceChildren();
     landing.hidden = !!template;
@@ -60,12 +70,28 @@
   window.addEventListener('hashchange', () => route(true));
   route();
   function show(position) {
+    if (!links.length) return;
+    clearImage();
     current = (position + links.length) % links.length;
     const link = links[current];
-    const image = dialog.querySelector('img');
-    image.src = link.href;
+    const request = imageRequest;
+    const image = new Image();
     image.alt = link.querySelector('img').alt;
-    dialog.querySelector('[data-gallery-status]').textContent = `${current + 1} of ${links.length} · ${image.alt}`;
+    image.decoding = 'async';
+    const description = `${current + 1} of ${links.length} · ${image.alt}`;
+    const status = dialog.querySelector('[data-gallery-status]');
+    status.textContent = `${description} · Loading photograph…`;
+    image.src = link.href;
+    // Decode off-screen, then replace atomically: a reused img can paint its old bitmap
+    // even after src/currentSrc have changed. Only the latest open selection may commit.
+    image.decode().then(() => {
+      if (request !== imageRequest || !dialog.open) return;
+      dialog.querySelector('img').replaceWith(image);
+      status.textContent = description;
+    }).catch(() => {
+      if (request !== imageRequest || !dialog.open) return;
+      status.textContent = `${description} · Photograph could not be loaded. Please try again or choose another photograph.`;
+    });
   }
   view.addEventListener('click', event => {
     const link = event.target.closest('[data-gallery-photo]');
@@ -73,6 +99,10 @@
     event.preventDefault(); show(links.indexOf(link)); openPublicDialog(dialog, link);
   });
   dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => {
+    // Native close events are queued; an older event must not clear a fast reopening.
+    if (!dialog.open) clearImage();
+  });
   dialog.querySelector('[data-previous]').addEventListener('click', () => show(current - 1));
   dialog.querySelector('[data-next]').addEventListener('click', () => show(current + 1));
   dialog.addEventListener('keydown', event => {

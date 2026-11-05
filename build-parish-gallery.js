@@ -26,6 +26,6 @@ let gallery = fs.readFileSync('gallery.html', 'utf8');
 gallery = gallery.replace(/<!-- parish-albums:start -->[\s\S]*?<!-- parish-albums:end -->/, markup);
 gallery = gallery.replace(/\s*<figure class="gallery-single">[\s\S]*?<\/figure>/, '');
 gallery = gallery.replace('Explore more about our churches and their history. The separate image above is illustrative.', 'Explore more about our churches and their history.');
-gallery = gallery.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, 'href="parish-gallery.css?v=20261011-albums"').replace(/src="parish-gallery\.js(?:\?[^"]*)?"/, 'src="parish-gallery.js?v=20261011-albums"');
+gallery = gallery.replace(/href="parish-gallery\.css(?:\?[^"]*)?"/, 'href="parish-gallery.css?v=20261011-albums"').replace(/src="parish-gallery\.js(?:\?[^"]*)?"/, 'src="parish-gallery.js?v=20261105-image-state-1"');
 fs.writeFileSync('gallery.html', gallery);
 console.log(`Built parish gallery: ${albums.length} albums, ${albums.reduce((n, album) => n + album.photos.length, 0)} photographs.`);

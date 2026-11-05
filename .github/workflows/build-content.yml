@@ -156,6 +156,7 @@ on:
       - 'parish-albums.json'
       - 'admin/photo-albums-*'
       - 'build-parish-gallery.js'
+      - 'parish-gallery.js'
       - 'news.js'
       - 'admin/msal-auth.js'
       - 'admin/auth-config.mjs'
@@ -247,6 +248,10 @@ jobs:
           elif grep -Eq '^(site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|build-typography-preview\.js)$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^([^/]+\.html|(news|pews-news)/[^/]+\.html|site\.js|public-header\.js|responsive-navigation\.js|header-navigation\.css|footer-standard\.css|homepage-verses\.js|build-typography-preview\.js|assets/images/navigation/.*|test/([^/]+\.test\.cjs|helpers/approved-navigation\.cjs)|scripts/check-navigation-(hub|preservation|alpha|give)\.cjs|docs/navigation-hub\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-typography-preview.js
+          # Lightbox state only: do not rebuild albums, photographs or public projections.
+          elif grep -Eq '^parish-gallery\.js$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(parish-gallery\.js|build-parish-gallery\.js|gallery\.html|test/(parish-gallery-image-state|home-discovery-gallery)\.test\.cjs|test/helpers/approved-quick-links\.cjs|scripts/check-parish-gallery-image-state\.cjs|docs/gallery-image-state\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node --check parish-gallery.js
           # Confirmed Giving content has no generated page dependencies beyond search.
           elif grep -Eq '^give\.html$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(give\.html|giving-refinements\.css|search-index\.json|CONTENT-MIGRATION-NOTES\.md|test/giving\.test\.cjs|test/helpers/approved-(quick-links|giving-restoration)\.cjs|test/fixtures/giving-restoration-approved\.json|scripts/check-giving\.cjs|docs/giving\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
