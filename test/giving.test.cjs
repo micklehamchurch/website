@@ -19,6 +19,6 @@ test('modern artwork, purpose cards, page structure and every shared system are 
 });
 test('every giving enquiry uses Richard Siberry’s published contact, with no guessed payment destination',()=>{
  const contact=JSON.parse(read('_content/contacts.json')).contacts.find(x=>x.id==='treasurer');assert.equal(contact.name,'Richard Siberry');assert.equal(contact.email,'pcctreasurer@micklehamchurch.org.uk');
- const h=html(),main=h.match(/<main\b[\s\S]*?<\/main>/)[0],urls=[...main.matchAll(/href="([^"]+)"/g)].map(x=>x[1]);assert(!urls.includes('contact.html'));assert.equal(urls.filter(x=>x.startsWith('mailto:')).length,8);for(const u of urls.filter(x=>x.startsWith('mailto:')))assert.equal(u,'mailto:'+contact.email);assert(h.includes('tel:'+contact.phone.replace(/\s/g,'')));assert(h.includes('Richard Siberry, Treasurer'));
+ const h=html(),main=h.match(/<main\b[\s\S]*?<\/main>/)[0],urls=[...main.matchAll(/href="([^"]+)"/g)].map(x=>x[1]);assert(!urls.includes('contact.html'));assert.equal(urls.filter(x=>x.startsWith('mailto:')).length,3);for(const u of urls.filter(x=>x.startsWith('mailto:')))assert.equal(u,'mailto:'+contact.email);assert(h.includes('tel:'+contact.phone.replace(/\s/g,'')));assert(h.includes('Richard Siberry, Treasurer'));
  assert(urls.every(u=>u==='#ways-to-give'||u==='https://www.parishgiving.org.uk/home/'||u==='mailto:'+contact.email||u==='tel:'+contact.phone.replace(/\s/g,'')));
 });

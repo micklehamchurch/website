@@ -24,7 +24,7 @@ The Parochial Church Council of the Ecclesiastical Parish of Mickleham; Register
 
 ## Richard Siberry
 
-Published Treasurer record in _content/contacts.json and the existing Our Team page agree: Richard Siberry, pcctreasurer@micklehamchurch.org.uk, 01372 375303. All eight enquiry actions use that exact mailto, including PGS, bank giving, Payaz, cheque, Gift Aid, legacy/shares and general enquiries. The existing security card gives his name, role, email and phone. General parish contacts elsewhere are unchanged. No role/address is invented; no email was sent during testing.
+Published Treasurer record in _content/contacts.json and the existing Our Team page agree: Richard Siberry, pcctreasurer@micklehamchurch.org.uk, 01372 375303. His email and phone remain in Giving securely. The legacy/shares enquiry link and final thanks-section contact link also retain that exact mailto. Five repeated enquiry links have been removed from the method cards and Gift Aid card at the owner's request; all instructions and the official PGS information link remain. General parish contacts elsewhere are unchanged. No role/address is invented; no email was sent during testing.
 
 No PCC reconfirmation is outstanding for these arrangements given the owner's confirmation. No online payment processing is introduced.
 
