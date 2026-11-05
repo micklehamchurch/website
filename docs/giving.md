@@ -1,11 +1,35 @@
-# Giving page: confirmed parish arrangements
+# Giving: restored owner-confirmed information
 
-Starting Dev89051b0c1cd24527f47c231b6ccb4ee4a0bbc9a1; main804a189 unchanged. Source: editor's confirmed parish brief,1November2026,following review with church website lead. Repository had no existing parish charity number/bank details or conflicting parish number. Unrelated RBL charity219279 is the external Poppy Appeal,not Mickleham PCC. User confirmation authorizes public bank details; no other financial data exposed.
+Starting Dev: f49bfce8d4f19e4604b1d6c03bdd9c8c649184b1. Main: 804a189ae8b09e8a88f4bb98947af0e9fcb34c30.
 
-Static give.html uses existing Giving rules in styles.css and shared site.js; no page-specific JS. Hero/image/disclosure,purpose cards,thanks,global header/footer preserved. Main giving cards now regularPGS,bank/Standing Order,Payaz,cash/cheque; existing GiftAid and legacy sections complete the six methods. Remove main GiveOnline card; retain short security note that website does not process donations. No payment integration,QR,provider buttons,forms or new financial links.
+The website owner explicitly confirmed that all information on the old Giving and Methods of Giving pages is accurate and current. This supersedes earlier migration cautions about the postal address and practical arrangements. Sources: https://www.micklehamchurch.org.uk/giving.htm and https://www.micklehamchurch.org.uk/methodsofgiving.htm, supplied screenshots and owner confirmation.
 
-Bank as text dl/dt/dd: NatWest; Mickleham PCC;60-07-02;31547257. Cheques separately payable to Mickleham Church PCC; in-church wall safe by Payaz. No verified cheque postal recipient/address was established; FindUs church location is not assumed to be cheque-mailing instructions. Existing Contact route used. No verified parish-specific PGS enrolment destination found; Contact route used,not invented. GiftAid/envelopes confirmed; no tax calculations/advice. Existing legacy area now A lasting gift/Leave a gift in your will,optional future-generations wording and Contact CTA; no inheritance-tax/share advice. Discreet full charity name/1128482 below legacy section,above thanks.
+## Audit and restoration
 
-Replace historical/provisional wording throughout: previous/earlier/old parish website,needs confirmation,check terminal availability,bank details withheld,check before giving,andlegacy/current-guidance disclaimers. CONTENT-MIGRATION-NOTES.md updated to record confirmation rather than leave a conflicting historical instruction. No unrelated address or private contact details added.
+- Why we give: retain the existing parish-support introduction and purpose cards; restore Christian gratitude, following Jesus, caring for people in need, joyful generosity, time/talents/resources and the Church at the heart of the community.
+- PGS: retain Direct Debit and predictable giving; restore optional annual inflation increases, flexible management and prompt Gift Aid recovery/cash-flow benefits. Restore the old source's official information destination, https://www.parishgiving.org.uk/home/. This is information, not an invented parish enrolment/payment page.
+- Standing Orders: retain the bank card and one-off transfers; explain online banking/bank contact, amount/dates and changing/cancelling instructions.
+- Payaz: restore the location to the right on entering church, card/phone use and eligible Gift Aid at the terminal.
+- Cash/cheques: retain the wall safe and exact cheque payee; restore the owner-confirmed postal instructions.
+- Gift Aid: restore yellow Free Will Offering envelopes at both Church and Chapel, completion and offering-plate instructions. Explain the declaration, 25p per pound and sufficient UK Income Tax/Capital Gains Tax to cover claims across donations. Cross-checked against https://www.gov.uk/donating-to-charity/gift-aid.
+- Legacy: retain the welcoming future-generations invitation; restore gifts of shares, gratitude, charity inheritance-tax exemption and deduction before calculating estate tax. Refer donors to their solicitor/financial adviser. Cross-checked against https://www.gov.uk/inheritance-tax/gifts and https://www.gov.uk/donating-to-charity/leaving-gifts-to-charity-in-your-will.
 
-Page-only giving-refinements.css supports balanced2×2 main cards,single-column≤700px,semantic bank rows stack on narrow screens,44px text links,visible focus and restrained charity text. Shared styles unchanged. CI Giving branch updates search only; avoids unrelated date-sensitive regeneration. No new JavaScript or external network dependency.
+## Exact financial instructions
+
+NatWest; account name Mickleham PCC; sort code 60-07-02; account number 31547257. The bank card is byte-identical to starting Dev.
+
+Cheques payable to Mickleham Church PCC (deliberately distinct from the bank account name). Post to Treasurer c/o The Rectory, Old London Road, Mickleham, Surrey RH5 6EB. This donation address is not replaced with the church's different visitor postcode.
+
+The Parochial Church Council of the Ecclesiastical Parish of Mickleham; Registered Charity No. 1128482. Existing charity wording and number preserved.
+
+## Richard Siberry
+
+Published Treasurer record in _content/contacts.json and the existing Our Team page agree: Richard Siberry, pcctreasurer@micklehamchurch.org.uk, 01372 375303. All eight enquiry actions use that exact mailto, including PGS, bank giving, Payaz, cheque, Gift Aid, legacy/shares and general enquiries. The existing security card gives his name, role, email and phone. General parish contacts elsewhere are unchanged. No role/address is invented; no email was sent during testing.
+
+No PCC reconfirmation is outstanding for these arrangements given the owner's confirmation. No online payment processing is introduced.
+
+## Design and delivery
+
+Keep the existing hero, genuine images, green/ivory palette, typography, four main cards, two assurance cards, legacy, charity and thanks sections, shared header/footer and responsive breakpoints. Content expands naturally. Page-specific CSS keeps both introductory paragraphs in the existing muted colour and allows the verified email to wrap within narrow cards; no shared styling/runtime JavaScript changes. Search is regenerated only for Giving. Historical preservation assertions are updated narrowly where needed; independent tests protect exact financial/contact details and unaffected markup/systems.
+
+PGS optional inflation-linked giving and Gift Aid processing are also corroborated by the Church of England: https://www.churchofengland.org/resources/building-generous-church/enabling-giving/giving-mechanisms/direct-debits

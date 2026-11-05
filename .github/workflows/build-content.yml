@@ -249,7 +249,7 @@ jobs:
             node build-typography-preview.js
           # Confirmed Giving content has no generated page dependencies beyond search.
           elif grep -Eq '^give\.html$' /tmp/navigation-changed-paths &&
-             ! grep -Ev '^(give\.html|giving-refinements\.css|search-index\.json|CONTENT-MIGRATION-NOTES\.md|test/giving\.test\.cjs|scripts/check-giving\.cjs|docs/giving\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+             ! grep -Ev '^(give\.html|giving-refinements\.css|search-index\.json|CONTENT-MIGRATION-NOTES\.md|test/giving\.test\.cjs|test/helpers/approved-(quick-links|giving-restoration)\.cjs|test/fixtures/giving-restoration-approved\.json|scripts/check-giving\.cjs|docs/giving\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node build-search-index.js
           # Sunday Zoom is a homepage-only presentation enhancement; keep public service data untouched.
           elif grep -Eq '^home-next-service\.js$' /tmp/navigation-changed-paths &&
