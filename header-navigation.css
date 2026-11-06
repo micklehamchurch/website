@@ -321,3 +321,27 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
  .site-header:not(.is-condensed) .header-opening { justify-self:end; width:max-content; padding-inline:4px; margin-right:-4px; border-bottom-color:transparent; }
  .site-header:not(.is-condensed) .nav-wrap::after { content:''; grid-column:3; grid-row:1; align-self:stretch; border-bottom:1px solid var(--navigation-line); pointer-events:none; }
 }
+
+/* Landscape shortcuts expose the existing dropdowns in the same header row.
+   Portrait and desktop navigation retain their existing layout and real tree. */
+@media (orientation:landscape) and (min-width:780px) and (max-width:1535px) {
+ .site-header .nav-wrap { flex-wrap:nowrap; gap:8px; }
+ .site-header .header-branding { flex:0 0 auto; margin-right:0; }
+ .site-header .nav-primary { display:flex; flex:1 1 auto; min-width:0; gap:8px; }
+ .site-header .nav-primary > .nav-link,
+ .site-header .nav-primary > .nav-item:not(:is([data-category="services"],[data-category="life-events"],[data-category="community"])) { display:none; }
+ .site-header .nav-trigger { min-height:44px; padding-inline:3px; gap:3px; }
+ .site-header .nav-utilities { flex:none; gap:4px; }
+ .site-header .nav-primary .dropdown { max-height:calc(100dvh - var(--header-reserve) - 20px); background:var(--navigation-paper,#fbf7ed); color:var(--navigation-ink); }
+ .site-header .nav-primary .hub-heading { padding:4px 6px; }
+ .site-header .nav-primary :is(.hub-description,.hub-image) { display:none; }
+ .site-header .nav-primary .hub-links a { font-size:17px; }
+}
+@media (orientation:landscape) and (min-width:780px) and (max-width:999px) {
+ .site-header .brand { gap:6px; }
+ .site-header .brand strong { font-size:15px; }
+ .site-header .brand small { font-size:7px; letter-spacing:.1em; }
+ .site-header .nav-primary { gap:2px; }
+ .site-header .nav-trigger { font-size:15px; }
+ .site-header .nav-chevron { width:12px; height:12px; }
+}

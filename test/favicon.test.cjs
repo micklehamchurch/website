@@ -1,5 +1,5 @@
 const heroDelivery=s=>s.replace(/home-critical\.css\?v=[a-f0-9]+/g,'home-critical.css?v=HASH');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process'),path=require('node:path');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/landscape-header-snapshot.cjs').fs,cp=require('node:child_process'),path=require('node:path');
 const fav=require('../build-favicon-references.cjs'),root=path.resolve(__dirname,'..'),start='d95cce9c01965c727cb93568d51afc91c138565c';
 const read=f=>fs.readFileSync(path.join(root,f));
 test('all public pages have consistent, idempotent local favicon references, including nested pages',()=>{
