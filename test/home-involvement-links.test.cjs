@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process'),restore=require('./helpers/approved-involvement-links.cjs');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process'),restore=require('./helpers/approved-involvement-links.cjs');
 const read=f=>require('./helpers/header-opening-area-snapshot.cjs')(fs.readFileSync(f,'utf8')),old=f=>cp.execFileSync('git',['show','1d40b78:'+f],{encoding:'utf8'}).replace(/\r/g,'');
 test('each complete card is one native anchor with original contents, destination and external behaviour',()=>{
  const strip=s=>s.replace(/home-critical\.css\?v=[^" ]+/g,'home-critical.css?v=VERSION');assert.equal(strip(restore(read('index.html'))),strip(old('index.html')));

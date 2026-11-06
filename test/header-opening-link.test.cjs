@@ -1,4 +1,4 @@
-const {test}=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process');
+const {test}=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process');
 const read=f=>require('./helpers/policies-navigation-snapshot.cjs')(fs.readFileSync(f,'utf8')).replace(/\r/g,''),old=f=>cp.execFileSync('git',['show','4eee984:'+f],{encoding:'utf8'}).replace(/\r/g,'');
 test('Church open daily changes only its destination to the existing Find Us page',()=>{
  assert(fs.existsSync('finding-us.html'));assert.match(read('finding-us.html'),/<h1[^>]*>Find Us<\/h1>/);

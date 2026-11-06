@@ -105,7 +105,12 @@ function build(siteRoot = root) {
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-2">
-<link rel="icon" href="favicon.ico"><script src="site.js" defer></script><script src="pews-news.js?v=editorial-20261024-2" defer></script></head>
+<link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png?v=church-tower-20261106">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=church-tower-20261106">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=church-tower-20261106"><script src="site.js" defer></script><script src="pews-news.js?v=editorial-20261024-2" defer></script></head>
 <body><a class="skip-link" href="${currentPath}#main-content">Skip to main content</a><header class="site-header" data-site-header></header>
 <main id="main-content" tabindex="-1" class="pews-page">
 <section class="pews-hero" aria-labelledby="pews-title"><img class="pews-hero-photo" src="${esc(hero)}"${hero==='assets/images/about/church-hero.webp'?' srcset="assets/images/about/church-card.webp 720w, assets/images/about/church-hero.webp 1600w" sizes="(min-width:1600px) 1600px, 100vw"':''} alt="" decoding="async" width="1600" height="899" fetchpriority="high"><div class="pews-hero-inner"><div class="pews-hero-title"><p class="pews-label">News</p><h1 id="pews-title">Pews News</h1><p>Weekly news, services and events</p></div></div></section>
@@ -127,7 +132,12 @@ ${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="f
   for (const record of records.filter(r=>editions.has(r.date))) fs.writeFileSync(path.join(root,'pews-news',`${record.date}.html`),render(record,editions.get(record.date),true));
   const latest = records.find(r=>editions.has(r.date));
   if (latest) fs.writeFileSync(path.join(root,'pews-news.html'),render(latest,editions.get(latest.date),false));
-  else fs.writeFileSync(path.join(root,'pews-news.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pews News | St Michael &amp; All Angels</title><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header" data-site-header></header><main id="main-content" class="section container" tabindex="-1"><h1>Pews News</h1><p>Online editions will appear here when available.</p><a class="btn btn-green" href="news.html">Browse Pews News PDFs and Parish Magazine</a></main><footer class="footer" data-site-footer></footer></body></html>\n`);
+  else fs.writeFileSync(path.join(root,'pews-news.html'), `<!doctype html><html lang="en"><head><link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png?v=church-tower-20261106">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=church-tower-20261106">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=church-tower-20261106"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pews News | St Michael &amp; All Angels</title><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header" data-site-header></header><main id="main-content" class="section container" tabindex="-1"><h1>Pews News</h1><p>Online editions will appear here when available.</p><a class="btn btn-green" href="news.html">Browse Pews News PDFs and Parish Magazine</a></main><footer class="footer" data-site-footer></footer></body></html>\n`);
   for (const file of fs.readdirSync(path.join(root,'pews-news'))) if (/^\d{4}-\d{2}-\d{2}\.html$/.test(file) && !editions.has(file.slice(0,10))) fs.unlinkSync(path.join(root,'pews-news',file));
   fs.writeFileSync(path.join(root,'pews-news-data.json'),JSON.stringify({editions:[...editions.keys()]},null,2)+'\n');
   // Keep a readable, published-only landing projection, including with JavaScript off.

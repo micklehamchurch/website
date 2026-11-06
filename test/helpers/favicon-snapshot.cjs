@@ -1,0 +1,4 @@
+// Historical whole-page freezes restore only the exact approved favicon metadata.
+// favicon.test.cjs independently verifies current assets, every head and unchanged bodies.
+const fs=require('node:fs'),path=require('node:path'),{markup}=require('../../build-favicon-references.cjs'),blocks=require('../fixtures/favicon-head-before.json'),root=path.resolve(__dirname,'../..');
+module.exports.fs={...fs,readFileSync(file,...args){const value=fs.readFileSync(file,...args),key=path.relative(root,path.resolve(String(file))).replace(/\\/g,'/');if(!Object.hasOwn(blocks,key))return value;const buffer=Buffer.isBuffer(value),s=buffer?value.toString():value;if(typeof s!=='string'||!s.replace(/\r/g,'').includes(markup))return value;const result=s.replace(/\r/g,'').replace(markup,blocks[key]);return buffer?Buffer.from(result):result;}};

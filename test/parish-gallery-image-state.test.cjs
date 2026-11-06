@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),vm=require('vm'),cp=require('child_process');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,vm=require('vm'),cp=require('child_process');
 function setup(){
  class Target{constructor(){this.events={};}addEventListener(k,fn){(this.events[k]||=[]).push(fn);}fire(k,e={}){e.preventDefault ||= ()=>{};for(const fn of this.events[k]||[])fn(e);}}
  const pending=[],closeEvents=[],document={activeElement:null},status={textContent:''},title={textContent:''};let displayed;

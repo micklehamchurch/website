@@ -192,10 +192,12 @@ ${historySources}${electoralDocuments}${footnotes}${policyApproval}          <di
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v1-accessibility.css">
 ${page.layout === 'alpha' ? '  <link rel="stylesheet" href="alpha.css?v=20261106-1">\n  <script src="alpha.js?v=20261105-1" defer></script>\n' : ''}${page.historySources?.length ? '  <link rel="stylesheet" href="history-preservation.css?v=20261027-1">\n' : ''}${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <script src="find-us-map.js" defer></script>\n' : ''}${page.layout === 'war-memorial' ? '  <link rel="stylesheet" href="war-memorial.css?v=20261015">\n' : ''}${page.layout === 'churchyard-regulations' ? '  <link rel="stylesheet" href="churchyard-regulations.css?v=20261101-ux-2">\n  <script src="churchyard-regulations.js?v=20261101-ux-2" defer></script>\n' : (['funerals','churchyard'].includes(page.slug) ? '  <link rel="stylesheet" href="churchyard-resources.css?v=20261101-1">\n' : '')}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png?v=church-tower-20261106">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=church-tower-20261106">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=church-tower-20261106">
   <meta name="apple-mobile-web-app-title" content="St Michael &amp; All Angels">
 </head>
 <body>

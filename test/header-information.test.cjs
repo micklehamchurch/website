@@ -1,4 +1,4 @@
-const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),cp=require('child_process'),vm=require('vm');
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process'),vm=require('vm');
 const read=f=>fs.readFileSync(f,'utf8').replace(/\r/g,''),before=f=>cp.execFileSync('git',['show','c8bcef49:'+f],{encoding:'utf8'}).replace(/\r/g,'');
 const source=read('site.js'),nav=s=>vm.runInNewContext(s.slice(0,s.indexOf('const socialArea'))+'\nJSON.stringify({navigation,navigationCategories})'),current=JSON.parse(nav(source)),old=JSON.parse(nav(before('site.js')));
 test('shared information links retain main navigation, branding and footer exactly',()=>{

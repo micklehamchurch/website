@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process'),vm=require('vm'),prior=require('./helpers/header-church-mark-snapshot.cjs');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process'),vm=require('vm'),prior=require('./helpers/header-church-mark-snapshot.cjs');
 const read=f=>require('./helpers/policies-navigation-snapshot.cjs')(fs.readFileSync(f,'utf8')).replace(/\r/g,''),old=f=>cp.execFileSync('git',['show','7c598368:'+f],{encoding:'utf8'}).replace(/\r/g,'');
 test('church mark is the only shared-header markup and stylesheet change; footer and information links remain intact',()=>{
  assert.equal(prior(read('site.js')),old('site.js'));assert.equal(prior(read('header-navigation.css')),old('header-navigation.css'));

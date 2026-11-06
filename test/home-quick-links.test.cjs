@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process'),normalise=require('./helpers/approved-quick-links.cjs');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process'),normalise=require('./helpers/approved-quick-links.cjs');
 const read=f=>require('./helpers/header-opening-area-snapshot.cjs')(fs.readFileSync(f,'utf8')),old=f=>cp.execFileSync('git',['show','0d17872:'+f],{encoding:'utf8'}).replace(/\r/g,''),block=s=>s.match(/<div class="home-quick-links">[\s\S]*?<\/div><\/div>/)[0];
 test('four semantic whole-card links retain their order, titles, destinations and original gold line icons',()=>{
  const h=block(read('index.html')),prior=block(old('index.html'));assert.deepEqual([...h.matchAll(/<h2>(.*?)<\/h2>/g)].map(x=>x[1]),['Join us for a service','Explore and learn','Our community','What’s on']);

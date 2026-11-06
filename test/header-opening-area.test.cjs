@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process'),fixture=require('./fixtures/header-opening-area.json');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process'),fixture=require('./fixtures/header-opening-area.json');
 const read=f=>fs.readFileSync(f,'utf8').replace(/\r/g,''),old=f=>cp.execFileSync('git',['show','f9bec94:'+f],{encoding:'utf8'}).replace(/\r/g,'');
 test('hit-area correction leaves existing visual rules, header markup, menu and all homepage behaviour untouched',()=>{
  assert.equal(read('header-navigation.css'),old('header-navigation.css')+fixture.append);

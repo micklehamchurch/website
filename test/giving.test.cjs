@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('assert/strict'),fs=require('fs'),cp=require('child_process');
+const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process');
 const read=f=>fs.readFileSync(f,'utf8').replaceAll('\r',''),html=()=>read('give.html'),old=f=>cp.execFileSync('git',['show','f49bfce:'+f],{encoding:'utf8'}).replaceAll('\r','');
 test('confirmed bank, charity, cheque payee and postal details remain exact and distinct',()=>{
  const h=html();for(const t of ['NatWest','Mickleham PCC','60-07-02','31547257','Mickleham Church PCC','Registered Charity No. 1128482','The Parochial Church Council of the Ecclesiastical Parish of Mickleham','Treasurer c/o The Rectory<br>Old London Road<br>Mickleham, Surrey RH5 6EB'])assert(h.includes(t),t);
