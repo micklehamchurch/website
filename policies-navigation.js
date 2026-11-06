@@ -5,7 +5,7 @@
   const original=nav?.querySelector('.header-information a[href$="policies.html"]');
   if(!header||!original)return;
   const base=new URL('.',document.querySelector('script[src*="site.js"]').src),url=file=>new URL(file,base).href;
-  const compact=matchMedia('(max-width:1535px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
+  const compact=matchMedia('(max-width:999px), (max-width:1279px) and (max-height:999px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
   const trigger=document.createElement('button');trigger.type='button';trigger.className='policies-trigger';trigger.id='policies-trigger';trigger.innerHTML=original.innerHTML;trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls','policies-navigation');
   const icons={shield:'<path d="M12 2 3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5Z"/>',water:'<path d="M3 12h18c0 5-4 7-9 7s-9-2-9-7ZM12 19v3M7 22h10M12 1c-5 6-5 9 0 9s5-3 0-9Z"/>',memorial:'<path d="M9 2h6v4h4v4h-4v9H9v-9H5V6h4ZM5 19h14v3H5Z"/>',documents:'<path d="M6 5h9l5 5v12H6ZM15 5v6h5M3 18H1V1h13v2"/>'};
   const icon=name=>`<svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${icons[name]}</svg>`;

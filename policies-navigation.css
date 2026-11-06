@@ -25,7 +25,7 @@
 .policies-navigation a:hover { text-decoration:underline; text-underline-offset:4px; }
 .policies-navigation a:focus-visible,.policies-trigger:focus-visible { outline:3px solid #947224; outline-offset:3px; }
 .policies-label-mobile { display:none; }
-@media(max-width:1535px) {
+@media (max-width:999px), (max-width:1279px) and (max-height:999px) {
  .header-information .policies-trigger { width:100%; justify-content:flex-start; padding:0; gap:12px; min-height:48px; font:600 20px/1.4 var(--serif); }
  .header-information .policies-trigger::before { display:none; }
  .policies-trigger::after { content:'+'; margin-left:auto; font:400 24px/1 var(--sans); }
