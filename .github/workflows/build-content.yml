@@ -220,7 +220,9 @@ jobs:
           # Shared-navigation-only releases update cache keys, never regenerate page bodies
           # or date-sensitive Calendar/Home projections. Mixed content changes use the normal build.
           git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/navigation-changed-paths
-          if node scripts/is-racial-justice-release.cjs /tmp/navigation-changed-paths; then
+          if node scripts/is-clergy-portraits-release.cjs /tmp/navigation-changed-paths "$BEFORE_SHA"; then
+            node scripts/update-history-portraits.cjs
+          elif node scripts/is-racial-justice-release.cjs /tmp/navigation-changed-paths; then
             node build-search-index.js
           elif node scripts/is-full-desktop-release.cjs /tmp/navigation-changed-paths; then
             node build-home-performance.js
