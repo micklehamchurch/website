@@ -53,6 +53,6 @@
   const script=document.querySelector('script[src*="site.js"]');
   if(!script||!document.querySelector('.header-information'))return;
   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261106-full-desktop-1',script.src).href;
-  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261106-full-desktop-1',script.src).href;document.head.append(enhancement);},{once:true});
+  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261106-racial-justice-1',script.src).href;document.head.append(enhancement);},{once:true});
   document.head.append(css);
 })();

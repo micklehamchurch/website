@@ -155,7 +155,7 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261106-full-desktop-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261106-racial-justice-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';

@@ -12,3 +12,6 @@
 .policies-groups a:focus-visible { outline:2px solid #946914; outline-offset:4px; }
 .policies-help { grid-column:1/-1; }
 @media(max-width:760px) { .policies-groups { grid-template-columns:1fr; gap:18px; } .policies-groups section { padding:22px; } }
+
+/* Keep policy anchors clear of the existing fixed header in every layout. */
+.policies-groups :is(section[id],h2[id]) { scroll-margin-top:calc(var(--header-reserve,108px) + 24px); }

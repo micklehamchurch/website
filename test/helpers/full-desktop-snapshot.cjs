@@ -1,6 +1,6 @@
 // Exact approved responsive-mode and delivery changes only. Functional desktop
 // layout, current bundles and untouched content are tested independently.
-const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),root=path.resolve(__dirname,'../..');
+const fs=require('./racial-justice-snapshot.cjs').fs,path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),root=path.resolve(__dirname,'../..');
 const addition=fs.readFileSync(path.join(__dirname,'../fixtures/full-desktop.css'),'utf8').replace(/\r/g,''),approved=require('../fixtures/full-desktop-bundle.json');
 const oldBundle=cp.execFileSync('git',['show','28919b0:home-critical.css'],{cwd:root,encoding:'utf8'}).replace(/\r/g,''),oldHash=cp.execFileSync('git',['show','28919b0:index.html'],{cwd:root,encoding:'utf8'}).match(/home-critical\.css\?v=[^"\s]+/)[0];
 function prior(value){const buffer=Buffer.isBuffer(value);if(buffer&&!Buffer.from(value.toString()).equals(value))return value;let s=buffer?value.toString():value;if(typeof s!=='string')return value;s=s.replace(/\r/g,'');if(crypto.createHash('sha256').update(s).digest('hex')===approved.sha256)s=oldBundle;else{s=s.replace(addition,'').replaceAll('@media (max-width:999px), (max-width:1279px) and (max-height:999px)','@media(max-width:1535px)').replaceAll('(max-width:999px), (max-width:1279px) and (max-height:999px)','(max-width:1535px)');}

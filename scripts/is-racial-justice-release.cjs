@@ -1,0 +1,2 @@
+const fs=require('node:fs');
+try{const files=fs.readFileSync(process.argv[2],'utf8').trim().split('\n'),allowed=/^(?:[^/]+\.html|(?:news|pews-news)\/[^/]+\.html|(?:site|public-header|policies-navigation)\.js|policies\.css|search-index\.json|build-typography-preview\.js|test\/.*|docs\/racial-justice\.md|scripts\/(?:is-racial-justice-release|check-racial-justice)\.cjs|\.github\/workflows\/build-content\.yml)$/;process.exit(files.includes('policies.html')&&files.includes('policies-navigation.js')&&files.every(f=>allowed.test(f))?0:1);}catch{process.exit(1);}

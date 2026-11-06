@@ -1,0 +1,3 @@
+
+/* Keep policy anchors clear of the existing fixed header in every layout. */
+.policies-groups :is(section[id],h2[id]) { scroll-margin-top:calc(var(--header-reserve,108px) + 24px); }
