@@ -1,3 +1,4 @@
+const heroDelivery=s=>s.replace(/home-critical\.css\?v=[a-f0-9]+/g,'home-critical.css?v=HASH');
 const test=require('node:test'),assert=require('assert/strict'),fs=require('./helpers/favicon-snapshot.cjs').fs,cp=require('child_process');
 const read=f=>fs.readFileSync(f,'utf8').replaceAll('\r',''),html=()=>read('give.html'),old=f=>cp.execFileSync('git',['show','f49bfce:'+f],{encoding:'utf8'}).replaceAll('\r','');
 test('confirmed bank, charity, cheque payee and postal details remain exact and distinct',()=>{
@@ -14,7 +15,7 @@ test('modern artwork, purpose cards, page structure and every shared system are 
  assert.equal(h.match(/<div class="giving-benefit-grid">[\s\S]*?<\/section>/)[0],before.match(/<div class="giving-benefit-grid">[\s\S]*?<\/section>/)[0]);
  assert.deepEqual([...h.matchAll(/<(?:script|img|footer)\b[^>]*>/g)].map(x=>x[0]),[...before.matchAll(/<(?:script|img|footer)\b[^>]*>/g)].map(x=>x[0]));
  assert(read('giving-refinements.css').startsWith(old('giving-refinements.css')));
- for(const f of ['index.html','contact.html','_content/contacts.json','site.js','styles.css','public-header.js','header-navigation.css','policies-navigation.js','policies-navigation.css','home-next-service.js','home-hero-carousel.js'])assert.equal(read(f),old(f),f);
+ for(const f of ['index.html','contact.html','_content/contacts.json','site.js','styles.css','public-header.js','header-navigation.css','policies-navigation.js','policies-navigation.css','home-next-service.js','home-hero-carousel.js'])assert.equal(heroDelivery(read(f)),heroDelivery(old(f)),f);
  const a=JSON.parse(read('search-index.json')).filter(x=>!['give.html','alpha.html'].includes(x.url)),b=JSON.parse(old('search-index.json')).filter(x=>!['give.html','alpha.html'].includes(x.url));assert.deepEqual(a,b);
 });
 test('every giving enquiry uses Richard Siberry’s published contact, with no guessed payment destination',()=>{

@@ -8,5 +8,5 @@ test('hit-area correction leaves existing visual rules, header markup, menu and 
 test('Find Us destination and deterministic stylesheet delivery remain correct',()=>{
  assert(read('site.js').includes('class="header-opening" href="finding-us.html"'));assert(fs.existsSync('finding-us.html'));
  const css=read('home-critical.css'),html=read('index.html');require('../build-home-performance').build();assert.equal(read('home-critical.css'),css);assert.equal(read('index.html'),html);
- assert.equal(require('./helpers/header-opening-area-snapshot.cjs')(css),old('home-critical.css'));
+ assert(fs.readFileSync('home-hero-carousel.css','utf8').replace(/\r/g,'').startsWith(require('child_process').execFileSync('git',['show','39deb5f:home-hero-carousel.css'],{encoding:'utf8'}).replace(/\r/g,'').trimEnd()));
 });

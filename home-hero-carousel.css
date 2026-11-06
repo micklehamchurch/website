@@ -28,3 +28,15 @@
  .hero-photo-controls { width:318px; max-width:calc(100% - 8px); flex-wrap:wrap; justify-content:center; }
  .hero-photo-controls button:last-child:not([hidden]) { position:absolute; right:0; bottom:calc(100% + 8px); border:1px solid #e7d8b780; background:#18392dde; }
 }
+
+/* Phone controls: five small dots, with full transparent touch targets.
+   The separate visible pause button remains usable by sighted touch users. */
+@media (max-width:600px), (orientation:landscape) and (max-width:999px) and (max-height:460px) {
+ .hero-photo-controls { width:220px; max-width:none; bottom:4px; padding:0; border:0; border-radius:0; background:transparent; flex-wrap:nowrap; justify-content:center; }
+ .hero-photo-controls button:first-child, .hero-photo-controls button:nth-last-child(2) { display:none; }
+ .hero-photo-controls .hero-photo-dot { background:transparent; }
+ .hero-photo-controls .hero-photo-dot::before { width:8px; height:8px; border:2px solid #18392d; background:transparent; box-shadow:0 0 0 1px #fff9ed,0 1px 3px #0008; }
+ .hero-photo-controls .hero-photo-dot[aria-current]::before { width:10px; height:10px; background:#18392d; }
+ .hero-photo-controls button:last-child:not([hidden]) { position:absolute; right:-32px; bottom:48px; border:1px solid #e7d8b780; background:#18392dde; color:#fff9ed; }
+ .hero-photo-controls button:focus-visible { outline:2px solid #fff9ed; outline-offset:-3px; box-shadow:0 0 0 2px #18392d; }
+}

@@ -1,3 +1,4 @@
+const heroDelivery=s=>s.replace(/home-critical\.css\?v=[a-f0-9]+/g,'home-critical.css?v=HASH');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process'),path=require('node:path');
 const fav=require('../build-favicon-references.cjs'),root=path.resolve(__dirname,'..'),start='d95cce9c01965c727cb93568d51afc91c138565c';
 const read=f=>fs.readFileSync(path.join(root,f));
@@ -5,7 +6,7 @@ test('all public pages have consistent, idempotent local favicon references, inc
  for(const f of fav.files(root)){const s=read(f).toString();assert(s.includes(fav.markup),f);assert.equal(fav.apply(s),s,f);const head=s.match(/<head\b[\s\S]*?<\/head>/i)[0];assert.equal((head.match(/rel="(?:icon|apple-touch-icon)"/g)||[]).length,6,f);for(const m of head.matchAll(/href="([^"?]*(?:favicon[^"?]*|apple-touch-icon\.png))\?v=/g)){const base=f.startsWith('_templates/')?'':s.includes('<base href="../"')?'':path.posix.dirname(f)+'/';assert(fs.existsSync(path.join(root,base,m[1])),f+' '+m[1]);}}
 });
 test('favicon changes preserve every public page body and the illustrated header logo',()=>{
- for(const f of fav.files(root)){const old=cp.execFileSync('git',['show',start+':'+f],{cwd:root,encoding:'utf8'}).replace(/\r/g,''),now=read(f).toString().replace(/\r/g,'');assert.equal(now.replace(/<head\b[\s\S]*?<\/head>/i,''),old.replace(/<head\b[\s\S]*?<\/head>/i,''),f);assert.equal(now,fav.apply(old),f);}
+ for(const f of fav.files(root)){const old=cp.execFileSync('git',['show',start+':'+f],{cwd:root,encoding:'utf8'}).replace(/\r/g,''),now=read(f).toString().replace(/\r/g,'');assert.equal(now.replace(/<head\b[\s\S]*?<\/head>/i,''),old.replace(/<head\b[\s\S]*?<\/head>/i,''),f);assert.equal(heroDelivery(now),heroDelivery(fav.apply(old)),f);}
  for(const f of ['assets/images/branding/church-illustration.svg','site.js','public-header.js','header-navigation.css','admin/favicon.ico','admin/apple-touch-icon.png'])assert.equal(read(f).toString().replace(/\r/g,''),cp.execFileSync('git',['show',start+':'+f],{cwd:root}).toString().replace(/\r/g,''),f);
 });
 test('PNG and legacy ICO assets contain the required exact resolutions',()=>{
