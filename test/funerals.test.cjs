@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
-const page=require('../content-pages.json').pages.find(p=>p.slug==='funerals'),html=require('../funerals-render')(page),plain=html.replace(/<[^>]+>/g,' ').replaceAll('&amp;','&').replaceAll('&#39;',"'");
+const page=require('../content-pages.json').pages.find(p=>p.slug==='funerals'),html=require('../funerals-render')(page),plain=html.replace(/<[^>]+>/g,' ').replace(/&(amp|#39);/g, entity => entity === '&amp;' ? '&' : "'");
 test('Funerals preserves every original paragraph, qualification and destination',()=>{
  for(const section of page.sections)for(const p of section.paragraphs)assert(plain.includes(p),section.title);
  assert(plain.includes(page.summary));

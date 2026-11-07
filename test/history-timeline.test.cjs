@@ -7,7 +7,7 @@ test('timeline keeps uncertain dating and delivers distinct editorial details',(
  const domesday=read('history-domesday.html');assert.match(domesday,/<blockquote/);assert.match(domesday,/There is a Church and two acres of meadow/);assert.match(domesday,/do not tell us when/);
  const norman=read('history-norman.html');assert.match(norman,/Look for it in the church/);assert.match(norman,/three east lancets are 19th-century/);
  const restoration=read('history-restoration.html');for(const year of ['1823','1842','1872','1891'])assert(restoration.includes('<h3>'+year+'</h3>'));assert.match(restoration,/less clearly established/);
- assert.match(read('history-norbury.html'),/Sources differ/);assert.match(read('history-bells.html'),/https:\/\/www.youtube.com\/watch\?v=9eNFCR04xWE/);assert.doesNotMatch(read('history-bells.html'),/<iframe|autoplay/);
+ assert.match(read('history-norbury.html'),/Sources differ/);assert.match(read('history-bells.html'),/href="https:\/\/www\.youtube\.com\/watch\?v=9eNFCR04xWE"/);assert.doesNotMatch(read('history-bells.html'),/<iframe|autoplay/);
  for(const t of data.timeline){const html=read(t.url);assert.match(html,/class="history-period-content"/);for(const id of t.sourceRefs)assert(data.sources.some(s=>s.id===id));}
 });
 test('timeline upgrade preserves hero, clergy placement, story cards and unrelated global behaviour',()=>{

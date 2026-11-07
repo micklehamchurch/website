@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
-const page=require('../content-pages.json').pages.find(p=>p.slug==='baptisms'),html=require('../baptisms-render')(page),plain=html.replace(/<[^>]+>/g,' ').replaceAll('&amp;','&').replaceAll('&#39;',"'");
+const page=require('../content-pages.json').pages.find(p=>p.slug==='baptisms'),html=require('../baptisms-render')(page),plain=html.replace(/<[^>]+>/g,' ').replace(/&(amp|#39);/g, entity => entity === '&amp;' ? '&' : "'");
 test('Baptisms preserves every canonical policy paragraph and destination',()=>{
  for(const s of page.sections)for(const p of s.paragraphs)assert(plain.includes(p),s.title);
  const life=page.lifeEvent;

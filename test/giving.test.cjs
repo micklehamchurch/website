@@ -7,7 +7,7 @@ test('confirmed bank, charity, cheque payee and postal details remain exact and 
 });
 test('all practical methods and Christian generosity are restored within the existing sections',()=>{
  const h=html();for(const t of ['Jesus’ example','time, talents and financial resources','Direct Debit','inflation','Gift Aid on eligible gifts','set one up, change it or cancel it','to the right as you enter','card or phone','Yellow Free Will Offering / Gift Aid envelopes','Westhumble Chapel','offering plate','25p for every £1','Income Tax or Capital Gains Tax','donating shares','Inheritance Tax','solicitor or financial adviser'])assert(h.includes(t),t);
- assert(h.includes('https://www.parishgiving.org.uk/home/'));assert(h.includes('does not currently take online donations'));assert(!/<form|<iframe|Stripe|PayPal|giving-qr/.test(h));assert.equal((h.match(/class="giving-method-card"/g)||[]).length,4);
+ assert([...h.matchAll(/href="(https:[^"]+)"/g)].some(([, href]) => { const url = new URL(href); return url.origin === 'https://www.parishgiving.org.uk' && url.pathname === '/home/'; }));assert(h.includes('does not currently take online donations'));assert(!/<form|<iframe|Stripe|PayPal|giving-qr/.test(h));assert.equal((h.match(/class="giving-method-card"/g)||[]).length,4);
  assert.deepEqual([...h.matchAll(/<section\b[^>]+class="([^"]+)"/g)].map(x=>x[1]),[...old('give.html').matchAll(/<section\b[^>]+class="([^"]+)"/g)].map(x=>x[1]));
 });
 test("Giving retains its hero, benefit cards, shared shell and search entry", () => {

@@ -34,10 +34,10 @@ test('memorial survives an isolated clean rebuild and escapes content', () => {
     assert.match(first, /href="our-history.html"/);
     assert.match(first, /href="churchyard.html"/);
     const malicious = structuredClone(page);
-    malicious.sections[0].paragraphs = ['<script>alert("unsafe")</script>'];
+    malicious.sections[0].paragraphs = ['<SCRIPT>alert("unsafe")</SCRIPT>'];
     const rendered = require('../war-memorial-render')(malicious);
-    assert.doesNotMatch(rendered, /<script>/);
-    assert.match(rendered, /&lt;script&gt;/);
+    assert.doesNotMatch(rendered, /<script\b/i);
+    assert.match(rendered, /&lt;SCRIPT&gt;/);
   } finally {
     fs.rmSync(temp, { recursive: true, force: true });
   }

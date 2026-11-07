@@ -8,7 +8,6 @@ const source=fs.readFileSync(path.join(root,'site.js'),'utf8');
 const html=vm.runInNewContext(source.slice(0,source.indexOf('const socialArea'))+'\nnavigation');
 const categories=vm.runInNewContext(source.slice(0,source.indexOf('const socialArea'))+'\nnavigationCategories');
 const menus=Object.fromEntries(categories.map(c=>[c.id,Array.from(c.links,p=>p[1])]));
-const labels=s=>s.replace(/<svg\b.*?<\/svg>/gs,'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').trim();
 test('one desktop hub contains every audited category; Home and utilities remain separate',()=>{
  assert.equal((html.match(/class="navigation-hub"/g)||[]).length,1);
  assert.deepEqual(Array.from(categories,c=>c.title),['Services','Life Events','Visit & Explore','Community','About Us']);
@@ -43,7 +42,7 @@ test('History and Prayer retain search discoverability and relevant contextual l
  for(const page of ['visit.html','church-building.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="our-history.html"/);
  for(const page of ['church-life.html','pastoral-care.html','bible-study-fellowship.html'])assert.match(fs.readFileSync(path.join(root,page),'utf8'),/href="prayer.html"/);
 });
-test('header omits YouTube while the existing shared footer retains it',()=>{assert.doesNotMatch(html,/class="nav-youtube"/);assert.match(source,/const socialArea/);assert.match(source,/footer-social/);assert.match(source,/www.youtube.com/);});
+test('header omits YouTube while the existing shared footer retains it',()=>{assert.doesNotMatch(html,/class="nav-youtube"/);assert.match(source,/const socialArea/);assert.match(source,/footer-social/);const channel=source.match(/const officialYouTubeChannel = '([^']+)'/);assert(channel);assert.equal(new URL(channel[1]).origin,'https://www.youtube.com');});
 
 test('Real accessible header search submits q to the existing search page',()=>{
  assert.match(html,/<form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">/);
@@ -61,7 +60,7 @@ test('Bible utility follows Calendar, has an accessible name and desktop label, 
  assert.match(control,/aria-label="Bible"/);
  assert.match(control,/href="bible.html"/);
  assert.match(control,/class="header-book"/);
- assert.equal(labels(control),'Bible');
+ assert.match(control,/<span class="header-bible-label">Bible<\/span>/);
  const hero=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<a class="home-next-service"[^>]*>(.*?)<\/a>/s)[1];
  assert.equal((hero.match(/<a /g)||[]).length,0);assert.doesNotMatch(hero,/bible/i);
  assert(fs.existsSync(path.join(root,'assets/images/bible-closed.svg')));
