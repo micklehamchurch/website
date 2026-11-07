@@ -35,5 +35,5 @@ test('public generated records expose only intended image metadata, with valid l
 test('archive is discoverable by requested names through existing search',()=>{
  const page=JSON.parse(fs.readFileSync(path.join(root,'search-index.json'))).find(p=>p.url==='those-who-have-served.html');assert(page);
  for(const name of ['Burmester','Harkin','Cornell','Faccini'])assert(page.content.includes(name));
- assert(!page.content.includes('internalNotes'));assert(!page.content.includes('George Lock'));
+ assert(!page.content.includes('internalNotes'));const records=require('../_content/clergy.json').records; for(const record of records.filter(r=>!r.published)) assert(!page.content.includes(record.displayName)); for(const record of records.filter(r=>r.internalNotes?.trim())) assert(!page.content.includes(record.internalNotes));
 });

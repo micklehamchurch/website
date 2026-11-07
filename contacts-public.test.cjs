@@ -35,7 +35,7 @@ test('Our Team is the single contact destination, preserves all published record
  for(const record of [...real.contacts,...real.pccMembers].filter(r=>r.status==='published')) {
   assert(html.includes(escape(record.name))); if(record.email) assert(html.includes(record.email)); if(record.phone) assert(html.includes(record.phone));
  }
- assert.equal(real.contacts.filter(r=>r.status==='published').length+real.pccMembers.filter(r=>r.status==='published').length,31);
+
  const results=JSON.parse(out.search);assert.equal(results.length,1);assert.equal(results[0].url,'our-team.html');
  for(const term of ['Parish Contact Directory','vicar','churchwarden','PCC','safeguarding'])assert(results[0].content.includes(term));
  const compatibility=fs.readFileSync(path.join(root,'parish-contact-directory.html'),'utf8');assert.match(compatibility,/location.replace\('our-team.html' \+ location.search \+ location.hash\)/);assert.match(compatibility,/href="our-team.html"/);

@@ -1,4 +1,27 @@
-const test=require('node:test'),assert=require('node:assert/strict'),M=require('../home-next-service'),{project}=require('../build-home-next-service'),config=require('../home-next-service-config.json');
+const test=require('node:test'),assert=require('node:assert/strict'),M=require('../home-next-service'),{project,build}=require('../build-home-next-service'),config=require('../home-next-service-config.json');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+
+test('Sunday build writes verified fixture data, then replaces stale data with the outage fallback', async t => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'church-sunday-feed-'));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(directory, '_sync'));
+  const write = (file, value) => fs.writeFileSync(path.join(directory, file), JSON.stringify(value));
+  const published = { ...event(), status: 'published' };
+  const uid = config.googleSeriesUid;
+  write('events.json', { items: [published] });
+  write('_sync/google-calendar.json', { entries: [{ uid, key: 'fixture', websiteId: published.id }] });
+  const loadFeed = async () => ({ series: [{ uid }], rows: [{ uid, key: 'fixture', state: published }] });
+  const verified = await build({ directory, loadFeed });
+  assert.equal(verified.items.length, 1);
+  assert.equal(verified.items[0].id, published.id);
+  assert.equal(M.choose(verified, new Date('2026-10-23T12:00Z')).href, 'calendar.html?event=event-1');
+  const outage = await build({ directory, loadFeed: async () => { throw Error('fixture upstream outage'); } });
+  assert.deepEqual(outage, { version: 1, items: [] });
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(directory, 'home-next-service-data.json'))), outage);
+  assert.equal(M.choose(outage, new Date('2026-10-23T12:00Z')), null);
+});
 const event=(start='2026-10-25T10:00',title='Holy Communion')=>({id:'event-1',title,start,end:start.slice(0,11)+(String(Number(start.slice(11,13))+1).padStart(2,'0'))+':00',location:'St Michael & All Angels, Mickleham'});
 const data=e=>({version:1,items:Array.isArray(e)?e:[e]});
 test('UK dates/status/time use actual occurrences, including DST and Sunday rollover',()=>{assert.equal(M.choose(data(event()),new Date('2026-10-23T12:00Z')).label,'NEXT SUNDAY');assert.equal(M.choose(data(event()),new Date('2026-10-25T09:00Z')).label,'TODAY');assert.equal(M.choose(data(event('2026-11-08T10:00')),new Date('2026-10-23T12:00Z')).label,'UPCOMING SERVICE');assert.equal(M.choose(data(event('2026-10-25T10:00')),new Date('2026-10-25T10:00:01Z')),null);assert.equal(M.choose(data(event('2027-06-06T10:00')),new Date('2027-06-05T23:30Z')).label,'TODAY');assert.equal(M.choose(data(event('2026-11-01T10:00')),new Date('2026-10-25T12:00Z')).label,'NEXT SUNDAY');});

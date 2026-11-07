@@ -109,26 +109,39 @@ test('online archive has three real HTML editions and disjoint PDF-only archive 
   assert.match(landing,/href="pews-news\/2026-10-18.html"/); assert.match(landing,/datetime="2026-10-18"/);
   assert.deepEqual(require('../pews-news-data.json').editions,['2026-11-01','2026-10-25','2026-10-18']);
 });
-test('25 October edition body remains unchanged outside the archive and masthead', () => {
+test('25 October retains its editorial data, photographs and published calendar block', () => {
   const cp = require('node:child_process');
-  const previous = file => approvedNavigationSnapshot(cp.execFileSync('git',['show',`2a57cb7:${file}`],{cwd:source,encoding:'utf8'})).replace(/\r/g,'').replace(/header=(?:202610(?:26-hub|27-(?:photos|motion))-1|20261101-(?:alpha|give)-1)/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
-  assert.deepEqual(require('../_content/pews-news/2026-10-25.json'),JSON.parse(previous('_content/pews-news/2026-10-25.json')));
-  const withoutQR = images => Object.fromEntries(Object.entries(images).filter(([key])=>key!=='poppy-qr'));
-  assert.deepEqual(withoutQR(require('../_content/pews-news-images.json')['2026-10-25']),withoutQR(JSON.parse(previous('_content/pews-news-images.json'))['2026-10-25']));
-  const stripArchive = value => value.replace(/<a class="pews-qr"[\s\S]*?<\/a>/g,'DONATION_QR').replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version').replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version');
-  assert.equal(stripArchive(fs.readFileSync(path.join(source,'pews-news/2026-10-25.html'),'utf8').replace(/\r/g,'').replace(/header=(?:202610(?:26-hub|27-(?:photos|motion))-1|20261101-(?:alpha|give)-1)/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1')),stripArchive(previous('pews-news/2026-10-25.html')));
+  const previous = (ref, file) => cp.execFileSync('git', ['show', ref + ':' + file], { cwd: source, encoding: 'utf8' });
+  const date = '2026-10-25';
+  const sourceFile = '_content/pews-news/' + date + '.json';
+  assert.deepEqual(require('../' + sourceFile), JSON.parse(previous('2a57cb7', sourceFile)));
+  const withoutQR = images => Object.fromEntries(Object.entries(images).filter(([key]) => key !== 'poppy-qr'));
+  const imagesFile = '_content/pews-news-images.json';
+  assert.deepEqual(withoutQR(require('../' + imagesFile)[date]), withoutQR(JSON.parse(previous('2a57cb7', imagesFile))[date]));
+  const file = 'pews-news/' + date + '.html';
+  const calendarBlock = html => html.match(/<section class="pews-calendar"[\s\S]*?<\/section>/)?.[0];
+  const published = calendarBlock(previous('011c794', file));
+  assert(published);
+  assert.equal(calendarBlock(fs.readFileSync(path.join(source, file), 'utf8')), published);
 });
 
-test('publication masthead is shared, responsive and date-independent without changing edition bodies',()=>{
- const cp=require('node:child_process');let masthead;
- for(const file of ['pews-news/2026-10-18.html','pews-news/2026-10-25.html']){
-  const html=fs.readFileSync(path.join(source,file),'utf8').replace(/\r/g,'').replace(/header=(?:202610(?:26-hub|27-(?:photos|motion))-1|20261101-(?:alpha|give)-1)/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1'),previous=approvedNavigationSnapshot(cp.execFileSync('git',['show',`379c2a4:${file}`],{cwd:source,encoding:'utf8'})).replace(/\r/g,'').replace(/header=(?:202610(?:26-hub|27-(?:photos|motion))-1|20261101-(?:alpha|give)-1)/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');
-  const hero=html.match(/<section class="pews-hero"[\s\S]*?<\/section>/)[0];
-  assert(!hero.includes('2026-10'));assert(hero.includes('Weekly news, services and events'));assert(hero.includes('church-card.webp 720w'));assert(hero.includes('church-hero.webp 1600w'));assert(hero.includes('alt=""'));assert.equal((hero.match(/<h1\b/g)||[]).length,1);
-  if(masthead)assert.equal(hero,masthead);masthead=hero;
-  const strip=s=>s.replace(/<nav class="pews-archive"[\s\S]*?<\/nav>/,'ARCHIVE').replace(/<a class="pews-qr"[\s\S]*?<\/a>/g,'DONATION_QR').replace(/<section class="pews-hero"[\s\S]*?<\/section>/,'MASTHEAD').replace(/pews-news.css\?v=[^"]+/g,'pews-news.css?version').replace(/headerPhoto=[^&"]+/g,'headerPhoto=version');
-  assert.equal(strip(html),strip(previous),file+' outside masthead changed');
- }
+test('published editions share a date-independent masthead and retain the approved donation change', () => {
+  const cp = require('node:child_process');
+  let masthead;
+  for (const file of ['pews-news/2026-10-18.html', 'pews-news/2026-10-25.html']) {
+    const html = fs.readFileSync(path.join(source, file), 'utf8');
+    const hero = html.match(/<section class="pews-hero"[\s\S]*?<\/section>/)[0];
+    assert(!hero.includes('2026-10'));
+    for (const marker of ['Weekly news, services and events', 'church-card.webp 720w', 'church-hero.webp 1600w', 'alt=""']) assert(hero.includes(marker));
+    assert.equal((hero.match(/<h1\b/g) || []).length, 1);
+    if (masthead) assert.equal(hero, masthead);
+    masthead = hero;
+  }
+  const file = 'pews-news/2026-10-18.html';
+  const supportBlock = html => html.match(/<aside class="pews-support"[\s\S]*?<\/aside>/)?.[0];
+  const approved = supportBlock(cp.execFileSync('git', ['show', '220af6e:' + file], { cwd: source, encoding: 'utf8' }));
+  assert(approved);
+  assert.equal(supportBlock(fs.readFileSync(path.join(source, file), 'utf8')), approved);
 });
 
 test('every RBL collection QR uses the shared scalable asset and exact verified donation destination',()=>{

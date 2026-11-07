@@ -1,4 +1,5 @@
 const fs = require('node:fs');
+const path = require('node:path');
 const { fetchGoogleCalendar } = require('./azure-function/src/google-calendar-adapter');
 const config = require('./home-next-service-config.json');
 // A projection, not another calendar. Eligibility comes only from the configured Google UID.
@@ -16,12 +17,14 @@ function project(calendar, registry, feed, settings = config) {
   }
   return {version:1,items:items.sort((a,b)=>a.start.localeCompare(b.start)||a.id.localeCompare(b.id))};
 }
-async function build() {
+async function build({ directory = '.', loadFeed = fetchGoogleCalendar } = {}) {
+  const read = file => JSON.parse(fs.readFileSync(path.join(directory, file), 'utf8'));
   let data = {version:1,items:[]};
-  try { data = project(JSON.parse(fs.readFileSync('events.json')),JSON.parse(fs.readFileSync('_sync/google-calendar.json')),await fetchGoogleCalendar()); }
+  try { data = project(read('events.json'), read('_sync/google-calendar.json'), await loadFeed()); }
   catch { console.warn('Sunday series could not be verified; publishing the neutral service-card fallback.'); }
-  fs.writeFileSync('home-next-service-data.json',JSON.stringify(data,null,2)+'\n');
+  fs.writeFileSync(path.join(directory, 'home-next-service-data.json'), JSON.stringify(data,null,2)+'\n');
   console.log(`Generated ${data.items.length} verified main-church Sunday occurrences.`);
+  return data;
 }
 if (require.main === module) build().catch(e=>{console.error(e);process.exitCode=1;});
-module.exports={project};
+module.exports={project,build};
