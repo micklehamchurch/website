@@ -1,0 +1,25 @@
+{
+  "editions": {
+    "2026-10-25": {
+      "src": "assets/images/news-artwork/pews-autumn-rich-1280.webp",
+      "small": "assets/images/news-artwork/pews-autumn-rich-640.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Pews News publication illustration"
+    },
+    "2026-10-18": {
+      "src": "assets/images/news-artwork/pews-autumn-quiet-1280.webp",
+      "small": "assets/images/news-artwork/pews-autumn-quiet-640.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Pews News publication illustration"
+    },
+    "2026-11-01": {
+      "src": "assets/images/news-artwork/pews-all-saints-2026-11-01-1280.webp",
+      "small": "assets/images/news-artwork/pews-all-saints-2026-11-01-640.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Pews News for 1 November 2026 in a warm autumn church setting"
+    }
+  }
+}

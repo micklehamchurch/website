@@ -1,0 +1,11 @@
+# Bells film: History home
+
+The former Media presentation was the final `service-pattern` section in `sunday-services.html`: a heritage paragraph and exact YouTube link, with no dedicated film embed. Its external-link convention was a new tab with `noopener noreferrer`. The service playlist, service guide and channel link remain unchanged. The existing bells timeline detail/link remains intact; the new landing card exposes that same film, without creating another film page or player.
+
+The fifth `landingStories` record in `_content/history.json` owns the exact approved film URL and temporary image metadata. The existing History card renderer handles this validated film destination. Other landing destinations and underlying collections are retained. Five cards use three plus two wider cards on large desktop, two columns below 1101px, one below 761px, and the existing short-landscape two-column pattern. The hero, seven timeline items and clergy feature retain their order and content.
+
+Temporary artwork supplied by the editor is generated/illustrative, NOT a photograph of the actual Mickleham bells. Honest alt: “Illustration of traditional church bells in a wooden bell frame”. No documentary caption, photo claim or structured metadata is added. Source backup remains outside the public repository at `bells-originals/generated-bells-source.png`. Public WebPs: `assets/images/history/bells-illustration-480.webp` (480×270, 29,502 bytes), `bells-illustration-960.webp` (960×540, 78,818 bytes), quality 82. To replace: supply genuine optimized variants and update this one manifest record’s paths, dimensions, focal point and alt. Existing lazy loading/async decoding/srcset conventions apply. No YouTube scripts, thumbnails or iframe are requested by the new card.
+
+Exact destination: https://www.youtube.com/watch?v=9eNFCR04xWE
+
+The focused tests check the move, exact external URL/security/name, no History player, honest illustration, preserved Media functionality and historical pages/placement. `scripts/check-history-bells.cjs` checks 14 History and 5 Media viewports per browser, card collision/overflow/image readiness and keyboard focus with reduced motion. The CI History allowlist includes the related handwritten Media removal so it does not regenerate unrelated pages.

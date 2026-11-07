@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-18",
+  "subtitle": "Twentieth Sunday after Trinity",
+  "readings": "1 Thessalonians 1.1–10 & Matthew 22.15–22",
+  "collect": "God, our light and our salvation: illuminate our lives, that we may see your goodness in the land of the living, and looking on your beauty may be changed into the likeness of Jesus Christ our Lord. Amen.",
+  "services": [{ "time": "10am", "title": "Holy Communion in Church", "place": "St Michael’s Church" }],
+  "zoom": {
+    "url": "https://us02web.zoom.us/j/81268126840?pwd=pBJqKgCS9Rm73Hm5JYrBUV8azuwjWZ.1",
+    "meeting": "812 6812 6840", "passcode": "221883",
+    "phones": ["0131 460 1196", "0208 080 6591", "0203 481 5237", "0203 481 5240", "0203 901 7895"]
+  },
+  "sections": [
+    {
+      "id": "weeks-ahead", "title": "The weeks ahead", "layout": "timeline",
+      "notices": [
+        {
+          "title": "Time to think about filling a shoebox for our service on November 1st?",
+          "when": "November 1st", "image": "link-to-hope", "placement": "sidebar", "featured": true,
+          "paragraphs": ["More info at the back of the church or online."]
+        },
+        {
+          "title": "T@3", "when": "Monday 19 October · 3pm", "dates": ["2026-10-19"],
+          "paragraphs": [
+            "T@3 hosted by Alison and Mike Wood at Abbotts Cottage, London Road, Mickleham, RH5 6EH. All welcome – Transport available. For directions, please speak to Alison in church or call her on 01372 376443 or 07905 985928. There may be some parking in School Lane, and there are public spaces outside the café, 51 Degrees North on the A24.",
+            "If you can help at future events, please contact Julia at siberrman@btinternet.com"
+          ]
+        },
+        {
+          "title": "The Alpha course", "when": "Monday 19 October · 7.30pm (finishing by 9pm)", "dates": ["2026-10-19"], "image": "alpha",
+          "paragraphs": ["The Alpha course meets in The Ranmore Room (the vestry)."]
+        },
+        {
+          "title": "Monday evening Bible study", "when": "Monday 19 October · 7.45pm until 9pm", "dates": ["2026-10-19"], "image": "bible",
+          "paragraphs": ["The Monday evening Bible study group meets at Westhumble Chapel. Please contact Amanda on aewadsworth@hotmail.com if you would like more information about joining this group."]
+        },
+        {
+          "title": "Compline", "when": "Tuesday 20 October · 7pm", "dates": ["2026-10-20"],
+          "paragraphs": ["Compline in church. All are welcome to come along for a short service and period of reflection, prayer and fellowship."]
+        },
+        {
+          "title": "Thursday morning Bible study", "when": "Thursday 22 October · 11am for 11.30am start until 12.30pm", "dates": ["2026-10-22"], "image": "bible-study",
+          "paragraphs": ["The Thursday morning Bible Study group meets at Westhumble Chapel. If you would like to join this group, please email admin@micklehamchurch.org.uk or call Alison Wood on 01372 376443 or 07905 985928."]
+        },
+        {
+          "title": "Autumn Soup Lunches", "when": "Thursdays 22 October and 26 November · 12.45 for 1pm", "dates": ["2026-10-22"], "image": "soup",
+          "paragraphs": [
+            "Autumn Soup Lunches in Mickleham Village Hall. Please make a note in your diaries of the dates of these popular lunches, there are only two at this time of year. Delicious homemade soups, bread and cheese and good company. No charge but donations gratefully received, with all proceeds going to local charities (including the Foodbank).",
+            "To help with numbers, please book your place with Andy Diamond by calling 07789 775354 or email him at adiamond714@gmail.com, or sign the list at the back of the church."
+          ]
+        },
+        {
+          "title": "Men’s Breakfast", "when": "Saturday 24 October · 9am till 10am", "dates": ["2026-10-24"], "image": "mens-breakfast",
+          "paragraphs": ["Men’s Breakfast at The Stepping Stones. Book with Andy Diamond: email adiamond714@gmail.com. All welcome."]
+        },
+        {
+          "title": "Chapel Farm Macmillan Coffee Morning", "when": "Friday 30 October · 9.30am till 12.30pm", "dates": ["2026-10-30"], "image": "macmillan", "placement": "sidebar",
+          "paragraphs": [
+            "Chapel Farm Macmillan Coffee Morning at Chapel Farm, Chapel Lane, Westhumble, RH5 6AY. This is a lovely occasion hosted annually by Liz and John Absalom and everyone is welcome.",
+            "If you are unable to come along on the day but wish to support the event, there is a QR code link to the JustGiving page for the coffee morning on page 21 of the October Parish Magazine."
+          ]
+        },
+        {
+          "title": "Memorial Service", "when": "Friday 30 October · 11.30am", "dates": ["2026-10-30"],
+          "paragraphs": ["Memorial Service in church for the late Kirsten von Wedel."]
+        }
+      ]
+    },
+    {
+      "id": "november", "title": "November dates", "layout": "grid",
+      "notices": [
+        {
+          "title": "Worship for All & Shoe Box Sunday", "when": "Sunday 1 November · 10am", "dates": ["2026-11-01"], "image": "link-to-hope", "featured": true,
+          "paragraphs": ["Worship for All in church and Shoe Box Sunday. We will be collecting Shoe boxes for Link to Hope again this year so look out for the leaflets giving more information which are at the back of church."]
+        },
+        {
+          "title": "Celebration of the life of Barry Moughton", "when": "Monday 2 November · 11.30am", "dates": ["2026-11-02"],
+          "paragraphs": ["There will be a service of celebration of the life of the late Barry Moughton at St Michael’s Church followed by a family Burial of Ashes in the churchyard. The service will be zoomed for those who would like to join virtually. The zoom code details are:"],
+          "zoom": { "url": "https://us02web.zoom.us/j/89396099494?pwd=ebKf2TtqQrwiY5VKcqegDaItEhgx3q.1", "meeting": "893 9609 9494", "passcode": "967011" }
+        },
+        {
+          "title": "Compline", "when": "Tuesdays 3 and 24 November · 7pm", "dates": ["2026-11-03", "2026-11-24"],
+          "paragraphs": ["Please note 24th is a later date. Compline in church. All are welcome to come along for a short service and period of reflection, prayer and fellowship."]
+        },
+        {
+          "title": "Coffee and cake at the Chapel", "when": "Saturday 7 November · 10am till 12 noon", "dates": ["2026-11-07"], "image": "coffee-cake",
+          "paragraphs": ["Coffee and cake at the Chapel in Westhumble. Only £2 and free drinks for children. Do come along and bring a friend or neighbour. Offers of homemade cakes or help on the morning appreciated. Contact Jonathan Blake: 07787 126966."]
+        },
+        {
+          "title": "Remembrance Sunday", "when": "Sunday 8 November · 10am", "dates": ["2026-11-08"], "image": "remembrance", "extraImage": "poppy-qr", "poppyFeature": true, "featured": true,
+          "paragraphs": [
+            "Service in church for Remembrance Sunday, with Act of Remembrance around the war memorial at 11am. Afterwards we have kindly been invited to have refreshments at RGS-Surrey Hills. There will not be an 8am Communion service at the Chapel on this Sunday.",
+            "Poppies will be available to buy in church from Sunday 25th October onwards. Payment can be made by cash or there is a QR code which connects directly to the collection being made in Mickleham and Westhumble for the Royal British Legion."
+          ]
+        },
+        {
+          "title": "A Concert for Remembrance Sunday", "when": "Sunday 8 November · 7pm", "dates": ["2026-11-08"], "featured": true,
+          "paragraphs": ["A Concert for Remembrance Sunday by Mickleham Choral Society in church. Tickets £15, children 12 years and under £7.50. Book tickets via Events page on www.micklehamchoral.org.uk. More information on page 6 of the October Parish Magazine."],
+          "emphasis": "Please note that the venue is incorrect in the magazine: the concert will be in St Michael’s Church not the Village Hall"
+        },
+        {
+          "title": "PCC meeting", "when": "Tuesday 10 November · 7.30pm", "dates": ["2026-11-10"],
+          "paragraphs": ["The PCC meets in the Ranmore Room."]
+        },
+        {
+          "title": "Lights to Remember", "when": "Sunday 15 November · 4pm", "dates": ["2026-11-15"], "image": "lights", "featured": true,
+          "paragraphs": ["Lights to Remember service in church, when we will remember our loved ones who we have lost."]
+        },
+        {
+          "title": "Ascending Deeper", "when": "Sunday 17 November · 7.30pm",
+          "paragraphs": ["Ascending Deeper evening on the topic of What does the Bible say about Migration? Please let Sandra know if you wish to come or want any information"]
+        }
+      ]
+    }
+  ],
+  "foodbank": {
+    "intro": "Thank you so much for your continued kindness and support. Here are some suggested items that are needed this week:",
+    "items": ["Shaving Foam", "Tinned Rice Pudding", "Toilet tissue", "Tinned Soup", "Tinned Meat Meals for 1", "Squash"],
+    "note": "As always: - Long Life Dairy Milk and Fruit Juice (we always need more of these).",
+    "donations": "You can also drop donations off in Church on Sunday morning, at the monthly Chapel Coffee morning (10am to 12noon) at The Stepping Stones, or at any time at any of the usual locations in Mickleham and Westhumble, details in the Parish Magazine.",
+    "image": "foodbank"
+  },
+  "heroImage": "assets/images/about/church-hero.webp"
+}

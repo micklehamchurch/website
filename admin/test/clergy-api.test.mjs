@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createClergyApi} from '../clergy-api.mjs';
+const sha='a'.repeat(40),archive={records:[]};
+test('archive bridge privately acquires API token and writes only scoped payload to fixed route',async()=>{const requests=[],api=createClergyApi({getToken:async()=>'fixture-token',fetchImpl:async(url,options)=>{requests.push({url,options});return {ok:true,json:async()=>({ok:true,sha,headSha:sha,commitSha:sha,archive})};}});assert.equal((await api.load()).ok,true);assert.equal((await api.publish({sha,headSha:sha,archive,uploads:[],branch:'main',path:'index.html'})).ok,true);assert.match(requests[0].url,/\/api\/historical-archive$/);assert.equal(requests[0].options.headers.Authorization,'Bearer fixture-token');assert.equal(requests[1].options.method,'PUT');assert.deepEqual(Object.keys(JSON.parse(requests[1].options.body)).sort(),['archive','headSha','sha','uploads']);assert.equal(api.token,undefined);});
+test('missing token prevents access; auth validation conflict size network messages are safe',async()=>{const api=createClergyApi({getToken:async()=>null,fetchImpl:()=>{throw new Error('must not call');}});assert.equal((await api.load()).category,'authentication-required');for(const status of [400,401,403,409,413,502]){const a=createClergyApi({getToken:async()=>'fixture',fetchImpl:async()=>({ok:false,status,json:async()=>({error:'secret unsafe text'})})});const r=await a.publish({});assert.equal(r.ok,false);assert.doesNotMatch(a.message(r.category),/secret/);}});
+test('duplicate archive requests are blocked until response settles',async()=>{let resolve;const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:()=>new Promise(r=>resolve=r)});const pending=api.load();await new Promise(r=>setImmediate(r));assert.equal((await api.load()).category,'busy');resolve({ok:true,json:async()=>({ok:true,sha,headSha:sha,archive})});assert.equal((await pending).ok,true);});
+
+test('removal bridge forwards explicit record IDs but never arbitrary file or branch deletion targets',async()=>{let sent;const api=createClergyApi({getToken:async()=>'fixture-token',fetchImpl:async(url,options)=>{sent=JSON.parse(options.body);return {ok:true,json:async()=>({ok:true,sha,headSha:sha,commitSha:sha,archive})};}});assert.equal((await api.publish({sha,headSha:sha,archive,uploads:[],removedRecordIds:['fixture-record'],branch:'main',deletePaths:['index.html']})).ok,true);assert.deepEqual(sent,{sha,headSha:sha,archive,uploads:[],removedRecordIds:['fixture-record']});});
+
+test('binary image preparation sends original File bytes, then publication sends only a receipt',async()=>{
+ const calls=[],file=new File([new Uint8Array([137,80,78,71])],'archive.png',{type:'image/png'}),id='11111111-1111-4111-8111-111111111111';
+ const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:async(url,options)=>{calls.push({url,options});return {ok:true,json:async()=>options.method==='POST'?{ok:true,id,receipt:'signed-fixture'}:{ok:true,sha,headSha:sha,commitSha:sha,archive,imageUploadProtocol:'git-blob-v1'}};}});
+ const upload=await api.upload({id,file});assert.equal(upload.ok,true);assert.equal(calls[0].options.body,file);assert.equal(calls[0].options.headers['Content-Type'],'image/png');
+ await api.publish({sha,headSha:sha,archive,uploads:[{id,receipt:upload.receipt}]});const sent=JSON.parse(calls[1].options.body);assert.deepEqual(sent.uploads,[{id,receipt:'signed-fixture'}]);assert(!calls[1].options.body.includes('base64'));
+});
+test('HTTP 413, including platform HTML responses, keeps a useful safe error and status',async()=>{
+ const api=createClergyApi({getToken:async()=>'fixture',fetchImpl:async()=>({ok:false,status:413,json:async()=>{throw Error('HTML platform response');}})});
+ const result=await api.publish({uploads:[],archive});assert.equal(result.status,413);assert.equal(result.category,'archive-payload-too-large');assert.match(api.message(result.category),/HTTP 413/);assert.match(api.message(result.category),/Do not refresh/);
+});

@@ -1,0 +1,252 @@
+name: Deploy Admin API to Azure (Dev only)
+
+on:
+  push:
+    branches: [Dev]
+    paths:
+      - 'azure-function/**'
+      - '.github/workflows/deploy-azure-function.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: admin-api-Dev
+  cancel-in-progress: false
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy-ready: ${{ steps.azure-config.outputs.deploy-ready }}
+    steps:
+      - name: Require the Dev branch
+        if: github.ref != 'refs/heads/Dev'
+        run: |
+          echo "::error::This workflow is restricted to the Dev branch."
+          exit 1
+
+      - name: Check Azure OIDC configuration
+        id: azure-config
+        env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        run: |
+          if [ -z "$AZURE_CLIENT_ID" ] || [ -z "$AZURE_TENANT_ID" ] || [ -z "$AZURE_SUBSCRIPTION_ID" ]; then
+            echo "deploy-ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Tests will run, but Azure deployment is skipped. Configure AZURE_CLIENT_ID, AZURE_TENANT_ID, and AZURE_SUBSCRIPTION_ID repository variables plus the azure-dev environment federated identity in Azure."
+          else
+            echo "deploy-ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out Dev
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: azure-function/package-lock.json
+
+      - name: Install Admin API dependencies
+        working-directory: azure-function
+        run: npm ci
+
+      - name: Run Admin API tests
+        working-directory: azure-function
+        run: npm test
+
+  deploy:
+    environment: azure-dev
+    needs: validate-and-test
+    if: needs.validate-and-test.outputs.deploy-ready == 'true' && github.ref == 'refs/heads/Dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out Dev
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Set up Node.js 24 for the deployment package
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+          package-manager-cache: false
+
+      - name: Install production API dependencies
+        working-directory: azure-function
+        run: npm ci --omit=dev
+
+      - name: Build and verify the exact deployment ZIP
+        env:
+          DEPLOY_REVISION: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, zipfile
+          root = pathlib.Path('azure-function')
+          (root / 'src/deployment.json').write_text(json.dumps({'revision': os.environ['DEPLOY_REVISION']}))
+          with zipfile.ZipFile('admin-api.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              for name in ('host.json', 'package.json', 'package-lock.json'):
+                  archive.write(root / name, name)
+              for directory in ('src', 'node_modules'):
+                  for file in sorted((root / directory).rglob('*')):
+                      if file.is_file():
+                          archive.write(file, file.relative_to(root))
+          with zipfile.ZipFile('admin-api.zip') as archive:
+              assert 'src/admin-identities.json' in archive.namelist()
+              archive.extractall('verified-admin-api')
+          PY
+          node azure-function/verify-package.js verified-admin-api "$DEPLOY_REVISION"
+
+      - name: Retain the verified source package
+        uses: actions/upload-artifact@v6
+        with:
+          name: admin-api-${{ github.sha }}
+          path: admin-api.zip
+          retention-days: 7
+
+      - name: Record existing public Feedback configuration
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          url = 'https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/website-feedback?action=config'
+          with urllib.request.urlopen(url, timeout=30) as response:
+              config = json.load(response)
+          assert config.get('ok') is True and config.get('mode') in ('off', 'pcc', 'public')
+          assert isinstance(config.get('requireCode'), bool)
+          with open('feedback-mode-before.json', 'w') as output:
+              json.dump({'mode': config['mode'], 'requireCode': config['requireCode']}, output)
+          PY
+
+      - name: Log in to Azure with GitHub OIDC
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Inspect existing runtime and indexed function names
+        run: |
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          test -n "$resource_group"
+          az functionapp show --name stmichael-church-admin-api --resource-group "$resource_group" --query functionAppConfig.runtime --only-show-errors
+          echo "Configured HTTP body limit (empty means the Azure Functions default of 104857600 bytes):"
+          az functionapp config appsettings list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[?name=='FUNCTIONS_REQUEST_BODY_SIZE_LIMIT'].{name:name,value:value}" -o json --only-show-errors
+          if ! az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[].name" --only-show-errors 2>/dev/null; then
+            echo "Existing host function inventory unavailable."
+          fi
+
+      - name: Deploy only the Admin API Function App
+        uses: Azure/functions-action@v1
+        with:
+          app-name: stmichael-church-admin-api
+          package: azure-function
+          remote-build: true
+
+      - name: Verify all deployed HTTP functions are indexed
+        run: |
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          test -n "$resource_group"
+          for attempt in $(seq 1 12); do
+            if az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[].name" -o json --only-show-errors > indexed-functions.json 2>/dev/null; then
+              if python - <<'PY'
+          import json
+          names = {name.rsplit('/', 1)[-1] for name in json.load(open('indexed-functions.json'))}
+          expected = {'access-session', 'access-users', 'access-enrolment', 'access-verify', 'website-feedback', 'feedback-admin', 'bible', 'health', 'github-status', 'identity', 'authorization-status', 'calendar', 'news', 'publications', 'contacts', 'homepage-verses', 'photo-albums', 'historical-archive', 'google-calendar-sync', 'google-calendar-sync-status', 'google-calendar-hourly', 'sunday-service-sync'}
+          print('Indexed HTTP functions:', ', '.join(sorted(names)))
+          assert expected <= names, 'Required HTTP functions are not indexed'
+          PY
+              then
+                az functionapp function list --name stmichael-church-admin-api --resource-group "$resource_group" --query "[?ends_with(name, '/google-calendar-hourly')].config.bindings" -o json --only-show-errors > timer-bindings.json
+                python - <<'PY'
+          import json
+          groups = json.load(open('timer-bindings.json'))
+          timers = [binding for group in groups for binding in group if binding.get('type', '').lower() == 'timertrigger']
+          assert len(timers) == 1, 'Calendar timer binding was not found'
+          timer = timers[0]
+          assert timer['schedule'] == '0 */15 * * * *', 'Unexpected 15-minute schedule'
+          assert timer.get('runOnStartup', False) is False
+          assert timer.get('useMonitor', True) is True
+          print('Verified calendar timer: minutes 00, 15, 30 and 45 of every UTC hour; startup execution disabled; monitoring enabled.')
+          PY
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "::error::Deployed API host did not index every required HTTP function and the calendar timer."
+          exit 1
+
+      - name: Verify protected Feedback runtime route and authentication boundary
+        run: |
+          app_id=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].id | [0]" -o tsv)
+          resource_group=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].resourceGroup | [0]" -o tsv)
+          az functionapp function show --name stmichael-church-admin-api --resource-group "$resource_group" --function-name feedback-admin --query config.bindings -o json > feedback-bindings.json
+          az rest --method get --url "https://management.azure.com${app_id}/hostruntime/admin/functions/feedback-admin/status?api-version=2024-11-01" --query "{errors:errors}" -o json > feedback-runtime-errors.json
+          az rest --method get --url "https://management.azure.com${app_id}/config/authsettingsV2/list?api-version=2024-11-01" --query properties.globalValidation -o json > feedback-auth-boundary.json
+          python - <<'PY'
+          import json, urllib.request, urllib.error
+          bindings = json.load(open('feedback-bindings.json'))
+          trigger = next(b for b in bindings if b.get('type', '').lower() == 'httptrigger')
+          assert trigger['route'] == 'feedback-admin'
+          assert trigger['authLevel'].lower() == 'anonymous'
+          assert set(m.upper() for m in trigger['methods']) == {'GET', 'POST'}
+          assert not json.load(open('feedback-runtime-errors.json')).get('errors'), 'Feedback runtime registration errors remain'
+          auth = json.load(open('feedback-auth-boundary.json'))
+          assert auth['requireAuthentication'] is True
+          assert sorted(auth['excludedPaths']) == ['/api/bible/*', '/api/website-feedback']
+          base = 'https://stmichael-church-admin-api-dmcebvc9dpa4gthd.uksouth-01.azurewebsites.net/api/'
+          for route in ['access/session', 'access/users', 'access/verify', 'access/enrolment', 'feedback-admin', 'calendar', 'news', 'historical-archive', 'auth/status']:
+              try:
+                  urllib.request.urlopen(base + route)
+                  raise AssertionError('Private route accepted an unsigned request: ' + route)
+              except urllib.error.HTTPError as error:
+                  assert error.code == 401, (route, error.code)
+          with urllib.request.urlopen(base + 'website-feedback?action=config') as response:
+              config = json.load(response)
+              assert config['ok'] is True
+              before = json.load(open('feedback-mode-before.json'))
+              assert config['mode'] == before['mode'], 'Feedback mode changed during deployment'
+              assert config['requireCode'] == before['requireCode'], 'Feedback access-code setting changed during deployment'
+          print('Feedback GET/POST runtime route has no errors; exact Easy Auth boundary and existing Feedback configuration preserved.')
+          PY
+
+      - name: Verify and exercise automatic latest service selection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          app_id=$(az functionapp list --query "[?name=='stmichael-church-admin-api'].id | [0]" -o tsv)
+          az rest --method post --url "https://management.azure.com${app_id}/hostruntime/admin/functions/sunday-service-sync?api-version=2024-11-01" --body '{"input":null}' --only-show-errors -o none
+          python - <<'PY'
+          import base64,json,os,time,urllib.request
+          url='https://api.github.com/repos/micklehamchurch/website/contents/sunday-service.json?ref=Dev'
+          for attempt in range(12):
+              request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Cache-Control':'no-cache'})
+              with urllib.request.urlopen(request,timeout=20) as response:
+                  data=json.loads(base64.b64decode(json.load(response)['content']))
+              if data and data.get('verifiedBy')=='azure-timer':
+                  assert data['source']['selection']=='editorial-services-playlist'
+                  print('Automatic Azure selection verified:',data['video']['id'],data['checkedAt'])
+                  break
+              time.sleep(10)
+          else:
+              assert data and data.get('source',{}).get('selection')=='editorial-services-playlist', 'No valid editorial service cache available'
+              assert data['source']['playlistId']=='PLB3x60CMpqckqRCWtb5t-0MWZMImPM_Wb'
+              assert data.get('video',{}).get('id') and data.get('checkedAt')
+              print('::warning::Fresh playlist selection could not be confirmed during deployment; the last verified service cache is retained. Check the upstream YouTube feed and timer logs. This is not a fresh automatic-selection receipt.')
+          PY
+
+      - name: Activate section permissions only after private owner and live Admin verification
+        if: github.event_name == 'push' && contains(github.event.head_commit.message, '[activate-admin-access]')
+        run: node azure-function/scripts/activate-access.cjs

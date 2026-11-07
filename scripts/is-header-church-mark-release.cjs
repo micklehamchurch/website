@@ -1,0 +1,3 @@
+// Logo presentation only: do not rebuild any page body or date-sensitive projection.
+const fs=require('fs');
+try{const files=fs.readFileSync(process.argv[2],'utf8').trim().split('\n'),allowed=/^(?:[^/]+\.html|(?:news|pews-news)\/[^/]+\.html|site\.js|header-navigation\.css|home-critical\.css|home-style-sources\.json|build-typography-preview\.js|assets\/images\/branding\/church-illustration\.svg|test\/(?:[^/]+\.test\.cjs|helpers\/header-(?:information|church-mark)-snapshot\.cjs)|scripts\/(?:check-header-(?:information|church-mark)|is-header-church-mark-release)\.cjs|docs\/header-church-mark\.md|\.github\/workflows\/build-content\.yml)$/;process.exit(files.includes('site.js')&&files.every(f=>allowed.test(f))?0:1);}catch{process.exit(1);}

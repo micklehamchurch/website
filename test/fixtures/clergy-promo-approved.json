@@ -1,0 +1,41 @@
+[
+  {
+    "id": "alfred-burmester",
+    "name": "Alfred Burmester",
+    "source": "assets/images/clergy/uploads/8e30647b-b0c3-4716-ab59-925bb5c076b8-1600.jpg",
+    "archiveThumbnail": "assets/images/clergy/uploads/8e30647b-b0c3-4716-ab59-925bb5c076b8-360.jpg",
+    "sourceSha256": "cd5e068c427bb1d58895920c53180b52b6c01259a4691f3e3c9b0554ce18f053",
+    "output": "assets/images/clergy/alfred-burmester-promo-approved-360.jpg",
+    "outputSha256": "baad8fa8a53c677f5a3dc3589ca4d2ed6157d263a01797f3ae9b609907a65ecb",
+    "dimensions": [
+      360,
+      584
+    ]
+  },
+  {
+    "id": "arthur-bedford",
+    "name": "Arthur W. Bedford",
+    "source": "assets/images/clergy/uploads/42026476-31f5-43d1-aae4-7ca770ffbc86-1600.jpg",
+    "archiveThumbnail": "assets/images/clergy/uploads/42026476-31f5-43d1-aae4-7ca770ffbc86-360.jpg",
+    "sourceSha256": "11da9d299257382b4a014b63bcb8d2291bbdb2bad80fc4f597ba522a3858e417",
+    "output": "assets/images/clergy/arthur-bedford-promo-approved-360.jpg",
+    "outputSha256": "34bf28ae7da8474bd126de92b282aeadc4148f709fee00b7d826ed6317762924",
+    "dimensions": [
+      360,
+      520
+    ]
+  },
+  {
+    "id": "barbara-steadman-allen",
+    "name": "Rev. Barbara Steadman-Allen B.Mus.",
+    "source": "assets/images/clergy/uploads/4e5c6316-73b8-4279-9d3c-f3877f0ac733-1600.jpg",
+    "archiveThumbnail": "assets/images/clergy/uploads/4e5c6316-73b8-4279-9d3c-f3877f0ac733-360.jpg",
+    "sourceSha256": "16089ac959eabf6291da89705dc30d29cb59d2fc97f59b4720725828a6bb7c4a",
+    "output": "assets/images/clergy/barbara-steadman-allen-promo-approved-360.jpg",
+    "outputSha256": "342e431ab7e2a6d29f2e1db19451d6eafd8dbd61cb303bfdcb3108566f18867b",
+    "dimensions": [
+      360,
+      465
+    ]
+  }
+]

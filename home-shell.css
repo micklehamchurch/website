@@ -1,0 +1,11 @@
+/* Freeze foreground spacing at the shell width once the page stops growing. */
+@media (min-width: 1601px) {
+  .home-header-hero .home-hero > .hero-content {
+    right: clamp(16px, calc(var(--site-shell-width) * .03), 64px);
+    top: calc(clamp(20px, calc(var(--site-shell-width) * .04), 76px) + clamp(0px, calc((var(--site-shell-width) - 900px) * .06), 36px));
+  }
+  .home-header-hero .home-hero > .home-verse {
+    left: 4%;
+    top: clamp(110px, calc(var(--site-shell-width) * .09), 172px);
+  }
+}

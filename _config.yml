@@ -1,0 +1,7 @@
+exclude:
+  - _content
+  - _sync
+  - _archive-sources
+  - CLERGY-ARCHIVE.md
+  - admin/HISTORICAL-ARCHIVE.md
+  - docs/history-timeline.md

@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..');
+function inventory(){const normal=[],excluded=[];function walk(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){if(item.isDirectory()){if(!['node_modules','.git','azure-function','_templates'].includes(item.name))walk(path.join(dir,item.name));continue;}if(!item.name.endsWith('.html'))continue;const file=path.relative(root,path.join(dir,item.name)).replaceAll('\\','/'),html=fs.readFileSync(path.join(dir,item.name),'utf8');if(html.includes('data-site-header'))normal.push(file);else excluded.push({file,reason:file.startsWith('admin/')?'Admin application; separate layout and authentication':/location.replace|http-equiv="refresh"/i.test(html)?'Legacy redirect; destination uses shared shell':'Utility without standard public layout'});}}walk(root);return{normal:normal.sort(),excluded};}
+module.exports={inventory,root};

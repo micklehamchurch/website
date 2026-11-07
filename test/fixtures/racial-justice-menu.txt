@@ -1,0 +1,1 @@
+${title==='Other policies'?`<a class="policies-racial-justice-link" href="${url('policies.html#policies-racial-justice')}">Racial Justice Covenant<span aria-hidden="true"> →</span></a>`:''}

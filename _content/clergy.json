@@ -1,0 +1,638 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "gerrard-andrewes",
+      "displayName": "Gerrard Andrewes D.D.",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1800,
+          "end": 1813
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/cfb58a00-569a-4f34-8f2c-e0517b1f2c2b-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/cfb58a00-569a-4f34-8f2c-e0517b1f2c2b-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Gerrard-Andrews-portrait-full-resolution.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Gerrard Andrewes (1750–1825) was educated at Westminster and Trinity College, Cambridge. He was ordained deacon in 1776 and priest in 1778.",
+        "During his Mickleham incumbency he also became Rector of St James’s Piccadilly in 1802 and Dean of Canterbury in 1809."
+      ],
+      "parishContext": [],
+      "didYouKnow": [
+        "He was offered the Bishopric of Chester in 1812 and declined it."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "alfred-burmester",
+      "displayName": "Alfred Burmester",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1813,
+          "end": 1867
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/8e30647b-b0c3-4716-ab59-925bb5c076b8-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/8e30647b-b0c3-4716-ab59-925bb5c076b8-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Alfred-Burmester-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Alfred Burmester served as Rector of Mickleham for approximately 54 years. He is buried in a vault beneath the chancel with his wife Jane and two sons who died in infancy."
+      ],
+      "parishContext": [
+        "His ministry coincided with substantial nineteenth-century rebuilding and restoration at St Michael’s."
+      ],
+      "didYouKnow": [
+        "Woodwork he obtained in Belgium around 1840 was later incorporated into the church pulpit."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "william-henry-harke",
+      "displayName": "William Henry Harke",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1867,
+          "end": 1897
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/d7e722a1-2423-488a-a66f-ff891fc8639a-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/d7e722a1-2423-488a-a66f-ff891fc8639a-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "William-Henry-Harke-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "An 1891 directory records that William Henry Harke had held the Rectory since 1867 and held an M.A. from Trinity College Dublin."
+      ],
+      "parishContext": [
+        "Directory material from this period records a parish population of 799 in 1881 and a National School for 100 children."
+      ],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "william-richard-lloyd",
+      "displayName": "William Richard Lloyd",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1897,
+          "end": 1920
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/476da9ce-dee1-4729-904f-5e7f51680c9e-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/476da9ce-dee1-4729-904f-5e7f51680c9e-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "William-Richard-Lloyd-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Contemporary directory material confirms that William Richard Lloyd held the Rectory from 1897 and held an M.A. from Trinity College Dublin."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "arthur-bedford",
+      "displayName": "Arthur W. Bedford",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1920,
+          "end": 1936
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/42026476-31f5-43d1-aae4-7ca770ffbc86-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/42026476-31f5-43d1-aae4-7ca770ffbc86-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Arthur-W-Bedford-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Local historical material records Sunday services at both Mickleham and Westhumble during Arthur Bedford’s ministry. He was assisted by a curate and retired clergy, including his predecessor William Richard Lloyd."
+      ],
+      "parishContext": [
+        "In 1929, 27 candidates were presented for confirmation."
+      ],
+      "didYouKnow": [
+        "A parish account from 1925 describes a water-powered church organ and pressure problems after houses were built in Dell Close."
+      ],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "langdale-smith",
+      "displayName": "Richard Marmaduke Langdale-Smith",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1936,
+          "end": 1948
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/2d1f58af-4634-4494-bbeb-d236d0af8306-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/2d1f58af-4634-4494-bbeb-d236d0af8306-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "RM-Langdale-Smith-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "aw-douglas",
+      "displayName": "A. W. Douglas",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1948,
+          "end": 1953
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/f25df0e4-b372-4e38-9127-f6f60028d7d4-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/f25df0e4-b372-4e38-9127-f6f60028d7d4-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "AW-Douglas-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "john-cornell",
+      "displayName": "J. L. / John Cornell",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1953,
+          "end": 1978
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/5fbe9acb-aee4-42d2-a83f-7cbe61cdfda2-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/5fbe9acb-aee4-42d2-a83f-7cbe61cdfda2-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "JL-Cornell-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "A parish baptism register begun under W. R. Lloyd in 1913 contains its final entry on 22 December 1974, while John Cornell was Rector."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "peter-ince",
+      "displayName": "Peter R. Ince",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1978,
+          "end": 1992
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/5125f8e7-97b7-4290-9b59-81dfc2cdbfd3-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/5125f8e7-97b7-4290-9b59-81dfc2cdbfd3-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Peter-R-Ince-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Local historical material records Rector Peter Ince and the churchwardens in negotiations concerning the freehold of Village Hall car-park land in February 1988."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "john-harkin",
+      "displayName": "Rev. Canon John Harkin B.A.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 1993,
+          "end": 1998
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/cb59d222-e116-4d6c-bf83-369291367592-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/cb59d222-e116-4d6c-bf83-369291367592-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "John-P-Harkin-1993-1998-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "John Harkin served Mickleham during two separate periods: 1993–1998 and 2018–2020.",
+        "Appointment reporting from 1998 identifies him as Priest-in-Charge of Mickleham and Chaplain of Box Hill School when he left for Jersey. Parish material from 2018 describes his return after twenty years."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "barbara-steadman-allen",
+      "displayName": "Rev. Barbara Steadman-Allen B.Mus.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 1999,
+          "end": 2004
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/4e5c6316-73b8-4279-9d3c-f3877f0ac733-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/4e5c6316-73b8-4279-9d3c-f3877f0ac733-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Barbara-Steadman-Allen-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Contemporary material identifies Barbara Steadman-Allen as Priest in Charge around 2000.",
+        "When Leatherhead and Mickleham entered a new benefice arrangement in 2002, she continued as the priest responsible for Mickleham while the parishes retained their own PCCs and identities."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "david-ireland",
+      "displayName": "Rev. David Ireland M.A. (Oxon)",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2005,
+          "end": 2012
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/2305cdb2-01be-428c-8bd5-d45907675292-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/2305cdb2-01be-428c-8bd5-d45907675292-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "David-Ireland-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "The church display records David Ireland’s service from 2005 to 2012 and his qualification as M.A. (Oxon)."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "malcolm-raby",
+      "displayName": "Rev. Malcolm Raby B.Ed.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2013,
+          "end": 2017
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/7e6805e9-87ed-4e82-994b-c4753b56774f-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/7e6805e9-87ed-4e82-994b-c4753b56774f-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Malcolm-Raby-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Malcolm Raby came to Mickleham in June 2013 as a house-for-duty priest after retiring from full-time ministry as Vicar of Over and Longstanton in the Diocese of Ely.",
+        "He lived in the parsonage and undertook parish duties without stipend under the house-for-duty arrangement. Parish material announced his retirement in November 2017."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "sandra-faccini",
+      "displayName": "Rev. Dr Sandra Faccini B.Sc., B.Th.",
+      "role": "Parish clergy",
+      "servicePeriods": [
+        {
+          "start": 2021,
+          "end": null
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/e08abd65-3f4f-48cd-9010-34054233c509-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/e08abd65-3f4f-48cd-9010-34054233c509-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Sandra-Faccini-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "The church display begins Sandra Faccini’s period in 2021. Parish material identifies her as Parish Priest."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "Service dates and biographical statements supplied in the parish working brief; not independently verified during implementation.",
+      "sources": []
+    },
+    {
+      "id": "clergy-7e0f24d5-f3ae-4383-831f-3962cc832c92",
+      "displayName": "William Mowsurth",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 1507,
+          "end": 1513
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/68a5da86-51c1-4210-900d-dc98c0bed426-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/68a5da86-51c1-4210-900d-dc98c0bed426-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "Medieval Rector’s Memorial Plaque.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "William Mowfurth was a late-medieval English priest whose ministry connected Mickleham with several Surrey parishes in the years immediately before the Reformation. Historical records identify him as Rector of Puttenham, Mickleham and Streatham. He died in 1513.\nMowfurth appears to have held more than one parish living, a practice that was possible among clergy of his period. His connection with Streatham can be traced to at least 1492, when he appears in the historical list of Rectors of St Leonard's Church. His period as Rector of Mickleham is traditionally recorded as 1507–1513, although the precise starting date at Mickleham still requires confirmation from the original ecclesiastical records.\nRemarkably, a physical memorial to Mowfurth has survived for more than five centuries. His monumental brass is preserved at St Leonard's Church, Streatham. It depicts him as a priest in Mass vestments, with his hands joined in prayer, standing above a Latin memorial inscription. Historic England records the brass among the significant monuments in the chancel of St Leonard's and dates it to 1513.\nThe survival of the brass is particularly valuable because it gives us something much more personal than a name in a list of Rectors: it allows us to see how William Mowfurth chose to be commemorated at the end of his life. The priestly vestments and prayerful pose place him unmistakably within the religious world of England before the Reformation. He died more than twenty years before Henry VIII's break with Rome and therefore ministered to Mickleham when its worship was still part of the medieval Western Church.\nMowfurth's memorial was important enough to attract the attention of later antiquarians. The British Library preserves a rubbing of the brass in the collection of Alfred Ridley Bax, catalogued as a rubbing of William Mowfurth, Rector of Streatham and Mickelham, at Streatham, 1513. A second British Library catalogue record also identifies a sepulchral brass of William Mowfurth at Streatham dated 1513.\nHis connection with Mickleham is therefore not based solely upon later local tradition. It is independently recorded by the British Library, while the general index to the Surrey Archaeological Collections describes William Mowfurth specifically as Rector of Puttenham, Mickleham and Streatham and directs readers to a discussion of his brass in volume 32, pages 125–127.\nAn old image preserved at Mickleham records him as “Wm. Mowsurth, Rector; d. 1513”, with a later handwritten annotation, “Rector of Mickleham 1507–1513.” The spelling of his surname varies in historical material, but modern archival catalogues generally use Mowfurth.\nWilliam Mowfurth therefore provides a rare tangible link with Mickleham's pre-Reformation history. More than five hundred years after his death, his memorial survives at Streatham, historical rubbings of it survive in the British Library, and an old representation preserved at Mickleham continues to connect his story with the parish he once served."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "",
+      "sources": [
+        {
+          "title": "Surrey Archaeological Collections, Vol. 32, pp. 125–127",
+          "url": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-379-1/dissemination/pdf/indexes/surreyac021-038_index.pdf?utm_source=chatgpt.com",
+          "notes": "Surrey Archaeological Collections, Vol. 32, pp. 125–127 — the Society's general index explicitly identifies “Mowfurth, William, Rector of Puttenham, Mickleham and Streatham, his brass” and points to those pages. This is probably our most useful historical secondary source.",
+          "public": true
+        },
+        {
+          "title": "British Library, Add MS 39794 HH, item 8",
+          "url": "https://searcharchives.bl.uk/catalog/040-002059522?utm_source=chatgpt.com",
+          "notes": "British Library, Add MS 39794 HH, item 8 — catalogued as “William Mowfurth, Rector of Streatham and Mickelham: Rubbing of brass of, at Streatham: 1513.” This is excellent independent evidence for his connection with Mickleham.",
+          "public": true
+        },
+        {
+          "title": "British Library, Add MS 32490 Y, item 14",
+          "url": "https://searcharchives.bl.uk/catalog/040-002026493?utm_source=chatgpt.com",
+          "notes": "British Library, Add MS 32490 Y, item 14 — another archival record of the sepulchral brass of William Mowfurth, Rector of Streatham, 1513.",
+          "public": true
+        },
+        {
+          "title": "Historic England, List Entry 1100267",
+          "url": "https://historicengland.org.uk/listing/the-list/list-entry/1100267?utm_source=chatgpt.com",
+          "notes": "Historic England, List Entry 1100267 – Church of St Leonard, Streatham — the official listing records a brass to William Mowfurth, d.1513, in the chancel.",
+          "public": true
+        },
+        {
+          "title": "St Leonard's Church, Streatham – parish history",
+          "url": "https://stleonard-streatham.org.uk/place/history/?utm_source=chatgpt.com",
+          "notes": "St Leonard's Church, Streatham – parish history — its own history identifies William Mowfurth (1492) as one of its Rectors and says that he is commemorated by a brass in the sanctuary.",
+          "public": true
+        },
+        {
+          "title": "The Mickleham historical image in your collection — labelled “Wm. Mowsurth, Rector",
+          "url": "",
+          "notes": "The Mickleham historical image in your collection — labelled “Wm. Mowsurth, Rector; d.1513”, with the handwritten annotation “Rector of Mickleham 1507–1513.” I'd catalogue this as local archival evidence, rather than treating the handwritten 1507 date as independently proven.",
+          "public": true
+        }
+      ]
+    },
+    {
+      "id": "clergy-8e17ab0f-3bb5-4476-a85f-3d8fc4628ea5",
+      "displayName": "Canon John Harkin B.A.",
+      "role": "Rector",
+      "servicePeriods": [
+        {
+          "start": 2018,
+          "end": 2020
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/04f09a7c-d257-49f8-9c5f-9a3ef82d2e73-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/04f09a7c-d257-49f8-9c5f-9a3ef82d2e73-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "John-Harkin-portrait.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "Canon John Harkin returned to St Michael & All Angels in 2018, around twenty years after his earlier ministry in Mickleham.\nHis return gave the parish an unusual continuity: a priest who already knew the church and its community came back to serve a new generation. He remained at St Michael’s until 2020.\nThis was John Harkin’s second period of ministry at Mickleham. His earlier service, from 1993 to 1998, is recorded separately in this archive."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "",
+      "sources": [
+        {
+          "title": "St Michael & All Angels parish magazine, 2018",
+          "url": "",
+          "notes": "Parish material recording Canon John Harkin's return to Mickleham approximately twenty years after his earlier ministry.",
+          "public": false
+        }
+      ]
+    },
+    {
+      "id": "clergy-408b2bad-a31c-40ab-bd6a-734062c9e20b",
+      "displayName": "George Lock",
+      "role": "Curate",
+      "servicePeriods": [
+        {
+          "start": 1796,
+          "end": 1800
+        }
+      ],
+      "primaryImage": {
+        "src": "assets/images/clergy/uploads/aac074d8-b7b9-462a-aabc-c945252ef328-1600.jpg",
+        "thumbnail": "assets/images/clergy/uploads/aac074d8-b7b9-462a-aabc-c945252ef328-360.jpg",
+        "alt": "",
+        "caption": "",
+        "date": null,
+        "source": "",
+        "credit": null,
+        "copyrightPermission": null,
+        "originalFilename": "George-Lock.png",
+        "derivativeCreated": true
+      },
+      "archiveImages": [],
+      "biography": [
+        "George Lock (1771–1864) belonged to the Lock family of Norbury Park, Mickleham. He was the son of William Lock and Frederica Augusta Schaub, and studied at Christ Church, Oxford, gaining his BA in 1794 and MA in 1796.",
+        "A published account of Fanny Burney’s connections with Mickleham identifies George as a curate at St Michael’s, where his family worshipped. His exact dates of service remain to be confirmed.",
+        "He later became rector of St Margaret’s, Lee, Kent, serving from 1803 until his death on 17 November 1864. His long ministry encompassed the rebuilding of the parish church twice, culminating in the present building, consecrated in 1841.",
+        "In 1814, George and 39 inhabitants of Lee signed a petition urging Parliament to act against the continuation of the African slave trade. Portraits of him survive in the National Portrait Gallery, and a memorial cross commemorates him at St Margaret’s."
+      ],
+      "parishContext": [],
+      "didYouKnow": [],
+      "published": true,
+      "internalNotes": "",
+      "sources": [
+        {
+          "title": "Miriam Al Jamil, “Fanny Burney and Mickleham,” Burney Letter, Vol. 20, No. 2, autumn 2014.",
+          "url": "https://www.mcgill.ca/burneycentre/files/burneycentre/burney_letter_vol._20_no._2_fall_2014.pdf",
+          "notes": "Identifies George, William Lock’s younger son, as a curate at St Michael’s, where the Lock family worshipped. ",
+          "public": true
+        },
+        {
+          "title": "Joseph Foster, Alumni Oxonienses, entry for George Lock.",
+          "url": "https://en.wikisource.org/wiki/Alumni_Oxonienses:_the_Members_of_the_University_of_Oxford,_1715-1886/Lock,_George",
+          "notes": "Records entry to Christ Church, Oxford, on 21 October 1789, aged 18; BA in 1794; MA in 1796; rector of Lee from 1803; and death on 17 November 1864.",
+          "public": true
+        },
+        {
+          "title": "St Margaret’s Church, Lee — Parish History.",
+          "url": "https://www.stmargaretslee.org.uk/page/?pid=32&title=Parish+History",
+          "notes": "Describes George Lock’s 61-year rectorship, beginning in 1803, and the rebuilding of the church during his ministry.",
+          "public": true
+        }
+      ]
+    }
+  ],
+  "unassignedSources": [
+    {
+      "originalFilename": "1.jpeg",
+      "reason": "1513 monumental brass: excluded from clergy succession by parish instruction."
+    },
+    {
+      "originalFilename": "3.jpeg",
+      "reason": "Label reads George Lock, 1796–1800; relationship to working succession requires parish confirmation."
+    }
+  ],
+  "updatedAt": "2026-10-17T16:52:09.913Z"
+}

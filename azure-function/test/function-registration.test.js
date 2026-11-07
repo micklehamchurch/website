@@ -1,0 +1,118 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const Module = require('node:module');
+
+const projectRoot = path.join(__dirname, '..');
+const packageJson = require(path.join(projectRoot, 'package.json'));
+
+test('configured package entry point registers diagnostics and scoped Calendar, Contacts and News publishing routes', async () => {
+  const entryPoint = path.join(projectRoot, packageJson.main);
+  assert.equal(fs.existsSync(entryPoint), true, 'package main entry must exist');
+
+  const registrations = [];
+  const mockApp = {
+    http(name, options) {
+      registrations.push({ name, options });
+    },
+    timer(name, options) { registrations.push({name,options,timer:true}); }
+  };
+
+  const originalLoad = Module._load;
+  const entryPointModule = require.resolve(entryPoint);
+  const healthFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/health.js'));
+  const githubFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/github-status.js'));
+  const identityFunctionModule = require.resolve(path.join(projectRoot, 'src/functions/identity.js'));
+  const githubStatusModule = require.resolve(path.join(projectRoot, 'src/github-status.js'));
+
+  try {
+    Module._load = function (request, parent, isMain) {
+      if (request === '@azure/functions') return { app: mockApp };
+      return originalLoad.call(this, request, parent, isMain);
+    };
+    delete require.cache[entryPointModule];
+    delete require.cache[healthFunctionModule];
+    delete require.cache[githubFunctionModule];
+    delete require.cache[identityFunctionModule];
+    delete require.cache[githubStatusModule];
+    require(entryPointModule);
+  } finally {
+    Module._load = originalLoad;
+    delete require.cache[entryPointModule];
+    delete require.cache[healthFunctionModule];
+    delete require.cache[githubFunctionModule];
+    delete require.cache[identityFunctionModule];
+    delete require.cache[githubStatusModule];
+  }
+
+  require('../validate-http-routes').validateHttpRoutes(registrations);
+  const feedbackAdmin = registrations.find(r => r.name === 'feedback-admin');
+  assert.equal(feedbackAdmin.options.route, 'feedback-admin');
+  assert.equal(feedbackAdmin.options.authLevel, 'anonymous');
+  assert.equal(registrations.length, 22);
+  for (const registration of registrations) if (!registration.timer) assert.deepEqual(registration.options.methods, registration.name==='access-enrolment' ? ['POST'] : registration.name==='access-users' ? ['GET','POST'] : registration.name==='bible' ? ['GET','OPTIONS'] : registration.name==='historical-archive' ? ['GET','PUT','POST'] : ['calendar', 'contacts', 'homepage-verses'].includes(registration.name) ? ['GET', 'PUT'] : ['news', 'publications', 'photo-albums', 'google-calendar-sync', 'website-feedback', 'feedback-admin'].includes(registration.name) ? ['GET', 'POST'] : ['GET']);
+  assert.equal(registrations.find(r=>r.name==='sunday-service-sync').options.schedule,'0 */15 * * * *');
+  const timer=registrations.find(r=>r.timer);
+  assert.equal(timer.name,'google-calendar-hourly');
+  assert.equal(timer.options.schedule,'0 */15 * * * *');
+  assert.equal(timer.options.runOnStartup,false);assert.equal(timer.options.useMonitor,true);
+  assert.equal((await registrations.find(r=>r.name==='google-calendar-sync-status').options.handler({method:'GET'})).status,401);
+  const calendar = registrations.find(r => r.name === 'calendar');
+  assert.equal(calendar.options.route, 'calendar');
+  assert.equal((await calendar.options.handler({ method: 'PUT' })).status, 401);
+  for (const name of ['news', 'publications','google-calendar-sync','photo-albums']) { const route = registrations.find(item => item.name === name); assert.equal(route.options.route, name); assert.equal((await route.options.handler({ method: 'POST' })).status, 401); }
+  const contacts = registrations.find(r => r.name === 'contacts');
+  assert.equal(contacts.options.route, 'contacts');
+  assert.equal((await contacts.options.handler({ method: 'PUT' })).status, 401);
+  const verses = registrations.find(r => r.name === 'homepage-verses');
+  assert.equal(verses.options.route, 'homepage-verses');
+  assert.equal((await verses.options.handler({ method: 'PUT' })).status, 401);
+  const archive = registrations.find(r => r.name === 'historical-archive');
+  assert.equal(archive.options.route, 'historical-archive');
+  assert.equal((await archive.options.handler({ method: 'PUT' })).status, 401);
+  const identity = registrations.find(item => item.name === 'identity');
+  assert.equal(identity.options.route, 'auth/identity');
+  assert.equal((await identity.options.handler({})).status, 401);
+  const authorization = registrations.find(item => item.name === 'authorization-status');
+  assert.equal(authorization.options.route, 'auth/status');
+  assert.equal((await authorization.options.handler({})).status, 401);
+  const health = registrations.find(item => item.name === 'health');
+  const githubStatus = registrations.find(item => item.name === 'github-status');
+  assert.ok(health);
+  assert.ok(githubStatus);
+  assert.equal(health.name, 'health');
+  assert.deepEqual(health.options.methods, ['GET']);
+  assert.equal(health.options.route, 'health');
+  assert.equal(health.options.authLevel, 'anonymous');
+  assert.equal((await health.options.handler()).status,401);
+  const live=require('./fixtures/ed-live-identity.json');
+  const verified={headers:new Headers({'x-ms-client-principal':Buffer.from(JSON.stringify({auth_typ:'aad',claims:Object.entries({tid:live.tenantId,oid:live.objectId,iss:live.issuer,sub:live.subject}).map(([typ,val])=>({typ,val}))})).toString('base64')})};
+  assert.deepEqual(await health.options.handler(verified), {
+    status: 200,
+    jsonBody: {
+      ok: true,
+      service: 'stmichael-church-admin-api'
+    }
+  });
+
+  assert.deepEqual(githubStatus.options.methods, ['GET']);
+  assert.equal(githubStatus.options.route, 'github/status');
+  assert.equal(githubStatus.options.authLevel, 'anonymous');
+  assert.equal((await githubStatus.options.handler()).status,401,'diagnostics require owner authentication');
+  const previousMode=process.env.ADMIN_ACCESS_MODE;
+  try{
+    process.env.ADMIN_ACCESS_MODE='invalid-mode';
+    assert.equal((await authorization.options.handler(verified)).status,503,'unknown enforcement mode fails closed even for the current owner');
+  }finally{
+    if(previousMode===undefined)delete process.env.ADMIN_ACCESS_MODE;else process.env.ADMIN_ACCESS_MODE=previousMode;
+  }
+
+  const host = require(path.join(projectRoot, 'host.json'));
+  assert.equal(host.extensions.http.routePrefix, 'api');
+});
+
+test('@azure/functions is a production dependency for deployment', () => {
+  assert.ok(packageJson.dependencies['@azure/functions']);
+  assert.equal(packageJson.devDependencies?.['@azure/functions'], undefined);
+});

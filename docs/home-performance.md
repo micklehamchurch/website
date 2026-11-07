@@ -1,0 +1,13 @@
+# Home performance delivery
+
+Home uses `home-style-sources.json` as the ordered list of its existing approved styles. `build-home-performance.js` concatenates and minifies them into `home-critical.css` with the existing esbuild dependency. All files remain at the site root, so relative asset URLs retain their meaning. The bundle URL uses a content hash. Edit the source styles, not the generated bundle. The central typography/build hook refreshes it after ordinary content builds; the Dev workflow commits generated bundle changes.
+
+The shared header's final rules are available before first paint. Home reserves `--header-reserve` at the existing header breakpoints (zero in the over-photo desktop layout), rather than briefly rendering the old header and adding another spacer later. The shared header/navigation/controller and 360ms hub motion are unchanged.
+
+DM Sans and Playfair Display are the same Google Fonts WOFF2 files and weight ranges previously delivered to browsers. Home self-hosts them under `assets/fonts/home/`, including their OFL licences; only the two Latin subsets are preloaded. Other subsets remain available through unicode-range. Typography preview choices and all other pages retain their existing behaviour.
+
+The initial verse and service JSON scripts contain exact copies of `homepage-verses.json` and `home-next-service-data.json`, escaped for HTML. Their existing models select the current London week/date and render immediately. Existing network refreshes, validation, timers and neutral/unavailable fallbacks remain authoritative. No private or Admin data is embedded. These are public build snapshots, not new content sources.
+
+`assets/images/home/performance/` contains resized WebP derivatives of the existing Home photographs and logos only. Original assets remain untouched. The first hero has 480/720/800/960px phone and 1280/1600/1920px desktop candidates; the existing 3200px source remains for high-density wide displays. Preloads match the picture's media and candidates. All art direction/focal points, aspect-ratio rules, intrinsic layout dimensions, eager loading and first-image priority remain intact. Subsequent carousel slides retain their low-priority deferred decode-before-display loading. Navigation photographs remain lazy until the hub opens.
+
+Below-fold derivatives cover the existing church photograph, Eco Church award, Diocese logo and the three existing gallery-collage photographs. Sources, visible text, links, alt text, layout and photography identity are unchanged. GitHub Pages' platform cache lifetime is not overridden. No service worker or cache manipulation is introduced.

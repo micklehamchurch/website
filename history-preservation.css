@@ -1,0 +1,5 @@
+.history-building-sources{margin:24px 0;border-block:1px solid #ded5bd;color:#204c3c;font-size:15px;line-height:1.6}
+.history-building-sources summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}
+.history-building-sources ul{padding-left:20px}.history-building-sources a{display:inline-block;padding-block:10px;color:#204c3c;text-underline-offset:3px;overflow-wrap:anywhere}
+.history-building-sources :focus-visible{outline:3px solid #967830;outline-offset:3px}
+.topic-image.history-building-photo{max-height:none}

@@ -1,0 +1,659 @@
+{
+  "version": 1,
+  "collections": [
+    {
+      "id": "people-families",
+      "title": "People & Families",
+      "description": "Stories of notable people and parish families, including Philippa Walton.",
+      "action": "Explore people and families",
+      "status": "active",
+      "route": "history-people-families.html",
+      "generated": true,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "order": 1
+    },
+    {
+      "id": "architecture",
+      "title": "Church & Architecture",
+      "description": "Discover the history of the church building, from its early traces to later changes.",
+      "action": "Explore the building",
+      "status": "active",
+      "route": "church-building.html",
+      "image": {
+        "src": "assets/images/about/church-hero.webp",
+        "small": "assets/images/about/church-card.webp",
+        "width": 1600,
+        "height": 899,
+        "smallWidth": 720,
+        "alt": "St Michael & All Angels Church and churchyard, Mickleham"
+      },
+      "order": 2
+    },
+    {
+      "id": "memorials",
+      "title": "Memorials & Monuments",
+      "description": "Discover the stories behind the church’s historic memorials, monuments, brasses and tombs.",
+      "action": "View the monuments",
+      "status": "active",
+      "route": "history-memorials.html",
+      "generated": true,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "order": 3
+    },
+    {
+      "id": "war",
+      "title": "Mickleham at War",
+      "description": "Find out about the parish’s war memorial and those it commemorates.",
+      "action": "Explore wartime stories",
+      "status": "active",
+      "route": "war-memorial.html",
+      "image": {
+        "src": "assets/images/war-memorial/memorial.webp",
+        "small": "assets/images/history/war-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "Mickleham War Memorial in the churchyard"
+      },
+      "order": 4
+    },
+    {
+      "id": "churchyard",
+      "title": "Churchyard & Graves",
+      "description": "Discover the churchyard, its memorials and the stories of those buried here.",
+      "action": "Read the churchyard history",
+      "status": "active",
+      "route": "churchyard.html",
+      "image": {
+        "src": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-960.webp",
+        "small": "assets/images/albums/st-michaels-church-churchyard/st-michaels-church-churchyard-03-480.webp",
+        "width": 960,
+        "height": 720,
+        "smallWidth": 480,
+        "alt": "Headstones and trees in the churchyard at St Michael’s"
+      },
+      "order": 5
+    },
+    {
+      "id": "archive",
+      "title": "Archive & Photographs",
+      "description": "A collection for historical photographs, documents and other items from the parish archive.",
+      "action": "View the archive",
+      "status": "planned",
+      "image": null,
+      "order": 6
+    },
+    {
+      "id": "local-stories",
+      "title": "Stories from Mickleham",
+      "description": "A collection for people, events and local history from our parish and village.",
+      "action": "Read local stories",
+      "status": "planned",
+      "image": null,
+      "order": 7
+    }
+  ],
+  "timeline": [
+    {
+      "url": "history-saxon.html",
+      "period": "10th-century origins",
+      "title": "Saxon traces",
+      "description": "The church has 10th-century origins, but its precise foundation date remains uncertain.",
+      "sourceRefs": [
+        "timeline-he",
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-domesday.html",
+      "period": "1086",
+      "title": "A church in Domesday",
+      "description": "A written record of a church at Mickleham, alongside two acres of meadow.",
+      "sourceRefs": [
+        "existing-history",
+        "timeline-local"
+      ]
+    },
+    {
+      "url": "history-norman.html",
+      "period": "Late 12th century",
+      "title": "Norman work",
+      "description": "The Norman chancel arch and font survive within a church much altered in later centuries.",
+      "sourceRefs": [
+        "timeline-he"
+      ]
+    },
+    {
+      "url": "history-norbury.html",
+      "period": "c. 1300",
+      "title": "The Norbury Chapel",
+      "description": "A medieval side chapel with a stone tomb, memorial brasses and connections to Norbury families.",
+      "sourceRefs": [
+        "timeline-he",
+        "timeline-brass",
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-restoration.html",
+      "period": "1823–1891",
+      "title": "Restoration and change",
+      "description": "A succession of 19th-century alterations shaped the church we recognise today.",
+      "sourceRefs": [
+        "timeline-he",
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-bells.html",
+      "period": "1913",
+      "title": "The bells",
+      "description": "A memorial gift of four larger bells completed the peal of six, according to the parish history.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    },
+    {
+      "url": "history-today.html",
+      "period": "Today",
+      "title": "A living parish",
+      "description": "A continuing place of worship, welcome and community for Mickleham and Westhumble.",
+      "sourceRefs": [
+        "existing-history"
+      ]
+    }
+  ],
+  "feature": {
+    "eyebrow": "People of our parish",
+    "title": "Meet those who have served",
+    "description": "Explore the clergy of St Michael’s through the generations, with photographs and stories from the parish archive.",
+    "route": "those-who-have-served.html",
+    "action": "Those who have served",
+    "portraits": [
+      {
+        "src": "assets/images/clergy/alfred-burmester-promo-approved-360.jpg",
+        "small": "assets/images/clergy/alfred-burmester-promo-approved-360.jpg",
+        "width": 360,
+        "height": 584,
+        "smallWidth": 360,
+        "alt": "Alfred Burmester, from the parish clergy display"
+      },
+      {
+        "src": "assets/images/clergy/arthur-bedford-promo-approved-360.jpg",
+        "small": "assets/images/clergy/arthur-bedford-promo-approved-360.jpg",
+        "width": 360,
+        "height": 520,
+        "smallWidth": 360,
+        "alt": "Arthur W. Bedford, from the parish clergy display"
+      },
+      {
+        "src": "assets/images/clergy/barbara-steadman-allen-promo-approved-360.jpg",
+        "small": "assets/images/clergy/barbara-steadman-allen-promo-approved-360.jpg",
+        "width": 360,
+        "height": 465,
+        "smallWidth": 360,
+        "alt": "Barbara Steadman-Allen, from the parish clergy display"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "existing-history",
+      "title": "Existing parish history and retained period articles",
+      "notes": "The existing parish history and period articles retain their established wording."
+    },
+    {
+      "id": "memorial-photo",
+      "title": "Original memorial photograph supplied for this project",
+      "notes": "Original parish/archive photograph, supplied for this project. The inscription is a primary source for the family description and death date."
+    },
+    {
+      "id": "rgm-biography",
+      "title": "Royal Gunpowder Mills — Philippa Walton",
+      "url": "https://www.royalgunpowdermills.com/philippawalton",
+      "notes": "Helen Hamlyn, published 24 August 2022. Business ownership, expansion and partnership history."
+    },
+    {
+      "id": "rgm-history",
+      "title": "Royal Gunpowder Mills — An Explosive History",
+      "url": "https://www.gunpowdermills.com/history",
+      "notes": "Walton ownership and the Crown purchase in 1787."
+    },
+    {
+      "id": "historic-england-walton",
+      "title": "Historic England — Church of St Michael and All Angels, List Entry 1028835",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1028835",
+      "notes": "Independent identification and architectural description of the monument."
+    },
+    {
+      "id": "british-library-walton",
+      "title": "British Library — Hardwicke Papers, Add MS 36182",
+      "url": "https://searcharchives.bl.uk/catalog/040-002089770",
+      "notes": "Catalogue entry at f. 246: Philip Walton, Rector of Mickleham; lawsuits, 1751–1753. This catalogue description does not establish the family relationship on its own."
+    },
+    {
+      "id": "westminster-walton",
+      "title": "Westminster School Archive — Walton, Philip, d. 1771",
+      "url": "https://collections.westminster.org.uk/index.php/walton-philip-d-1771",
+      "notes": "Authority record GB-2014-WSA-17608 identifies his parents as William and Philippa and dates his Mickleham appointment to 6 February 1744/5. Its spelling of his maternal grandfather differs from the monument."
+    },
+    {
+      "id": "essex-plaque",
+      "title": "Essex Lieutenancy — Essex Women’s Commemoration Project",
+      "url": "https://essex-lieutenancy.org.uk/special-projects/essex-womens-commemoration-project/",
+      "notes": "Lists Philippa Walton at Waltham Abbey among the project’s commemorations."
+    },
+    {
+      "id": "watts-plaque",
+      "title": "Graham Watts — Objects better recognised than women",
+      "url": "https://eastangliabylines.co.uk/lifestyle/history/objects-better-recognised-than-women/",
+      "notes": "First-person account by a project organiser, 14 September 2023, with a photograph of Philippa’s plaque and its inscription."
+    },
+    {
+      "id": "timeline-he",
+      "title": "Historic England · List Entry 1028835",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1028835",
+      "notes": "Architectural dating and restoration phases; qualifiers retained."
+    },
+    {
+      "id": "timeline-local",
+      "title": "Mickleham & Westhumble Local History Group · 2018 newsletter",
+      "url": "https://www.micklehamwesthumblehistory.co.uk/shared/attachments.asp?f=32c38d8f-def5-4649-8b85-15a18f9719a2.pdf&o=M%26WLHG-Newsletter-2018.pdf",
+      "notes": "Sue Tatham’s 2017 article, reprinted: Domesday and early dating."
+    },
+    {
+      "id": "timeline-brass",
+      "title": "British Library · Add MS 32490 KK",
+      "url": "https://searcharchives.bl.uk/catalog/040-002026504",
+      "notes": "Brass catalogue dates the Wyddowsoun record to 1513; Historic England gives 1514. Exact year omitted."
+    }
+  ],
+  "entries": [
+    {
+      "id": "philippa-walton",
+      "title": "Philippa Walton",
+      "period": "18th century · People & Families",
+      "primaryCollection": "people-families",
+      "collections": [
+        "people-families",
+        "memorials"
+      ],
+      "description": "Businesswoman, mother and pioneering owner of the Waltham Abbey gunpowder mills, whose family became closely connected with Mickleham.",
+      "status": "published",
+      "order": 1,
+      "image": {
+        "src": "assets/images/history/philippa-walton-memorial-1200.webp",
+        "small": "assets/images/history/philippa-walton-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "The marble memorial to Philippa Walton inside St Michael & All Angels, Mickleham"
+      },
+      "body": [],
+      "sourceRefs": [
+        "memorial-photo",
+        "rgm-biography",
+        "rgm-history",
+        "historic-england-walton",
+        "british-library-walton",
+        "westminster-walton",
+        "essex-plaque",
+        "watts-plaque"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": [
+        {
+          "id": "philip-walton",
+          "label": "The Revd Dr Philip Walton",
+          "relationship": "Son of Philippa Walton; Rector of Mickleham",
+          "verified": false,
+          "evidenceVerified": true,
+          "sourceRefs": [
+            "westminster-walton",
+            "british-library-walton"
+          ],
+          "notes": "Relationship evidenced; individual clergy entry not yet published. Do not render an individual link until that entry exists."
+        }
+      ],
+      "transcription": "In grateful Memory\nof\n(the best of Wives, Mothers, and Friends)\nMrs PHILLIPA WALTON\nDaughter and Coheiress\nof\nJOHN BOURCHIER M.D.\nand\nRelict of WILLIAM WALTON\nlate of LONDON Merchant,\n(A Gentleman worthy of and happy, in\nher tenderest Affection.)\nHis early Death left Her a Young & mournfull Widow.\nCharged with the Care of Ten helpless Infants:\nOf Whom Six Sons and Three Daughters survived,\nto Comfort the Life and lament the Death of their\nExcellent and Amiable Parent;\nWho, after having secured and improved their Property\nby her Application & Address, and formed their\nMinds by her Instructions & Example,\nretired from the Hurry of Active Life,\nto end her Days in Piety & Peace.\nShe died\n(in Calm & Christian Serenity)\non the 7th day of December 1749,\nin the 74th Year of her Age,\nand is Interred near this Place.",
+      "lifespan": "c. 1674–1749",
+      "action": "Discover Philippa Walton’s story",
+      "story": {
+        "standfirst": "A pioneering businesswoman whose remarkable life connects the Waltham Abbey gunpowder industry with St Michael & All Angels, Mickleham.",
+        "caption": "Philippa Walton’s memorial inside St Michael & All Angels. Parish/archive photograph supplied for this project.",
+        "sections": [
+          {
+            "id": "remembered",
+            "title": "A remarkable woman remembered at Mickleham",
+            "paragraphs": [
+              {
+                "text": "Inside St Michael & All Angels, an elaborate eighteenth-century monument invites us to remember Philippa Walton. Its words begin with family and friendship. Beyond them lies the story of a woman who carried responsibility for a household and a substantial industrial business.",
+                "sources": [
+                  "memorial-photo"
+                ]
+              },
+              {
+                "text": "Philippa’s story belongs to two places: the mills at Waltham Abbey and the church at Mickleham, where her son became Rector. The surviving memorial brings that wider history into the space visitors can still enter today.",
+                "sources": [
+                  "rgm-biography",
+                  "westminster-walton"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "family",
+            "title": "Family, marriage and sudden responsibility",
+            "paragraphs": [
+              {
+                "text": "Born Philippa Bourchier around 1674, she married William Walton, a London merchant. The monument names her as the daughter and co-heiress of John Bourchier M.D. It remembers ten children and records that six sons and three daughters survived her.",
+                "sources": [
+                  "rgm-biography",
+                  "memorial-photo"
+                ]
+              },
+              {
+                "text": "William died in 1711. Philippa was left with a young family and the management of his business interests. The monument describes her as “a Young & mournfull Widow”, “Charged with the Care of Ten helpless Infants”. These are the family’s words of remembrance, preserved in stone.",
+                "sources": [
+                  "rgm-biography",
+                  "memorial-photo"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "mills",
+            "title": "Taking charge of the gunpowder mills",
+            "paragraphs": [
+              {
+                "text": "Philippa took over an enterprise with a London office and production at Balham and Waltham Abbey. Peace in 1713 brought a fall in demand after the War of the Spanish Succession. She closed the Balham operation and concentrated production at Waltham Abbey.",
+                "sources": [
+                  "rgm-biography"
+                ]
+              },
+              {
+                "text": "In January 1719 she bought three more powder mills and rights to the Mill Stream. Her son John joined in 1723 with a quarter share, becoming an equal partner in 1730. Philippa continued to take an active part in the business.",
+                "sources": [
+                  "rgm-biography"
+                ]
+              },
+              {
+                "text": "Her achievement was in ownership and management: directing an industrial enterprise through difficult trading conditions. It should not be confused with the physical manufacturing work carried out by the people employed at the mills.",
+                "sources": [
+                  "rgm-biography"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "mickleham",
+            "title": "The Walton family and Mickleham",
+            "emphasis": true,
+            "paragraphs": [
+              {
+                "text": "Philippa’s son, Philip Walton, became Rector of Mickleham in 1745. Westminster School’s archive identifies him as the son of William and Philippa and records his appointment as 6 February 1744/5, using the contemporary double-year date.",
+                "sources": [
+                  "westminster-walton"
+                ]
+              },
+              {
+                "text": "The British Library’s Hardwicke Papers catalogue also identifies Philip as Rector of Mickleham in records dated 1751–1753. Philippa therefore lived during the early years of her son’s ministry here. Her monument records her death on 7 December 1749.",
+                "sources": [
+                  "british-library-walton",
+                  "westminster-walton",
+                  "memorial-photo"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "memorial",
+            "title": "Her memorial at St Michael’s",
+            "memorial": true,
+            "paragraphs": [
+              {
+                "text": "The monument remains a historical object in its own right. Historic England identifies it as an “ashlar and marble rococo wall monument”, with shell features and a swan-neck pediment.",
+                "sources": [
+                  "historic-england-walton"
+                ]
+              },
+              {
+                "text": "Its inscription is also unusually personal. It honours Philippa’s care for her children: she “secured and improved their Property” and “formed their Minds by her Instructions & Example”. These selected words describe both practical responsibility and the family’s affection for her.",
+                "sources": [
+                  "memorial-photo"
+                ]
+              },
+              {
+                "text": "The monument spells her name PHILLIPA. The article uses Philippa, as in the Royal Gunpowder Mills history. It records her death “in the 74th Year of her Age”; we retain that wording rather than treating it as an exact modern statement of age.",
+                "sources": [
+                  "memorial-photo",
+                  "rgm-biography"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "legacy",
+            "title": "An industrial legacy",
+            "paragraphs": [
+              {
+                "text": "The Walton family continued at Waltham Abbey after Philippa’s death. The Crown bought the mills in 1787; the site became the Royal Gunpowder Mills.",
+                "sources": [
+                  "rgm-history"
+                ]
+              },
+              {
+                "text": "Modern recognition has brought her industrial achievements to a wider audience. A blue plaque at the Royal Gunpowder Mills honours her as a “Pioneering industrialist and entrepreneur”. The Essex Women’s Commemoration Project lists her among the women it has commemorated.",
+                "sources": [
+                  "essex-plaque",
+                  "watts-plaque"
+                ]
+              },
+              {
+                "text": "At Mickleham, her memorial offers another way into that story: a surviving object, a family’s tribute and a connection between parish life and the history of industry.",
+                "sources": [
+                  "memorial-photo"
+                ]
+              }
+            ]
+          }
+        ],
+        "timeline": [
+          [
+            "c. 1674",
+            "Philippa Bourchier is born.",
+            "rgm-biography"
+          ],
+          [
+            "1711",
+            "William dies; Philippa takes responsibility for family and business.",
+            "rgm-biography"
+          ],
+          [
+            "1719",
+            "Three further mills and Mill Stream rights are acquired.",
+            "rgm-biography"
+          ],
+          [
+            "1723",
+            "John joins as a quarter-share partner.",
+            "rgm-biography"
+          ],
+          [
+            "1730",
+            "John becomes an equal partner.",
+            "rgm-biography"
+          ],
+          [
+            "1745",
+            "Philip becomes Rector of Mickleham.",
+            "westminster-walton"
+          ],
+          [
+            "7 December 1749",
+            "Philippa dies, in the words of her memorial, in her 74th year.",
+            "memorial-photo"
+          ]
+        ],
+        "facts": [
+          [
+            "Born",
+            "c. 1674; Philippa Bourchier"
+          ],
+          [
+            "Died",
+            "7 December 1749"
+          ],
+          [
+            "Family",
+            "Married to William Walton; ten children"
+          ],
+          [
+            "Known for",
+            "Owning and managing the Waltham Abbey gunpowder mills"
+          ],
+          [
+            "Mickleham connection",
+            "Mother of Philip Walton, Rector of Mickleham"
+          ],
+          [
+            "Memorial",
+            "St Michael & All Angels, Mickleham"
+          ]
+        ],
+        "transcriptionNote": "Transcribed from the supplied monument photograph. Historical spelling and capitalisation are retained; long-s letterforms are rendered as s, raised lettering is set on the line, and spacing and punctuation are lightly regularised. This is a reading transcription, not a facsimile.",
+        "relatedCollections": [
+          {
+            "id": "memorials",
+            "description": "Discover more of the historic memorials inside St Michael’s.",
+            "action": "Explore memorials"
+          }
+        ]
+      }
+    },
+    {
+      "id": "norbury-chapel",
+      "title": "The Norbury Chapel",
+      "period": "c. 1300",
+      "primaryCollection": "memorials",
+      "collections": [
+        "memorials",
+        "architecture"
+      ],
+      "description": "The side chapel, now called the Norbury Chapel, dates from around 1300. Its memorials include the Wyddowsoun tomb and brasses.",
+      "status": "published",
+      "order": 2,
+      "url": "history-norbury.html",
+      "image": null,
+      "body": [],
+      "sourceRefs": [
+        "existing-history"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": []
+    },
+    {
+      "id": "war-memorial",
+      "title": "Mickleham War Memorial",
+      "period": "",
+      "primaryCollection": "war",
+      "collections": [
+        "war",
+        "memorials"
+      ],
+      "description": "Learn about the parish’s war memorial and those it commemorates.",
+      "status": "published",
+      "order": 3,
+      "url": "war-memorial.html",
+      "image": {
+        "src": "assets/images/war-memorial/memorial.webp",
+        "small": "assets/images/history/war-memorial-480.webp",
+        "width": 1200,
+        "height": 1600,
+        "smallWidth": 480,
+        "alt": "Mickleham War Memorial in the churchyard"
+      },
+      "body": [],
+      "sourceRefs": [
+        "existing-history"
+      ],
+      "relatedEntries": [],
+      "relatedPeople": []
+    }
+  ],
+  "landingStories": [
+    {
+      "id": "philippa-walton",
+      "entryId": "philippa-walton",
+      "title": "Philippa Walton",
+      "description": "Discover Philippa Walton’s story, remembered inside the church by her eighteenth-century memorial.",
+      "action": "Read her story",
+      "order": 1,
+      "status": "published",
+      "focal": "50% 65%"
+    },
+    {
+      "id": "church-building",
+      "collectionId": "architecture",
+      "title": "The Church Building",
+      "description": "Explore the history of our church building, from its earliest origins to later changes and restorations.",
+      "action": "Explore the building",
+      "order": 2,
+      "status": "published",
+      "focal": "50% 30%"
+    },
+    {
+      "id": "war-memorial",
+      "entryId": "war-memorial",
+      "title": "Mickleham War Memorial",
+      "description": "Discover the story of the parish war memorial and those it commemorates.",
+      "action": "Read the story",
+      "order": 3,
+      "status": "published",
+      "focal": "50% 5%"
+    },
+    {
+      "id": "churchyard",
+      "collectionId": "churchyard",
+      "title": "The Churchyard",
+      "description": "Discover the history of our churchyard, its memorials and the stories of those buried here.",
+      "action": "Explore the churchyard",
+      "order": 4,
+      "status": "published",
+      "focal": "50% 55%"
+    },
+    {
+      "id": "bells-film",
+      "filmUrl": "https://www.youtube.com/watch?v=9eNFCR04xWE",
+      "title": "The Bells of Mickleham",
+      "eyebrow": "Bells & music",
+      "description": "Discover the story and sound of St Michael’s bells in this film about Mickleham’s ringing tradition.",
+      "action": "Watch on YouTube",
+      "order": 5,
+      "status": "published",
+      "focal": "50% 50%",
+      "image": {
+        "src": "assets/images/history/bells-illustration-960.webp",
+        "small": "assets/images/history/bells-illustration-480.webp",
+        "width": 960,
+        "height": 540,
+        "smallWidth": 480,
+        "alt": "Illustration of traditional church bells in a wooden bell frame"
+      }
+    }
+  ]
+}

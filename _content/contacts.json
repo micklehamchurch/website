@@ -1,0 +1,409 @@
+{
+  "sections": [
+    {
+      "id": "parish-leadership",
+      "title": "Parish leadership",
+      "eyebrow": "People who lead and serve"
+    },
+    {
+      "id": "parish-office-pcc",
+      "title": "Parish office & PCC",
+      "eyebrow": "Administration"
+    },
+    {
+      "id": "worship-life-events",
+      "title": "Worship & life events",
+      "eyebrow": "Worship & ceremonies"
+    },
+    {
+      "id": "pastoral-care-safeguarding",
+      "title": "Pastoral care & safeguarding",
+      "eyebrow": "Care & support"
+    },
+    {
+      "id": "parish-life-communications",
+      "title": "Parish life & communications",
+      "eyebrow": "Keeping in touch"
+    },
+    {
+      "id": "pcc-members",
+      "title": "PCC members",
+      "eyebrow": "Parish Council"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "parish-priest",
+      "photo": "assets/images/contacts/sandra-faccini.jpg",
+      "section": "parish-leadership",
+      "role": "Parish Priest",
+      "name": "Revd. Dr. Sandra Faccini",
+      "phone": "01372 417664",
+      "email": "parishpriest@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "churchwarden-john-banfield",
+      "section": "parish-leadership",
+      "role": "Churchwarden",
+      "name": "John Banfield",
+      "phone": "07831 606493",
+      "email": "banfieldjohn@aol.com",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.07,
+        "x": 53,
+        "y": 0
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-efb6bec6-8f40-4003-be4c-6bc950306877-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 8964
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-efb6bec6-8f40-4003-be4c-6bc950306877-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 29464
+          }
+        ],
+        "position": "top"
+      }
+    },
+    {
+      "id": "churchwarden-lucy-adshead",
+      "section": "parish-leadership",
+      "role": "Churchwarden",
+      "name": "Lucy Adshead",
+      "phone": "07773 294026",
+      "email": "cwa@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "deputy-churchwarden-tim-mathieson",
+      "section": "parish-leadership",
+      "role": "Deputy Churchwarden",
+      "name": "Tim Mathieson",
+      "phone": "07555 597163",
+      "email": "churchwardens@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "parish-administrator",
+      "section": "parish-office-pcc",
+      "role": "Parish Administrator",
+      "name": "Alison Wood",
+      "phone": "01372 376443",
+      "email": "admin@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "treasurer",
+      "section": "parish-office-pcc",
+      "role": "Treasurer",
+      "name": "Richard Siberry",
+      "phone": "01372 375303",
+      "email": "pcctreasurer@micklehamchurch.org.uk",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.7,
+        "x": 53,
+        "y": 7
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-dd87f222-bf83-4da9-b9be-3fe2c2991929-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18704
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-dd87f222-bf83-4da9-b9be-3fe2c2991929-800.webp",
+            "width": 600,
+            "height": 800,
+            "bytes": 79194
+          }
+        ],
+        "position": "top"
+      }
+    },
+    {
+      "id": "pcc-secretary",
+      "section": "parish-office-pcc",
+      "role": "PCC Secretary",
+      "name": "Caroline Jones",
+      "phone": "07504 271376",
+      "email": "carjones62@btinternet.com",
+      "status": "published"
+    },
+    {
+      "id": "electoral-roll-officer",
+      "section": "parish-office-pcc",
+      "role": "Electoral Roll Officer",
+      "name": "Kerry Emerson-Pyle",
+      "phone": "",
+      "email": "kerry@thelittleyogaplace.co.uk",
+      "status": "published"
+    },
+    {
+      "id": "baptism-coordinator",
+      "section": "worship-life-events",
+      "role": "Baptism Co-ordinator",
+      "name": "Vickie Leney",
+      "phone": "01306 884054",
+      "email": "baptisms@micklehamchurch.org.uk",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.04,
+        "x": 50,
+        "y": 24
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-2af7030d-ce55-41fd-a234-c59dbb301f6e-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-2af7030d-ce55-41fd-a234-c59dbb301f6e-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
+    },
+    {
+      "id": "wedding-coordinator",
+      "section": "worship-life-events",
+      "role": "Wedding Co-ordinator",
+      "name": "Elaine Machin",
+      "phone": "01372 724972",
+      "email": "weddings@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "funeral-coordinator",
+      "section": "worship-life-events",
+      "role": "Funeral Co-ordinator",
+      "name": "Carole Brough Fuller",
+      "phone": "07910 231603",
+      "email": "funerals@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "church-flowers-coordinator",
+      "section": "worship-life-events",
+      "role": "Church Flowers Co-ordinator",
+      "name": "Alison Wood",
+      "phone": "01372 376443",
+      "email": "flowers@micklehamchurch.org.uk",
+      "status": "published"
+    },
+    {
+      "id": "organist-david-fishwick",
+      "section": "worship-life-events",
+      "role": "Organist",
+      "name": "David Fishwick",
+      "phone": "0208 8773 2420",
+      "email": "organist@micklehamchurch.org.uk",
+      "status": "published",
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-da8c007c-7487-4569-b772-f39519ef97fe-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 16404
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-da8c007c-7487-4569-b772-f39519ef97fe-800.webp",
+            "width": 600,
+            "height": 800,
+            "bytes": 61020
+          }
+        ],
+        "position": "top"
+      },
+      "photoFraming": {
+        "zoom": 1.34,
+        "x": 61,
+        "y": 16
+      }
+    },
+    {
+      "id": "safeguarding-validator",
+      "section": "pastoral-care-safeguarding",
+      "role": "Safeguarding and DBS Validator",
+      "name": "Vickie Leney",
+      "phone": "01306 884054",
+      "email": "safeguarding@micklehamchurch.org.uk",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.04,
+        "x": 50,
+        "y": 17
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-b26591e3-9fb0-4c10-a0e6-39a56cbcd26f-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-b26591e3-9fb0-4c10-a0e6-39a56cbcd26f-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
+    },
+    {
+      "id": "parish-visitor",
+      "section": "pastoral-care-safeguarding",
+      "role": "Parish Visitor (Pastoral Care)",
+      "name": "Annette Collinge",
+      "phone": "01306 882214",
+      "email": "Annettejc46@gmail.com",
+      "status": "published"
+    },
+    {
+      "id": "website-editor",
+      "section": "parish-life-communications",
+      "role": "Website Editor",
+      "name": "Susan McGrath",
+      "phone": "07712003233",
+      "email": "susanmcgrath@yahoo.com",
+      "status": "published"
+    },
+    {
+      "id": "magazine-editor-jan",
+      "section": "parish-life-communications",
+      "role": "Magazine Editor",
+      "name": "Jan Budleigh",
+      "phone": "07780 976301",
+      "email": "editor@micklehammag.org.uk",
+      "status": "published",
+      "groupId": "magazine-editors"
+    },
+    {
+      "id": "magazine-editor-charlotte",
+      "section": "parish-life-communications",
+      "role": "Magazine Editor",
+      "name": "Charlotte Daruwalla",
+      "phone": "07933 30074",
+      "email": "",
+      "status": "published",
+      "groupId": "magazine-editors"
+    },
+    {
+      "id": "parish-safeguarding-officer-vickie-leney",
+      "role": "Parish Safeguarding Officer",
+      "name": "Vickie Leney",
+      "phone": "01306 884054",
+      "email": "safeguarding@micklehamchurch.org.uk",
+      "section": "parish-leadership",
+      "status": "published",
+      "photoFraming": {
+        "zoom": 1.04,
+        "x": 50,
+        "y": 19
+      },
+      "photo": {
+        "variants": [
+          {
+            "src": "assets/images/contacts/profiles/photo-8a2b31af-eff9-422d-b59b-963403a1e9e0-400.webp",
+            "width": 300,
+            "height": 400,
+            "bytes": 18692
+          },
+          {
+            "src": "assets/images/contacts/profiles/photo-8a2b31af-eff9-422d-b59b-963403a1e9e0-800.webp",
+            "width": 601,
+            "height": 800,
+            "bytes": 66622
+          }
+        ],
+        "position": "top"
+      }
+    }
+  ],
+  "pccMembers": [
+    {
+      "id": "pcc-sandra-faccini",
+      "name": "Revd. Dr. Sandra Faccini",
+      "status": "published"
+    },
+    {
+      "id": "pcc-andy-diamond",
+      "name": "Andy Diamond",
+      "status": "published"
+    },
+    {
+      "id": "pcc-caroline-jones",
+      "name": "Caroline Jones",
+      "status": "published"
+    },
+    {
+      "id": "pcc-vickie-leney",
+      "name": "Vickie Leney",
+      "status": "published"
+    },
+    {
+      "id": "pcc-elaine-machin",
+      "name": "Elaine Machin",
+      "status": "published"
+    },
+    {
+      "id": "pcc-tim-mathieson",
+      "name": "Tim Mathieson",
+      "status": "published"
+    },
+    {
+      "id": "pcc-beverley-mehta",
+      "name": "Beverley Mehta",
+      "status": "published"
+    },
+    {
+      "id": "pcc-richard-siberry",
+      "name": "Richard Siberry",
+      "status": "published"
+    },
+    {
+      "id": "pcc-susan-mcgrath",
+      "name": "Susan McGrath",
+      "status": "published"
+    },
+    {
+      "id": "pcc-paddy-macvean",
+      "name": "Paddy MacVean",
+      "status": "published"
+    },
+    {
+      "id": "pcc-amanda-wadsworth",
+      "name": "Amanda Wadsworth",
+      "status": "published"
+    },
+    {
+      "id": "pcc-lucy-adshead",
+      "name": "Lucy Adshead",
+      "status": "published"
+    },
+    {
+      "id": "pcc-john-banfield",
+      "name": "John Banfield",
+      "status": "published"
+    }
+  ]
+}

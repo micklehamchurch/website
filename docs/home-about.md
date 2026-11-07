@@ -1,0 +1,11 @@
+# Home About our parish refinement
+
+Starting Dev9ff192452235ba37778066a936602b8d40599a58. Only the About column and its scoped CSS are changed; the existing From our parish feed, markup, logic and CSS remain unchanged.
+
+Inspection covered the live1440px homepage, current source/CSS and23 candidate existing photographs: church/chapel, garden/churchyard, worship and parish gallery details. The old single large lavender crop was authentic but visually dominant and did not introduce either worship location. Single-image, image/detail and paired-place approaches were compared. A restrained pair of actual church and chapel photographs best supports the existing parish introduction without decorative filler or generation.
+
+Chosen assets: assets/images/about/church-card.webp720x405 (responsive source church-hero.webp1600x899), existing genuine front view of St Michael and All Angels; assets/images/visit/westhumble-chapel.jpg300x199, byte-identical parish source documented in visit-content-sources.md. The chapel remains uncropped at at most150CSSpx (120/100 in narrower columns), so its source supports high-density display without pretending to have a higher-resolution photograph. The main image is fully shown at natural ratio, maximum400CSSpx. Captions identify the places. All source bytes remain unchanged; no imagery is generated or retouched, and no derivatives are added.
+
+The original factual sentences are preserved exactly. The first is a serif standfirst and the second supporting copy. An offset two-photo composition, restrained captions and a44px Discover our parish text link to existing about.html give the section a clear introduction and next step. No rounded container, new JavaScript or library. home-about.css is scoped only to this About section. Containers adapt the pair to tablet/phone columns; short landscape reduces image widths and spacing. Figures/images reserve natural dimensions and are lazy loaded.
+
+Tests assert all Home markup outside About and one stylesheet include remains byte-identical to the starting Dev, including the News preview. Photograph bytes, factual content, correct destination and semantic structure are covered. Existing Home-news preservation test allows this separately verified About-only exception.

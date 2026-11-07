@@ -1,0 +1,41 @@
+{
+  "documents": [
+    {
+      "href": "assets/documents/churchyard/churchyard-regulations-2022.pdf",
+      "bytes": 336429,
+      "sha256": "045c6d0fa1a1f2594f53b421d84a37c2004733bd8c1cb961aebdf8dbae56aeba",
+      "title": "Diocese of Guildford Churchyard Regulations 2022",
+      "kind": "Official regulations",
+      "pages": 8,
+      "description": "Issued on the direction of the Chancellor of the Diocese. Covers the management of churchyards and permission for memorials."
+    },
+    {
+      "href": "assets/documents/churchyard/regulations-for-garden-of-rememberance-and-ashes-plots-2026.pdf",
+      "bytes": 77955,
+      "sha256": "6ab4d0b6aad5c79127cc68f625f4720e70977fb8bbdce4f85ceecb88d23c1439",
+      "title": "Regulations for the Garden of Remembrance and Ashes Plots",
+      "kind": "Parish regulations · Revised March 2026",
+      "pages": 2,
+      "description": "Regulations for the Parish of Mickleham covering interment of ashes, memorials, care of plots, fees and Ecochurch considerations."
+    },
+    {
+      "href": "assets/documents/churchyard/form-cr1.pdf",
+      "bytes": 90734,
+      "sha256": "10ab0a6dd6f100c5e3bdb9cae3626b5cff03e0f8a92c2821e677ee37d9109dec",
+      "title": "CR1 — Application to Incumbent for permission to introduce a monument into a churchyard",
+      "kind": "Application form",
+      "pages": 2,
+      "description": "Application to the Incumbent for permission to introduce a monument into the churchyard. The form asks for details of the proposed memorial and is to be completed in duplicate."
+    }
+  ],
+  "guide": {
+    "href": "assets/documents/history/guide-to-churchyard-2019.pdf",
+    "bytes": 9540794,
+    "sha256": "4216434d83b4eabf7c9bb2ccebf7acbbeeed2eb9a0c2cd39f19f8d24eb6dba3c",
+    "title": "A Guide to the Oldest Part of St Michael’s Churchyard",
+    "compiler": "Carole Brough Fuller",
+    "pages": 56,
+    "features": 28,
+    "date": "Heritage Weekend September 2010 · Latest reprint 2019"
+  }
+}

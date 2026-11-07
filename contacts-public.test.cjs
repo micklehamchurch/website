@@ -1,0 +1,84 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const root=__dirname;const real=JSON.parse(fs.readFileSync(path.join(root,'_content/contacts.json'),'utf8'));
+for (const [label,phone,email] of [['both','01306 123456','person@example.org'],['phone','01306 123456',''],['email','','person@example.org'],['neither','','']]) {
+ test(`Our Team groups ${label} contact details per person with semantic links`,()=>{
+  const data={sections:real.sections,contacts:[{id:'fixture-person',section:real.sections[0].id,role:'Fixture role',name:'Fixture Person',status:'published',phone,email}],pccMembers:[]};
+  const html=build(data).html;
+  const block=html.match(/<div class="directory-contacts">([\s\S]*?)<\/div>/);
+  assert.equal(Boolean(block),Boolean(phone||email));
+  if(phone) assert.match(block[1],/href="tel:01306123456">01306 123456/);
+  if(email) assert.match(block[1],/href="mailto:person@example.org">person@example.org/);
+  if(!phone) assert.doesNotMatch(html,/href="tel:/);
+  if(!email) assert.doesNotMatch(html,/href="mailto:/);
+  if(phone&&email) assert(block[1].indexOf('tel:')<block[1].indexOf('mailto:'));
+  assert.match(html,/<div class="directory-person-details"><p class="directory-name">Fixture Person<\/p>/);
+ });
+}
+test('Grouped people retain their own safely escaped email and wrapping rules',()=>{
+ const email='very.long.address.&tag'.repeat(4)+'@example.org';
+ const data={sections:real.sections,contacts:[{id:'fixture-one',section:real.sections[0].id,role:'Fixture role',name:'First',groupId:'fixture-group',status:'published',email},{id:'fixture-two',section:real.sections[0].id,role:'Fixture role',name:'Second',groupId:'fixture-group',status:'published',email:'second@example.org'}],pccMembers:[]};
+ const html=build(data).html;
+ assert.equal((html.match(/class="directory-contacts"/g)||[]).length,2);
+ assert(html.includes(email.replaceAll('&','&amp;'))); assert(!html.includes(email));
+ assert(html.indexOf(email.replaceAll('&','&amp;'))<html.indexOf('>Second</p>'));
+ assert.match(fs.readFileSync(path.join(root,'styles.css'),'utf8'),/\.directory-method a \{[^}]*min-width: 0;[^}]*overflow-wrap: anywhere/);
+});
+function build(data){const files=new Map();const fake={...fs,readFileSync:(p,...args)=>p.endsWith(path.join('_content','contacts.json'))?JSON.stringify(data):files.has(p)?files.get(p):fs.readFileSync(p,...args),writeFileSync:(p,v)=>files.set(p,v),existsSync:p=>files.has(p),readdirSync:()=>['our-team.html','parish-contact-directory.html'].map(name=>({name,isDirectory:()=>false,isFile:()=>true}))};
+ const run=name=>vm.runInNewContext(fs.readFileSync(path.join(root,name),'utf8'),{require:n=>n==='node:fs'?fake:n.startsWith('./')?require(path.join(root,n)):require(n),__dirname:root,console:{log(){}},Buffer});run('build-contact-directory.js');run('build-search-index.js');return{html:files.get(path.join(root,'our-team.html')),admin:files.get(path.join(root,'admin/contacts-data.json')),search:files.get(path.join(root,'search-index.json'))};}
+test('Contacts public build and search exclude drafts/deletions, restore published entries and preserve array order',()=>{const data={sections:real.sections,contacts:[{id:'fixture-public',section:real.sections[0].id,role:'Fixture role',name:'VisibleFixture',status:'published'},{id:'fixture-draft',section:real.sections[0].id,role:'Fixture role',name:'PrivateFixture',email:'private@example.org',status:'draft'}],pccMembers:[{id:'pcc-visible',name:'VisibleCouncil',status:'published'},{id:'pcc-private',name:'PrivateCouncil',status:'draft'}]};const out=build(data);for(const value of Object.values(out)){assert.match(value,/VisibleFixture/);assert.doesNotMatch(value,/PrivateFixture|private@example.org|PrivateCouncil/)}data.contacts[1].status='published';data.contacts.reverse();let updated=build(data);assert.match(updated.html,/PrivateFixture/);assert.match(updated.search,/PrivateFixture/);assert.ok(updated.html.indexOf('PrivateFixture')<updated.html.indexOf('VisibleFixture'));data.contacts=data.contacts.filter(c=>c.id!=='fixture-public');updated=build(data);assert.doesNotMatch(updated.html,/VisibleFixture/);assert.doesNotMatch(updated.search,/VisibleFixture/)});
+
+test('Our Team is the single contact destination, preserves all published records and redirects legacy links',()=>{
+ const out=build(real),html=out.html;
+ assert.match(html,/<h1>Our Team<\/h1>/);
+ for(const section of real.sections) assert(html.includes(section.title.replaceAll('&','&amp;')));
+ const escape=s=>s.replaceAll('&','&amp;').replaceAll("'",'&#39;');
+ for(const record of [...real.contacts,...real.pccMembers].filter(r=>r.status==='published')) {
+  assert(html.includes(escape(record.name))); if(record.email) assert(html.includes(record.email)); if(record.phone) assert(html.includes(record.phone));
+ }
+
+ const results=JSON.parse(out.search);assert.equal(results.length,1);assert.equal(results[0].url,'our-team.html');
+ for(const term of ['Parish Contact Directory','vicar','churchwarden','PCC','safeguarding'])assert(results[0].content.includes(term));
+ const compatibility=fs.readFileSync(path.join(root,'parish-contact-directory.html'),'utf8');assert.match(compatibility,/location.replace\('our-team.html' \+ location.search \+ location.hash\)/);assert.match(compatibility,/href="our-team.html"/);
+ const nav=fs.readFileSync(path.join(root,'site.js'),'utf8');assert(!nav.includes('parish-contact-directory.html'));assert.match(nav,/href="our-team.html">Our Team/);
+});
+
+test('Optional contact portraits use authoritative references, reserve proportions and leave other profiles text-only',()=>{
+ const out=build(real),sandra=real.contacts.find(c=>c.id==='parish-priest');
+ assert.equal(sandra.photo,'assets/images/contacts/sandra-faccini.jpg');
+ assert.match(out.html,/<img class="directory-portrait" src="assets\/images\/contacts\/sandra-faccini.jpg" alt="Revd. Dr. Sandra Faccini" width="88" height="132" loading="lazy" decoding="async">/);
+ assert.equal((out.html.match(/class="directory-portrait"/g)||[]).length,1);
+ assert.equal(JSON.parse(out.admin).contacts.find(c=>c.id===sandra.id).photo,sandra.photo);
+ const without=structuredClone(real);for(const r of [...without.contacts,...without.pccMembers])delete r.photo;
+ assert.doesNotMatch(build(without).html,/directory-portrait/);
+ assert.match(out.html,/mailto:parishpriest@micklehamchurch.org.uk/);
+ assert.match(out.html,/tel:01372417664/);
+});
+test('Optional contact portraits retain safe local-asset validation',()=>{
+ const {validateContacts}=require('./azure-function/src/contacts-model');
+ for(const photo of ['https://example.org/person.jpg','../person.jpg','assets/images/contacts/../person.jpg','assets/images/contacts/person.svg','assets/images/contacts/person.jpg" onerror="alert(1)']){
+  const data=structuredClone(real);data.contacts[0].photo=photo;assert.throws(()=>validateContacts(data),/invalid-photo/);
+ }
+});
+
+test('Optimized portraits render responsive sources and focal position only for published people',()=>{
+ const d=structuredClone(real),c=d.contacts.find(c=>c.id==='parish-priest');c.photo={position:'top',variants:[{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-400.webp',width:267,height:400,bytes:1234},{src:'assets/images/contacts/profiles/photo-12345678-1234-1234-1234-123456789012-800.webp',width:533,height:800,bytes:2345}]};let out=build(d);assert.match(out.html,/sizes="88px"/);assert.match(out.html,/400\.webp 267w, .*800\.webp 533w/);assert.match(out.html,/object-position:center top/);assert.match(out.html,/alt="Revd. Dr. Sandra Faccini"/);c.status='draft';out=build(d);assert.doesNotMatch(out.html,/12345678/);
+});
+
+test('Saved framing renders on contacts and PCC while preserving source variants',()=>{
+ const d=structuredClone(real),david=d.contacts.find(c=>c.id==='organist-david-fishwick'),original=structuredClone(david.photo);
+ david.photoFraming={zoom:1.75,x:32,y:68};
+ d.pccMembers[0].photo='assets/images/contacts/fixture-person.jpg';d.pccMembers[0].photoFraming={zoom:2,x:0,y:100};
+ const out=build(d);assert.match(out.html,/object-fit:cover;object-position:32% 68%;width:175%;height:175%;left:-24%;top:-51%/);
+ assert.match(out.html,/object-fit:contain;object-position:0% 100%/);
+ assert.deepEqual(JSON.parse(out.admin).contacts.find(c=>c.id===david.id).photoFraming,david.photoFraming);
+ assert.deepEqual(david.photo,original);
+ delete david.photoFraming;assert.match(build(d).html,/object-position:center top/);
+});
+
+test('Framing validation rejects unsafe types, extra keys and out-of-range values',()=>{
+ const {validateContacts}=require('./azure-function/src/contacts-model');
+ for(const f of [{zoom:0.99,x:50,y:50},{zoom:3.01,x:50,y:50},{zoom:1,x:-1,y:50},{zoom:1,x:50,y:101},{zoom:'2',x:50,y:50},{zoom:NaN,x:50,y:50},{zoom:Infinity,x:50,y:50},{zoom:1,x:50},{zoom:1,x:50,y:50,url:'evil'}]){
+ const d=structuredClone(real);d.contacts[0].photoFraming=f;assert.throws(()=>validateContacts(d));
+ }
+ for(const zoom of [1,3]){const d=structuredClone(real);d.contacts[0].photoFraming={zoom,x:0,y:100};assert.equal(validateContacts(d),d);}
+});

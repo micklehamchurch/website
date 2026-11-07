@@ -1,0 +1,39 @@
+.life-page { overflow-x: clip; }
+.life-hero { max-width: 1080px; margin: 0 auto 26px; padding: clamp(25px,4vw,48px); border: 1px solid var(--stone); background: linear-gradient(125deg,#f8f5eb 0%,#fdfbf6 60%,#e9eee8 100%); }
+.life-hero-baptism { background: linear-gradient(125deg,#f8f2e4,#fcfaf4 64%,#e8eee8); }
+.life-hero-wedding { background: linear-gradient(125deg,#f7f1e5,#fbfaf6 64%,#eee9dc); }
+.life-hero-funeral { background: linear-gradient(125deg,#edf0eb,#faf9f4 70%,#e6e8e1); }
+.life-hero .eyebrow { margin: 0 0 8px; color: var(--green); }
+.life-hero h1 { max-width: 850px; margin: 0 0 12px; color: var(--deep); font: 600 clamp(36px,4.2vw,56px)/1.08 var(--serif); }
+.life-hero .topic-lead { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(17px,1.5vw,20px); }
+.life-hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.life-content { max-width: 940px; margin: 0 auto; color: var(--ink); }
+.life-section { padding: 23px 0; border-bottom: 1px solid var(--stone); }
+.life-section h2,.life-documents h2,.life-resource h2,.life-guidance h2 { margin: 0 0 11px; color: var(--deep); font: 600 clamp(23px,2.2vw,30px)/1.2 var(--serif); }
+.life-section p,.life-card p,.life-document p,.life-resource p,.life-guidance p { max-width: 790px; color: var(--muted); line-height: 1.72; }
+.life-section p:last-child,.life-card p:last-child { margin-bottom: 0; }
+.life-card-section,.life-documents,.life-resource,.life-guidance,.life-related { padding: 28px 0; }
+.life-card-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.life-card { position: relative; min-width: 0; padding: 21px 23px; border: 1px solid var(--stone); background: #fff; }
+.life-card-mark { color: var(--gold); }
+.life-card h3,.life-document h3,.life-contact h3 { margin: 7px 0; color: var(--deep); font: 600 21px/1.25 var(--serif); }
+.life-document-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 16px; }
+.life-document { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 13px; padding: 20px; border: 1px solid var(--stone); background: #fff; }
+.life-document-icon { display: grid; width: 38px; height: 42px; place-items: center; border: 1px solid #c9b77c; color: var(--green); font-size: 20px; }
+.life-document h3 { margin-top: 0; }
+.life-resource,.life-guidance { padding: 23px; border-left: 3px solid var(--gold); background: #f6f3e9; }
+.life-resource .btn { margin-top: 6px; }
+.life-guidance { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 18px; }
+.life-guidance h2 { font-size: 24px; }
+.life-guidance .btn { flex: 0 0 auto; }
+.life-contacts { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 12px; margin: 18px 0; }
+.life-contact { padding: 18px 20px; border: 1px solid var(--stone); background: #fdfcf8; }
+.life-contact p:last-child { overflow-wrap: anywhere; }
+.life-contact a,.life-resource a:not(.btn),.life-section a { color: var(--green); text-underline-offset: 3px; }
+.life-related { border-top: 1px solid var(--stone); }
+.life-related > div { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 11px; }
+.life-related a { display: grid; gap: 7px; padding: 15px 17px; border: 1px solid var(--stone); background: #fff; color: var(--deep); text-decoration: none; }
+.life-related a > span { color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.life-related a:hover,.life-related a:focus-visible { border-color: var(--green); }
+.life-related a:focus-visible,.life-content a:focus-visible { outline: 3px solid #a28a46; outline-offset: 3px; }
+@media(max-width:700px) { .life-hero { margin-bottom: 14px; padding: 23px 19px; }.life-content { padding: 0 2px; }.life-section { padding: 19px 0; }.life-card-grid,.life-document-grid { grid-template-columns: 1fr; }.life-card,.life-document { padding: 17px; }.life-guidance { display: grid; padding: 19px; }.life-guidance .btn { justify-self: start; } }

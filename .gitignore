@@ -1,0 +1,14 @@
+node_modules/
+azure-function/src/deployment.json
+.env
+.env.*
+!.env.example
+**/local.settings.json
+*.pem
+**/*.pem
+*.key
+**/*.key
+*.pfx
+**/*.pfx
+*.publishsettings
+**/*.publishsettings

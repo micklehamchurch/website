@@ -1,0 +1,74 @@
+// Local HTTP integration: real handlers/UI; isolated storage and simulated Azure
+// principal. This is not proof of live Azure Easy Auth or storage permissions.
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const {createFeedbackHandlers}=require('../azure-function/src/feedback');
+const {empty}=require('../azure-function/src/feedback-store');
+const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.join(__dirname,'..'),artifacts=path.resolve(root,'../feedback-verification');fs.mkdirSync(artifacts,{recursive:true});
+const principal={auth_typ:'aad',claims:Object.entries({tid:'9188040d-6c67-4c5b-b112-36a304b66dad',oid:'00000000-0000-0000-f978-44e4d44cc925',sub:'AAAAAAAAAAAAAAAAAAAAACmKQtkQPpxJMB93l8aduYc',iss:'https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'}).map(([typ,val])=>({typ,val}))};
+let state=empty(),queue=Promise.resolve();
+const store={read:async()=>structuredClone(state),locked:action=>{const p=queue.then(()=>action(structuredClone(state),async value=>{state=structuredClone(value);}));queue=p.catch(()=>{});return p;}};
+const api=createFeedbackHandlers({store});
+let browser,server;
+(async()=>{
+ server=http.createServer(async(req,res)=>{
+  try{
+   const url=new URL(req.url,'http://localhost');
+   if(url.pathname.startsWith('/api/')){
+    const buffers=[];for await(const chunk of req)buffers.push(chunk);
+    const headers=new Headers(req.headers);headers.set('origin','https://micklehamchurch.github.io');
+    if(headers.get('authorization')==='Bearer admin-test-only')headers.set('x-ms-client-principal',Buffer.from(JSON.stringify(principal)).toString('base64'));
+    const request={method:req.method,headers,query:url.searchParams,body:req.method==='POST'?new Blob(buffers).stream():null};
+    const result=await api[url.pathname==='/api/feedback-admin'?'adminHandler':'publicHandler'](request);
+    res.writeHead(result.status,{'Content-Type':'application/json',...result.headers});res.end(JSON.stringify(result.jsonBody));return;
+   }
+   const relative=url.pathname.replace(/^\/website\//,'').replace(/^\//,'')||'index.html',file=path.resolve(root,relative);
+   if(!file.startsWith(root+path.sep)){res.writeHead(404);res.end();return;}
+   const type={'.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp'}[path.extname(file)]||'application/octet-stream';
+   res.writeHead(200,{'Content-Type':type});res.end(fs.readFileSync(file));
+  }catch{res.writeHead(404);res.end();}
+ });await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
+ const admin=async(action,body,id)=>{const url=new URL('/api/feedback-admin',base);url.searchParams.set('action',action);if(id)url.searchParams.set('id',id);const response=await fetch(url,{method:body?'POST':'GET',headers:{Authorization:'Bearer admin-test-only','Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});assert(response.ok);return response.json();};
+ await admin('rotate-code',{code:'isolated-browser-test-review-code'});await admin('settings',{mode:'pcc'});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ for(const [width,height]of [[1440,1000],[768,1024],[390,844],[320,800],[874,402]]){
+  const context=await browser.newContext({viewport:{width,height},reducedMotion:'reduce'}),page=await context.newPage();
+  await page.route('https://stmichael-church-admin-api-*/api/*',async route=>{const u=new URL(route.request().url());const response=await route.fetch({url:base+u.pathname+u.search});await route.fulfill({response});});
+  await page.goto(base+'/website/our-history.html');await page.locator('.feedback-launcher').click();const dialog=page.locator('.feedback-dialog');await dialog.waitFor({state:'visible'});
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.feedback-launcher')).opacity==='0');
+  assert.equal(await dialog.locator('.fb-tools,[data-fb-form=create],[data-fb-open],.fb-board-link').count(),0);assert.equal(await dialog.locator('h2').textContent(),'Website Feedback');assert(!(await dialog.innerText()).includes('PCC'),'Public popup must not use PCC labels');assert.equal(await dialog.locator('.fb-note').textContent(),'Your feedback will be shared with the website team.');await dialog.getByRole('button',{name:'View discussions',exact:true}).waitFor();
+  await dialog.locator('input[name=name]').fill('Sandra');await dialog.locator('input[name=code]').fill('isolated-browser-test-review-code');
+  const content=width===1440?'Could we include more organ information? <img src=x onerror="window.feedbackXSS=true">':'Could we include more information about the organ?';
+  await dialog.locator('textarea[name=body]').fill(content);await dialog.getByRole('button',{name:'Send feedback',exact:true}).click();await dialog.getByText('Your feedback has been sent.',{exact:true}).waitFor();
+  assert.equal(await dialog.locator('.fb-tools,[data-fb-open]').count(),0);assert(!(await dialog.innerText()).includes('PCC'));assert.equal(state.topics.at(-1).page.path,'/website/our-history.html');
+  await dialog.getByRole('button',{name:'View discussions',exact:true}).click();await dialog.locator('[data-fb-open="'+state.topics.at(-1).id+'"]').click();await dialog.locator('[data-fb-form=reply]').waitFor();assert(!(await dialog.innerText()).includes('PCC'),'Public conversation must use neutral reviewer labels');
+  assert.equal(await page.evaluate(()=>window.feedbackXSS),undefined);if(width===1440)assert(await dialog.locator('.fb-message').first().textContent().then(s=>s.includes('<img')));
+  await dialog.locator('[data-fb-form=reply] textarea').fill('A photograph would be useful too.');await dialog.getByRole('button',{name:'Send reply',exact:true}).click();await dialog.getByText('A photograph would be useful too.',{exact:true}).waitFor();
+  const id=state.topics.at(-1).id;await admin('reply',{body:'Thank you — I am collecting the information.'},id);await admin('moderate',{status:'In development',reviewed:true},id);
+  await dialog.getByRole('button',{name:'← All discussions'}).click();await dialog.locator('[data-fb-open="'+id+'"]').click();await dialog.getByText('Website Admin',{exact:true}).first().waitFor();assert((await dialog.textContent()).includes('In development'));
+  if(width===390)await page.addStyleTag({content:'.feedback-view *{font-size:20px!important}'});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  const bounds=await dialog.boundingBox();assert(bounds.y>=0&&bounds.y+bounds.height<=height+1);
+  for(const control of await dialog.locator('button,input:not([type=checkbox]):not([tabindex="-1"]),select,textarea').all()){if(await control.isVisible()){const b=await control.boundingBox();assert(b.height>=43.9,await control.getAttribute('name'));}}
+  if([390,874].includes(width))await page.screenshot({path:path.join(artifacts,'conversation-'+width+'.png')});
+  await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});await page.waitForFunction(()=>document.activeElement===document.querySelector('.feedback-launcher'));await page.locator('.feedback-launcher').click();await dialog.locator('[data-quick-form]').waitFor();assert.equal(await dialog.locator('input[name=name],input[name=code]').count(),0);assert.equal(await dialog.locator('.fb-tools').count(),0); // reopening always gives the simple form
+  await dialog.getByRole('button',{name:'Close feedback'}).click();await context.close();console.log(width+'x'+height+': HTTP discussion/replies/status, XSS, remembered access and accessibility passed');
+ }
+ const adminPage=await browser.newPage({viewport:{width:1280,height:900}});await adminPage.route('https://stmichael-church-admin-api-*/api/*',async route=>{const u=new URL(route.request().url());await route.fulfill({response:await route.fetch({url:base+u.pathname+u.search})});});await adminPage.goto(base+'/website/feedback.html');await adminPage.evaluate(async()=>{const {attachFeedbackApi}=await import('./admin/feedback-api.mjs');const root=document.querySelector('#website-feedback-board');let account=null;attachFeedbackApi({acquireTokenSilent:async()=>({accessToken:'admin-test-only'})},()=>account);await window.churchFeedbackAdmin.mount(root);if(root.textContent.includes('Loading feedback')||!root.textContent.includes('Please sign in'))throw Error('Failed startup must clear loading state');window.addEventListener('admin-feedback-ready',()=>{window.feedbackRecovery=window.churchFeedbackAdmin.mount(root);});account={homeAccountId:'test-only'};window.dispatchEvent(new Event('admin-feedback-ready'));await window.feedbackRecovery;});const adminRoot=adminPage.locator('#website-feedback-board');await adminRoot.locator('[data-fb-open]').first().click();await adminRoot.locator('[data-fb-form=moderate] select').selectOption('Done');await adminRoot.locator('[data-fb-form=moderate] input[type=checkbox]').check();await adminRoot.getByRole('button',{name:'Save status',exact:true}).click();await adminRoot.getByText(/marked this as Done/).waitFor();await adminRoot.getByRole('button',{name:'← All discussions'}).click();await adminRoot.locator('.fb-settings summary').click();await adminRoot.locator('[data-fb-form=access-settings] select').selectOption('false');await adminRoot.getByRole('button',{name:'Save PCC access',exact:true}).click();await adminRoot.locator('.fb-settings summary').click();assert.equal(state.requireCode,false);await adminRoot.locator('[data-fb-form=access-settings] select').selectOption('true');await adminRoot.getByRole('button',{name:'Save PCC access',exact:true}).click();await adminRoot.locator('.fb-settings summary').click();assert.equal(state.requireCode,true);adminPage.on('dialog',d=>d.accept());await adminRoot.locator('[data-fb-form=rotate-code] input').fill('rotated-browser-test-code-not-live');await adminRoot.getByRole('button',{name:'Save review code',exact:true}).click();await adminRoot.getByText(/Review code saved/).waitFor();await adminPage.close();console.log('Admin UI status/review and code rotation passed');
+ await admin('settings',{requireCode:false});await admin('settings',{mode:'pcc'});
+ for(const [width,height] of [[1440,1000],[390,844],[874,402]]){
+  const p=await browser.newPage({viewport:{width,height}});await p.route('https://stmichael-church-admin-api-*/api/*',async route=>{const u=new URL(route.request().url());await route.fulfill({response:await route.fetch({url:base+u.pathname+u.search})});});
+  await p.goto(base+'/website/feedback.html');const form=p.locator('[data-fb-form=access]');await form.waitFor();assert.equal(await form.locator('input[name=code]').count(),0);assert.equal(await form.locator('input[name=name]').getAttribute('required'),'');
+  await form.locator('input[name=name]').fill('Name only reviewer');await form.getByRole('button',{name:'Join the review'}).focus();await p.keyboard.press('Enter');await p.locator('[data-fb-form=create]').waitFor();await p.reload();await p.locator('[data-fb-form=create]').waitFor();assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await admin('settings',{requireCode:true});await p.getByRole('button',{name:'Refresh discussions',exact:true}).click();await p.locator('[data-fb-form=access] input[name=code]').waitFor();assert.equal(await p.locator('[data-fb-form=create]').count(),0);
+  await admin('settings',{requireCode:false});await p.reload();assert.equal(await p.locator('input[name=code]').count(),0);await p.close();console.log(width+'x'+height+': name-only keyboard join, remembered name, and restored code protection passed');
+ }
+ // Reset only the isolated fixture throttle budget between independent browser scenarios.
+ state.limits={};
+ // Completely new name-only reviewers from four real page contexts.
+ for(const [file,width,height]of [['index.html',1440,1000],['our-history.html',768,1024],['churchyard.html',390,844],['calendar.html',874,402]]){
+  const p=await browser.newPage({viewport:{width,height}});await p.route('https://stmichael-church-admin-api-*/api/*',async route=>{const u=new URL(route.request().url());await route.fulfill({response:await route.fetch({url:base+u.pathname+u.search})});});await p.goto(base+'/website/'+file);await p.locator('.feedback-launcher').click();const d=p.locator('.feedback-dialog');await d.locator('[data-quick-form]').waitFor();assert.equal(await d.locator('input[name=code],.fb-tools,[data-fb-open]').count(),0);
+  await d.locator('input[name=name]').fill('New reviewer');await d.locator('textarea').fill('Feedback from '+file);await d.getByRole('button',{name:'Send feedback',exact:true}).focus();await p.keyboard.press('Enter');await d.getByText('Your feedback has been sent.',{exact:true}).waitFor();assert.equal(state.topics.at(-1).page.path,'/website/'+file);assert.equal(state.topics.at(-1).author.name,'New reviewer');assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await d.getByRole('button',{name:'View discussions',exact:true}).click();await d.locator('[data-fb-open]').first().waitFor();await p.close();console.log(file+': clean reviewer simple form, confirmation, originating page and full board passed');
+ }
+ await admin('settings',{mode:'public'});const p=await browser.newPage({viewport:{width:390,height:844}});await p.route('https://stmichael-church-admin-api-*/api/*',async route=>{const u=new URL(route.request().url());await route.fulfill({response:await route.fetch({url:base+u.pathname+u.search})});});await p.goto(base+'/website/feedback.html');await p.getByRole('button',{name:'Send feedback',exact:true}).waitFor();assert.equal(await p.locator('[data-fb-open]').count(),0);await p.locator('textarea[name=body]').fill('Public test feedback');await p.getByRole('button',{name:'Send feedback',exact:true}).click();await p.getByText(/Thank you. Your feedback has been sent privately/).waitFor();assert.equal(state.topics.at(-1).audience,'public');
+ await admin('settings',{mode:'off'});await p.reload();await p.getByText(/Website feedback is currently closed/).waitFor();assert.equal(await p.locator('.feedback-launcher').count(),0);assert(state.topics.length>=6);await p.close();console.log('Public submission-only and Off retention passed');
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{await browser?.close();server?.close();});

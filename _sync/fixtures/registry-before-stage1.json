@@ -1,0 +1,3444 @@
+{
+  "version": 1,
+  "source": "micklehamcalendar@gmail.com",
+  "horizon": {
+    "from": "2026-10-01",
+    "to": "2027-12-31"
+  },
+  "initialDevSha": "cf3f3fd034a2bffb5a59118c97c5c7f6099d0020",
+  "entries": [
+    {
+      "key": "[\"01rkm75kvnmitiffpkq5pur545@google.com\",\"\"]",
+      "uid": "01rkm75kvnmitiffpkq5pur545@google.com",
+      "recurrenceId": "",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2026-11-17T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2026-11-17T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-11-24T19:00",
+        "end": "2026-11-24T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-11-24T19:00",
+        "end": "2026-11-24T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "864e04d2010e782961036df606a8e88fde236fddcd24aeed63115b40797eec9e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0,
+      "initialUpdate": {
+        "end": "2026-11-24T20:00"
+      }
+    },
+    {
+      "key": "[\"0t8tcsm6njhv2g8dl8opfqu8p0@google.com\",\"\"]",
+      "uid": "0t8tcsm6njhv2g8dl8opfqu8p0@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-0",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Wedding blessing in church",
+        "start": "2026-10-03T14:00",
+        "end": "2026-10-03T15:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Wedding blessing in church",
+        "start": "2026-10-03T14:00",
+        "end": "2026-10-03T15:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "f81710d1cc5e9e7b21cf466c227af7274b504ac2d478fb1edb116a605cc169d1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-10-04T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-10-04T10:00",
+      "websiteId": "migration-oneoff-1",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Harvest Family Service",
+        "start": "2026-10-04T10:00",
+        "end": "2026-10-04T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Harvest Family Service",
+        "start": "2026-10-04T10:00",
+        "end": "2026-10-04T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "5f9ad315a92ad736b72299d736bdd27d49e47a881e73a462476f2ceb66c64ea4",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-10-11T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-10-11T10:00",
+      "websiteId": "migration-hc-second@2026-10-11T10:00",
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2026-10-11T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-10-11T10:00",
+        "end": "2026-10-11T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-10-11T10:00",
+        "end": "2026-10-11T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "fa70595b38548ccdffb5f34bb33b887f2bce2e05ae202be77aa51fb479a3cb9e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-10-18T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-10-18T10:00",
+      "websiteId": "migration-hc-third@2026-10-18T10:00",
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2026-10-18T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-10-18T10:00",
+        "end": "2026-10-18T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-10-18T10:00",
+        "end": "2026-10-18T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "52eaad38664b10bab3412347a8728518d64f9055b098fd1dceb57c4ee6778653",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-10-25T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-10-25T10:00",
+      "websiteId": "migration-hc-fourth@2026-10-25T10:00",
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-10-25T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-10-25T10:00",
+        "end": "2026-10-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-10-25T10:00",
+        "end": "2026-10-25T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "97208590068d99732cf1a6a0c44580915582c963b784c6bc28ec08461be9209b",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-11-01T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-11-01T10:00",
+      "websiteId": "migration-oneoff-4",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Family Service with Baptism",
+        "start": "2026-11-01T10:00",
+        "end": "2026-11-01T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Family Service with Baptism",
+        "start": "2026-11-01T10:00",
+        "end": "2026-11-01T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "f38206c4f125db4ab2a22169cad8a92e6f06b7524a89eedce812e7b3181c717d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-11-08T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-11-08T10:00",
+      "websiteId": "migration-hc-second@2026-11-08T10:00",
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2026-11-08T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-11-08T10:00",
+        "end": "2026-11-08T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-11-08T10:00",
+        "end": "2026-11-08T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "461cc6fcc2d9429c9e01f2aa3f568dac7dc5886d503a482f0246f25b0748a313",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-11-15T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-11-15T10:00",
+      "websiteId": "migration-hc-third@2026-11-15T10:00",
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2026-11-15T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-11-15T10:00",
+        "end": "2026-11-15T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-11-15T10:00",
+        "end": "2026-11-15T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "6a99a07b83efb590843bdf295db66cd43fb7128aced519fd5e7c8ef842e13bbd",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-11-22T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-11-22T10:00",
+      "websiteId": "migration-hc-fourth@2026-11-22T10:00",
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-11-22T10:00",
+      "google": {
+        "title": "Holy Communion with Baptism",
+        "start": "2026-11-22T10:00",
+        "end": "2026-11-22T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion with Baptism",
+        "start": "2026-11-22T10:00",
+        "end": "2026-11-22T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "cb14f2a62a8aba62804a4d93f08b159ff5027176d55e54622bbd33ddddbc655d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-11-29T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-11-29T10:00",
+      "websiteId": "migration-oneoff-11",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Morning Worship",
+        "start": "2026-11-29T10:00",
+        "end": "2026-11-29T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Morning Worship",
+        "start": "2026-11-29T10:00",
+        "end": "2026-11-29T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "6b386978ab921ec329f7eac374ef39a0ef75b5ffb004ff7c4050514a96a42abf",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-12-06T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-12-06T10:00",
+      "websiteId": "migration-oneoff-12",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Christingle service",
+        "start": "2026-12-06T10:00",
+        "end": "2026-12-06T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Christingle service",
+        "start": "2026-12-06T10:00",
+        "end": "2026-12-06T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "1b2044857a90eaf572ea30534a106c6d867aba5680eb7a6fad8240312a013d34",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-12-13T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-12-13T10:00",
+      "websiteId": "migration-hc-second@2026-12-13T10:00",
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2026-12-13T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-12-13T10:00",
+        "end": "2026-12-13T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-12-13T10:00",
+        "end": "2026-12-13T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "9c94a81d955f018dd5e9675953670ed84ca2722864e00a2266039edbe21de734",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-12-20T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-12-20T10:00",
+      "websiteId": "migration-hc-third@2026-12-20T10:00",
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2026-12-20T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-12-20T10:00",
+        "end": "2026-12-20T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-12-20T10:00",
+        "end": "2026-12-20T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "503f96b2e9022d33a348870fb4b6e5c894c91a4474daae84b46127d41d037363",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2026-12-27T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2026-12-27T10:00",
+      "websiteId": "migration-hc-fourth@2026-12-27T10:00",
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-12-27T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2026-12-27T10:00",
+        "end": "2026-12-27T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2026-12-27T10:00",
+        "end": "2026-12-27T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "f0a1741be0ef0ad502bf2284d4b4db718ede352181d5a0628f079ed3ec19df96",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-01-03T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-01-03T10:00",
+      "websiteId": "migration-oneoff-13",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Family Service",
+        "start": "2027-01-03T10:00",
+        "end": "2027-01-03T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Family Service",
+        "start": "2027-01-03T10:00",
+        "end": "2027-01-03T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "80be57695252786d396985bb321865f18235fd047879ede6af1a2b7e0fb5942c",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-01-10T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-01-10T10:00",
+      "websiteId": "migration-hc-second@2027-01-10T10:00",
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2027-01-10T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-01-10T10:00",
+        "end": "2027-01-10T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-01-10T10:00",
+        "end": "2027-01-10T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "e8d5278dfce3e71a397ea704d77beaca8062205645cfe50fd5b133b191153d9e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-01-17T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-01-17T10:00",
+      "websiteId": "migration-hc-third@2027-01-17T10:00",
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2027-01-17T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-01-17T10:00",
+        "end": "2027-01-17T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-01-17T10:00",
+        "end": "2027-01-17T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "7afded2e1499e758c872048f056020fdda7cbce13a3072369b560a17718a2178",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-01-24T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-01-24T10:00",
+      "websiteId": "migration-hc-fourth@2027-01-24T10:00",
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2027-01-24T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-01-24T10:00",
+        "end": "2027-01-24T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-01-24T10:00",
+        "end": "2027-01-24T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "50609289d23105f498863f573a9287f50b145c639ab3f869725f3536c5a1843e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-01-31T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-01-31T10:00",
+      "websiteId": "migration-oneoff-15",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Morning Worship",
+        "start": "2027-01-31T10:00",
+        "end": "2027-01-31T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Morning Worship",
+        "start": "2027-01-31T10:00",
+        "end": "2027-01-31T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "8e6136115706833b2e1e40e38c2352a02ce3063a3e5ab2ded645be3f7d5c19d1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-02-07T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-02-07T10:00",
+      "websiteId": "migration-hc-weekly@2027-02-07T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-02-07T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-02-07T10:00",
+        "end": "2027-02-07T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-02-07T10:00",
+        "end": "2027-02-07T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "54c62bd126e9f9c2879909124e888597aa5c69e6d74242290927003daec0ddaa",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-02-14T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-02-14T10:00",
+      "websiteId": "migration-hc-weekly@2027-02-14T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-02-14T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-02-14T10:00",
+        "end": "2027-02-14T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-02-14T10:00",
+        "end": "2027-02-14T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "c5635575bee5d215b6ca89b4ae9957fdcabb2b39c3699818827eaad349040f88",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-02-21T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-02-21T10:00",
+      "websiteId": "migration-hc-weekly@2027-02-21T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-02-21T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-02-21T10:00",
+        "end": "2027-02-21T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-02-21T10:00",
+        "end": "2027-02-21T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "3e40492658b4ef69873e722b5f4551ee5f8875750f3e6b23686facc8e51f704d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-02-28T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-02-28T10:00",
+      "websiteId": "migration-hc-weekly@2027-02-28T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-02-28T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-02-28T10:00",
+        "end": "2027-02-28T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-02-28T10:00",
+        "end": "2027-02-28T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "216ad7ddb1993275c232c761fb9d93db2e93b1e403de5641ffb3b6ab1aa3e11e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-03-07T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-03-07T10:00",
+      "websiteId": "migration-hc-weekly@2027-03-07T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-07T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-03-07T10:00",
+        "end": "2027-03-07T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-03-07T10:00",
+        "end": "2027-03-07T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "8868c0933284720e0d7fb8f6dc6c6b36bc865e95756bb0012dd6a0a0a9033d6d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-03-14T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-03-14T10:00",
+      "websiteId": "migration-hc-weekly@2027-03-14T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-14T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-03-14T10:00",
+        "end": "2027-03-14T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-03-14T10:00",
+        "end": "2027-03-14T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "ed6b0807f43836a906d57df9dd3d8a0857f601f3e73c1e0fce95e5ca988bad54",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-03-21T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-03-21T10:00",
+      "websiteId": "migration-hc-weekly@2027-03-21T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-21T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-03-21T10:00",
+        "end": "2027-03-21T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-03-21T10:00",
+        "end": "2027-03-21T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "546e45c4df97e78248f764e7347facb80e2958d1de90f2a4dec239dad9ad72b8",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-03-28T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-03-28T10:00",
+      "websiteId": "migration-hc-weekly@2027-03-28T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-28T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-03-28T10:00",
+        "end": "2027-03-28T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-03-28T10:00",
+        "end": "2027-03-28T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "71d66305f1b9808ef201b3cff93e1c9f1edd8206ba368527bfb00f9e4d955a4d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-04-04T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-04-04T10:00",
+      "websiteId": "migration-hc-weekly@2027-04-04T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-04T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-04-04T10:00",
+        "end": "2027-04-04T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-04-04T10:00",
+        "end": "2027-04-04T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "a91ff957433aaf3a4ccaf69356441c9aee6f5fd3876c4c81e132a0a4f8235de2",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-04-11T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-04-11T10:00",
+      "websiteId": "migration-hc-weekly@2027-04-11T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-11T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-04-11T10:00",
+        "end": "2027-04-11T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-04-11T10:00",
+        "end": "2027-04-11T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "18c6d25d2b867554991f93ab30c9a5b13ba247bbb07de382e687eeca73057992",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-04-18T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-04-18T10:00",
+      "websiteId": "migration-hc-weekly@2027-04-18T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-18T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-04-18T10:00",
+        "end": "2027-04-18T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-04-18T10:00",
+        "end": "2027-04-18T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "282be0b507bfbf00fb7d7017001aea783cdabe83b7dfdd96ce643e5057cf432d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-04-25T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-04-25T10:00",
+      "websiteId": "migration-hc-weekly@2027-04-25T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-25T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-04-25T10:00",
+        "end": "2027-04-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-04-25T10:00",
+        "end": "2027-04-25T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "23642db373df9cc72041069d49a2c2536fe925de2360899cad370fb732bd0569",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-05-02T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-05-02T10:00",
+      "websiteId": "migration-hc-weekly@2027-05-02T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-02T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-02T10:00",
+        "end": "2027-05-02T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-02T10:00",
+        "end": "2027-05-02T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "425b89604decee2af44731a8770e35b535a99d5cc41391d53f950cb548a47c8b",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-05-09T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-05-09T10:00",
+      "websiteId": "migration-hc-weekly@2027-05-09T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-09T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-09T10:00",
+        "end": "2027-05-09T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-09T10:00",
+        "end": "2027-05-09T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "c30ec233920db8ca8513b39cd799c81b1687764941c40bcdf3b7b375c87a652a",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-05-16T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-05-16T10:00",
+      "websiteId": "migration-hc-weekly@2027-05-16T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-16T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-16T10:00",
+        "end": "2027-05-16T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-16T10:00",
+        "end": "2027-05-16T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "8c9640f462bbf65fc6d780cbbb6d8deb49a8daf74f4aaf55b4e994435527aa14",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-05-23T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-05-23T10:00",
+      "websiteId": "migration-hc-weekly@2027-05-23T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-23T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-23T10:00",
+        "end": "2027-05-23T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-23T10:00",
+        "end": "2027-05-23T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "f03379cfc878316da987c61e411788df02ea49754b32b2434820438371abd511",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-05-30T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-05-30T10:00",
+      "websiteId": "migration-hc-weekly@2027-05-30T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-30T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-30T10:00",
+        "end": "2027-05-30T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-30T10:00",
+        "end": "2027-05-30T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "6b0270306642f4227dd8872258974d88ec287e19de0766e7c107a92c9e9b53fa",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-06-06T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-06-06T10:00",
+      "websiteId": "migration-hc-weekly@2027-06-06T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-06-06T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-06-06T10:00",
+        "end": "2027-06-06T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-06-06T10:00",
+        "end": "2027-06-06T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "dbda2a88ffc7b570928f6fd23c2a91e96c7315ae6ff0cb286f611344b636d70a",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-06-13T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-06-13T10:00",
+      "websiteId": "migration-hc-weekly@2027-06-13T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-06-13T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-06-13T10:00",
+        "end": "2027-06-13T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-06-13T10:00",
+        "end": "2027-06-13T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "05afa7c55fc2bf47078511fe11c12c360093530516e07af31437f25027440cce",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-06-20T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-06-20T10:00",
+      "websiteId": "migration-hc-weekly@2027-06-20T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-06-20T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-06-20T10:00",
+        "end": "2027-06-20T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-06-20T10:00",
+        "end": "2027-06-20T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "7e9c5e779a59bd8f72912d538cfa0c220c8f55ab3ff6291b915a061909d88f34",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-06-27T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-06-27T10:00",
+      "websiteId": "migration-hc-weekly@2027-06-27T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-06-27T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-06-27T10:00",
+        "end": "2027-06-27T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-06-27T10:00",
+        "end": "2027-06-27T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "f2f690c4a4d61d094d4230dcf57d13ab66dd19b69c12192464c92011dc3d41ac",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-07-04T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-07-04T10:00",
+      "websiteId": "migration-hc-weekly@2027-07-04T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-07-04T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-07-04T10:00",
+        "end": "2027-07-04T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-07-04T10:00",
+        "end": "2027-07-04T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "235b3414971b8a83d52be2d32354e14236e5dfad646135d45ace6945271ac249",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-07-11T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-07-11T10:00",
+      "websiteId": "migration-hc-weekly@2027-07-11T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-07-11T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-07-11T10:00",
+        "end": "2027-07-11T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-07-11T10:00",
+        "end": "2027-07-11T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "4019dcc7935b8ebd8d138d58b5185c1d0995d789acc18e8230c0977c8592d7ed",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-07-18T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-07-18T10:00",
+      "websiteId": "migration-hc-weekly@2027-07-18T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-07-18T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-07-18T10:00",
+        "end": "2027-07-18T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-07-18T10:00",
+        "end": "2027-07-18T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "be29d9af8c79fe1f2ef7d0ab4d39084041eb7c261c817d4701b6e3cccc34a347",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-07-25T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-07-25T10:00",
+      "websiteId": "migration-hc-weekly@2027-07-25T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-07-25T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-07-25T10:00",
+        "end": "2027-07-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-07-25T10:00",
+        "end": "2027-07-25T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "7f80c6d79b705fd2d12eb1d020833fa0284b76851b9e70a508e33785d4a625a5",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-08-01T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-08-01T10:00",
+      "websiteId": "migration-hc-weekly@2027-08-01T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-01T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-08-01T10:00",
+        "end": "2027-08-01T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-08-01T10:00",
+        "end": "2027-08-01T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "6fca4214358a939dd2f1070eb8424afdd162d4bfd95029d96fbe14545d67df3c",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-08-08T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-08-08T10:00",
+      "websiteId": "migration-hc-weekly@2027-08-08T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-08T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-08-08T10:00",
+        "end": "2027-08-08T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-08-08T10:00",
+        "end": "2027-08-08T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "85895ff7ce9a74cf4233c4bd578556dfe8c2d74cc00e51b5ab9b8a2f6de77474",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-08-15T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-08-15T10:00",
+      "websiteId": "migration-hc-weekly@2027-08-15T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-15T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-08-15T10:00",
+        "end": "2027-08-15T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-08-15T10:00",
+        "end": "2027-08-15T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "45e68feb0b0f8564572009f94fabca4a6477b8d30a3d33ae435d5a5aedf248a2",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-08-22T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-08-22T10:00",
+      "websiteId": "migration-hc-weekly@2027-08-22T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-22T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-08-22T10:00",
+        "end": "2027-08-22T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-08-22T10:00",
+        "end": "2027-08-22T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "36d54270a743ff12670d05a2a057cb49af8a319bbc3f5ceefd518d0d468cecb5",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-08-29T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-08-29T10:00",
+      "websiteId": "migration-hc-weekly@2027-08-29T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-29T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-08-29T10:00",
+        "end": "2027-08-29T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-08-29T10:00",
+        "end": "2027-08-29T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "686002865a8015c6792c2f5174563434a74ae1e448367d73939419436d90ed8a",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-09-05T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-09-05T10:00",
+      "websiteId": "migration-hc-weekly@2027-09-05T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-09-05T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-09-05T10:00",
+        "end": "2027-09-05T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-09-05T10:00",
+        "end": "2027-09-05T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "e81d2414ec39fa66ce5e192e236ce586ce8c9340ae44aeadd0ad6599a3ee1b44",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-09-12T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-09-12T10:00",
+      "websiteId": "migration-hc-weekly@2027-09-12T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-09-12T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-09-12T10:00",
+        "end": "2027-09-12T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-09-12T10:00",
+        "end": "2027-09-12T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "b4bdad449af26d5721200d42bbdd99cd2d5994607919dda7aaf3c8bee4728956",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-09-19T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-09-19T10:00",
+      "websiteId": "migration-hc-weekly@2027-09-19T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-09-19T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-09-19T10:00",
+        "end": "2027-09-19T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-09-19T10:00",
+        "end": "2027-09-19T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "1231f65693612422abf3152302ce2e2ab64a9551a15403539619df259af8d5a4",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-09-26T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-09-26T10:00",
+      "websiteId": "migration-hc-weekly@2027-09-26T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-09-26T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-09-26T10:00",
+        "end": "2027-09-26T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-09-26T10:00",
+        "end": "2027-09-26T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "3651e63cf3f1b2789e373995f41680ef0f78253f0d06724ba77b88b96be43fcd",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-10-03T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-10-03T10:00",
+      "websiteId": "migration-hc-weekly@2027-10-03T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-03T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-10-03T10:00",
+        "end": "2027-10-03T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-10-03T10:00",
+        "end": "2027-10-03T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "e35768d38a699cd5546fb5de447b3896bd357303d533b5f76dc39819123d8445",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-10-10T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-10-10T10:00",
+      "websiteId": "migration-hc-weekly@2027-10-10T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-10T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-10-10T10:00",
+        "end": "2027-10-10T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-10-10T10:00",
+        "end": "2027-10-10T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "bc269dd16346677f6399ec6c928c349f6d3d238f9cbaa7e541f1e768b635fb56",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-10-17T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-10-17T10:00",
+      "websiteId": "migration-hc-weekly@2027-10-17T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-17T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-10-17T10:00",
+        "end": "2027-10-17T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-10-17T10:00",
+        "end": "2027-10-17T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "2d89752db94e505bd00e41a8d3ffbf32b4622a71f7247a50508efabbaf671e11",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-10-24T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-10-24T10:00",
+      "websiteId": "migration-hc-weekly@2027-10-24T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-24T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-10-24T10:00",
+        "end": "2027-10-24T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-10-24T10:00",
+        "end": "2027-10-24T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "1acd041aad8f7d72d138778b1fcb18d157d35cbb2bc7a2de860b4d0dd38775e1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-10-31T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-10-31T10:00",
+      "websiteId": "migration-hc-weekly@2027-10-31T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-31T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-10-31T10:00",
+        "end": "2027-10-31T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-10-31T10:00",
+        "end": "2027-10-31T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "1c4bc08eceb30b5332641d43e1615ea4c7e2b57159cbc9abdfe770dfd8f04288",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-11-07T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-11-07T10:00",
+      "websiteId": "migration-hc-weekly@2027-11-07T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-11-07T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-11-07T10:00",
+        "end": "2027-11-07T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-11-07T10:00",
+        "end": "2027-11-07T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "03c1dc7278cfdde960f91606fdf5e4cadd0d6723799e89dde60b491952eded07",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-11-14T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-11-14T10:00",
+      "websiteId": "migration-hc-weekly@2027-11-14T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-11-14T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-11-14T10:00",
+        "end": "2027-11-14T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-11-14T10:00",
+        "end": "2027-11-14T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "eed8677462461cc9675a0ad380aeb032e63319a56593905a8e4a6d3e66f7c2d7",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-11-21T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-11-21T10:00",
+      "websiteId": "migration-hc-weekly@2027-11-21T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-11-21T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-11-21T10:00",
+        "end": "2027-11-21T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-11-21T10:00",
+        "end": "2027-11-21T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "9936ee6b07f0b59ab2a0ab6e7145262b92e8efc54843caa2a075c0272066bba0",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-11-28T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-11-28T10:00",
+      "websiteId": "migration-hc-weekly@2027-11-28T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-11-28T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-11-28T10:00",
+        "end": "2027-11-28T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-11-28T10:00",
+        "end": "2027-11-28T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "901293945954989c25eafa870754bf78dc1aa57e8081ba24ebe89731bb99c6b2",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-12-05T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-12-05T10:00",
+      "websiteId": "migration-hc-weekly@2027-12-05T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-12-05T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-12-05T10:00",
+        "end": "2027-12-05T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-12-05T10:00",
+        "end": "2027-12-05T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "d6710dde8bfedb6ef361485ad8bb255cd59aea41d9e3b4888b409e483241c3d1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-12-12T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-12-12T10:00",
+      "websiteId": "migration-hc-weekly@2027-12-12T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-12-12T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-12-12T10:00",
+        "end": "2027-12-12T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-12-12T10:00",
+        "end": "2027-12-12T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "0e0b38c1a465d4baebd8cf2f11c846a2893cfcc1fabe762cb55b23bb07fc3a93",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-12-19T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-12-19T10:00",
+      "websiteId": "migration-hc-weekly@2027-12-19T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-12-19T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-12-19T10:00",
+        "end": "2027-12-19T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-12-19T10:00",
+        "end": "2027-12-19T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "60f1ac11e31c564a4367976345a28c7c770b4cb52bb7d3fb63cb4eb49107e369",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com\",\"2027-12-26T10:00\"]",
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "recurrenceId": "2027-12-26T10:00",
+      "websiteId": "migration-hc-weekly@2027-12-26T10:00",
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-12-26T10:00",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-12-26T10:00",
+        "end": "2027-12-26T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-12-26T10:00",
+        "end": "2027-12-26T11:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "73a6d336c347512253967e587f3b4e9aa91f4111e406c46cecb4c44f9c1422af",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1ifh5sdho6g7ndvr8gdu3lfjr9@google.com\",\"\"]",
+      "uid": "1ifh5sdho6g7ndvr8gdu3lfjr9@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-5",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Memorial service in church",
+        "start": "2026-11-02T11:30",
+        "end": "2026-11-02T12:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Memorial service in church",
+        "start": "2026-11-02T11:30",
+        "end": "2026-11-02T12:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "dd5c302cf3bd0a89992d7cf7217d4f415067ea0077a4cd3a5775d6481c56006d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1lif2jpcn1cnq1sujcaml5i17g@google.com\",\"\"]",
+      "uid": "1lif2jpcn1cnq1sujcaml5i17g@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-18",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Wedding in church",
+        "start": "2027-07-03T00:00",
+        "end": "2027-07-04T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Wedding in church",
+        "start": "2027-07-03T00:00",
+        "end": "2027-07-04T00:00",
+        "allDay": true,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "4efa74d1e53e8fb417f3880e276320a1c2a26734c00122dcf384036c5b993149",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1rka78v767182fqpg5uahan7gj@google.com\",\"\"]",
+      "uid": "1rka78v767182fqpg5uahan7gj@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-fourth@2026-12-27T08:00",
+      "seriesId": "migration-bcp-fourth",
+      "occurrenceStart": "2026-12-27T08:00",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-12-27T08:00",
+        "end": "2026-12-27T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-12-27T08:00",
+        "end": "2026-12-27T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "43b4210373a57846153d4b1130b50282849e6d6825ebfdd93cb21518c37a5330",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1s7fo974dlp2voqvlnllh54ffd@google.com\",\"\"]",
+      "uid": "1s7fo974dlp2voqvlnllh54ffd@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-6",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "MCS rehearsal in church",
+        "start": "2026-11-05T20:00",
+        "end": "2026-11-05T22:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "MCS rehearsal in church",
+        "start": "2026-11-05T20:00",
+        "end": "2026-11-05T22:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "9426e33fc2333cc7e1ac59c2069d9e824eb320b0eec5812963891dcdb3f85c4d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2e72085v5ksbag0r494f2agiv4@google.com\",\"\"]",
+      "uid": "2e72085v5ksbag0r494f2agiv4@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-7",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Act of Remembrance at War Memorial",
+        "start": "2026-11-08T11:00",
+        "end": "2026-11-08T12:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Act of Remembrance at War Memorial",
+        "start": "2026-11-08T11:00",
+        "end": "2026-11-08T12:00",
+        "allDay": false,
+        "location": "War Memorial",
+        "description": ""
+      },
+      "fingerprint": "61c8093d8549c95f39b1776849dc4493af3844e07a85af4a58ea9d98e06010dc",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2026-10-20T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2026-10-20T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2026-10-20T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2026-10-20T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-10-20T19:00",
+        "end": "2026-10-20T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-10-20T19:00",
+        "end": "2026-10-20T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "76b62d981e5df90deb9e0f3b5406b034944db3b22f541e7f270309918724689d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2026-12-15T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2026-12-15T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2026-12-15T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2026-12-15T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-12-15T19:00",
+        "end": "2026-12-15T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-12-15T19:00",
+        "end": "2026-12-15T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "fd2bd5af88833562f707ce8c411e916db65068c93d51965f84359b3b98c68fb1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-01-19T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-01-19T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-01-19T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-01-19T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-01-19T19:00",
+        "end": "2027-01-19T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-01-19T19:00",
+        "end": "2027-01-19T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "66b907ad2a4739def4570239a3736e48f34e4faa90514b08b34bc6a6ae40a73f",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-02-16T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-02-16T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-02-16T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-02-16T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-02-16T19:00",
+        "end": "2027-02-16T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-02-16T19:00",
+        "end": "2027-02-16T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "6e17de084c8e8f72c6e4da3c91806bb5bfdfaf624f58a4b9ec3c373f58225ee5",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-03-16T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-03-16T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-03-16T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-03-16T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-03-16T19:00",
+        "end": "2027-03-16T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-03-16T19:00",
+        "end": "2027-03-16T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "0f857249db4b21aec4502444b82b2393af8157ccd03c1ed90ac252ebbcc44259",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-04-20T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-04-20T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-04-20T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-04-20T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-04-20T19:00",
+        "end": "2027-04-20T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-04-20T19:00",
+        "end": "2027-04-20T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "880c4c32b8d7e20303ebd73251b0d5a8ac23b080e2aacdbe08eee47aeb47865b",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-05-18T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-05-18T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-05-18T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-05-18T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-05-18T19:00",
+        "end": "2027-05-18T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-05-18T19:00",
+        "end": "2027-05-18T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "34152bc9bcae0adb0b3c68fc975b8ff8f7bc3abca4c0434c15ff739757fb786e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-06-15T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-06-15T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-06-15T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-06-15T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-06-15T19:00",
+        "end": "2027-06-15T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-06-15T19:00",
+        "end": "2027-06-15T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "c77439a32f6dc172473c50109132a7f8ec9a39cd5a273da2f3ed392ddf5f98dd",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-07-20T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-07-20T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-07-20T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-07-20T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-07-20T19:00",
+        "end": "2027-07-20T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-07-20T19:00",
+        "end": "2027-07-20T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "f8e399d90102010ace2fbfed1f3d9515a4f1c637a20a3c460f15c6c07aa13aa6",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-08-17T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-08-17T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-08-17T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-08-17T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-08-17T19:00",
+        "end": "2027-08-17T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-08-17T19:00",
+        "end": "2027-08-17T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "f978e6df2034ab971c9a2e19b24ca6125718f77921646b7baa5317a6ba681f30",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-09-21T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-09-21T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-09-21T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-09-21T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-09-21T19:00",
+        "end": "2027-09-21T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-09-21T19:00",
+        "end": "2027-09-21T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "4ee73852ff4016405e099d0be05d23f3fd0089d9d76687d020f2ed466d0575b4",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-10-19T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-10-19T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-10-19T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-10-19T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-10-19T19:00",
+        "end": "2027-10-19T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-10-19T19:00",
+        "end": "2027-10-19T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "fc5cac66b4ed09014c99a09d367b33836e656e503661f723513168a2ca029e08",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-11-16T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-11-16T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-11-16T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-11-16T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-11-16T19:00",
+        "end": "2027-11-16T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-11-16T19:00",
+        "end": "2027-11-16T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "4cac3808e096d5753683e27d84306d8147f5ca83c07011bae1ef0156a6cc0539",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2s3fp31sc7d23r9if556b6qeem@google.com\",\"2027-12-21T19:00\"]",
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "recurrenceId": "2027-12-21T19:00",
+      "websiteId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe@2027-12-21T19:00",
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2027-12-21T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-12-21T19:00",
+        "end": "2027-12-21T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-12-21T19:00",
+        "end": "2027-12-21T19:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "82cae7bb29021e4b91f7158a884f977ecf45d4bc4a1ee3143e832b7e727bb68d",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"35lc2hh052rbprl5nrnsc5sj0f@google.com\",\"\"]",
+      "uid": "35lc2hh052rbprl5nrnsc5sj0f@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-10",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Lights to Remember",
+        "start": "2026-11-15T16:00",
+        "end": "2026-11-15T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Lights to Remember",
+        "start": "2026-11-15T16:00",
+        "end": "2026-11-15T17:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "ed0939c6381fa4dda2238faff938208fe5d8becd2a7be637dba2ef3bb3fda811",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3imjioks4k96iomklrmqpog4cv@google.com\",\"\"]",
+      "uid": "3imjioks4k96iomklrmqpog4cv@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-14",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Parish Council meet in Ranmore Room",
+        "start": "2027-01-27T19:30",
+        "end": "2027-01-27T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meet in Ranmore Room",
+        "start": "2027-01-27T19:30",
+        "end": "2027-01-27T20:30",
+        "allDay": false,
+        "location": "Ranmore Room",
+        "description": ""
+      },
+      "fingerprint": "d7250b4415fab60bfb8613d741467d469c2a84912644f1b5c8be5dba940aa644",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3jabjmt8ednj8bhi9cjiod2ric@google.com\",\"\"]",
+      "uid": "3jabjmt8ednj8bhi9cjiod2ric@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-2",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Concert in church",
+        "start": "2026-10-17T00:00",
+        "end": "2026-10-18T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Concert in church",
+        "start": "2026-10-17T00:00",
+        "end": "2026-10-18T00:00",
+        "allDay": true,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "6d6fefe29745a3e4cc1eb33cdc73954d5f2c9d314f87463328661e26f2632739",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3o6mvjcjsipu3pm0c8pe12giop@google.com\",\"\"]",
+      "uid": "3o6mvjcjsipu3pm0c8pe12giop@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-3",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Memorial service in church",
+        "start": "2026-10-30T11:30",
+        "end": "2026-10-30T12:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Memorial service in church",
+        "start": "2026-10-30T11:30",
+        "end": "2026-10-30T12:30",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "287fe8ef2c6ee40ed05edcb92111d59b3512436d68454acc3a171dc7efd47ffa",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3osmf842cbv3h20gmnko7vl2nu@google.com\",\"\"]",
+      "uid": "3osmf842cbv3h20gmnko7vl2nu@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-077f148d76d2421ec53b4324e19f0af5",
+      "google": {
+        "title": "7.30pm",
+        "start": "2027-03-18T19:30",
+        "end": "2027-03-18T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": null,
+      "fingerprint": "5c33e6549684ea21560065ac6f0ddc6635aada525210180202b65406e2b608d1",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0,
+      "approvedAddition": true
+    },
+    {
+      "key": "[\"4jthsf8uhsskpoa35jsjkl7qqt@google.com\",\"\"]",
+      "uid": "4jthsf8uhsskpoa35jsjkl7qqt@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-8",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "MCS Remembrance Concert in church",
+        "start": "2026-11-08T19:00",
+        "end": "2026-11-08T21:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "MCS Remembrance Concert in church",
+        "start": "2026-11-08T19:00",
+        "end": "2026-11-08T21:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "4f359517f68a1eb2544c86db6034c9cdc5696f6fd6bb473c06e8f4518ff566f8",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4prsstvtqdg0bum7gpd7gv7306@google.com\",\"\"]",
+      "uid": "4prsstvtqdg0bum7gpd7gv7306@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-fourth@2027-01-24T08:00",
+      "seriesId": "migration-bcp-fourth",
+      "occurrenceStart": "2027-01-24T08:00",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-01-24T08:00",
+        "end": "2027-01-24T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-01-24T08:00",
+        "end": "2027-01-24T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "1a0972a332b7c333921db3eba8e65df8be13bb811a90a7fe4531d4dbc7891ae0",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4t67uk5qcs8hmi9ddgmon1bca2@google.com\",\"\"]",
+      "uid": "4t67uk5qcs8hmi9ddgmon1bca2@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-17",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Wedding in church",
+        "start": "2027-05-22T14:00",
+        "end": "2027-05-22T15:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Wedding in church",
+        "start": "2027-05-22T14:00",
+        "end": "2027-05-22T15:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "df0edfb42b6271bb8937c5bada09f36d9b87358ecda975bbf048af2d1d5c7875",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"58flr6hfhuf1v8snh9cnfp2vrh@google.com\",\"\"]",
+      "uid": "58flr6hfhuf1v8snh9cnfp2vrh@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-fourth@2026-10-25T08:00",
+      "seriesId": "migration-bcp-fourth",
+      "occurrenceStart": "2026-10-25T08:00",
+      "google": {
+        "title": "8am BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-10-25T08:00",
+        "end": "2026-10-25T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-10-25T08:00",
+        "end": "2026-10-25T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "4deade8ffa323d57a3d83f451bd4e0669b99b63a6ae3263fad80ab99776b49f3",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5qt96n3gnj3a1l0sli06l18k2v@google.com\",\"\"]",
+      "uid": "5qt96n3gnj3a1l0sli06l18k2v@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-second@2026-10-11T08:00",
+      "seriesId": "migration-bcp-second",
+      "occurrenceStart": "2026-10-11T08:00",
+      "google": {
+        "title": "8am BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-10-11T00:00",
+        "end": "2026-10-12T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-10-11T08:00",
+        "end": "2026-10-11T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "331da6ad414ca35ff1519e41d669384bbdfe98f2ba1f958ed734405781b043d7",
+      "localOverrides": {
+        "start": "2026-10-11T08:00",
+        "end": "2026-10-11T09:00",
+        "allDay": false
+      },
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6kuqqatjge3pikv1m1o78jbkr5@google.com\",\"\"]",
+      "uid": "6kuqqatjge3pikv1m1o78jbkr5@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-9",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Parish Council meet in Ranmore Room",
+        "start": "2026-11-11T19:30",
+        "end": "2026-11-11T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meet in Ranmore Room",
+        "start": "2026-11-11T19:30",
+        "end": "2026-11-11T20:30",
+        "allDay": false,
+        "location": "Ranmore Room",
+        "description": ""
+      },
+      "fingerprint": "b7ef51ea2bfc9088394b939032511aab2023af0970aec60d5469037c0ed04748",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6m93tcda8ri4h23vrs56p3id6p@google.com\",\"\"]",
+      "uid": "6m93tcda8ri4h23vrs56p3id6p@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-16",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "7.30pm Parish Council meet in Ranmore Room",
+        "start": "2027-03-10T00:00",
+        "end": "2027-03-11T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meet in Ranmore Room",
+        "start": "2027-03-10T19:30",
+        "end": "2027-03-10T20:30",
+        "allDay": false,
+        "location": "Ranmore Room",
+        "description": ""
+      },
+      "fingerprint": "7b72ce8bba3174a79fe456a0e37a82deeb30c412b634f1fbfdee1e8994e2fe2f",
+      "localOverrides": {
+        "start": "2027-03-10T19:30",
+        "end": "2027-03-10T20:30",
+        "allDay": false
+      },
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6tuhnifpg83bpr3a93j2v2htrg@google.com\",\"\"]",
+      "uid": "6tuhnifpg83bpr3a93j2v2htrg@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-fourth@2026-11-22T08:00",
+      "seriesId": "migration-bcp-fourth",
+      "occurrenceStart": "2026-11-22T08:00",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-11-22T08:00",
+        "end": "2026-11-22T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-11-22T08:00",
+        "end": "2026-11-22T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "429b7efc9d1eae5bcfdd7c03b869b6f70ec5717dc386b358804f483030bb91bb",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"75vdmc0uubnjkgtmp1opkn308t@google.com\",\"\"]",
+      "uid": "75vdmc0uubnjkgtmp1opkn308t@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-d4e5493965896c8487880c703ab50037",
+      "google": {
+        "title": "NO BCP service at Westhumble Chapel",
+        "start": "2026-11-08T08:00",
+        "end": "2026-11-08T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": null,
+      "fingerprint": "150aa7fb11252c4b2268382a947841a8e3a3108269d8b84b70b647ea6dd76973",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0,
+      "approvedAddition": true
+    },
+    {
+      "key": "[\"7d7brsj6fkcjiioq3gk6377dge@google.com\",\"\"]",
+      "uid": "7d7brsj6fkcjiioq3gk6377dge@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-second@2027-01-10T08:00",
+      "seriesId": "migration-bcp-second",
+      "occurrenceStart": "2027-01-10T08:00",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-01-10T08:00",
+        "end": "2027-01-10T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-01-10T08:00",
+        "end": "2027-01-10T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "270db7ec4888fe265f631a12f44b8a911dcd1e0297f58001ac1575c0badedd1e",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"7odjsqr843e3g8bgorkiugplfe@google.com\",\"\"]",
+      "uid": "7odjsqr843e3g8bgorkiugplfe@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-bcp-second@2026-12-13T08:00",
+      "seriesId": "migration-bcp-second",
+      "occurrenceStart": "2026-12-13T08:00",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-12-13T08:00",
+        "end": "2026-12-13T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2026-12-13T08:00",
+        "end": "2026-12-13T09:00",
+        "allDay": false,
+        "location": "Westhumble Chapel",
+        "description": ""
+      },
+      "fingerprint": "57c49b391eeda07458d9352b2bb1dede6ad577698abfe0e85c04b6dd202fb89c",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"7pv4i3fbj6t44ol6bk5uipbc31@google.com\",\"\"]",
+      "uid": "7pv4i3fbj6t44ol6bk5uipbc31@google.com",
+      "recurrenceId": "",
+      "websiteId": "migration-oneoff-19",
+      "seriesId": null,
+      "occurrenceStart": null,
+      "google": {
+        "title": "Wedding in church",
+        "start": "2027-09-04T00:00",
+        "end": "2027-09-05T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Wedding in church",
+        "start": "2027-09-04T00:00",
+        "end": "2027-09-05T00:00",
+        "allDay": true,
+        "location": "St Michael & All Angels Church",
+        "description": ""
+      },
+      "fingerprint": "005dd82a52103ed18b2108a1250fc5e86247ed4191f85bb8bd6289506703d952",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2026-10-06T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2026-10-06T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2026-10-06T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2026-10-06T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-10-06T19:00",
+        "end": "2026-10-06T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-10-06T19:00",
+        "end": "2026-10-06T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "3f493cc9b17f869a1eb6f3f0a0b7cc0e3bc9ad38f07ddb99827fb60400ce06b5",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2026-11-03T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2026-11-03T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2026-11-03T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2026-11-03T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-11-03T19:00",
+        "end": "2026-11-03T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-11-03T19:00",
+        "end": "2026-11-03T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "395ab2f12f042e956b0fbbf7be5c2b25ff0fe4a7e224a9053870af7594622068",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2026-12-01T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2026-12-01T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2026-12-01T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2026-12-01T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2026-12-01T19:00",
+        "end": "2026-12-01T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2026-12-01T19:00",
+        "end": "2026-12-01T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "d9fb5dab3b1bebf382e3a0b27da860ec0c152bfff0449056dd3747e43c8d40b2",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-01-05T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-01-05T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-01-05T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-01-05T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-01-05T19:00",
+        "end": "2027-01-05T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-01-05T19:00",
+        "end": "2027-01-05T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "6675a114cf64bfae74774ff9fdf0c44f815df9aa014259fe566ae4e9d69a8b6a",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-02-02T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-02-02T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-02-02T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-02-02T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-02-02T19:00",
+        "end": "2027-02-02T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-02-02T19:00",
+        "end": "2027-02-02T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "5897b3e35bf3c5feb4572615849da75feca3678e2a740edf4d31da990ac7e7ae",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-03-02T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-03-02T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-03-02T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-03-02T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-03-02T19:00",
+        "end": "2027-03-02T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-03-02T19:00",
+        "end": "2027-03-02T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "efc078240b05d81a9814d0913ab5fe555ee4baf49ee8650bc079380fffdb86d4",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-04-06T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-04-06T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-04-06T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-04-06T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-04-06T19:00",
+        "end": "2027-04-06T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-04-06T19:00",
+        "end": "2027-04-06T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "e1c907d6087cebed5de486ee69293dbb4c54cc9afc82279b83008f02c87619f9",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-05-04T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-05-04T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-05-04T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-05-04T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-05-04T19:00",
+        "end": "2027-05-04T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-05-04T19:00",
+        "end": "2027-05-04T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "79d4f97d653a88feadee86001a3de24f46f693452d898ab8d38237c5273012e9",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-06-01T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-06-01T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-06-01T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-06-01T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-06-01T19:00",
+        "end": "2027-06-01T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-06-01T19:00",
+        "end": "2027-06-01T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "8c12c45d3be97803a18e4fb228292dcfb102315276f6833684d44bbd6fa8b28f",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-07-06T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-07-06T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-07-06T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-07-06T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-07-06T19:00",
+        "end": "2027-07-06T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-07-06T19:00",
+        "end": "2027-07-06T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "9ebc88829aea313c6e79030458fbb2e4af50d3f3a3b183e68005293d27233d73",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-08-03T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-08-03T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-08-03T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-08-03T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-08-03T19:00",
+        "end": "2027-08-03T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-08-03T19:00",
+        "end": "2027-08-03T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "706ac5683e34d05e223d45f9765f5096aa1bb7622da2387724059cef44fb0b9a",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-09-07T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-09-07T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-09-07T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-09-07T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-09-07T19:00",
+        "end": "2027-09-07T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-09-07T19:00",
+        "end": "2027-09-07T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "79f1618139c5d8043a96eff71e282c291f1178940e9f46a14d5a1ecae3e37256",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-10-05T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-10-05T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-10-05T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-10-05T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-10-05T19:00",
+        "end": "2027-10-05T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-10-05T19:00",
+        "end": "2027-10-05T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "944c420be7a84b0f139c790d354f4ea29338e648c408a7dbcf152549d480ca32",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-11-02T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-11-02T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-11-02T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-11-02T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-11-02T19:00",
+        "end": "2027-11-02T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-11-02T19:00",
+        "end": "2027-11-02T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "a43aa6b6d271e77e74165e3c5a38069dba9ecf71b05f578e34b13b69b5229226",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com\",\"2027-12-07T19:00\"]",
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "recurrenceId": "2027-12-07T19:00",
+      "websiteId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2@2027-12-07T19:00",
+      "seriesId": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "occurrenceStart": "2027-12-07T19:00",
+      "google": {
+        "title": "Compline in Church",
+        "start": "2027-12-07T19:00",
+        "end": "2027-12-07T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Compline in Church",
+        "start": "2027-12-07T19:00",
+        "end": "2027-12-07T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church"
+      },
+      "fingerprint": "c22f270d99f18a067b446c8fb5f7a279c5aeeaf76ef99d9bcf637f6f7d3b36f9",
+      "localOverrides": {},
+      "suppressed": false,
+      "conflicts": [],
+      "missingChecks": 0
+    }
+  ],
+  "series": [
+    {
+      "uid": "1dqda222jg2epcmk8a54mhhaaf_R20250202T100000@google.com",
+      "rule": "FREQ=WEEKLY;BYDAY=SU"
+    },
+    {
+      "uid": "2s3fp31sc7d23r9if556b6qeem@google.com",
+      "rule": "FREQ=MONTHLY;BYDAY=3TU"
+    },
+    {
+      "uid": "fir0usfnsro82e3l6ec6418k6p_R20230502T180000@google.com",
+      "rule": "FREQ=MONTHLY;BYDAY=1TU"
+    }
+  ],
+  "lastSuccessfulSync": null,
+  "audit": null
+}

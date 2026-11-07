@@ -1,0 +1,645 @@
+{
+  "hiddenEventIds": [],
+  "overrides": [],
+  "events": [
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-0",
+      "title": "Wedding blessing in church",
+      "start": "2026-10-03T14:00",
+      "end": "2026-10-03T15:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-1",
+      "title": "Harvest Family Service",
+      "start": "2026-10-04T10:00",
+      "end": "2026-10-04T11:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": true,
+      "id": "migration-oneoff-2",
+      "title": "Concert in church",
+      "start": "2026-10-17T00:00",
+      "end": "2026-10-18T00:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-3",
+      "title": "Memorial service in church",
+      "start": "2026-10-30T11:30",
+      "end": "2026-10-30T12:30"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-4",
+      "title": "Family Service",
+      "start": "2026-11-01T10:00",
+      "end": "2026-11-01T11:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-5",
+      "title": "Memorial service in church",
+      "start": "2026-11-02T11:30",
+      "end": "2026-11-02T12:30"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-6",
+      "title": "MCS rehearsal in church",
+      "start": "2026-11-05T20:00",
+      "end": "2026-11-05T22:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "War Memorial",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-7",
+      "title": "Act of Remembrance at War Memorial",
+      "start": "2026-11-08T11:00",
+      "end": "2026-11-08T12:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-8",
+      "title": "MCS Remembrance Concert in church",
+      "start": "2026-11-08T19:00",
+      "end": "2026-11-08T21:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "Ranmore Room",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-9",
+      "title": "Parish Council meet in Ranmore Room",
+      "start": "2026-11-11T19:30",
+      "end": "2026-11-11T20:30"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-10",
+      "title": "Lights to Remember",
+      "start": "2026-11-15T16:00",
+      "end": "2026-11-15T17:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-11",
+      "title": "Morning Worship",
+      "start": "2026-11-29T10:00",
+      "end": "2026-11-29T11:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-12",
+      "title": "Christingle service",
+      "start": "2026-12-06T11:00",
+      "end": "2026-12-06T12:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-13",
+      "title": "Family Service",
+      "start": "2027-01-03T10:00",
+      "end": "2027-01-03T11:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "Ranmore Room",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-14",
+      "title": "Parish Council meet in Ranmore Room",
+      "start": "2027-01-27T19:30",
+      "end": "2027-01-27T20:30"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-15",
+      "title": "Morning Worship",
+      "start": "2027-01-31T10:00",
+      "end": "2027-01-31T11:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "Ranmore Room",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-16",
+      "title": "Parish Council meet in Ranmore Room",
+      "start": "2027-03-10T19:30",
+      "end": "2027-03-10T20:30"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-oneoff-17",
+      "title": "Wedding in church",
+      "start": "2027-05-22T14:00",
+      "end": "2027-05-22T15:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": true,
+      "id": "migration-oneoff-18",
+      "title": "Wedding in church",
+      "start": "2027-07-03T00:00",
+      "end": "2027-07-04T00:00"
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": true,
+      "id": "migration-oneoff-19",
+      "title": "Wedding in church",
+      "start": "2027-09-04T00:00",
+      "end": "2027-09-05T00:00"
+    },
+    {
+      "id": "google-077f148d76d2421ec53b4324e19f0af5",
+      "title": "7.30pm",
+      "start": "2027-03-18T19:30",
+      "end": "2027-03-18T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-d4e5493965896c8487880c703ab50037",
+      "title": "NO BCP service at Westhumble Chapel",
+      "start": "2026-11-08T08:00",
+      "end": "2026-11-08T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-f1f9c5f8db7c84e01824daed6858ea55",
+      "title": "Candlelit Carol service",
+      "start": "2026-12-20T18:30",
+      "end": "2026-12-20T19:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-087c97199e5089ffe466c9832bd3e788",
+      "title": "Christmas Communion service for All",
+      "start": "2026-12-25T10:00",
+      "end": "2026-12-25T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-eadf869d7bd3e9426ee14bbdb01cd1f9",
+      "title": "Midnight Communion service",
+      "start": "2026-12-24T23:30",
+      "end": "2026-12-25T00:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-30c6e6445d809499f09cac462e490470",
+      "title": "4pm Crib service in Westhumble Fields",
+      "start": "2026-12-24T00:00",
+      "end": "2026-12-25T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-563778fb6231569d13888a33419f1c40",
+      "title": "PCC meets in Ranmore Room",
+      "start": "2027-01-12T19:30",
+      "end": "2027-01-12T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-7276a0507c3bc925608e83a367e9cfd4",
+      "title": "PCC meets in Ranmore Room",
+      "start": "2026-11-10T19:30",
+      "end": "2026-11-10T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-5c9e6cd0112311d55a584524508e1ea0",
+      "title": "Carol singing in Westhumble Chapel ruins",
+      "start": "2026-12-15T18:00",
+      "end": "2026-12-15T19:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-a1fab69e31830be2a9377845005b476e",
+      "title": "Reflective Christmas service",
+      "start": "2026-12-14T19:00",
+      "end": "2026-12-14T20:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-de089edd3907b3306e61c7f0bd2555d8",
+      "title": "Carol singing round local pubs",
+      "start": "2026-12-18T19:15",
+      "end": "2026-12-18T20:15",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-5773b58d3e9125c6796dca7f449fc215",
+      "title": "Clergy meeting in church",
+      "start": "2026-11-10T12:15",
+      "end": "2026-11-10T14:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-ade9da1e4aedf8e31ff99e3fc7d50c10",
+      "title": "Children's Concert in church and lighting of Xmas trees",
+      "start": "2026-11-22T16:00",
+      "end": "2026-11-22T17:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-b64711ad35efded5f99ff71ec25efcca",
+      "title": "am RGS School Carol service in church",
+      "start": "2026-12-11T00:00",
+      "end": "2026-12-12T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-05855e8735d513cc3e167dd03e514006",
+      "title": "RGS School Carol service in church",
+      "start": "2026-12-07T18:00",
+      "end": "2026-12-07T19:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    }
+  ],
+  "series": [
+    {
+      "title": "Compline in Church",
+      "start": "2026-10-06T19:00",
+      "end": "2026-10-06T20:00",
+      "timeZone": "Europe/London",
+      "allDay": false,
+      "location": "St Michael & All Angels Church",
+      "description": "Compline in Church",
+      "category": "Worship & Services",
+      "image": "",
+      "externalLink": "",
+      "status": "published",
+      "id": "series-bcb22952-131e-4c4e-ad16-d75de577a6c2",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "end": {
+          "type": "date",
+          "until": "2027-12-31"
+        },
+        "ordinal": 1,
+        "weekday": 2
+      }
+    },
+    {
+      "title": "Compline in Church",
+      "start": "2026-10-20T19:00",
+      "end": "2026-10-20T19:30",
+      "timeZone": "Europe/London",
+      "allDay": false,
+      "location": "St Michael & All Angels Church",
+      "description": "Compline in Church",
+      "category": "Worship & Services",
+      "image": "",
+      "externalLink": "",
+      "status": "published",
+      "id": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "end": {
+          "type": "date",
+          "until": "2027-12-31"
+        },
+        "ordinal": 3,
+        "weekday": 2
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-hc-second",
+      "title": "Holy Communion",
+      "start": "2026-10-11T10:00",
+      "end": "2026-10-11T11:00",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "ordinal": 2,
+        "weekday": 0,
+        "end": {
+          "type": "date",
+          "until": "2027-01-31"
+        }
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-hc-third",
+      "title": "Holy Communion",
+      "start": "2026-10-18T10:00",
+      "end": "2026-10-18T11:00",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "ordinal": 3,
+        "weekday": 0,
+        "end": {
+          "type": "date",
+          "until": "2027-01-31"
+        }
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-hc-fourth",
+      "title": "Holy Communion",
+      "start": "2026-10-25T10:00",
+      "end": "2026-10-25T11:00",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "ordinal": 4,
+        "weekday": 0,
+        "end": {
+          "type": "date",
+          "until": "2027-01-31"
+        }
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "Westhumble Chapel",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-bcp-second",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2026-10-11T08:00",
+      "end": "2026-10-11T09:00",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "ordinal": 2,
+        "weekday": 0,
+        "end": {
+          "type": "date",
+          "until": "2027-01-31"
+        }
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "Westhumble Chapel",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-bcp-fourth",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2026-10-25T08:00",
+      "end": "2026-10-25T09:00",
+      "recurrence": {
+        "frequency": "monthly",
+        "interval": 1,
+        "ordinal": 4,
+        "weekday": 0,
+        "end": {
+          "type": "date",
+          "until": "2027-01-31"
+        }
+      }
+    },
+    {
+      "timeZone": "Europe/London",
+      "location": "St Michael & All Angels Church",
+      "description": "",
+      "category": "Worship & Services",
+      "status": "published",
+      "allDay": false,
+      "id": "migration-hc-weekly",
+      "title": "Holy Communion",
+      "start": "2027-02-07T10:00",
+      "end": "2027-02-07T11:00",
+      "recurrence": {
+        "frequency": "weekly",
+        "interval": 1,
+        "weekdays": [
+          0
+        ],
+        "end": {
+          "type": "date",
+          "until": "2027-12-26"
+        }
+      }
+    }
+  ],
+  "exceptions": [
+    {
+      "seriesId": "series-67099b10-c1ed-45d0-9ff0-fcb496bbebfe",
+      "occurrenceStart": "2026-11-17T19:00",
+      "changes": {
+        "title": "Compline in Church",
+        "start": "2026-11-24T19:00",
+        "end": "2026-11-24T20:00",
+        "allDay": false,
+        "location": "St Michael & All Angels Church",
+        "description": "Compline in Church",
+        "category": "Worship & Services",
+        "image": "",
+        "externalLink": "",
+        "status": "published"
+      }
+    },
+    {
+      "seriesId": "migration-bcp-second",
+      "occurrenceStart": "2026-11-08T08:00",
+      "cancelled": true
+    },
+    {
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-11-22T10:00",
+      "changes": {
+        "title": "Holy Communion with Baptism"
+      }
+    },
+    {
+      "seriesId": "migration-hc-third",
+      "occurrenceStart": "2026-12-20T10:00",
+      "changes": {
+        "title": "Holy Communion with Carols"
+      }
+    },
+    {
+      "seriesId": "migration-hc-fourth",
+      "occurrenceStart": "2026-12-27T10:00",
+      "changes": {
+        "title": "Informal Holy Communion (no creche)"
+      }
+    },
+    {
+      "seriesId": "migration-hc-second",
+      "occurrenceStart": "2026-11-08T10:00",
+      "changes": {
+        "title": "Remembrance Service"
+      }
+    }
+  ]
+}

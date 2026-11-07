@@ -1,0 +1,10 @@
+.giving-method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.giving-bank-details{width:100%;margin:4px 0 18px;padding:16px;background:#f7f4e9;color:#193e30;box-sizing:border-box}.giving-bank-details>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding:5px 0}.giving-bank-details dt{font-weight:600}.giving-bank-details dd{margin:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.giving-charity{padding-bottom:30px;color:#495b4f;font-size:14px;line-height:1.6}.giving-ways a,.giving-assurance a,.giving-legacy a{min-height:44px;display:inline-flex;align-items:center;gap:6px;white-space:normal}.giving-ways a:focus-visible,.giving-assurance a:focus-visible,.giving-legacy a:focus-visible{outline:3px solid #876b19;outline-offset:3px}.giving-legacy-inner p:not(.eyebrow){font-size:16px;line-height:1.65}@media(max-width:700px){.giving-method-grid{grid-template-columns:1fr}.giving-bank-details>div{grid-template-columns:1fr;gap:2px}}
+.giving-method-grid,.giving-assurance-grid{grid-auto-rows:minmax(min-content,auto)}.giving-method-card,.giving-assurance-card{min-height:min-content}
+.giving-difference .giving-section-heading>p:not(.eyebrow){color:var(--muted)}
+.giving-assurance-card{min-width:0}.giving-assurance-card a{max-width:100%;overflow-wrap:anywhere}
+/* Approved thank-you colours; preserve the existing full-width geometry and footer. */
+.giving-page .giving-thanks{background:#e5e9dd;color:#244537}
+.giving-page .giving-thanks h2,.giving-page .giving-thanks .eyebrow{color:#244537}
+.giving-page .giving-thanks-inner p:last-child{color:#46594d}
+.giving-page .giving-thanks .btn{border-color:#244537}
+.giving-page .giving-thanks .btn:focus-visible{outline-color:#244537}
