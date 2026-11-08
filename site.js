@@ -119,7 +119,7 @@ if (siteScript) {
   footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261106-full-desktop-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261108-header-fit-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -155,7 +155,7 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261106-racial-justice-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261108-header-fit-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';
@@ -212,7 +212,7 @@ function createNavigationHubMotion(panel, media=matchMedia('(prefers-reduced-mot
 const hubMotion=navigationHub?createNavigationHubMotion(navigationHub):null;
 /* Desktop hub motion end */
 function syncNavigationHub(){
- const compact=matchMedia('(max-width:999px), (max-width:1279px) and (max-height:999px)').matches;
+ const compact=matchMedia('not all and (min-width:1600px) and (min-width:100em)').matches;
  const selected=dropdownButtons.find(button=>button.closest('.nav-item').classList.contains('is-open'));
  dropdownButtons.forEach(button=>{button.setAttribute('aria-controls',compact?'menu-'+button.closest('.nav-item').dataset.category:'navigation-hub');if(!compact)button.setAttribute('aria-expanded',String(!!selected));});
  if(navigationHub)hubMotion.set(!compact&&!!selected,compact);
@@ -338,7 +338,7 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
 // Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('responsive-navigation.js?v=20261106-full-desktop-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261108-header-fit-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 

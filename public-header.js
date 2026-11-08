@@ -6,7 +6,7 @@
   const space=document.createElement('div');space.className='public-header-space';space.setAttribute('aria-hidden','true');header.after(space);
   const photo=document.querySelector('main :is(.home-hero-photo,.visit-principal-photo,.parish-about-hero-photo,.history-hero-photo,.wedding-hero-photo,.baptism-hero-photo,.funeral-hero-photo)');
   if(photo)document.body.classList.add('header-photo-page');
-  const compact=matchMedia('(max-width:999px), (max-width:1279px) and (max-height:999px)');
+  const compact=matchMedia('not all and (min-width:1600px) and (min-width:100em)');
   let frame=0;
   function update(){header.classList.toggle('is-condensed',!compact.matches&&scrollY>64);frame=0;}
   function schedule(){if(!frame)frame=requestAnimationFrame(update);}
@@ -26,7 +26,7 @@
     const drawer=search.closest('dialog');
     const closed=drawer?.open?new Promise(resolve=>{drawer.addEventListener('close',resolve,{once:true});globalThis.churchResponsiveNavigation.close();}):Promise.resolve();
     globalThis.closeDropdowns?.();globalThis.syncNavigationBackdrop?.();
-    try{searchModule ||= import(new URL('header-search.js?v=20261104-information-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
+    try{searchModule ||= import(new URL('header-search.js?v=20261108-header-fit-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
   },true);
   }
   // Non-modal desktop disclosure; the same sections become mobile accordions.
@@ -52,7 +52,7 @@
 (() => {
   const script=document.querySelector('script[src*="site.js"]');
   if(!script||!document.querySelector('.header-information'))return;
-  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261106-full-desktop-1',script.src).href;
-  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261106-racial-justice-1',script.src).href;document.head.append(enhancement);},{once:true});
+  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261108-header-fit-1',script.src).href;
+  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261108-header-fit-1',script.src).href;document.head.append(enhancement);},{once:true});
   document.head.append(css);
 })();
