@@ -6,16 +6,16 @@
     "selection": "editorial-services-playlist"
   },
   "video": {
-    "id": "FvUXXZha6NQ",
-    "title": "Shoe Box Family Service 1st November 2026",
-    "publishedAt": "2026-11-01T11:55:28.000Z"
+    "id": "plHh9s5xzeM",
+    "title": "Remembrance Sunday 8th November 2026",
+    "publishedAt": "2026-11-08T11:42:56.000Z"
   },
   "thumbnail": {
-    "path": "assets/images/sunday-services/FvUXXZha6NQ.webp",
-    "width": 960,
-    "height": 540,
-    "bytes": 23958
+    "path": "assets/images/sunday-services/plHh9s5xzeM.webp",
+    "width": 320,
+    "height": 180,
+    "bytes": 10956
   },
-  "checkedAt": "2026-11-01T12:00:02.623Z",
+  "checkedAt": "2026-11-08T11:45:02.253Z",
   "verifiedBy": "azure-timer"
 }
