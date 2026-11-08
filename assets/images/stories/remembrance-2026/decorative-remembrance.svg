@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 150">
+  <defs>
+    <linearGradient id="land"><stop stop-color="#c4a76c" stop-opacity="0"/><stop offset="1" stop-color="#b69a62" stop-opacity=".58"/></linearGradient>
+    <path id="figure" d="M-5 13q-1-5 4-6l3-4 9-1 4 2-2 7-5 3-1 4 4 7 5 7-5 12 4 11-3 12 3 6-4 2-5-9 1-12-6-6-5 11-8 9-6 1 1-5 8-10 3-15-7-2 2-9-1-7 5-5Z"/>
+    <g id="poppy"><path d="M0 23Q2 8 0 0M1 16q5-5 9-4" fill="none" stroke="#6d783e" stroke-width="1.5"/><path d="M0 1c-10-8-6-14 0-10 6-5 13 4 1 10" fill="#bc4726"/><ellipse cy="-3" rx="2.1" ry="1.6" fill="#613422"/></g>
+  </defs>
+  <path fill="url(#land)" d="M0 150c92-22 165-28 242-21 82-2 138-21 195-38 66-21 146-42 213-52v111Z"/>
+  <path fill="#b29a61" opacity=".29" d="M285 150c121-25 230-58 365-77v77Z"/>
+  <g fill="#82744d" opacity=".68">
+    <use href="#figure" transform="translate(380 71) rotate(12) scale(.62)"/>
+    <use href="#figure" transform="translate(435 48) rotate(10) scale(.75)"/>
+    <use href="#figure" transform="translate(487 31) rotate(15) scale(.75)"/>
+    <use href="#figure" transform="translate(534 16) rotate(11) scale(.8)"/>
+  </g>
+  <g opacity=".84">
+    <use href="#poppy" transform="translate(412 145) scale(.7)"/><use href="#poppy" transform="translate(447 137) scale(.6)"/><use href="#poppy" transform="translate(481 143) scale(1.05)"/>
+    <use href="#poppy" transform="translate(510 131) scale(.73)"/><use href="#poppy" transform="translate(545 137) scale(.93)"/><use href="#poppy" transform="translate(565 116) scale(1.15)"/>
+    <use href="#poppy" transform="translate(593 129) scale(.82)"/><use href="#poppy" transform="translate(620 104) scale(1.17)"/><use href="#poppy" transform="translate(642 115) scale(.83)"/>
+  </g>
+</svg>

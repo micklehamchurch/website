@@ -1,0 +1,165 @@
+.remembrance {
+  --remember-green: #123d28;
+  --remember-gold: #77541a;
+  --remember-accent: #b58125;
+  --remember-ivory: #faf7ef;
+  background: radial-gradient(ellipse at 70% 18%, #f1ebdf 0, transparent 50%), var(--remember-ivory);
+  color: #201d17;
+  font: 400 clamp(1rem, 1.36vw, 1.24rem)/1.38 Georgia, serif;
+}
+.remembrance h1, .remembrance h2 {
+  margin: 0;
+  color: var(--remember-green);
+  font-family: var(--serif, Georgia, serif);
+  font-weight: 700;
+}
+.remembrance h1 { font-size: clamp(2.35rem, 4.6vw, 4.65rem); line-height: 1.08; }
+.remembrance h2 { font-size: clamp(1.4rem, 2.15vw, 2.12rem); line-height: 1.12; }
+.remembrance p { margin: 0; }
+.remembrance p + p { margin-top: .5em; }
+.remembrance img { display: block; width: 100%; height: auto; }
+.remembrance-hero img { aspect-ratio: 3.8; object-fit: cover; object-position: center top; }
+.remembrance-inner { padding-inline: clamp(16px, 3.33vw, 54px); }
+.remembrance-heading {
+  padding: clamp(12px, 1.25vw, 20px) clamp(0px, 2.45vw, 40px) clamp(16px, 1.45vw, 23px);
+  padding-right: clamp(148px, 22vw, 340px);
+  background: url("assets/images/stories/remembrance-2026/decorative-poppy.svg") no-repeat right bottom;
+  background-size: clamp(140px, 22vw, 340px) auto;
+}
+.remembrance .remembrance-kicker {
+  margin-bottom: .42em;
+  color: var(--remember-gold);
+  font-size: .78em;
+  font-weight: 700;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+.remembrance .remembrance-subtitle {
+  margin-top: .22em;
+  color: var(--remember-gold);
+  font-size: clamp(1.16rem, 2.32vw, 2.28rem);
+  font-style: italic;
+  line-height: 1.15;
+}
+.remembrance .remembrance-intro {
+  margin: 0 0 clamp(10px, 1vw, 16px) clamp(0px, .85vw, 14px);
+  padding: .6em clamp(15px, 2.4vw, 38px);
+  border-left: 3px solid var(--remember-accent);
+  border-radius: 0 8px 8px 0;
+  background: linear-gradient(110deg, #fcf8ef 10%, #eee8da);
+  font-size: 1.08em;
+  font-style: italic;
+}
+.remembrance-row {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(16px, 2.75vw, 44px);
+  align-items: start;
+  padding-bottom: clamp(7px, .75vw, 12px);
+  border-bottom: 1px solid #dcd5c7;
+}
+.remembrance-row > div { padding: .44em .28em .2em; }
+.remembrance-row h2, .remembrance-context h2 { margin-bottom: .4em; }
+.remembrance-row img, .remembrance-context img { border-radius: 8px; object-fit: cover; }
+.remembrance-morning img { grid-area: 1 / 1; aspect-ratio: 3.12; object-position: center 45%; }
+.remembrance-act {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3.2fr);
+  padding-block: clamp(7px, .75vw, 12px);
+  border-bottom: 0;
+}
+.remembrance-act > div { padding-inline: clamp(0px, 1.55vw, 25px) 0; }
+.remembrance-act img { aspect-ratio: 2.75; object-position: center 36%; }
+.remembrance-context {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.42fr) minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 19px);
+  align-items: stretch;
+}
+.remembrance-context section {
+  display: flex;
+  gap: .65em;
+  padding: .7em .85em;
+  border-radius: 8px;
+  background: linear-gradient(126deg, #e7eadb, #f0eddf);
+}
+.remembrance-context p { font-size: .91em; }
+.remembrance-context h2, .remembrance-gallery h2, .remembrance-thanks h2 { font-size: clamp(1.3rem, 1.98vw, 2rem); }
+.remembrance-context svg { width: 2.35em; height: 2.35em; flex: none; color: var(--remember-gold); }
+.remembrance-context img { height: 100%; aspect-ratio: 1.4; object-position: center 62%; }
+.remembrance-gallery { padding-block: .7em .52em; border-bottom: 1px solid #dcd5c7; }
+.remembrance-gallery h2 { margin-bottom: .35em; }
+.remembrance-gallery ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(6px, .8vw, 13px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.remembrance-gallery a { display: block; border-radius: 7px; }
+.remembrance-gallery img { aspect-ratio: 1.64; object-fit: cover; border-radius: inherit; }
+.remembrance-gallery-3 img { object-position: center top; }
+.remembrance-thanks {
+  padding-block: .4em clamp(18px, 2vw, 32px);
+  background: url("assets/images/stories/remembrance-2026/decorative-remembrance.svg") no-repeat right bottom / clamp(180px, 36vw, 580px) auto;
+}
+.remembrance-closing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.1em;
+}
+.remembrance-closing p { margin-top: .16em; }
+.remembrance-closing blockquote {
+  margin: .62em 0;
+  border-left: 2px solid var(--remember-accent);
+  padding: .35em 0 .6em .95em;
+  color: var(--remember-gold);
+  font-size: clamp(1.4rem, 2.35vw, 2.35rem);
+  font-style: italic;
+}
+.remembrance-links { display: flex; flex-wrap: wrap; gap: .55em; margin-top: .55em; }
+.remembrance-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: .65em;
+  min-height: 44px;
+  padding: .42em 1.1em;
+  background: #faf7ef;
+  color: #604416;
+  border: 1px solid #6a6958;
+  border-radius: 2em;
+  font-size: .83em;
+  font-weight: 700;
+  text-decoration: none;
+}
+.remembrance-links a:hover { background: #eee7d6; text-decoration: underline; }
+.remembrance-links svg { width: 1.2em; height: 1.2em; flex: none; }
+.remembrance a:focus-visible, .remembrance button:focus-visible { outline: 3px solid #955a0b; outline-offset: 3px; }
+.remembrance-viewer { padding: .7rem; width: max-content; max-width: 95vw; max-height: 95dvh; border: 1px solid #675b49; border-radius: 9px; background: #faf7ef; }
+.remembrance-viewer::backdrop { background: #142019da; }
+.remembrance-viewer form { display: flex; justify-content: end; margin-bottom: .5rem; }
+.remembrance-viewer button { min-height: 44px; padding: .35rem .75rem; color: #123d28; background: white; border: 1px solid #385345; border-radius: 5px; cursor: pointer; }
+.remembrance-viewer img { width: auto; max-width: 90vw; max-height: 77dvh; object-fit: contain; }
+@media (max-width: 850px) {
+  .remembrance-context { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .remembrance-context img { grid-column: 1 / -1; max-height: 280px; height: auto; aspect-ratio: 2.5; }
+  .remembrance-context svg { width: 1.9em; height: 1.9em; }
+}
+@media (max-width: 740px) {
+  .remembrance-hero img { aspect-ratio: 2.3; }
+  .remembrance-heading { padding-inline: 0; background-size: 122px auto; }
+  .remembrance-subtitle { padding-right: 110px; }
+  .remembrance-row, .remembrance-closing { grid-template-columns: minmax(0,1fr); gap: .55em; }
+  .remembrance-row > div { padding-inline: 0; }
+  .remembrance-row img { aspect-ratio: 1.95; }
+  .remembrance-morning img { grid-area: auto; }
+  .remembrance-gallery ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .remembrance-thanks { background-size: 145px auto; }
+}
+@media (max-width: 550px) {
+  .remembrance-context { grid-template-columns: minmax(0,1fr); }
+  .remembrance-context img { aspect-ratio: 1.65; }
+  .remembrance-heading { background-size: 98px auto; }
+  .remembrance-subtitle { padding-right: 88px; }
+}

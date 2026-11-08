@@ -10,7 +10,7 @@
    if(!validDate(a.date)||!/^[-a-z0-9]+$/.test(a.slug)||!a.title||typeof a.excerpt!=='string')throw Error('Invalid published story metadata');
    const cover=media[a.slug]?.cover||(a.image&&a.imageAlt?{src:a.image,alt:a.imageAlt}:null);
    if(cover&&(!asset(cover.src)||!cover.alt||(cover.small&&!asset(cover.small))))throw Error('Invalid news thumbnail');
-   items.push({id:'story:'+a.slug,kind:'parish-story',title:a.title,date:a.date,summary:a.excerpt,url:'news/'+a.slug+'.html',image:cover,sourceCategory:a.category||''});
+   items.push({id:'story:'+a.slug,kind:'parish-story',title:a.title,date:a.date,summary:a.excerpt,url:'news/'+a.slug+'.html',image:cover,sourceCategory:a.category||'',...(a.showOnHome===false?{showOnHome:false}:{})});
   }
   for(const p of publications.filter(p=>p.published&&p.type==='pews-news'&&Object.hasOwn(editions,p.date))){
    if(!validDate(p.date)||!p.title)throw Error('Invalid published edition metadata');
