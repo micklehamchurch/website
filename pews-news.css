@@ -65,6 +65,7 @@
 .pews-online { padding:18px 20px; background:#edf5f9; border:1px solid #dae7ec; border-radius:6px; }
 .pews-online-intro { display:flex; gap:12px; align-items:start; }
 .pews-online-symbol { display:grid; place-items:center; flex:0 0 36px; height:36px; color:white; background:#31718b; border-radius:50%; font-size:27px; }
+.pews-zoom-illustration { width:60px; height:auto; flex:none; }
 .pews-online h2 { color:#24576c; font-size:24px; margin-bottom:6px; }
 .pews-online p { font-size:14px; line-height:1.55; }
 .pews-online-action { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-block:12px; }
@@ -76,6 +77,7 @@
 .pews-telephone p { margin:0 0 8px; }
 .pews-telephone ul { display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none; }
 .pews-telephone a { display:flex; align-items:center; min-height:44px; padding:6px 9px; border-radius:4px; font-size:12px; color:#244d60; background:#e0ecf1; text-decoration:underline; text-underline-offset:3px; }
+.pews-sunday .pews-important { font-size:inherit; }
 .pews-timeline > h2 { margin-bottom:8px; }
 .pews-timeline-row { display:grid; grid-template-columns:56px minmax(0,1fr) 70px; gap:14px; padding:15px 0; border-bottom:1px solid var(--stone); }
 .pews-date-badge { display:flex; flex-direction:column; align-items:center; justify-content:center; width:56px; min-height:70px; padding:6px 3px; border-radius:5px; background:#f3f0e8; color:var(--deep); text-align:center; align-self:start; }

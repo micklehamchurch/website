@@ -20,6 +20,13 @@
       "width": 1280,
       "height": 720,
       "alt": "Pews News for 1 November 2026 in a warm autumn church setting"
+    },
+    "2026-11-08": {
+      "src": "assets/images/news-artwork/pews-remembrance-2026-11-08-1280.webp",
+      "small": "assets/images/news-artwork/pews-remembrance-2026-11-08-640.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Illustrated Pews News newspaper for Remembrance Sunday, with red poppies and a wooden cross"
     }
   }
 }
