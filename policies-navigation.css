@@ -25,17 +25,16 @@
 .policies-navigation a:hover { text-decoration:underline; text-underline-offset:4px; }
 .policies-navigation a:focus-visible,.policies-trigger:focus-visible { outline:3px solid #947224; outline-offset:3px; }
 .policies-label-mobile { display:none; }
-@media not all and (min-width:1600px) and (min-width:100em) {
- .header-information .policies-trigger { width:100%; justify-content:flex-start; padding:0; gap:12px; min-height:48px; font:600 20px/1.4 var(--serif); }
- .header-information .policies-trigger::before { display:none; }
- .policies-trigger::after { content:'+'; margin-left:auto; font:400 24px/1 var(--sans); }
- .policies-trigger[aria-expanded=true]::after { content:'−'; }
- .responsive-navigation-dialog .policies-navigation { position:static; transform:none; display:block; width:100%; max-height:none; padding:0 0 8px 18px; border:0; border-left:2px solid #d7c79d; border-radius:0; background:transparent; box-shadow:none; overflow:visible; }
- .policies-menu-visual,.policies-menu-icon,.policies-menu-category h3,.policies-menu-category p,.policies-label-desktop,.policies-menu-all svg { display:none; }
- .policies-label-mobile { display:inline; }
- .policies-menu-content,.policies-menu-category,.policies-menu-category:first-child,.policies-menu-category:last-child { padding:0; border:0; }
- .policies-menu-categories { display:block; }
- .responsive-navigation-dialog .policies-navigation a { display:flex; align-items:center; min-height:48px; padding:10px 6px; font:400 18px/1.4 var(--serif); }
- .policies-menu-all { margin:0; padding:0; border:0; text-align:left; }
- .policies-menu-all a { border-radius:0; background:transparent; gap:4px; }
-}
+/* The compact policies presentation belongs to the shared drawer. */
+.responsive-navigation-dialog .header-information .policies-trigger { width:100%; justify-content:flex-start; padding:0; gap:12px; min-height:48px; font:600 20px/1.4 var(--serif); }
+.responsive-navigation-dialog .header-information .policies-trigger::before { display:none; }
+.responsive-navigation-dialog .policies-trigger::after { content:'+'; margin-left:auto; font:400 24px/1 var(--sans); }
+.responsive-navigation-dialog .policies-trigger[aria-expanded=true]::after { content:'−'; }
+.responsive-navigation-dialog .policies-navigation { position:static; transform:none; display:block; width:100%; max-height:none; padding:0 0 8px 18px; border:0; border-left:2px solid #d7c79d; border-radius:0; background:transparent; box-shadow:none; overflow:visible; }
+.responsive-navigation-dialog .policies-menu-visual, .responsive-navigation-dialog .policies-menu-icon, .responsive-navigation-dialog .policies-menu-category h3, .responsive-navigation-dialog .policies-menu-category p, .responsive-navigation-dialog .policies-label-desktop, .responsive-navigation-dialog .policies-menu-all svg { display:none; }
+.responsive-navigation-dialog .policies-label-mobile { display:inline; }
+.responsive-navigation-dialog .policies-menu-content, .responsive-navigation-dialog .policies-menu-category, .responsive-navigation-dialog .policies-menu-category:first-child, .responsive-navigation-dialog .policies-menu-category:last-child { padding:0; border:0; }
+.responsive-navigation-dialog .policies-menu-categories { display:block; }
+.responsive-navigation-dialog .policies-navigation a { display:flex; align-items:center; min-height:48px; padding:10px 6px; font:400 18px/1.4 var(--serif); }
+.responsive-navigation-dialog .policies-menu-all { margin:0; padding:0; border:0; text-align:left; }
+.responsive-navigation-dialog .policies-menu-all a { border-radius:0; background:transparent; gap:4px; }

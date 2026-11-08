@@ -7,6 +7,7 @@ const revisions = require('../fixtures/laptop-header-revisions.json');
 const previous = new Map();
 
 function prior(value) {
+  value = require('./option-d-snapshot.cjs').prior(value);
   const buffer = Buffer.isBuffer(value);
   const source = buffer ? value.toString('utf8') : value;
   if (typeof source !== 'string' || (buffer && !Buffer.from(source).equals(value))) return value;

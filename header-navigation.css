@@ -31,30 +31,27 @@
 .site-header .header-visit:hover { background:var(--paper); color:var(--deep); }
 
 @media(min-width:1600px) and (min-width:100em) {
-  body.header-photo-page .site-header:not(.is-condensed) { background:rgba(24,57,45,.82); }
-  body.header-photo-page .public-header-space { display:none; }
-  .site-header.is-condensed .nav-wrap { min-height:80px; padding-block:8px; }
+  .has-full-header body.header-photo-page .site-header.option-d { background:rgba(24,57,45,.82); }
+  .has-full-header body.header-photo-page .public-header-space { display:none; }
   /* Keep foreground copy below the new over-photo header, without changing images/crops. */
-  body.header-photo-page .home-hero > .hero-content { top:112px; }
-  body.header-photo-page .home-hero > .home-verse { top:122px; }
-  body.header-photo-page :is(.wedding-hero-copy,.baptism-hero-copy,.funeral-hero-copy,.visit-opening-copy,.parish-about-hero-copy,.history-hero-copy) { padding-top:112px; }
+  .has-full-header body.header-photo-page .home-hero > .hero-content { top:112px; }
+  .has-full-header body.header-photo-page .home-hero > .home-verse { top:122px; }
+  .has-full-header body.header-photo-page :is(.wedding-hero-copy,.baptism-hero-copy,.funeral-hero-copy,.visit-opening-copy,.parish-about-hero-copy,.history-hero-copy) { padding-top:112px; }
 }
-@media not all and (min-width:1600px) and (min-width:100em) {
-  :root { --header-reserve:78px; }
-  .site-header .nav-wrap { display:flex; flex-wrap:nowrap; gap:16px; width:calc(100% - 48px); min-height:78px; padding:10px 0; }
-  .site-header .header-branding { flex:1; margin-right:auto; }
-  .site-header .brand { min-height:48px; gap:12px; }
-  .site-header .brand strong { font-size:24px; }
-  .site-header .brand small { font-size:10px; margin-top:4px; }
-  .site-header .brand-mark { width:48px; height:48px; font-size:28px; }
-  .site-header .nav-primary { display:none; }
-  .site-header .nav-utilities { gap:10px; }
-  .site-header .nav-utilities .header-visit { display:none; }
-  .site-header :is(.compact-search,.nav-calendar,.nav-bible,.menu-toggle) { display:flex; align-items:center; justify-content:center; min-width:44px; width:44px; height:44px; min-height:44px; padding:9px; border:1px solid #f7f3e980; border-radius:50%; background:transparent; color:var(--header-cream); }
-  .site-header .menu-toggle { order:3; margin:0; flex:none; cursor:pointer; }
-  .site-header .menu-toggle > span:first-child { font-size:25px; line-height:1; color:var(--header-gold); }
-  .site-header :is(.header-bible-label,.menu-label) { display:none; }
-}
+ :root { --header-reserve:78px; }
+ .site-header:where(:not(.is-full)) .nav-wrap { display:flex; flex-wrap:nowrap; gap:16px; width:calc(100% - 48px); min-height:78px; padding:10px 0; }
+ .site-header:where(:not(.is-full)) .header-branding { flex:1; margin-right:auto; }
+ .site-header:where(:not(.is-full)) .brand { min-height:48px; gap:12px; }
+ .site-header:where(:not(.is-full)) .brand strong { font-size:24px; }
+ .site-header:where(:not(.is-full)) .brand small { font-size:10px; margin-top:4px; }
+ .site-header:where(:not(.is-full)) .brand-mark { width:48px; height:48px; font-size:28px; }
+ .site-header:where(:not(.is-full)) .nav-primary { display:none; }
+ .site-header:where(:not(.is-full)) .nav-utilities { gap:10px; }
+ .site-header:where(:not(.is-full)) .nav-utilities .header-visit { display:none; }
+ .site-header:where(:not(.is-full)) :is(.compact-search,.nav-calendar,.nav-bible,.menu-toggle) { display:flex; align-items:center; justify-content:center; min-width:44px; width:44px; height:44px; min-height:44px; padding:9px; border:1px solid #f7f3e980; border-radius:50%; background:transparent; color:var(--header-cream); }
+ .site-header:where(:not(.is-full)) .menu-toggle { order:3; margin:0; flex:none; cursor:pointer; }
+ .site-header:where(:not(.is-full)) .menu-toggle > span:first-child { font-size:25px; line-height:1; color:var(--header-gold); }
+ .site-header:where(:not(.is-full)) :is(.header-bible-label,.menu-label) { display:none; }
 @media(max-width:767px) {
   .site-header .nav-wrap { gap:8px; width:calc(100% - max(16px,env(safe-area-inset-left)) - max(16px,env(safe-area-inset-right))); }
   .site-header .brand { gap:9px; }
@@ -202,7 +199,7 @@ body:has(> [data-site-header]) > main[id] { scroll-margin-top:var(--header-reser
 .header-search-results .header-search-all { display:flex; align-items:center; justify-content:space-between; min-height:44px; padding:10px 8px; margin-top:8px; border-top:1px solid #e7d8b740; color:var(--header-gold); font:500 15px/1.5 var(--sans); }
 .header-search-results a:is(:hover,:focus-visible) { color:var(--header-gold); background:#ffffff0c; }
 .header-inline-search a { overflow-wrap:anywhere; }
-@media(min-width:1600px) and (min-width:100em) { .header-search-open .nav-primary { visibility:hidden; } .header-search-open .compact-search { visibility:hidden; } }
+.site-header.is-full.is-condensed.header-search-open :is(.nav-primary,.compact-search) { visibility:hidden; }
 @media(prefers-reduced-motion:no-preference) { .header-inline-search { animation:search-arrive 200ms ease-out; } @keyframes search-arrive { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } } }
 .header-search-results { display:flex; flex-direction:column; overflow:hidden; }
 .header-search-results > p, .header-search-results .header-search-all { flex:none; }
@@ -258,13 +255,13 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 .header-inline-search { --header-gold:#e7d8b7; }
 .site-header .header-inline-form { color:#fbf7ed; }
 .site-header .header-inline-form :is(input,button) { color:#fbf7ed; }
-@media not all and (min-width:1600px) and (min-width:100em) { .site-header .navigation-hub { display:none; } }
+.site-header:where(:not(.is-full)) .navigation-hub { display:none; }
 @media(prefers-reduced-motion:no-preference) { .site-header .navigation-hub { animation:hub-arrive 160ms ease-out; } @keyframes hub-arrive { from { opacity:.5; transform:translateY(-4px); } to { opacity:1; transform:none; } } }
 .hub-heading { flex-direction:row; align-items:center; gap:10px; }
 .hub-heading h2 { font-size:20px; }
 .hub-heading h2::after { display:none; }
-@media(min-width:1600px) and (min-width:100em) { .site-header .navigation-hub .hub-image { height:128px; flex-shrink:0; } }
-@media(min-width:1600px) and (min-width:100em) and (max-height:740px) { .site-header .navigation-hub .hub-image { height:104px; } }
+.site-header.is-full .navigation-hub .hub-image { height:128px; flex-shrink:0; }
+@media(max-height:740px) { .site-header.is-full .navigation-hub .hub-image { height:104px; } }
 .site-header .navigation-hub .hub-column { padding-top:18px; }
 
 .site-header .nav-trigger[aria-expanded="true"]:not(.is-current-section) { box-shadow:none; color:var(--navigation-ink); }
@@ -275,36 +272,26 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 
 /* Desktop hub motion polish: JS owns reveal/retraction; disable the former entrance-only animation. */
 .site-header .navigation-hub { animation:none; }
-@media(min-width:1600px) and (min-width:100em) and (prefers-reduced-motion:no-preference) {
- .site-header .navigation-hub .hub-column { position:relative; inset:auto; isolation:isolate; transition:border-top-color 180ms ease; }
- .site-header .navigation-hub .hub-column::before { content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit; background:linear-gradient(#faebcb,#f8efde); opacity:0; transition:opacity 180ms ease; }
+@media(prefers-reduced-motion:no-preference) {
+ .site-header.is-full .navigation-hub .hub-column { position:relative; inset:auto; isolation:isolate; transition:border-top-color 180ms ease; }
+ .site-header.is-full .navigation-hub .hub-column::before { content:''; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit; background:linear-gradient(#faebcb,#f8efde); opacity:0; transition:opacity 180ms ease; }
  .site-header .navigation-hub .hub-column.is-selected { background:transparent; }
  .site-header .navigation-hub .hub-column.is-selected::before { opacity:1; }
- .site-header .nav-trigger { transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease; }
+ .site-header.is-full .nav-trigger { transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease; }
 }
 
-/* Full header budget: 373px branding + 706px navigation + 403px tools + 40px gaps.
-   Leave room for the shell gutters and a classic scrollbar. The em gate also
-   respects an enlarged browser default font size. */
-/* Parish information shares the real navigation tree with the native mobile drawer. */
-.header-information,.header-opening { display:none; }
-.drawer-information-title { display:none; }
-@media(min-width:1600px) and (min-width:100em) {
- .site-header:not(.is-condensed) .nav-wrap { width:calc(100% - 48px); grid-template-rows:44px 48px; column-gap:20px; padding-block:8px; }
- .site-header:not(.is-condensed) .header-branding { grid-row:1/3; align-self:stretch; min-width:max-content; padding-right:20px; border-right:1px solid var(--navigation-line); }
- .site-header:not(.is-condensed) .nav-primary,.site-header:not(.is-condensed) .nav-utilities { grid-row:2; }
- .site-header:not(.is-condensed) .header-information { display:flex; align-items:center; grid-column:2; grid-row:1; align-self:stretch; gap:18px; border-bottom:1px solid var(--navigation-line); }
- .site-header:not(.is-condensed) .header-opening { display:flex; justify-content:flex-end; align-items:center; grid-column:3; grid-row:1; align-self:stretch; border-bottom:1px solid var(--navigation-line); }
- .header-information a,.site-header .header-opening { color:var(--navigation-ink); font:500 16px/1.4 var(--serif); min-height:44px; gap:9px; }
- .header-information a { display:inline-flex; align-items:center; }
- .header-information a + a { position:relative; padding-left:18px; }
- .header-information a + a::before { content:''; position:absolute; left:0; height:20px; border-left:1px solid var(--navigation-gold); }
- .header-information svg,.header-opening svg { color:var(--navigation-gold); width:23px; height:23px; flex:none; }
- .header-information a:hover,.site-header .header-opening:hover { text-decoration:underline; text-underline-offset:4px; }
- .site-header:not(.is-condensed) .navigation-hub { max-height:calc(100dvh - 140px); }
- /* Extra height is absorbed by the header's existing fixed reserve, not the page flow. */
- :root { --header-reserve:108px; }
-}
+/* Parish information belongs to the upper tier and the shared drawer. */
+.header-information,.header-opening,.drawer-information-title { display:none; }
+.site-header.is-full .header-information a,.site-header.is-full .header-opening { color:var(--navigation-ink); font:500 16px/1.4 var(--serif); min-height:44px; gap:9px; }
+.site-header.is-full .header-information a { display:inline-flex; align-items:center; }
+.site-header.is-full .header-information a + a { position:relative; padding-left:18px; }
+.site-header.is-full .header-information a + a::before { content:''; position:absolute; left:0; height:20px; border-left:1px solid var(--navigation-gold); }
+.site-header.is-full .header-information svg,.header-opening svg { color:var(--navigation-gold); width:23px; height:23px; flex:none; }
+.site-header.is-full .header-information a:hover,.site-header.is-full .header-opening:hover { text-decoration:underline; text-underline-offset:4px; }
+:root.has-full-header { --header-reserve:108px; }
+.site-header.is-condensed .nav-wrap { min-height:80px; }
+.site-header.is-full.is-condensed .nav-wrap { padding-block:8px; }
+.site-header.is-full.is-condensed .header-branding { min-width:max-content; }
 .responsive-navigation-dialog .header-information { display:grid; grid-template-columns:1fr; gap:0; padding:8px 0 16px; margin-bottom:8px; border-bottom:1px solid var(--navigation-line); }
 .responsive-navigation-dialog .drawer-information-title { display:block; margin:0 0 8px; color:#6e551b; font:600 12px/1.5 var(--sans); letter-spacing:.1em; text-transform:uppercase; }
 .responsive-navigation-dialog .header-information a { display:flex; align-items:center; gap:12px; min-height:48px; color:var(--navigation-ink); font:600 20px/1.4 var(--serif); }
@@ -314,34 +301,25 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 
 /* The approved church illustration replaces only the header mark, including its drawer copy. */
 .site-header .header-church-mark,.responsive-navigation-heading .header-church-mark { display:block; flex:none; object-fit:contain; width:52px; height:52px; }
-@media(min-width:1600px) and (min-width:100em) { .site-header:not(.is-condensed) .header-church-mark { width:80px; height:80px; } }
+.site-header.is-full:not(.is-condensed) .header-church-mark { width:80px; height:80px; }
 @media(max-width:767px) { .site-header .header-church-mark { width:44px; height:44px; } }
 @media(orientation:landscape) and (max-width:999px) and (max-height:460px) { html body .site-header .header-church-mark { width:36px; height:36px; } }
 .responsive-navigation-heading .header-church-mark { width:44px; height:44px; }
 
-/* Church opening link: preserve the row's rule without making empty space a link. */
-@media(min-width:1600px) and (min-width:100em) {
- .site-header:not(.is-condensed) .header-opening { justify-self:end; width:max-content; padding-inline:4px; margin-right:-4px; border-bottom-color:transparent; }
- .site-header:not(.is-condensed) .nav-wrap::after { content:''; grid-column:3; grid-row:1; align-self:stretch; border-bottom:1px solid var(--navigation-line); pointer-events:none; }
-}
-
 /* Compact laptops and landscape tablets expose the existing three shortcuts.
    Narrow portrait layouts keep their existing drawer-only navigation. */
-@media (orientation:landscape) and (min-width:780px) and (width < 1600px),
-       (orientation:landscape) and (min-width:780px) and (width < 100em),
-       (1000px <= width < 1600px),
-       (min-width:1000px) and (width < 100em) {
- .site-header .nav-wrap { flex-wrap:nowrap; gap:8px; }
- .site-header .header-branding { flex:0 0 auto; margin-right:0; }
- .site-header .nav-primary { display:flex; flex:1 1 auto; min-width:0; gap:8px; }
- .site-header .nav-primary > .nav-link,
- .site-header .nav-primary > .nav-item:not(:is([data-category="services"],[data-category="life-events"],[data-category="community"])) { display:none; }
- .site-header .nav-trigger { min-height:44px; padding-inline:3px; gap:3px; }
- .site-header .nav-utilities { flex:none; gap:4px; }
- .site-header .nav-primary .dropdown { max-height:calc(100dvh - var(--header-reserve) - 20px); background:var(--navigation-paper,#fbf7ed); color:var(--navigation-ink); }
- .site-header .nav-primary .hub-heading { padding:4px 6px; }
- .site-header .nav-primary :is(.hub-description,.hub-image) { display:none; }
- .site-header .nav-primary .hub-links a { font-size:17px; }
+@media (orientation:landscape) and (min-width:780px), (min-width:1000px) {
+ .site-header:where(:not(.is-full)) .nav-wrap { flex-wrap:nowrap; gap:8px; }
+ .site-header:where(:not(.is-full)) .header-branding { flex:0 0 auto; margin-right:0; }
+ .site-header:where(:not(.is-full)) .nav-primary { display:flex; flex:1 1 auto; min-width:0; gap:8px; }
+ .site-header:where(:not(.is-full)) .nav-primary > .nav-link,
+ .site-header:where(:not(.is-full)) .nav-primary > .nav-item:not(:is([data-category="services"],[data-category="life-events"],[data-category="community"])) { display:none; }
+ .site-header:where(:not(.is-full)) .nav-trigger { min-height:44px; padding-inline:3px; gap:3px; }
+ .site-header:where(:not(.is-full)) .nav-utilities { flex:none; gap:4px; }
+ .site-header:where(:not(.is-full)) .nav-primary .dropdown { max-height:calc(100dvh - var(--header-reserve) - 20px); background:var(--navigation-paper,#fbf7ed); color:var(--navigation-ink); }
+ .site-header:where(:not(.is-full)) .nav-primary .hub-heading { padding:4px 6px; }
+ .site-header:where(:not(.is-full)) .nav-primary :is(.hub-description,.hub-image) { display:none; }
+ .site-header:where(:not(.is-full)) .nav-primary .hub-links a { font-size:17px; }
 }
 @media (orientation:landscape) and (min-width:780px) and (max-width:999px) {
  .site-header .brand { gap:6px; }
@@ -350,4 +328,47 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
  .site-header .nav-primary { gap:2px; }
  .site-header .nav-trigger { font-size:15px; }
  .site-header .nav-chevron { width:12px; height:12px; }
+}
+
+/* Option D uses the original controls in two rows only at the top. */
+.site-header.option-d {
+  --tier-gap:20px;
+  --tier-gutters:48px;
+}
+.site-header.option-d .nav-wrap {
+  grid-template-columns:max-content minmax(0,1fr);
+  grid-template-rows:48px 48px;
+  column-gap:var(--tier-gap);
+  padding-block:6px;
+  width:calc(100% - var(--tier-gutters));
+  min-height:108px;
+}
+.site-header.option-d .header-branding {
+  grid-row:1/3;
+  align-self:stretch;
+  min-width:max-content;
+  padding-right:var(--tier-gap);
+  border-right:1px solid var(--navigation-line);
+}
+.site-header.option-d :is(.option-d-upper,.option-d-lower) {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--tier-gap);
+  min-width:0;
+  grid-column:2;
+}
+.site-header.option-d .option-d-upper { grid-row:1; box-shadow:inset 0 -1px var(--navigation-line); }
+.site-header.option-d .option-d-lower { grid-row:2; }
+.site-header.option-d :is(.option-d-tools,.option-d-right) { display:flex; align-items:center; flex:none; }
+.site-header.option-d .option-d-tools { gap:12px; }
+.site-header.option-d .option-d-right { gap:var(--tier-gap); }
+.site-header.option-d .header-information { display:flex; align-items:center; gap:18px; flex:none; }
+.site-header.option-d .header-opening { display:flex; align-items:center; width:max-content; min-height:44px; }
+.site-header.option-d :is(.nav-primary,.header-visit) { flex:none; }
+.site-header.option-d .nav-utilities { display:none; }
+@media (width < 1366px) {
+  .site-header.option-d { --tier-gap:12px; --tier-gutters:32px; }
+  .site-header.option-d .nav-primary { gap:4px; }
+  .site-header.option-d :is(.nav-primary > .nav-link,.nav-trigger) { padding-inline:5px; }
 }

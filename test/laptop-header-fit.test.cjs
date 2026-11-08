@@ -3,23 +3,21 @@ const fs = require('node:fs');
 const test = require('node:test');
 const { transformSync } = require('esbuild');
 
-const full = '(min-width:1600px) and (min-width:100em)';
-const compact = 'not all and ' + full;
 const read = file => fs.readFileSync(file, 'utf8').replace(/\r/g, '');
 
-test('header, search, drawer, policies and Home use the same width gate', () => {
-  for (const file of ['site.js', 'responsive-navigation.js', 'policies-navigation.js', 'public-header.js']) {
-    assert(read(file).includes(`matchMedia('${compact}')`), file);
-    assert(!read(file).includes('(max-height:999px)'), file);
+test('Option D coordinates the drawer, policies and search with the measured header mode', () => {
+  assert(read('site.js').includes('globalThis.churchHeaderMode = headerMode'));
+  for (const file of ['responsive-navigation.js', 'policies-navigation.js', 'public-header.js']) {
+    assert(read(file).includes('globalThis.churchHeaderMode'), file);
   }
-  assert(read('header-search.js').includes(`matchMedia('${full}')`));
-  for (const file of ['header-navigation.css', 'home-performance.css']) assert(read(file).includes(full), file);
-  for (const file of ['header-navigation.css', 'policies-navigation.css']) assert(read(file).includes(compact), file);
-  assert(read('header-navigation.css').includes('min-width:max-content; padding-right:20px'));
+  assert(read('public-header.js').includes("matchMedia('(min-width:1280px) and (min-width:80em)')"));
+  assert(read('header-search.js').includes("header.classList.contains('is-full')&&header.classList.contains('is-condensed')"));
+  assert(read('header-navigation.css').includes('@media (width < 1366px)'));
+  assert(read('home-performance.css').includes('.has-full-header'));
 });
 
 test('the shared delivery cache keys refresh all coupled header assets', () => {
-  const version = '20261108-header-fit-1';
+  const version = '20261108-option-d-1';
   for (const url of ['header-navigation.css?navigation=', 'responsive-navigation.js?v=', 'public-header.js?v=']) {
     assert(read('site.js').includes(url + version), url);
   }

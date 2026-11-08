@@ -3,10 +3,12 @@
   'use strict';
   const nav=document.querySelector('#mainNav'),opener=document.querySelector('.menu-toggle');
   if(!nav||!opener||typeof HTMLDialogElement==='undefined')return;
-  const compact=matchMedia('not all and (min-width:1600px) and (min-width:100em)'),slot=document.createComment('Shared navigation position');nav.before(slot);
+  const compact=globalThis.churchHeaderMode,slot=document.createComment('Shared navigation position');nav.before(slot);
   const contacts=document.createElement('div');contacts.className='drawer-only drawer-contact';
   const script=document.querySelector('script[src*="site.js"]');const url=file=>new URL(file,script.src).href;
-  contacts.innerHTML=`<a href="${url('contact.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Contact</a><a href="${url('finding-us.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Find Us</a>`;nav.querySelector('.header-visit').before(contacts);
+  contacts.innerHTML=`<a href="${url('contact.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Contact</a><a href="${url('finding-us.html')}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg>Find Us</a>`;
+  const utilities=nav.querySelector('.nav-utilities'),visit=utilities.querySelector('.header-visit');
+  if(visit)visit.before(contacts);else utilities.append(contacts);
   const dialog=document.createElement('dialog');dialog.id='responsive-navigation';dialog.className='responsive-navigation-dialog';dialog.setAttribute('aria-label','Website navigation');dialog.setAttribute('aria-modal','true');dialog.innerHTML='<div class="responsive-navigation-heading"><button class="responsive-navigation-close" type="button" aria-label="Close navigation" autofocus>×</button></div><div class="responsive-navigation-scroll"></div>';
   const brand=document.querySelector('.header-branding .brand').cloneNode(true);dialog.querySelector('.responsive-navigation-heading').prepend(brand);document.body.append(dialog);
   const closeButton=dialog.querySelector('button'),scroll=dialog.querySelector('.responsive-navigation-scroll');let savedScroll=0,outsidePress=false;
