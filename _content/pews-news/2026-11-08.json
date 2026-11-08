@@ -1,0 +1,289 @@
+{
+  "date": "2026-11-08",
+  "subtitle": "Remembrance Sunday",
+  "readings": "Isaiah 2.1-5 and Matthew 5.1-10",
+  "collect": "God, our refuge and strength, bring near the day when wars shall cease and poverty and pain shall end, that earth may know the peace of heaven through Jesus Christ our Lord. Amen.",
+  "services": [
+    {
+      "time": "10am",
+      "title": "Remembrance Service",
+      "place": "in Church"
+    },
+    {
+      "time": "11am",
+      "title": "Act of Remembrance",
+      "place": "Around the war memorial"
+    }
+  ],
+  "serviceNote": "Afterwards we have been kindly invited to have refreshments at RGS-Surrey Hills School.",
+  "serviceNotice": "Please note there is NO service of Holy Communion at 8am in Westhumble Chapel",
+  "editionArt": {
+    "image": "remembrance"
+  },
+  "zoom": {
+    "url": "https://us02web.zoom.us/j/81268126840?pwd=pBJqKgCS9Rm73Hm5JYrBUV8azuwjWZ.1",
+    "meeting": "812 6812 6840",
+    "passcode": "221883",
+    "phones": [
+      "0131 460 1196",
+      "0208 080 6591",
+      "0203 481 5237",
+      "0203 481 5240",
+      "0203 901 7895"
+    ],
+    "image": "zoom",
+    "intro": "If you are zooming, please try and join at least five minutes before the service is due to start; the codes are set out below",
+    "dialIn": "If you would prefer to dial in on your telephone, call any of the numbers below to listen to the service: there will be a recorded message and you will be asked to enter the Meeting ID and then the Passcode."
+  },
+  "sections": [
+    {
+      "id": "weeks-ahead",
+      "title": "The weeks ahead",
+      "layout": "timeline",
+      "notices": [
+        {
+          "title": "A Concert for Remembrance Sunday",
+          "when": "Sunday 8th November at 7pm",
+          "dates": [
+            "2026-11-08"
+          ],
+          "paragraphs": [
+            "A Concert for Remembrance Sunday by Mickleham Choral Society in church. Tickets £15, children 12 years and under £7.50. Book tickets via Events page on www.mickleham choral.org.uk. More information on page 3 of the November Parish Magazine."
+          ],
+          "placement": "sidebar",
+          "featured": true,
+          "emphasis": "Please note that the venue is incorrect in the October magazine: the concert will be in St Michael’s Church not at the Village Hall."
+        },
+        {
+          "title": "December/January Parish Magazine copy deadline",
+          "when": "Sunday 8th November",
+          "dates": [
+            "2026-11-08"
+          ],
+          "paragraphs": [
+            "Copy deadline for the December/January Parish Magazine. This issue of the Magazine will cover two months, to the end of January, so please let the editors have all dates in good time. Send your copy and articles to editor@micklehammag.co.uk."
+          ]
+        },
+        {
+          "title": "Monday evening Bible study",
+          "when": "Monday 9th November at 7.45pm until 9pm",
+          "dates": [
+            "2026-11-09"
+          ],
+          "paragraphs": [
+            "The Monday evening Bible study group meets at Westhumble Chapel. Please contact Amanda on aewadsworth@hotmail.com if you would like more information about joining this group."
+          ]
+        },
+        {
+          "title": "The Alpha course",
+          "when": "Monday 9th November at 7.30pm (finishing by 9pm)",
+          "dates": [
+            "2026-11-09"
+          ],
+          "paragraphs": [
+            "The Alpha course meets in The Ranmore Room (the vestry)."
+          ]
+        },
+        {
+          "title": "PCC meeting",
+          "when": "Tuesday 10th November at 7.30pm",
+          "dates": [
+            "2026-11-10"
+          ],
+          "paragraphs": [
+            "The PCC meets in the Ranmore Room."
+          ],
+          "image": "pcc"
+        },
+        {
+          "title": "Thursday morning Bible study",
+          "when": "Thursday 12th November at 11am for 11.30am start until 12.30pm",
+          "dates": [
+            "2026-11-12"
+          ],
+          "paragraphs": [
+            "The Thursday morning Bible Study group meets at Westhumble Chapel. If you would like to join this group, please email admin@micklehamchurch.org.uk or call Alison Wood on 01372 376443 or 07905 985928."
+          ],
+          "image": "bible-study"
+        }
+      ]
+    },
+    {
+      "id": "dates-ahead",
+      "title": "Dates for your diary",
+      "layout": "grid",
+      "notices": [
+        {
+          "title": "Remembrance Sunday",
+          "when": "Sunday 8th November",
+          "dates": [
+            "2026-11-08"
+          ],
+          "paragraphs": [
+            "With the Act of Remembrance around the war memorial at 11am.",
+            "Poppies will be available to buy in church. Payment can be made by cash or there is a QR code which connects directly to the collection being made in Mickleham and Westhumble for the Royal British Legion."
+          ],
+          "image": "poppy-memorial",
+          "extraImage": "poppy-qr",
+          "poppyFeature": true
+        },
+        {
+          "title": "Lights to Remember",
+          "when": "Sunday 15th November at 4pm",
+          "dates": [
+            "2026-11-15"
+          ],
+          "paragraphs": [
+            "Lights to Remember service in church, when we will gather to remember and give thanks for the people we have known and loved, who have died both recently and in the past. The service will include hymns, prayers and readings, a list of names of those to remember and the opportunity to light a candle.",
+            "See invitation attached to covering email."
+          ],
+          "image": "lights",
+          "featured": true
+        },
+        {
+          "title": "Interment of Ashes",
+          "when": "Monday 16th November at 11.30am",
+          "dates": [
+            "2026-11-16"
+          ],
+          "paragraphs": [
+            "Interment of Ashes of the late Jane Miller in the churchyard."
+          ]
+        },
+        {
+          "title": "T@3",
+          "when": "Monday 16th November at 3pm",
+          "dates": [
+            "2026-11-16"
+          ],
+          "paragraphs": [
+            "T@3 hosted by Julia and Richard Siberry at Old House, Old London Road, Mickleham RH5 6EQ. All welcome – Transport available. For directions, please speak to Julia in church or call her on 01372 375303. If you can help at future events, please contact Julia at siberrman@btinternet.com."
+          ],
+          "emphasis": "Please note there is no T@3 in December."
+        },
+        {
+          "title": "Ascending Deeper",
+          "when": "Tuesday 17th November at 7.30pm",
+          "dates": [
+            "2026-11-17"
+          ],
+          "paragraphs": [
+            "Ascending Deeper evening on the topic of What does the Bible say about Migration? Thank you to those who have let me know they are intending to come but if you have not done so, please get in touch by this Sunday evening as numbers need to be finalised. Thank you. Sandra"
+          ]
+        },
+        {
+          "title": "Women’s Breakfast",
+          "when": "Saturday 21st November from 9am till 10am",
+          "dates": [
+            "2026-11-21"
+          ],
+          "paragraphs": [
+
+            "Women’s Breakfast at The Stepping Stones. Book with Alison Wood if you would like to join this friendly group: call 07905 985928 or 01372 376443 or email Alison on alison.wood29@btinternet.com."
+          ]
+        },
+        {
+          "title": "Children’s Christmas Concert: The Snowman",
+          "when": "Sunday 22nd November at 4pm",
+          "dates": [
+            "2026-11-22"
+          ],
+          "paragraphs": [
+            "There is a Children’s Christmas Concert ‘The Snowman’ in church followed by the lighting of the Christmas Trees outside the church at 4.45pm and refreshments provided by the Church Community Group. Retiring collection in aid of UNICEF."
+          ],
+          "image": "snowman",
+          "featured": true
+        },
+        {
+          "title": "Compline",
+          "when": "Tuesday 24th November at 7pm (please note later date)",
+          "dates": [
+            "2026-11-24"
+          ],
+          "paragraphs": [
+            "Compline in church. All are welcome to come along for a short service and period of reflection, prayer and fellowship."
+          ]
+        },
+        {
+          "title": "Autumn Soup Lunch",
+          "when": "Thursday 26th November at 12.45 for 1pm",
+          "dates": [
+            "2026-11-26"
+          ],
+          "paragraphs": [
+            "Autumn Soup Lunch in Mickleham Village Hall. Please make a note in your diaries of this remaining date for these popular lunches. Delicious homemade soups, bread and cheese and good company. No charge but donations gratefully received, with all proceeds going to local charities (including the Foodbank).",
+            "To help with numbers, please book your place with Andy Diamond by calling 07789 775354 or email him at adiamond714@gmail.com, or sign the list at the back of the church."
+          ],
+          "image": "soup",
+          "featured": true
+        },
+        {
+          "title": "Men’s Breakfast",
+          "when": "Saturday 28th November from 9am till 10am",
+          "dates": [
+            "2026-11-28"
+          ],
+          "paragraphs": [
+            "Men’s Breakfast at The Stepping Stones. Book with Andy Diamond: email adiamond714@gmail.com. All welcome."
+          ]
+        },
+        {
+          "title": "Christingle Craft Workshop and Family Service",
+          "when": "Sunday 6th December at 10am for the workshop, followed by the service at 11am",
+          "dates": [
+            "2026-12-06"
+          ],
+          "paragraphs": [
+            "Please note that the Christingle Craft Workshop and Family Service will be on Sunday 6th December, at 10am in church for the workshop followed by the service at 11am.",
+            "All families welcome to come and make their Christingles and enjoy Christmas crafts together: the workshop is free but please book with Francesca on franikins@hotmail.co.uk to help us plan for numbers and supplies."
+          ],
+          "image": "christingle",
+          "featured": true
+        }
+      ]
+    }
+  ],
+  "foodbank": {
+    "intro": "Thank you so much for your continued kindness and support. Here are some suggested items that are needed this week:",
+    "items": [
+      "Tinned Meat",
+      "Tinned Meat Meals for 1",
+      "Toilet Tissue",
+      "Shower Gel",
+      "Toothbrushes",
+      "Tinned Potatoes"
+    ],
+    "donations": "You can also drop donations off in Church on Sunday morning, at the monthly Chapel Coffee morning (10am to 12noon) at The Stepping Stones, or at any time at any of the usual locations in Mickleham and Westhumble, details in the Parish Magazine.",
+    "image": "foodbank"
+  },
+  "features": [
+    {
+      "id": "wintershall-nativity",
+      "title": "The Nativity Journey at Wintershall - 15th to 20th December 2026",
+      "image": "nativity",
+      "paragraphs": [
+        "If you have never been to the Wintershall Nativity you may be interested in finding out more about the event. Wintershall is a private estate near Godalming which hosts a re-enactment of the Nativity story.",
+        "Attendees can discover the true meaning of Christmas with an unforgettable immersive event for all the family. They stand with the shepherds, walk with Mary, Joseph and the donkey, journey with Roman soldiers and enter the stable to watch the miracle unfold. See the flyer attached to covering email."
+      ],
+      "links": [
+        {
+          "label": "Tickets can be booked here",
+          "url": "https://www.wintershall.org.uk/event/the-nativity-journey/"
+        },
+        {
+          "label": "A short introductory video is available here",
+          "url": "https://youtu.be/xoAFCjrJC88?si=ocGQrvQq3dylr5CN"
+        }
+      ]
+    },
+    {
+      "id": "macmillan-thanks",
+      "title": "A message from Liz Absalom",
+      "image": "macmillan",
+      "paragraphs": [
+        "Thank you very much for your support for Macmillan Cancer Research at the Coffee Morning at Chapel Farm last week. I am just about to bank the money raised. This year the total has come to £2,546.50 which is an incredible result. What an amazing team of friends and neighbours you all are. Thank you. I hope that those of you who came along enjoyed the morning and for those of you who couldn’t make it - I hope to see you next year! The money raised from these coffee mornings is vital in allowing Macmillan to continue their work supporting those with cancer in so many ways. Thank you. Please pass on my thanks to anyone who you may have brought with you to the farm last week. It was amazing to see so many people here."
+      ]
+    }
+  ],
+  "heroImage": "assets/images/about/church-hero.webp"
+}

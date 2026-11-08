@@ -2,6 +2,21 @@
   "version": 1,
   "items": [
     {
+      "id": "pews-news:2026-11-08",
+      "kind": "pews-news",
+      "title": "Pews News — 8 November 2026",
+      "date": "2026-11-08",
+      "summary": "Remembrance Sunday, church services, parish notices and the Wintershall Nativity Journey.",
+      "url": "pews-news/2026-11-08.html",
+      "image": {
+        "src": "assets/images/news-artwork/pews-remembrance-2026-11-08-1280.webp",
+        "small": "assets/images/news-artwork/pews-remembrance-2026-11-08-640.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Illustrated Pews News newspaper for Remembrance Sunday, with red poppies and a wooden cross"
+      }
+    },
+    {
       "id": "pews-news:2026-11-01",
       "kind": "pews-news",
       "title": "Pews News — 1 November 2026",

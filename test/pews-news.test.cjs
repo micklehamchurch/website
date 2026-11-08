@@ -93,21 +93,22 @@ test('18 October retains its own service, collect, notices, contacts, images and
   const pdf = fs.readFileSync(path.join(source,'assets/documents/news/pews-news/pews-news-2026-10-18.pdf'));
   assert.equal(require('node:crypto').createHash('sha256').update(pdf).digest('hex'),'c999695e51666802c0180494d4f53705b28cc8961dce7915a67c5c19e6a5df1f');
 });
-test('online archive has three real HTML editions and disjoint PDF-only archive on every page', () => {
-  for (const date of ['2026-11-01','2026-10-25','2026-10-18']) {
+test('online archive has four real HTML editions and disjoint PDF-only archive on every page', () => {
+  for (const date of ['2026-11-08','2026-11-01','2026-10-25','2026-10-18']) {
     const html = fs.readFileSync(path.join(source,`pews-news/${date}.html`),'utf8');
     const online = html.match(/<section class="pews-archive-section pews-online-archive"[\s\S]*?<\/section>/)[0];
     const pdfs = html.match(/<section class="pews-archive-section pews-pdf-archive"[\s\S]*?<\/section>/)[0];
-    assert.match(online,/2026 — 3 editions/);
+    assert.match(online,/2026 — 4 editions/);
+    assert(online.indexOf('2026-11-08.html')<online.indexOf('2026-11-01.html'));
     assert(online.indexOf('2026-11-01.html')<online.indexOf('2026-10-25.html')); assert(online.indexOf('2026-10-25.html')<online.indexOf('2026-10-18.html'));
     assert.match(online,new RegExp(`href="pews-news/${date}.html" aria-current="page"`));
     assert(!online.includes('target=')); assert(!online.includes('.pdf'));
-    assert(!pdfs.includes('2026-11-01')); assert(!pdfs.includes('2026-10-18')); assert(!pdfs.includes('2026-10-25'));
+    assert(!pdfs.includes('2026-11-08')); assert(!pdfs.includes('2026-11-01')); assert(!pdfs.includes('2026-10-18')); assert(!pdfs.includes('2026-10-25'));
     for (const d of ['2026-10-10','2026-10-04','2026-09-27']) assert(pdfs.includes(`${d}.pdf`));
   }
   const landing = fs.readFileSync(path.join(source,'news.html'),'utf8');
   assert.match(landing,/href="pews-news\/2026-10-18.html"/); assert.match(landing,/datetime="2026-10-18"/);
-  assert.deepEqual(require('../pews-news-data.json').editions,['2026-11-01','2026-10-25','2026-10-18']);
+  assert.deepEqual(require('../pews-news-data.json').editions,['2026-11-08','2026-11-01','2026-10-25','2026-10-18']);
 });
 test('25 October edition body remains unchanged outside the archive and masthead', () => {
   const cp = require('node:child_process');
@@ -164,6 +165,29 @@ test('all generated editions share one masthead and latest alias promotes the ne
   if(hero)assert.equal(current,hero);hero=current;
   assert(!current.includes('2026-11-01'));assert(!current.includes('2026-10-25'));
  }
- const alias=fs.readFileSync(path.join(source,'pews-news.html'),'utf8');assert(alias.includes('datetime="2026-11-01"'));assert(alias.includes('All Saints’ Day'));
+ const alias=fs.readFileSync(path.join(source,'pews-news.html'),'utf8');assert(alias.includes('datetime="2026-11-08"'));assert(alias.includes('Remembrance Sunday'));
  for(const date of ['2026-10-18','2026-10-25'])assert.deepEqual(require(`../_content/pews-news/${date}.json`),JSON.parse(approvedNavigationSnapshot(require('node:child_process').execFileSync('git',['show',`75794f2:_content/pews-news/${date}.json`],{cwd:source,encoding:'utf8'}))));
+});
+
+
+test('8 November preserves Remembrance services, source notices, links and original PDF', () => {
+  const date = '2026-11-08';
+  const edition = require('../_content/pews-news/2026-11-08.json');
+  const html = fs.readFileSync(path.join(source,'pews-news',date+'.html'),'utf8');
+  for (const phrase of [edition.collect,edition.readings,edition.serviceNote,edition.serviceNotice,
+    edition.zoom.intro,edition.zoom.dialIn,...edition.zoom.phones,'4.45pm','Retiring collection in aid of UNICEF','£2,546.50']) {
+    assert(html.includes(text(phrase)),phrase);
+  }
+  assert.deepEqual(edition.services.map(s=>s.time),['10am','11am']);
+  assert.deepEqual(edition.foodbank.items,['Tinned Meat','Tinned Meat Meals for 1','Toilet Tissue','Shower Gel','Toothbrushes','Tinned Potatoes']);
+  assert.equal(edition.sections.flatMap(s=>s.notices).length,17);
+  for (const entry of [...edition.sections.flatMap(s=>s.notices),...edition.features]) {
+    assert(html.includes(text(entry.title)),entry.title);
+    for (const p of entry.paragraphs) assert(html.includes(text(p)),entry.title);
+    if (entry.emphasis) assert(html.includes(text(entry.emphasis)),entry.title);
+    for (const link of entry.links || []) assert(html.includes(link.url),entry.title);
+  }
+  assert.match(html,/href="https:\/\/www\.micklehamchoral\.org\.uk">www\.mickleham choral\.org\.uk/);
+  assert.equal(require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(source,'assets/documents/news/pews-news/pews-news-'+date+'.pdf'))).digest('hex'),
+    'e09291157f2d8ab11eca3deb54a1a53ab978e147257614e52eb8c74d86de7c0b');
 });

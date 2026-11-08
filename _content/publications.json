@@ -62,6 +62,15 @@
       "description": "All Saints’ Day — Worship for All and Shoebox Sunday, parish notices and the Wintershall Nativity Journey.",
       "pdf": "assets/documents/news/pews-news/pews-news-2026-11-01.pdf",
       "published": true
+    },
+    {
+      "id": "pews-news-2026-11-08",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-11-08",
+      "description": "Remembrance Sunday, church services, parish notices and the Wintershall Nativity Journey.",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-11-08.pdf",
+      "published": true
     }
   ]
 }

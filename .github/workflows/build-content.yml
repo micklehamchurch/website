@@ -318,6 +318,14 @@ jobs:
              ! grep -Ev '^(index\.html|home-news-render\.cjs|home-news\.js|home-(editorial|life-events|news)\.css|build-clergy-archive\.js|search-index\.json|test/[^/]+\.test\.cjs|scripts/check-home-discovery-layout\.cjs|youtube-sunday-source\.json|sunday-service\.json|assets/images/sunday-services/.*|azure-function/(src/(index|sunday-service-(model|source|sync)|functions/sunday-service-timer)\.js|verify-package\.js|test/(sunday-service|function-registration)\.test\.js)|docs/latest-sunday-service\.md|\.github/workflows/deploy-azure-function\.yml|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node home-news-render.cjs
             node build-search-index.js
+          # Pews News releases rebuild only publication outputs and their existing News/Home projections.
+          elif grep -Eq '^_content/pews-news/[^/]+\.json$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(_content/(pews-news/[^/]+\.json|pews-news-images\.json|publications\.json)|assets/(documents/news/pews-news/[^/]+\.pdf|images/(pews-news|news-artwork)/.*)|build-pews-news\.js|pews-news\.css|pews-news(-data\.json|\.html|/[^/]+\.html)|news(-publication-artwork\.json|-feed\.json|\.html)|index\.html|search-index\.json|(admin/)?publications-data\.json|test/(home-news|home-sunday-service|news-hub|pews-news)\.test\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node build-publications.js
+            node build-pews-news.js
+            node build-news-hub.js
+            node build-typography-preview.js news.html pews-news.html pews-news/*.html
+            node build-search-index.js
           # News/Home-preview refinements must not refresh unrelated date-sensitive service data.
           elif git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" > /tmp/content-changed-paths &&
              ! grep -Ev '^(news\.html|news-feed\.json|news-feed-model\.js|news-hub\.(css|js)|home-news-render\.cjs|home-news\.(css|js)|home-about\.css|home-life-events\.css|assets/images/home/life-events/.*|test/home-life-events\.test\.cjs|docs/home-life-events\.md|test/home-about\.test\.cjs|test/home-content\.test\.cjs|docs/home-about\.md|index\.html|test/home-news\.test\.cjs|test/parish-gallery\.test\.cjs|docs/home-news\.md|build-news-hub\.js|news-publication-artwork\.json|search-index\.json|docs/news-hub\.md|test/news-hub\.test\.cjs|assets/images/news-artwork/.*|\.github/workflows/build-content\.yml)$' /tmp/content-changed-paths; then
