@@ -384,6 +384,7 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
   border-radius:8px;
 }
 .header-social-link svg { flex:none; }
+.site-header .header-social-link svg { width:27px; height:27px; }
 .header-social-instagram { color:#c13584; }
 .header-social-youtube { color:#ff0000; }
 .header-social-link:focus-visible { outline:2px solid var(--navigation-gold); outline-offset:-2px; }
@@ -395,6 +396,36 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 }
 .responsive-navigation-dialog .header-social-link { gap:8px; padding-inline:6px; }
 .responsive-navigation-dialog .header-social-link span { color:var(--navigation-ink); }
+.site-header.is-full .header-visit {
+  background:var(--navigation-ink);
+  border-color:var(--navigation-ink);
+  color:var(--navigation-ivory);
+}
+.site-header.is-full .header-visit:hover {
+  background:#24483b;
+  border-color:#24483b;
+  color:var(--navigation-ivory);
+}
+.site-header.is-full .header-visit:focus-visible {
+  outline:2px solid var(--navigation-gold);
+  outline-offset:3px;
+}
+@media (min-width:1366px) {
+  .site-header.option-d .header-socials { gap:6px; }
+  .site-header.option-d .option-d-right { gap:16px; }
+  .site-header.option-d .option-d-tools { position:relative; }
+  .site-header.option-d .option-d-tools::before,
+  .site-header.option-d .option-d-tools::after {
+    content:"";
+    position:absolute;
+    inset-block:13px;
+    width:1px;
+    background:var(--navigation-line);
+    pointer-events:none;
+  }
+  .site-header.option-d .option-d-tools::before { inset-inline-start:-9px; }
+  .site-header.option-d .option-d-tools::after { inset-inline-end:-9px; }
+}
 @media (max-width:599px) and (orientation:portrait) {
   .site-header.has-mobile-socials .header-socials {
     position:absolute;

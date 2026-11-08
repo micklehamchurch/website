@@ -17,15 +17,17 @@ test('Option D coordinates the drawer, policies and search with the measured hea
   assert(read('home-performance.css').includes('.has-full-header'));
 });
 
-test('the shared delivery cache keys refresh all coupled header assets', () => {
+test('the style refinement refreshes the shared header stylesheet cache key', () => {
+  const styleVersion = '20261108-option-a-1';
+  assert(read('site.js').includes('header-navigation.css?navigation=' + styleVersion));
+  assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';
-  for (const url of ['header-navigation.css?navigation=', 'responsive-navigation.js?v=', 'public-header.js?v=']) {
+  for (const url of ['responsive-navigation.js?v=', 'public-header.js?v=']) {
     assert(read('site.js').includes(url + version), url);
   }
   for (const url of ['header-search.js?v=', 'policies-navigation.css?v=', 'policies-navigation.js?v=']) {
     assert(read('public-header.js').includes(url + version), url);
   }
-  assert(read('build-typography-preview.js').includes("header: '" + version + "'"));
 });
 
 test('header social links use the official destinations and accessible names in order', () => {
