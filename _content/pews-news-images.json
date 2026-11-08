@@ -242,5 +242,86 @@
       "height": 376,
       "alt": "Mary and Joseph with the infant Jesus"
     }
+  },
+  "2026-11-08": {
+    "remembrance": {
+      "src": "assets/images/pews-news/2026-11-08/remembrance.webp",
+      "width": 620,
+      "height": 338,
+      "alt": "Watercolour silhouettes with poppies and the words Lest We Forget, Remembrance Sunday"
+    },
+    "zoom": {
+      "src": "assets/images/pews-news/2026-11-08/zoom.webp",
+      "width": 180,
+      "height": 136,
+      "alt": "Illustration of a Zoom gathering on a laptop"
+    },
+    "poppy-memorial": {
+      "src": "assets/images/pews-news/2026-11-08/poppy-memorial.webp",
+      "width": 560,
+      "height": 433,
+      "alt": "A red poppy above the memorial words ‘When you go home, tell them of us and say, for your tomorrow, we gave our today’"
+    },
+    "pcc": {
+      "src": "assets/images/pews-news/2026-11-08/pcc.webp",
+      "width": 300,
+      "height": 163,
+      "alt": "People seated around a meeting table"
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-11-08/bible-study.webp",
+      "width": 170,
+      "height": 224,
+      "alt": "A reader holding an open Bible"
+    },
+    "lights": {
+      "src": "assets/images/pews-news/2026-11-08/lights.webp",
+      "width": 235,
+      "height": 240,
+      "alt": "Two hands sheltering a lit candle"
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-11-08/snowman.webp",
+      "width": 319,
+      "height": 320,
+      "alt": "A snowman wearing a black hat and orange scarf"
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-11-08/soup.webp",
+      "width": 370,
+      "height": 259,
+      "alt": "A bowl of autumn soup"
+    },
+    "christingle": {
+      "src": "assets/images/pews-news/2026-11-08/christingle.webp",
+      "width": 260,
+      "height": 264,
+      "alt": "A Christingle orange with a candle, red ribbon and sweets"
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-11-08/foodbank.webp",
+      "width": 373,
+      "height": 450,
+      "alt": "A Christmas wish list on a clipboard, labelled 2026"
+    },
+    "nativity": {
+      "src": "assets/images/pews-news/2026-11-08/nativity.webp",
+      "width": 368,
+      "height": 376,
+      "alt": "Illustration of Mary, Joseph and the infant Jesus"
+    },
+    "macmillan": {
+      "src": "assets/images/pews-news/2026-11-08/macmillan.webp",
+      "width": 318,
+      "height": 159,
+      "alt": "Macmillan Cancer Support World’s Biggest Coffee Morning logo"
+    },
+    "poppy-qr": {
+      "src": "assets/images/pews-news/rbl-mickleham-westhumble-qr.svg",
+      "width": 41,
+      "height": 41,
+      "alt": "QR code for the Mickleham and Westhumble Royal British Legion collection",
+      "href": "https://www.mygivinghub.com/go?id=jZ7arYjOPa"
+    }
   }
 }
