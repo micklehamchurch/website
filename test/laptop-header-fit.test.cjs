@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const test = require('node:test');
 const { transformSync } = require('esbuild');
+const { runInNewContext } = require('node:vm');
 
 const read = file => fs.readFileSync(file, 'utf8').replace(/\r/g, '');
 
@@ -17,7 +18,7 @@ test('Option D coordinates the drawer, policies and search with the measured hea
 });
 
 test('the shared delivery cache keys refresh all coupled header assets', () => {
-  const version = '20261108-option-d-1';
+  const version = '20261108-header-social-1';
   for (const url of ['header-navigation.css?navigation=', 'responsive-navigation.js?v=', 'public-header.js?v=']) {
     assert(read('site.js').includes(url + version), url);
   }
@@ -25,6 +26,18 @@ test('the shared delivery cache keys refresh all coupled header assets', () => {
     assert(read('public-header.js').includes(url + version), url);
   }
   assert(read('build-typography-preview.js').includes("header: '" + version + "'"));
+});
+
+test('header social links use the official destinations and accessible names in order', () => {
+  const source = read('site.js').split('// Audited destinations')[0];
+  const markup = runInNewContext(source + '\nheaderSocials;');
+  const links = [...markup.matchAll(/href="([^"]+)" target="_blank" rel="noopener noreferrer" aria-label="([^"]+)"/g)];
+  assert.deepEqual(links.map(link => link[1]), [
+    'https://www.instagram.com/micklehamchurch/',
+    'https://www.youtube.com/@stmichaelandallangelschurc3012',
+  ]);
+  assert.match(links[0][2], /Instagram/);
+  assert.match(links[1][2], /YouTube/);
 });
 
 test('the homepage bundle contains the same shared header rules as public pages', () => {

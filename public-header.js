@@ -8,12 +8,16 @@
   if(photo)document.body.classList.add('header-photo-page');
   const compact=globalThis.churchHeaderMode;
   const eligible=matchMedia('(min-width:1280px) and (min-width:80em)');
+  const portraitPhone=matchMedia('(max-width:599px) and (orientation:portrait)');
   const nav=header.querySelector('.nav');
+  const wrap=header.querySelector('.nav-wrap');
+  const searchLink=header.querySelector('.compact-search');
 
   // Move the real links, so visual order and Tab order stay aligned.
   function headerRows(tree) {
     const nav=tree.querySelector('.nav');
     const information=nav.querySelector('.header-information');
+    const socials=nav.querySelector('.header-socials');
     const opening=nav.querySelector('.header-opening');
     const primary=nav.querySelector('.nav-primary');
     const utilities=nav.querySelector('.nav-utilities');
@@ -31,8 +35,8 @@
       if(twoTier===(upper.parentNode===nav))return;
       if(twoTier){
         tools.append(search,calendar,bible);
-        right.append(tools,opening);
-        upper.append(information,right);
+        right.append(information,tools,opening);
+        upper.append(socials,right);
         lower.append(primary,visit);
         nav.prepend(upper,lower);
       }else{
@@ -40,6 +44,7 @@
         utilities.prepend(search);
         actions.append(calendar,bible);
         utilities.append(visit);
+        utilities.before(socials);
         upper.remove();
         lower.remove();
       }
@@ -68,7 +73,7 @@
       const wrap=probe.querySelector('.nav-wrap');
       const fits=()=>{
         const bounds=wrap.getBoundingClientRect();
-        const items=[...probe.querySelectorAll('.brand,.nav-trigger,.nav-primary>.nav-link,.header-information a,.policies-trigger,.header-opening,.compact-search,.nav-calendar,.nav-bible,.header-visit')]
+        const items=[...probe.querySelectorAll('.brand,.nav-trigger,.nav-primary>.nav-link,.header-information a,.policies-trigger,.header-opening,.compact-search,.nav-calendar,.nav-bible,.header-visit,.header-social-link')]
           .filter(node=>node.getClientRects().length);
         const boxes=items.map(node=>node.getBoundingClientRect());
         return items.every((node,index)=>{
@@ -102,10 +107,14 @@
     header.classList.toggle('is-full',full);
     header.classList.toggle('option-d',twoTier);
     header.classList.toggle('is-condensed',condensed);
+    // Two 44px targets, their 4px gap and clearance from the first utility.
+    const mobileRoom=portraitPhone.matches&&searchLink.getBoundingClientRect().left-wrap.getBoundingClientRect().left>=98;
+    const mobileChanged=header.classList.contains('has-mobile-socials')!==mobileRoom;
+    header.classList.toggle('has-mobile-socials',mobileRoom);
     document.documentElement.classList.toggle('has-full-header',topFits);
     if(changed)compact.dispatchEvent(new Event('change'));
     if(changed&&focused&&document.activeElement!==focused&&focused.getClientRects().length)focused.focus({preventScroll:true});
-    if(changed&&focused&&!focused.getClientRects().length){
+    if((changed||mobileChanged)&&focused&&!focused.getClientRects().length){
       header.querySelector(full?'.brand':'.menu-toggle').focus({preventScroll:true});
     }
   }
@@ -115,6 +124,7 @@
   addEventListener('resize',remeasure);
   addEventListener('pageshow',remeasure);
   eligible.addEventListener('change',remeasure);
+  portraitPhone.addEventListener('change',remeasure);
   document.fonts?.ready.then(remeasure);
   document.fonts?.addEventListener('loadingdone',remeasure);
   document.addEventListener('close',event=>{if(event.target.id==='responsive-navigation')remeasure();},true);
@@ -137,7 +147,7 @@
     const drawer=search.closest('dialog');
     const closed=drawer?.open?new Promise(resolve=>{drawer.addEventListener('close',resolve,{once:true});globalThis.churchResponsiveNavigation.close();}):Promise.resolve();
     globalThis.closeDropdowns?.();globalThis.syncNavigationBackdrop?.();
-    try{searchModule ||= import(new URL('header-search.js?v=20261108-option-d-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
+    try{searchModule ||= import(new URL('header-search.js?v=20261108-header-social-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
   },true);
   }
   // Non-modal desktop disclosure; the same sections become mobile accordions.
@@ -163,7 +173,7 @@
 (() => {
   const script=document.querySelector('script[src*="site.js"]');
   if(!script||!document.querySelector('.header-information'))return;
-  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261108-option-d-1',script.src).href;
-  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261108-option-d-1',script.src).href;document.head.append(enhancement);},{once:true});
+  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261108-header-social-1',script.src).href;
+  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261108-header-social-1',script.src).href;document.head.append(enhancement);},{once:true});
   document.head.append(css);
 })();
