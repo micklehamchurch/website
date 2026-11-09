@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 190">
+  <defs>
+    <linearGradient id="petal" x2=".8" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f46331"/><stop offset=".54" stop-color="#db361d"/><stop offset="1" stop-color="#912116"/></linearGradient>
+    <linearGradient id="fade" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset=".64" stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+    <mask id="soft"><path fill="url(#fade)" d="M0 0h370v190H0z"/></mask>
+  </defs>
+  <g mask="url(#soft)">
+    <g fill="none" stroke="#626b35" stroke-linecap="round" stroke-width="2.8">
+      <path d="M143 190c10-49 27-79 57-107m-12 107c32-47 79-77 105-150m-84 150c27-45 61-61 109-71M102 185c-12-25-32-42-59-51m118 50c-21-27-51-37-86-39m141 41c46-40 87-46 135-41m-125 34c41-26 73-28 109-17"/>
+    </g>
+    <g fill="#717843">
+      <path d="M289 49q-7-17 13-33 10 18-13 33M283 63q0-20 23-26-5 18-23 26M270 84q-5-22-18-26 0 14 18 26m8-5q16-20 31-15-8 13-31 15m-34 36q0-22-19-29 4 18 19 29m4-2q18-19 33-13-8 10-33 13m-41 40q0-23-19-31 1 15 19 31m49-8q17-14 42-7-13 9-42 7m29-17q10-17 30-19-9 16-30 19m25-12q8-13 25-12-7 13-25 12m-3 42q15-10 36-3-12 7-36 3m-230-4q-13-16-34-15 9 13 34 15m26 8q-16-15-30-9 9 10 30 9m25 7q-15-18-28-14 8 11 28 14m-67-22q-13-19-32-20 8 14 32 20"/>
+    </g>
+    <path fill="#6f743c" d="M292 50q-14-5-9-24 3-14 19-20-1 13 0 26-1 11-10 18"/>
+    <path fill="#c63a21" d="M292 42q-10-10 7-33 5 18-7 33"/>
+    <g stroke="#bf3221" stroke-width=".9" fill="url(#petal)">
+      <path d="M183 112C143 109 99 80 106 59q4-11 17-13 1-22 27-22 13-13 29-5 22-8 30 7 28-6 35 9 26 0 29 18 19 6 10 22-12 19-54 32Z"/>
+      <path d="M187 110c-22-2-66-8-81-27q-11-16 7-22 22-4 78 36"/>
+      <path d="M196 99q-13-45 22-72 25-6 36 8 23 6 18 20-17 25-68 50"/>
+      <path d="M190 98q-47-23-43-57 11-17 30-16 11-7 23-1-5 21 4 75"/>
+      <path d="M194 106q-48-25-70-10-14 7-1 21 18 18 47 15 30 9 56-8 29-4 43-23 2-18-16-17-35-2-59 22"/>
+    </g>
+    <g fill="none" stroke="#fa9052" opacity=".62"><path d="M127 66q38 9 59 36m-19-68q1 33 24 62m40-63q-16 20-27 66m57-50q-20 24-51 51m-73 13q32 4 49-3m52-9q-9 9-25 12m-58 6q22 7 41-1"/></g>
+    <ellipse cx="197" cy="106" rx="25" ry="13" fill="#401e17"/>
+    <ellipse cx="198" cy="101" rx="11" ry="7" fill="#7b7139" stroke="#d4ad61"/>
+    <path fill="none" stroke="#d7a858" stroke-width="2" stroke-dasharray="1.5 3" d="M176 109q20 17 41-1"/>
+  </g>
+</svg>

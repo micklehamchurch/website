@@ -12,6 +12,7 @@ function validateMedia(media, root) {
   for (const [slug, entry] of Object.entries(media)) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw Error('Invalid media slug');
     image(entry.cover); image(entry.lead);
+    for (const key of ['morning','gathering','poppies']) if (entry[key]) image(entry[key]);
     if (!Array.isArray(entry.groups)) throw Error('Invalid story groups');
     for (const group of entry.groups) {
       if (!Number.isInteger(group.after) || group.after < 0 || !Array.isArray(group.photos) || !group.photos.length || group.photos.length > 2) throw Error('Invalid story group');

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 188">
+  <defs>
+    <linearGradient id="slope"><stop stop-color="#e6d8b5" stop-opacity="0"/><stop offset=".57" stop-color="#d1bd86" stop-opacity=".68"/><stop offset="1" stop-color="#a78f53" stop-opacity=".76"/></linearGradient>
+    <linearGradient id="field"><stop stop-color="#d9c799" stop-opacity="0"/><stop offset="1" stop-color="#b9a375" stop-opacity=".7"/></linearGradient>
+    <linearGradient id="petal" x2=".8" y2="1"><stop stop-color="#e67138"/><stop offset=".52" stop-color="#c44d2b"/><stop offset="1" stop-color="#922c1e"/></linearGradient>
+    <path id="walker" d="M-8 9q0-8 8-9 9-1 12 4l-1 3 4 2-5 2-2 6 4 4 4 10 9 4-2 4-12-2-4-5 2 14-1 7 7 11 1 9 7 6-2 3-10-3-3-11-9-11-2-6-5 12-9 8-5 10-8-1 2-5 5-6 5-12 3-14-2-7-4 2-4-4 2-15 4-5 7-1 1-4Z"/>
+    <g id="poppy">
+      <path d="M-3 36Q4 17 0 0m0 23q-8-8-13-4m14-3q9-6 13-3" fill="none" stroke="#737441" stroke-width="2"/>
+      <path d="M0 20q-11-8-16-4 4 7 16 4m2-4q6-9 15-8-4 7-15 8" fill="#797844"/>
+      <path d="M0 5C-10 8-18-2-15-9q1-5 7-4 5-5 10-2 6-4 10 0 7-1 8 5 0 8-9 13Q6 7 0 5Z" fill="url(#petal)"/>
+      <path d="M0 3q-9-3-12-9m14 7q4-7 11-10" fill="none" stroke="#ef9760" stroke-width="1" opacity=".75"/>
+      <ellipse cx="2" cy="1" rx="5" ry="3.1" fill="#513426"/>
+      <ellipse cx="2" cy=".3" rx="2" ry="1.2" fill="#ab8551"/>
+    </g>
+  </defs>
+  <path fill="#dbcba2" opacity=".26" d="M0 188q61-18 115-12 11-12 38-10 18-13 36-7 25-19 51-7 21-6 40 4 42-10 76-26 75-33 131-30 69-17 163-62v150Z"/>
+  <path fill="url(#slope)" d="M0 188q124-16 239-16 82-14 156-38 86-42 142-58 62-19 113-47v159Z"/>
+  <path fill="url(#field)" d="M109 188q167-7 302-31 97-35 239-58v89Z"/>
+  <g fill="#82734b" opacity=".78">
+    <use href="#walker" transform="translate(364 106) rotate(12) scale(.64)"/>
+    <use href="#walker" transform="translate(419 80) rotate(9) scale(.74)"/>
+    <use href="#walker" transform="translate(474 58) rotate(15) scale(.71)"/>
+    <use href="#walker" transform="translate(529 35) rotate(11) scale(.75)"/>
+  </g>
+  <g opacity=".74">
+    <use href="#poppy" transform="translate(355 178) scale(.37)"/><use href="#poppy" transform="translate(393 167) scale(.46)"/>
+    <use href="#poppy" transform="translate(430 156) rotate(-14) scale(.5)"/><use href="#poppy" transform="translate(462 159) scale(.54)"/>
+    <use href="#poppy" transform="translate(500 147) rotate(18) scale(.52)"/><use href="#poppy" transform="translate(553 139) scale(.61)"/>
+    <use href="#poppy" transform="translate(600 131) rotate(-14) scale(.55)"/><use href="#poppy" transform="translate(638 118) scale(.63)"/>
+  </g>
+  <g>
+    <use href="#poppy" transform="translate(412 182) rotate(-9) scale(.52)"/><use href="#poppy" transform="translate(451 178) rotate(9) scale(.72)"/>
+    <use href="#poppy" transform="translate(488 171) rotate(-10) scale(.94)"/><use href="#poppy" transform="translate(526 177) rotate(15) scale(.74)"/>
+    <use href="#poppy" transform="translate(562 159) rotate(-9) scale(1.03)"/><use href="#poppy" transform="translate(599 169) rotate(12) scale(.91)"/>
+    <use href="#poppy" transform="translate(632 149) rotate(-14) scale(1.18)"/><use href="#poppy" transform="translate(650 176) scale(.8)"/>
+  </g>
+</svg>

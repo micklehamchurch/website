@@ -19,3 +19,26 @@ test('published journal, Harvest article, latest teaser and search are generated
 });
 
 test('one public News destination retains stories, publications and old routing',()=>{const page=fs.readFileSync(require('node:path').join(__dirname,'../news.html'),'utf8');assert.match(page,/<h1 id="news-title">News<\/h1>/);assert.match(page,/Latest news/);assert.match(page,/latest-pews-news/);assert.match(page,/latest-parish-magazine/);assert.match(page,/publication-archive/);assert.match(page,/a-harvest-of-thankfulness/);const old=fs.readFileSync(require('node:path').join(__dirname,'../news-stories.html'),'utf8');assert.match(old,/url=news.html/);assert.match(old,/search-index.+exclude/);const nav=fs.readFileSync(require('node:path').join(__dirname,'../site.js'),'utf8');assert.match(nav,/<a href="news.html">News<\/a>/);assert(!nav.includes('href="news-stories.html"'));});
+
+test('Remembrance story preserves the approved section order, real photos and News-only card', () => {
+  const route = 'news/we-will-remember-them.html';
+  const html = fs.readFileSync(route,'utf8');
+  const sections = ['remembrance-hero','remembrance-heading','remembrance-intro','remembrance-morning','remembrance-act',
+    'remembrance-context','remembrance-gallery','remembrance-thanks','remembrance-links'];
+  let offset = -1;
+  for (const section of sections) {
+    const next = html.indexOf(section,offset+1);
+    assert(next > offset,section);
+    offset = next;
+  }
+  assert.equal((html.match(/data-remembrance-photo/g)||[]).length,4);
+  assert.match(html,/href="pews-news\/2026-11-08\.html"/);
+  assert.match(html,/href="war-memorial\.html"/);
+  assert.match(html,/href="https:\/\/www\.britishlegion\.org\.uk\/"/);
+  const feed = require('../news-feed.json');
+  const story = feed.items.find(item=>item.url===route);
+  assert.equal(story.showOnHome,false);
+  assert(require('../news-feed-model').render(feed,'parish-story').includes(route));
+  assert(!require('../home-news-render.cjs').render(feed).includes(route));
+  assert(require('../search-index.json').some(entry=>entry.url===route));
+});
