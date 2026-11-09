@@ -20,7 +20,7 @@ test('published journal, Harvest article, latest teaser and search are generated
 
 test('one public News destination retains stories, publications and old routing',()=>{const page=fs.readFileSync(require('node:path').join(__dirname,'../news.html'),'utf8');assert.match(page,/<h1 id="news-title">News<\/h1>/);assert.match(page,/Latest news/);assert.match(page,/latest-pews-news/);assert.match(page,/latest-parish-magazine/);assert.match(page,/publication-archive/);assert.match(page,/a-harvest-of-thankfulness/);const old=fs.readFileSync(require('node:path').join(__dirname,'../news-stories.html'),'utf8');assert.match(old,/url=news.html/);assert.match(old,/search-index.+exclude/);const nav=fs.readFileSync(require('node:path').join(__dirname,'../site.js'),'utf8');assert.match(nav,/<a href="news.html">News<\/a>/);assert(!nav.includes('href="news-stories.html"'));});
 
-test('Remembrance story preserves the approved section order, real photos and News-only card', () => {
+test('Remembrance story preserves the approved section order, real photos and featured Home card', () => {
   const route = 'news/we-will-remember-them.html';
   const html = fs.readFileSync(route,'utf8');
   const sections = ['remembrance-hero','remembrance-heading','remembrance-intro','remembrance-morning','remembrance-act',
@@ -39,6 +39,15 @@ test('Remembrance story preserves the approved section order, real photos and Ne
   const story = feed.items.find(item=>item.url===route);
   assert.equal(story.showOnHome,false);
   assert(require('../news-feed-model').render(feed,'parish-story').includes(route));
-  assert(!require('../home-news-render.cjs').render(feed).includes(route));
+  const home=require('../home-news-render.cjs');
+  const rendered=home.render(feed,home.readService());
+  assert.match(rendered,/<article class="home-news-item home-news-latest"><a class="home-news-link" href="news\/we-will-remember-them\.html">/);
+  assert.equal(rendered.split('href="'+route+'"').length,2);
+  assert.match(rendered,/Our church and village community gathered for Remembrance Sunday, honouring those who gave their lives and praying for peace\./);
+  assert.match(rendered,/wreaths-card-1280\.webp/);
+  for(const other of ['pews-news/2026-11-08.html','pews-news/2026-11-01.html']) assert.equal(rendered.split('href="'+other+'"').length,2);
+  assert(rendered.includes('home-service-latest'));
+  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-15',url:'pews-news/2026-11-15.html'};
+  assert(!home.render({items:[newer,...feed.items]}).includes(route));
   assert(require('../search-index.json').some(entry=>entry.url===route));
 });
