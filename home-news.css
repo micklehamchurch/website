@@ -7,6 +7,7 @@
 .home-news-all { display:inline-flex; align-items:center; gap:10px; min-height:44px; color:var(--deep); white-space:nowrap; font:500 16px/1.4 var(--serif); }
 .home-news-grid { display:grid; grid-template-columns:2fr 2fr; gap:28px; }
 .home-news-recent { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
+.home-news-grid--featured .home-news-recent { grid-column:1 / -1; }
 .home-news-item { min-width:0; background:var(--paper); border:1px solid #e9e1d1; border-radius:5px; overflow:hidden; }
 .home-news-link { display:flex; flex-direction:column; height:100%; color:var(--deep); text-decoration:none; }
 .home-news-media { aspect-ratio:1.95; overflow:hidden; background:#eee9dc; }
