@@ -90,5 +90,82 @@
         ]
       }
     ]
+  },
+  "we-will-remember-them": {
+    "cover": {
+      "src": "assets/images/stories/remembrance-2026/wreaths-card-1280.webp",
+      "small": "assets/images/stories/remembrance-2026/wreaths-card-640.webp",
+      "width": 1280,
+      "height": 718,
+      "alt": "Five red poppy wreaths at the foot of Mickleham’s war memorial"
+    },
+    "lead": {
+      "src": "assets/images/stories/remembrance-2026/wreaths-hero-1600.webp",
+      "small": "assets/images/stories/remembrance-2026/wreaths-hero-640.webp",
+      "width": 1600,
+      "height": 512,
+      "alt": "Five red poppy wreaths beneath the Great War inscription at Mickleham’s war memorial"
+    },
+    "morning": {
+      "src": "assets/images/stories/remembrance-2026/morning-service-1280.webp",
+      "small": "assets/images/stories/remembrance-2026/morning-service-640.webp",
+      "width": 1280,
+      "height": 511,
+      "alt": "The congregation stands in the nave of St Michael & All Angels during the Remembrance Sunday service"
+    },
+    "gathering": {
+      "src": "assets/images/stories/remembrance-2026/act-of-remembrance-1280.webp",
+      "small": "assets/images/stories/remembrance-2026/act-of-remembrance-640.webp",
+      "width": 1280,
+      "height": 540,
+      "alt": "The choir and village community gather outdoors for the Act of Remembrance"
+    },
+    "poppies": {
+      "src": "assets/images/stories/remembrance-2026/church-poppies-1280.webp",
+      "small": "assets/images/stories/remembrance-2026/church-poppies-640.webp",
+      "width": 1280,
+      "height": 836,
+      "alt": "An arrangement of red poppies in a metal vase inside the church"
+    },
+    "groups": [
+      {
+        "after": 0,
+        "photos": [
+          {
+            "src": "assets/images/stories/remembrance-2026/choir-1280.webp",
+            "small": "assets/images/stories/remembrance-2026/choir-640.webp",
+            "width": 1280,
+            "height": 960,
+            "alt": "Members of the choir in white and red robes sing from their books"
+          },
+          {
+            "src": "assets/images/stories/remembrance-2026/village-gathering-1280.webp",
+            "small": "assets/images/stories/remembrance-2026/village-gathering-640.webp",
+            "width": 1280,
+            "height": 720,
+            "alt": "The choir and villagers gather in front of the village houses"
+          }
+        ]
+      },
+      {
+        "after": 1,
+        "photos": [
+          {
+            "src": "assets/images/stories/remembrance-2026/war-memorial-1280.webp",
+            "small": "assets/images/stories/remembrance-2026/war-memorial-640.webp",
+            "width": 1280,
+            "height": 1707,
+            "alt": "The full stone war memorial cross and the five poppy wreaths below it"
+          },
+          {
+            "src": "assets/images/stories/remembrance-2026/around-the-memorial-1280.webp",
+            "small": "assets/images/stories/remembrance-2026/around-the-memorial-640.webp",
+            "width": 1280,
+            "height": 720,
+            "alt": "The congregation stands around Mickleham’s war memorial during the outdoor service"
+          }
+        ]
+      }
+    ]
   }
 }

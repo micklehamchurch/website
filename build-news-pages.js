@@ -45,6 +45,7 @@ const expectedFiles = new Set(articles.map(article => `${article.slug}.html`));
 
 for (const article of articles) {
   const photos = media[article.slug];
+  const remembrance = article.layout === 'remembrance';
   const paragraphs = (article.paragraphs || []).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n          ');
   const galleryLink = article.galleryLink
     ? `<p class="article-gallery-link"><a class="btn btn-outline-green" href="${escapeHtml(article.galleryLink)}">Explore the photo gallery <span aria-hidden="true">→</span></a></p>`
@@ -65,7 +66,7 @@ for (const article of articles) {
   <link rel="stylesheet" href="v1-accessibility.css">
   <link rel="stylesheet" href="news-magazine.css">
   <link rel="stylesheet" href="news-stories.css">
-  <script src="site.js" defer></script>
+  <script src="site.js" defer></script>${remembrance ? '\n  <link rel="stylesheet" href="remembrance.css">\n  <script src="remembrance-gallery.js" defer></script>' : ''}
   <link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
@@ -77,7 +78,7 @@ for (const article of articles) {
 <body>
   <a class="skip-link" href="news/${escapeHtml(article.slug)}.html#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="section article-page ${photos ? 'story-article' : ''}" tabindex="-1">
+  ${remembrance ? `<main id="main-content" tabindex="-1">${require('./remembrance-render.cjs').render(article, photos)}</main>` : `<main id="main-content" class="section article-page ${photos ? 'story-article' : ''}" tabindex="-1">
     <div class="container article-container">
       <a class="article-back" href="news.html">← Back to News</a>
       <article class="article-content">
@@ -91,7 +92,7 @@ for (const article of articles) {
         <div class="article-bottom-nav"><a class="btn btn-green" href="news.html">Back to News</a></div>
       </article>
     </div>
-  </main>
+  </main>`}
   <footer class="footer" data-site-footer></footer>
 </body>
 </html>

@@ -17,6 +17,23 @@
       }
     },
     {
+      "id": "story:we-will-remember-them",
+      "kind": "parish-story",
+      "title": "We Will Remember Them",
+      "date": "2026-11-08",
+      "summary": "Mickleham’s church and village community gathered for Remembrance Sunday, with worship at St Michael & All Angels and an Act of Remembrance at the war memorial.",
+      "url": "news/we-will-remember-them.html",
+      "image": {
+        "src": "assets/images/stories/remembrance-2026/wreaths-card-1280.webp",
+        "small": "assets/images/stories/remembrance-2026/wreaths-card-640.webp",
+        "width": 1280,
+        "height": 718,
+        "alt": "Five red poppy wreaths at the foot of Mickleham’s war memorial"
+      },
+      "sourceCategory": "Parish News",
+      "showOnHome": false
+    },
+    {
       "id": "pews-news:2026-11-01",
       "kind": "pews-news",
       "title": "Pews News — 1 November 2026",
