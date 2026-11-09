@@ -71,21 +71,24 @@
 .remembrance-act img { aspect-ratio: 2.75; object-position: center 36%; }
 .remembrance-context {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.42fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 1.41fr) minmax(0, 1fr);
   gap: clamp(10px, 1.2vw, 19px);
   align-items: stretch;
 }
 .remembrance-context section {
-  display: flex;
-  gap: .65em;
-  padding: .7em .85em;
+  display: grid;
+  grid-template-columns: clamp(29px, 3.8vw, 61px) minmax(0, 1fr);
+  align-content: start;
+  gap: clamp(10px, 1.15vw, 18px);
+  padding: clamp(12px, 1.1vw, 18px) clamp(14px, 1.4vw, 22px);
   border-radius: 8px;
-  background: linear-gradient(126deg, #e7eadb, #f0eddf);
+  background: linear-gradient(125deg, #e7e9d9, #eeeddf);
 }
-.remembrance-context p { font-size: .91em; }
-.remembrance-context h2, .remembrance-gallery h2, .remembrance-thanks h2 { font-size: clamp(1.3rem, 1.98vw, 2rem); }
-.remembrance-context svg { width: 2.35em; height: 2.35em; flex: none; color: var(--remember-gold); }
-.remembrance-context img { height: 100%; aspect-ratio: 1.4; object-position: center 62%; }
+.remembrance-context p { font-size: .91em; line-height: 1.35; }
+.remembrance-context h2 { margin-bottom: .3em; font-size: clamp(1.16rem, 1.86vw, 1.86rem); letter-spacing: -.025em; }
+.remembrance-gallery h2, .remembrance-thanks h2 { font-size: clamp(1.3rem, 1.98vw, 2rem); }
+.remembrance-context svg { width: 100%; max-width: 2.35em; height: auto; justify-self: center; color: var(--remember-gold); }
+.remembrance-context img { height: 100%; min-height: 0; aspect-ratio: 1.4; object-position: center 62%; }
 .remembrance-gallery { padding-block: .7em .52em; border-bottom: 1px solid #dcd5c7; }
 .remembrance-gallery h2 { margin-bottom: .35em; }
 .remembrance-gallery ul {
@@ -100,20 +103,22 @@
 .remembrance-gallery img { aspect-ratio: 1.64; object-fit: cover; border-radius: inherit; }
 .remembrance-gallery-3 img { object-position: center top; }
 .remembrance-thanks {
-  padding-block: .4em clamp(18px, 2vw, 32px);
-  background: url("assets/images/stories/remembrance-2026/decorative-remembrance.svg") no-repeat right bottom / clamp(180px, 36vw, 580px) auto;
+  --closing-edge: clamp(16px, 3.33vw, 54px);
+  margin-inline: calc(-1 * var(--closing-edge));
+  padding: .4em var(--closing-edge) clamp(20px, 2.3vw, 37px);
+  background: url("assets/images/stories/remembrance-2026/decorative-remembrance.svg") no-repeat right bottom / clamp(310px, 47vw, 750px) auto;
 }
 .remembrance-closing {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.09fr) minmax(0, 1fr);
   align-items: start;
   gap: 1.1em;
 }
 .remembrance-closing p { margin-top: .16em; }
 .remembrance-closing blockquote {
-  margin: .62em 0;
+  margin: .55em 0 0;
   border-left: 2px solid var(--remember-accent);
-  padding: .35em 0 .6em .95em;
+  padding: .22em 0 .55em 1em;
   color: var(--remember-gold);
   font-size: clamp(1.4rem, 2.35vw, 2.35rem);
   font-style: italic;
@@ -144,7 +149,7 @@
 @media (max-width: 850px) {
   .remembrance-context { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .remembrance-context img { grid-column: 1 / -1; max-height: 280px; height: auto; aspect-ratio: 2.5; }
-  .remembrance-context svg { width: 1.9em; height: 1.9em; }
+  .remembrance-context section { grid-template-columns: 2em minmax(0, 1fr); }
 }
 @media (max-width: 740px) {
   .remembrance-hero img { aspect-ratio: 2.3; }
@@ -155,7 +160,10 @@
   .remembrance-row img { aspect-ratio: 1.95; }
   .remembrance-morning img { grid-area: auto; }
   .remembrance-gallery ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .remembrance-thanks { background-size: 145px auto; }
+  .remembrance-thanks {
+    padding-bottom: clamp(53px, 10vw, 73px);
+    background-size: clamp(245px, 67vw, 450px) auto;
+  }
 }
 @media (max-width: 550px) {
   .remembrance-context { grid-template-columns: minmax(0,1fr); }
