@@ -52,7 +52,7 @@
   }
 
   const setRows=headerRows(header);
-  let frame=0,dirty=true,topFits=false,condensedFits=false;
+  let frame=0,dirty=true,full=false;
 
   // The temporary, inert probe is measured only when width or text metrics
   // change. It has no IDs, overlays or event handlers and is never painted.
@@ -82,11 +82,7 @@
             &&boxes.slice(index+1).every(b=>a.right<=b.left+0.5||b.right<=a.left+0.5||a.bottom<=b.top+0.5||b.bottom<=a.top+0.5);
         });
       };
-      topFits=fits();
-      rows(false);
-      probe.classList.remove('option-d');
-      probe.classList.add('is-condensed');
-      condensedFits=topFits&&fits();
+      full=fits();
     }finally{probe.remove();}
   }
 
@@ -94,24 +90,22 @@
     frame=0;
     if(!header.contains(nav))return; // Keep the drawer stable while it owns the nav.
     if(dirty){
-      topFits=condensedFits=false;
+      full=false;
       if(eligible.matches)measureFit();
       dirty=false;
     }
-    const condensed=topFits&&scrollY>64;
-    const twoTier=topFits&&!condensed;
-    const full=twoTier||(condensed&&condensedFits);
-    const changed=header.classList.contains('is-full')!==full||header.classList.contains('option-d')!==twoTier||header.classList.contains('is-condensed')!==condensed;
+    const condensed=full&&scrollY>64;
+    const changed=header.classList.contains('is-full')!==full;
     const focused=header.contains(document.activeElement)?document.activeElement:null;
-    setRows(twoTier);
+    setRows(full);
     header.classList.toggle('is-full',full);
-    header.classList.toggle('option-d',twoTier);
+    header.classList.toggle('option-d',full);
     header.classList.toggle('is-condensed',condensed);
     // Two 44px targets, their 4px gap and clearance from the first utility.
     const mobileRoom=portraitPhone.matches&&searchLink.getBoundingClientRect().left-wrap.getBoundingClientRect().left>=98;
     const mobileChanged=header.classList.contains('has-mobile-socials')!==mobileRoom;
     header.classList.toggle('has-mobile-socials',mobileRoom);
-    document.documentElement.classList.toggle('has-full-header',topFits);
+    document.documentElement.classList.toggle('has-full-header',full);
     if(changed)compact.dispatchEvent(new Event('change'));
     if(changed&&focused&&document.activeElement!==focused&&focused.getClientRects().length)focused.focus({preventScroll:true});
     if((changed||mobileChanged)&&focused&&!focused.getClientRects().length){
@@ -147,7 +141,7 @@
     const drawer=search.closest('dialog');
     const closed=drawer?.open?new Promise(resolve=>{drawer.addEventListener('close',resolve,{once:true});globalThis.churchResponsiveNavigation.close();}):Promise.resolve();
     globalThis.closeDropdowns?.();globalThis.syncNavigationBackdrop?.();
-    try{searchModule ||= import(new URL('header-search.js?v=20261108-header-social-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
+    try{searchModule ||= import(new URL('header-search.js?v=20261110-header-scroll-1',base).href);const module=await searchModule;await closed;module.open(search,base);}catch{location.assign(search.href);}
   },true);
   }
   // Non-modal desktop disclosure; the same sections become mobile accordions.

@@ -6,11 +6,7 @@ const model=globalThis.churchSearch;
 function searchUrl(query){const url=new URL('search.html',base);if(query.trim())url.searchParams.set('q',query.trim());return url.href;}
 function layout(){
  if(!panel||panel.hidden)return;
- const wrap=header.querySelector('.nav-wrap'),r=wrap.getBoundingClientRect(),button=trigger.getBoundingClientRect(),brand=header.querySelector('.header-branding').getBoundingClientRect();
- const wide=header.classList.contains('is-full')&&header.classList.contains('is-condensed');panel.classList.toggle('is-wide',wide);
- if(wide){panel.style.left='auto';panel.style.right=`${r.right-button.right}px`;panel.style.width=`${Math.min(560,button.right-brand.right-28)}px`;panel.style.top=`${button.top-r.top}px`;}
- else{panel.style.left='0';panel.style.right='0';panel.style.width='auto';panel.style.top='calc(100% + 8px)';}
- const y=wide?button.top:header.getBoundingClientRect().bottom+8;
+ const y=header.getBoundingClientRect().bottom+8;
  const available=Math.min(400,Math.max(48,(globalThis.visualViewport?.height||innerHeight)-y-72));
  panel.style.setProperty('--search-results-height',`${available}px`);panel.classList.toggle('is-short',available<240);panel.classList.toggle('is-tiny',available<120);
 }

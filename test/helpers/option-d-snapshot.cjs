@@ -7,6 +7,7 @@ const revisions = require('../fixtures/option-d-revisions.json');
 const newerRevisions = [
   ['8691e68', require('../fixtures/header-social-revisions.json')],
   ['c58f946', require('../fixtures/header-refinement-revisions.json')],
+  ['76aeb05', require('../fixtures/header-scroll-revisions.json')],
 ];
 const previous = new Map();
 
@@ -33,6 +34,8 @@ function prior(value) {
     }));
   }
   const restored = file ? previous.get(file) : source.replaceAll(
+    'header=20261110-header-scroll-1', 'header=20261108-option-a-1',
+  ).replaceAll(
     'header=20261108-option-a-1', 'header=20261108-header-social-1',
   ).replaceAll(
     'header=20261108-header-social-1', 'header=20261108-option-d-1',

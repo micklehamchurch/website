@@ -179,7 +179,7 @@ body:has(> [data-site-header]) > main[id] { scroll-margin-top:var(--header-reser
 /* Search disclosure shares the header palette; its engine/data load on demand. */
 .site-header .nav-wrap { position:relative; }
 .header-inline-search[hidden] { display:none; }
-.header-inline-search { position:absolute; z-index:60; color:var(--cream); }
+.header-inline-search { position:absolute; inset:calc(100% + 8px) 0 auto; z-index:60; color:var(--cream); }
 .header-inline-form { display:flex; align-items:center; width:100%; height:48px; margin:0; border:1px solid var(--header-gold); border-radius:26px; background:var(--deep); box-shadow:0 4px 18px #10261e26; }
 .header-inline-label { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .header-inline-form input { flex:1; width:100%; min-width:0; height:46px; padding:8px 4px; border:0; border-radius:0; background:transparent; color:var(--cream); font:400 16px/1.4 var(--sans); appearance:none; }
@@ -199,7 +199,6 @@ body:has(> [data-site-header]) > main[id] { scroll-margin-top:var(--header-reser
 .header-search-results .header-search-all { display:flex; align-items:center; justify-content:space-between; min-height:44px; padding:10px 8px; margin-top:8px; border-top:1px solid #e7d8b740; color:var(--header-gold); font:500 15px/1.5 var(--sans); }
 .header-search-results a:is(:hover,:focus-visible) { color:var(--header-gold); background:#ffffff0c; }
 .header-inline-search a { overflow-wrap:anywhere; }
-.site-header.is-full.is-condensed.header-search-open :is(.nav-primary,.compact-search) { visibility:hidden; }
 @media(prefers-reduced-motion:no-preference) { .header-inline-search { animation:search-arrive 200ms ease-out; } @keyframes search-arrive { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } } }
 .header-search-results { display:flex; flex-direction:column; overflow:hidden; }
 .header-search-results > p, .header-search-results .header-search-all { flex:none; }
@@ -289,9 +288,6 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 .site-header.is-full .header-information svg,.header-opening svg { color:var(--navigation-gold); width:23px; height:23px; flex:none; }
 .site-header.is-full .header-information a:hover,.site-header.is-full .header-opening:hover { text-decoration:underline; text-underline-offset:4px; }
 :root.has-full-header { --header-reserve:108px; }
-.site-header.is-condensed .nav-wrap { min-height:80px; }
-.site-header.is-full.is-condensed .nav-wrap { padding-block:8px; }
-.site-header.is-full.is-condensed .header-branding { min-width:max-content; }
 .responsive-navigation-dialog .header-information { display:grid; grid-template-columns:1fr; gap:0; padding:8px 0 16px; margin-bottom:8px; border-bottom:1px solid var(--navigation-line); }
 .responsive-navigation-dialog .drawer-information-title { display:block; margin:0 0 8px; color:#6e551b; font:600 12px/1.5 var(--sans); letter-spacing:.1em; text-transform:uppercase; }
 .responsive-navigation-dialog .header-information a { display:flex; align-items:center; gap:12px; min-height:48px; color:var(--navigation-ink); font:600 20px/1.4 var(--serif); }
@@ -330,7 +326,7 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
  .site-header .nav-chevron { width:12px; height:12px; }
 }
 
-/* Option D uses the original controls in two rows only at the top. */
+/* Keep the same two rows and controls as the desktop header condenses. */
 .site-header.option-d {
   --tier-gap:20px;
   --tier-gutters:48px;
@@ -342,6 +338,28 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
   padding-block:6px;
   width:calc(100% - var(--tier-gutters));
   min-height:108px;
+  transition:grid-template-rows 220ms ease,min-height 220ms ease,padding 220ms ease;
+}
+.site-header.option-d.is-condensed .nav-wrap {
+  grid-template-rows:44px 44px;
+  min-height:96px;
+  padding-block:4px;
+}
+.site-header.option-d .header-church-mark { transition:width 220ms ease,height 220ms ease; }
+.site-header.option-d.is-condensed .header-church-mark { width:72px; height:72px; }
+.site-header.option-d .nav-primary { transition:min-height 220ms ease; }
+.site-header.option-d.is-condensed .nav-primary { min-height:44px; }
+.site-header.option-d :is(.nav-primary > .nav-link,.nav-trigger) {
+  transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease,min-height 220ms ease,padding-block 220ms ease;
+}
+.site-header.option-d.is-condensed :is(.nav-primary > .nav-link,.nav-trigger) { min-height:44px; padding-block:8px; }
+.site-header.option-d :is(.compact-search,.nav-calendar,.nav-bible,.header-visit) {
+  transition:height 220ms ease,min-height 220ms ease,padding-block 220ms ease;
+}
+.site-header.option-d.is-condensed :is(.compact-search,.nav-calendar,.nav-bible,.header-visit) {
+  height:44px;
+  min-height:44px;
+  padding-block:8px;
 }
 .site-header.option-d .header-branding {
   grid-row:1/3;
