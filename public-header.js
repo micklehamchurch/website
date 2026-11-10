@@ -63,7 +63,7 @@
     probe.removeAttribute('id');
     probe.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
     probe.querySelectorAll('.navigation-hub,.dropdown,.policies-navigation,.header-inline-search').forEach(node=>node.remove());
-    probe.classList.remove('is-condensed','header-search-open');
+    probe.classList.remove('header-search-open');
     probe.classList.add('is-full','option-d');
     probe.style.visibility='hidden';
     const rows=headerRows(probe);
@@ -94,13 +94,11 @@
       if(eligible.matches)measureFit();
       dirty=false;
     }
-    const condensed=full&&scrollY>64;
     const changed=header.classList.contains('is-full')!==full;
     const focused=header.contains(document.activeElement)?document.activeElement:null;
     setRows(full);
     header.classList.toggle('is-full',full);
     header.classList.toggle('option-d',full);
-    header.classList.toggle('is-condensed',condensed);
     // Two 44px targets, their 4px gap and clearance from the first utility.
     const mobileRoom=portraitPhone.matches&&searchLink.getBoundingClientRect().left-wrap.getBoundingClientRect().left>=98;
     const mobileChanged=header.classList.contains('has-mobile-socials')!==mobileRoom;
@@ -114,7 +112,6 @@
   }
   function schedule(){if(!frame)frame=requestAnimationFrame(update);}
   function remeasure(){dirty=true;schedule();}
-  addEventListener('scroll',schedule,{passive:true});
   addEventListener('resize',remeasure);
   addEventListener('pageshow',remeasure);
   eligible.addEventListener('change',remeasure);

@@ -14,19 +14,20 @@ test('Option D coordinates the drawer, policies and search with the measured hea
   assert(read('public-header.js').includes("matchMedia('(min-width:1280px) and (min-width:80em)')"));
   assert.match(read('header-navigation.css'), /\.header-inline-search \{ position:absolute; inset:calc\(100% \+ 8px\) 0 auto;/);
   assert.match(read('public-header.js'), /setRows\(full\);/);
-  assert.match(read('public-header.js'), /const condensed=full&&scrollY>64;/);
+  assert.doesNotMatch(read('public-header.js'), /scrollY|is-condensed/);
+  assert.doesNotMatch(read('header-navigation.css'), /is-condensed/);
   assert(read('header-navigation.css').includes('@media (width < 1366px)'));
   assert(read('home-performance.css').includes('.has-full-header'));
 });
 
-test('the desktop scroll release refreshes changed header asset cache keys', () => {
-  const styleVersion = '20261110-header-scroll-1';
+test('the steady desktop header release refreshes changed header asset cache keys', () => {
+  const styleVersion = '20261110-steady-header-1';
   assert(read('site.js').includes('header-navigation.css?navigation=' + styleVersion));
   assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';
   assert(read('site.js').includes('responsive-navigation.js?v=' + version));
   assert(read('site.js').includes('public-header.js?v=' + styleVersion));
-  assert(read('public-header.js').includes('header-search.js?v=' + styleVersion));
+  assert(read('public-header.js').includes('header-search.js?v=20261110-header-scroll-1'));
   for (const url of ['policies-navigation.css?v=', 'policies-navigation.js?v=']) {
     assert(read('public-header.js').includes(url + version), url);
   }

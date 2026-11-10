@@ -297,7 +297,7 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 
 /* The approved church illustration replaces only the header mark, including its drawer copy. */
 .site-header .header-church-mark,.responsive-navigation-heading .header-church-mark { display:block; flex:none; object-fit:contain; width:52px; height:52px; }
-.site-header.is-full:not(.is-condensed) .header-church-mark { width:80px; height:80px; }
+.site-header.is-full .header-church-mark { width:80px; height:80px; }
 @media(max-width:767px) { .site-header .header-church-mark { width:44px; height:44px; } }
 @media(orientation:landscape) and (max-width:999px) and (max-height:460px) { html body .site-header .header-church-mark { width:36px; height:36px; } }
 .responsive-navigation-heading .header-church-mark { width:44px; height:44px; }
@@ -326,7 +326,7 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
  .site-header .nav-chevron { width:12px; height:12px; }
 }
 
-/* Keep the same two rows and controls as the desktop header condenses. */
+/* Full desktop uses the same two rows at every scroll position. */
 .site-header.option-d {
   --tier-gap:20px;
   --tier-gutters:48px;
@@ -338,28 +338,6 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
   padding-block:6px;
   width:calc(100% - var(--tier-gutters));
   min-height:108px;
-  transition:grid-template-rows 220ms ease,min-height 220ms ease,padding 220ms ease;
-}
-.site-header.option-d.is-condensed .nav-wrap {
-  grid-template-rows:44px 44px;
-  min-height:96px;
-  padding-block:4px;
-}
-.site-header.option-d .header-church-mark { transition:width 220ms ease,height 220ms ease; }
-.site-header.option-d.is-condensed .header-church-mark { width:72px; height:72px; }
-.site-header.option-d .nav-primary { transition:min-height 220ms ease; }
-.site-header.option-d.is-condensed .nav-primary { min-height:44px; }
-.site-header.option-d :is(.nav-primary > .nav-link,.nav-trigger) {
-  transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease,min-height 220ms ease,padding-block 220ms ease;
-}
-.site-header.option-d.is-condensed :is(.nav-primary > .nav-link,.nav-trigger) { min-height:44px; padding-block:8px; }
-.site-header.option-d :is(.compact-search,.nav-calendar,.nav-bible,.header-visit) {
-  transition:height 220ms ease,min-height 220ms ease,padding-block 220ms ease;
-}
-.site-header.option-d.is-condensed :is(.compact-search,.nav-calendar,.nav-bible,.header-visit) {
-  height:44px;
-  min-height:44px;
-  padding-block:8px;
 }
 .site-header.option-d .header-branding {
   grid-row:1/3;
