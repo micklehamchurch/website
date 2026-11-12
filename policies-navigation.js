@@ -2,7 +2,8 @@
 (() => {
   'use strict';
   const header=document.querySelector('[data-site-header]'),nav=document.getElementById('mainNav');
-  const original=nav?.querySelector('.header-information a[href$="policies.html"]');
+  const informationBar=header?.previousElementSibling?.closest('.slim-information');
+  const original=(informationBar||nav)?.querySelector('.header-information a[href$="policies.html"]');
   if(!header||!original)return;
   const base=new URL('.',document.querySelector('script[src*="site.js"]').src),url=file=>new URL(file,base).href;
   const compact=globalThis.churchHeaderMode,reduced=matchMedia('(prefers-reduced-motion:reduce)');
@@ -21,7 +22,7 @@
   let open=false,movement=null,frame=0;
   function position(){frame=0;if(!compact.matches){const r=header.getBoundingClientRect();panel.style.top=`${r.bottom+8}px`;panel.style.maxHeight=`${Math.max(0,innerHeight-r.bottom-24)}px`;}}
   function schedule(){if(!frame)frame=requestAnimationFrame(position);}
-  function close(restore=false){if(!open&&panel.hidden)return;open=false;movement?.cancel();movement=null;panel.hidden=true;panel.inert=true;trigger.setAttribute('aria-expanded','false');if(restore){const target=trigger.getClientRects().length?trigger:header.querySelector('.header-branding .brand');target?.focus({preventScroll:true});}}
+  function close(restore=false){if(!open&&panel.hidden)return;open=false;movement?.cancel();movement=null;panel.hidden=true;panel.inert=true;trigger.setAttribute('aria-expanded','false');if(restore){const target=trigger.getClientRects().length&&(!trigger.closest(".slim-information")||trigger.getBoundingClientRect().bottom>0)?trigger:header.querySelector('.header-branding .brand');target?.focus({preventScroll:true});}}
   function show(){movement?.cancel();globalThis.closeDropdowns?.();globalThis.syncNavigationBackdrop?.();open=true;panel.hidden=false;panel.inert=false;trigger.setAttribute('aria-expanded','true');position();if(!compact.matches){const img=panel.querySelector('img');if(img.dataset.src){img.src=img.dataset.src;delete img.dataset.src;}if(!reduced.matches)movement=panel.animate([{opacity:0,transform:'translate(-50%,-8px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:220,easing:'ease-out'});}}
   trigger.addEventListener('click',()=>open?close():show());
   panel.addEventListener('click',event=>{if(event.target.closest('a'))close();});

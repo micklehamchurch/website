@@ -7,52 +7,67 @@
   const photo=document.querySelector('main :is(.home-hero-photo,.visit-principal-photo,.parish-about-hero-photo,.history-hero-photo,.wedding-hero-photo,.baptism-hero-photo,.funeral-hero-photo)');
   if(photo)document.body.classList.add('header-photo-page');
   const compact=globalThis.churchHeaderMode;
-  const eligible=matchMedia('(min-width:1280px) and (min-width:80em)');
+  const eligible=matchMedia('(min-width:820px) and (min-height:601px) and (any-hover:hover) and (any-pointer:fine), (min-width:1280px) and (min-width:80em)');
   const portraitPhone=matchMedia('(max-width:599px) and (orientation:portrait)');
   const nav=header.querySelector('.nav');
   const wrap=header.querySelector('.nav-wrap');
   const searchLink=header.querySelector('.compact-search');
 
-  // Move the real links, so visual order and Tab order stay aligned.
+  // Keep each link and button in a single place, including in the responsive drawer.
   function headerRows(tree) {
-    const nav=tree.querySelector('.nav');
-    const information=nav.querySelector('.header-information');
-    const socials=nav.querySelector('.header-socials');
-    const opening=nav.querySelector('.header-opening');
-    const primary=nav.querySelector('.nav-primary');
-    const utilities=nav.querySelector('.nav-utilities');
-    const actions=utilities.querySelector('.nav-actions');
-    const search=nav.querySelector('.compact-search');
-    const calendar=nav.querySelector('.nav-calendar');
-    const bible=nav.querySelector('.nav-bible');
-    const visit=nav.querySelector('.header-visit');
-    const group=name=>Object.assign(document.createElement('div'),{className:'option-d-'+name});
-    const upper=nav.querySelector('.option-d-upper')||group('upper');
-    const lower=nav.querySelector('.option-d-lower')||group('lower');
-    const right=upper.querySelector('.option-d-right')||group('right');
-    const tools=right.querySelector('.option-d-tools')||group('tools');
-    return twoTier=>{
-      if(twoTier===(upper.parentNode===nav))return;
-      if(twoTier){
+    const live = tree === header;
+    const navigation = tree.querySelector('.nav');
+    const utilities = navigation.querySelector('.nav-utilities');
+    const actions = utilities.querySelector('.nav-actions');
+    const primary = navigation.querySelector('.nav-primary');
+    const search = navigation.querySelector('.compact-search');
+    const calendar = navigation.querySelector('.nav-calendar');
+    const bible = navigation.querySelector('.nav-bible');
+    const visit = navigation.querySelector('.header-visit');
+    const information = navigation.querySelector('.header-information');
+    const opening = navigation.querySelector('.header-opening');
+    const socials = navigation.querySelector('.header-socials');
+    const make = (tag, className) => Object.assign(document.createElement(tag), {className});
+    const bar = make('aside','slim-information');
+    bar.setAttribute('aria-label','Parish information and social media');
+    const inner = make('div','slim-information-inner');
+    const parishLinks = make('div','slim-parish-links');
+    inner.append(parishLinks);
+    bar.append(inner);
+    const utilityRow = navigation.querySelector('.option-b-actions') || make('div','option-b-actions');
+    const lower = navigation.querySelector('.option-d-lower') || make('div','option-d-lower');
+    const tools = utilityRow.querySelector('.option-d-tools') || make('div','option-d-tools');
+    const give = utilityRow.querySelector('.option-b-give') || make('a','option-b-give');
+    if (visit) give.href = new URL('give.html', visit.href).href;
+    give.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21 3 12C-3 5 6-1 12 6c6-7 15-1 9 6Z"/></svg>Give';
+    return full => {
+      if (full === (lower.parentNode === navigation)) return;
+      if (full) {
         tools.append(search,calendar,bible);
-        right.append(information,tools,opening);
-        upper.append(socials,right);
-        lower.append(primary,visit);
-        nav.prepend(upper,lower);
-      }else{
-        nav.prepend(information,opening,primary);
+        utilityRow.append(tools,give);
+        lower.append(primary);
+        navigation.prepend(utilityRow,lower);
+        if (live) {
+          parishLinks.append(information,opening);
+          inner.append(socials);
+          tree.before(bar);
+          visit.remove();
+        }
+      } else {
+        navigation.prepend(information,opening,primary);
         utilities.prepend(search);
         actions.append(calendar,bible);
         utilities.append(visit);
         utilities.before(socials);
-        upper.remove();
+        utilityRow.remove();
         lower.remove();
+        bar.remove();
       }
     };
   }
 
   const setRows=headerRows(header);
-  let frame=0,dirty=true,full=false;
+  let frame=0,dirty=true,full=false,single=false;
 
   // The temporary, inert probe is measured only when width or text metrics
   // change. It has no IDs, overlays or event handlers and is never painted.
@@ -63,9 +78,10 @@
     probe.removeAttribute('id');
     probe.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
     probe.querySelectorAll('.navigation-hub,.dropdown,.policies-navigation,.header-inline-search').forEach(node=>node.remove());
-    probe.classList.remove('header-search-open');
+    probe.classList.remove('header-search-open','slim-single');
     probe.classList.add('is-full','option-d');
     probe.style.visibility='hidden';
+    probe.style.setProperty('position','fixed','important');
     const rows=headerRows(probe);
     rows(true);
     header.after(probe);
@@ -73,7 +89,7 @@
       const wrap=probe.querySelector('.nav-wrap');
       const fits=()=>{
         const bounds=wrap.getBoundingClientRect();
-        const items=[...probe.querySelectorAll('.brand,.nav-trigger,.nav-primary>.nav-link,.header-information a,.policies-trigger,.header-opening,.compact-search,.nav-calendar,.nav-bible,.header-visit,.header-social-link')]
+        const items=[...probe.querySelectorAll('.brand,.nav-trigger,.nav-primary>.nav-link,.header-information a,.policies-trigger,.header-opening,.compact-search,.nav-calendar,.nav-bible,.header-visit,.header-social-link,.option-b-give')]
           .filter(node=>node.getClientRects().length);
         const boxes=items.map(node=>node.getBoundingClientRect());
         return items.every((node,index)=>{
@@ -83,6 +99,14 @@
         });
       };
       full=fits();
+      if(!full)return;
+      probe.classList.add('slim-single');
+      const groupWidths=['.header-branding','.nav-primary','.option-b-actions'].map(selector=>
+        probe.querySelector(selector).getBoundingClientRect().width);
+      const rowGap=2*parseFloat(getComputedStyle(wrap).columnGap);
+      const occupiedWidth=groupWidths.reduce((total,width)=>total+width,rowGap);
+      // Keep 20px of clearance beyond the two gaps between the groups.
+      single=wrap.getBoundingClientRect().width-occupiedWidth>=20&&fits();
     }finally{probe.remove();}
   }
 
@@ -91,21 +115,31 @@
     if(!header.contains(nav))return; // Keep the drawer stable while it owns the nav.
     if(dirty){
       full=false;
+      single=false;
       if(eligible.matches)measureFit();
       dirty=false;
     }
     const changed=header.classList.contains('is-full')!==full;
-    const focused=header.contains(document.activeElement)?document.activeElement:null;
+    const active=document.activeElement;
+    const focused=header.contains(active)||active?.closest('.slim-information')?active:null;
     setRows(full);
     header.classList.toggle('is-full',full);
     header.classList.toggle('option-d',full);
+    const singleChanged=header.classList.contains('slim-single')!==single;
+    header.classList.toggle('slim-single',single);
+    if(full&&(changed||singleChanged)){
+      const navigationRow=nav.querySelector('.option-d-lower');
+      const utilitiesRow=nav.querySelector('.option-b-actions');
+      if(single)navigationRow.after(utilitiesRow);
+      else utilitiesRow.after(navigationRow);
+    }
     // Two 44px targets, their 4px gap and clearance from the first utility.
     const mobileRoom=portraitPhone.matches&&searchLink.getBoundingClientRect().left-wrap.getBoundingClientRect().left>=98;
     const mobileChanged=header.classList.contains('has-mobile-socials')!==mobileRoom;
     header.classList.toggle('has-mobile-socials',mobileRoom);
     document.documentElement.classList.toggle('has-full-header',full);
     if(changed)compact.dispatchEvent(new Event('change'));
-    if(changed&&focused&&document.activeElement!==focused&&focused.getClientRects().length)focused.focus({preventScroll:true});
+    if((changed||singleChanged)&&focused&&document.activeElement!==focused&&focused.getClientRects().length)focused.focus({preventScroll:true});
     if((changed||mobileChanged)&&focused&&!focused.getClientRects().length){
       header.querySelector(full?'.brand':'.menu-toggle').focus({preventScroll:true});
     }
@@ -165,6 +199,6 @@
   const script=document.querySelector('script[src*="site.js"]');
   if(!script||!document.querySelector('.header-information'))return;
   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('policies-navigation.css?v=20261108-header-social-1',script.src).href;
-  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261108-header-social-1',script.src).href;document.head.append(enhancement);},{once:true});
+  css.addEventListener('load',()=>{const enhancement=document.createElement('script');enhancement.src=new URL('policies-navigation.js?v=20261112-slim-header-1',script.src).href;document.head.append(enhancement);},{once:true});
   document.head.append(css);
 })();
