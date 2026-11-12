@@ -289,6 +289,10 @@ jobs:
           elif grep -Eq '^parish-gallery\.js$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(parish-gallery\.js|build-parish-gallery\.js|gallery\.html|test/(parish-gallery-image-state|home-discovery-gallery)\.test\.cjs|test/helpers/approved-quick-links\.cjs|scripts/check-parish-gallery-image-state\.cjs|docs/gallery-image-state\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
             node --check parish-gallery.js
+          # The two Giving artwork placements only change image descriptions in search.
+          elif grep -Eq '^assets/images/giving/gifts-to-jesus-[0-9]+\.webp$' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(give\.html|giving-refinements\.css|index\.html|search-index\.json|assets/images/(giving/gifts-to-jesus-[0-9]+|home/gifts-to-jesus-(portrait|wide)-[0-9]+)\.webp|test/(home-bottom\.test\.cjs|helpers/home-performance\.cjs)|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node build-search-index.js
           # Confirmed Giving content has no generated page dependencies beyond search.
           elif grep -Eq '^give\.html$' /tmp/navigation-changed-paths &&
              ! grep -Ev '^(give\.html|giving-refinements\.css|search-index\.json|CONTENT-MIGRATION-NOTES\.md|test/giving\.test\.cjs|test/helpers/approved-(quick-links|giving-restoration)\.cjs|test/fixtures/giving-restoration-approved\.json|scripts/check-giving\.cjs|docs/giving\.md|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
