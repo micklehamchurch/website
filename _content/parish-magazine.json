@@ -1,0 +1,58 @@
+{
+  "editions": [
+    {
+      "id": "2026-11",
+      "name": "November 2026",
+      "pdf": "assets/documents/news/parish-magazine/MPM Nov 2026 online.pdf",
+      "images": "assets/images/parish-magazine/2026-11",
+      "sheets": 17,
+      "wholePages": {
+        "1": "Front cover",
+        "9": "Calendar",
+        "17": "Back cover"
+      },
+      "leftLabels": {
+        "10": "Directory continued"
+      },
+      "rightLabels": {
+        "8": "Directory"
+      }
+    },
+    {
+      "id": "2026-10",
+      "name": "October 2026",
+      "pdf": "assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf",
+      "images": "assets/images/parish-magazine/2026-10",
+      "sheets": 17,
+      "wholePages": {
+        "1": "Front cover",
+        "9": "Calendar",
+        "17": "Back cover"
+      },
+      "leftLabels": {
+        "10": "Directory continued"
+      },
+      "rightLabels": {
+        "8": "Directory"
+      }
+    },
+    {
+      "id": "2026-09",
+      "name": "September 2026",
+      "pdf": "assets/documents/news/parish-magazine/mpm-sept-2026-for-online.pdf",
+      "images": "assets/images/parish-magazine/2026-09",
+      "sheets": 17,
+      "wholePages": {
+        "1": "Front cover",
+        "9": "Calendar",
+        "17": "Back cover"
+      },
+      "leftLabels": {
+        "10": "Directory continued"
+      },
+      "rightLabels": {
+        "8": "Directory"
+      }
+    }
+  ]
+}

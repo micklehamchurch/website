@@ -1,7 +1,37 @@
-const delivery=require('./helpers/home-performance.cjs');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),cp=require('node:child_process');const {render,readService}=require('../home-news-render.cjs'),feed={items:require('../news-feed.json').items.filter(item=>item.showOnHome!==false)},service=readService();
-test('Latest service leads two newest canonical news items, without entering the News feed',()=>{assert(service);const s=render(feed,service);assert(s.includes('home-service-latest'));assert(s.indexOf(service.video.title)<s.indexOf(feed.items[0].title));assert(s.includes(feed.items[0].url));assert(s.includes(feed.items[1].url));assert(!s.includes(feed.items[2].url));assert.equal((s.match(/<article /g)||[]).length,3);const old=JSON.parse(cp.execFileSync('git',['show','75794f2:news-feed.json'],{encoding:'utf8'}));assert.deepEqual(feed.items.filter(i=>!['2026-11-01','2026-11-08'].includes(i.date)),old.items);assert.equal(feed.items[0].date,'2026-11-08');assert(!feed.items.some(i=>i.kind==='service'));});
-test('new parish news promotes independently; missing cache restores three normal stories',()=>{const next={...feed.items[0],id:'new',title:'New parish story',url:'news/new-story.html'},s=render({items:[next,...feed.items]},service);assert(s.includes(next.title));assert(s.includes(feed.items[0].url));assert(!s.includes(feed.items[1].url));assert.equal((render(feed,null).match(/<article /g)||[]).length,3);});
-test('service is lightweight, labelled, keyboard-native and has no iframe/autoplay/external image request',()=>{const s=render(feed,service);assert(s.includes('https://www.youtube.com/watch?v='+service.video.id));assert(s.includes('aria-label="Watch '+service.video.title+' on YouTube"'));assert(s.includes('Watch on YouTube'));assert(s.includes('Latest service'));assert(!s.includes('Latest Sunday service'));assert(s.includes('loading="lazy"'));assert(!/iframe|autoplay|src="https:/.test(s));assert(s.includes('Published <time'));assert(s.includes('View all news'));assert(s.indexOf('home-news-all')>s.indexOf('home-service-latest'));assert(fs.existsSync(service.thumbnail.path));});
-test('missing thumbnail renders a reserved, truthful text treatment and escaped metadata',()=>{const v=structuredClone(service);v.thumbnail=null;v.video.title='<script>fake</script>';const s=render(feed,v);assert(s.includes('home-service-placeholder'));assert(s.includes('&lt;script&gt;'));assert(!s.includes('<script>'));});
-test('all homepage content outside From our parish and related includes is preserved',()=>{const normal=s=>s.replace(/<!-- home-news:start -->[\s\S]*?<!-- home-news:end -->/,'NEWS').replace(/home-news\.(css|js)\?v=[^"]+/g,'home-news.$1');const old=cp.execFileSync('git',['show','c4c9bb2:index.html'],{encoding:'utf8'});assert.equal(delivery(normal(fs.readFileSync('index.html','utf8').replace(/\r/g,''))),delivery(normal(old.replace(/\r/g,''))));});
+const delivery = require('./helpers/home-performance.cjs');
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const cp = require('node:child_process');
+const {render, readService} = require('../home-news-render.cjs');
+const feed = require('../news-feed.json');
+
+test('Latest Service links to the cached video with the genuine thumbnail and an accessible label', () => {
+  const service = readService();
+  assert.ok(service);
+  const html = render(feed, service);
+  assert.match(html, /Latest Service/);
+  assert.ok(html.includes('https://www.youtube.com/watch?v=' + service.video.id));
+  assert.ok(html.includes('aria-label="Watch ' + service.video.title + ' on YouTube"'));
+  assert.ok(html.includes(service.thumbnail.path));
+  assert.ok(fs.existsSync(service.thumbnail.path));
+  assert.doesNotMatch(html, /iframe|autoplay|src="https:/);
+  assert.ok(!feed.items.some(item => item.kind === 'service'));
+});
+
+test('missing thumbnail keeps the link and escapes metadata', () => {
+  const service = structuredClone(readService());
+  service.thumbnail = null;
+  service.video.title = '<script>fake</script>';
+  const html = render(feed, service);
+  assert.match(html, /home-service-placeholder/);
+  assert.match(html, /&lt;script&gt;/);
+  assert.doesNotMatch(html, /<script>fake/);
+});
+
+test('all homepage content outside From Our Parish remains byte-equivalent to the Dev baseline', () => {
+  const strip = text => text.replace(/\r/g, '').replace(/<!-- home-news:start -->[\s\S]*?<!-- home-news:end -->/, 'NEWS');
+  const before = cp.execFileSync('git', ['show', '646f2ee:index.html'], {encoding:'utf8'});
+  const after = fs.readFileSync('index.html', 'utf8');
+  assert.equal(delivery(strip(after)), delivery(strip(before)));
+});

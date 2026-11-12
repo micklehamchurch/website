@@ -1,25 +1,91 @@
-const model=require('./news-feed-model');
-const homeFeature = {
-  id: 'story:we-will-remember-them',
-  summary: 'Our church and village community gathered for Remembrance Sunday, honouring those who gave their lives and praying for peace.'
+const fs = require('node:fs');
+const path = require('node:path');
+const model = require('./news-feed-model');
+const magazine = require('./parish-magazine-render.cjs');
+const e = model.esc;
+
+const icons = {
+  video: '<span class="parish-video-icon" aria-hidden="true">▶</span>',
+  news: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h4v4H7zM14 8h3m-3 4h3M7 16h10"/></svg>',
+  magazine: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6C9 3 5 3 2 5v14c3-2 7-2 10 1 3-3 7-3 10-1V5c-3-2-7-2-10 1Zm0 0v14"/></svg>',
+  highlight: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-13 5h8m-8 3h5"/></svg>'
 };
-function render(feed,service=null){
- const stories=model.select(feed),e=model.esc;
- const featured=stories.find(story=>story.id===homeFeature.id && story.date===stories[0].date);
- const items=stories.filter(story=>story.showOnHome!==false && story.id!==featured?.id).slice(0,service?2:3);
- const item=(i,n,editorial=false)=>{const m=i.image,featured=n===0,media=m?`<img src="${e(m.src)}"${m.small?` srcset="${e(m.small)} 640w, ${e(m.src)} ${m.width}w" sizes="${featured?'(max-width:700px) calc(100vw - 32px), (max-width:1000px) 52vw, 720px':'(max-width:700px) calc(100vw - 32px), 360px'}"`:''} width="${m.width||1280}" height="${m.height||720}" alt="${e(m.alt||'')}" loading="lazy" decoding="async">`:model.placeholder(i.kind);return `<article class="home-news-item${featured?' home-news-latest':''}"><a class="home-news-link" href="${e(i.url)}"><div class="home-news-media">${media}<template>${model.placeholder(i.kind)}</template></div><div class="home-news-copy"><p class="home-news-meta">${featured&&!editorial?'<span>Latest</span> · ':''}<time datetime="${e(i.date)}">${e(model.dateLabel(i.date))}</time></p><h3>${e(i.title)}</h3>${i.summary?`<p class="home-news-summary">${e(i.summary)}</p>`:''}<span class="home-news-action">${i.kind==='pews-news'?'Read this edition':'Read the story'} <span aria-hidden="true">→</span></span></div></a></article>`;};
- const video=(compact=false)=>{const v=service.video,m=service.thumbnail,url='https://www.youtube.com/watch?v='+v.id;
- const title=compact&&v.id==='plHh9s5xzeM'?'Remembrance Sunday Service':v.title;return '<article class="home-news-item home-news-latest home-service-latest"><a class="home-news-link" href="'+url+'" aria-label="'+e('Watch '+v.title+' on YouTube')+'" target="_blank" rel="noopener noreferrer"><div class="home-service-media">'+(m?'<img src="'+e(m.path)+'" width="'+m.width+'" height="'+m.height+'" alt="" loading="lazy" decoding="async">':'<div class="home-service-placeholder" aria-hidden="true">Parish services</div>')+'<span class="home-service-label" aria-hidden="true">Latest service</span><span class="home-service-play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l12-7Z" fill="currentColor"/></svg></span></div><div class="home-news-copy"><p class="home-news-meta">'+(compact?'':'Published ')+'<time datetime="'+e(v.publishedAt)+'">'+e(new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).format(new Date(v.publishedAt)))+'</time></p><h3>'+e(title)+'</h3><p class="home-news-summary">Watch the latest service from St Michael &amp; All Angels'+(compact?'.':', Mickleham &amp; Westhumble.')+'</p><span class="home-news-action home-service-action">Watch on YouTube <span aria-hidden="true">→</span></span></div></a></article>';};
- const recent=(cards,start)=>cards.length?`<div class="home-news-recent">${cards.map((card,n)=>item(card,n+start)).join('')}</div>`:'';
- const compactCopy={
-   'pews-news:2026-11-08':{title:'Pews News — 8 November',summary:'Remembrance Sunday, church services and parish notices.'},
-   'pews-news:2026-11-01':{title:'Pews News — 1 November',summary:'All Saints’ Day, parish notices and the Wintershall Nativity Journey.'}
- };
- const grid=featured?`<div class="home-news-grid home-news-grid--featured">${item({...featured,summary:homeFeature.summary},0,true)}<div class="home-news-recent">${service?video(true):''}${items.map(card=>item({...card,...compactCopy[card.id]},1)).join('')}</div></div>`:
-   service?`<div class="home-news-grid">${video()}${recent(items,1)}</div>`:
-   items.length?`<div class="home-news-grid">${item(items[0],0)}${recent(items.slice(1),1)}</div>`:'<p>Visit News for updates from our parish.</p>';
- return `<!-- home-news:start --><section class="home-news${featured?' home-news--feature-story':''}" aria-labelledby="home-news-heading"><div class="home-news-inner"><div class="home-news-heading"><div><p class="home-section-eyebrow">From our parish</p><h2 id="home-news-heading">Latest from Mickleham &amp; Westhumble</h2></div></div>${grid}<a class="home-news-all" href="news.html">View all news <span aria-hidden="true">→</span></a></div></section><!-- home-news:end -->`;
+
+function media(href, label, image, {video = false, fallback = ''} = {}) {
+  const contents = image
+    ? `<img src="${e(image.small || image.src)}" alt="" loading="lazy" decoding="async"><template>${fallback}</template>`
+    : fallback;
+  return `<a class="parish-card-media" href="${e(href)}" aria-label="${e(label)}"${video ? ' target="_blank" rel="noopener noreferrer"' : ''}>${contents}${video ? '<span class="parish-play" aria-hidden="true">▶</span>' : ''}</a>`;
 }
-function build(root=__dirname){const path=require('path'),file=path.join(root,'index.html'),feed=JSON.parse(require('fs').readFileSync(path.join(root,'news-feed.json'),'utf8'));let html=require('fs').readFileSync(file,'utf8');if(!html.includes('<!-- home-news:start -->'))throw Error('Missing Home news markers');html=html.replace(/<!-- home-news:start -->[\s\S]*?<!-- home-news:end -->/,()=>render(feed,readService(root)));require('fs').writeFileSync(file,html);}
-function readService(root=__dirname){try{const fs=require('fs'),path=require('path'),m=require('./azure-function/src/sunday-service-model');return m.validCache(JSON.parse(fs.readFileSync(path.join(root,'sunday-service.json'))),JSON.parse(fs.readFileSync(path.join(root,'youtube-sunday-source.json'))));}catch{return null;}}
-module.exports={render,build,readService};if(require.main===module)build();
+
+function button(href, label, video = false) {
+  return `<a class="magazine-button" href="${e(href)}"${video ? ' target="_blank" rel="noopener noreferrer"' : ''}>${e(label)} <span aria-hidden="true">›</span></a>`;
+}
+
+function card(icon, title, description, photo, actions, attributes = '') {
+  return `<article class="parish-card"${attributes}>
+    ${photo}
+    <div class="parish-card-copy"><h3>${icons[icon]} ${e(title)}</h3><p>${e(description)}</p>${actions}</div>
+  </article>`;
+}
+
+function render(feed, service = null) {
+  const pews = model.select(feed, 'pews-news')[0];
+  const story = model.select(feed, 'parish-story').find(item => item.id === 'story:we-will-remember-them');
+  const serviceUrl = service ? 'https://www.youtube.com/watch?v=' + service.video.id : 'sunday-services.html';
+  const serviceLabel = service ? 'Watch ' + service.video.title + ' on YouTube' : 'Browse Sunday services';
+  const servicePhoto = media(serviceUrl, serviceLabel, service?.thumbnail && {src: service.thumbnail.path},
+    {video: Boolean(service), fallback: '<div class="home-service-placeholder" aria-hidden="true">Parish services</div>'});
+  const pewsUrl = pews?.url || 'pews-news.html';
+  const pewsPhoto = media(pewsUrl, 'Read the latest Pews News', pews?.image, {fallback: model.placeholder()});
+  const latest = magazine.latest;
+  const fallback = card('highlight', 'Explore Our Church', 'Discover the history of St Michael & All Angels and its place in village life.',
+    media('our-history.html', 'Explore our church history', {src: 'assets/images/home/hero-autumn-church-640.webp'}),
+    button('our-history.html', 'Read the Full Story'), story ? ' data-parish-evergreen hidden' : '');
+
+  return `<!-- home-news:start -->
+<section class="from-our-parish" aria-labelledby="home-news-heading">
+  <link rel="stylesheet" href="parish-magazine.css?v=1">
+  <div class="parish-section-inner">
+    <h2 id="home-news-heading">From Our Parish</h2>
+    <p class="parish-section-intro">Latest services, Pews News, our parish magazine and highlights from our church community.</p>
+    <div class="parish-card-grid">
+      ${card('video', 'Latest Service', 'Watch the most recent church service on our YouTube channel.', servicePhoto, button(serviceUrl, service ? 'Watch on YouTube' : serviceLabel, Boolean(service)))}
+      ${card('news', 'Pews News', 'The latest weekly news, readings and notices from our parish.', pewsPhoto, button(pewsUrl, 'Read the Latest Edition'))}
+      ${card('magazine', 'Parish Magazine', 'Read the latest monthly magazine or browse our archive of past editions.',
+        magazine.coverLink(latest, 'parish-card-media parish-card-cover'),
+        magazine.trigger(latest, 'Read the ' + latest.name + ' Edition', 'magazine-button') +
+        `<a class="magazine-text-link" href="${magazine.archive}#previous-editions">View Previous Editions <span aria-hidden="true">›</span></a>`)}
+      ${story ? card('highlight', 'Remembrance Sunday', 'A time to remember and give thanks for the service and sacrifice of others.',
+        media(story.url, 'Read We Will Remember Them', story.image, {fallback: model.placeholder('parish-story')}),
+        button(story.url, 'Read the Full Story'), ' data-parish-expiry="2026-12-01"') : ''}
+      ${fallback}
+    </div>
+  </div>
+  ${magazine.reader()}
+</section>
+<!-- home-news:end -->`;
+}
+
+function build(root = __dirname) {
+  const file = path.join(root, 'index.html');
+  const feed = JSON.parse(fs.readFileSync(path.join(root, 'news-feed.json'), 'utf8'));
+  const html = fs.readFileSync(file, 'utf8');
+  const section = /<!-- home-news:start -->[\s\S]*?<!-- home-news:end -->/;
+  if (!section.test(html)) throw Error('Missing Home news markers');
+  const newline = html.includes('\r\n') ? '\r\n' : '\n';
+  fs.writeFileSync(file, html.replace(section, () => render(feed, readService(root)).replace(/\n/g, newline)));
+}
+
+function readService(root = __dirname) {
+  try {
+    const serviceModel = require('./azure-function/src/sunday-service-model');
+    const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
+    return serviceModel.validCache(read('sunday-service.json'), read('youtube-sunday-source.json'));
+  } catch {
+    return null;
+  }
+}
+
+module.exports = {render, build, readService};
+if (require.main === module) build();

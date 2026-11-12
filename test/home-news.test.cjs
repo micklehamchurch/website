@@ -1,9 +1,45 @@
-const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs,cp=require('node:child_process'),{render}=require('../home-news-render.cjs'),model=require('../news-feed-model');
-const feed=()=>({items:JSON.parse(fs.readFileSync('news-feed.json','utf8')).items.filter(item=>item.showOnHome!==false)});
-test('Home uses exactly the three newest canonical items with each existing illustration/photo',()=>{const f=feed(),h=render(f);assert.equal((h.match(/<article /g)||[]).length,3);for(const i of f.items.slice(0,3)){assert(h.includes(i.url));assert(h.includes(i.image.src));assert(h.includes(i.date));}assert.equal((h.match(/home-news-summary/g)||[]).length,f.items.slice(0,3).filter(i=>i.summary).length);assert(h.includes('View all news'));});
-test('newest promotion displaces fourth item but retains edition-specific artwork and canonical feed',()=>{const f=feed(),original=JSON.stringify(f),next={...f.items[2],id:'fixture',date:'2026-11-01',title:'Future fixture',url:'news/future-fixture.html'};const h=render({items:[next,...f.items]});assert(h.indexOf(next.title)<h.indexOf(f.items[0].title));assert(h.includes(f.items[0].image.src));assert(h.includes(f.items[1].image.src));assert(!h.includes(f.items[2].title));assert.equal(JSON.stringify(f),original);});
-test('fewer than three items render without empty cards and preserve safe text',()=>{assert.equal((render({items:feed().items.slice(0,1)}).match(/<article /g)||[]).length,1);assert(!render({items:[]}).includes('<article'));const f=feed();f.items[0].title='<img onerror="bad()">';assert(render(f).includes('&lt;img'));assert(!render(f).includes('<img onerror'));});
-test('missing images use the same truthful fallback and failed images have a template',()=>{const f=feed();f.items[0].image=null;assert(render(f).includes('news-paper'));assert(render(f).includes('<template>'));assert(fs.readFileSync('home-news.js','utf8').includes("addEventListener('error'"));});
-test('Home preview remains identical to the canonical renderer while the neighbouring section evolves',()=>{const html=fs.readFileSync('index.html','utf8').replace(/\r/g,'').replace(/header=202610(?:26-hub|27-(?:photos|motion))-1/g,'header=20261022-inline-2').replace(/footer=20261027-(?:links|clean|layout)-1/g,'footer=20261010-v2').replaceAll('optional-translation-2','optional-translation-1');assert(html.includes(render(JSON.parse(fs.readFileSync('news-feed.json','utf8')),require('../home-news-render.cjs').readService())));});
-test('canonical News layout is preserved while the current feed promotes the new edition',()=>{const normalize=s=>s.replace(/\r/g,'').replace(/<div id="news-feed">[\s\S]*?(?=<section class="news-resources")/,'FEED').replace(/<script type="application\/json" id="news-feed-data">[\s\S]*?<\/script>/,'FEED_DATA').replace(/Showing \d+ news items/g,'Showing count news items');assert.equal(normalize(fs.readFileSync('news.html','utf8')),normalize(approvedNavigationSnapshot(cp.execFileSync('git',['show','75794f2:news.html'],{encoding:'utf8'}))));assert.equal(fs.readFileSync('news-feed-model.js','utf8').replace(/\r/g,'').replace(",...(a.showOnHome===false?{showOnHome:false}:{})",''),approvedNavigationSnapshot(cp.execFileSync('git',['show','75794f2:news-feed-model.js'],{encoding:'utf8'})).replace(/\r/g,''));assert.equal(feed().items[0].date,'2026-11-08');assert(fs.readFileSync('build-news-hub.js','utf8').includes("require('./home-news-render.cjs').build(root)"));});
+const {test} = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const {render, readService} = require('../home-news-render.cjs');
+const {archiveContent} = require('../parish-magazine-render.cjs');
+const {editions} = require('../_content/parish-magazine.json');
+const feed = require('../news-feed.json');
+
+test('From Our Parish shows the approved cards in order using current canonical links', () => {
+  const html = render(feed, readService());
+  const visible = [...html.matchAll(/<article class="parish-card"(?:(?! hidden)[^>])*?>[\s\S]*?<h3>[\s\S]*? (Latest Service|Pews News|Parish Magazine|Remembrance Sunday)<\/h3>/g)].map(match => match[1]);
+  assert.deepEqual(visible, ['Latest Service', 'Pews News', 'Parish Magazine', 'Remembrance Sunday']);
+  assert.match(html, /pews-news\/2026-11-08\.html/);
+  assert.doesNotMatch(html, /pews-news\/2026-11-01\.html/);
+  assert.match(html, /parish-magazine\.html#previous-editions/);
+  assert.match(html, /data-parish-expiry="2026-12-01"/);
+  assert.match(html, /data-parish-evergreen hidden/);
+});
+
+test('homepage uses the newest canonical Pews News and preserves truthful media fallbacks', () => {
+  const newer = {...feed.items[0], id:'pews-news:2026-11-15', url:'pews-news/2026-11-15.html', image:null};
+  const html = render({items:[newer, ...feed.items]});
+  assert.match(html, /pews-news\/2026-11-15\.html/);
+  assert.match(html, /news-paper/);
+  assert.match(html, /sunday-services\.html/);
+});
+
+test('homepage delivery equals the canonical renderer', () => {
+  assert.ok(fs.readFileSync('index.html', 'utf8').replace(/\r/g, '').includes(render(feed, readService())));
+});
+
+test('archive links to all three original PDFs and each reader uses the same page data', () => {
+  const html = archiveContent();
+  for (const edition of editions) {
+    assert.ok(html.includes('href="' + edition.pdf + '" download'));
+    assert.equal(fs.readFileSync(edition.pdf).subarray(0,5).toString(), '%PDF-');
+    assert.equal(edition.wholePages[9], 'Calendar');
+    for (let page=1; page<=edition.sheets; page++) {
+      assert.ok(fs.existsSync(edition.images + '/sheet-' + String(page).padStart(2,'0') + '.jpg'));
+    }
+  }
+  const embed = text => text.match(/<script type="application\/json" id="magazine-editions-data">([^<]+)/)[1];
+  assert.equal(embed(html), embed(render(feed)));
+  assert.ok(require('../search-index.json').find(item => item.url === 'parish-magazine.html' && item.content.includes('November 2026')));
+});
