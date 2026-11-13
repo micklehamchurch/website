@@ -406,6 +406,61 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-d190e189ba82b48931e4542180d5debd",
+      "title": "Parish Council meets in Ranmore Room: AGM",
+      "start": "2027-05-19T19:30",
+      "end": "2027-05-19T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-b46d87f26f9ff0413d35f5489f246da2",
+      "title": "Interment of Ashes in churchyard",
+      "start": "2026-11-24T12:30",
+      "end": "2026-11-24T13:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-28cb71b7250ec59cb7b7df9ddfedf7f5",
+      "title": "Parish Council meets in Ranmore Room",
+      "start": "2027-11-10T19:30",
+      "end": "2027-11-10T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-fc9331c2d6f127dff281865ddc18b837",
+      "title": "Parish Council meets in Ranmore Room",
+      "start": "2027-09-08T19:30",
+      "end": "2027-09-08T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-23eed3e3ae5ff05059e790f62dedc9f6",
+      "title": "Parish Council meets in Ranmore Room",
+      "start": "2027-07-07T19:30",
+      "end": "2027-07-07T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [

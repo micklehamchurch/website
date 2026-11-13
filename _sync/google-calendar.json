@@ -3813,6 +3813,141 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"045subjv7b1d3gjsg2io2ssb27@google.com\",\"\"]",
+      "uid": "045subjv7b1d3gjsg2io2ssb27@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-d190e189ba82b48931e4542180d5debd",
+      "google": {
+        "title": "Parish Council meets in Ranmore Room: AGM",
+        "start": "2027-05-19T19:30",
+        "end": "2027-05-19T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meets in Ranmore Room: AGM",
+        "start": "2027-05-19T19:30",
+        "end": "2027-05-19T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "03993db80e3f8b3bd22a249b216b18dc93f174f91e666813d77c31592abd9b27",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4v1a7rsfnffueh7th78kc7d64l@google.com\",\"\"]",
+      "uid": "4v1a7rsfnffueh7th78kc7d64l@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-b46d87f26f9ff0413d35f5489f246da2",
+      "google": {
+        "title": "Interment of Ashes in churchyard",
+        "start": "2026-11-24T12:30",
+        "end": "2026-11-24T13:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Interment of Ashes in churchyard",
+        "start": "2026-11-24T12:30",
+        "end": "2026-11-24T13:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "79887c96f211089779ad92983a38cfcc72cd79fa9371d8ebfb777bcfd664c3fc",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5vd8m8g4cpk5jv7ajdj740qsed@google.com\",\"\"]",
+      "uid": "5vd8m8g4cpk5jv7ajdj740qsed@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-28cb71b7250ec59cb7b7df9ddfedf7f5",
+      "google": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-11-10T19:30",
+        "end": "2027-11-10T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-11-10T19:30",
+        "end": "2027-11-10T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "933cea2d7ed5b082930adee11abf3882e3b9d98eb2334b9aa684a6374cb6ba44",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6h8bi7hqf8trnu0la3dk79nirk@google.com\",\"\"]",
+      "uid": "6h8bi7hqf8trnu0la3dk79nirk@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-fc9331c2d6f127dff281865ddc18b837",
+      "google": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-09-08T19:30",
+        "end": "2027-09-08T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-09-08T19:30",
+        "end": "2027-09-08T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "43a2ee7b0858ae8a5d70a340eed11d26bfc83520ae2c73614983a2905341700d",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"7l3ugomgtrsscrn3oppt02sem3@google.com\",\"\"]",
+      "uid": "7l3ugomgtrsscrn3oppt02sem3@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-23eed3e3ae5ff05059e790f62dedc9f6",
+      "google": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-07-07T19:30",
+        "end": "2027-07-07T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Parish Council meets in Ranmore Room",
+        "start": "2027-07-07T19:30",
+        "end": "2027-07-07T20:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "f79ae74d0c9c88b27921800bf4a5645b50a76c09d276b7aaa222fdda6a5e79e9",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3829,14 +3964,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-11-03T16:00:04.514Z",
+  "lastSuccessfulSync": "2026-11-13T20:45:05.262Z",
   "audit": {
-    "at": "2026-11-03T16:00:04.514Z",
+    "at": "2026-11-13T20:45:05.262Z",
     "mode": "automatic",
-    "added": 0,
-    "updated": 1,
+    "added": 5,
+    "updated": 0,
     "removed": 0,
-    "unchanged": 128,
+    "unchanged": 129,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1
