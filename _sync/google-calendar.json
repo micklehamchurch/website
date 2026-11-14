@@ -3948,6 +3948,60 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"2f05v8cn3msiqb4ier0q0nh27a@google.com\",\"\"]",
+      "uid": "2f05v8cn3msiqb4ier0q0nh27a@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-760cee67f224d120a3ebccf2bbda2a18",
+      "google": {
+        "title": "Interment of Ashes in churchyard",
+        "start": "2026-11-16T11:30",
+        "end": "2026-11-16T12:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Interment of Ashes in churchyard",
+        "start": "2026-11-16T11:30",
+        "end": "2026-11-16T12:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "c850270109b79e343c68a379a07718124a1522d460944f7b0177f0dbd0803507",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5r94a95ehudlah3apbhkt8qjho@google.com\",\"\"]",
+      "uid": "5r94a95ehudlah3apbhkt8qjho@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-6fe69422ab744a4d6224a2d29d51133f",
+      "google": {
+        "title": "Mickleham Choral Society rehearsal in church",
+        "start": "2026-12-10T00:00",
+        "end": "2026-12-11T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Mickleham Choral Society rehearsal in church",
+        "start": "2026-12-10T00:00",
+        "end": "2026-12-11T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "d4afc9c73a1b88cc33b105cec472454294d4d5de648a1498de2c0a58ace495fd",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -3964,14 +4018,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-11-13T20:45:05.262Z",
+  "lastSuccessfulSync": "2026-11-14T21:00:05.720Z",
   "audit": {
-    "at": "2026-11-13T20:45:05.262Z",
+    "at": "2026-11-14T21:00:05.720Z",
     "mode": "automatic",
-    "added": 5,
+    "added": 2,
     "updated": 0,
     "removed": 0,
-    "unchanged": 129,
+    "unchanged": 134,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1
