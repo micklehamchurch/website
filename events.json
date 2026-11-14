@@ -470,6 +470,28 @@
       "status": "published"
     },
     {
+      "id": "google-760cee67f224d120a3ebccf2bbda2a18",
+      "title": "Interment of Ashes in churchyard",
+      "start": "2026-11-16T11:30",
+      "end": "2026-11-16T12:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-6fe69422ab744a4d6224a2d29d51133f",
+      "title": "Mickleham Choral Society rehearsal in church",
+      "start": "2026-12-10T00:00",
+      "end": "2026-12-11T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
       "title": "Compline in Church",
       "start": "2026-10-06T19:00",
       "end": "2026-10-06T20:00",
