@@ -1,5 +1,5 @@
 const { buildCalendar } = require('./calendar-model');
-const { SOURCE, HORIZON, fingerprint } = require('./google-calendar-adapter');
+const { SOURCE, HORIZON, fingerprint, occurrenceCount } = require('./google-calendar-adapter');
 const FIELDS = ['title','start','end','allDay','location','description'];
 const state = event => Object.fromEntries(FIELDS.map(field => [field, event[field] ?? (field === 'allDay' ? false : '')]));
 const equal = (a,b) => JSON.stringify(a) === JSON.stringify(b);
@@ -28,9 +28,19 @@ function reconcile(calendar, registry, feed, { stage2 = false, observations = {}
   const next = structuredClone(calendar), nextRegistry = structuredClone(registry);
   const targets = new Map(buildCalendar(null,calendar,{includeDrafts:true,range:HORIZON}).items.map(e=>[e.id,e]));
   const source = new Map(feed.rows.map(e=>[e.key,e]));
+  const untitled = new Map((feed.untitled || []).map(event => [event.key, event]));
   const report = { additions:[], updates:[], removals:[], missing:[], conflicts:[], unchanged:[], suppressed:[], unsupported:[], warnings:[] };
   for (const entry of nextRegistry.entries) {
     const row = source.get(entry.key), target = targets.get(entry.websiteId);
+    const excluded = untitled.get(entry.key);
+    if (excluded) {
+      entry.missingChecks = 0;
+      report.unsupported.push({
+        date: excluded.date,
+        reason: target ? 'Title missing in Google Calendar. The website event was kept. Add a title in Google Calendar.' : 'Title missing in Google Calendar. Add a title there before this event can sync.'
+      });
+      continue;
+    }
     const label = { title: target?.title || row?.state.title || entry.google.title, date: target?.start.slice(0,10) || entry.google.start.slice(0,10) };
     if (entry.suppressed || (!target && !entry.approvedAddition)) {
       entry.suppressed = true; report.suppressed.push(label); continue;
@@ -83,6 +93,9 @@ function reconcile(calendar, registry, feed, { stage2 = false, observations = {}
     entry.google=structuredClone(row.state); entry.website={...current,...changes}; entry.fingerprint=row.fingerprint;
   }
   const mapped = new Set(registry.entries.map(e=>e.key));
+  for (const event of untitled.values()) if (!event.outside && !mapped.has(event.key)) {
+    report.unsupported.push({ date: event.date, reason: 'Title missing in Google Calendar. Add a title there before this event can sync.' });
+  }
   const knownUids = new Set(registry.entries.map(e => e.uid));
   for (const row of feed.rows) if (!mapped.has(row.key)) {
     const label = { title:row.state.title,date:row.state.start.slice(0,10) };
@@ -97,7 +110,7 @@ function reconcile(calendar, registry, feed, { stage2 = false, observations = {}
   }
   const absent = report.missing.length + report.removals.length;
   if (report.missing.length) report.warnings.push(stage2?'Missing Google records are retained until the conservative threshold and ownership checks pass.':'Google records are missing. No removals will be applied in Stage 1.');
-  const largeDrop = absent > 3 || absent > registry.entries.length * .05 || (previousCount != null && feed.rows.length < previousCount * .8);
+  const largeDrop = absent > 3 || absent > registry.entries.length * .05 || (previousCount != null && occurrenceCount(feed) < previousCount * .8);
   if (largeDrop) report.warnings.push('Large drop in mapped Google events: review the source before applying updates.');
   const mappedUids=new Set(registry.entries.map(e=>e.uid)), currentSeries=feed.series.filter(s=>mappedUids.has(s.uid));
   if (registry.series && !equal(registry.series,currentSeries)) report.warnings.push('Google recurrence structure changed. Review is required; no updates will be applied.');

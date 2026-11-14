@@ -1,5 +1,5 @@
 const { readGithubConfiguration, createInstallationClient, EXPECTED_TARGET } = require('./github-status');
-const { fetchGoogleCalendar, fingerprint } = require('./google-calendar-adapter');
+const { fetchGoogleCalendar, fingerprint, occurrenceCount } = require('./google-calendar-adapter');
 const { reconcile, validateRegistry } = require('./google-calendar-sync-model');
 const { createBlobSyncStore } = require('./google-sync-store');
 const PATHS = Object.freeze({ calendar: '_content/calendar.json', registry: '_sync/google-calendar.json' });
@@ -9,6 +9,7 @@ const error = (code, status = 502) => Object.assign(Error(code), { code, status 
 const counts = report => ({ added: report.additions.length, updated: report.updates.length, removed: report.removals.length, unchanged: report.unchanged.length });
 function observeMissing(registry, feed, state, at) {
   const present = new Set(feed.rows.map(r => r.key));
+  for (const event of feed.untitled || []) present.add(event.key);
   const slot = Math.floor(Date.parse(at) / 3600000), observations = {};
   for (const e of registry.entries) if (!e.suppressed && !present.has(e.key)) {
     const prior = state.observations[e.key];
@@ -89,7 +90,7 @@ function createGoogleSyncService({ env = process.env, readConfiguration = readGi
         const result = plan.blocked ? null : await publish(current,prepared,guard,true);
         const needingReview = [...plan.report.missing,...plan.report.unsupported,...plan.report.conflicts,...(plan.blocked?plan.report.removals:[])];
         state.lastAutomatic = {at,result:plan.blocked?'needs-review':needingReview.length?'needs-review':result.calendarChanged?'updated':'up-to-date',...(plan.blocked?{added:0,updated:0,removed:0,unchanged:plan.report.unchanged.length}:counts(plan.report)),conflicts:plan.report.conflicts,needsReview:needingReview,warnings:plan.report.warnings,failure:null,headBefore:current.headSha,headAfter:result?.headSha||current.headSha,calendarChanged:!!result?.calendarChanged};
-        if (!plan.blocked) {state.lastSuccessfulAutomatic=at;state.lastValidatedCount=feed.rows.length;state.observations=observations;}
+        if (!plan.blocked) {state.lastSuccessfulAutomatic=at;state.lastValidatedCount=occurrenceCount(feed);state.observations=observations;}
         else state.observations = {};
         if (result?.calendarChanged) state.lastCalendarUpdate=at;
         else state.lastCalendarUpdate ||= current.registry.lastSuccessfulSync || null;

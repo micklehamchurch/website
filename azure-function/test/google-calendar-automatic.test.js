@@ -11,6 +11,81 @@ test('clean reconciled 118-event automatic checks persist status without a GitHu
 test('unambiguous standalone additions auto-apply without guessing title/time/category or cancellation',async()=>{
  const f=fixture();add(f.state,{title:'NO parish meeting'});await f.service.automatic();const event=items(f).find(e=>e.title==='NO parish meeting');assert(event);assert.equal(event.location,'');assert.equal(event.category,undefined);assert.equal(f.state.writes.length,1);assert.equal(f.state.runtime.lastAutomatic.added,1);await f.service.automatic();assert.equal(f.state.writes.length,1);
 });
+test('an untitled event is reviewable by date while valid events continue, and a corrected title restores normal sync',async()=>{
+ const f=fixture(), id='missing-title@example.test';
+ const feed=(summary='')=>parseGoogleCalendar(raw.replace('END:VCALENDAR',[
+   'BEGIN:VEVENT', 'UID:'+id, 'DTSTART;VALUE=DATE:20261231', 'DTEND;VALUE=DATE:20270101',
+   ...(summary ? ['SUMMARY:'+summary] : []), 'END:VEVENT', 'END:VCALENDAR'
+ ].join('\r\n')));
+ f.state.feed=feed();
+ assert.equal(f.state.feed.rows.length,118);
+ assert.equal(f.state.feed.untitled.length,1);
+ const check=await createGoogleSyncHandler(f.dependencies)(request());
+ assert.deepEqual(check.jsonBody.report.unsupported,[{date:'2026-12-31',reason:'Title missing in Google Calendar. Add a title there before this event can sync.'}]);
+ assert.equal(check.jsonBody.canApply,false);
+ assert.equal(f.state.writes.length,0);
+ add(f.state);
+ await f.service.automatic();
+ assert(items(f).some(e=>e.title==='Parish meeting'));
+ assert(!f.state.registry.entries.some(e=>e.uid===id));
+ assert.equal(f.state.runtime.lastAutomatic.needsReview.length,1);
+ f.state.feed=feed('Corrected event');
+ add(f.state);
+ await f.service.automatic();
+ assert(items(f).some(e=>e.title==='Corrected event' && e.start==='2026-12-31T00:00'));
+ assert.deepEqual(f.state.runtime.lastAutomatic.needsReview,[]);
+});
+test('an untitled published Google event stays intact and clears missing evidence, then syncs its corrected title',async()=>{
+ const f=fixture(), id='google-077f148d76d2421ec53b4324e19f0af5';
+ const entry=f.state.registry.entries.find(e=>e.websiteId===id);
+ const block=raw.match(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g).find(value=>value.includes('UID:'+entry.uid));
+ const noTitle=block.replace(/SUMMARY:[^\r\n]*(?:\r?\n[ \t][^\r\n]*)*/,'SUMMARY:   ');
+ assert.notEqual(noTitle,block);
+ const before=structuredClone(items(f).find(e=>e.id===id));
+ f.state.feed.rows=f.state.feed.rows.filter(row=>row.key!==entry.key);
+ await f.service.automatic();
+ assert.equal(f.state.runtime.observations[entry.key].count,1);
+ f.state.feed=parseGoogleCalendar(raw.replace(block,noTitle));
+ for(let hour=9;hour<=11;hour++){
+   f.state.at=`2026-10-03T${hour.toString().padStart(2,'0')}:00:00Z`;
+   await f.service.automatic();
+   assert.deepEqual(items(f).find(e=>e.id===id),before);
+   assert.equal(f.state.runtime.observations[entry.key],undefined);
+   assert.deepEqual(f.state.runtime.lastAutomatic.needsReview,[{
+     date:before.start.slice(0,10),reason:'Title missing in Google Calendar. The website event was kept. Add a title in Google Calendar.'
+   }]);
+ }
+ assert.equal(f.state.writes.length,0);
+ f.state.feed=parseGoogleCalendar(raw.replace(block,noTitle.replace('SUMMARY:   ','SUMMARY:Corrected published title')));
+ await f.service.automatic();
+ assert.deepEqual(items(f).find(e=>e.id===id),{...before,title:'Corrected published title'});
+ assert.equal(f.state.writes.length,1);
+});
+test('untitled events still require a safe identity, dates and recurrence',()=>{
+ const event=['BEGIN:VEVENT','UID:missing-title@example.test','DTSTART;VALUE=DATE:20261231','DTEND;VALUE=DATE:20270101','END:VEVENT'];
+ for(const block of [
+   event.filter(line=>!line.startsWith('UID')),
+   event.filter(line=>!line.startsWith('DTEND')),
+   event.map(line=>line.replace('20270101','20261230')),
+   event.map(line=>line.replace('20261231','20261232')),
+   [...event.slice(0,-1),'RRULE:FREQ=YEARLY','END:VEVENT'],
+   [...event,...event]
+ ]) assert.throws(()=>parseGoogleCalendar(raw.replace('END:VCALENDAR',block.join('\r\n')+'\r\nEND:VCALENDAR')));
+});
+test('an untitled moved recurring exception is excluded without changing the master or other occurrences',()=>{
+ const block=[
+   'BEGIN:VEVENT','UID:new-weekly@example.test','DTSTART:20261001T100000Z','DTEND:20261001T110000Z',
+   'SUMMARY:Weekly meeting','RRULE:FREQ=WEEKLY;COUNT=2','END:VEVENT',
+   'BEGIN:VEVENT','UID:new-weekly@example.test','RECURRENCE-ID:20261001T100000Z',
+   'DTSTART:20260930T100000Z','DTEND:20260930T110000Z','END:VEVENT','END:VCALENDAR'
+ ].join('\r\n');
+ const feed=parseGoogleCalendar(raw.replace('END:VCALENDAR',block));
+ assert.deepEqual(feed.rows.filter(row=>row.uid==='new-weekly@example.test').map(row=>row.state.start),['2026-10-08T11:00']);
+ const key=JSON.stringify(['new-weekly@example.test','2026-10-01T11:00']);
+ assert.deepEqual(feed.untitled,[{key,date:'2026-09-30',outside:true}]);
+ assert(feed.outsideKeys.includes(key));
+ assert.deepEqual(feed.series.find(row=>row.uid==='new-weekly@example.test'),{uid:'new-weekly@example.test',rule:'FREQ=WEEKLY;COUNT=2'});
+});
 test('new supported recurring UID imports bounded logical occurrences through the same adapter/engine',async()=>{
  const f=fixture();const block='BEGIN:VEVENT\r\nUID:new-series@google.com\r\nDTSTART;TZID=Europe/London:20261202T100000\r\nDTEND;TZID=Europe/London:20261202T110000\r\nSUMMARY:New weekly meeting\r\nRRULE:FREQ=WEEKLY;COUNT=2\r\nEND:VEVENT\r\n';f.state.feed=parseGoogleCalendar(raw.replace('END:VCALENDAR',block+'END:VCALENDAR'));await f.service.automatic();assert.equal(items(f).filter(e=>e.title==='New weekly meeting').length,2);assert(f.state.registry.series.some(s=>s.uid==='new-series@google.com'));assert.equal(f.state.writes.length,1);
 });
