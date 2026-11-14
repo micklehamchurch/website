@@ -50,7 +50,7 @@
 /* Editorial lead with a stacked rail for the featured parish story. */
 .home-news--feature-story {
   --news-accent:#8b6a19;
-  --news-serif:Georgia,"Times New Roman",serif;
+  --news-serif:var(--serif);
   --news-line:#e7dfce;
   padding:clamp(30px,2.5vw,46px) 0 clamp(36px,3.3vw,62px);
   background:radial-gradient(ellipse at 52% 5%,#fcf9f1,#f8f3e9);

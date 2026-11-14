@@ -188,8 +188,8 @@ ${historySources}${electoralDocuments}${footnotes}${policyApproval}          <di
   <title>${esc(page.title)} | St Michael &amp; All Angels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=modern-classic-1">
   <link rel="stylesheet" href="v1-accessibility.css">
 ${page.layout === 'alpha' ? '  <link rel="stylesheet" href="alpha.css?v=20261106-1">\n  <script src="alpha.js?v=20261105-1" defer></script>\n' : ''}${page.historySources?.length ? '  <link rel="stylesheet" href="history-preservation.css?v=20261027-1">\n' : ''}${page.layout === 'find-us' ? '  <link rel="stylesheet" href="find-us.css">\n  <script src="find-us-map.js" defer></script>\n' : ''}${page.layout === 'war-memorial' ? '  <link rel="stylesheet" href="war-memorial.css?v=20261015">\n' : ''}${page.layout === 'churchyard-regulations' ? '  <link rel="stylesheet" href="churchyard-regulations.css?v=20261101-ux-2">\n  <script src="churchyard-regulations.js?v=20261101-ux-2" defer></script>\n' : (['funerals','churchyard'].includes(page.slug) ? '  <link rel="stylesheet" href="churchyard-resources.css?v=20261101-1">\n' : '')}${privacyStylesheet}${safeguardingStylesheet}${electoralStylesheet}${ecoStylesheet}${fellowshipStylesheet}${familyStylesheet}${careStylesheet}${lifeStylesheet}  <script src="site.js" defer></script>
   <link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">

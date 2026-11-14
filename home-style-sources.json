@@ -1,7 +1,6 @@
 {
   "comment": "Home-only bundle. Keep source order: these are the existing approved styles, followed by the final shared header and first-paint reserve.",
   "sources": [
-    "home-fonts.css?v=20261031-1",
     "home-hero-carousel.css?v=20261023-2",
     "styles.css?v=natural-photos-card-cta-v4",
     "news-stories.css",

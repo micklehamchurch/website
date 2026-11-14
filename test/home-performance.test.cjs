@@ -1,5 +1,6 @@
 const approvedNavigationSnapshot=require('./helpers/approved-navigation.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('./helpers/header-information-snapshot.cjs').fs,cp=require('node:child_process');
+const currentHtml=()=>require('node:fs').readFileSync('index.html','utf8');
 const html=()=>fs.readFileSync('index.html','utf8');
 test('Home critical CSS is deterministic, uses the original cascade and reserves the actual header breakpoints',()=>{
  const manifest=require('../home-style-sources.json');
@@ -26,7 +27,8 @@ test('approved typography and every source photograph remain unchanged; no globa
  const old=f=>approvedNavigationSnapshot(cp.execFileSync('git',['show','8f15696:'+f],{maxBuffer:10e6}));
  for(const f of ['site.js','header-navigation.css','public-header.js','responsive-navigation.js','footer-standard.css','home-next-service-config.json'])assert.equal(fs.readFileSync(f,'utf8').replace(/\r/g,''),old(f).toString().replace(/\r/g,''),f);
  for(const f of ['assets/images/home/ed-popov-e6523-v3-mobile.webp','assets/images/home/ed-popov-e6523-v2-tablet.webp'])assert.deepEqual(fs.readFileSync(f),old(f),f);
- const css=fs.readFileSync('home-fonts.css','utf8');assert(css.includes("'DM Sans'"));assert(css.includes("'Playfair Display'"));assert(!css.includes('https://'));assert(fs.existsSync('assets/fonts/home/DM-Sans-OFL.txt'));assert(fs.existsSync('assets/fonts/home/Playfair-Display-OFL.txt'));
+ assert.match(currentHtml(), /family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700/);
+ assert.doesNotMatch(currentHtml(), /home-fonts\.css|as="font"[^>]+(?:dm-sans|playfair-display)/);
 });
 test('Home semantic metadata, text, links, dimensions and decorative markup remain unchanged',()=>{
  const before=approvedNavigationSnapshot(cp.execFileSync('git',['show','8f15696:index.html'],{encoding:'utf8'})).replace(/\r/g,''),after=html().replace(/\r/g,'');

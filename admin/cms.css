@@ -1,5 +1,5 @@
 /* Shared CMS skin. Public website selectors and content are deliberately untouched. */
-.admin-body{--cms-green:#103d2d;--cms-ink:#173d32;--cms-ivory:#faf7ef;--cms-gold:#a68a45;--cms-muted:#526158;color:var(--cms-ink);background:var(--cms-ivory);font:16px/1.55 var(--sans,'DM Sans',sans-serif)}
+.admin-body{--cms-green:#103d2d;--cms-ink:#173d32;--cms-ivory:#faf7ef;--cms-gold:#a68a45;--cms-muted:#526158;color:var(--cms-ink);background:var(--cms-ivory);font:16px/1.55 var(--sans)}
 .admin-app{grid-template-columns:250px minmax(0,1fr)}
 .admin-sidebar{z-index:40;padding:24px 12px;background:#073622;color:#fffdf5;overflow-y:auto;scrollbar-width:thin}
 .admin-brand{display:flex;flex-direction:column;gap:10px;text-align:center;padding:0 4px 22px}.admin-brand-icon{width:65px;height:65px;border:0;border-radius:0;object-fit:contain}.admin-brand strong{font-size:24px;line-height:1.12;letter-spacing:0;text-transform:none}.admin-brand small{font:500 17px/1.4 var(--serif);color:#e0c47e;letter-spacing:0}

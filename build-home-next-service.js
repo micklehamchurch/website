@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const { fetchGoogleCalendar } = require('./azure-function/src/google-calendar-adapter');
+const { validateRegistry } = require('./azure-function/src/google-calendar-sync-model');
 const config = require('./home-next-service-config.json');
 // A projection, not another calendar. Eligibility comes only from the configured Google UID.
 function project(calendar, registry, feed, settings = config) {
@@ -16,12 +16,35 @@ function project(calendar, registry, feed, settings = config) {
   }
   return {version:1,items:items.sort((a,b)=>a.start.localeCompare(b.start)||a.id.localeCompare(b.id))};
 }
-async function build() {
-  let data = {version:1,items:[]};
-  try { data = project(JSON.parse(fs.readFileSync('events.json')),JSON.parse(fs.readFileSync('_sync/google-calendar.json')),await fetchGoogleCalendar()); }
-  catch { console.warn('Sunday series could not be verified; publishing the neutral service-card fallback.'); }
-  fs.writeFileSync('home-next-service-data.json',JSON.stringify(data,null,2)+'\n');
+function build() {
+  const output = 'home-next-service-data.json';
+  const calendar = JSON.parse(fs.readFileSync('events.json', 'utf8'));
+  const registry = JSON.parse(fs.readFileSync('_sync/google-calendar.json', 'utf8'));
+  validateRegistry(registry);
+  if (!Array.isArray(calendar.items) || !calendar.items.length ||
+      !Array.isArray(registry.series) || !registry.series.some(series => series.uid === config.googleSeriesUid)) {
+    throw new Error('Next Service requires the published Calendar and synced main-church Sunday series.');
+  }
+
+  // Calendar sync commits the accepted Google states and website IDs together.
+  // A static build uses that snapshot rather than re-fetching unsynced events.
+  const feed = {
+    series: registry.series,
+    rows: registry.entries.map(({ uid, key, google }) => ({ uid, key, state: google }))
+  };
+  const data = project(calendar, registry, feed);
+  if (!data.items.length && fs.existsSync(output)) {
+    const previous = JSON.parse(fs.readFileSync(output, 'utf8'));
+    if (!Array.isArray(previous.items) || previous.items.length) {
+      throw new Error('Next Service projection is empty. Existing output was preserved. Check the Calendar sync and published event mappings.');
+    }
+  }
+
+  fs.writeFileSync(output, JSON.stringify(data, null, 2) + '\n');
   console.log(`Generated ${data.items.length} verified main-church Sunday occurrences.`);
 }
-if (require.main === module) build().catch(e=>{console.error(e);process.exitCode=1;});
-module.exports={project};
+if (require.main === module) {
+  try { build(); }
+  catch (error) { console.error(error.message); process.exitCode = 1; }
+}
+module.exports = { project };

@@ -1,5 +1,5 @@
 const test = require('node:test'), assert = require('node:assert/strict');
-const fs = require('node:fs'), path = require('node:path'), os = require('node:os'), vm = require('node:vm');
+const fs = require('node:fs'), path = require('node:path'), os = require('node:os');
 const { execFileSync } = require('node:child_process');
 const root = path.join(__dirname, '..');
 test('static About source survives the normal content, typography and search builders', () => {
@@ -18,11 +18,8 @@ test('static About source survives the normal content, typography and search bui
     assert(JSON.parse(fs.readFileSync(path.join(temp, 'search-index.json'), 'utf8')).some(p => p.url === 'about.html' && p.content.includes('A parish with a place for you')));
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 });
-test('About preview tools require explicit opt-in and keep the existing typography workflow', () => {
-  const source = fs.readFileSync(path.join(root, 'about-parish.js'), 'utf8');
-  for (const [search, expected] of [['', false], ['?design-preview=1', true], ['?design-preview=0', false]]) {
-    let actual;
-    vm.runInNewContext(source, { URLSearchParams, location: { search }, document: { documentElement: { classList: { toggle(name, enabled) { assert.equal(name, 'about-design-preview'); actual = enabled; } } } } });
-    assert.equal(actual, expected);
-  }
+test('About uses the shared typography with no design preview switch', () => {
+  const html = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  assert.match(html, /styles\.css\?v=modern-classic-1/);
+  assert.doesNotMatch(html, /about-parish\.js|typography-preview\.js/);
 });

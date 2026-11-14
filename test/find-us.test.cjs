@@ -3,10 +3,12 @@ const root = path.join(__dirname, '..');
 const page = require('../content-pages.json').pages.find(p => p.slug === 'finding-us');
 const html = fs.readFileSync(path.join(root, 'finding-us.html'), 'utf8');
 test('Find Us build uses the dedicated layout and self-contained factual content', () => {
-  assert(html.includes(require('../find-us-render')(page)));
+  const normalizeLineEndings = value => value.replaceAll('\r\n', '\n');
+  const rendered = require('../find-us-render')(page);
+  assert(normalizeLineEndings(html).includes(normalizeLineEndings(rendered)));
   assert.doesNotMatch(html, /old parish|previous parish|earlier website|assets\/demo|Illustrative|\b425\b|30 minutes|bike rack/i);
   assert.equal((html.match(/<h1\b/g)||[]).length, 1);
-  assert.match(html, /typography-preview.js/);
+  assert.match(html, /styles\.css\?v=modern-classic-1/);
   for (const token of ['data-site-header','data-site-footer','contact.html','RH5 6DU','RH5 6BG']) assert(html.includes(token));
 });
 test('Each location has a distinct address, real image and destination-specific directions', () => {

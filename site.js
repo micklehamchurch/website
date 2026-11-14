@@ -78,15 +78,6 @@ const footer = `
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="bible.html">Read the Bible</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Parish Photographs</a></div></div>
     <div><h2>Parish information</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="electoral-roll.html">Electoral Roll</a><a href="privacy.html">Privacy &amp; GDPR</a><a href="bible-translation.html">Bible translation acknowledgement</a></div>
   </div>
-  <!-- TEMPORARY TYPOGRAPHY PREVIEW: remove after parish typography decision. -->
-  <section class="container typography-preview" aria-label="Preview typography">
-    <p>Preview typography</p><p class="typography-preview-note">Temporary design preview</p>
-    <div class="typography-preview-options" role="group" aria-label="Typography options">
-      <button type="button" data-typography-option="heritage" aria-pressed="true">Heritage</button>
-      <button type="button" data-typography-option="modern-classic" aria-pressed="false">Modern Classic</button>
-      <button type="button" data-typography-option="contemporary" aria-pressed="false">Contemporary</button>
-    </div>
-  </section>
   <div class="container footer-development" role="group" aria-label="Development tools"></div>
   <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
@@ -112,17 +103,7 @@ if (compactFooter) {
   diocese.rel = 'noopener noreferrer';
   relationship.append(diocese, '.');
   identity?.append(relationship);
-  const preview = compactFooter.querySelector('.typography-preview');
-  if (preview) {
-    const details = document.createElement('details');
-    details.className = 'container footer-typography-options';
-    const summary = document.createElement('summary');
-    summary.textContent = 'Typography preview (Dev)';
-    preview.before(details);
-    details.append(summary, preview);
-  }
 }
-document.dispatchEvent(new Event('typography-preview-ready'));
 // The contextual Media link shares the same confirmed channel as the footer.
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 
@@ -131,7 +112,7 @@ if (siteScript) {
   const headerStyles = document.createElement('link');
   const footerStyles = document.createElement('link');
   footerStyles.rel = 'stylesheet';
-  footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
+  footerStyles.href = new URL('footer-standard.css?v=modern-classic-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261112-slim-header-1', siteScript.src).href;

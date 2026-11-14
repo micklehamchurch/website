@@ -5,7 +5,7 @@
   --remember-ivory: #faf7ef;
   background: radial-gradient(ellipse at 70% 18%, #f1ebdf 0, transparent 50%), var(--remember-ivory);
   color: #201d17;
-  font: 400 clamp(1rem, 1.36vw, 1.24rem)/1.38 Georgia, serif;
+  font: 400 clamp(1rem, 1.36vw, 1.24rem)/1.38 var(--serif);
 }
 .remembrance h1, .remembrance h2 {
   margin: 0;

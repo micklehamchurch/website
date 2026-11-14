@@ -10,7 +10,7 @@
 .from-our-parish {background:var(--magazine-cream);padding-block:clamp(28px,4vw,54px)}
 .parish-section-inner,.parish-magazine-archive {width:min(1460px,calc(100% - 64px));margin-inline:auto}
 .from-our-parish h2,.from-our-parish h3,.parish-magazine-archive h1,.parish-magazine-archive h2,.parish-magazine-archive h3,#magazine-reader h2 {
-  color:var(--magazine-ink);font-family:var(--font-heading,"Playfair Display",Georgia,serif);line-height:1.1;letter-spacing:-.035em;margin:0;
+  color:var(--magazine-ink);font-family:var(--serif);line-height:1.1;letter-spacing:-.035em;margin:0;
 }
 .from-our-parish h2,.parish-magazine-archive h1 {font-size:clamp(2.55rem,5vw,4.5rem)}
 .from-our-parish h2 {display:flex;align-items:center;justify-content:center;gap:clamp(12px,3vw,40px);text-align:center}

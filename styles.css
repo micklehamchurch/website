@@ -7,9 +7,11 @@
   --ink: #1d241f;
   --muted: #646e66;
   --gold: #b4955b;
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'DM Sans', Arial, sans-serif;
+  --serif: 'Lora', Georgia, serif;
+  --sans: 'Inter', Arial, sans-serif;
 }
+html:root :is(h1, h2, h3) { font-family: var(--serif); }
+html:root :is(button, input, select, textarea) { font-family: var(--sans); }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.65 var(--sans); }

@@ -45,7 +45,7 @@ function render(feed, service = null) {
 
   return `<!-- home-news:start -->
 <section class="from-our-parish" aria-labelledby="home-news-heading">
-  <link rel="stylesheet" href="parish-magazine.css?v=1">
+  <link rel="stylesheet" href="parish-magazine.css?v=modern-classic-1">
   <div class="parish-section-inner">
     <h2 id="home-news-heading">From Our Parish</h2>
     <p class="parish-section-intro">Latest services, Pews News, our parish magazine and highlights from our church community.</p>

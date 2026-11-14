@@ -14,6 +14,7 @@ const newerRevisions = [
 const previous = new Map();
 
 function prior(value) {
+  value = require('./modern-classic-snapshot.cjs').prior(value);
   const buffer = Buffer.isBuffer(value);
   const source = buffer ? value.toString('utf8') : value;
   if (typeof source !== 'string' || (buffer && !Buffer.from(source).equals(value))) return value;

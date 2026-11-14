@@ -1,15 +1,35 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
-const root=path.resolve(__dirname,'..'),source=fs.readFileSync(path.join(root,'typography-preview.js'),'utf8'),css=fs.readFileSync(path.join(root,'typography-preview.css'),'utf8');
-test('Versioned history base retains generated Archive styles and profile controls',()=>{const cp=require('node:child_process');cp.execFileSync(process.execPath,['build-clergy-archive.js'],{cwd:root});cp.execFileSync(process.execPath,['build-typography-preview.js'],{cwd:root});const html=fs.readFileSync(path.join(root,'those-who-have-served.html'),'utf8');assert(html.includes('href="clergy-archive.css"'));assert(html.includes('src="clergy-profiles.js"'));assert.match(html,/site\.js\?archive=20261005&typography=20261007-v1/);});
-test('Public shared footer URLs invalidate pre-preview caches',()=>{for(const dir of [root,path.join(root,'news')])for(const file of fs.readdirSync(dir).filter(f=>f.endsWith('.html'))){const html=fs.readFileSync(path.join(dir,file),'utf8');if(html.includes('data-site-footer'))assert.match(html,/site\.js\?[^\"]*typography=20261007-v1/,file);}});
-function run(saved,pathname='/website/index.html',blocked=false){const attributes={},buttons=['heritage','modern-classic','contemporary'].map(mode=>({dataset:{typographyOption:mode},setAttribute:(k,v)=>attributes[mode]=v})),events={},links=[],dataset={},writes=[];const document={documentElement:{dataset},currentScript:{src:'https://example.org/website/typography-preview.js'},head:{append:el=>links.push(el)},createElement:()=>({}),querySelectorAll:()=>buttons,addEventListener:(n,cb)=>events[n]=cb};vm.runInNewContext(source,{document,location:{pathname},URL,localStorage:{getItem:()=>{if(blocked)throw Error('blocked');return saved},setItem:(k,v)=>{if(blocked)throw Error('blocked');writes.push([k,v])}}});return{dataset,links,attributes,writes,select:mode=>events.click({target:{closest:()=>buttons.find(b=>b.dataset.typographyOption===mode)}}),ready:()=>events['typography-preview-ready']?.()};}
-test('Typography defaults to Heritage without loading alternative fonts',()=>{const out=run(null);assert.equal(out.dataset.typography,'heritage');assert.equal(out.links.length,1);assert.equal(out.attributes.heritage,'true');});
-test('Heritage keeps the exact existing font stacks and has no CSS overrides',()=>{const styles=fs.readFileSync(path.join(root,'styles.css'),'utf8');assert.match(styles,/--serif: 'Playfair Display', Georgia, serif/);assert.match(styles,/--sans: 'DM Sans', Arial, sans-serif/);assert.doesNotMatch(css,/\[data-typography="heritage"\]/);});
-test('Modern Classic maps Lora display headings and Inter body/UI with swap',()=>{assert.match(css,/--serif: 'Lora', Georgia, serif/);assert.match(css,/--sans: 'Inter', Arial, sans-serif/);const out=run('modern-classic');assert.match(out.links[1].href,/Inter:wght@400;500;600;700.*Lora:wght@400;500;600;700.*display=swap/);assert.equal(out.attributes['modern-classic'],'true');});
-test('Contemporary maps both font variables to Manrope and uses bold headings',()=>{assert.equal((css.match(/--(?:serif|sans): 'Manrope', Arial, sans-serif/g)||[]).length,2);assert.match(css,/contemporary.*:is\(h1, h2, h3\).*font-weight: 700/);assert.match(run('contemporary').links[1].href,/Manrope:wght@400;500;600;700&display=swap/);});
-test('Selection writes only the local preference and restores on another page',()=>{const out=run(null);out.select('contemporary');assert.deepEqual(out.writes,[['mickleham-typography-preview','contemporary']]);assert.equal(run(out.writes[0][1],'/website/calendar.html').dataset.typography,'contemporary');});
-test('Invalid stored preferences fall back safely without remote font URL injection',()=>{for(const value of ['invalid','<script>','https://evil.example',undefined]){const out=run(value);assert.equal(out.dataset.typography,'heritage');assert.equal(out.links.length,1);}});
-test('Unavailable localStorage still permits safe immediate switching',()=>{const out=run(null,'/website/index.html',true);out.select('modern-classic');assert.equal(out.dataset.typography,'modern-classic');assert.deepEqual(out.writes,[]);});
-test('Shared footer selector exposes accessible pressed states and focus/touch styles',()=>{const site=fs.readFileSync(path.join(root,'site.js'),'utf8');assert.match(site,/role="group" aria-label="Typography options"/);for(const mode of ['heritage','modern-classic','contemporary'])assert(site.includes(`data-typography-option="${mode}"`));assert.match(css,/min-height: 44px/);assert.match(css,/:focus-visible/);const out=run('contemporary');out.ready();assert.equal(out.attributes.contemporary,'true');assert.equal(out.attributes.heritage,'false');out.select('heritage');assert.equal(out.attributes.heritage,'true');assert.equal(out.links.length,2);});
-test('All shared public pages load the restoration hook early and Admin does not',()=>{for(const dir of [root,path.join(root,'news')])for(const file of fs.readdirSync(dir).filter(f=>f.endsWith('.html'))){const html=fs.readFileSync(path.join(dir,file),'utf8');if(!html.includes('data-site-footer'))continue;assert(html.includes('typography-preview.js'),file);assert(html.indexOf('typography-preview.js')<html.indexOf('rel="stylesheet"'),file);}assert.doesNotMatch(fs.readFileSync(path.join(root,'admin/index.html'),'utf8'),/typography-preview/);assert.equal(run('contemporary','/website/admin/').links.length,0);});
-test('Preview CSS cannot restore photo overlays or change image sizing',()=>{assert.doesNotMatch(css,/background-image|gradient|overlay|object-fit|\.hero/);assert(fs.readFileSync(path.join(root,'home-hero-v3.css'),'utf8').includes('display: none; background: none;'));});
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const root = path.resolve(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+
+test('Modern Classic uses the approved stacks for headings, body and controls', () => {
+  const css = read('styles.css');
+  assert.match(css, /--serif: 'Lora', Georgia, serif/);
+  assert.match(css, /--sans: 'Inter', Arial, sans-serif/);
+  assert.match(css, /html:root :is\(h1, h2, h3\) \{ font-family: var\(--serif\)/);
+  assert.match(css, /html:root :is\(button, input, select, textarea\) \{ font-family: var\(--sans\)/);
+  assert.match(read('bible-physical.css'), /\.bible-page-text,\.bible-page-measure\{font-family:var\(--serif\)/);
+});
+
+test('Every styled site page and template loads the approved font weights without the preview script', () => {
+  for (const dir of ['.', 'news', 'pews-news', 'admin', '_templates']) {
+    for (const name of fs.readdirSync(path.join(root, dir)).filter(file => file.endsWith('.html'))) {
+      const file = path.join(dir, name);
+      const html = read(file);
+      assert.doesNotMatch(html, /typography-preview\.js|data-typography-option|family=Manrope/, file);
+      if (!/href="(?:\.\.\/)?(?:styles|home-critical)\.css/.test(html)) continue;
+      assert.match(html, /family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap/, file);
+    }
+  }
+});
+
+test('Shared footer has no preview controls or preference handler', () => {
+  assert.doesNotMatch(read('site.js'), /typography-preview|data-typography-option|Preview typography|Temporary design preview/);
+  assert.doesNotMatch(read('build-typography-preview.js'), /typography-preview\.js|data-typography/);
+  assert.equal(fs.existsSync(path.join(root, 'typography-preview.js')), false);
+  assert.equal(fs.existsSync(path.join(root, 'typography-preview.css')), false);
+});

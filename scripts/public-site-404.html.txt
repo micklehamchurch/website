@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="search-index" content="exclude">
+<title>Page not found | St Michael &amp; All Angels</title>
+<main>
+  <h1>Page not found</h1>
+  <p>The page may have moved or its address may have changed.</p>
+  <p><a id="home" href="index.html">Return to the church website</a></p>
+</main>
+</html>
