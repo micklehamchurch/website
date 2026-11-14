@@ -610,3 +610,22 @@ html.has-full-header body.home-header-hero > main { margin-top:0; }
   grid-column:3;
   grid-row:1;
 }
+
+/* Only the measured single-row candidate uses the tighter proportions. */
+@media (min-width:1100px) and (max-width:1499px) and (any-pointer:fine) and (any-hover:hover) {
+  .site-header.option-d.slim-single .nav-wrap {
+    width:calc(100% - 32px);
+    column-gap:12px;
+  }
+  .site-header.option-d.slim-single .nav-primary { gap:3px; }
+  .site-header.option-d.slim-single :is(.nav-primary > .nav-link,.nav-trigger) {
+    min-height:44px;
+    min-width:44px;
+    padding-inline:4px;
+    font-size:15px;
+    gap:4px;
+  }
+  .site-header.option-d.slim-single .nav-chevron { width:13px; }
+  .site-header.option-d.slim-single .brand { gap:9px; }
+  .site-header.option-d.slim-single .brand strong { font-size:24px; }
+}
