@@ -23,7 +23,7 @@ test('Option D coordinates the drawer, policies and search with the measured hea
 });
 
 test('the steady desktop header release refreshes changed header asset cache keys', () => {
-  const styleVersion = '20261114-laptop-header-1';
+  const styleVersion = '20261115-information-bar-1';
   assert(read('site.js').includes('header-navigation.css?navigation=' + styleVersion));
   assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';

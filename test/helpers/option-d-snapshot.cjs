@@ -11,6 +11,7 @@ const newerRevisions = [
   ['e934cc7', require('../fixtures/steady-header-revisions.json')],
   ['c0d280b', require('../fixtures/slim-header-revisions.json')],
   ['a158aec', require('../fixtures/compact-laptop-header-revisions.json')],
+  ['1ccbc3b', require('../fixtures/information-bar-revisions.json')],
 ];
 const previous = new Map();
 
@@ -38,6 +39,8 @@ function prior(value) {
     }));
   }
   const restored = file ? previous.get(file) : source.replaceAll(
+    'header=20261115-information-bar-1', 'header=20261114-laptop-header-1',
+  ).replaceAll(
     'header=20261114-laptop-header-1', 'header=20261112-slim-header-1',
   ).replaceAll(
     'header=20261112-slim-header-1', 'header=20261110-steady-header-1',

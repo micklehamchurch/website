@@ -483,6 +483,9 @@ html body .site-header { --header-cream:var(--navigation-ink); --header-gold:var
 
 /* The information strip participates in normal document flow. */
 .slim-information {
+  /* Keep the bar above hero decoration that extends behind the header. */
+  position:relative;
+  z-index:1;
   width:min(100%,1600px);
   margin-inline:auto;
   background:#f3efe3;
