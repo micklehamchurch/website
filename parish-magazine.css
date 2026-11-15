@@ -134,7 +134,24 @@ body:has(#magazine-reader[open]) {overflow:hidden}
 .magazine-archive-hero {position:relative;isolation:isolate;overflow:hidden;background:#17392e;color:#fff;min-height:266px;display:grid;align-items:center}
 .magazine-hero-art {position:absolute;inset:0 0 0 43%;z-index:-1;background:url("assets/images/parish-magazine/autumn-table.webp") center 28% / cover no-repeat}
 .magazine-hero-art::after {content:"";position:absolute;inset:0;background:linear-gradient(90deg,#17392e 0%,#17392eeb 5%,#17392e38 21%,transparent 47%)}
-.magazine-hero-cover {position:absolute;left:30%;top:38px;width:clamp(220px,20vw,370px);height:auto;transform:perspective(800px) rotateX(21deg) rotateY(-9deg) rotateZ(-11deg);transform-origin:50% 16%;border-radius:2px;box-shadow:7px 9px 0 #b7aa89,13px 15px 22px #201309cf}
+.magazine-hero-book {
+  position:absolute;left:55%;top:45%;width:clamp(172px,14vw,216px);
+  transform:translate(-50%,-50%) perspective(950px) rotateX(49deg) rotateY(-7deg) rotateZ(-12deg);
+  isolation:isolate;border-radius:2px 3px 3px 2px;
+}
+.magazine-hero-book::before {
+  content:"";position:absolute;inset:3px -5px -7px 2px;z-index:-1;border-radius:inherit;
+  background:#20170e;opacity:.68;filter:blur(9px);transform:translate(4px,6px);
+}
+.magazine-hero-cover {
+  display:block;width:100%;height:auto;border-radius:inherit;
+  box-shadow:1px 1px 0 #d8c9aa,2px 2px 0 #aa997d,3px 3px 0 #c6b79c,4px 4px 0 #796951,6px 7px 7px #21190f9c;
+}
+.magazine-hero-book::after {
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(90deg,#15302635,transparent 3%,#fff1d336 4%,transparent 9%),
+    linear-gradient(145deg,#fff3d329,transparent 48%,#4b2c171c);
+}
 .magazine-hero-copy {width:min(1408px,calc(100% - 80px));margin-inline:auto;padding:34px 0;position:relative}
 .magazine-hero-copy .eyebrow {margin:0 0 12px;color:#f4dc93;font-weight:650;letter-spacing:.09em}
 .magazine-hero-copy h1 {margin:0 0 16px;color:#fff;font:700 clamp(42px,4.1vw,66px)/1.12 var(--serif)}
@@ -183,9 +200,12 @@ body:has(#magazine-reader[open]) {overflow:hidden}
 }
 @media(max-width:590px) {
   .magazine-archive-hero {display:block;min-height:0}
-  .magazine-hero-art {position:relative;inset:auto;height:158px;overflow:hidden;background-position:center 43%}
-  .magazine-hero-art::after {background:linear-gradient(0deg,#17392e,transparent 34%)}
-  .magazine-hero-cover {width:160px;left:43%;top:22px}
+  .magazine-hero-art {position:relative;inset:auto;height:clamp(198px,58vw,242px);overflow:hidden;background-position:center 40%}
+  .magazine-hero-art::after {background:linear-gradient(0deg,#17392e,transparent 18%)}
+  .magazine-hero-book {
+    left:51%;top:47%;width:clamp(132px,38vw,166px);
+    transform:translate(-50%,-50%) perspective(780px) rotateX(38deg) rotateY(-5deg) rotateZ(-10deg);
+  }
   .magazine-hero-copy {width:calc(100% - 32px);padding:12px 0 24px}
   .magazine-hero-copy h1 {margin-bottom:9px;font-size:clamp(33px,9vw,44px)}
   .magazine-hero-copy .eyebrow {margin-bottom:7px}

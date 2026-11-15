@@ -62,7 +62,9 @@ function archiveContent() {
       <a class="magazine-button magazine-edition-download" href="${esc(edition.pdf)}" download aria-label="Download PDF · ${esc(edition.name)}">${icon('download')} Download PDF</a>
     </article>`;
   return `<section class="magazine-archive-hero" aria-labelledby="magazine-title">
-    <div class="magazine-hero-art" aria-hidden="true"><img class="magazine-hero-cover" src="assets/images/parish-magazine/2026-11/cover.jpg" width="382" height="540" alt="" fetchpriority="high"></div>
+    <div class="magazine-hero-art" aria-hidden="true">
+      <div class="magazine-hero-book"><img class="magazine-hero-cover" src="assets/images/parish-magazine/2026-11/cover.jpg" width="382" height="540" alt="" fetchpriority="high"></div>
+    </div>
     <div class="magazine-hero-copy"><p class="eyebrow">Parish Magazine</p>
       <h1 id="magazine-title">Parish Magazine</h1>
       <p>Our monthly parish magazine with news, reflections, photographs and stories from church and community life.</p>
