@@ -8,6 +8,9 @@ const feed = require('../news-feed.json');
 
 test('From Our Parish shows the approved cards in order using current canonical links', () => {
   const html = render(feed, readService());
+  const artwork = 'assets/images/news-artwork/pews-lights-tabletop-2026-11-15-640.webp';
+  assert.ok(html.includes('href="pews-news/2026-11-15.html" aria-label="Read the latest Pews News"><img src="' + artwork + '"'));
+  assert.ok(fs.existsSync(artwork));
   const visible = [...html.matchAll(/<article class="parish-card"(?:(?! hidden)[^>])*?>[\s\S]*?<h3>[\s\S]*? (Latest Service|Pews News|Parish Magazine|Remembrance Sunday)<\/h3>/g)].map(match => match[1]);
   assert.deepEqual(visible, ['Latest Service', 'Pews News', 'Parish Magazine', 'Remembrance Sunday']);
   assert.match(html, /pews-news\/2026-11-15\.html/);
@@ -22,6 +25,7 @@ test('homepage uses the newest canonical Pews News and preserves truthful media 
   const html = render({items:[newer, ...feed.items]});
   assert.match(html, /pews-news\/2026-11-16\.html/);
   assert.match(html, /news-paper/);
+  assert.ok(!html.includes('pews-lights-tabletop-2026-11-15'));
   assert.match(html, /sunday-services\.html/);
 });
 

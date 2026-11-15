@@ -37,7 +37,10 @@ function render(feed, service = null) {
   const servicePhoto = media(serviceUrl, serviceLabel, service?.thumbnail && {src: service.thumbnail.path},
     {video: Boolean(service), fallback: '<div class="home-service-placeholder" aria-hidden="true">Parish services</div>'});
   const pewsUrl = pews?.url || 'pews-news.html';
-  const pewsPhoto = media(pewsUrl, 'Read the latest Pews News', pews?.image, {fallback: model.placeholder()});
+  const pewsArtwork = pews?.id === 'pews-news:2026-11-15'
+    ? {src: 'assets/images/news-artwork/pews-lights-tabletop-2026-11-15-640.webp'}
+    : pews?.image;
+  const pewsPhoto = media(pewsUrl, 'Read the latest Pews News', pewsArtwork, {fallback: model.placeholder()});
   const latest = magazine.latest;
   const fallback = card('highlight', 'Explore Our Church', 'Discover the history of St Michael & All Angels and its place in village life.',
     media('our-history.html', 'Explore our church history', {src: 'assets/images/home/hero-autumn-church-640.webp'}),
@@ -45,7 +48,7 @@ function render(feed, service = null) {
 
   return `<!-- home-news:start -->
 <section class="from-our-parish" aria-labelledby="home-news-heading">
-  <link rel="stylesheet" href="parish-magazine.css?v=modern-classic-1">
+  <link rel="stylesheet" href="parish-magazine.css?v=modern-classic-2">
   <div class="parish-section-inner">
     <h2 id="home-news-heading">From Our Parish</h2>
     <p class="parish-section-intro">Latest services, Pews News, our parish magazine and highlights from our church community.</p>
