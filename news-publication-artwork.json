@@ -27,6 +27,13 @@
       "width": 1280,
       "height": 720,
       "alt": "Illustrated Pews News newspaper for Remembrance Sunday, with red poppies and a wooden cross"
+    },
+    "2026-11-15": {
+      "src": "assets/images/news-artwork/pews-lights-2026-11-15-1280.webp",
+      "small": "assets/images/news-artwork/pews-lights-2026-11-15-640.webp",
+      "alt": "Pews News cover with autumn foliage and red berries in a jug",
+      "width": 1280,
+      "height": 720
     }
   }
 }

@@ -40,7 +40,8 @@ test('Remembrance story preserves the approved section order, real photos and fe
   assert.equal(story.showOnHome,false);
   assert(require('../news-feed-model').render(feed,'parish-story').includes(route));
   const home=require('../home-news-render.cjs');
-  const rendered=home.render(feed,home.readService());
+  const historical={items:feed.items.filter(item=>item.date<='2026-11-08')};
+  const rendered=home.render(historical,home.readService());
   assert.match(rendered,/<article class="home-news-item home-news-latest"><a class="home-news-link" href="news\/we-will-remember-them\.html">/);
   assert.equal(rendered.split('href="'+route+'"').length,2);
   assert.match(rendered,/Our church and village community gathered for Remembrance Sunday, honouring those who gave their lives and praying for peace\./);
