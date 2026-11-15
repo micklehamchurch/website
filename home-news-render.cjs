@@ -5,7 +5,7 @@ const homeFeature = {
 };
 function render(feed,service=null){
  const stories=model.select(feed),e=model.esc;
- const featured=stories.find(story=>story.id===homeFeature.id && story.date===stories[0].date);
+ const featured=stories.find(story=>story.id===homeFeature.id);
  const items=stories.filter(story=>story.showOnHome!==false && story.id!==featured?.id).slice(0,service?2:3);
  const item=(i,n,editorial=false)=>{const m=i.image,featured=n===0,media=m?`<img src="${e(m.src)}"${m.small?` srcset="${e(m.small)} 640w, ${e(m.src)} ${m.width}w" sizes="${featured?'(max-width:700px) calc(100vw - 32px), (max-width:1000px) 52vw, 720px':'(max-width:700px) calc(100vw - 32px), 360px'}"`:''} width="${m.width||1280}" height="${m.height||720}" alt="${e(m.alt||'')}" loading="lazy" decoding="async">`:model.placeholder(i.kind);return `<article class="home-news-item${featured?' home-news-latest':''}"><a class="home-news-link" href="${e(i.url)}"><div class="home-news-media">${media}<template>${model.placeholder(i.kind)}</template></div><div class="home-news-copy"><p class="home-news-meta">${featured&&!editorial?'<span>Latest</span> · ':''}<time datetime="${e(i.date)}">${e(model.dateLabel(i.date))}</time></p><h3>${e(i.title)}</h3>${i.summary?`<p class="home-news-summary">${e(i.summary)}</p>`:''}<span class="home-news-action">${i.kind==='pews-news'?'Read this edition':'Read the story'} <span aria-hidden="true">→</span></span></div></a></article>`;};
  const video=(compact=false)=>{const v=service.video,m=service.thumbnail,url='https://www.youtube.com/watch?v='+v.id;

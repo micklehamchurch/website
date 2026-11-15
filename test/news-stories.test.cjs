@@ -40,15 +40,12 @@ test('Remembrance story preserves the approved section order, real photos and fe
   assert.equal(story.showOnHome,false);
   assert(require('../news-feed-model').render(feed,'parish-story').includes(route));
   const home=require('../home-news-render.cjs');
-  const historical={items:feed.items.filter(item=>item.date<='2026-11-08')};
-  const rendered=home.render(historical,home.readService());
+  const rendered=home.render(feed,home.readService());
   assert.match(rendered,/<article class="home-news-item home-news-latest"><a class="home-news-link" href="news\/we-will-remember-them\.html">/);
   assert.equal(rendered.split('href="'+route+'"').length,2);
   assert.match(rendered,/Our church and village community gathered for Remembrance Sunday, honouring those who gave their lives and praying for peace\./);
   assert.match(rendered,/wreaths-card-1280\.webp/);
-  for(const other of ['pews-news/2026-11-08.html','pews-news/2026-11-01.html']) assert.equal(rendered.split('href="'+other+'"').length,2);
+  for(const other of ['pews-news/2026-11-15.html','pews-news/2026-11-08.html']) assert.equal(rendered.split('href="'+other+'"').length,2);
   assert(rendered.includes('home-service-latest'));
-  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-15',url:'pews-news/2026-11-15.html'};
-  assert(!home.render({items:[newer,...feed.items]}).includes(route));
   assert(require('../search-index.json').some(entry=>entry.url===route));
 });
