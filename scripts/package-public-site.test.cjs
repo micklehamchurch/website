@@ -66,6 +66,17 @@ test('rejects missing source files, dependencies and unsafe allowlist paths', t 
   assert.match(run().stderr, /Forbidden allowlist path/);
 });
 
+test('dependency scan ignores comments and script text while checking actual markup', t => {
+  const {write, run} = fixture(t);
+  const markup = '<!-- <img src="not-listed.webp"> --><script type="application/json">"<img src=\"also-not-listed.webp\">"</script >';
+  write('index.html', markup + '<script src="not-listed.js"></script>');
+  assert.match(run().stderr, /Missing allowed dependency not-listed.js/);
+  write('index.html', markup + '<img src="real-missing.webp">');
+  assert.match(run().stderr, /Missing allowed dependency real-missing.webp/);
+  write('index.html', markup + '<link rel="stylesheet" href="styles.css">');
+  assert.equal(run().status, 0);
+});
+
 test('rejects restricted text and unpublished JSON without logging values', t => {
   const { write, run } = fixture(t);
   write('index.html', '<p>fixture-only restricted note</p>');

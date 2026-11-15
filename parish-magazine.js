@@ -22,6 +22,13 @@ const reader = document.getElementById('magazine-reader');
 if (!reader || typeof reader.showModal !== 'function') return;
 const el = id => reader.querySelector('#magazine-' + id);
 const editions = JSON.parse(el('editions-data').textContent);
+// Reader media is local to the site. Encode each path segment and force a relative URL.
+function magazineAsset(path) {
+  if (!/^assets\/(?:images|documents)\/[a-z0-9 /.-]+\.(?:jpg|pdf)$/i.test(path) || path.split('/').some(part => part === '.' || part === '..')) {
+    throw new Error('Invalid magazine asset path');
+  }
+  return './' + path.split('/').map(encodeURIComponent).join('/');
+}
 const read = (edition, page) => '#magazine/' + edition.id + (page ? '/' + page : '');
 const viewer = reader.querySelector('.magazine-viewer');
 const stage = el('stage');
@@ -30,7 +37,13 @@ const pageFrame = el('reader-page');
 const pages = el('page');
 const editionsMenu = el('edition');
 const fit = el('fit');
-for (const edition of editions) editionsMenu.add(new Option(edition.name, edition.id));
+function textOption(label, value) {
+  const option = document.createElement('option');
+  option.textContent = label;
+  option.value = value;
+  return option;
+}
+for (const edition of editions) editionsMenu.add(textOption(edition.name, edition.id));
 
 let edition = editions[0];
 let readerPages = [];
@@ -72,7 +85,7 @@ function showPage() {
   const page = readerPages[currentPage - 1];
   const padded = String(page.source).padStart(2, '0');
   sheet.alt = [edition.name, 'reader page ' + currentPage, page.label].filter(Boolean).join(', ');
-  const src = edition.images + '/sheet-' + padded + '.jpg';
+  const src = magazineAsset(edition.images + '/sheet-' + padded + '.jpg');
   if (sheet.getAttribute('src') !== src) {
     sheet.hidden = true;
     pageFrame.hidden = true;
@@ -92,11 +105,11 @@ function setEdition(selected, page = 1) {
   readerPages = makeReaderPages(edition);
   currentPage = Math.min(readerPages.length, Math.max(1, page));
   editionsMenu.value = edition.id;
-  el('download').href = edition.pdf;
+  el('download').href = magazineAsset(edition.pdf);
   el('download').download = edition.pdf.split('/').at(-1);
   pages.replaceChildren(...readerPages.map(({label}, index) => {
     const number = index + 1;
-    return new Option('Page ' + number + (label ? ' · ' + label : ''), String(number));
+    return textOption('Page ' + number + (label ? ' · ' + label : ''), String(number));
   }));
   el('total').textContent = 'of ' + readerPages.length;
   showPage();

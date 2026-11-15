@@ -45,7 +45,7 @@ function reader() {
   </div>
   <script type="application/json" id="magazine-editions-data">${data}</script>
 </dialog>
-<script src="parish-magazine.js?v=1" defer></script>`;
+<script src="parish-magazine.js?v=2" defer></script>`;
 }
 
 function archiveContent() {

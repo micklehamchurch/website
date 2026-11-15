@@ -114,14 +114,18 @@ function validateReferences(body, file, files, basePath, origin) {
   let resolutionBase = origin + basePath + file;
   const check = value => dependency(value, file, files, basePath, origin, resolutionBase);
   if (file.endsWith('.html')) {
-    const markup = body.replace(/<!--[\s\S]*?-->/g, '').replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, '$1</script>');
-    const base = markup.match(/<base\b[^>]*\bhref\s*=\s*(["'])(.*?)\1/i);
+    // Scan dependency tags without rewriting HTML. Check script openers,
+    // while skipping comments and the raw text inside script elements.
+    const tokens = /<!--[\s\S]*?(?:--!?>|$)|(<script\b[^>]*>)[\s\S]*?(?:<\/script\b[^>]*>|$)|(<(?:base|a|img|source|link|iframe|audio|video|input)\b[^>]*>)/gi;
+    const tags = Array.from(body.matchAll(tokens), match => match[1] || match[2]).filter(Boolean);
+    const base = tags.find(tag => /^<base\b/i.test(tag))?.match(/\bhref\s*=\s*(["'])(.*?)\1/i);
     if (base) {
       resolutionBase = new URL(base[2], resolutionBase).href;
       if (!resolutionBase.startsWith(origin + basePath)) fail('HTML base escapes the artifact', file);
     }
-    for (const tag of markup.matchAll(/<(?:a|img|source|script|link|iframe|audio|video|input)\b[^>]*>/gi)) {
-      for (const attr of tag[0].matchAll(/\b(?:href|src|poster|srcset)\s*=\s*(["'])(.*?)\1/gi)) {
+    for (const tag of tags) {
+      if (/^<base\b/i.test(tag)) continue;
+      for (const attr of tag.matchAll(/\b(?:href|src|poster|srcset)\s*=\s*(["'])(.*?)\1/gi)) {
         if (/^srcset/i.test(attr[0])) {
           for (const variant of attr[2].split(',')) check(variant.trim().split(/\s+/)[0]);
         } else check(attr[2]);
