@@ -28,7 +28,7 @@
 .parish-card-cover img {inset:5%;width:90%;height:90%;object-fit:contain;filter:drop-shadow(2px 5px 8px #101c0c65)}
 .parish-play {position:absolute;top:50%;left:50%;translate:-50% -50%;display:grid;place-items:center;width:49px;height:49px;padding-left:3px;border:2px solid #fff8e9;border-radius:50%;background:#000a;color:white}
 .parish-card-copy {min-width:0;padding:10px 6px 10px 0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px}
-.parish-card-copy h3 {display:flex;align-items:center;gap:9px;font-size:clamp(1.55rem,2.4vw,2.4rem)}
+.parish-card-copy h3 {display:flex;min-width:0;overflow-wrap:anywhere;align-items:center;gap:9px;font-size:clamp(1.55rem,2.4vw,2.4rem)}
 .parish-card-copy svg {width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .parish-video-icon {background:#c71d1d;color:white;font:600 .64em/1 sans-serif;padding:6px 7px;border-radius:6px;flex:none}
 .parish-card-copy p {margin:0;font-size:clamp(.95rem,1.35vw,1.13rem)}
