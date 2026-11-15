@@ -19,6 +19,9 @@ test('New editions retain the approved Remembrance feature and fill compact slot
   assert.match(html, /home-news-grid--featured/);
   assert.deepEqual(links(html), [feature, serviceLink, 'pews-news/2026-11-15.html', 'pews-news/2026-11-08.html']);
   assert(html.includes(service.thumbnail.path));
+  assert.match(html, /pews-lights-tabletop-2026-11-15-1280\.webp/);
+  assert.match(html, /pews-lights-tabletop-2026-11-15-640\.webp 640w/);
+  assert.match(html, /alt="Pews News for 15 November 2026, Lights to Remember, on an autumn table/);
   const newer = {...canonical.items[0], id:'fixture-next-edition', url:'pews-news/2026-11-22.html', date:'2026-11-22'};
   assert.deepEqual(links(render({items:[newer, ...canonical.items]}, service)), [feature, serviceLink, newer.url, 'pews-news/2026-11-15.html']);
   assert.deepEqual(links(render(canonical)), [feature, 'pews-news/2026-11-15.html', 'pews-news/2026-11-08.html', 'pews-news/2026-11-01.html']);

@@ -12,6 +12,12 @@ function render(feed,service=null){
  const title=compact&&v.id==='plHh9s5xzeM'?'Remembrance Sunday Service':v.title;return '<article class="home-news-item home-news-latest home-service-latest"><a class="home-news-link" href="'+url+'" aria-label="'+e('Watch '+v.title+' on YouTube')+'" target="_blank" rel="noopener noreferrer"><div class="home-service-media">'+(m?'<img src="'+e(m.path)+'" width="'+m.width+'" height="'+m.height+'" alt="" loading="lazy" decoding="async">':'<div class="home-service-placeholder" aria-hidden="true">Parish services</div>')+'<span class="home-service-label" aria-hidden="true">Latest service</span><span class="home-service-play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l12-7Z" fill="currentColor"/></svg></span></div><div class="home-news-copy"><p class="home-news-meta">'+(compact?'':'Published ')+'<time datetime="'+e(v.publishedAt)+'">'+e(new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).format(new Date(v.publishedAt)))+'</time></p><h3>'+e(title)+'</h3><p class="home-news-summary">Watch the latest service from St Michael &amp; All Angels'+(compact?'.':', Mickleham &amp; Westhumble.')+'</p><span class="home-news-action home-service-action">Watch on YouTube <span aria-hidden="true">→</span></span></div></a></article>';};
  const recent=(cards,start)=>cards.length?`<div class="home-news-recent">${cards.map((card,n)=>item(card,n+start)).join('')}</div>`:'';
  const compactCopy={
+   'pews-news:2026-11-15':{image:{
+     src:'assets/images/news-artwork/pews-lights-tabletop-2026-11-15-1280.webp',
+     small:'assets/images/news-artwork/pews-lights-tabletop-2026-11-15-640.webp',
+     width:1280,height:720,
+     alt:'Pews News for 15 November 2026, Lights to Remember, on an autumn table with a vase of leaves and berries printed on the cover'
+   }},
    'pews-news:2026-11-08':{title:'Pews News — 8 November',summary:'Remembrance Sunday, church services and parish notices.'},
    'pews-news:2026-11-01':{title:'Pews News — 1 November',summary:'All Saints’ Day, parish notices and the Wintershall Nativity Journey.'}
  };
