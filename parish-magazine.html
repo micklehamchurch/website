@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles.css?v=modern-classic-1">
   <link rel="stylesheet" href="v1-accessibility.css">
-  <link rel="stylesheet" href="parish-magazine.css?v=modern-classic-1">
+  <link rel="stylesheet" href="news-hub.css?v=20261115-magazine-1">
+  <link rel="stylesheet" href="parish-magazine.css?v=archive-20261115-2">
   <link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
@@ -21,31 +22,61 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header" data-site-header></header>
-  <main id="main-content" class="parish-magazine-archive" tabindex="-1">
+  <main id="main-content" class="magazine-public-page" tabindex="-1">
   <!-- magazine-archive:start -->
-  <a class="magazine-text-link magazine-back" href="index.html#home-news-heading">← Home</a>
-  <h1>Parish Magazine</h1>
-  <p class="magazine-intro">Village stories, notices and community news from Mickleham and Westhumble.</p>
-  <article class="magazine-feature" id="edition-2026-11">
-    <a class="magazine-feature-cover" href="parish-magazine.html#edition-2026-11" data-magazine-edition="2026-11" aria-label="Read November 2026"><img src="assets/images/parish-magazine/2026-11/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
-    <div class="magazine-feature-copy">
-      <h2>November 2026</h2><p>Latest edition</p>
-      <div class="magazine-actions"><a class="magazine-button" href="parish-magazine.html#edition-2026-11" data-magazine-edition="2026-11" aria-label="Read Magazine · November 2026">Read Magazine <span aria-hidden="true">›</span></a> <a class="magazine-text-link" href="assets/documents/news/parish-magazine/MPM Nov 2026 online.pdf" download aria-label="Download original PDF · November 2026">Download original PDF</a></div>
+  <section class="magazine-archive-hero" aria-labelledby="magazine-title">
+    <div class="magazine-hero-art" aria-hidden="true">
+      <div class="magazine-hero-book"><img class="magazine-hero-cover" src="assets/images/parish-magazine/2026-11/cover.jpg" width="382" height="540" alt="" fetchpriority="high"></div>
     </div>
-  </article>
-  <section id="previous-editions" aria-labelledby="previous-magazines-title">
-    <h2 id="previous-magazines-title">Previous editions</h2>
-    <div class="magazine-archive-grid">
-    <article class="magazine-archive-card" id="edition-2026-10">
-      <a class="magazine-archive-cover" href="parish-magazine.html#edition-2026-10" data-magazine-edition="2026-10" aria-label="Read October 2026"><img src="assets/images/parish-magazine/2026-10/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
-      <div><h3>October 2026</h3><div class="magazine-actions"><a class="magazine-button" href="parish-magazine.html#edition-2026-10" data-magazine-edition="2026-10" aria-label="Read Magazine · October 2026">Read Magazine <span aria-hidden="true">›</span></a> <a class="magazine-text-link" href="assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf" download aria-label="Download original PDF · October 2026">Download original PDF</a></div></div>
-    </article>
-    <article class="magazine-archive-card" id="edition-2026-09">
-      <a class="magazine-archive-cover" href="parish-magazine.html#edition-2026-09" data-magazine-edition="2026-09" aria-label="Read September 2026"><img src="assets/images/parish-magazine/2026-09/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
-      <div><h3>September 2026</h3><div class="magazine-actions"><a class="magazine-button" href="parish-magazine.html#edition-2026-09" data-magazine-edition="2026-09" aria-label="Read Magazine · September 2026">Read Magazine <span aria-hidden="true">›</span></a> <a class="magazine-text-link" href="assets/documents/news/parish-magazine/mpm-sept-2026-for-online.pdf" download aria-label="Download original PDF · September 2026">Download original PDF</a></div></div>
-    </article>
+    <div class="magazine-hero-copy"><p class="eyebrow">Parish Magazine</p>
+      <h1 id="magazine-title">Parish Magazine</h1>
+      <p>Our monthly parish magazine with news, reflections, photographs and stories from church and community life.</p>
     </div>
   </section>
+  <div class="magazine-browse-layout">
+    <nav class="news-hub-nav" aria-label="Browse news"><h2>News</h2><div><a href="news.html?type=all#news-feed">All news</a><a href="news.html?type=pews-news#news-feed"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 5h14v15H5a2 2 0 0 1-2-2zM17 8h4v10a2 2 0 0 1-2 2h-2M6 9h8M6 13h8M6 17h5"/></svg> Pews News</a><a href="parish-magazine.html" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5C9 3 6 3 3 5v14c3-2 6-2 9 0 3-2 6-2 9 0V5c-3-2-6-2-9 0zm0 0v14"/></svg> Parish Magazine</a><a href="news.html?type=parish-story#news-feed"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.5a5 5 0 0 0-7.1 0L12 7.2l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l7.1-6.7 1.7-1.7a5 5 0 0 0 0-7.1z"/></svg> Parish stories</a></div></nav>
+    <div class="magazine-browse-content">
+      <section id="previous-editions" aria-labelledby="magazine-browse-title">
+        <div class="magazine-browse-heading">
+          <h2 id="magazine-browse-title">Browse the Parish Magazine</h2>
+          <a href="#about-the-magazine"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg> About the Magazine</a>
+        </div>
+        <div class="magazine-edition-grid"><article class="magazine-edition-card" id="edition-2026-11">
+      <a class="magazine-edition-cover" href="parish-magazine.html#edition-2026-11" data-magazine-edition="2026-11" aria-label="Read November 2026"><img src="assets/images/parish-magazine/2026-11/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
+      <h3>November 2026</h3>
+      <a class="magazine-button" href="parish-magazine.html#edition-2026-11" data-magazine-edition="2026-11" aria-label="Read Online · November 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5C9 3 6 3 3 5v14c3-2 6-2 9 0 3-2 6-2 9 0V5c-3-2-6-2-9 0zm0 0v14"/></svg> Read Online</a>
+      <a class="magazine-button magazine-edition-download" href="assets/documents/news/parish-magazine/MPM Nov 2026 online.pdf" download aria-label="Download PDF · November 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg> Download PDF</a>
+    </article>
+<article class="magazine-edition-card" id="edition-2026-10">
+      <a class="magazine-edition-cover" href="parish-magazine.html#edition-2026-10" data-magazine-edition="2026-10" aria-label="Read October 2026"><img src="assets/images/parish-magazine/2026-10/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
+      <h3>October 2026</h3>
+      <a class="magazine-button" href="parish-magazine.html#edition-2026-10" data-magazine-edition="2026-10" aria-label="Read Online · October 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5C9 3 6 3 3 5v14c3-2 6-2 9 0 3-2 6-2 9 0V5c-3-2-6-2-9 0zm0 0v14"/></svg> Read Online</a>
+      <a class="magazine-button magazine-edition-download" href="assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf" download aria-label="Download PDF · October 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg> Download PDF</a>
+    </article>
+<article class="magazine-edition-card" id="edition-2026-09">
+      <a class="magazine-edition-cover" href="parish-magazine.html#edition-2026-09" data-magazine-edition="2026-09" aria-label="Read September 2026"><img src="assets/images/parish-magazine/2026-09/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
+      <h3>September 2026</h3>
+      <a class="magazine-button" href="parish-magazine.html#edition-2026-09" data-magazine-edition="2026-09" aria-label="Read Online · September 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5C9 3 6 3 3 5v14c3-2 6-2 9 0 3-2 6-2 9 0V5c-3-2-6-2-9 0zm0 0v14"/></svg> Read Online</a>
+      <a class="magazine-button magazine-edition-download" href="assets/documents/news/parish-magazine/mpm-sept-2026-for-online.pdf" download aria-label="Download PDF · September 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg> Download PDF</a>
+    </article>
+<article class="magazine-edition-card" id="edition-2026-07">
+      <a class="magazine-edition-cover" href="parish-magazine.html#edition-2026-07" data-magazine-edition="2026-07" aria-label="Read July/August 2026"><img src="assets/images/parish-magazine/2026-07-08/cover.jpg" width="382" height="540" loading="lazy" decoding="async" alt=""></a>
+      <h3>July/August 2026</h3>
+      <a class="magazine-button" href="parish-magazine.html#edition-2026-07" data-magazine-edition="2026-07" aria-label="Read Online · July/August 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5C9 3 6 3 3 5v14c3-2 6-2 9 0 3-2 6-2 9 0V5c-3-2-6-2-9 0zm0 0v14"/></svg> Read Online</a>
+      <a class="magazine-button magazine-edition-download" href="assets/documents/news/parish-magazine/parish-magazine-2026-07-08.pdf" download aria-label="Download PDF · July/August 2026"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg> Download PDF</a>
+    </article></div>
+      </section>
+      <details class="magazine-older">
+        <summary>View older editions (2025 – 2024)</summary>
+
+        <div class="magazine-older-grid"><section><h3>2025</h3><ul><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=c123a87e%2D5238%2D45fe%2Dabeb%2Dfd494e99c235%2Epdf&amp;o=12%2DMPM%2DDec%2D2025%2Epdf">December 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=08353949%2D71f2%2D4853%2Daed1%2D87923ed5308b%2Epdf&amp;o=11%2DMPM%2DNov%2D2025%2Epdf">November 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=1496ccd8%2D0af4%2D45a3%2Da82b%2Dd29d328927af%2Epdf&amp;o=10%2DMPM%2DOct%2D2025%2Epdf">October 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=2158675b%2D6f0e%2D40b3%2Dbac9%2D0b24f3ee5f04%2Epdf&amp;o=09%2DMPM%2DSept%2D2025%2Epdf">September 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=e8c37996%2D2f6b%2D4878%2Da9dc%2Db5fa06fadc84%2Epdf&amp;o=07%2DMPM%2DJul%2DAug%2D2025%2Epdf">July / August 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=a49c6bc8%2Dbc43%2D448a%2Daec4%2D6999b88e47ec%2Epdf&amp;o=06%2DMPM%2DJune%2D2025%2Epdf">June 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=eeb3c982%2D60a4%2D4d34%2D9655%2De4e426aea090%2Epdf&amp;o=05%2DMPM%2DMay%2D202%2Epdf">May 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=f8594eef%2Df83e%2D4669%2D823d%2Dcf0e4ba437c1%2Epdf&amp;o=04%2DMPM%2DApr%2D2025%2Epdf">April 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=7a586199%2D15fd%2D4ab0%2Da37b%2D59fab19f27c4%2Epdf&amp;o=03%2DMPM%2DMar%2D2025%2Epdf">March 2025 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=dab08ddd%2D0ae4%2D43c3%2Db5ef%2Dfc0e5e483f30%2Epdf&amp;o=02%2DMPM%2DFeb%2D2025%2Epdf">February 2025 (PDF)</a></li></ul></section><section><h3>2024</h3><ul><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=fd1c6936%2D050c%2D4c2b%2D8cf3%2D5a84e7e34b48%2Epdf&amp;o=12%2DMPM%2DDec%2D2024%2Epdf">December 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=0bc0e333%2Db0e2%2D41dc%2D894f%2D9dc94526b31c%2Epdf&amp;o=11%2DMPM%2DNov%2D2024%2Epdf">November 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=a3c42922%2D7b48%2D4926%2D93e3%2D7a179a5c5c5c%2Epdf&amp;o=10%2DMPM%2DOct%2D2024%2Epdf">October 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=0c842a76%2D5c11%2D4cda%2Da307%2D23e76da2b93c%2Epdf&amp;o=09%2DMPM%2DSep%2D2024%2Epdf">September 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=cd0d26d6%2D8c1e%2D4622%2Da044%2D50996b120a45%2Epdf&amp;o=07%2DMPM%2DJul%2DAug%2D2024%2Epdf">July - August 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=c4d2f778%2Da30b%2D4623%2D8b0f%2Db4f1744ddb2e%2Epdf&amp;o=06%2DMPM%2DJune%2D2024%2Epdf">June 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=843b1e52%2D6eaf%2D4276%2D8397%2De4642f572332%2Epdf&amp;o=05%2DMPM%2DMay%2D24%2Epdf">May 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=d8ef7397%2Dfd15%2D4147%2D84f7%2D09363a68c93d%2Epdf&amp;o=04%2DMPM%2DApr%2D24%2Epdf">April 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=e68688e5%2Da6e2%2D4d74%2D8f58%2D9f55941e05de%2Epdf&amp;o=03%2DMPM%2DMar%2D2024%2Epdf">Mar 2024 (PDF)</a></li><li><a href="https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=787ab389%2Dc616%2D47f5%2D9210%2Db1b986f26826%2Epdf&amp;o=02%2DMPM%2DFeb%2D2024%2Epdf">February 2024 (PDF)</a></li></ul></section></div>
+      </details>
+      <section class="magazine-about" id="about-the-magazine" aria-labelledby="magazine-about-title">
+        <h2 id="magazine-about-title">About the Magazine</h2>
+        <p>Mickleham Parish Magazine is the community magazine for Mickleham and Westhumble. It brings together parish news, village notices, reflections and stories. To contribute, contact the editor at <a href="mailto:editor@micklehammag.co.uk">editor@micklehammag.co.uk</a>.</p>
+      </section>
+    </div>
+  </div>
   <dialog id="magazine-reader" aria-labelledby="magazine-reader-title">
   <div class="magazine-viewer">
     <div class="magazine-reader-bar">
@@ -76,7 +107,7 @@
       <button type="button" id="magazine-next" aria-label="Next page"><span>Next</span> →</button>
     </div>
   </div>
-  <script type="application/json" id="magazine-editions-data">[{"id":"2026-11","name":"November 2026","pdf":"assets/documents/news/parish-magazine/MPM Nov 2026 online.pdf","images":"assets/images/parish-magazine/2026-11","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}},{"id":"2026-10","name":"October 2026","pdf":"assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf","images":"assets/images/parish-magazine/2026-10","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}},{"id":"2026-09","name":"September 2026","pdf":"assets/documents/news/parish-magazine/mpm-sept-2026-for-online.pdf","images":"assets/images/parish-magazine/2026-09","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}}]</script>
+  <script type="application/json" id="magazine-editions-data">[{"id":"2026-11","name":"November 2026","pdf":"assets/documents/news/parish-magazine/MPM Nov 2026 online.pdf","images":"assets/images/parish-magazine/2026-11","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}},{"id":"2026-10","name":"October 2026","pdf":"assets/documents/news/parish-magazine/parish-magazine-2026-10.pdf","images":"assets/images/parish-magazine/2026-10","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}},{"id":"2026-09","name":"September 2026","pdf":"assets/documents/news/parish-magazine/mpm-sept-2026-for-online.pdf","images":"assets/images/parish-magazine/2026-09","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}},{"id":"2026-07","name":"July/August 2026","pdf":"assets/documents/news/parish-magazine/parish-magazine-2026-07-08.pdf","images":"assets/images/parish-magazine/2026-07-08","sheets":17,"wholePages":{"1":"Front cover","9":"Calendar","17":"Back cover"},"leftLabels":{"10":"Directory continued"},"rightLabels":{"8":"Directory"}}]</script>
 </dialog>
 <script src="parish-magazine.js?v=1" defer></script>
   <!-- magazine-archive:end -->

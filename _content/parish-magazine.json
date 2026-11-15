@@ -53,6 +53,118 @@
       "rightLabels": {
         "8": "Directory"
       }
+    },
+    {
+      "id": "2026-07",
+      "name": "July/August 2026",
+      "pdf": "assets/documents/news/parish-magazine/parish-magazine-2026-07-08.pdf",
+      "images": "assets/images/parish-magazine/2026-07-08",
+      "sheets": 17,
+      "wholePages": {
+        "1": "Front cover",
+        "9": "Calendar",
+        "17": "Back cover"
+      },
+      "leftLabels": {
+        "10": "Directory continued"
+      },
+      "rightLabels": {
+        "8": "Directory"
+      }
+    }
+  ],
+  "olderArchive": [
+    {
+      "year": 2025,
+      "source": "https://www.micklehamparishcouncil.gov.uk/community/mickleham-parish-council-7875/2025/",
+      "editions": [
+        {
+          "name": "December 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=c123a87e%2D5238%2D45fe%2Dabeb%2Dfd494e99c235%2Epdf&o=12%2DMPM%2DDec%2D2025%2Epdf"
+        },
+        {
+          "name": "November 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=08353949%2D71f2%2D4853%2Daed1%2D87923ed5308b%2Epdf&o=11%2DMPM%2DNov%2D2025%2Epdf"
+        },
+        {
+          "name": "October 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=1496ccd8%2D0af4%2D45a3%2Da82b%2Dd29d328927af%2Epdf&o=10%2DMPM%2DOct%2D2025%2Epdf"
+        },
+        {
+          "name": "September 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=2158675b%2D6f0e%2D40b3%2Dbac9%2D0b24f3ee5f04%2Epdf&o=09%2DMPM%2DSept%2D2025%2Epdf"
+        },
+        {
+          "name": "July / August 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=e8c37996%2D2f6b%2D4878%2Da9dc%2Db5fa06fadc84%2Epdf&o=07%2DMPM%2DJul%2DAug%2D2025%2Epdf"
+        },
+        {
+          "name": "June 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=a49c6bc8%2Dbc43%2D448a%2Daec4%2D6999b88e47ec%2Epdf&o=06%2DMPM%2DJune%2D2025%2Epdf"
+        },
+        {
+          "name": "May 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=eeb3c982%2D60a4%2D4d34%2D9655%2De4e426aea090%2Epdf&o=05%2DMPM%2DMay%2D202%2Epdf"
+        },
+        {
+          "name": "April 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=f8594eef%2Df83e%2D4669%2D823d%2Dcf0e4ba437c1%2Epdf&o=04%2DMPM%2DApr%2D2025%2Epdf"
+        },
+        {
+          "name": "March 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=7a586199%2D15fd%2D4ab0%2Da37b%2D59fab19f27c4%2Epdf&o=03%2DMPM%2DMar%2D2025%2Epdf"
+        },
+        {
+          "name": "February 2025",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=dab08ddd%2D0ae4%2D43c3%2Db5ef%2Dfc0e5e483f30%2Epdf&o=02%2DMPM%2DFeb%2D2025%2Epdf"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "source": "https://www.micklehamparishcouncil.gov.uk/community/mickleham-parish-council-7875/2024-editions/",
+      "editions": [
+        {
+          "name": "December 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=fd1c6936%2D050c%2D4c2b%2D8cf3%2D5a84e7e34b48%2Epdf&o=12%2DMPM%2DDec%2D2024%2Epdf"
+        },
+        {
+          "name": "November 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=0bc0e333%2Db0e2%2D41dc%2D894f%2D9dc94526b31c%2Epdf&o=11%2DMPM%2DNov%2D2024%2Epdf"
+        },
+        {
+          "name": "October 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=a3c42922%2D7b48%2D4926%2D93e3%2D7a179a5c5c5c%2Epdf&o=10%2DMPM%2DOct%2D2024%2Epdf"
+        },
+        {
+          "name": "September 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=0c842a76%2D5c11%2D4cda%2Da307%2D23e76da2b93c%2Epdf&o=09%2DMPM%2DSep%2D2024%2Epdf"
+        },
+        {
+          "name": "July - August 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=cd0d26d6%2D8c1e%2D4622%2Da044%2D50996b120a45%2Epdf&o=07%2DMPM%2DJul%2DAug%2D2024%2Epdf"
+        },
+        {
+          "name": "June 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=c4d2f778%2Da30b%2D4623%2D8b0f%2Db4f1744ddb2e%2Epdf&o=06%2DMPM%2DJune%2D2024%2Epdf"
+        },
+        {
+          "name": "May 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=843b1e52%2D6eaf%2D4276%2D8397%2De4642f572332%2Epdf&o=05%2DMPM%2DMay%2D24%2Epdf"
+        },
+        {
+          "name": "April 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=d8ef7397%2Dfd15%2D4147%2D84f7%2D09363a68c93d%2Epdf&o=04%2DMPM%2DApr%2D24%2Epdf"
+        },
+        {
+          "name": "Mar 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=e68688e5%2Da6e2%2D4d74%2D8f58%2D9f55941e05de%2Epdf&o=03%2DMPM%2DMar%2D2024%2Epdf"
+        },
+        {
+          "name": "February 2024",
+          "pdf": "https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp?f=787ab389%2Dc616%2D47f5%2D9210%2Db1b986f26826%2Epdf&o=02%2DMPM%2DFeb%2D2024%2Epdf"
+        }
+      ]
     }
   ]
 }

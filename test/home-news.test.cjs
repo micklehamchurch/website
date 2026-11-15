@@ -33,8 +33,11 @@ test('homepage delivery equals the canonical renderer', () => {
   assert.ok(fs.readFileSync('index.html', 'utf8').replace(/\r/g, '').includes(render(feed, readService())));
 });
 
-test('archive links to all three original PDFs and each reader uses the same page data', () => {
+test('archive links to all four original PDFs and each reader uses the same page data', () => {
   const html = archiveContent();
+  assert.equal((html.match(/class="magazine-edition-card"/g) || []).length, 4);
+  assert.ok(html.includes('View older editions (2025 – 2024)'));
+  assert.match(html, /href="parish-magazine.html" aria-current="page"/);
   for (const edition of editions) {
     assert.ok(html.includes('href="' + edition.pdf + '" download'));
     assert.equal(fs.readFileSync(edition.pdf).subarray(0,5).toString(), '%PDF-');
