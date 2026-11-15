@@ -61,8 +61,8 @@ for (const article of articles) {
   <title>${escapeHtml(article.title)} | News | St Michael &amp; All Angels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=modern-classic-1">
   <link rel="stylesheet" href="v1-accessibility.css">
   <link rel="stylesheet" href="news-magazine.css">
   <link rel="stylesheet" href="news-stories.css">

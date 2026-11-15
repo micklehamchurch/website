@@ -1,4 +1,4 @@
-// TEMPORARY TYPOGRAPHY PREVIEW — public-only head hook; remove after decision.
+// Version shared public scripts and refresh the Home bundle after generation.
 const fs = require('node:fs');
 const path = require('node:path');
 const { versionSiteScript } = require('./public-script-version');
@@ -14,17 +14,10 @@ for (const directory of [root, path.join(root, 'news'), path.join(root, 'pews-ne
     if (!html.includes('data-site-footer')) continue;
     // One central, idempotent version hook for every public shared script.
     // Other parameters (including the existing hero version) are preserved.
-    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/g, (match, url) =>
-      `src="${versionSiteScript(url, path.relative(root, filename).split(path.sep).join('/'))}"`);
+    const page = path.relative(root, filename).split(path.sep).join('/');
+    html = html.replace(/src="([^"]*site\.js(?:\?[^"]*)?)"/g, (_match, url) =>
+      `src="${versionSiteScript(url, page)}"`);
     html = html.replace('homepage-verses.js?v=optional-translation-1', 'homepage-verses.js?v=optional-translation-2');
-    if (html.includes('typography-preview.js')) {
-      fs.writeFileSync(filename, html);
-      continue;
-    }
-    const siteScript = html.match(/<script\s+src="([^"]*?)site\.js(?:\?[^"]*)?"/);
-    if (!siteScript) throw new Error(`Public footer missing shared script: ${name}`);
-    const hook = `\n  <script src="${siteScript[1]}typography-preview.js"></script>`;
-    html = html.replace('</title>', '</title>' + hook);
     fs.writeFileSync(filename, html);
   }
 }

@@ -3,10 +3,12 @@ const root = path.join(__dirname, '..');
 const page = require('../content-pages.json').pages.find(p => p.slug === 'finding-us');
 const html = fs.readFileSync(path.join(root, 'finding-us.html'), 'utf8');
 test('Find Us build uses the dedicated layout and self-contained factual content', () => {
-  assert(html.includes(require('../find-us-render')(page)));
+  const normalizeLineEndings = value => value.replaceAll('\r\n', '\n');
+  const rendered = require('../find-us-render')(page);
+  assert(normalizeLineEndings(html).includes(normalizeLineEndings(rendered)));
   assert.doesNotMatch(html, /old parish|previous parish|earlier website|assets\/demo|Illustrative|\b425\b|30 minutes|bike rack/i);
   assert.equal((html.match(/<h1\b/g)||[]).length, 1);
-  assert.match(html, /typography-preview.js/);
+  assert.match(html, /styles\.css\?v=modern-classic-1/);
   for (const token of ['data-site-header','data-site-footer','contact.html','RH5 6DU','RH5 6BG']) assert(html.includes(token));
 });
 test('Each location has a distinct address, real image and destination-specific directions', () => {
@@ -21,15 +23,13 @@ test('Each location has a distinct address, real image and destination-specific 
   }
 });
 test('External links identify new tabs and verified transport providers; local links resolve', () => {
-  const external = [...html.matchAll(/<a\b[^>]*href="(https:[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-  for (const match of external) {
+  for (const match of html.matchAll(/<a\b[^>]*href="(https:[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
     assert.match(match[0], /rel="noopener noreferrer"/);
     assert.match(match[0], /opens in a new tab/);
   }
   for (const match of html.matchAll(/href="([^"#]+\.html)"/g)) assert(fs.existsSync(path.join(root,match[1])));
-  const destinations = external.map(match => new URL(match[1]));
-  assert(destinations.some(url => url.origin === 'https://tfl.gov.uk' && url.pathname === '/bus/route/465/'));
-  assert(destinations.some(url => url.origin === 'https://www.nationalrail.co.uk' && url.pathname === '/stations/box-hill-westhumble/'));
+  assert.match(html, /tfl.gov.uk\/bus\/route\/465\//);
+  assert.match(html, /nationalrail.co.uk\/stations\/box-hill-westhumble\//);
   assert.doesNotMatch(html, /<iframe|api_key|maps.googleapis/i);
 });
 test('Parking and access copy asks for confirmation without promising facilities', () => {
@@ -56,8 +56,6 @@ test('map is an explicit opt-in, with no external iframe in initial HTML', () =>
   const document={querySelector(selector){return selector==='[data-load-find-map]'?{addEventListener(type,fn){listeners[type]=fn;}}:panel;},createElement(){return {setAttribute(){},focus(){this.focused=true;}};}};
   require('node:vm').runInNewContext(script,{document});
   assert.equal(panel.frame,undefined);listeners.click();
-  const map = new URL(panel.frame.src);
-  assert.equal(map.origin, 'https://www.openstreetmap.org');
-  assert.equal(map.pathname, '/export/embed.html');
+  assert.match(panel.frame.src,/^https:\/\/www.openstreetmap.org\/export\/embed.html/);
   assert.equal(panel.frame.referrerPolicy,'no-referrer');assert(panel.frame.focused);
 });

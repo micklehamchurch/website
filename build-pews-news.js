@@ -103,8 +103,8 @@ function build(siteRoot = root) {
 <title>Pews News · ${esc(model.dateLabel(record))} | St Michael &amp; All Angels</title>
 <meta name="description" content="${esc(data.subtitle)}. Services, parish notices and dates from Pews News, ${esc(model.dateLabel(record))}.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-2">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=modern-classic-1"><link rel="stylesheet" href="v1-accessibility.css"><link rel="stylesheet" href="pews-news.css?v=edition-20261031-2">
 <link rel="icon" href="favicon.ico?v=church-tower-20261106" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=church-tower-20261106">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
@@ -124,7 +124,7 @@ ${timelineSections}
 ${support}
 ${calendarSections}
 ${data.pumpkins?`<section class="pews-community" id="harvest" aria-labelledby="harvest-heading">${img(data.pumpkinImage,'pews-pumpkin')}<div><p class="eyebrow">A little colour for your home</p><h2 id="harvest-heading">Take a little Harvest home</h2><p>${text(data.pumpkins)}</p></div></section>`:''}
-${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="foodbank-heading"><header><p class="eyebrow">Caring for our neighbours</p><h2 id="foodbank-heading">News from the Food Bank</h2></header><div class="pews-foodbank-body"><figure>${img(data.foodbank.image)}<figcaption>Original artwork from this week’s Pews News</figcaption></figure><div><p>${text(data.foodbank.intro)}</p><ul>${data.foodbank.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>${data.foodbank.note?`<p>${text(data.foodbank.note)}</p>`:''}<p>${text(data.foodbank.donations)}</p></div></div></section>`:''}${features}
+${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="foodbank-heading"><header><p class="eyebrow">Caring for our neighbours</p><h2 id="foodbank-heading">News from the Food Bank</h2></header><div class="pews-foodbank-body"><figure>${img(data.foodbank.image)}<figcaption>Original artwork from this week’s Pews News</figcaption></figure><div><p>${text(data.foodbank.intro)}</p><ul>${data.foodbank.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>${data.foodbank.note?`<p>${text(data.foodbank.note)}</p>`:''}${data.foodbank.christmasItems?.length?`<ul>${data.foodbank.christmasItems.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}<p>${text(data.foodbank.donations)}</p></div></div></section>`:''}${features}
 <footer class="pews-edition-footer"><div><h2>Prefer a paper copy?</h2><p>Keep the original Pews News to read or print.</p></div>${download}</footer>
 </article></div></main><footer class="footer" data-site-footer></footer></body></html>\n`;
   }
@@ -137,7 +137,7 @@ ${data.foodbank?`<section class="pews-foodbank" id="foodbank" aria-labelledby="f
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=church-tower-20261106">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png?v=church-tower-20261106">
   <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=church-tower-20261106">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=church-tower-20261106"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pews News | St Michael &amp; All Angels</title><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header" data-site-header></header><main id="main-content" class="section container" tabindex="-1"><h1>Pews News</h1><p>Online editions will appear here when available.</p><a class="btn btn-green" href="news.html">Browse Pews News PDFs and Parish Magazine</a></main><footer class="footer" data-site-footer></footer></body></html>\n`);
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=church-tower-20261106"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pews News | St Michael &amp; All Angels</title><link rel="stylesheet" href="styles.css?v=modern-classic-1"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header" data-site-header></header><main id="main-content" class="section container" tabindex="-1"><h1>Pews News</h1><p>Online editions will appear here when available.</p><a class="btn btn-green" href="news.html">Browse Pews News PDFs and Parish Magazine</a></main><footer class="footer" data-site-footer></footer></body></html>\n`);
   for (const file of fs.readdirSync(path.join(root,'pews-news'))) if (/^\d{4}-\d{2}-\d{2}\.html$/.test(file) && !editions.has(file.slice(0,10))) fs.unlinkSync(path.join(root,'pews-news',file));
   fs.writeFileSync(path.join(root,'pews-news-data.json'),JSON.stringify({editions:[...editions.keys()]},null,2)+'\n');
   // Keep a readable, published-only landing projection, including with JavaScript off.

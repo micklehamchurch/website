@@ -7,6 +7,16 @@ const socialLinks = [{
   icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>'
 }];
 
+const headerSocialLinks = [{
+  name: 'Instagram',
+  url: 'https://www.instagram.com/micklehamchurch/',
+  label: 'St Michael & All Angels Church on Instagram (opens in a new tab)',
+  icon: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>'
+}, socialLinks[0]];
+const headerSocials = `<div class="header-socials" role="group" aria-label="Social media">
+  ${headerSocialLinks.map(link => `<a class="header-social-link header-social-${link.name.toLowerCase()}" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="${link.label}">${link.icon}<span>${link.name}</span></a>`).join('')}
+</div>`;
+
 // Audited destinations shared by the desktop hub and mobile accordions.
 const navigationCategories = [
  {id:'services',title:'Services',description:'Join us for services and prayer',icon:'book',image:'assets/images/navigation/services-480.webp',links:[['Services Overview','worship.html'],['Service Times','weekly-worship.html'],['Prayer','prayer.html']]},
@@ -44,6 +54,7 @@ const navigation = `
       <div class="navigation-hub" id="navigation-hub" role="region" aria-label="Explore our parish" hidden>
       ${navigationCategories.map(category=>`<section class="dropdown hub-column" id="menu-${category.id}" data-category="${category.id}" aria-labelledby="heading-${category.id}"><div class="hub-heading">${navigationIcon(category.icon)}<h2 id="heading-${category.id}">${navigationEscape(category.title)}</h2></div><p class="hub-description">${navigationEscape(category.description)}</p><div class="hub-links">${category.links.map(([label,url])=>`<a href="${url}">${navigationEscape(label)}</a>`).join('')}</div><img class="hub-image" data-src="${category.image}" width="480" height="200" alt="" decoding="async"></section>`).join('')}
       </div>
+      ${headerSocials}
       <div class="nav-utilities">
       <a class="compact-search" href="search.html" aria-label="Search the website"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search</span></a>
       <form class="header-search" role="search" action="search.html" method="get" aria-label="Search the website">
@@ -67,20 +78,15 @@ const footer = `
     <div><h2>Explore</h2><div class="footer-explore-links"><a href="worship.html">Worship</a><a href="calendar.html">Calendar</a><a href="bible.html">Read the Bible</a><a href="church-life.html">Church life</a><a href="news.html">News</a><a href="visit.html">Visit the Church</a><a href="gallery.html">Parish Photographs</a></div></div>
     <div><h2>Parish information</h2><a href="contact.html">Contact the church</a><a href="our-team.html">Our Team</a><a href="safeguarding.html">Safeguarding</a><a href="electoral-roll.html">Electoral Roll</a><a href="privacy.html">Privacy &amp; GDPR</a><a href="bible-translation.html">Bible translation acknowledgement</a></div>
   </div>
-  <!-- TEMPORARY TYPOGRAPHY PREVIEW: remove after parish typography decision. -->
-  <section class="container typography-preview" aria-label="Preview typography">
-    <p>Preview typography</p><p class="typography-preview-note">Temporary design preview</p>
-    <div class="typography-preview-options" role="group" aria-label="Typography options">
-      <button type="button" data-typography-option="heritage" aria-pressed="true">Heritage</button>
-      <button type="button" data-typography-option="modern-classic" aria-pressed="false">Modern Classic</button>
-      <button type="button" data-typography-option="contemporary" aria-pressed="false">Contemporary</button>
-    </div>
-  </section>
   <div class="container footer-development" role="group" aria-label="Development tools"></div>
   <div class="container footer-bottom"><div class="footer-bottom-links"><span>© <span data-current-year>2026</span> St Michael &amp; All Angels</span></div><p class="footer-credit">Website by Ed Popov</p></div>`;
 
 
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin', navigation);
+const headerMode = Object.defineProperty(new EventTarget(), 'matches', {
+  get: () => !document.querySelector('[data-site-header]')?.classList.contains('is-full'),
+});
+globalThis.churchHeaderMode = headerMode;
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin', footer);
 // Legal information can opt into the same useful footer without promotional features.
 const compactFooter = document.querySelector('[data-site-footer][data-footer-compact]');
@@ -97,17 +103,7 @@ if (compactFooter) {
   diocese.rel = 'noopener noreferrer';
   relationship.append(diocese, '.');
   identity?.append(relationship);
-  const preview = compactFooter.querySelector('.typography-preview');
-  if (preview) {
-    const details = document.createElement('details');
-    details.className = 'container footer-typography-options';
-    const summary = document.createElement('summary');
-    summary.textContent = 'Typography preview (Dev)';
-    preview.before(details);
-    details.append(summary, preview);
-  }
 }
-document.dispatchEvent(new Event('typography-preview-ready'));
 // The contextual Media link shares the same confirmed channel as the footer.
 document.querySelectorAll('[data-youtube-channel]').forEach(link => { link.href = officialYouTubeChannel; });
 
@@ -116,10 +112,10 @@ if (siteScript) {
   const headerStyles = document.createElement('link');
   const footerStyles = document.createElement('link');
   footerStyles.rel = 'stylesheet';
-  footerStyles.href = new URL('footer-standard.css?v=20261027-layout-1', siteScript.src).href;
+  footerStyles.href = new URL('footer-standard.css?v=modern-classic-1', siteScript.src).href;
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
-  headerStyles.href = new URL('header-navigation.css?navigation=20261106-full-desktop-1', siteScript.src).href;
+  headerStyles.href = new URL('header-navigation.css?navigation=20261115-information-bar-1', siteScript.src).href;
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -155,7 +151,7 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261106-racial-justice-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261112-slim-header-1',siteScript.src).href;
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';
@@ -212,7 +208,7 @@ function createNavigationHubMotion(panel, media=matchMedia('(prefers-reduced-mot
 const hubMotion=navigationHub?createNavigationHubMotion(navigationHub):null;
 /* Desktop hub motion end */
 function syncNavigationHub(){
- const compact=matchMedia('(max-width:999px), (max-width:1279px) and (max-height:999px)').matches;
+ const compact=headerMode.matches;
  const selected=dropdownButtons.find(button=>button.closest('.nav-item').classList.contains('is-open'));
  dropdownButtons.forEach(button=>{button.setAttribute('aria-controls',compact?'menu-'+button.closest('.nav-item').dataset.category:'navigation-hub');if(!compact)button.setAttribute('aria-expanded',String(!!selected));});
  if(navigationHub)hubMotion.set(!compact&&!!selected,compact);
@@ -338,7 +334,7 @@ document.querySelectorAll('a[href="index.html"]').forEach(link => {
 // Shared compact header: one navigation tree, native modal drawer.
 if (siteScript && nav && menuButton) {
   const landscapeScript = document.createElement('script');
-  landscapeScript.src = new URL('responsive-navigation.js?v=20261106-full-desktop-1', siteScript.src).href;
+  landscapeScript.src = new URL('responsive-navigation.js?v=20261108-header-social-1', siteScript.src).href;
   document.head.append(landscapeScript);
 }
 

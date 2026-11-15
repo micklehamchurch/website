@@ -323,5 +323,85 @@
       "alt": "QR code for the Mickleham and Westhumble Royal British Legion collection",
       "href": "https://www.mygivinghub.com/go?id=jZ7arYjOPa"
     }
+  },
+  "2026-11-15": {
+    "zoom": {
+      "src": "assets/images/pews-news/2026-11-15/zoom.webp",
+      "width": 263,
+      "height": 198,
+      "alt": "A laptop displaying a Zoom call"
+    },
+    "lights": {
+      "src": "assets/images/pews-news/2026-11-15/lights.webp",
+      "width": 235,
+      "height": 240,
+      "alt": "Hands holding a lit candle"
+    },
+    "autumn": {
+      "src": "assets/images/pews-news/2026-11-15/autumn.webp",
+      "width": 625,
+      "height": 626,
+      "alt": "Autumn foliage and red berries in a metal jug"
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-11-15/snowman.webp",
+      "width": 423,
+      "height": 424,
+      "alt": "The Snowman by Raymond Briggs"
+    },
+    "christmas-trees": {
+      "src": "assets/images/pews-news/2026-11-15/christmas-trees.webp",
+      "width": 336,
+      "height": 274,
+      "alt": "Red truck carrying a Christmas tree"
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-11-15/bible-study.webp",
+      "width": 402,
+      "height": 273,
+      "alt": "A group sitting together for Bible study"
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-11-15/soup.webp",
+      "width": 484,
+      "height": 339,
+      "alt": "A bowl of soup"
+    },
+    "christingle": {
+      "src": "assets/images/pews-news/2026-11-15/christingle.webp",
+      "width": 521,
+      "height": 530,
+      "alt": "Christingle oranges with candles"
+    },
+    "christmas-fair": {
+      "src": "assets/images/pews-news/2026-11-15/christmas-fair.webp",
+      "width": 363,
+      "height": 720,
+      "alt": "Father Christmas"
+    },
+    "mens-breakfast": {
+      "src": "assets/images/pews-news/2026-11-15/mens-breakfast.webp",
+      "width": 322,
+      "height": 108,
+      "alt": "Men’s Breakfast"
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-11-15/foodbank.webp",
+      "width": 385,
+      "height": 465,
+      "alt": "Food Bank wish list on a clipboard next to groceries"
+    },
+    "nativity": {
+      "src": "assets/images/pews-news/2026-11-15/nativity.webp",
+      "width": 368,
+      "height": 376,
+      "alt": "The Wintershall Nativity Journey"
+    },
+    "macmillan": {
+      "src": "assets/images/pews-news/2026-11-15/macmillan.webp",
+      "width": 294,
+      "height": 271,
+      "alt": "Macmillan Cancer Support Coffee Morning"
+    }
   }
 }

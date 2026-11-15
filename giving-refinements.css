@@ -8,3 +8,41 @@
 .giving-page .giving-thanks-inner p:last-child{color:#46594d}
 .giving-page .giving-thanks .btn{border-color:#244537}
 .giving-page .giving-thanks .btn:focus-visible{outline-color:#244537}
+
+.giving-page .giving-hero-grid {
+  width: min(1420px, calc(100% - 64px));
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 3.5vw, 56px);
+}
+
+.giving-page .giving-hero-image {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.giving-page .giving-hero-image img {
+  height: auto;
+  max-height: none;
+  aspect-ratio: 2 / 1;
+  object-position: center 30%;
+  border-radius: 14px;
+}
+
+@media (max-width: 1000px) {
+  .giving-page .giving-hero-image img {
+    aspect-ratio: 1672 / 941;
+  }
+}
+
+@media (max-width: 700px) {
+  .giving-page .giving-hero-grid {
+    width: calc(100% - 28px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .giving-page .giving-hero-image img {
+    border-radius: 10px;
+  }
+}

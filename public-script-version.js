@@ -9,7 +9,7 @@ function versionPublicScript(url, versions) {
 }
 function versionSiteScript(url, page) {
   const versions = {
-    typography: '20261007-v1', header: '20261106-racial-justice-1', gallery: '20261009-v1',
+    typography: 'modern-classic-1', header: '20261115-information-bar-1', gallery: '20261009-v1',
     footer: '20261027-layout-1', feedback: '20261019-public-wording-1'
   };
   if (page !== 'index.html') {

@@ -32,6 +32,10 @@ jobs:
         run: npm ci --prefix azure-function
       - name: Build the production site
         run: npm run build
+      - name: Verify the public site package
+        run: |
+          node scripts/package-public-site.cjs build "$RUNNER_TEMP/public-site" https://micklehamchurch.github.io /website/ > /dev/null
+          node scripts/package-public-site.cjs verify "$RUNNER_TEMP/public-site" https://micklehamchurch.github.io /website/ > /dev/null
       - name: Validate the site and Admin client
         run: node validate-production.cjs
       - name: Validate the Admin API with isolated fixtures
