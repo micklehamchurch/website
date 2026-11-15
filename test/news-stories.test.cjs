@@ -45,9 +45,9 @@ test('Remembrance story preserves the approved section order, real photos and fe
   assert.equal(rendered.split('href="'+route+'"').length,3);
   assert.match(rendered,/A time to remember and give thanks for the service and sacrifice of others\./);
   assert.match(rendered,/wreaths-card-640\.webp/);
-  assert.equal(rendered.split('href="pews-news/2026-11-08.html"').length,3);
+  assert.equal(rendered.split('href="' + feed.items.find(item=>item.kind==='pews-news').url + '"').length,3);
   assert(rendered.includes('Latest Service'));
-  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-15',url:'pews-news/2026-11-15.html'};
+  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-22',url:'pews-news/2026-11-22.html'};
   assert(home.render({items:[newer,...feed.items]}).includes(route));
   assert(require('../search-index.json').some(entry=>entry.url===route));
 });

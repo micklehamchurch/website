@@ -10,7 +10,7 @@ test('From Our Parish shows the approved cards in order using current canonical 
   const html = render(feed, readService());
   const visible = [...html.matchAll(/<article class="parish-card"(?:(?! hidden)[^>])*?>[\s\S]*?<h3>[\s\S]*? (Latest Service|Pews News|Parish Magazine|Remembrance Sunday)<\/h3>/g)].map(match => match[1]);
   assert.deepEqual(visible, ['Latest Service', 'Pews News', 'Parish Magazine', 'Remembrance Sunday']);
-  assert.match(html, /pews-news\/2026-11-08\.html/);
+  assert.match(html, /pews-news\/2026-11-15\.html/);
   assert.doesNotMatch(html, /pews-news\/2026-11-01\.html/);
   assert.match(html, /parish-magazine\.html#previous-editions/);
   assert.match(html, /data-parish-expiry="2026-12-01"/);
@@ -18,9 +18,9 @@ test('From Our Parish shows the approved cards in order using current canonical 
 });
 
 test('homepage uses the newest canonical Pews News and preserves truthful media fallbacks', () => {
-  const newer = {...feed.items[0], id:'pews-news:2026-11-15', url:'pews-news/2026-11-15.html', image:null};
+  const newer = {...feed.items[0], id:'pews-news:2026-11-16', date:'2026-11-16', url:'pews-news/2026-11-16.html', image:null};
   const html = render({items:[newer, ...feed.items]});
-  assert.match(html, /pews-news\/2026-11-15\.html/);
+  assert.match(html, /pews-news\/2026-11-16\.html/);
   assert.match(html, /news-paper/);
   assert.match(html, /sunday-services\.html/);
 });
