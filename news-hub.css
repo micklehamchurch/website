@@ -52,3 +52,6 @@
 @media(max-width:1000px) and (max-height:500px) and (orientation:landscape){.news-feature .news-item-link{min-height:200px}.news-feature .news-item-media{min-height:200px}.news-feature .news-item-copy{padding:12px 0 12px 20px}.news-feature h3{font-size:25px}.news-more-grid .news-item-media{max-height:130px}}
 
 .news-feature .news-item-media>img[src$="pews-lights-tabletop-2026-11-15-640.webp"]{object-fit:contain}
+.news-hub-nav a{display:flex;align-items:center;gap:8px}
+.news-hub-nav a svg{flex:none}
+.news-resource-grid:has(>section:only-child){grid-template-columns:minmax(0,1fr)}
