@@ -9,11 +9,10 @@
       "summary": "Holy Communion, Lights to Remember, parish notices and Christmas events.",
       "url": "pews-news/2026-11-15.html",
       "image": {
-        "src": "assets/images/news-artwork/pews-lights-2026-11-15-1280.webp",
-        "small": "assets/images/news-artwork/pews-lights-2026-11-15-640.webp",
-        "alt": "Pews News cover with autumn foliage and red berries in a jug",
-        "width": 1280,
-        "height": 720
+        "src": "assets/images/news-artwork/pews-lights-tabletop-2026-11-15-640.webp",
+        "width": 640,
+        "height": 360,
+        "alt": "Pews News for 15 November 2026, Lights to Remember, on an autumn table with a vase of leaves and berries printed on the cover"
       }
     },
     {
