@@ -52,7 +52,8 @@ function archiveContent() {
   const currentYear = Number(latest.id.slice(0, 4));
   const recent = editions.slice(0, 4);
   const older = editions.slice(4).filter(edition => Number(edition.id.slice(0, 4)) >= currentYear - 2);
-  const archived = olderArchive.filter(group => group.year >= currentYear - 2 && group.year < currentYear);
+  const archived = olderArchive.filter(group => group.year < currentYear)
+    .sort((left, right) => right.year - left.year);
   const years = archived.map(group => group.year);
   const yearLabel = years.length > 1 ? `${Math.max(...years)} – ${Math.min(...years)}` : String(years[0] || '');
   const card = edition => `<article class="magazine-edition-card" id="edition-${edition.id}">
@@ -83,6 +84,7 @@ function archiveContent() {
       ${older.length || archived.length ? `<details class="magazine-older">
         <summary>View older editions${yearLabel ? ' (' + yearLabel + ')' : ''}</summary>
 ${older.length ? `<div class="magazine-edition-grid">${older.map(card).join('\n')}</div>` : ''}
+        ${archived.length ? '<p>Older PDF editions are hosted by Mickleham Parish Council.</p>' : ''}
         <div class="magazine-older-grid">${archived.map(group => `<section><h3>${group.year}</h3><ul>${group.editions.map(edition =>
           `<li><a href="${esc(edition.pdf)}">${esc(edition.name)} (PDF)</a></li>`).join('')}</ul></section>`).join('')}</div>
       </details>` : ''}

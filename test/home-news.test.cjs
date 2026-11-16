@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {render, readService} = require('../home-news-render.cjs');
 const {archiveContent} = require('../parish-magazine-render.cjs');
-const {editions} = require('../_content/parish-magazine.json');
+const {editions, olderArchive} = require('../_content/parish-magazine.json');
 const feed = require('../news-feed.json');
 
 test('From Our Parish shows the approved cards in order using current canonical links', () => {
@@ -36,7 +36,18 @@ test('homepage delivery equals the canonical renderer', () => {
 test('archive links to all four original PDFs and each reader uses the same page data', () => {
   const html = archiveContent();
   assert.equal((html.match(/class="magazine-edition-card"/g) || []).length, 4);
-  assert.ok(html.includes('View older editions (2025 – 2024)'));
+  assert.ok(html.includes('View older editions (2025 – 2016)'));
+  assert.match(html, /Older PDF editions are hosted by Mickleham Parish Council\./);
+  const archive = html.split('<div class="magazine-older-grid">')[1].split('</details>')[0];
+  assert.deepEqual([...archive.matchAll(/<h3>(\d{4})<\/h3>/g)].map(match => Number(match[1])),
+    [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016]);
+  const external = olderArchive.slice(2).flatMap(group => group.editions);
+  assert.equal(new Set(external.map(edition => edition.pdf)).size, 74);
+  for (const edition of external) {
+    const url = new URL(edition.pdf);
+    assert.equal(url.origin + url.pathname, 'https://www.micklehamparishcouncil.gov.uk/shared/attachments.asp');
+    assert.ok(archive.includes(edition.pdf.replaceAll('&', '&amp;') + '">' + edition.name + ' (PDF)'));
+  }
   assert.match(html, /href="parish-magazine.html" aria-current="page"/);
   for (const edition of editions) {
     assert.ok(html.includes('href="' + edition.pdf + '" download'));
