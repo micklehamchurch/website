@@ -29,8 +29,6 @@
 .parish-about-card a { display:inline-flex; align-items:center; gap:4px; min-height:44px; align-self:flex-start; margin-top:auto; font-size:14px; font-weight:600; color:#163f32; text-decoration:none; }
 .parish-about-card a:hover { text-decoration:underline; text-underline-offset:4px; }
 .parish-about main a:focus-visible { outline:3px solid #947224; outline-offset:4px; }
-.parish-about .typography-preview { display:none; }
-html.about-design-preview .parish-about .typography-preview { display:block; }
 .parish-about .footer { padding-top:28px; }
 @media (max-width:1100px) {
   .parish-about-intro-inner { width:88%; gap:30px; }

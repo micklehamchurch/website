@@ -17,7 +17,7 @@
 .bible-paginated .bible-reading h2{font-size:clamp(26px,2.5vw,36px);color:#283f2e}
 .bible-paper-page{padding:24px clamp(24px,3.4vw,52px);border-radius:10px 8% 5% 12px;background:linear-gradient(90deg,#e9d8af66,#fff9e977 6%,#fff9e922 83%,#c6b08555 97%,#a58d624d);box-shadow:inset 4px 0 7px #9b7c3920}
 .bible-paper-page:nth-child(2){border-radius:8% 10px 12px 5%;background:linear-gradient(90deg,#a58d6255,#ddcba17a 3%,#fff9e922 12%,#fff9e977 94%,#e5d3a96b);box-shadow:inset -4px 0 7px #9b7c3920}
-.bible-page-text,.bible-page-measure{font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.75;color:#302c22}
+.bible-page-text,.bible-page-measure{font-family:var(--serif);font-size:20px;line-height:1.75;color:#302c22}
 .bible-font-probe{font-size:20px}
 .bible-page-text sup{font-size:11px;color:#405b3d}
 .bible-page-text{scrollbar-gutter:stable}

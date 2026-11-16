@@ -1628,25 +1628,6 @@
           "position": "50% 55%"
         }
       ]
-    },
-    {
-      "slug": "parish-magazine",
-      "section": "community",
-      "category": "News & Parish Magazine",
-      "title": "Parish Magazine",
-      "summary": "The parish magazine shares news and reflections from across Mickleham and Westhumble.",
-      "back": "news.html",
-      "sections": [
-        {
-          "title": "News from across the parish",
-          "paragraphs": [
-            "The old website linked to a current parish magazine edition and identified the magazine as a place for parish and village news. That issue link and editor contacts may now be out of date.",
-            "The new website’s News & Magazine section is ready to hold approved articles and updates. Use the News page for current published items; contact the parish if you are looking for a recent magazine edition."
-          ]
-        }
-      ],
-      "action": "Read News & Magazine",
-      "href": "news.html"
     }
   ]
 }

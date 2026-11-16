@@ -18,7 +18,7 @@ test('published journal, Harvest article, latest teaser and search are generated
  const search=require('../search-index.json');assert(search.some(p=>p.url==='news.html'));assert(!search.some(p=>p.url==='news-stories.html'));assert(search.some(p=>p.url==='news/a-harvest-of-thankfulness.html'));
 });
 
-test('one public News destination retains stories, publications and old routing',()=>{const page=fs.readFileSync(require('node:path').join(__dirname,'../news.html'),'utf8');assert.match(page,/<h1 id="news-title">News<\/h1>/);assert.match(page,/Latest news/);assert.match(page,/latest-pews-news/);assert.match(page,/latest-parish-magazine/);assert.match(page,/publication-archive/);assert.match(page,/a-harvest-of-thankfulness/);const old=fs.readFileSync(require('node:path').join(__dirname,'../news-stories.html'),'utf8');assert.match(old,/url=news.html/);assert.match(old,/search-index.+exclude/);const nav=fs.readFileSync(require('node:path').join(__dirname,'../site.js'),'utf8');assert.match(nav,/<a href="news.html">News<\/a>/);assert(!nav.includes('href="news-stories.html"'));});
+test('one public News destination retains stories, publications and old routing',()=>{const page=fs.readFileSync(require('node:path').join(__dirname,'../news.html'),'utf8');assert.match(page,/<h1 id="news-title">News<\/h1>/);assert.match(page,/Latest news/);assert.match(page,/latest-pews-news/);assert.match(page,/<a href="parish-magazine.html" id="latest-parish-magazine">/);assert.doesNotMatch(page,/<section id="latest-parish-magazine"/);assert.match(page,/publication-archive/);assert.match(page,/a-harvest-of-thankfulness/);const old=fs.readFileSync(require('node:path').join(__dirname,'../news-stories.html'),'utf8');assert.match(old,/url=news.html/);assert.match(old,/search-index.+exclude/);const nav=fs.readFileSync(require('node:path').join(__dirname,'../site.js'),'utf8');assert.match(nav,/<a href="news.html">News<\/a>/);assert(!nav.includes('href="news-stories.html"'));});
 
 test('Remembrance story preserves the approved section order, real photos and featured Home card', () => {
   const route = 'news/we-will-remember-them.html';
@@ -41,13 +41,13 @@ test('Remembrance story preserves the approved section order, real photos and fe
   assert(require('../news-feed-model').render(feed,'parish-story').includes(route));
   const home=require('../home-news-render.cjs');
   const rendered=home.render(feed,home.readService());
-  assert.match(rendered,/<article class="home-news-item home-news-latest"><a class="home-news-link" href="news\/we-will-remember-them\.html">/);
-  assert.equal(rendered.split('href="'+route+'"').length,2);
-  assert.match(rendered,/Our church and village community gathered for Remembrance Sunday, honouring those who gave their lives and praying for peace\./);
-  assert.match(rendered,/wreaths-card-1280\.webp/);
-  for(const other of ['pews-news/2026-11-08.html','pews-news/2026-11-01.html']) assert.equal(rendered.split('href="'+other+'"').length,2);
-  assert(rendered.includes('home-service-latest'));
-  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-15',url:'pews-news/2026-11-15.html'};
-  assert(!home.render({items:[newer,...feed.items]}).includes(route));
+  assert.match(rendered,/<article class="parish-card" data-parish-expiry="2026-12-01">/);
+  assert.equal(rendered.split('href="'+route+'"').length,3);
+  assert.match(rendered,/A time to remember and give thanks for the service and sacrifice of others\./);
+  assert.match(rendered,/wreaths-card-640\.webp/);
+  assert.equal(rendered.split('href="' + feed.items.find(item=>item.kind==='pews-news').url + '"').length,3);
+  assert(rendered.includes('Latest Service'));
+  const newer={...feed.items[0],id:'newer-edition',date:'2026-11-22',url:'pews-news/2026-11-22.html'};
+  assert(home.render({items:[newer,...feed.items]}).includes(route));
   assert(require('../search-index.json').some(entry=>entry.url===route));
 });
