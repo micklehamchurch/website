@@ -4002,6 +4002,33 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"7954pgount8q8b24htq0jolrnj@google.com\",\"\"]",
+      "uid": "7954pgount8q8b24htq0jolrnj@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-d92774bfcd16a6efeeab755156fc6570",
+      "google": {
+        "title": "Wedding",
+        "start": "2027-06-12T00:00",
+        "end": "2027-06-13T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Wedding",
+        "start": "2027-06-12T00:00",
+        "end": "2027-06-13T00:00",
+        "allDay": true,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "5d4b9696380f5e1f4c824a90a231c1c978e5f82e48911402f48b5c923f4da816",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -4018,14 +4045,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-11-14T21:00:05.720Z",
+  "lastSuccessfulSync": "2026-11-16T12:45:04.376Z",
   "audit": {
-    "at": "2026-11-14T21:00:05.720Z",
+    "at": "2026-11-16T12:45:04.376Z",
     "mode": "automatic",
-    "added": 2,
+    "added": 1,
     "updated": 0,
     "removed": 0,
-    "unchanged": 134,
+    "unchanged": 136,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1
