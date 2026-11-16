@@ -23,12 +23,12 @@ test('Option D coordinates the drawer, policies and search with the measured hea
 });
 
 test('the steady desktop header release refreshes changed header asset cache keys', () => {
-  const styleVersion = '20261115-information-bar-1';
+  const styleVersion = '20261116-wrapped-header-1';
   assert(read('site.js').includes('header-navigation.css?navigation=' + styleVersion));
   assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';
   assert(read('site.js').includes('responsive-navigation.js?v=' + version));
-  assert(read('site.js').includes('public-header.js?v=20261112-slim-header-1'));
+  assert(read('site.js').includes('public-header.js?v=' + styleVersion));
   assert(read('public-header.js').includes('header-search.js?v=20261110-header-scroll-1'));
   assert(read('public-header.js').includes('policies-navigation.css?v=' + version));
   assert(read('public-header.js').includes('policies-navigation.js?v=20261112-slim-header-1'));
