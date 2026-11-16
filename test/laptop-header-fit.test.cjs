@@ -16,15 +16,17 @@ test('Option D coordinates the drawer, policies and search with the measured hea
   assert.match(read('public-header.js'), /setRows\(full\);/);
   assert.doesNotMatch(read('public-header.js'), /scrollY|is-condensed/);
   assert.doesNotMatch(read('header-navigation.css'), /is-condensed/);
-  assert.match(read('public-header.js'), /occupiedWidth>=20&&fits()/);
+  assert.match(read('public-header.js'), /occupiedWidth>=20&&fits\(\)/);
+  assert.match(read('public-header.js'), /1200px <= width < 1280px.*540px <= height < 601px.*any-pointer:fine.*any-hover:hover/);
+  assert.match(read('public-header.js'), /if\(!eligible.matches&&!single\)full=false/);
   assert.match(read('header-navigation.css'), /position:sticky; top:0;/);
   assert(read('header-navigation.css').includes('@media (width < 1366px)'));
   assert(read('home-performance.css').includes('.has-full-header'));
 });
 
 test('the steady desktop header release refreshes changed header asset cache keys', () => {
-  const styleVersion = '20261116-wrapped-header-1';
-  assert(read('site.js').includes('header-navigation.css?navigation=' + styleVersion));
+  const styleVersion = '20261116-short-laptop-1';
+  assert(read('site.js').includes('header-navigation.css?navigation=20261116-wrapped-header-1'));
   assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';
   assert(read('site.js').includes('responsive-navigation.js?v=' + version));

@@ -67,6 +67,7 @@
   }
 
   const setRows=headerRows(header);
+  const shortLaptop=matchMedia('(1200px <= width < 1280px) and (540px <= height < 601px) and (any-pointer:fine) and (any-hover:hover)');
   const wrapEligible=matchMedia('(1032px <= width < 1272px) and (any-pointer:fine) and (any-hover:hover)');
   let frame=0,dirty=true,full=false,single=false,wrapped=false;
 
@@ -143,7 +144,9 @@
       full=false;
       single=false;
       wrapped=false;
-      if(eligible.matches)measureFit();
+      if(eligible.matches||shortLaptop.matches)measureFit();
+      // Short laptop windows use the full header only when it fits in one row.
+      if(!eligible.matches&&!single)full=false;
       dirty=false;
     }
     const changed=header.classList.contains('is-full')!==full;
@@ -178,6 +181,7 @@
   addEventListener('resize',remeasure);
   addEventListener('pageshow',remeasure);
   eligible.addEventListener('change',remeasure);
+  shortLaptop.addEventListener('change',remeasure);
   wrapEligible.addEventListener('change',remeasure);
   portraitPhone.addEventListener('change',remeasure);
   document.fonts?.ready.then(remeasure);
