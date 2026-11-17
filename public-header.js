@@ -67,7 +67,27 @@
   }
 
   const setRows=headerRows(header);
-  let frame=0,dirty=true,full=false,single=false;
+  const shortLaptop=matchMedia('(1200px <= width < 1280px) and (540px <= height < 601px) and (any-pointer:fine) and (any-hover:hover)');
+  const wrapEligible=matchMedia('(1032px <= width < 1272px) and (any-pointer:fine) and (any-hover:hover)');
+  let frame=0,dirty=true,full=false,single=false,wrapped=false;
+
+  function wrapLabels(tree,enabled){
+    for(const [category,first,last] of [['life-events','Life','Events'],['visit','Visit &','Explore'],['about','About','Us']]){
+      const trigger=tree.querySelector('.nav-item[data-category="'+category+'"] .nav-trigger');
+      const current=trigger.querySelector('.wrap-title');
+      if(enabled&&!current){
+        const title=document.createElement('span');
+        const breakPoint=document.createElement('span');
+        title.className='wrap-title';
+        breakPoint.className='wrap-break';
+        breakPoint.textContent=' ';
+        title.append(first,breakPoint,last);
+        trigger.firstChild.replaceWith(title);
+      }else if(!enabled&&current){
+        current.replaceWith(document.createTextNode(first+' '+last));
+      }
+    }
+  }
 
   // The temporary, inert probe is measured only when width or text metrics
   // change. It has no IDs, overlays or event handlers and is never painted.
@@ -78,7 +98,8 @@
     probe.removeAttribute('id');
     probe.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
     probe.querySelectorAll('.navigation-hub,.dropdown,.policies-navigation,.header-inline-search').forEach(node=>node.remove());
-    probe.classList.remove('header-search-open','slim-single');
+    probe.classList.remove('header-search-open','slim-single','wrap-labels');
+    wrapLabels(probe,false);
     probe.classList.add('is-full','option-d');
     probe.style.visibility='hidden';
     probe.style.setProperty('position','fixed','important');
@@ -101,12 +122,18 @@
       full=fits();
       if(!full)return;
       probe.classList.add('slim-single');
-      const groupWidths=['.header-branding','.nav-primary','.option-b-actions'].map(selector=>
-        probe.querySelector(selector).getBoundingClientRect().width);
-      const rowGap=2*parseFloat(getComputedStyle(wrap).columnGap);
-      const occupiedWidth=groupWidths.reduce((total,width)=>total+width,rowGap);
-      // Keep 20px of clearance beyond the two gaps between the groups.
-      single=wrap.getBoundingClientRect().width-occupiedWidth>=20&&fits();
+      const singleRowFits=()=>{
+        const groups=['.header-branding','.nav-primary','.option-b-actions'];
+        const gap=2*parseFloat(getComputedStyle(wrap).columnGap);
+        const occupiedWidth=groups.reduce((total,selector)=>total+probe.querySelector(selector).getBoundingClientRect().width,gap);
+        return wrap.getBoundingClientRect().width-occupiedWidth>=20&&fits();
+      };
+      single=singleRowFits();
+      if(!single&&wrapEligible.matches){
+        probe.classList.add('wrap-labels');
+        wrapLabels(probe,true);
+        wrapped=single=singleRowFits();
+      }
     }finally{probe.remove();}
   }
 
@@ -116,7 +143,10 @@
     if(dirty){
       full=false;
       single=false;
-      if(eligible.matches)measureFit();
+      wrapped=false;
+      if(eligible.matches||shortLaptop.matches)measureFit();
+      // Short laptop windows use the full header only when it fits in one row.
+      if(!eligible.matches&&!single)full=false;
       dirty=false;
     }
     const changed=header.classList.contains('is-full')!==full;
@@ -127,6 +157,8 @@
     header.classList.toggle('option-d',full);
     const singleChanged=header.classList.contains('slim-single')!==single;
     header.classList.toggle('slim-single',single);
+    header.classList.toggle('wrap-labels',wrapped);
+    wrapLabels(header,wrapped);
     if(full&&(changed||singleChanged)){
       const navigationRow=nav.querySelector('.option-d-lower');
       const utilitiesRow=nav.querySelector('.option-b-actions');
@@ -149,6 +181,8 @@
   addEventListener('resize',remeasure);
   addEventListener('pageshow',remeasure);
   eligible.addEventListener('change',remeasure);
+  shortLaptop.addEventListener('change',remeasure);
+  wrapEligible.addEventListener('change',remeasure);
   portraitPhone.addEventListener('change',remeasure);
   document.fonts?.ready.then(remeasure);
   document.fonts?.addEventListener('loadingdone',remeasure);

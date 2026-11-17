@@ -483,6 +483,17 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-d92774bfcd16a6efeeab755156fc6570",
+      "title": "Wedding",
+      "start": "2027-06-12T00:00",
+      "end": "2027-06-13T00:00",
+      "allDay": true,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [

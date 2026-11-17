@@ -615,7 +615,7 @@ html.has-full-header body.home-header-hero > main { margin-top:0; }
 }
 
 /* Only the measured single-row candidate uses the tighter proportions. */
-@media (min-width:1100px) and (max-width:1499px) and (any-pointer:fine) and (any-hover:hover) {
+@media (min-width:1100px) and (width < 1536px) and (any-pointer:fine) and (any-hover:hover) {
   .site-header.option-d.slim-single .nav-wrap {
     width:calc(100% - 32px);
     column-gap:12px;
@@ -631,4 +631,31 @@ html.has-full-header body.home-header-hero > main { margin-top:0; }
   .site-header.option-d.slim-single .nav-chevron { width:13px; }
   .site-header.option-d.slim-single .brand { gap:9px; }
   .site-header.option-d.slim-single .brand strong { font-size:24px; }
+}
+
+/* Gradually use the extra space above the approved compact laptop layout. */
+@media (1366px < width < 1536px) and (any-pointer:fine) and (any-hover:hover) {
+  .site-header.option-d.slim-single .nav-wrap {
+    column-gap:clamp(12px, calc(12px + (100vw - 1366px) * .045), 18px);
+  }
+  .site-header.option-d.slim-single .nav-primary {
+    gap:clamp(3px, calc(3px + (100vw - 1366px) * .085), 14px);
+  }
+  .site-header.option-d.slim-single :is(.nav-primary > .nav-link,.nav-trigger) {
+    padding-inline:clamp(4px, calc(4px + (100vw - 1366px) * .022), 7px);
+  }
+}
+
+.site-header.option-d.slim-single.wrap-labels .nav-wrap { width:calc(100% - 32px); column-gap:12px; }
+.site-header.option-d.slim-single.wrap-labels .brand { gap:9px; }
+.site-header.option-d.slim-single.wrap-labels .brand strong { font-size:24px; }
+.site-header.option-d.slim-single.wrap-labels .nav-primary { gap:3px; }
+.site-header.option-d.slim-single.wrap-labels :is(.nav-primary > .nav-link,.nav-trigger) {
+  min-height:44px; min-width:44px; padding-inline:4px; font-size:15px; gap:4px;
+}
+.site-header.option-d.slim-single.wrap-labels .nav-chevron { width:13px; }
+.site-header.option-d.slim-single.wrap-labels .wrap-break { display:block; }
+.site-header .nav-trigger :is(.wrap-title,.wrap-break),
+.responsive-navigation-dialog .nav-trigger :is(.wrap-title,.wrap-break) {
+  margin-left:0; color:inherit;
 }
