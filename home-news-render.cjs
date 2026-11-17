@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const model = require('./news-feed-model');
 const magazine = require('./parish-magazine-render.cjs');
+const {homeSummaries = {}} = require('./_content/parish-magazine.json');
 const e = model.esc;
 
 const icons = {
@@ -29,7 +30,26 @@ function card(icon, title, description, photo, actions, attributes = '') {
   </article>`;
 }
 
-function render(feed, service = null) {
+function serviceDescription(service) {
+  if (!service) return 'Browse the parish’s published Sunday services.';
+  const {title, publishedAt} = service.video;
+  const hasEditionDate = /\b(?:\d{4}-\d{2}-\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+[a-z]{3,9}\s+\d{4})\b/i.test(title);
+  return publishedAt && !hasEditionDate
+    ? title + ' · Published ' + model.dateLabel(publishedAt)
+    : title;
+}
+
+function pewsDescription(pews, root) {
+  if (!pews) return 'Browse parish readings, services and notices.';
+  const date = model.dateLabel(pews.date);
+  const file = path.join(root, '_content', 'pews-news', pews.date + '.json');
+  const summary = /^\d{4}-\d{2}-\d{2}$/.test(pews.date) && fs.existsSync(file)
+    ? JSON.parse(fs.readFileSync(file, 'utf8')).homeSummary
+    : null;
+  return date + ' · ' + (summary || 'Readings, services and parish notices.');
+}
+
+function render(feed, service = null, root = __dirname) {
   const pews = model.select(feed, 'pews-news')[0];
   const story = model.select(feed, 'parish-story').find(item => item.id === 'story:we-will-remember-them');
   const serviceUrl = service ? 'https://www.youtube.com/watch?v=' + service.video.id : 'sunday-services.html';
@@ -50,9 +70,9 @@ function render(feed, service = null) {
     <h2 id="home-news-heading">From Our Parish</h2>
     <p class="parish-section-intro">Latest services, Pews News, our parish magazine and highlights from our church community.</p>
     <div class="parish-card-grid">
-      ${card('video', 'Latest Service', 'Watch the most recent church service on our YouTube channel.', servicePhoto, button(serviceUrl, service ? 'Watch on YouTube' : serviceLabel, Boolean(service)))}
-      ${card('news', 'Pews News', 'The latest weekly news, readings and notices from our parish.', pewsPhoto, button(pewsUrl, 'Read the Latest Edition'))}
-      ${card('magazine', 'Parish Magazine', 'Read the latest monthly magazine or browse our archive of past editions.',
+      ${card('video', 'Latest Service', serviceDescription(service), servicePhoto, button(serviceUrl, service ? 'Watch on YouTube' : serviceLabel, Boolean(service)))}
+      ${card('news', 'Pews News', pewsDescription(pews, root), pewsPhoto, button(pewsUrl, 'Read the Latest Edition'))}
+      ${card('magazine', 'Parish Magazine', latest.name + ' · ' + (homeSummaries[latest.id] || 'Parish magazine and past editions.'),
         magazine.coverLink(latest, 'parish-card-media parish-card-cover'),
         magazine.trigger(latest, 'Read the ' + latest.name + ' Edition', 'magazine-button') +
         `<a class="magazine-text-link" href="${magazine.archive}#previous-editions">View Previous Editions <span aria-hidden="true">›</span></a>`)}
@@ -74,7 +94,7 @@ function build(root = __dirname) {
   const section = /<!-- home-news:start -->[\s\S]*?<!-- home-news:end -->/;
   if (!section.test(html)) throw Error('Missing Home news markers');
   const newline = html.includes('\r\n') ? '\r\n' : '\n';
-  fs.writeFileSync(file, html.replace(section, () => render(feed, readService(root)).replace(/\n/g, newline)));
+  fs.writeFileSync(file, html.replace(section, () => render(feed, readService(root), root).replace(/\n/g, newline)));
 }
 
 function readService(root = __dirname) {
