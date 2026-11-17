@@ -14,6 +14,8 @@ test('From Our Parish shows the approved cards in order using current canonical 
   const visible = [...html.matchAll(/<article class="parish-card"(?:(?! hidden)[^>])*?>[\s\S]*?<h3>[\s\S]*? (Latest Service|Pews News|Parish Magazine|Remembrance Sunday)<\/h3>/g)].map(match => match[1]);
   assert.deepEqual(visible, ['Latest Service', 'Pews News', 'Parish Magazine', 'Remembrance Sunday']);
   assert.match(html, /pews-news\/2026-11-15\.html/);
+  assert.match(html, /15 November 2026 · Lights to Remember\./);
+  assert.match(html, /November 2026 · Remembrance Sunday and The Snowman\./);
   assert.doesNotMatch(html, /pews-news\/2026-11-01\.html/);
   assert.match(html, /parish-magazine\.html#previous-editions/);
   assert.match(html, /data-parish-expiry="2026-12-01"/);
@@ -24,6 +26,8 @@ test('homepage uses the newest canonical Pews News and preserves truthful media 
   const newer = {...feed.items[0], id:'pews-news:2026-11-16', date:'2026-11-16', url:'pews-news/2026-11-16.html', image:null};
   const html = render({items:[newer, ...feed.items]});
   assert.match(html, /pews-news\/2026-11-16\.html/);
+  assert.match(html, /16 November 2026 · Readings, services and parish notices\./);
+  assert.doesNotMatch(html, /Lights to Remember/);
   assert.match(html, /news-paper/);
   assert.ok(!html.includes('pews-lights-tabletop-2026-11-15'));
   assert.match(html, /sunday-services\.html/);

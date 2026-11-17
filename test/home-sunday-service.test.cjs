@@ -5,12 +5,14 @@ const fs = require('node:fs');
 const cp = require('node:child_process');
 const {render, readService} = require('../home-news-render.cjs');
 const feed = require('../news-feed.json');
+const {dateLabel, esc} = require('../news-feed-model');
 
 test('Latest Service links to the cached video with the genuine thumbnail and an accessible label', () => {
   const service = readService();
   assert.ok(service);
   const html = render(feed, service);
   assert.match(html, /Latest Service/);
+  assert.ok(html.includes('<p>' + esc(service.video.title)));
   assert.ok(html.includes('https://www.youtube.com/watch?v=' + service.video.id));
   assert.ok(html.includes('aria-label="Watch ' + service.video.title + ' on YouTube"'));
   assert.ok(html.includes(service.thumbnail.path));
@@ -26,6 +28,7 @@ test('missing thumbnail keeps the link and escapes metadata', () => {
   const html = render(feed, service);
   assert.match(html, /home-service-placeholder/);
   assert.match(html, /&lt;script&gt;/);
+  assert.ok(html.includes('&lt;script&gt;fake&lt;/script&gt; · Published ' + dateLabel(service.video.publishedAt)));
   assert.doesNotMatch(html, /<script>fake/);
 });
 
