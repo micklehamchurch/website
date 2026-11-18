@@ -334,7 +334,7 @@
       "seriesId": null,
       "occurrenceStart": null,
       "google": {
-        "title": "Christingle service",
+        "title": "Christingle service NB later start time",
         "start": "2026-12-06T11:00",
         "end": "2026-12-06T12:00",
         "allDay": false,
@@ -342,14 +342,14 @@
         "description": ""
       },
       "website": {
-        "title": "Christingle service",
+        "title": "Christingle service NB later start time",
         "start": "2026-12-06T11:00",
         "end": "2026-12-06T12:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "941d3461ad7760184772191900c0da71c2747b2a826b439ec6521dd790fd1807",
+      "fingerprint": "5710e896baa20b327366bfc58b5ece2d845c030d7a8cfde6132adb66457500f9",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -3496,7 +3496,7 @@
       "recurrenceId": "",
       "websiteId": "google-087c97199e5089ffe466c9832bd3e788",
       "google": {
-        "title": "Christmas Communion service for All",
+        "title": "Christmas Day Communion service for All",
         "start": "2026-12-25T10:00",
         "end": "2026-12-25T11:00",
         "allDay": false,
@@ -3504,14 +3504,14 @@
         "description": ""
       },
       "website": {
-        "title": "Christmas Communion service for All",
+        "title": "Christmas Day Communion service for All",
         "start": "2026-12-25T10:00",
         "end": "2026-12-25T11:00",
         "allDay": false,
         "location": "",
         "description": ""
       },
-      "fingerprint": "c71cbe05faa707d50c32c9131711e68764b5cbe0dee0e5fa382d2a380ea3a169",
+      "fingerprint": "b0e41f6359e214a8b037c4648c18d74cc0b7f4dcff1baabbe9bfa30ab52a1213",
       "localOverrides": {},
       "conflicts": [],
       "suppressed": false,
@@ -4029,6 +4029,60 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"0rqhl3a3qsept7eqrfge2p6j5g@google.com\",\"\"]",
+      "uid": "0rqhl3a3qsept7eqrfge2p6j5g@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-cf6d64232516e3e80a17de3b72552663",
+      "google": {
+        "title": "Children's Christmas craft workshop in church",
+        "start": "2026-12-06T10:00",
+        "end": "2026-12-06T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Children's Christmas craft workshop in church",
+        "start": "2026-12-06T10:00",
+        "end": "2026-12-06T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "504baba8d23b712a1d36cbcd94d3d3560a22ec59c0cfcc1902a4897c70d29612",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"22p8dp3tvq3i0t98u07mrhuass@google.com\",\"\"]",
+      "uid": "22p8dp3tvq3i0t98u07mrhuass@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-65087c17ee34aa2d3e2d48ae18143ba2",
+      "google": {
+        "title": "Advent Gathering with Carols in The Courtyard",
+        "start": "2026-12-22T19:00",
+        "end": "2026-12-22T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Advent Gathering with Carols in The Courtyard",
+        "start": "2026-12-22T19:00",
+        "end": "2026-12-22T20:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "531d4eae52356d1821208f2e8d5423e70695de26ff1dc3fc0a7653ee9efb6237",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -4045,14 +4099,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-11-16T12:45:04.376Z",
+  "lastSuccessfulSync": "2026-11-18T15:00:04.099Z",
   "audit": {
-    "at": "2026-11-16T12:45:04.376Z",
+    "at": "2026-11-18T15:00:04.099Z",
     "mode": "automatic",
-    "added": 1,
-    "updated": 0,
+    "added": 2,
+    "updated": 2,
     "removed": 0,
-    "unchanged": 136,
+    "unchanged": 135,
     "missing": 2,
     "conflicts": 0,
     "suppressed": 1
