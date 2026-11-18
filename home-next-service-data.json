@@ -136,9 +136,9 @@
     },
     {
       "id": "migration-hc-weekly@2027-02-14T10:00",
-      "title": "Holy Communion",
-      "start": "2027-02-14T10:00",
-      "end": "2027-02-14T11:00",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-02-14T08:00",
+      "end": "2027-02-14T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
@@ -157,28 +157,28 @@
     },
     {
       "id": "migration-hc-weekly@2027-03-07T10:00",
-      "title": "Holy Communion",
-      "start": "2027-03-07T10:00",
-      "end": "2027-03-07T11:00",
+      "title": "Mothering Sunday",
+      "start": "2027-03-07T11:00",
+      "end": "2027-03-07T12:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-03-14T10:00",
-      "title": "Holy Communion",
-      "start": "2027-03-14T10:00",
-      "end": "2027-03-14T11:00",
+      "title": "BCP Holy Communion",
+      "start": "2027-03-14T08:00",
+      "end": "2027-03-14T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-03-21T10:00",
-      "title": "Holy Communion",
+      "title": "Palm Sunday Holy Communion",
       "start": "2027-03-21T10:00",
       "end": "2027-03-21T11:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-03-28T10:00",
-      "title": "Holy Communion",
+      "title": "Family Holy Communion",
       "start": "2027-03-28T10:00",
       "end": "2027-03-28T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -192,9 +192,9 @@
     },
     {
       "id": "migration-hc-weekly@2027-04-11T10:00",
-      "title": "Holy Communion",
-      "start": "2027-04-11T10:00",
-      "end": "2027-04-11T11:00",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-04-11T08:00",
+      "end": "2027-04-11T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
@@ -206,9 +206,9 @@
     },
     {
       "id": "migration-hc-weekly@2027-04-25T10:00",
-      "title": "Holy Communion",
-      "start": "2027-04-25T10:00",
-      "end": "2027-04-25T11:00",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-04-25T08:00",
+      "end": "2027-04-25T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
@@ -220,28 +220,28 @@
     },
     {
       "id": "migration-hc-weekly@2027-05-09T10:00",
-      "title": "Holy Communion",
-      "start": "2027-05-09T10:00",
-      "end": "2027-05-09T11:00",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-05-09T08:00",
+      "end": "2027-05-09T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-05-16T10:00",
-      "title": "Holy Communion",
+      "title": "Holy Communion Pentecost",
       "start": "2027-05-16T10:00",
       "end": "2027-05-16T11:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-05-23T10:00",
-      "title": "Holy Communion",
-      "start": "2027-05-23T10:00",
-      "end": "2027-05-23T11:00",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-05-23T08:00",
+      "end": "2027-05-23T09:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-05-30T10:00",
-      "title": "Holy Communion",
+      "title": "Morning Worship",
       "start": "2027-05-30T10:00",
       "end": "2027-05-30T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -255,7 +255,7 @@
     },
     {
       "id": "migration-hc-weekly@2027-06-13T10:00",
-      "title": "Holy Communion",
+      "title": "Family Service",
       "start": "2027-06-13T10:00",
       "end": "2027-06-13T11:00",
       "location": "St Michael & All Angels, Mickleham"
