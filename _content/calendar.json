@@ -516,6 +516,116 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-6d1321b5b489845d3a105de88de8281d",
+      "title": "Family Service",
+      "start": "2027-04-11T10:00",
+      "end": "2027-04-11T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-d056c83680383de76b1d35beb079cc4e",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-06-27T08:00",
+      "end": "2027-06-27T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-270f8eb1f0fc84703d339f57f43620dc",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-06-13T08:00",
+      "end": "2027-06-13T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-e5e440c24c0ec178a794dc8afbf43327",
+      "title": "Family service",
+      "start": "2027-03-14T10:00",
+      "end": "2027-03-14T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-21a208086fb7205ebfda703526cbeb41",
+      "title": "Family Service",
+      "start": "2027-05-09T10:00",
+      "end": "2027-05-09T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-3411591f778b5de232caa912dda28f5d",
+      "title": "Family Service",
+      "start": "2027-02-14T10:00",
+      "end": "2027-02-14T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-e09c0bc2734fd99bfd16683c034e12ce",
+      "title": "Holy Communion with Ashing",
+      "start": "2027-02-09T19:30",
+      "end": "2027-02-09T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-5763f3a92eb11fb9235d6e114a5b9b2d",
+      "title": "BCP Holy Communion",
+      "start": "2027-02-28T08:00",
+      "end": "2027-02-28T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-0e8446df8481a32e8e7d160c2e7f8e39",
+      "title": "Service of Reflection",
+      "start": "2027-03-26T14:00",
+      "end": "2027-03-26T15:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-93e9d40c494654abda32f0676427d781",
+      "title": "Maundy Holy Communion",
+      "start": "2027-03-25T19:30",
+      "end": "2027-03-25T20:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
@@ -749,6 +859,104 @@
       "occurrenceStart": "2026-11-08T10:00",
       "changes": {
         "title": "Remembrance Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-02-14T10:00",
+      "changes": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-02-14T08:00",
+        "end": "2027-02-14T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-07T10:00",
+      "changes": {
+        "title": "Mothering Sunday",
+        "start": "2027-03-07T11:00",
+        "end": "2027-03-07T12:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-14T10:00",
+      "changes": {
+        "title": "BCP Holy Communion",
+        "start": "2027-03-14T08:00",
+        "end": "2027-03-14T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-21T10:00",
+      "changes": {
+        "title": "Palm Sunday Holy Communion"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-03-28T10:00",
+      "changes": {
+        "title": "Family Holy Communion"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-11T10:00",
+      "changes": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-04-11T08:00",
+        "end": "2027-04-11T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-04-25T10:00",
+      "changes": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-04-25T08:00",
+        "end": "2027-04-25T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-09T10:00",
+      "changes": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-05-09T08:00",
+        "end": "2027-05-09T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-16T10:00",
+      "changes": {
+        "title": "Holy Communion Pentecost"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-23T10:00",
+      "changes": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-05-23T08:00",
+        "end": "2027-05-23T09:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-05-30T10:00",
+      "changes": {
+        "title": "Morning Worship"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-06-13T10:00",
+      "changes": {
+        "title": "Family Service"
       }
     }
   ]
