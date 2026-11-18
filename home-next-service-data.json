@@ -276,7 +276,7 @@
     },
     {
       "id": "migration-hc-weekly@2027-07-04T10:00",
-      "title": "Holy Communion",
+      "title": "Family Service",
       "start": "2027-07-04T10:00",
       "end": "2027-07-04T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -304,7 +304,7 @@
     },
     {
       "id": "migration-hc-weekly@2027-08-01T10:00",
-      "title": "Holy Communion",
+      "title": "Family Service",
       "start": "2027-08-01T10:00",
       "end": "2027-08-01T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -332,14 +332,14 @@
     },
     {
       "id": "migration-hc-weekly@2027-08-29T10:00",
-      "title": "Holy Communion",
+      "title": "Morning Worship",
       "start": "2027-08-29T10:00",
       "end": "2027-08-29T11:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-09-05T10:00",
-      "title": "Holy Communion",
+      "title": "Family Service",
       "start": "2027-09-05T10:00",
       "end": "2027-09-05T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -367,9 +367,9 @@
     },
     {
       "id": "migration-hc-weekly@2027-10-03T10:00",
-      "title": "Holy Communion",
-      "start": "2027-10-03T10:00",
-      "end": "2027-10-03T11:00",
+      "title": "Harvest Family Service NB later start time",
+      "start": "2027-10-03T11:00",
+      "end": "2027-10-03T12:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
@@ -395,14 +395,14 @@
     },
     {
       "id": "migration-hc-weekly@2027-10-31T10:00",
-      "title": "Holy Communion",
+      "title": "Morning Worship",
       "start": "2027-10-31T10:00",
       "end": "2027-10-31T11:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
       "id": "migration-hc-weekly@2027-11-07T10:00",
-      "title": "Holy Communion",
+      "title": "Family Service",
       "start": "2027-11-07T10:00",
       "end": "2027-11-07T11:00",
       "location": "St Michael & All Angels, Mickleham"
@@ -430,9 +430,9 @@
     },
     {
       "id": "migration-hc-weekly@2027-12-05T10:00",
-      "title": "Holy Communion",
-      "start": "2027-12-05T10:00",
-      "end": "2027-12-05T11:00",
+      "title": "Christingle Family Service NB Later start time",
+      "start": "2027-12-05T11:00",
+      "end": "2027-12-05T12:00",
       "location": "St Michael & All Angels, Mickleham"
     },
     {
