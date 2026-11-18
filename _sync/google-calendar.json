@@ -1204,7 +1204,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-07-04T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-07-04T10:00",
         "end": "2027-07-04T11:00",
         "allDay": false,
@@ -1212,14 +1212,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-07-04T10:00",
         "end": "2027-07-04T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "235b3414971b8a83d52be2d32354e14236e5dfad646135d45ace6945271ac249",
+      "fingerprint": "4e899bffd280cbb5f27057404e5006fe5ef7a0cb81222356831e7e3a284325b3",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1320,7 +1320,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-08-01T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-08-01T10:00",
         "end": "2027-08-01T11:00",
         "allDay": false,
@@ -1328,14 +1328,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-08-01T10:00",
         "end": "2027-08-01T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "6fca4214358a939dd2f1070eb8424afdd162d4bfd95029d96fbe14545d67df3c",
+      "fingerprint": "c248791289491543d9987962e1bdfb7c565ed2eba1c5b64bfda4f74eb793f542",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1436,7 +1436,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-08-29T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Morning Worship",
         "start": "2027-08-29T10:00",
         "end": "2027-08-29T11:00",
         "allDay": false,
@@ -1444,14 +1444,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Morning Worship",
         "start": "2027-08-29T10:00",
         "end": "2027-08-29T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "686002865a8015c6792c2f5174563434a74ae1e448367d73939419436d90ed8a",
+      "fingerprint": "6ea6ac8f70a5b196b3b9e24c0feca61635ab76f4a1ce079fe996094a0ee22c98",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1465,7 +1465,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-09-05T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-09-05T10:00",
         "end": "2027-09-05T11:00",
         "allDay": false,
@@ -1473,14 +1473,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-09-05T10:00",
         "end": "2027-09-05T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "e81d2414ec39fa66ce5e192e236ce586ce8c9340ae44aeadd0ad6599a3ee1b44",
+      "fingerprint": "e25caa4fb3bf86d347a4c0730b23fa80f5260bf0da4cad802cc1bcacd5514f8e",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1581,22 +1581,22 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-10-03T10:00",
       "google": {
-        "title": "Holy Communion",
-        "start": "2027-10-03T10:00",
-        "end": "2027-10-03T11:00",
+        "title": "Harvest Family Service NB later start time",
+        "start": "2027-10-03T11:00",
+        "end": "2027-10-03T12:00",
         "allDay": false,
         "location": "",
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
-        "start": "2027-10-03T10:00",
-        "end": "2027-10-03T11:00",
+        "title": "Harvest Family Service NB later start time",
+        "start": "2027-10-03T11:00",
+        "end": "2027-10-03T12:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "e35768d38a699cd5546fb5de447b3896bd357303d533b5f76dc39819123d8445",
+      "fingerprint": "63862e5a67117dbc902ec5d33561f169cb41567fb17cffed2c49e2540ae3553a",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1697,7 +1697,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-10-31T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Morning Worship",
         "start": "2027-10-31T10:00",
         "end": "2027-10-31T11:00",
         "allDay": false,
@@ -1705,14 +1705,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Morning Worship",
         "start": "2027-10-31T10:00",
         "end": "2027-10-31T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "1c4bc08eceb30b5332641d43e1615ea4c7e2b57159cbc9abdfe770dfd8f04288",
+      "fingerprint": "75a245a2742556291c0b2048bc4e87420b3fe38e6cb2521363e9da1bb919500c",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1726,7 +1726,7 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-11-07T10:00",
       "google": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-11-07T10:00",
         "end": "2027-11-07T11:00",
         "allDay": false,
@@ -1734,14 +1734,14 @@
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
+        "title": "Family Service",
         "start": "2027-11-07T10:00",
         "end": "2027-11-07T11:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "03c1dc7278cfdde960f91606fdf5e4cadd0d6723799e89dde60b491952eded07",
+      "fingerprint": "0e2c14c4b47749a2733ccd4e63ba2f559e0f2db9c9936b7488efdf964775dd6c",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -1842,22 +1842,22 @@
       "seriesId": "migration-hc-weekly",
       "occurrenceStart": "2027-12-05T10:00",
       "google": {
-        "title": "Holy Communion",
-        "start": "2027-12-05T10:00",
-        "end": "2027-12-05T11:00",
+        "title": "Christingle Family Service NB Later start time",
+        "start": "2027-12-05T11:00",
+        "end": "2027-12-05T12:00",
         "allDay": false,
         "location": "",
         "description": ""
       },
       "website": {
-        "title": "Holy Communion",
-        "start": "2027-12-05T10:00",
-        "end": "2027-12-05T11:00",
+        "title": "Christingle Family Service NB Later start time",
+        "start": "2027-12-05T11:00",
+        "end": "2027-12-05T12:00",
         "allDay": false,
         "location": "St Michael & All Angels Church",
         "description": ""
       },
-      "fingerprint": "d6710dde8bfedb6ef361485ad8bb255cd59aea41d9e3b4888b409e483241c3d1",
+      "fingerprint": "fa52b474d129182ad2e0aa1c9b1140d1970f8083f7274451e84ad19cf56788e1",
       "localOverrides": {},
       "suppressed": false,
       "conflicts": [],
@@ -4353,6 +4353,519 @@
       "conflicts": [],
       "suppressed": false,
       "missingChecks": 0
+    },
+    {
+      "key": "[\"07jmu047575pi667h3t1jfubj4@google.com\",\"\"]",
+      "uid": "07jmu047575pi667h3t1jfubj4@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-d81275bb4f5a7f41c58e0b5c75d61945",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-07-11T08:00",
+        "end": "2027-07-11T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-07-11T08:00",
+        "end": "2027-07-11T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "e527e3806f7be2ed5fdc2e2057988b6cdb59b623f92c459a2e8fbc9a4d50acc3",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"0di4h4bpfcglmlropplt59bjuc@google.com\",\"\"]",
+      "uid": "0di4h4bpfcglmlropplt59bjuc@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-19e940bc06d6c56ff42395210b00961f",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-07-25T08:00",
+        "end": "2027-07-25T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-07-25T08:00",
+        "end": "2027-07-25T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "c28bf0a6bfcea85d6aaf51ba741c93cbcf5dea020d9e8c9db42330b71b6e27aa",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1mbgngqc6nmu29sv67rnvef9qj@google.com\",\"\"]",
+      "uid": "1mbgngqc6nmu29sv67rnvef9qj@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-c247004b1f342b8205c3689263207dec",
+      "google": {
+        "title": "Carol service in church",
+        "start": "2027-12-19T18:30",
+        "end": "2027-12-19T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Carol service in church",
+        "start": "2027-12-19T18:30",
+        "end": "2027-12-19T19:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "5835dc48c3a17e42bf85e029ede59f28a0c441fc3827524feda483ca91333bdc",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1qkjkgf08caukkc8im8fl2dkvt@google.com\",\"\"]",
+      "uid": "1qkjkgf08caukkc8im8fl2dkvt@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-4c95bd9f891b38ae13b856b0e49a28a2",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-04-25T10:00",
+        "end": "2027-04-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-04-25T10:00",
+        "end": "2027-04-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "23642db373df9cc72041069d49a2c2536fe925de2360899cad370fb732bd0569",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1t09923unbcc6ts1bidu1v9tjo@google.com\",\"\"]",
+      "uid": "1t09923unbcc6ts1bidu1v9tjo@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-41b00ea77cd3bf3bebadf447358bad37",
+      "google": {
+        "title": "Lights to Remember service",
+        "start": "2027-11-21T16:00",
+        "end": "2027-11-21T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Lights to Remember service",
+        "start": "2027-11-21T16:00",
+        "end": "2027-11-21T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "01929322a0636a8c87ef5775b667a508990f1778bb7c3482313760ff158bef22",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"1u33nrr282nrdhd5cgovaoqfsu@google.com\",\"\"]",
+      "uid": "1u33nrr282nrdhd5cgovaoqfsu@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-3b46887a13301b45a6cfffd22c97853c",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-10-24T08:00",
+        "end": "2027-10-24T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-10-24T08:00",
+        "end": "2027-10-24T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "0f8119f15f5951ce588697ac016d8ad2f4372d51b93060ffdf5c1341a85d85c8",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"2mibeb62r1603sj6io2oqhchuq@google.com\",\"\"]",
+      "uid": "2mibeb62r1603sj6io2oqhchuq@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-61947a255996f58c1361727f7a7e5251",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-11-14T08:00",
+        "end": "2027-11-14T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-11-14T08:00",
+        "end": "2027-11-14T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "f99c075b210ffb7c66d8935cfd887cdd13ec3864464e053237e8cc0de978b5b0",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3iss0p31q4ks94unb4n4gia737@google.com\",\"\"]",
+      "uid": "3iss0p31q4ks94unb4n4gia737@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-1e4a9549e7c91bf01c514ec7ab93b75c",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-11-28T08:00",
+        "end": "2027-11-28T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-11-28T08:00",
+        "end": "2027-11-28T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "fc94fec7b6053ab483706bf5624da8ffd6c54908f80ee0f98b88e5be8ae9ac2c",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"3j2l4donse8s7ioj4gujfdhqcp@google.com\",\"\"]",
+      "uid": "3j2l4donse8s7ioj4gujfdhqcp@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-73bb007ed567f954c010124f0cd56c66",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-09-12T08:00",
+        "end": "2027-09-12T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-09-12T08:00",
+        "end": "2027-09-12T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "ef0513e412c854fb0be13ed630632ce35c929c4009258861542a6bc7930f881b",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4ao5d7ajclqc1u45pd2s3fka6v@google.com\",\"\"]",
+      "uid": "4ao5d7ajclqc1u45pd2s3fka6v@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-6181cba48b0efa0eec2e5a4042521ab4",
+      "google": {
+        "title": "Crib service in Westhumble Fields",
+        "start": "2027-12-24T16:00",
+        "end": "2027-12-24T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Crib service in Westhumble Fields",
+        "start": "2027-12-24T16:00",
+        "end": "2027-12-24T17:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "4f3228634f9a8000ec3fd3472e996031145985d84a637d8d6dcae7a88a058e44",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4j3i4vb5ibls51m3f934btitq4@google.com\",\"\"]",
+      "uid": "4j3i4vb5ibls51m3f934btitq4@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-2d1349dec281dae3ede3bfe645cbb587",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-12-12T08:00",
+        "end": "2027-12-12T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-12-12T08:00",
+        "end": "2027-12-12T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "7271d11ada82629c061f6133c3411bca46186f6e101bef291577e0901df78267",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4k521iqu0moie3e93jaordb87v@google.com\",\"\"]",
+      "uid": "4k521iqu0moie3e93jaordb87v@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-bc144f6827921105adf2a98890cd0cb9",
+      "google": {
+        "title": "Holy Communion",
+        "start": "2027-05-23T10:00",
+        "end": "2027-05-23T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Holy Communion",
+        "start": "2027-05-23T10:00",
+        "end": "2027-05-23T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "f03379cfc878316da987c61e411788df02ea49754b32b2434820438371abd511",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"4m8uveln91fp9rkg51j2oj60hh@google.com\",\"\"]",
+      "uid": "4m8uveln91fp9rkg51j2oj60hh@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-a733bd537c30097c930620b013e38f7d",
+      "google": {
+        "title": "Family Holy Communion",
+        "start": "2027-12-25T10:00",
+        "end": "2027-12-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Family Holy Communion",
+        "start": "2027-12-25T10:00",
+        "end": "2027-12-25T11:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "dcc1df39705345b67742d6f00e969910f41ef943eb1e3ba97e67065601443aee",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"515ejso83tjikogbj8r3affgcb@google.com\",\"\"]",
+      "uid": "515ejso83tjikogbj8r3affgcb@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-360618dca380cd7b9d6fb61aadf1a4dd",
+      "google": {
+        "title": "Act of Remembrance at War Memoriasl",
+        "start": "2027-11-14T11:00",
+        "end": "2027-11-14T12:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Act of Remembrance at War Memoriasl",
+        "start": "2027-11-14T11:00",
+        "end": "2027-11-14T12:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "412a1bda55331cd875b6f10e13fbed8656fa200beb605bb55d845ca4f574d3fa",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5fh4icgqvugv6vo70gn0kmmkou@google.com\",\"\"]",
+      "uid": "5fh4icgqvugv6vo70gn0kmmkou@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-ffa9d64360796eab98e198b2b8cfd239",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-09-26T08:00",
+        "end": "2027-09-26T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-09-26T08:00",
+        "end": "2027-09-26T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "d832489383fab3ab326d92b51e2f0cd035455565cee6b1421d2d91c7c5c0f1a4",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5g9h0fma5p3oq3edd10dse0nfl@google.com\",\"\"]",
+      "uid": "5g9h0fma5p3oq3edd10dse0nfl@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-41819f98d358d4e0b5d742f3231ce8bf",
+      "google": {
+        "title": "Midnight Holy Communion",
+        "start": "2027-12-24T23:30",
+        "end": "2027-12-25T00:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "Midnight Holy Communion",
+        "start": "2027-12-24T23:30",
+        "end": "2027-12-25T00:30",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "b0f860463d8894286e0f40814fc6cb2031c08f75390a9c8e7ff3ad8ff79d2299",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"5odmgscl8dqo96hc70mi98uqno@google.com\",\"\"]",
+      "uid": "5odmgscl8dqo96hc70mi98uqno@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-c606b058d75fdd806cc534115f02ee4b",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-10-10T08:00",
+        "end": "2027-10-10T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-10-10T08:00",
+        "end": "2027-10-10T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "9c7e1410355941ae880b529b4715871b319c62ec78278f214798b52d56533833",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6n1n08hugktlbr9i9tkcplesu3@google.com\",\"\"]",
+      "uid": "6n1n08hugktlbr9i9tkcplesu3@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-0c0747914b0732493b8b28544e7cc3df",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-08-22T08:00",
+        "end": "2027-08-22T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-08-22T08:00",
+        "end": "2027-08-22T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "d3c2310a50368ed54e91c7d6e21da22a351533a9f62db92b5aa9e516c2ff1206",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
+    },
+    {
+      "key": "[\"6vv0746g831q98ohgamril03dg@google.com\",\"\"]",
+      "uid": "6vv0746g831q98ohgamril03dg@google.com",
+      "recurrenceId": "",
+      "websiteId": "google-4bc4749e5d4726665de7e835c712677b",
+      "google": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-08-08T08:00",
+        "end": "2027-08-08T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "website": {
+        "title": "BCP Holy Communion at Westhumble Chapel",
+        "start": "2027-08-08T08:00",
+        "end": "2027-08-08T09:00",
+        "allDay": false,
+        "location": "",
+        "description": ""
+      },
+      "fingerprint": "4a5854c603c71cfdc0182b451c47c87566c4fcf781c25e6bcf0d24b5ac80f00d",
+      "localOverrides": {},
+      "conflicts": [],
+      "suppressed": false,
+      "missingChecks": 0
     }
   ],
   "series": [
@@ -4369,14 +4882,14 @@
       "rule": "FREQ=MONTHLY;BYDAY=1TU"
     }
   ],
-  "lastSuccessfulSync": "2026-11-18T15:15:07.971Z",
+  "lastSuccessfulSync": "2026-11-18T15:30:05.113Z",
   "audit": {
-    "at": "2026-11-18T15:15:07.971Z",
+    "at": "2026-11-18T15:30:05.113Z",
     "mode": "automatic",
-    "added": 10,
-    "updated": 12,
+    "added": 19,
+    "updated": 8,
     "removed": 0,
-    "unchanged": 126,
+    "unchanged": 140,
     "missing": 3,
     "conflicts": 0,
     "suppressed": 1

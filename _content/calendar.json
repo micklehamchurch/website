@@ -626,6 +626,215 @@
       "description": "",
       "timeZone": "Europe/London",
       "status": "published"
+    },
+    {
+      "id": "google-d81275bb4f5a7f41c58e0b5c75d61945",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-07-11T08:00",
+      "end": "2027-07-11T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-19e940bc06d6c56ff42395210b00961f",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-07-25T08:00",
+      "end": "2027-07-25T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-c247004b1f342b8205c3689263207dec",
+      "title": "Carol service in church",
+      "start": "2027-12-19T18:30",
+      "end": "2027-12-19T19:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-4c95bd9f891b38ae13b856b0e49a28a2",
+      "title": "Holy Communion",
+      "start": "2027-04-25T10:00",
+      "end": "2027-04-25T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-41b00ea77cd3bf3bebadf447358bad37",
+      "title": "Lights to Remember service",
+      "start": "2027-11-21T16:00",
+      "end": "2027-11-21T17:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-3b46887a13301b45a6cfffd22c97853c",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-10-24T08:00",
+      "end": "2027-10-24T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-61947a255996f58c1361727f7a7e5251",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-11-14T08:00",
+      "end": "2027-11-14T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-1e4a9549e7c91bf01c514ec7ab93b75c",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-11-28T08:00",
+      "end": "2027-11-28T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-73bb007ed567f954c010124f0cd56c66",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-09-12T08:00",
+      "end": "2027-09-12T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-6181cba48b0efa0eec2e5a4042521ab4",
+      "title": "Crib service in Westhumble Fields",
+      "start": "2027-12-24T16:00",
+      "end": "2027-12-24T17:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-2d1349dec281dae3ede3bfe645cbb587",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-12-12T08:00",
+      "end": "2027-12-12T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-bc144f6827921105adf2a98890cd0cb9",
+      "title": "Holy Communion",
+      "start": "2027-05-23T10:00",
+      "end": "2027-05-23T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-a733bd537c30097c930620b013e38f7d",
+      "title": "Family Holy Communion",
+      "start": "2027-12-25T10:00",
+      "end": "2027-12-25T11:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-360618dca380cd7b9d6fb61aadf1a4dd",
+      "title": "Act of Remembrance at War Memoriasl",
+      "start": "2027-11-14T11:00",
+      "end": "2027-11-14T12:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-ffa9d64360796eab98e198b2b8cfd239",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-09-26T08:00",
+      "end": "2027-09-26T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-41819f98d358d4e0b5d742f3231ce8bf",
+      "title": "Midnight Holy Communion",
+      "start": "2027-12-24T23:30",
+      "end": "2027-12-25T00:30",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-c606b058d75fdd806cc534115f02ee4b",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-10-10T08:00",
+      "end": "2027-10-10T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-0c0747914b0732493b8b28544e7cc3df",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-08-22T08:00",
+      "end": "2027-08-22T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
+      "id": "google-4bc4749e5d4726665de7e835c712677b",
+      "title": "BCP Holy Communion at Westhumble Chapel",
+      "start": "2027-08-08T08:00",
+      "end": "2027-08-08T09:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
     }
   ],
   "series": [
@@ -957,6 +1166,66 @@
       "occurrenceStart": "2027-06-13T10:00",
       "changes": {
         "title": "Family Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-07-04T10:00",
+      "changes": {
+        "title": "Family Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-01T10:00",
+      "changes": {
+        "title": "Family Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-08-29T10:00",
+      "changes": {
+        "title": "Morning Worship"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-09-05T10:00",
+      "changes": {
+        "title": "Family Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-03T10:00",
+      "changes": {
+        "title": "Harvest Family Service NB later start time",
+        "start": "2027-10-03T11:00",
+        "end": "2027-10-03T12:00"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-10-31T10:00",
+      "changes": {
+        "title": "Morning Worship"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-11-07T10:00",
+      "changes": {
+        "title": "Family Service"
+      }
+    },
+    {
+      "seriesId": "migration-hc-weekly",
+      "occurrenceStart": "2027-12-05T10:00",
+      "changes": {
+        "title": "Christingle Family Service NB Later start time",
+        "start": "2027-12-05T11:00",
+        "end": "2027-12-05T12:00"
       }
     }
   ]
