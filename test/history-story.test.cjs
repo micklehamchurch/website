@@ -32,7 +32,7 @@ test('Aarvold’s seated portrait is referenced by a credited link only', () => 
   const section = html.match(/<section id="public-life"[^>]*>[\s\S]*?<\/section>/)[0];
   assert.match(section, /<h3>Sir Carl Aarvold in 1958<\/h3>/);
   assert.match(section, /Evening Standard \/ Hulton Archive \/ Getty Images/);
-  assert.match(section, /<a href="https:\/\/www\.gettyimages\.co\.uk\/detail\/news-photo\/judge-carl-aarvold-february-13th-1958-news-photo\/1835556885">View the 1958 photograph at Getty Images/);
+  assert.match(section, /<a href="https:\/\/www\.gettyimages\.ie\/detail\/news-photo\/judge-carl-aarvold-february-13th-1958-news-photo\/1835556885\?slot=15">View the 1958 photograph at Getty Images/);
   assert.equal((section.match(/<img\b/g) || []).length, 1);
   assert.doesNotMatch(html, /media\.gettyimages|<iframe[^>]+gettyimages/i);
 });

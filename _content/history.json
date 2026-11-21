@@ -355,7 +355,7 @@
     {
       "id": "aarvold-getty-1958",
       "title": "Getty Images — Carl Aarvold, 1958",
-      "url": "https://www.gettyimages.co.uk/detail/news-photo/judge-carl-aarvold-february-13th-1958-news-photo/1835556885",
+      "url": "https://www.gettyimages.ie/detail/news-photo/judge-carl-aarvold-february-13th-1958-news-photo/1835556885?slot=15",
       "notes": "Photograph dated 13 February 1958. Credit: Evening Standard / Hulton Archive / Getty Images. Rights-managed editorial photograph, linked to the catalogue only."
     },
     {
@@ -391,13 +391,13 @@
     {
       "id": "aarvold-hansard",
       "title": "UK Parliament — Special hospital discharge and supervision, 23 January 1973",
-      "url": "https://hansard.parliament.uk/Commons/1973-01-23/debates/e4ab61e2-a8dc-4598-9865-9e196f95ae08/MentalPatients",
+      "url": "https://api.parliament.uk/historic-hansard/written_answers/1973/jan/23/mental-patients",
       "notes": "The Home Secretary names the report’s three authors and describes the proposed independent advisory board."
     },
     {
       "id": "aarvold-board",
       "title": "UK Parliament — Advisory Board on Restricted Patients, 23 January 1976",
-      "url": "https://hansard.parliament.uk/Commons/1976-01-23/debates/5777cd84-89ba-4334-ad16-8785c30ccdf2/RestrictedPatients",
+      "url": "https://api.parliament.uk/historic-hansard/written_answers/1976/jan/23/restricted-patients",
       "notes": "The Home Secretary confirms that the board was set up in September 1973 following acceptance of the Aarvold Report’s recommendations."
     },
     {
@@ -427,14 +427,14 @@
     {
       "id": "aarvold-getty-rugby",
       "title": "Getty Images — Aarvold in action against Australia",
-      "url": "https://www.gettyimages.co.uk/detail/news-photo/british-lions-centre-carl-aarvold-of-england-makes-a-tackle-news-photo/459516558",
-      "notes": "The Getty catalogue identifies Aarvold making a tackle at the Sydney Cricket Ground. Rights-managed editorial photograph, linked to the catalogue only."
+      "url": "https://www.gettyimages.ie/detail/news-photo/british-lions-centre-carl-aarvold-of-england-makes-a-tackle-news-photo/459516558",
+      "notes": "Getty dates the Sydney Test photograph to 30 August 1930 and credits Popperfoto. Rights-managed editorial photograph, linked to the catalogue only."
     },
     {
       "id": "aarvold-getty-tennis",
       "title": "Getty Images — Aarvold and S. B. Reay discussing the Davis Cup",
-      "url": "https://www.gettyimages.co.uk/detail/news-photo/sir-carl-aarvold-president-of-the-lawn-tennis-association-news-photo/3278220",
-      "notes": "The Getty catalogue identifies Aarvold as Lawn Tennis Association president. Rights-managed editorial photograph, linked to the catalogue only."
+      "url": "https://www.gettyimages.ie/detail/news-photo/sir-carl-aarvold-president-of-the-lawn-tennis-association-news-photo/3278220",
+      "notes": "Getty dates the photograph to 23 March 1970 and identifies Reay as Secretary of the Davis Cup Nations. Rights-managed editorial photograph, linked to the catalogue only."
     }
   ],
   "entries": [
@@ -867,7 +867,7 @@
               {
                 "source": "aarvold-getty-rugby",
                 "title": "Aarvold on tour in Australia",
-                "description": "Getty’s catalogue identifies Aarvold tackling at the Sydney Cricket Ground. Rights-managed editorial photograph.",
+                "description": "Aarvold tackling at the Sydney Cricket Ground on 30 August 1930. Popperfoto / Getty Images. Rights-managed editorial photograph.",
                 "label": "View Aarvold’s rugby photograph at Getty Images"
               },
               {
@@ -904,7 +904,7 @@
                 ]
               },
               {
-                "text": "A statutory instrument shows another side of the Recorder’s work. In May 1967 Aarvold made procedural rules for original civil actions in the Mayor’s and City of London Court, with the concurrence of the Rule Committee of the Supreme Court. The rules took effect that July.",
+                "text": "A 1967 official notice shows what else the Recorder’s job involved. Aarvold issued rules for bringing and handling civil claims in the Mayor’s and City of London Court, with the agreement of the Supreme Court’s Rule Committee. The rules took effect in July.",
                 "sources": [
                   "aarvold-court-rules"
                 ]
@@ -944,7 +944,7 @@
                 ]
               },
               {
-                "text": "The parish tribute also remembers him serving on Dorking Urban District Council and the National Trust’s Box Hill Management Committee, and helping campaigns to raise money for the parish church’s restoration. The Box Hill School Trust’s register separately records his directorship, which ended on 17 March 1991.",
+                "text": "The parish tribute also remembers him serving on Dorking Urban District Council and the National Trust’s Box Hill Management Committee. The Box Hill School Trust’s register separately records his directorship, which ended on 17 March 1991.",
                 "sources": [
                   "aarvold-obituary",
                   "aarvold-box-hill"
@@ -976,7 +976,7 @@
             "title": "Family and life beyond the bench",
             "paragraphs": [
               {
-                "text": "In July 1934 he married Noeline Hill, the year Shepperd places his arrival at Foxbury. The contemporary school notice and a later genealogy give different days for the wedding. A 1947 notice in the same school magazine records the arrival of their third son.",
+                "text": "The year Shepperd places Aarvold’s arrival at Foxbury, 1934, was also the year he married Noeline Hill. A notice in his old school magazine records the birth of their third son in September 1947.",
                 "sources": [
                   "aarvold-marriage",
                   "aarvold-marriage-variant",
@@ -985,7 +985,7 @@
                 ]
               },
               {
-                "text": "Years after his last England match, Aarvold was still a familiar figure in sport. Shepperd remembered seeing him at Wimbledon trophy presentations as president of the Lawn Tennis Association. A press photograph from the Getty archive also shows him with association secretary S. B. Reay in a discussion about the Davis Cup.",
+                "text": "Aarvold’s sporting life continued long after his last England match. Shepperd remembered seeing him at Wimbledon trophy presentations as president of the Lawn Tennis Association. A 1970 press photograph shows him discussing the Davis Cup with S. B. Reay, whom Getty identifies as Secretary of the Davis Cup Nations.",
                 "sources": [
                   "aarvold-shepperd-foxbury",
                   "aarvold-getty-tennis"
@@ -996,7 +996,7 @@
               {
                 "source": "aarvold-getty-tennis",
                 "title": "Aarvold and the Davis Cup",
-                "description": "A Getty editorial photograph of Aarvold and S. B. Reay. Rights-managed photograph.",
+                "description": "Aarvold and S. B. Reay at the Savoy Hotel, London, on 23 March 1970. Rights-managed Getty editorial photograph.",
                 "label": "View the Davis Cup photograph at Getty Images"
               }
             ]
@@ -1007,7 +1007,7 @@
             "memorial": true,
             "paragraphs": [
               {
-                "text": "The parish tribute remembers Aarvold helping to raise money for the restoration of St Michael’s. The tablet inside the church gives that work a local setting, beside the public roles for which he was known further afield.",
+                "text": "The parish tribute remembers Aarvold helping to raise money to restore St Michael’s. The memorial inside the church remembers that relationship with the parish in the same inscription that names him as Recorder and sportsman.",
                 "sources": [
                   "aarvold-obituary",
                   "aarvold-memorial"
@@ -1063,8 +1063,13 @@
             "aarvold-lions"
           ],
           [
+            "1931–32",
+            "Captains England during the rugby season.",
+            "aarvold-england"
+          ],
+          [
             "1932",
-            "Captains England and is called to the Bar in November.",
+            "Is called to the Bar on 17 November.",
             "aarvold-inner-temple"
           ],
           [
@@ -1083,8 +1088,13 @@
             "aarvold-village-hall"
           ],
           [
-            "1964 and 1967",
-            "Becomes Recorder of London. Makes civil procedure rules for the City court in 1967.",
+            "1964",
+            "Becomes Recorder of London.",
+            "aarvold-inner-temple"
+          ],
+          [
+            "1967",
+            "Issues new civil procedure rules for the City court.",
             "aarvold-court-rules"
           ],
           [
