@@ -23,6 +23,16 @@ test('Aarvold’s rugby section has a sourced portrait and one official player p
   section.portrait.small = 'assets/images/history/absent.webp';
   assert.throws(() => model.validate(data, process.cwd()), /Invalid History image/);
   section.portrait.small = section.portrait.src;
-  section.readMore.source = 'missing';
+  section.readMore[0].source = 'missing';
   assert.throws(() => model.validate(data, process.cwd()), /Story reading link requires/);
+});
+
+test('Aarvold’s seated portrait is referenced by a credited link only', () => {
+  const html = read('history-entry-carl-aarvold.html');
+  const section = html.match(/<section id="public-life"[^>]*>[\s\S]*?<\/section>/)[0];
+  assert.match(section, /<h3>Sir Carl Aarvold in 1958<\/h3>/);
+  assert.match(section, /Evening Standard \/ Hulton Archive \/ Getty Images/);
+  assert.match(section, /<a href="https:\/\/www\.gettyimages\.co\.uk\/detail\/news-photo\/judge-carl-aarvold-february-13th-1958-news-photo\/1835556885">View the 1958 photograph at Getty Images/);
+  assert.equal((section.match(/<img\b/g) || []).length, 1);
+  assert.doesNotMatch(html, /media\.gettyimages|<iframe[^>]+gettyimages/i);
 });

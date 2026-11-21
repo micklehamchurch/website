@@ -14,8 +14,7 @@ function validateStory(e, sources, validateImage) {
       if (!caption || !credit || !hasLinkedSource(source)) throw Error('Story portrait requires a caption, credit and linked source');
       validateImage(section.portrait);
     }
-    if (section.readMore) {
-      const {source, label, description} = section.readMore;
+    for (const {source, label, description} of section.readMore || []) {
       if (!label || !description || !hasLinkedSource(source)) throw Error('Story reading link requires a label, description and linked source');
     }
     for (const p of section.paragraphs) if (!p.text || !p.sources?.length || !p.sources.every(id => known.has(id) && e.sourceRefs.includes(id))) throw Error('Story paragraph requires known evidence');
@@ -28,11 +27,15 @@ function renderStory(data, e, clergy, {esc, photo, entryURL}) {
   const cite=ids=>` <span class="history-citations">${ids.map(id=>{const n=e.sourceRefs.indexOf(id)+1;return `<a href="#source-${esc(id)}" aria-label="Source ${n}: ${esc(refs[n-1].title)}">[${n}]</a>`;}).join(' ')}</span>`;
   const photograph=(hero=false)=>{const markup=photo(e.image,true).replace('loading="lazy"',hero?'loading="eager" fetchpriority="high"':'loading="lazy"');return hero?markup.replace(/ sizes="[^"]*"/,' sizes="(max-width:760px) calc(100vw - 94px), (max-width:1000px) 36vw, 430px"'):markup;};
   const sourceURL = id => refs.find(ref => ref.id === id).url;
-  function sectionContent({paragraphs, portrait, readMore}) {
+  function sectionContent({paragraphs, portrait, readMore = []}) {
     const copy = paragraphs.map(p => `<p>${esc(p.text)}${cite(p.sources)}</p>`).join('');
-    const text = readMore
-      ? `${copy}<div class="history-story-read-more"><a href="${esc(sourceURL(readMore.source))}">${esc(readMore.label)} <span aria-hidden="true">→</span></a><p>${esc(readMore.description)}</p></div>`
-      : copy;
+    const links = readMore.map(({source, label, description, title}) => {
+      const link = `<a href="${esc(sourceURL(source))}">${esc(label)} <span aria-hidden="true">→</span></a>`;
+      const details = `<p>${esc(description)}</p>`;
+      const content = title ? `<h3>${esc(title)}</h3>${details}${link}` : link + details;
+      return `<div class="history-story-read-more">${content}</div>`;
+    }).join('');
+    const text = copy + links;
     if (!portrait) return text;
 
     const image = photo(portrait).replace(/ sizes="[^"]*"/, ' sizes="(max-width:580px) 224px, 240px"');

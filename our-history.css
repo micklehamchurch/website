@@ -229,6 +229,14 @@ html.history-modal-open body { position:fixed; top:var(--history-scroll-top); in
   padding: 10px 0 0 16px;
   border-left: 2px solid #94772d;
 }
+.history-story-read-more + .history-story-read-more {
+  margin-top: 20px;
+}
+.history-story-read-more h3 {
+  margin: 0 0 5px;
+  color: #173d32;
+  font: 600 20px/1.3 var(--serif);
+}
 .history-story-read-more a,
 .history-story-illustrated figcaption a {
   color: #204c3c;

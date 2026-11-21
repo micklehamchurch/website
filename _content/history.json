@@ -351,6 +351,12 @@
       "title": "British & Irish Lions — Lions Legend: Sir Carl Aarvold",
       "url": "https://www.lionsrugby.com/en/news/lions-legend-sir-carl-aarvold",
       "notes": "A longer account of his rugby career and captaincy. The retrospective gives the wrong death year. The April 1991 parish obituary and official player profile record 17 March 1991."
+    },
+    {
+      "id": "aarvold-getty-1958",
+      "title": "Getty Images — Carl Aarvold, 1958",
+      "url": "https://www.gettyimages.co.uk/detail/news-photo/judge-carl-aarvold-february-13th-1958-news-photo/1835556885",
+      "notes": "Photograph dated 13 February 1958. Credit: Evening Standard / Hulton Archive / Getty Images."
     }
   ],
   "entries": [
@@ -697,7 +703,8 @@
         "aarvold-war",
         "aarvold-shepperd-foxbury",
         "aarvold-el-grafico",
-        "aarvold-lions-retrospective"
+        "aarvold-lions-retrospective",
+        "aarvold-getty-1958"
       ],
       "transcription": "Remembered with love and affection\nSIR CARL AARVOLD\n1907–1991\nRECORDER OF LONDON AND SPORTSMAN\nA staunch supporter and lifelong friend of this community\n\n“There’s nothing worth the wear of winning\nbut laughter and the love of friends”.\nH. BELLOC",
       "lifespan": "1907–1991",
@@ -795,11 +802,19 @@
               "credit": "El Gráfico, no. 424, 20 August 1927. Photographer uncredited.",
               "source": "aarvold-el-grafico"
             },
-            "readMore": {
-              "source": "aarvold-lions",
-              "label": "Explore his British & Irish Lions career",
-              "description": "The official Lions player profile records his tours, England caps and Test performances."
-            }
+            "readMore": [
+              {
+                "source": "aarvold-lions",
+                "label": "Explore his British & Irish Lions career",
+                "description": "The official Lions player profile records his tours, England caps and Test performances."
+              },
+              {
+                "source": "aarvold-getty-1958",
+                "title": "Sir Carl Aarvold in 1958",
+                "description": "A photographic portrait of Sir Carl Aarvold, taken on 13 February 1958, is preserved in the Evening Standard / Hulton Archive collection. Credit: Evening Standard / Hulton Archive / Getty Images.",
+                "label": "View the 1958 photograph at Getty Images"
+              }
+            ]
           },
           {
             "id": "memorial",
