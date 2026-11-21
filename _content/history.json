@@ -339,6 +339,18 @@
       "title": "Ronald Shepperd, The Manor of Wistomble — Foxbury and Wimbledon",
       "url": "https://www.micklehamwesthumblehistory.co.uk/shared/attachments.asp?f=339d5bf5-5425-495f-85f7-90d89abec684.pdf&o=The-Manor-of-Wistomble-Ch-7-9-(Merged)-copy.pdf#page=21",
       "notes": "Printed page 87 records Aarvold’s arrival at Foxbury in 1934 and his appearances at Wimbledon trophy ceremonies as president of the Lawn Tennis Association."
+    },
+    {
+      "id": "aarvold-el-grafico",
+      "title": "Carl Aarvold portrait from El Gráfico, issue 424",
+      "url": "https://commons.wikimedia.org/wiki/File:Cd_aarvold.jpg",
+      "notes": "The Wikimedia Commons crop shows the left-hand player on the cover of the Argentine magazine El Gráfico, 20 August 1927. The photographer is uncredited on the cover."
+    },
+    {
+      "id": "aarvold-lions-retrospective",
+      "title": "British & Irish Lions — Lions Legend: Sir Carl Aarvold",
+      "url": "https://www.lionsrugby.com/en/news/lions-legend-sir-carl-aarvold",
+      "notes": "A longer account of his rugby career and captaincy. The retrospective gives the wrong death year. The April 1991 parish obituary and official player profile record 17 March 1991."
     }
   ],
   "entries": [
@@ -683,7 +695,9 @@
         "aarvold-gazette",
         "aarvold-deputy-lieutenant",
         "aarvold-war",
-        "aarvold-shepperd-foxbury"
+        "aarvold-shepperd-foxbury",
+        "aarvold-el-grafico",
+        "aarvold-lions-retrospective"
       ],
       "transcription": "Remembered with love and affection\nSIR CARL AARVOLD\n1907–1991\nRECORDER OF LONDON AND SPORTSMAN\nA staunch supporter and lifelong friend of this community\n\n“There’s nothing worth the wear of winning\nbut laughter and the love of friends”.\nH. BELLOC",
       "lifespan": "1907–1991",
@@ -769,7 +783,23 @@
                   "aarvold-shepperd-foxbury"
                 ]
               }
-            ]
+            ],
+            "portrait": {
+              "src": "assets/images/history/carl-aarvold-el-grafico-449.webp",
+              "small": "assets/images/history/carl-aarvold-el-grafico-224.webp",
+              "width": 449,
+              "height": 658,
+              "smallWidth": 224,
+              "alt": "Young Carl Aarvold in a dark rugby jersey with the touring side’s shield on his chest",
+              "caption": "Carl Aarvold on the 1927 tour of Argentina.",
+              "credit": "El Gráfico, no. 424, 20 August 1927. Photographer uncredited.",
+              "source": "aarvold-el-grafico"
+            },
+            "readMore": {
+              "source": "aarvold-lions",
+              "label": "Explore his British & Irish Lions career",
+              "description": "The official Lions player profile records his tours, England caps and Test performances."
+            }
           },
           {
             "id": "memorial",
