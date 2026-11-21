@@ -403,5 +403,61 @@
       "height": 271,
       "alt": "Macmillan Cancer Support Coffee Morning"
     }
+  },
+  "2026-11-22": {
+    "zoom": {
+      "src": "assets/images/pews-news/2026-11-22/zoom.webp",
+      "width": 263,
+      "height": 198,
+      "alt": "A laptop displaying a Zoom call"
+    },
+    "forest": {
+      "src": "assets/images/pews-news/2026-11-22/forest.webp",
+      "width": 960,
+      "height": 524,
+      "alt": "A woodland path in sunlight, original artwork by E. Harrison"
+    },
+    "soup": {
+      "src": "assets/images/pews-news/2026-11-22/soup.webp",
+      "width": 484,
+      "height": 339,
+      "alt": "A bowl of autumn soup"
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-11-22/snowman.webp",
+      "width": 423,
+      "height": 424,
+      "alt": "A snowman in a wintry woodland"
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-11-22/bible-study.webp",
+      "width": 402,
+      "height": 480,
+      "alt": "People gathered for Bible study"
+    },
+    "mens-breakfast": {
+      "src": "assets/images/pews-news/2026-11-22/mens-breakfast.webp",
+      "width": 322,
+      "height": 108,
+      "alt": "Men’s Breakfast"
+    },
+    "christingle": {
+      "src": "assets/images/pews-news/2026-11-22/christingle.webp",
+      "width": 960,
+      "height": 524,
+      "alt": "Children making Christingles in church"
+    },
+    "christmas-fair": {
+      "src": "assets/images/pews-news/2026-11-22/christmas-fair.webp",
+      "width": 960,
+      "height": 524,
+      "alt": "Chapel Christmas Fair on December 12th from 2pm"
+    },
+    "shoebox": {
+      "src": "assets/images/pews-news/2026-11-22/shoebox.webp",
+      "width": 291,
+      "height": 284,
+      "alt": "A gift-filled shoebox"
+    }
   }
 }

@@ -93,23 +93,23 @@ test('18 October retains its own service, collect, notices, contacts, images and
   const pdf = fs.readFileSync(path.join(source,'assets/documents/news/pews-news/pews-news-2026-10-18.pdf'));
   assert.equal(require('node:crypto').createHash('sha256').update(pdf).digest('hex'),'c999695e51666802c0180494d4f53705b28cc8961dce7915a67c5c19e6a5df1f');
 });
-test('online archive has five real HTML editions and disjoint PDF-only archive on every page', () => {
-  for (const date of ['2026-11-15','2026-11-08','2026-11-01','2026-10-25','2026-10-18']) {
+test('online archive has six real HTML editions and disjoint PDF-only archive on every page', () => {
+  for (const date of ['2026-11-15','2026-11-22','2026-11-08','2026-11-01','2026-10-25','2026-10-18']) {
     const html = fs.readFileSync(path.join(source,`pews-news/${date}.html`),'utf8');
     const online = html.match(/<section class="pews-archive-section pews-online-archive"[\s\S]*?<\/section>/)[0];
     const pdfs = html.match(/<section class="pews-archive-section pews-pdf-archive"[\s\S]*?<\/section>/)[0];
-    assert.match(online,/2026 — 5 editions/);
+    assert.match(online,/2026 — 6 editions/);
     assert(online.indexOf('2026-11-15.html')<online.indexOf('2026-11-08.html'));
     assert(online.indexOf('2026-11-08.html')<online.indexOf('2026-11-01.html'));
     assert(online.indexOf('2026-11-01.html')<online.indexOf('2026-10-25.html')); assert(online.indexOf('2026-10-25.html')<online.indexOf('2026-10-18.html'));
     assert.match(online,new RegExp(`href="pews-news/${date}.html" aria-current="page"`));
     assert(!online.includes('target=')); assert(!online.includes('.pdf'));
-    assert(!pdfs.includes('2026-11-15')); assert(!pdfs.includes('2026-11-08')); assert(!pdfs.includes('2026-11-01')); assert(!pdfs.includes('2026-10-18')); assert(!pdfs.includes('2026-10-25'));
+    assert(!pdfs.includes('2026-11-15')); assert(!pdfs.includes('2026-11-22')); assert(!pdfs.includes('2026-11-08')); assert(!pdfs.includes('2026-11-01')); assert(!pdfs.includes('2026-10-18')); assert(!pdfs.includes('2026-10-25'));
     for (const d of ['2026-10-10','2026-10-04','2026-09-27']) assert(pdfs.includes(`${d}.pdf`));
   }
   const landing = fs.readFileSync(path.join(source,'news.html'),'utf8');
   assert.match(landing,/href="pews-news\/2026-10-18.html"/); assert.match(landing,/datetime="2026-10-18"/);
-  assert.deepEqual(require('../pews-news-data.json').editions,['2026-11-15','2026-11-08','2026-11-01','2026-10-25','2026-10-18']);
+  assert.deepEqual(require('../pews-news-data.json').editions,['2026-11-22','2026-11-15','2026-11-08','2026-11-01','2026-10-25','2026-10-18']);
 });
 test('25 October edition body remains unchanged outside the archive and masthead', () => {
   const cp = require('node:child_process');
@@ -166,7 +166,7 @@ test('all generated editions share one masthead and latest alias promotes the ne
   if(hero)assert.equal(current,hero);hero=current;
   assert(!current.includes('2026-11-01'));assert(!current.includes('2026-10-25'));
  }
- const alias=fs.readFileSync(path.join(source,'pews-news.html'),'utf8');assert(alias.includes('datetime="2026-11-15"'));assert(alias.includes('The Second Sunday before Advent'));
+ const alias=fs.readFileSync(path.join(source,'pews-news.html'),'utf8');assert(alias.includes('datetime="2026-11-22"'));assert(alias.includes('The Sunday next before Advent'));
  for(const date of ['2026-10-18','2026-10-25'])assert.deepEqual(require(`../_content/pews-news/${date}.json`),JSON.parse(approvedNavigationSnapshot(require('node:child_process').execFileSync('git',['show',`75794f2:_content/pews-news/${date}.json`],{cwd:source,encoding:'utf8'}))));
 });
 
@@ -215,3 +215,37 @@ test('15 November edition renders the original source details and artwork', () =
   const pdf = fs.readFileSync(path.join(source, 'assets/documents/news/pews-news', 'pews-news-' + date + '.pdf'));
   assert.equal(require('node:crypto').createHash('sha256').update(pdf).digest('hex'), 'e0d46f875f58ba9fda665917d4cb251b30bc6a630a14a162748358b24be4cc26');
 });
+
+{
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const crypto=require('node:crypto');
+const {text}=require('../build-pews-news');
+const edition=require('../_content/pews-news/2026-11-22.json');
+const images=require('../_content/pews-news-images.json')['2026-11-22'];
+const html=fs.readFileSync('pews-news/2026-11-22.html','utf8');
+test('22 November keeps all four source pages, original artwork and complete notices',()=>{
+ assert.equal(edition.sourcePages,4);
+ assert.equal(edition.services.length,2);
+ for(const value of [edition.collect,edition.readings,edition.serviceNote])assert(html.includes(text(value)),value);
+ for(const section of edition.sections)for(const notice of section.notices){assert([2,3].includes(notice.sourcePage));for(const p of notice.paragraphs)assert(html.includes(text(p)),notice.title);}
+ for(const feature of edition.features){assert.equal(feature.sourcePage,4);for(const p of feature.paragraphs)assert(html.includes(text(p)),feature.id);for(const link of feature.links||[])assert(html.includes(link.url));}
+ assert.equal(Object.keys(images).length,9);
+ for(const image of Object.values(images)){assert(fs.existsSync(image.src));assert(html.includes(image.src));assert(image.alt.trim());}
+ assert(html.includes('postponed till January'));
+ assert(html.includes('29th November at 5pm'));
+ assert(html.includes('Refreshments served from 4.30pm'));
+ assert(html.includes('Christmas-themed chocolate, Mince Pies'));
+ assert(html.includes('1 January 2027'));
+ assert.equal(edition.zoom.meeting,'812 6812 6840');assert.equal(edition.zoom.passcode,'221883');
+ assert.equal(edition.homeSummary,'Christmas tree lighting and Advent news.');
+});
+test('22 November original PDF is preserved byte for byte',()=>{
+ const bytes=fs.readFileSync('assets/documents/news/pews-news/pews-news-2026-11-22.pdf');
+ assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'4319d10f694dddbd19fba227a4a35f36048711538fd5af4abd4d381063cdbdb3');
+ assert.match(html,/href="assets\/documents\/news\/pews-news\/pews-news-2026-11-22.pdf" download/);
+});
+
+
+}

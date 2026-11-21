@@ -33,6 +33,13 @@
       "width": 640,
       "height": 360,
       "alt": "Pews News for 15 November 2026, Lights to Remember, on an autumn table with a vase of leaves and berries printed on the cover"
+    },
+    "2026-11-22": {
+      "src": "assets/images/news-artwork/pews-advent-2026-11-22-1280.webp",
+      "small": "assets/images/news-artwork/pews-advent-2026-11-22-640.webp",
+      "width": 1280,
+      "height": 698,
+      "alt": "Sunlit woodland path from Pews News, 22 November 2026"
     }
   }
 }

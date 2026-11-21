@@ -1,6 +1,15 @@
 {
   "publications": [
     {
+      "id": "pews-news-2026-11-22",
+      "type": "pews-news",
+      "title": "Pews News",
+      "date": "2026-11-22",
+      "description": "Christmas tree lighting and Advent news.",
+      "pdf": "assets/documents/news/pews-news/pews-news-2026-11-22.pdf",
+      "published": true
+    },
+    {
       "id": "pews-news-2026-11-15",
       "type": "pews-news",
       "title": "Pews News",

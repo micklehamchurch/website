@@ -1,0 +1,230 @@
+{
+  "date": "2026-11-22",
+  "homeSummary": "Christmas tree lighting and Advent news.",
+  "subtitle": "The Sunday next before Advent",
+  "readings": "Ephesians 1.15-23 & Matthew 25. 31-46",
+  "collect": "Eternal Father, whose Son Jesus Christ ascended to the throne of heaven that he might rule over all things as Lord and King: keep the Church in the unity of the Spirit and in the bond of peace, and bring the whole created order to worship at his feet: who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever. Amen.",
+  "services": [
+    {
+      "time": "8am",
+      "title": "BCP Holy Communion Service",
+      "place": "in Westhumble Chapel"
+    },
+    {
+      "time": "10am",
+      "title": "Holy Communion with Holy Baptism Service",
+      "place": "in Church"
+    }
+  ],
+  "serviceNote": "A warm welcome to the family and friends of Sophia Loveless who is being baptised today.",
+  "editionArt": {
+    "image": "forest"
+  },
+  "zoom": {
+    "url": "https://us02web.zoom.us/j/81268126840?pwd=pBJqKgCS9Rm73Hm5JYrBUV8azuwjWZ.1",
+    "meeting": "812 6812 6840",
+    "passcode": "221883",
+    "phones": [
+      "0131 460 1196",
+      "0208 080 6591",
+      "0203 481 5237",
+      "0203 481 5240",
+      "0203 901 7895"
+    ],
+    "image": "zoom",
+    "intro": "If you are zooming, please try and join at least five minutes before the service is due to start; the codes are set out below",
+    "dialIn": "If you would prefer to dial in on your telephone, call any of the numbers below to listen to the service: there will be a recorded message and you will be asked to enter the Meeting ID and then the Passcode."
+  },
+  "heroImage": "assets/images/about/church-hero.webp",
+  "sourcePages": 4,
+  "sections": [
+    {
+      "id": "weeks-ahead",
+      "title": "The Weeks Ahead….",
+      "layout": "timeline",
+      "notices": [
+        {
+          "title": "STOP PRESS: Snowman Concert postponed till January",
+          "when": "Christmas tree lighting: Sunday 29th November at 5pm (Refreshments served from 4.30pm).",
+          "paragraphs": [
+            "Due to illness among several of the musicians, the Snowman Concert has had to be postponed till January, and the lighting of the Christmas Trees outside the Church will now take place on Sunday 29th November at 5pm (Refreshments served from 4.30pm).",
+            "There will be mulled wine provided free of charge by the Church (while stocks last) as a gift to the community, so do come along on the 29th and help celebrate the beginning of Advent."
+          ],
+          "sourcePage": 2,
+          "image": "snowman",
+          "placement": "sidebar",
+          "featured": true
+        },
+        {
+          "title": "Open Doors",
+          "when": "Sunday 29th November at 10am in church",
+          "paragraphs": [
+            "PLEASE NOTE: on Sunday 29th November at 10am in church, we will have John Barringer coming to speak on behalf of Open Doors a charity involved in helping persecuted Christians and we will be collecting donations for the charity’s work.",
+            "Every day, millions of Christians risk their lives to follow Jesus. In more than 70 countries, Open Doors supports them by supplying Bibles, providing emergency relief and helping persecuted believers stand strong for the long-term. In the UK and Ireland, Open Doors helps the church to pray, give and speak out for those who share our faith but not our freedom."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-29"
+          ]
+        },
+        {
+          "title": "Monday evening Bible study",
+          "when": "Monday 23rd November at 7.45pm until 9pm",
+          "paragraphs": [
+            "The Monday evening Bible study group meets at Westhumble Chapel for the second session of the Advent Study.",
+            "Please contact Amanda on aewadsworth@hotmail.com if you would like more information about joining this group."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-23"
+          ],
+          "image": "bible-study"
+        },
+        {
+          "title": "Thursday morning Bible Study",
+          "when": "Thursday 26th November at 11am for 11.30am start until 12.30pm",
+          "paragraphs": [
+            "The Thursday morning Bible Study group meets at Westhumble Chapel. If you would like to join this group, please email admin@micklehamchurch.org.uk or call Alison Wood on 01372 376443 or 07905 985928."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-26"
+          ]
+        },
+        {
+          "title": "Interment of Ashes",
+          "when": "Tuesday 24th November at 12.30pm",
+          "paragraphs": [
+            "Interment of Ashes of the late Sheila Honeyman in the churchyard."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-24"
+          ]
+        },
+        {
+          "title": "Compline",
+          "when": "Tuesday 24th November at 7pm",
+          "paragraphs": [
+            "Compline in church. All are welcome to come along for a short service and period of reflection, prayer and fellowship."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-24"
+          ]
+        },
+        {
+          "title": "Autumn Soup Lunch",
+          "when": "Thursday 26th November at 12.45 for 1pm",
+          "paragraphs": [
+            "Autumn Soup Lunch in Mickleham Village Hall. Delicious homemade soups, bread and cheese and good company. No charge but donations gratefully received, with all proceeds going to local charities (including the Foodbank). To help with numbers, please book your place with Andy Diamond by calling 07789 775354 or email him at adiamond714@gmail.com, or sign the list at the back of the church."
+          ],
+          "sourcePage": 2,
+          "dates": [
+            "2026-11-26"
+          ],
+          "image": "soup"
+        },
+        {
+          "title": "Men’s Breakfast",
+          "when": "Saturday 28th November from 9am till 10am",
+          "paragraphs": [
+            "Men’s Breakfast at The Stepping Stones.",
+            "Book with Andy Diamond: email adiamond714@gmail.com. All welcome."
+          ],
+          "sourcePage": 3,
+          "dates": [
+            "2026-11-28"
+          ],
+          "image": "mens-breakfast"
+        }
+      ]
+    },
+    {
+      "id": "dates-ahead",
+      "title": "SOME DATES FOR YOUR DIARIES……",
+      "layout": "grid",
+      "notices": [
+        {
+          "title": "Christingle Craft Workshop and Family Service",
+          "when": "Sunday 6th December at 10am in church for the workshop followed by the service at 11am.",
+          "paragraphs": [
+            "Please note that the Christingle Craft Workshop and Family Service will be on Sunday 6th December at 10am in church for the workshop followed by the service at 11am.",
+            "All families are welcome to come and make their Christingles and enjoy Christmas crafts and worship together.",
+            "The workshop is free but please book with Francesca on franikins@hotmail.co.uk to help us plan for numbers and supplies."
+          ],
+          "sourcePage": 3,
+          "image": "christingle",
+          "dates": [
+            "2026-12-06"
+          ]
+        },
+        {
+          "title": "Chapel Christmas Fair",
+          "when": "December 12th from 2pm",
+          "paragraphs": [
+            "Homemade honey; handmade crafts; tombola & raffle; mulled wine; handmade chocolates; Alison’s quilts; garden shed."
+          ],
+          "sourcePage": 3,
+          "image": "christmas-fair",
+          "dates": [
+            "2026-12-12"
+          ]
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "christmas-services",
+      "title": "Christmas services and related events",
+      "sourcePage": 4,
+      "paragraphs": [
+        "There is a flyer with a full list of the dates of all the Christmas services and related events for this year on the Welcome table at the back of the church. Do take one as you come into or leave church."
+      ]
+    },
+    {
+      "id": "shoebox-thanks",
+      "title": "Thank you",
+      "image": "shoebox",
+      "sourcePage": 4,
+      "paragraphs": [
+        "Thank you to everyone who donated a shoe box. They will be much appreciated by those who receive them. Over 115 were sent from Mickleham and Westhumble."
+      ]
+    },
+    {
+      "id": "food-bank-message",
+      "title": "A message from the Food Bank……",
+      "sourcePage": 4,
+      "paragraphs": [
+        "“Within the next ten days we will be preparing bags of Christmas goodies for our clients. In order to get a good amount done in time, we therefore ask for the following this week:",
+        "Christmas Biscuits, Christmas-themed chocolate, Mince Pies, Christmas Pudding, Christmas Cake and Advent Calendars",
+        "We hope you will help us spread some joy this Christmas 🎄 Thank you for all you do for your neighbours in need.”",
+        "You can drop donations off in Church on Sunday morning, at the monthly Chapel Coffee morning (10am to 12noon), at The Stepping Stones pub, or at any time at any of the usual locations in Mickleham and Westhumble, details in the Parish Magazine."
+      ]
+    },
+    {
+      "id": "safeguarding-audit",
+      "title": "SAFEGUARDING AUDIT SURVEY NOW OPEN",
+      "sourcePage": 4,
+      "paragraphs": [
+        "As part of the Church of England's independent safeguarding audit programme, the Diocese of Guildford and Guildford Cathedral are being audited by safeguarding specialists, INEQE. You can find out more about the audit on the diocesan website.",
+        "As part of this process, INEQE wants to hear directly from people across our parish communities about how we create environments where people feel safe, valued and respected.",
+        "The audit will help identify strengths in our safeguarding practice, as well as opportunities to learn, improve and build on what we do well.",
+        "There are separate survey links for different groups, including clergy and church staff, church members, those who attend parish activities, children and young people, and victims and survivors. The surveys are anonymous and confidential, and we encourage everyone to participate openly and honestly.",
+        "Survey links can be found here and will remain open until 1 January 2027.",
+        "If you have any questions about the audit, please contact the diocesan safeguarding team at ineqe@cofeguildford.org.uk"
+      ],
+      "links": [
+        {
+          "label": "You can find out more about the audit on the diocesan website",
+          "url": "https://www.cofeguildford.org.uk/ineqe-safeguarding-audit"
+        },
+        {
+          "label": "Survey links can be found here",
+          "url": "https://ineqe.com/churchofengland/guildford/"
+        }
+      ]
+    }
+  ]
+}
