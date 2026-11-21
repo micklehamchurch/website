@@ -21,12 +21,34 @@ html:has(> body > [data-site-header]) { background: #eeebe5; }
 body:has(> [data-site-header]) {
   --site-shell-max: 1600px;
   --site-shell-width: min(100vw, var(--site-shell-max));
+  --header-startup-height: 78px;
   width: min(100%, var(--site-shell-max));
   margin-inline: auto;
 }
 body:has(> [data-site-header]) > .site-header {
   width: min(100%, var(--site-shell-max));
   margin-inline: auto;
+}
+/* Keep the header's space in flow until the styled navigation takes over. */
+body:not(.bible-overlay) > [data-site-header]:not(:has(+ .public-header-space)) {
+  position: sticky;
+  height: var(--header-startup-height);
+}
+body > [data-site-header]:not([data-header-fallback], :has(+ .public-header-space)) > .nav-wrap {
+  display: none;
+}
+@media (max-width: 599px) {
+  body:has(> [data-site-header]) { --header-startup-height: 112px; }
+}
+@media (orientation: landscape) and (max-width: 999px) and (max-height: 460px) {
+  body:has(> [data-site-header]) { --header-startup-height: 56px; }
+}
+@media (min-width: 820px) and (min-height: 601px) and (any-hover: hover) and (any-pointer: fine),
+       (min-width: 1280px) and (min-width: 80em) {
+  body:has(> [data-site-header]) { --header-startup-height: 109px; }
+}
+@media (980px <= width < 1100px) and (min-height: 601px) and (any-hover: hover) and (any-pointer: fine) {
+  body:has(> [data-site-header]) { --header-startup-height: 141px; }
 }
 @media (min-width: 1601px) {
   body:has(> [data-site-header]) .feedback-launcher {

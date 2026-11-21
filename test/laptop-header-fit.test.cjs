@@ -30,7 +30,7 @@ test('the steady desktop header release refreshes changed header asset cache key
   assert(read('build-typography-preview.js').includes("header: '" + styleVersion + "'"));
   const version = '20261108-header-social-1';
   assert(read('site.js').includes('responsive-navigation.js?v=' + version));
-  assert(read('site.js').includes('public-header.js?v=' + styleVersion));
+  assert(read('site.js').includes('public-header.js?v=20261121-stable-startup-1'));
   assert(read('public-header.js').includes('header-search.js?v=20261110-header-scroll-1'));
   assert(read('public-header.js').includes('policies-navigation.css?v=' + version));
   assert(read('public-header.js').includes('policies-navigation.js?v=20261112-slim-header-1'));

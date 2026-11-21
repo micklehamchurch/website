@@ -235,6 +235,11 @@ jobs:
             node scripts/update-history-portraits.cjs
           elif node scripts/is-racial-justice-release.cjs /tmp/navigation-changed-paths; then
             node build-search-index.js
+          # Shared header startup only: rebuild the Home CSS bundle without regenerating public pages.
+          elif grep -Fxq 'public-header.js' /tmp/navigation-changed-paths &&
+             grep -Fxq 'styles.css' /tmp/navigation-changed-paths &&
+             ! grep -Ev '^(index\.html|site\.js|public-header\.js|styles\.css|home-(performance|critical)\.css|test/(home-performance|laptop-header-fit)\.test\.cjs|test/helpers/option-d-snapshot\.cjs|\.github/workflows/build-content\.yml)$' /tmp/navigation-changed-paths; then
+            node build-home-performance.js
           elif node scripts/is-full-desktop-release.cjs /tmp/navigation-changed-paths; then
             node build-home-performance.js
           elif grep -Eq '^home-hero-carousel\.css$' /tmp/navigation-changed-paths &&
