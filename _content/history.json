@@ -333,6 +333,12 @@
       "title": "The London Gazette — military honours, June 1945",
       "url": "https://www.thegazette.co.uk/London/issue/37119/supplement/2942",
       "notes": "The military OBE list names Aarvold as a temporary lieutenant-colonel in the Royal Artillery, Territorial Army."
+    },
+    {
+      "id": "aarvold-shepperd-foxbury",
+      "title": "Ronald Shepperd, The Manor of Wistomble — Foxbury and Wimbledon",
+      "url": "https://www.micklehamwesthumblehistory.co.uk/shared/attachments.asp?f=339d5bf5-5425-495f-85f7-90d89abec684.pdf&o=The-Manor-of-Wistomble-Ch-7-9-(Merged)-copy.pdf#page=21",
+      "notes": "Printed page 87 records Aarvold’s arrival at Foxbury in 1934 and his appearances at Wimbledon trophy ceremonies as president of the Lawn Tennis Association."
     }
   ],
   "entries": [
@@ -676,7 +682,8 @@
         "aarvold-lions",
         "aarvold-gazette",
         "aarvold-deputy-lieutenant",
-        "aarvold-war"
+        "aarvold-war",
+        "aarvold-shepperd-foxbury"
       ],
       "transcription": "Remembered with love and affection\nSIR CARL AARVOLD\n1907–1991\nRECORDER OF LONDON AND SPORTSMAN\nA staunch supporter and lifelong friend of this community\n\n“There’s nothing worth the wear of winning\nbut laughter and the love of friends”.\nH. BELLOC",
       "lifespan": "1907–1991",
@@ -691,10 +698,11 @@
             "title": "Breakfast at Foxbury",
             "paragraphs": [
               {
-                "text": "After a Westhumble Association dinner dance at the Burford Bridge Hotel, Sir Carl Aarvold cooked breakfast sausages for friends at Foxbury. The April 1991 parish obituary remembers that small act of hospitality alongside the warmth he showed to the people who brought the post, delivered the milk, collected the rubbish and tended the garden.",
+                "text": "After a Westhumble Association dinner dance at the Burford Bridge Hotel, Sir Carl Aarvold cooked breakfast sausages for friends at Foxbury. The April 1991 parish obituary remembers that small act of hospitality alongside the warmth he showed to the people who brought the post, delivered the milk, collected the rubbish and tended the garden. Local historian Ronald Shepperd dates Aarvold’s arrival at Foxbury to 1934.",
                 "sources": [
                   "aarvold-obituary",
-                  "aarvold-deputy-lieutenant"
+                  "aarvold-deputy-lieutenant",
+                  "aarvold-shepperd-foxbury"
                 ]
               },
               {
@@ -754,6 +762,12 @@
                   "aarvold-war",
                   "aarvold-gazette"
                 ]
+              },
+              {
+                "text": "Shepperd also recalled a quieter fixture of Aarvold’s sporting life: as president of the Lawn Tennis Association, he appeared at the trophy ceremonies after the Wimbledon finals.",
+                "sources": [
+                  "aarvold-shepperd-foxbury"
+                ]
               }
             ]
           },
@@ -800,6 +814,11 @@
             "1927 and 1930",
             "Tours with the British rugby side.",
             "aarvold-lions"
+          ],
+          [
+            "1934",
+            "Moves to Foxbury in Westhumble, according to Ronald Shepperd.",
+            "aarvold-shepperd-foxbury"
           ],
           [
             "1945",
