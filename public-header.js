@@ -1,8 +1,13 @@
 /* State and keyboard enhancement for the shared public header only. */
-(() => {
+(async () => {
   'use strict';
   const header=document.querySelector('[data-site-header]');
   if(!header)return;
+  const stylesheet=document.querySelector('link[href*="header-navigation.css"]');
+  if(stylesheet&&!stylesheet.sheet)await new Promise(resolve=>{
+    stylesheet.addEventListener('load',resolve,{once:true});
+    stylesheet.addEventListener('error',resolve,{once:true});
+  });
   const space=document.createElement('div');space.className='public-header-space';space.setAttribute('aria-hidden','true');header.after(space);
   const photo=document.querySelector('main :is(.home-hero-photo,.visit-principal-photo,.parish-about-hero-photo,.history-hero-photo,.wedding-hero-photo,.baptism-hero-photo,.funeral-hero-photo)');
   if(photo)document.body.classList.add('header-photo-page');
@@ -189,7 +194,6 @@
   document.addEventListener('close',event=>{if(event.target.id==='responsive-navigation')remeasure();},true);
   const observer=new ResizeObserver(remeasure);
   for(const element of header.querySelectorAll('.nav-wrap,.brand,.header-information,.nav-primary,.compact-search,.nav-calendar,.nav-bible,.header-visit'))observer.observe(element);
-  document.querySelector('link[href*="header-navigation.css"]')?.addEventListener('load',remeasure,{once:true});
   update();
   // Keep the existing skip link first; supply it for future standard public pages.
   if(!document.querySelector('.skip-link')){const main=document.querySelector('main');if(main){main.id ||= 'main-content';const skip=document.createElement('a');skip.className='skip-link';skip.href='#'+main.id;skip.textContent='Skip to main content';document.body.prepend(skip);}}

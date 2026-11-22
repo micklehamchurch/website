@@ -116,6 +116,7 @@ if (siteScript) {
   document.head.append(footerStyles);
   headerStyles.rel = 'stylesheet';
   headerStyles.href = new URL('header-navigation.css?navigation=20261116-wrapped-header-1', siteScript.src).href;
+  headerStyles.addEventListener('error', () => headerStyles.remove(), { once: true });
   document.head.append(headerStyles);
   // One signature background for normal public internal headers only.
   // Keep Home, Admin and the embedded Bible reader on their existing treatment.
@@ -151,7 +152,8 @@ if (siteScript) {
   }
 
   const stateScript=document.createElement('script');
-  stateScript.src=new URL('public-header.js?v=20261116-short-laptop-1',siteScript.src).href;
+  stateScript.src=new URL('public-header.js?v=20261121-stable-startup-1',siteScript.src).href;
+  stateScript.addEventListener('error', () => publicHeader?.setAttribute('data-header-fallback', ''), { once: true });
   document.head.append(stateScript);
   const landscapeStyles = document.createElement('link');
   landscapeStyles.rel = 'stylesheet';

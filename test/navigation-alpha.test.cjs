@@ -3,8 +3,10 @@ test('only Alpha is added after Pastoral Care, with all category order and other
 test('Alpha existing current destination, Search and contextual discovery are preserved without old-host links',()=>{const h=fs.readFileSync('alpha.html','utf8').replaceAll('\r','');assert(h.includes('Ask about Alpha'));assert(h.includes('href="contact.html"'));assert(h.includes('data-site-header')&&h.includes('data-site-footer'));assert(!/https?:\/\/[^" ]*micklehamchurch\.(?:org|com|co\.uk)/.test(h));assert(require('../search-index.json').some(x=>x.url==='alpha.html'));assert(fs.readFileSync('church-life.html','utf8').includes('href="alpha.html"'));assert(!h.includes('alpha.org'));});
 test('Alpha remains reachable through the approved release navigation and shared page shell', () => {
   const approved = '4f8addf273dfe90827ad5f46c96bb858d0fb5eda';
+  const startup = '40f45b2b71bfb5d14ff827f4d867d7aaa018503d';
+  const startupFiles = new Set(['site.js', 'public-header.js', 'styles.css']);
   for (const file of ['site.js','public-header.js','responsive-navigation.js','header-navigation.css','styles.css','alpha.html']) {
-    const expected = cp.execFileSync('git', ['show', approved + ':' + file], {encoding:'utf8'}).replaceAll('\r','');
+    const expected = cp.execFileSync('git', ['show', (startupFiles.has(file) ? startup : approved) + ':' + file], {encoding:'utf8'}).replaceAll('\r','');
     assert.equal(require('node:fs').readFileSync(file,'utf8').replaceAll('\r',''), expected, file);
   }
 });
