@@ -306,6 +306,10 @@ assets/images/header/internal-garden-1600.webp
 assets/images/header/internal-garden-800.webp
 assets/images/history/bells-illustration-480.webp
 assets/images/history/bells-illustration-960.webp
+assets/images/history/carl-aarvold-el-grafico-224.webp
+assets/images/history/carl-aarvold-el-grafico-449.webp
+assets/images/history/carl-aarvold-memorial-1152.jpg
+assets/images/history/carl-aarvold-memorial-480.jpg
 assets/images/history/philippa-walton-memorial-1200.webp
 assets/images/history/philippa-walton-memorial-480.webp
 assets/images/history/war-memorial-480.webp
@@ -641,6 +645,7 @@ header-navigation.css
 header-search.js
 history-bells.html
 history-domesday.html
+history-entry-carl-aarvold.html
 history-entry-philippa-walton.html
 history-memorials.html
 history-norbury.html

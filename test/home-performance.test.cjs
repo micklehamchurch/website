@@ -8,7 +8,10 @@ test('Home critical CSS is deterministic, uses the original cascade and reserves
  const first=html(),css=fs.readFileSync('home-critical.css','utf8');require('../build-home-performance').build();assert.equal(html(),first);assert.equal(fs.readFileSync('home-critical.css','utf8'),css);
  assert.match(first,/<link rel="stylesheet" href="home-critical.css\?v=[a-f0-9]{12}">/);
  assert.match(first,/<body class="home-header-hero header-photo-page">/);
- const reserve=fs.readFileSync('home-performance.css','utf8');assert(reserve.includes('var(--header-reserve)'));assert(reserve.includes('min-width:1536px'));assert(!reserve.includes('height:'));
+ const reserve=require('node:fs').readFileSync('home-performance.css','utf8');
+ assert.match(reserve,/body\.home-header-hero:has\(> \.public-header-space\) \{ padding-top:var\(--header-reserve\); \}/);
+ assert.match(reserve,/html\.has-full-header body\.home-header-hero \{ padding-top:0; \}/);
+ assert.match(reserve,/body\.home-header-hero > \.public-header-space \{ display:none; \}/);
  for(const source of manifest.sources)assert(fs.existsSync(source.split('?')[0]));
 });
 test('initial state contains only the exact public projections, safely escaped and still refreshed',()=>{

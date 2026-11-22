@@ -14,6 +14,7 @@ const newerRevisions = [
   ['1ccbc3b', require('../fixtures/information-bar-revisions.json')],
   ['c4f7e16', require('../fixtures/wrapped-header-revisions.json')],
   ['fcdabc5', require('../fixtures/short-laptop-header-revisions.json')],
+  ['774217e', { d02e90b43fdace01017ccd264e4afc12c83ea9f39fe7b609cde65dd53281b265: 'public-header.js' }],
 ];
 const previous = new Map();
 
