@@ -1,5 +1,7 @@
-/* The startup header reserves its own space. Once the compact header becomes
-   fixed, keep that space without collapsing the first margin out of the body. */
+/* Keep the compact Home header fixed and reserve space on the body from first paint.
+   The full header takes over in normal flow when the navigation is ready. */
+body.home-header-hero { padding-top:var(--header-startup-height); }
+body.home-header-hero > [data-site-header]:not(:has(+ .public-header-space)) { position:fixed; }
 body.home-header-hero:has(> .public-header-space) { padding-top:var(--header-reserve); }
 body.home-header-hero > .public-header-space { display:none; }
 html.has-full-header body.home-header-hero { padding-top:0; }

@@ -9,6 +9,8 @@ test('Home critical CSS is deterministic, uses the original cascade and reserves
  assert.match(first,/<link rel="stylesheet" href="home-critical.css\?v=[a-f0-9]{12}">/);
  assert.match(first,/<body class="home-header-hero header-photo-page">/);
  const reserve=require('node:fs').readFileSync('home-performance.css','utf8');
+ assert.match(reserve,/body\.home-header-hero \{ padding-top:var\(--header-startup-height\); \}/);
+ assert.match(reserve,/body\.home-header-hero > \[data-site-header\]:not\(:has\(\+ \.public-header-space\)\) \{ position:fixed; \}/);
  assert.match(reserve,/body\.home-header-hero:has\(> \.public-header-space\) \{ padding-top:var\(--header-reserve\); \}/);
  assert.match(reserve,/html\.has-full-header body\.home-header-hero \{ padding-top:0; \}/);
  assert.match(reserve,/body\.home-header-hero > \.public-header-space \{ display:none; \}/);
