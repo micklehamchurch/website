@@ -1,7 +1,9 @@
-/* Keep the compact Home header fixed and reserve space on the body from first paint.
-   The full header takes over in normal flow when the navigation is ready. */
-body.home-header-hero { padding-top:var(--header-startup-height); }
-body.home-header-hero > [data-site-header]:not(:has(+ .public-header-space)) { position:fixed; }
+/* Below the desktop eligibility width, retain the fixed header's body reserve
+   from first paint. Larger viewports start with an in-flow header reserve. */
+@media (width < 820px) {
+  body.home-header-hero { padding-top:var(--header-startup-height); }
+  body.home-header-hero > [data-site-header]:not(:has(+ .public-header-space)) { position:fixed; }
+}
 body.home-header-hero:has(> .public-header-space) { padding-top:var(--header-reserve); }
 body.home-header-hero > .public-header-space { display:none; }
 html.has-full-header body.home-header-hero { padding-top:0; }
