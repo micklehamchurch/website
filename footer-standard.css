@@ -28,3 +28,7 @@
   .footer[data-site-footer] .footer-grid > div:last-child > a:nth-of-type(5) { grid-column:2; grid-row:2; }
   .footer[data-site-footer] .footer-grid > div:last-child > a:nth-of-type(6) { grid-column:2; grid-row:3; }
 }
+
+/* Short public pages still finish at the footer, without a trailing paper area. */
+body:has(> [data-site-footer]) { min-height: 100svh; display: flex; flex-direction: column; }
+body > [data-site-footer] { margin-top: auto; }

@@ -19,6 +19,19 @@ if(board){
    dialog.addEventListener('cancel',event=>{event.preventDefault();dialog.close();});
    dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
    document.body.append(launch,dialog);document.documentElement.classList.add('feedback-enabled');
+   const footer=document.querySelector('footer.footer');
+   if(footer){
+    // Dock in the footer's reserved credit space while its links are on screen.
+    footer.append(launch);
+    const sizeObserver=new ResizeObserver(()=>{
+     footer.style.setProperty('--feedback-launcher-width',launch.getBoundingClientRect().width+'px');
+    });
+    sizeObserver.observe(launch);
+    const observer=new IntersectionObserver(entries=>{
+     launch.classList.toggle('feedback-launcher-in-footer',entries[0].isIntersecting);
+    });
+    observer.observe(footer);
+   }
   }
  }catch{/* Fail closed: an unavailable/unconfigured feedback API never obstructs the site. */}
 }
