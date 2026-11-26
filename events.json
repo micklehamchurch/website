@@ -833,6 +833,17 @@
       "status": "published"
     },
     {
+      "id": "google-749c250a4215e03fceb7dac5aabcccae",
+      "title": "Brownies rehearsal",
+      "start": "2026-11-28T16:00",
+      "end": "2026-11-28T17:00",
+      "allDay": false,
+      "location": "",
+      "description": "",
+      "timeZone": "Europe/London",
+      "status": "published"
+    },
+    {
       "title": "Compline in Church",
       "start": "2026-10-06T19:00",
       "end": "2026-10-06T20:00",
