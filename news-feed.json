@@ -2,6 +2,21 @@
   "version": 1,
   "items": [
     {
+      "id": "pews-news:2026-11-29",
+      "kind": "pews-news",
+      "title": "Pews News — 29 November 2026",
+      "date": "2026-11-29",
+      "summary": "Advent worship and Christmas celebrations.",
+      "url": "pews-news/2026-11-29.html",
+      "image": {
+        "src": "assets/images/news-artwork/pews-advent-2026-11-29-1280.webp",
+        "small": "assets/images/news-artwork/pews-advent-2026-11-29-640.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Original Advent candles and cross artwork from Pews News, 29 November 2026"
+      }
+    },
+    {
       "id": "pews-news:2026-11-22",
       "kind": "pews-news",
       "title": "Pews News — 22 November 2026",

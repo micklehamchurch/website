@@ -459,5 +459,77 @@
       "height": 284,
       "alt": "A gift-filled shoebox"
     }
+  },
+  "2026-11-29": {
+    "zoom": {
+      "src": "assets/images/pews-news/2026-11-22/zoom.webp",
+      "width": 263,
+      "height": 198,
+      "alt": "A laptop displaying a Zoom call",
+      "sourcePage": 1
+    },
+    "advent": {
+      "src": "assets/images/pews-news/2026-11-29/advent.webp",
+      "width": 664,
+      "height": 649,
+      "alt": "Advent candles, a cross, holly and red berries",
+      "sourcePage": 1
+    },
+    "snowman": {
+      "src": "assets/images/pews-news/2026-11-29/snowman.webp",
+      "width": 423,
+      "height": 424,
+      "alt": "A snowman in a wintry woodland",
+      "sourcePage": 2
+    },
+    "bible-study": {
+      "src": "assets/images/pews-news/2026-11-22/bible-study.webp",
+      "width": 402,
+      "height": 480,
+      "alt": "People gathered for Bible study",
+      "sourcePage": 2
+    },
+    "coffee-cake": {
+      "src": "assets/images/pews-news/2026-11-29/coffee-cake.webp",
+      "width": 274,
+      "height": 262,
+      "alt": "Drink coffee and eat cake",
+      "sourcePage": 2
+    },
+    "christmas-lighting": {
+      "src": "assets/images/pews-news/2026-11-29/christmas-lighting.webp",
+      "width": 310,
+      "height": 359,
+      "alt": "Christmas trees illuminated outside the church",
+      "sourcePage": 2
+    },
+    "christingle": {
+      "src": "assets/images/pews-news/2026-11-29/christingle.webp",
+      "width": 960,
+      "height": 524,
+      "alt": "Children making Christingles in church",
+      "sourcePage": 3
+    },
+    "christmas-fair": {
+      "src": "assets/images/pews-news/2026-11-29/christmas-fair.webp",
+      "width": 960,
+      "height": 524,
+      "alt": "Chapel Christmas Fair on December 12th from 2pm",
+      "sourcePage": 3
+    },
+    "foodbank": {
+      "src": "assets/images/pews-news/2026-11-29/foodbank.webp",
+      "width": 565,
+      "height": 533,
+      "alt": "A Christmas food donation box",
+      "sourcePage": 4
+    },
+    "shoebox": {
+      "src": "assets/images/pews-news/2026-11-22/shoebox.webp",
+      "width": 291,
+      "height": 284,
+      "alt": "A gift-filled shoebox",
+      "sourcePage": 4
+    }
   }
 }
